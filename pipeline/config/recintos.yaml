@@ -2,15 +2,15 @@
 # El método es JSON-LD (datos schema.org que muchas páginas publican para Google).
 # Antes de activar un recinto: probar que su página trae eventos con
 #   python pipeline/probar_recinto.py URL
-# Recintos que solo publican en Instagram: cargar sus eventos en el Google Sheet.
-recintos:
-  - nombre: Ticketmaster México
-    ciudad: ""
-    url: https://www.ticketmaster.com.mx/section/conciertos
-    activo: true
-    # Por ahora solo CDMX (estado "CDMX" en el JSON-LD). Agregar "HID" cuando
-    # se quiera incluir Pachuca (Hidalgo).
-    regiones: ["CDMX"]
+# Recintos que solo publican en Instagram (o cargan su cartelera por JavaScript,
+# sin JSON-LD) → cargar sus eventos en la pestaña Eventos del Google Sheet.
+#
+# 2026-09-17: probados Bajo Circuito, Foro Indie Rocks, Palacio de los
+# Deportes y Auditorio Nacional — ninguno trae JSON-LD (dos usan APIs propias
+# de JavaScript). Sus eventos van por el Sheet mientras no cambien de sitio.
+# Ticketmaster México sí trae JSON-LD pero bloquea al runner de GitHub
+# Actions (403); se retira de aquí hasta encontrar una forma honesta de leerlo.
+recintos: []
 #  - nombre: Nombre del foro
 #    ciudad: Pachuca
 #    url: https://ejemplo.com/cartelera
