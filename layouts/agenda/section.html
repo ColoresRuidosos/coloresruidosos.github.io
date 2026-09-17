@@ -2,10 +2,10 @@
 <header class="encabezado">
   <h1 class="encabezado__titulo">{{ .Title }}</h1>
   {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
-  {{ with site.Data.eventos.actualizado }}<p class="encabezado__nota">Actualizada el {{ time.AsTime . | time.Format ":date_long" }}</p>{{ end }}
+  {{ with hugo.Data.eventos.actualizado }}<p class="encabezado__nota">Actualizada el {{ time.AsTime . | time.Format ":date_long" }}</p>{{ end }}
 </header>
 
-{{ $eventos := site.Data.eventos.eventos | default slice }}
+{{ $eventos := hugo.Data.eventos.eventos | default slice }}
 {{ if $eventos }}
 <div class="filtros" data-filtros>
   <fieldset class="filtros__grupo">

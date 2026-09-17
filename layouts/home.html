@@ -21,7 +21,7 @@
 
   <aside class="bloque bloque--agenda" aria-labelledby="t-agenda">
     <h2 id="t-agenda" class="bloque__titulo">Próximos conciertos</h2>
-    {{ $eventos := site.Data.eventos.eventos | default slice }}
+    {{ $eventos := hugo.Data.eventos.eventos | default slice }}
     {{ with first 5 $eventos }}
       <ul class="mini-agenda">
         {{ range . }}
