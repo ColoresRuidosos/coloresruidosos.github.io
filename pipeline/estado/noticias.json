@@ -4,9 +4,31 @@
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
     },
+    "https://consequence.net/2026/09/acdc-angus-young-baby-signing": {
+      "c": {
+        "artista": "AC/DC",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
     "https://consequence.net/2026/09/at-least-for-one-episode-the-old-south-park-is-back": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://consequence.net/2026/09/fontaines-dc-rosalia-new-song-announcement": {
+      "c": {
+        "artista": "Fontaines D.C.",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Where Is Gone?"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
     },
     "https://consequence.net/2026/09/grand-theft-auto-vi-announces-soundtrack-album": {
       "c": null,
@@ -112,6 +134,205 @@
     "https://consequence.net/2026/09/trump-kennedy-center-rip-down": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://jenesaispop.com/2026/09/16/530629/madonna-vmas-performer": {
+      "c": {
+        "artista": "Madonna",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530635/beck-entrevista": {
+      "c": {
+        "artista": "Beck",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Ride Lonesome"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530636/sheeran-millones-palestina": {
+      "c": {
+        "artista": "Ed Sheeran",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530641/rosalia-lux-fin": {
+      "c": {
+        "artista": "Rosalía",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530653/alcala-endemoniao-critica": {
+      "c": {
+        "artista": "Alcalá Norte",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Dejémoslo como estaba"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530664/zara-larsson-casa-blanca": {
+      "c": {
+        "artista": "Zara Larsson",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530670/akriila-lucy-critica": {
+      "c": {
+        "artista": "AKRIILA",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "lucy miró al mundo y notó que está girando"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530682/irlanda-eurovision": {
+      "c": null,
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530686/rosalia-fontaines-dc": {
+      "c": {
+        "artista": "Fontaines DC",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Dopamine Chamber"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://jenesaispop.com/2026/09/17/530693/troye-sivan-madonna": {
+      "c": {
+        "artista": "Troye Sivan",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "She's the Best"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/criticas/discos-musica/beck-ride-lonesome-disco": {
+      "c": {
+        "artista": "Beck",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Ride Lonesome"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/entrevistas/ezta-ilen": {
+      "c": {
+        "artista": "Ezta Ilene",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/alcala-norte-endemoniao": {
+      "c": {
+        "artista": "Alcalá Norte",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Dejémoslo como estaba"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/despedida-ozzy-osbourne-cines": {
+      "c": {
+        "artista": "Ozzy Osbourne",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/fontaines-d-c-rosalia": {
+      "c": {
+        "artista": "Fontaines D.C.",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Dopamine Chamber"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/fria-jane-emo-pueblo": {
+      "c": {
+        "artista": "Fría Jane",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Que"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/hey-chaval-chiquita-movida": {
+      "c": {
+        "artista": "Chiquita Movida",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/inicio-cranc-illa-de-menorca": {
+      "c": null,
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/radie-peat-moon-lankum": {
+      "c": {
+        "artista": "Radie Peat",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/repsol-programa-reducir-huella-co2": {
+      "c": null,
+      "vista": "2026-09-17T10:49:42.995879-06:00"
     },
     "https://pitchfork.com/story/aesop-rock-and-blockhead-reveal-next-joint-album": {
       "c": null,
@@ -773,15 +994,68 @@
         "titulo_lanzamiento": "Mom, I'm Going Back To Therapy"
       },
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://stereogum.com/2511754/peelingflesh-announce-new-self-titled-album-hear-murderous-intent-feat-missing-links-mike-ryan/music": {
+      "c": {
+        "artista": "PeelingFlesh",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://stereogum.com/2511757/guitar-centers-contest-to-open-for-ed-sheeran-is-real/news": {
+      "c": {
+        "artista": "Ed Sheeran",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://stereogum.com/2511768/dummy-april-limousine-alluvial-fan/music": {
+      "c": {
+        "artista": "Dummy",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "do you love the color of the sky?"
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://stereogum.com/2511772/letterbombs-im-not-here-to-enjoy-my-life/music": {
+      "c": {
+        "artista": "Letterbombs",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T10:49:42.995879-06:00"
     }
   },
   "claves_publicadas": {
+    "alcala norte|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
+    "beck|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "dana margolin|lanzamiento": "2026-09-17T09:35:42.234762-06:00",
+    "fontaines d c|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "japanese breakfast|anuncio": "2026-09-17T09:35:42.234762-06:00",
     "soccer mommy|lanzamiento": "2026-09-17T09:35:42.234762-06:00"
   },
   "urls_publicadas": {
+    "https://consequence.net/2026/09/fontaines-dc-rosalia-new-song-announcement": "2026-09-17T10:49:42.995879-06:00",
     "https://consequence.net/2026/09/soccer-mommy-rings-of-saturn-new-song": "2026-09-17T09:35:42.234762-06:00",
+    "https://jenesaispop.com/2026/09/17/530635/beck-entrevista": "2026-09-17T10:49:42.995879-06:00",
+    "https://jenesaispop.com/2026/09/17/530653/alcala-endemoniao-critica": "2026-09-17T10:49:42.995879-06:00",
+    "https://mondosonoro.com/criticas/discos-musica/beck-ride-lonesome-disco": "2026-09-17T10:49:42.995879-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/alcala-norte-endemoniao": "2026-09-17T10:49:42.995879-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/fontaines-d-c-rosalia": "2026-09-17T10:49:42.995879-06:00",
     "https://pitchfork.com/story/michelle-zauner-announces-new-memoir-thank-you-for-your-suffering": "2026-09-17T09:35:42.234762-06:00",
     "https://pitchfork.com/story/porridge-radios-dana-margolin-launches-debut-solo-single": "2026-09-17T09:35:42.234762-06:00",
     "https://pitchfork.com/story/soccer-mommy-returns-with-new-song-rings-of-saturn": "2026-09-17T09:35:42.234762-06:00",
