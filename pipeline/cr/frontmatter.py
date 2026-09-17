@@ -18,6 +18,7 @@ def construir_post(candidato: dict, redaccion: dict, embed: dict | None, ahora: 
         "categoria": candidato["categoria"],
         "artista": candidato["artista"],
         "relevancia": candidato["relevancia"],
+        "region": candidato.get("region", "intl"),
         "fechas_evento": candidato.get("fechas_evento", []),
         "embed": embed,
         "fuentes": fuentes,

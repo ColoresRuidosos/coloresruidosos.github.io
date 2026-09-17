@@ -1,5 +1,5 @@
 {{ $p := .pagina }}
-<article class="nota {{ if .destacada }}nota--destacada{{ end }} {{ with $p.Params.relevancia }}nota--{{ . }}{{ end }}">
+<article class="nota {{ if .destacada }}nota--destacada{{ end }} {{ with $p.Params.relevancia }}nota--{{ . }}{{ end }} {{ with $p.Params.categoria }}nota--cat-{{ . }}{{ end }}">
   <div class="nota__meta">
     {{ partial "etiqueta-relevancia.html" $p }}
     <span>{{ partial "categoria.html" $p.Params.categoria }}</span>

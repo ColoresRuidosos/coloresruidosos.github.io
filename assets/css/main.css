@@ -1,15 +1,16 @@
-/* Colores Ruidosos — SPEC-001: zine brutalista.
+/* Colores Ruidosos — SPEC-001: zine brutalista, colores primarios vibrantes.
    Reglas de contraste (WCAG):
-   - Tinta y azul marino: cualquier texto sobre crema.
-   - Rojo ladrillo: solo texto grande (24px+ o 19px+ en negrita), bordes y sombras.
-   - Mostaza: nunca como texto. Solo fondos con texto tinta encima. */
+   - Tinta y azul: cualquier texto sobre crema.
+   - Rojo: solo texto grande (24px+ o 19px+ en negrita), bordes y sombras.
+   - Amarillo: reservado para el sticker "Viene a México". Nunca como texto;
+     solo fondo con texto tinta encima. */
 :root {
   --bg-cream: #F4EFEE;
   --text-main: #141416;
   --border-dark: #141416;
-  --accent-red: #C83E2B;
-  --accent-navy: #1B2B48;
-  --accent-mustard: #E29B27;
+  --accent-red: #E8322A;
+  --accent-navy: #2255CC;
+  --accent-mustard: #F2C230;
 
   --f-titulo: "Syne", "Arial Black", "Helvetica Neue", sans-serif;
   --f-cuerpo: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
@@ -110,6 +111,8 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 .nota { background: var(--bg-cream); border: var(--borde); box-shadow: var(--sombra); padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
 .nota--destacada { grid-column: 1 / -1; padding: 1.75rem; }
 .nota--mx { box-shadow: 6px 6px 0 var(--accent-red); }
+.nota--cat-gira { border-left-width: 10px; border-left-color: var(--accent-navy); }
+.nota--cat-lanzamiento { border-left-width: 10px; border-left-color: var(--accent-red); }
 .nota__meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem; font-size: .9375rem; font-weight: 500; color: var(--accent-navy); }
 .nota__titulo { font-family: var(--f-titulo); font-weight: 700; font-size: 1.375rem; line-height: 1.15; margin: 0; }
 .nota--destacada .nota__titulo { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; }
@@ -119,6 +122,8 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 
 .sticker { display: inline-block; background: var(--accent-mustard); color: var(--text-main); border: 2px solid var(--border-dark); border-radius: 999px; padding: .1rem .7rem; font-weight: 700; font-size: .875rem; transform: rotate(-2deg); }
 .sticker--latam { background: var(--bg-cream); }
+.sticker--region-mx { background: var(--accent-red); color: var(--bg-cream); border-color: var(--accent-red); }
+.sticker--region-es { background: var(--accent-navy); color: var(--bg-cream); border-color: var(--accent-navy); }
 
 .enlace-fuerte { font-weight: 700; }
 
