@@ -65,9 +65,10 @@ def test_csv_normaliza_encabezados():
 HTML = """<html><head>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[
  {"@type":"MusicEvent","name":"Wet Leg","startDate":"2026-11-20T21:00:00-06:00","url":"https://foro.mx/wet-leg",
-  "offers":{"price":"850","priceCurrency":"MXN"}},
+  "offers":{"price":"850","priceCurrency":"MXN"},
+  "location":{"@type":"Place","name":"Pepsi Center","address":{"addressLocality":"Ciudad de México"}}},
  {"@type":"Organization","name":"Foro"}]}</script>
-<script type="application/ld+json">[{"@type":["Event"],"name":"Sin hora","startDate":"2026-12-01"}, {"@type":"Event","name":"Roto"}]</script>
+<script type="application/ld+json">[{"@type":["MusicEvent"],"name":"Sin hora","startDate":"2026-12-01"}, {"@type":"Event","name":"Roto"}]</script>
 <script type="application/ld+json">{ no es json }</script>
 </head></html>"""
 
@@ -77,6 +78,9 @@ def test_jsonld_extrae_eventos_y_ignora_basura():
     assert [(e["titulo"], e["fecha"], e["hora"], e["precio"]) for e in eventos] == [
         ("Wet Leg", "2026-11-20", "21:00", "850 MXN"), ("Sin hora", "2026-12-01", None, None)]
     assert eventos[1]["url"] == "https://foro.mx"
+    # El recinto real viene del `location` del evento; el de config es solo respaldo.
+    assert (eventos[0]["recinto"], eventos[0]["ciudad"]) == ("Pepsi Center", "Ciudad de México")
+    assert (eventos[1]["recinto"], eventos[1]["ciudad"]) == ("Foro", "CDMX")
 
 
 def test_flujo_agenda_con_recinto_roto_y_sheet():
@@ -92,7 +96,7 @@ def test_flujo_agenda_con_recinto_roto_y_sheet():
         return HTML
 
     anteriores = [dict(ev("Show viejo del roto", "2026-10-03", recinto="Roto"), curadores=["Dany"])]
-    filas = [{"recinto": "Foro", "fecha": "2026-11-20", "titulo": "Wet Leg", "tanelly": "TRUE"}]
+    filas = [{"recinto": "Pepsi Center", "fecha": "2026-11-20", "titulo": "Wet Leg", "tanelly": "TRUE"}]
     agenda, avisos = scrape_eventos.ejecutar(cfg, recintos, obtener, filas, anteriores, HOY)
 
     assert [e["titulo"] for e in agenda] == ["Show viejo del roto", "Wet Leg", "Sin hora"]

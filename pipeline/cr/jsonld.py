@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 
 from .eventos import nuevo_evento
 
-TIPOS_EVENTO = {"Event", "MusicEvent", "Festival", "TheaterEvent", "ComedyEvent"}
+TIPOS_EVENTO = {"MusicEvent", "Festival"}
 
 
 def _nodos(dato):
@@ -51,11 +51,25 @@ def extraer_eventos(html: str, recinto: dict) -> list[dict]:
             precio = None
             if isinstance(ofertas, dict) and ofertas.get("price") not in (None, ""):
                 precio = f'{ofertas["price"]} {ofertas.get("priceCurrency", "")}'.strip()
+            lugar = nodo.get("location")
+            lugar = lugar[0] if isinstance(lugar, list) and lugar else lugar
+            nombre_recinto = recinto["nombre"]
+            ciudad = recinto.get("ciudad", "")
+            region = None
+            if isinstance(lugar, dict):
+                nombre_recinto = lugar.get("name") or nombre_recinto
+                direccion = lugar.get("address")
+                if isinstance(direccion, dict):
+                    ciudad = direccion.get("addressLocality") or ciudad
+                    region = direccion.get("addressRegion")
+            regiones_permitidas = recinto.get("regiones")
+            if regiones_permitidas and (region or "").strip().upper() not in {r.upper() for r in regiones_permitidas}:
+                continue
             eventos.append(nuevo_evento(
                 titulo=str(nodo["name"]),
                 fecha=inicio.date().isoformat(),
-                recinto=recinto["nombre"],
-                ciudad=recinto.get("ciudad", ""),
+                recinto=nombre_recinto,
+                ciudad=ciudad,
                 hora=hora,
                 url=nodo.get("url") or recinto["url"],
                 precio=precio,

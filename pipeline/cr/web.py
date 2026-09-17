@@ -30,5 +30,6 @@ def obtener_texto(url: str, respetar_robots: bool = True) -> str:
         raise PermissionError(f"robots.txt no permite leer {url}")
     r = requests.get(url, headers={"User-Agent": AGENTE}, timeout=TIEMPO)
     r.raise_for_status()
-    r.encoding = r.encoding or "utf-8"
+    if not r.encoding or r.encoding.lower() == "iso-8859-1":
+        r.encoding = r.apparent_encoding or "utf-8"
     return r.text

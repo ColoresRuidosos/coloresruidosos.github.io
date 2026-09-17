@@ -3,7 +3,14 @@
 # Antes de activar un recinto: probar que su página trae eventos con
 #   python pipeline/probar_recinto.py URL
 # Recintos que solo publican en Instagram: cargar sus eventos en el Google Sheet.
-recintos: []
+recintos:
+  - nombre: Ticketmaster México
+    ciudad: ""
+    url: https://www.ticketmaster.com.mx/section/conciertos
+    activo: true
+    # Por ahora solo CDMX (estado "CDMX" en el JSON-LD). Agregar "HID" cuando
+    # se quiera incluir Pachuca (Hidalgo).
+    regiones: ["CDMX"]
 #  - nombre: Nombre del foro
 #    ciudad: Pachuca
 #    url: https://ejemplo.com/cartelera
