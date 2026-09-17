@@ -16,6 +16,7 @@ def noticias(m: dict) -> str:
         + lista("Notas publicadas", m["publicadas"])
         + lista("Descartadas", m["descartadas"])
         + lista("Feeds con error", m["fallidos"])
+        + "\n" + lista("Para compartir en redes (no publicadas como nota)", m.get("extra_redes", []))
     )
 
 

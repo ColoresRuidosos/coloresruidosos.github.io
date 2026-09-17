@@ -1,23 +1,44 @@
 # Feeds RSS de noticias. "verificada: false" = pendiente de probar (tarea T0.2).
+# "region": mx/es se priorizan sobre intl al elegir las notas del día (ver cr/ranking.py).
 # Un feed que falla no detiene la corrida; aparece en el resumen.
 fuentes:
+  - nombre: Sopitas Música
+    url: https://www.sopitas.com/category/musica/feed/
+    activa: true
+    verificada: true
+    region: mx
+  - nombre: Jenesaispop
+    url: https://jenesaispop.com/feed/
+    activa: true
+    verificada: true
+    region: es
+  - nombre: Mondo Sonoro
+    url: https://www.mondosonoro.com/feed/
+    activa: true
+    verificada: true
+    region: es
   - nombre: Stereogum
     url: https://www.stereogum.com/feed/
     activa: true
     verificada: false
+    region: intl
   - nombre: BrooklynVegan
     url: https://www.brooklynvegan.com/feed/
     activa: true
     verificada: false
+    region: intl
   - nombre: Consequence
     url: https://consequence.net/feed/
     activa: true
     verificada: false
+    region: intl
   - nombre: Pitchfork
     url: https://pitchfork.com/rss/news/
     activa: true
     verificada: false
+    region: intl
   - nombre: Indie Rocks
     url: https://indierocks.mx/feed/
-    activa: true
+    activa: false  # caída (HTTP 521) desde antes del 2026-09-17; reactivar cuando vuelva
     verificada: false
+    region: mx

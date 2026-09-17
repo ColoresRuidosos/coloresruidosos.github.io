@@ -54,7 +54,14 @@ def ejecutar(cfg: dict, items: list[dict], fallidos: list[str], llm, buscador, e
     candidatos = excluir_publicados(agrupar_por_hecho(clasificados), estado, urls_sitio)
     m["candidatos"] = len(candidatos)
 
-    for cand in seleccionar(candidatos, reglas["tope_diario"]):
+    ordenados = seleccionar(candidatos, len(candidatos))
+    elegidos, extras = ordenados[: reglas["tope_diario"]], ordenados[reglas["tope_diario"] :]
+    m["extra_redes"] = [
+        f"{c['artista']} ({c['categoria']}): {c['fuentes'][0]['titulo']} — {c['fuentes'][0]['url']}"
+        for c in extras[:10]
+    ]
+
+    for cand in elegidos:
         try:
             nota, errores = _redactar_valida(cand, llm, hoy, reglas)
         except TopeAlcanzado as exc:

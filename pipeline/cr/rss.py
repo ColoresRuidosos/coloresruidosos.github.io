@@ -14,7 +14,7 @@ def _texto(html: str) -> str:
     return BeautifulSoup(html or "", "html.parser").get_text(" ", strip=True)
 
 
-def convertir_feed(parsed, medio: str) -> list[dict]:
+def convertir_feed(parsed, medio: str, region: str = "intl") -> list[dict]:
     items = []
     for e in parsed.entries:
         if not e.get("link") or not e.get("title"):
@@ -28,6 +28,7 @@ def convertir_feed(parsed, medio: str) -> list[dict]:
             "fecha": _fecha(e),
             "resumen": _texto(resumen)[:1500],
             "medio": medio,
+            "region": region,
         })
     return items
 
@@ -40,7 +41,7 @@ def leer_fuentes(fuentes: list[dict], obtener) -> tuple[list[dict], list[str]]:
             continue
         try:
             parsed = feedparser.parse(obtener(f["url"]))
-            convertidos = convertir_feed(parsed, f["nombre"])
+            convertidos = convertir_feed(parsed, f["nombre"], f.get("region", "intl"))
             if not convertidos:
                 raise ValueError("feed sin entradas legibles")
             items.extend(convertidos)

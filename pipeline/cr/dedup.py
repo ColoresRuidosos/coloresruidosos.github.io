@@ -34,12 +34,14 @@ def agrupar_por_hecho(clasificados: list[dict]) -> list[dict]:
         c = item["clasificacion"]
         clave = clave_hecho(c["artista"], c["categoria"])
         fuente = {"medio": item["medio"], "url": item["url"], "titulo": item["titulo"], "resumen": item.get("resumen", "")}
+        region = item.get("region", "intl")
         if clave not in grupos:
             grupos[clave] = {
                 "clave": clave,
                 "artista": c["artista"],
                 "categoria": c["categoria"],
                 "relevancia": c["relevancia"],
+                "region": region,
                 "es_indie_rock": c["es_indie_rock"],
                 "fechas_evento": list(c.get("fechas_evento", [])),
                 "titulo_lanzamiento": c.get("titulo_lanzamiento", ""),
@@ -57,6 +59,8 @@ def agrupar_por_hecho(clasificados: list[dict]) -> list[dict]:
         g["es_indie_rock"] = g["es_indie_rock"] or c["es_indie_rock"]
         if _prioridad(c["relevancia"]) < _prioridad(g["relevancia"]):
             g["relevancia"] = c["relevancia"]
+        if _prioridad_region(region) < _prioridad_region(g["region"]):
+            g["region"] = region
         existentes = {(f.get("fecha"), f.get("ciudad")) for f in g["fechas_evento"]}
         for f in c.get("fechas_evento", []):
             if (f.get("fecha"), f.get("ciudad")) not in existentes:
@@ -66,6 +70,10 @@ def agrupar_por_hecho(clasificados: list[dict]) -> list[dict]:
 
 def _prioridad(relevancia: str) -> int:
     return {"mx": 0, "latam": 1}.get(relevancia, 2)
+
+
+def _prioridad_region(region: str) -> int:
+    return {"mx": 0, "es": 1}.get(region, 2)
 
 
 def excluir_publicados(candidatos: list[dict], estado: dict, urls_en_sitio: set[str]) -> list[dict]:
