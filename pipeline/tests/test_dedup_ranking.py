@@ -63,6 +63,18 @@ def test_region_mx_es_le_gana_a_intl_aunque_la_gira_sea_menos_relevante():
     assert [c["artista"] for c in seleccionar(cs, 2)] == ["es_general", "intl_mx_gira"]
 
 
+def test_cuota_3_y_3_con_relleno_de_mexico_si_falta_espana():
+    cs = [cand(f"mx{i}", "general", region="mx") for i in range(5)] + [cand("es1", "general", region="es")]
+    elegidos = seleccionar(cs, 6, cuota_mx=3, cuota_es=3)
+    assert [c["artista"] for c in elegidos] == ["mx0", "mx1", "mx2", "es1", "mx3", "mx4"]
+
+
+def test_cuota_solo_rellena_con_intl_si_no_alcanza_ni_mx_ni_es():
+    cs = [cand("mx1", "general", region="mx"), cand("intl1", "general", region="intl")]
+    elegidos = seleccionar(cs, 6, cuota_mx=3, cuota_es=3)
+    assert [c["artista"] for c in elegidos] == ["mx1", "intl1"]
+
+
 def test_empate_gana_el_mas_reciente_y_no_indie_nunca_entra():
     cs = [cand("viejo", "latam", horas=10), cand("nuevo", "latam", horas=1), cand("pop", "mx", indie=False)]
     assert [c["artista"] for c in seleccionar(cs, 3)] == ["nuevo", "viejo"]

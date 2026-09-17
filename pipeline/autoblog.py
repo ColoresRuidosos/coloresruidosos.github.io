@@ -19,7 +19,7 @@ from cr.esquemas import validar_clasificacion, validar_redaccion
 from cr.frontmatter import construir_post
 from cr.llm import TopeAlcanzado
 from cr.notas import indice_sitio
-from cr.ranking import seleccionar
+from cr.ranking import ordenar, seleccionar
 from cr.slug import crear_slug
 from cr.validadores import validar_nota
 
@@ -54,8 +54,9 @@ def ejecutar(cfg: dict, items: list[dict], fallidos: list[str], llm, buscador, e
     candidatos = excluir_publicados(agrupar_por_hecho(clasificados), estado, urls_sitio)
     m["candidatos"] = len(candidatos)
 
-    ordenados = seleccionar(candidatos, len(candidatos))
-    elegidos, extras = ordenados[: reglas["tope_diario"]], ordenados[reglas["tope_diario"] :]
+    elegidos = seleccionar(candidatos, reglas["tope_diario"], reglas.get("cuota_mx", 0), reglas.get("cuota_es", 0))
+    ids_elegidos = {c["clave"] for c in elegidos}
+    extras = [c for c in ordenar(candidatos) if c["clave"] not in ids_elegidos]
     m["extra_redes"] = [
         f"{c['artista']} ({c['categoria']}): {c['fuentes'][0]['titulo']} — {c['fuentes'][0]['url']}"
         for c in extras[:10]
