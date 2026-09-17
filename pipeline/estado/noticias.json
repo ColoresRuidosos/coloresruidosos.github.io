@@ -19,6 +19,39 @@
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
     },
+    "https://consequence.net/2026/09/atarashii-gakko-interview": {
+      "c": {
+        "artista": "ATARASHII GAKKO!",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
+    "https://consequence.net/2026/09/brad-paisley-south-park-season-29-premiere-we-are-south-america": {
+      "c": {
+        "artista": "Brad Paisley",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "We Are South America"
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
+    "https://consequence.net/2026/09/death-cab-for-cutie-2027-tour-new-video": {
+      "c": {
+        "artista": "Death Cab for Cutie",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
     "https://consequence.net/2026/09/fontaines-dc-rosalia-new-song-announcement": {
       "c": {
         "artista": "Fontaines D.C.",
@@ -30,6 +63,17 @@
       },
       "vista": "2026-09-17T10:49:42.995879-06:00"
     },
+    "https://consequence.net/2026/09/gorillaz-2026-us-canada-last-minute-tickets": {
+      "c": {
+        "artista": "Gorillaz",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
     "https://consequence.net/2026/09/grand-theft-auto-vi-announces-soundtrack-album": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
@@ -37,6 +81,17 @@
     "https://consequence.net/2026/09/guitar-center-contest-open-for-ed-sheeran": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://consequence.net/2026/09/hans-zimmer-2027-north-american-tour-dates": {
+      "c": {
+        "artista": "Hans Zimmer",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
     },
     "https://consequence.net/2026/09/harry-styles-2027-together-together-residency-tour-how-to-get-tickets": {
       "c": {
@@ -64,6 +119,17 @@
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
     },
+    "https://consequence.net/2026/09/lady-gaga-gives-birth-first-child": {
+      "c": {
+        "artista": "Lady Gaga",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
     "https://consequence.net/2026/09/macklemore-donation-palestine-ed-sheeran-tour": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
@@ -82,6 +148,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://consequence.net/2026/09/nile-coroner-spring-2027-us-tour": {
+      "c": {
+        "artista": "Nile",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
     },
     "https://consequence.net/2026/09/olivia-rodrigos-tour-cheapest-tickets": {
       "c": null,
@@ -119,6 +196,10 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://consequence.net/2026/09/street-fighter-popcorn-bucket-guile-hair": {
+      "c": null,
+      "vista": "2026-09-17T12:40:16.563426-06:00"
     },
     "https://consequence.net/2026/09/tool-aenima-anniversary": {
       "c": {
@@ -238,6 +319,10 @@
       },
       "vista": "2026-09-17T10:49:42.995879-06:00"
     },
+    "https://jenesaispop.com/2026/09/17/530698/grand-theft-vi-critica": {
+      "c": null,
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
     "https://mondosonoro.com/criticas/discos-musica/beck-ride-lonesome-disco": {
       "c": {
         "artista": "Beck",
@@ -270,6 +355,10 @@
         "titulo_lanzamiento": "Dejémoslo como estaba"
       },
       "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/dalecandela-fest-5-horarios": {
+      "c": null,
+      "vista": "2026-09-17T12:40:16.563426-06:00"
     },
     "https://mondosonoro.com/noticias-actualidad-musical/despedida-ozzy-osbourne-cines": {
       "c": {
@@ -371,6 +460,17 @@
       },
       "vista": "2026-09-17T09:35:42.234762-06:00"
     },
+    "https://pitchfork.com/story/death-cab-for-cutie-plot-2027-tour": {
+      "c": {
+        "artista": "Death Cab for Cutie",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
     "https://pitchfork.com/story/drake-premieres-short-film-fomo-fear-of-missing-out": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
@@ -408,6 +508,17 @@
     "https://pitchfork.com/story/gta-vi-debuts-six-new-songs-travis-scott-pinkpantheress-yung-lean-more": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://pitchfork.com/story/hamilton-leithauser-and-rostam-to-tour-i-had-a-dream-that-you-were-mine": {
+      "c": {
+        "artista": "Hamilton Leithauser",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
     },
     "https://pitchfork.com/story/kevin-morby-drops-new-song-pbj-and-van-leeuwen-ice-cream-flavor": {
       "c": {
@@ -1017,6 +1128,17 @@
       },
       "vista": "2026-09-17T10:49:42.995879-06:00"
     },
+    "https://stereogum.com/2511758/1tbsp-wish-you-luck-feat-kid-on-air/music": {
+      "c": {
+        "artista": "1tbsp",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Wish You Luck"
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
     "https://stereogum.com/2511768/dummy-april-limousine-alluvial-fan/music": {
       "c": {
         "artista": "Dummy",
@@ -1038,13 +1160,49 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-09-17T10:49:42.995879-06:00"
+    },
+    "https://stereogum.com/2511786/johanna-warren-islamorada/music": {
+      "c": {
+        "artista": "Johanna Warren",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Islamorada"
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
+    "https://stereogum.com/2511796/new-radicals-ready-first-new-album-since-1998/news": {
+      "c": {
+        "artista": "New Radicals",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Maybe You've Been Brainwashed TWO"
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
+    },
+    "https://stereogum.com/2511813/dirt-buyer-my-lifes-all-right-shira-small-cover/music": {
+      "c": {
+        "artista": "Dirt Buyer",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "My Life's All Right (Shira Small Cover)"
+      },
+      "vista": "2026-09-17T12:40:16.563426-06:00"
     }
   },
   "claves_publicadas": {
+    "akriila|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
     "alcala norte|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "beck|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "dana margolin|lanzamiento": "2026-09-17T09:35:42.234762-06:00",
+    "ezta ilene|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
     "fontaines d c|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
+    "fontaines dc|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
     "japanese breakfast|anuncio": "2026-09-17T09:35:42.234762-06:00",
     "soccer mommy|lanzamiento": "2026-09-17T09:35:42.234762-06:00"
   },
@@ -1053,7 +1211,10 @@
     "https://consequence.net/2026/09/soccer-mommy-rings-of-saturn-new-song": "2026-09-17T09:35:42.234762-06:00",
     "https://jenesaispop.com/2026/09/17/530635/beck-entrevista": "2026-09-17T10:49:42.995879-06:00",
     "https://jenesaispop.com/2026/09/17/530653/alcala-endemoniao-critica": "2026-09-17T10:49:42.995879-06:00",
+    "https://jenesaispop.com/2026/09/17/530670/akriila-lucy-critica": "2026-09-17T12:40:16.563426-06:00",
+    "https://jenesaispop.com/2026/09/17/530686/rosalia-fontaines-dc": "2026-09-17T12:40:16.563426-06:00",
     "https://mondosonoro.com/criticas/discos-musica/beck-ride-lonesome-disco": "2026-09-17T10:49:42.995879-06:00",
+    "https://mondosonoro.com/entrevistas/ezta-ilen": "2026-09-17T12:40:16.563426-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/alcala-norte-endemoniao": "2026-09-17T10:49:42.995879-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/fontaines-d-c-rosalia": "2026-09-17T10:49:42.995879-06:00",
     "https://pitchfork.com/story/michelle-zauner-announces-new-memoir-thank-you-for-your-suffering": "2026-09-17T09:35:42.234762-06:00",

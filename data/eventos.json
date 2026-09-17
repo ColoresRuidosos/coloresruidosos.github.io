@@ -1,4 +1,485 @@
 {
-  "actualizado": null,
-  "eventos": []
+  "actualizado": "2026-09-17T12:40:56-06:00",
+  "eventos": [
+    {
+      "id": "multiforo-urbano-bajo-circuito-2026-09-17-alkaloides",
+      "titulo": "Alkaloides",
+      "fecha": "2026-09-17",
+      "hora": "20:00",
+      "recinto": "Multiforo Urbano Bajo Circuito",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.passline.com/sitio/cartelera-bajo-circuito",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-09-17-inner-wave",
+      "titulo": "Inner Wave",
+      "fecha": "2026-09-17",
+      "hora": "20:00",
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-09-17-juntos-jorge-medina-y-josi-cuen",
+      "titulo": "Juntos (Jorge Medina y Josi Cuen)",
+      "fecha": "2026-09-17",
+      "hora": "20:00",
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.auditorio.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "lunario-del-auditorio-nacional-2026-09-17-sotomayor",
+      "titulo": "Sotomayor",
+      "fecha": "2026-09-17",
+      "hora": "20:00",
+      "recinto": "Lunario del Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "teatro-metropolitan-2026-09-17-ana-torroja",
+      "titulo": "Ana Torroja",
+      "fecha": "2026-09-17",
+      "hora": "20:30",
+      "recinto": "Teatro Metropólitan",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-del-tejedor-2026-09-17-rayos-laser",
+      "titulo": "Rayos Láser",
+      "fecha": "2026-09-17",
+      "hora": "20:30",
+      "recinto": "Foro del Tejedor",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.forodeltejedor.com/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "pepsi-center-wtc-2026-09-17-reyno",
+      "titulo": "Reyno",
+      "fecha": "2026-09-17",
+      "hora": "20:30",
+      "recinto": "Pepsi Center WTC",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.pepsicenterwtc.com/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-09-18-devotchka",
+      "titulo": "DeVotchKa",
+      "fecha": "2026-09-18",
+      "hora": "20:00",
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "teatro-metropolitan-2026-09-18-bratty",
+      "titulo": "Bratty",
+      "fecha": "2026-09-18",
+      "hora": "20:30",
+      "recinto": "Teatro Metropólitan",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "lunario-del-auditorio-nacional-2026-09-18-bengala",
+      "titulo": "Bengala",
+      "fecha": "2026-09-18",
+      "hora": "21:00",
+      "recinto": "Lunario del Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-09-19-robyn",
+      "titulo": "Robyn",
+      "fecha": "2026-09-19",
+      "hora": "20:30",
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.palaciodelosdeportes.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "la-maraka-2026-09-19-micro-tdh",
+      "titulo": "Micro TDH",
+      "fecha": "2026-09-19",
+      "hora": "21:30",
+      "recinto": "La Maraka",
+      "ciudad": "Ciudad de México",
+      "url": "https://lamaraka.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "lunario-del-auditorio-nacional-2026-09-20-beach-fossils",
+      "titulo": "Beach Fossils",
+      "fecha": "2026-09-20",
+      "hora": "20:00",
+      "recinto": "Lunario del Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-09-22-gondwana-quique-neira",
+      "titulo": "Gondwana & Quique Neira",
+      "fecha": "2026-09-22",
+      "hora": "20:30",
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.auditorio.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-09-22-young-miko",
+      "titulo": "Young Miko",
+      "fecha": "2026-09-22",
+      "hora": "20:30",
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.palaciodelosdeportes.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-09-23-perfume-genius",
+      "titulo": "Perfume Genius",
+      "fecha": "2026-09-23",
+      "hora": "20:00",
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "multiforo-urbano-bajo-circuito-2026-09-24-chapterhouse",
+      "titulo": "Chapterhouse",
+      "fecha": "2026-09-24",
+      "hora": "20:00",
+      "recinto": "Multiforo Urbano Bajo Circuito",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.passline.com/sitio/cartelera-bajo-circuito",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "lunario-del-auditorio-nacional-2026-09-24-grtsch",
+      "titulo": "GRTSCH",
+      "fecha": "2026-09-24",
+      "hora": "20:00",
+      "recinto": "Lunario del Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-del-tejedor-2026-09-24-jona-mendez",
+      "titulo": "Jona Mendez",
+      "fecha": "2026-09-24",
+      "hora": "20:30",
+      "recinto": "Foro del Tejedor",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.forodeltejedor.com/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-09-24-lucero",
+      "titulo": "Lucero",
+      "fecha": "2026-09-24",
+      "hora": "20:30",
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.auditorio.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "teatro-metropolitan-2026-09-24-marco-mares",
+      "titulo": "Marco Mares",
+      "fecha": "2026-09-24",
+      "hora": "20:30",
+      "recinto": "Teatro Metropólitan",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-09-24-moenia",
+      "titulo": "Moenia",
+      "fecha": "2026-09-24",
+      "hora": "20:30",
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.palaciodelosdeportes.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-del-tejedor-2026-09-25-iskander-musica-bonita",
+      "titulo": "Iskander - Música Bonita",
+      "fecha": "2026-09-25",
+      "hora": "20:00",
+      "recinto": "Foro del Tejedor",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.forodeltejedor.com/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-09-25-lido-pimienta",
+      "titulo": "Lido Pimienta",
+      "fecha": "2026-09-25",
+      "hora": "20:00",
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "teatro-metropolitan-2026-09-25-motel",
+      "titulo": "Motel",
+      "fecha": "2026-09-25",
+      "hora": "20:30",
+      "recinto": "Teatro Metropólitan",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-09-25-the-neighbourhood",
+      "titulo": "The Neighbourhood",
+      "fecha": "2026-09-25",
+      "hora": "20:30",
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.palaciodelosdeportes.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-2026-09-25-winona-riders",
+      "titulo": "Winona Riders",
+      "fecha": "2026-09-25",
+      "hora": "21:00",
+      "recinto": "Foro Puebla",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.ticketmaster.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "multiforo-urbano-bajo-circuito-2026-09-26-jose-ramirez",
+      "titulo": "José Ramírez",
+      "fecha": "2026-09-26",
+      "hora": "21:00",
+      "recinto": "Multiforo Urbano Bajo Circuito",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.passline.com/sitio/cartelera-bajo-circuito",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-del-tejedor-2026-09-26-madame-recamier",
+      "titulo": "Madame Récamier",
+      "fecha": "2026-09-26",
+      "hora": "21:00",
+      "recinto": "Foro del Tejedor",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.forodeltejedor.com/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "la-maraka-2026-09-26-la-garfield",
+      "titulo": "La Garfield",
+      "fecha": "2026-09-26",
+      "hora": "21:30",
+      "recinto": "La Maraka",
+      "ciudad": "Ciudad de México",
+      "url": "https://lamaraka.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-09-27-disney-en-concierto",
+      "titulo": "Disney en Concierto",
+      "fecha": "2026-09-27",
+      "hora": "18:00",
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "https://www.auditorio.com.mx/",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-09-30-chiara-oliver",
+      "titulo": "Chiara Oliver",
+      "fecha": "2026-09-30",
+      "hora": "20:00",
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    }
+  ]
 }
