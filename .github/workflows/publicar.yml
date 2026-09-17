@@ -1,0 +1,88 @@
+name: Publicar Colores Ruidosos
+
+on:
+  schedule:
+    - cron: "0 14 * * *"   # 8:00 en Pachuca / CDMX (UTC-6)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+env:
+  HUGO_VERSION: 0.166.0
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r pipeline/requirements.txt
+
+      # Si los tests fallan, no se publica nada ese día.
+      - name: Tests
+        run: |
+          pytest pipeline/tests -q
+          node --test tests-js/ics.test.js
+
+      - name: Noticias
+        id: noticias
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python pipeline/autoblog.py --resumen "$GITHUB_STEP_SUMMARY"
+
+      - name: Agenda
+        id: agenda
+        continue-on-error: true
+        env:
+          SHEET_EVENTOS_CSV: ${{ secrets.SHEET_EVENTOS_CSV }}
+        run: python pipeline/scrape_eventos.py --resumen "$GITHUB_STEP_SUMMARY"
+
+      - name: Despublicaciones desde el Sheet
+        id: sheet
+        continue-on-error: true
+        env:
+          SHEET_NOTAS_CSV: ${{ secrets.SHEET_NOTAS_CSV }}
+        run: python pipeline/sync_sheet.py
+
+      # Verificación de integridad: si el sitio no compila, no se sube nada.
+      - name: Instalar Hugo
+        run: |
+          curl -sL -o hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i hugo.deb
+
+      - name: Compilar sitio
+        run: hugo --gc --minify -d /tmp/verificacion
+
+      - name: Commit único
+        run: |
+          git config user.name "colores-ruidosos-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/posts data pipeline/estado
+          if git diff --cached --quiet; then
+            echo "Sin cambios: no se hace commit ni se dispara build en Netlify."
+            exit 0
+          fi
+          git commit -m "radar: publicación automática $(date -u +%F)"
+          git push
+
+      - name: Avisar pasos fallidos
+        if: steps.noticias.outcome == 'failure' || steps.agenda.outcome == 'failure' || steps.sheet.outcome == 'failure'
+        run: |
+          echo "::warning::Algún paso falló (noticias=${{ steps.noticias.outcome }}, agenda=${{ steps.agenda.outcome }}, sheet=${{ steps.sheet.outcome }}). Lo que sí funcionó se publicó."

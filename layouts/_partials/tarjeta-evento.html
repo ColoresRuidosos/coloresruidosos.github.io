@@ -1,0 +1,31 @@
+{{ $e := . }}
+{{ $fecha := time.AsTime $e.fecha }}
+{{ $firmas := delimit $e.firma "," }}
+<li class="evento" data-evento
+    data-id="{{ $e.id }}" data-mes="{{ $fecha.Format "2006-01" }}" data-firmas="{{ $firmas }}"
+    data-titulo="{{ $e.titulo }}" data-fecha="{{ $e.fecha }}" data-hora="{{ with $e.hora }}{{ . }}{{ end }}"
+    data-recinto="{{ $e.recinto }}" data-ciudad="{{ $e.ciudad }}" data-url="{{ $e.url }}">
+  <div class="evento__fecha" aria-hidden="true">
+    <span class="evento__dia">{{ $fecha.Format "2" }}</span>
+    <span class="evento__mes">{{ $fecha | time.Format "Jan" }}</span>
+  </div>
+  <div class="evento__cuerpo">
+    <h3 class="evento__titulo">{{ $e.titulo }}</h3>
+    <p class="evento__lugar">
+      <time datetime="{{ $e.fecha }}">{{ $fecha | time.Format ":date_full" }}</time>{{ with $e.hora }}, {{ . }} h{{ end }}
+      <br>{{ $e.recinto }}{{ with $e.ciudad }}, {{ . }}{{ end }}{{ with $e.precio }}. {{ . }}{{ end }}
+    </p>
+    <p class="evento__firma">
+      {{ if eq (index $e.firma 0) site.Params.firma_sin_curador }}
+        Tomado de la cartelera
+      {{ else }}
+        Recomendado por {{ delimit $e.firma ", " " y " }}
+      {{ end }}
+      {{ with $e.url }}<a href="{{ . }}" rel="noopener" target="_blank">Ver en {{ $e.recinto }}</a>{{ end }}
+    </p>
+  </div>
+  <label class="evento__elegir">
+    <input type="checkbox" name="elegir" value="{{ $e.id }}">
+    <span>Agregar a mi calendario</span>
+  </label>
+</li>

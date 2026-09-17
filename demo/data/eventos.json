@@ -1,0 +1,9 @@
+{
+  "actualizado": "2026-09-16T08:00:00-06:00",
+  "eventos": [
+    {"id": "foro-ejemplo-2026-09-19-los-ejemplos", "titulo": "Los Ejemplos + Invitados", "fecha": "2026-09-19", "hora": "21:00", "recinto": "Foro Ejemplo", "ciudad": "Pachuca", "url": "https://example.com/evento", "precio": "250 MXN", "origen": "cartelera", "curadores": ["Pardy", "Dany"], "firma": ["Pardy", "Dany"]},
+    {"id": "sala-demo-2026-09-26-noche-shoegaze", "titulo": "Noche shoegaze", "fecha": "2026-09-26", "hora": "20:30", "recinto": "Sala Demo", "ciudad": "Ciudad de México", "url": "https://example.com/evento-2", "precio": null, "origen": "cartelera", "curadores": [], "firma": ["Cartelera"]},
+    {"id": "bar-prueba-2026-09-27-banda-local", "titulo": "Banda local de prueba", "fecha": "2026-09-27", "hora": null, "recinto": "Bar Prueba", "ciudad": "Pachuca", "url": "", "precio": null, "origen": "equipo", "curadores": ["Tanelly"], "firma": ["Tanelly"]},
+    {"id": "foro-ejemplo-2026-10-10-la-demo", "titulo": "La Demo en concierto", "fecha": "2026-10-10", "hora": "21:30", "recinto": "Foro Ejemplo", "ciudad": "Pachuca", "url": "https://example.com/evento-3", "precio": "300 MXN", "origen": "cartelera", "curadores": ["Pratz"], "firma": ["Pratz"]}
+  ]
+}

@@ -1,0 +1,4 @@
+# Vista previa con datos de ejemplo, sin tocar content/ ni data/ reales:
+#   hugo server --config hugo.toml,demo/hugo.demo.toml
+contentDir = "demo/content"
+dataDir = "demo/data"

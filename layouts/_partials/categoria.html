@@ -1,0 +1,2 @@
+{{- $nombres := dict "gira" "Gira" "lanzamiento" "Lanzamiento" "anuncio" "Anuncio" -}}
+{{- index $nombres . | default "Nota" -}}

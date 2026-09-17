@@ -1,0 +1,10 @@
+{{ with .Params.fuentes }}
+<aside class="creditos" aria-label="Fuentes">
+  <p class="creditos__titulo">Con información de</p>
+  <ul>
+    {{ range . }}
+    <li><a href="{{ .url }}" rel="noopener" target="_blank">{{ .medio }}</a></li>
+    {{ end }}
+  </ul>
+</aside>
+{{ end }}

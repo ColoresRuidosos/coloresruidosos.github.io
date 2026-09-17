@@ -1,0 +1,13 @@
+{{ define "main" }}
+<header class="encabezado">
+  <h1 class="encabezado__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
+</header>
+{{ with .RegularPages }}
+<div class="notas notas--lista">
+  {{ range . }}{{ partial "tarjeta-nota.html" (dict "pagina" . "destacada" false) }}{{ end }}
+</div>
+{{ else }}
+<p class="vacio">Todavía no hay notas publicadas.</p>
+{{ end }}
+{{ end }}

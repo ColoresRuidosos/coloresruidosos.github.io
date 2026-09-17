@@ -1,0 +1,24 @@
+# El baseURL real lo pone Netlify en el build (hugo -b $URL). Ver netlify.toml.
+baseURL = "/"
+languageCode = "es-MX"
+defaultContentLanguage = "es"
+title = "Colores Ruidosos"
+disableKinds = ["taxonomy", "term"]
+enableRobotsTXT = true
+
+[params]
+  descripcion = "Fanzine digital de la escena indie y rock, hecho por un grupo de amigos en México."
+  curadores = ["Pardy", "Tanelly", "Dany", "Pratz"]
+  firma_sin_curador = "Cartelera"
+
+[permalinks.page]
+  posts = "/notas/:slug/"
+[permalinks.section]
+  posts = "/notas/"
+
+[markup.goldmark.renderer]
+  unsafe = false   # el HTML crudo dentro de las notas no se renderiza
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML"]

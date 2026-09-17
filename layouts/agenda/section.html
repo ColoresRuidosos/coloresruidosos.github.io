@@ -1,0 +1,50 @@
+{{ define "main" }}
+<header class="encabezado">
+  <h1 class="encabezado__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
+  {{ with site.Data.eventos.actualizado }}<p class="encabezado__nota">Actualizada el {{ time.AsTime . | time.Format ":date_long" }}</p>{{ end }}
+</header>
+
+{{ $eventos := site.Data.eventos.eventos | default slice }}
+{{ if $eventos }}
+<div class="filtros" data-filtros>
+  <fieldset class="filtros__grupo">
+    <legend>Quién lo recomienda</legend>
+    <div class="filtros__chips">
+      <button type="button" class="chip" aria-pressed="true" data-firma="todos">Todos</button>
+      {{ range site.Params.curadores }}<button type="button" class="chip" aria-pressed="false" data-firma="{{ . }}">{{ . }}</button>{{ end }}
+      <button type="button" class="chip" aria-pressed="false" data-firma="{{ site.Params.firma_sin_curador }}">{{ site.Params.firma_sin_curador }}</button>
+    </div>
+  </fieldset>
+  <label class="filtros__mes">
+    <span>Mes</span>
+    <select data-mes>
+      {{ $meses := slice }}
+      {{ range $eventos }}{{ $meses = $meses | append ((time.AsTime .fecha).Format "2006-01") }}{{ end }}
+      {{ range uniq $meses }}
+      <option value="{{ . }}">{{ time.AsTime (printf "%s-01" .) | time.Format "January 2006" }}</option>
+      {{ end }}
+    </select>
+  </label>
+</div>
+
+<ul class="agenda" data-agenda>
+  {{ range $eventos }}{{ partial "tarjeta-evento.html" . }}{{ end }}
+</ul>
+<p class="vacio" data-vacio hidden>No hay conciertos con este filtro en el mes elegido. Prueba con otro curador o mes.</p>
+
+<div class="descarga" data-descarga>
+  <p data-contador>Elige conciertos para armar tu calendario.</p>
+  <button type="button" class="boton" data-descargar disabled>Descargar calendario</button>
+</div>
+{{ else }}
+<p class="vacio">Todavía no hay conciertos en la agenda. Carga eventos en el Google Sheet o activa recintos en el pipeline.</p>
+{{ end }}
+{{ end }}
+
+{{ define "scripts" }}
+{{ $ics := resources.Get "js/ics.js" }}
+{{ $agenda := resources.Get "js/agenda.js" }}
+{{ $js := slice $ics $agenda | resources.Concat "js/agenda.bundle.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

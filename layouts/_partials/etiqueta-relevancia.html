@@ -1,0 +1,4 @@
+{{- with .Params.relevancia -}}
+  {{- if eq . "mx" }}<span class="sticker sticker--mx">Viene a México</span>
+  {{- else if eq . "latam" }}<span class="sticker sticker--latam">Fechas en Latinoamérica</span>{{ end -}}
+{{- end -}}

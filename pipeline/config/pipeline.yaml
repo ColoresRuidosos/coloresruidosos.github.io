@@ -1,0 +1,22 @@
+# Interruptor general. En false, las notas se generan como borrador (draft: true) y no se ven en el sitio.
+autopublicar: true
+
+zona_horaria: America/Mexico_City
+
+noticias:
+  tope_diario: 3              # máximo de notas publicadas por corrida
+  ventana_horas: 72           # solo noticias de los últimos 3 días
+  dias_bloqueo_repetidos: 14  # no repetir el mismo artista + categoría en este plazo
+  max_caracteres_titulo: 90
+  max_palabras_cuerpo: 250
+  ngram_copia: 8              # 8+ palabras seguidas iguales a la fuente = copia
+  max_tokens_corrida: 60000   # tope de gasto por corrida
+  modelos:
+    clasificar: claude-haiku-4-5-20251001
+    redactar: claude-sonnet-5
+
+agenda:
+  dias_futuro: 60
+  minimo_eventos_por_recinto: 1   # menos que esto = scraper roto, se conservan los anteriores
+  curadores: [Pardy, Tanelly, Dany, Pratz]
+  firma_sin_curador: Cartelera

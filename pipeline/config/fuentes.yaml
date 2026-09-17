@@ -1,0 +1,23 @@
+# Feeds RSS de noticias. "verificada: false" = pendiente de probar (tarea T0.2).
+# Un feed que falla no detiene la corrida; aparece en el resumen.
+fuentes:
+  - nombre: Stereogum
+    url: https://www.stereogum.com/feed/
+    activa: true
+    verificada: false
+  - nombre: BrooklynVegan
+    url: https://www.brooklynvegan.com/feed/
+    activa: true
+    verificada: false
+  - nombre: Consequence
+    url: https://consequence.net/feed/
+    activa: true
+    verificada: false
+  - nombre: Pitchfork
+    url: https://pitchfork.com/rss/news/
+    activa: true
+    verificada: false
+  - nombre: Indie Rocks
+    url: https://indierocks.mx/feed/
+    activa: true
+    verificada: false

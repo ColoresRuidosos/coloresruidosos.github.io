@@ -1,0 +1,29 @@
+{{ define "main" }}
+<article class="articulo">
+  <div class="nota__meta">
+    {{ partial "etiqueta-relevancia.html" . }}
+    <span>{{ partial "categoria.html" .Params.categoria }}</span>
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+  </div>
+  <h1 class="articulo__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="articulo__entrada">{{ . }}</p>{{ end }}
+  {{ partial "creditos.html" . }}
+  {{ partial "embed.html" . }}
+  <div class="articulo__cuerpo">{{ .Content }}</div>
+
+  {{ with .Params.fechas_evento }}
+  <section class="fechas" aria-labelledby="t-fechas">
+    <h2 id="t-fechas" class="fechas__titulo">Fechas</h2>
+    <ul>
+      {{ range . }}
+      {{ $f := time.AsTime .fecha }}
+      <li class="fechas__item {{ if eq .pais "MX" }}fechas__item--mx{{ end }}">
+        <span class="fechas__dia">{{ $f | time.Format ":date_long" }}</span>
+        <span>{{ with .recinto }}{{ . }}, {{ end }}{{ .ciudad }}</span>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</article>
+{{ end }}

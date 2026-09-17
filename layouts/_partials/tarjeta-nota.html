@@ -1,0 +1,10 @@
+{{ $p := .pagina }}
+<article class="nota {{ if .destacada }}nota--destacada{{ end }} {{ with $p.Params.relevancia }}nota--{{ . }}{{ end }}">
+  <div class="nota__meta">
+    {{ partial "etiqueta-relevancia.html" $p }}
+    <span>{{ partial "categoria.html" $p.Params.categoria }}</span>
+    <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date | time.Format ":date_medium" }}</time>
+  </div>
+  <h3 class="nota__titulo"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
+  {{ with $p.Description }}<p class="nota__entrada">{{ . }}</p>{{ end }}
+</article>

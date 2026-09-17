@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ $titulo := cond .IsHome site.Title (printf "%s | %s" .Title site.Title) }}
+  {{ $desc := or .Description site.Params.descripcion }}
+  <title>{{ $titulo }}</title>
+  <meta name="description" content="{{ $desc }}">
+  <meta property="og:title" content="{{ $titulo }}">
+  <meta property="og:description" content="{{ $desc }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+  <meta property="og:locale" content="es_MX">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  {{ partial "cabecera.html" . }}
+  <main id="contenido">
+    {{ block "main" . }}{{ end }}
+  </main>
+  {{ partial "pie.html" . }}
+  {{ block "scripts" . }}{{ end }}
+</body>
+</html>

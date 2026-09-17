@@ -1,0 +1,10 @@
+# Recintos cuya cartelera se lee automáticamente.
+# El método es JSON-LD (datos schema.org que muchas páginas publican para Google).
+# Antes de activar un recinto: probar que su página trae eventos con
+#   python pipeline/probar_recinto.py URL
+# Recintos que solo publican en Instagram: cargar sus eventos en el Google Sheet.
+recintos: []
+#  - nombre: Nombre del foro
+#    ciudad: Pachuca
+#    url: https://ejemplo.com/cartelera
+#    activo: true

@@ -1,0 +1,40 @@
+# plan.md — decisiones técnicas
+
+## Stack
+| Capa | Elección |
+|---|---|
+| Sitio | Hugo extended 0.166 (sistema de plantillas nuevo: `layouts/home.html`, `layouts/_partials/`, `layouts/agenda/section.html`) |
+| Pipeline | Python 3.12: `feedparser`, `requests`, `beautifulsoup4`, `pyyaml`, `anthropic` |
+| Tests | `pytest` (dominio e integración con dobles) + `node --test` (generador `.ics`) |
+| Orquestación | GitHub Actions, un job con pasos aislados y commit único |
+| Hosting | Netlify, URL `.netlify.app` |
+| Capa humana | Google Sheet publicado como CSV |
+
+## Decisiones
+- **D1 JSON del modelo, YAML del código.** El modelo nunca escribe front matter; `zod`-equivalente en `cr/esquemas.py`.
+- **D2 Dos modelos.** `claude-haiku-4-5-20251001` clasifica en lotes de 25; `claude-sonnet-5` redacta. Configurables en `pipeline.yaml`.
+- **D3 Relevancia en código.** El modelo solo extrae fechas explícitas; `mx`/`latam` se calcula a partir de ellas.
+- **D4 Estado en `pipeline/estado/noticias.json` en `main`.** Ya no hace falta rama aparte: cada corrida con cambios publica igual. Se poda solo (URLs 30 días, hechos 14 días, clasificaciones 4 días). Además se cruzan las fuentes de las notas ya publicadas, así que perder el estado no provoca duplicados masivos.
+- **D5 Copia por n-gramas de 8 palabras**, ignorando palabras de nombres propios. Limitación: la fuente suele estar en inglés, así que atrapa sobre todo frases citadas.
+- **D6 Agenda por JSON-LD genérico** en lugar de un scraper por diseño de página: sobrevive rediseños y cubre boleteras. Recintos sin JSON-LD → Sheet.
+- **D7 El Sheet gana**, con match por recinto + fecha original + título parcial. `nueva_fecha` para no romper el match.
+- **D8 `.ics` en el navegador**, horas convertidas de UTC-6 a UTC; sin hora = día completo; duración 3 h.
+- **D9 Demo aislada** con `--config hugo.toml,demo/hugo.demo.toml` (cambia `contentDir` y `dataDir`).
+- **D10 `baseURL` desde Netlify** (`-b $URL`) para poder conectar dominio después sin tocar código.
+
+## Verificaciones pendientes
+| ID | Qué | Plan B |
+|---|---|---|
+| V1 | Probar feeds de `fuentes.yaml` (ninguno verificado desde el entorno de desarrollo) | Quitar los que fallen; mínimo 4 |
+| V2 | Lista real de recintos de Pachuca y CDMX y si traen JSON-LD (`probar_recinto.py`) | Cargar sus eventos en el Sheet |
+| V3 | Primera corrida real: calidad de clasificación y tono | Ajustar `prompts/` |
+| V4 | Costo real por corrida (resumen muestra tokens) | Bajar lote o tope |
+| V5 | Cuotas de Spotify y YouTube con uso diario | Solo Spotify |
+
+## Riesgos aceptados por publicar sin revisión
+| Riesgo | Mitigación disponible |
+|---|---|
+| Fecha o dato incorrecto en una nota | Despublicar desde el Sheet; prompt prohíbe suponer fechas |
+| Embed de canción distinta del mismo artista | Coincidencia exacta de artista y álbum |
+| Recinto cambia su página | Supervivencia + aviso en resumen |
+| Evento del Sheet con fecha mal escrita | Se descarta con aviso |
