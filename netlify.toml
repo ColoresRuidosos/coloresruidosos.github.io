@@ -1,6 +1,9 @@
 [build]
   command = "hugo --gc --minify -b $URL"
   publish = "public"
+  # No reconstruir si el commit solo toca el pipeline de Python, docs o config
+  # de GitHub Actions — nada de eso cambia lo que Hugo genera.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- content/ layouts/ assets/ static/ data/ hugo.toml netlify.toml"
 
 [build.environment]
   HUGO_VERSION = "0.166.0"

@@ -4,7 +4,7 @@ autopublicar: true
 zona_horaria: America/Mexico_City
 
 noticias:
-  tope_diario: 6              # máximo de notas publicadas por corrida
+  tope_diario: 7              # máximo de notas publicadas por corrida (3 MX + 3 ES garantizadas + 1 de relleno)
   cuota_mx: 3                 # de esas, mínimo buscadas de escena mexicana
   cuota_es: 3                 # y de escena española; si falta una, se rellena con la otra antes que con internacional
   ventana_horas: 72           # solo noticias de los últimos 3 días
