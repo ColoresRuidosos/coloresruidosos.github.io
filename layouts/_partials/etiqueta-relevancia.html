@@ -2,7 +2,3 @@
   {{- if eq . "mx" }}<span class="sticker sticker--mx">Viene a México</span>
   {{- else if eq . "latam" }}<span class="sticker sticker--latam">Fechas en Latinoamérica</span>{{ end -}}
 {{- end -}}
-{{- with .Params.region -}}
-  {{- if eq . "mx" }}<span class="sticker sticker--region-mx">Escena México</span>
-  {{- else if eq . "es" }}<span class="sticker sticker--region-es">Escena España</span>{{ end -}}
-{{- end -}}

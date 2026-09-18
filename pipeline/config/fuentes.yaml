@@ -38,7 +38,8 @@ fuentes:
     verificada: false
     region: intl
   - nombre: Indie Rocks
-    url: https://indierocks.mx/feed/
-    activa: false  # caída (HTTP 521) desde antes del 2026-09-17; reactivar cuando vuelva
-    verificada: false
+    # Sus artículos son un tipo de contenido propio ("musica"); el /feed/ normal viene vacío.
+    url: https://www.indierocks.mx/feed/?post_type=musica
+    activa: true
+    verificada: true
     region: mx

@@ -129,8 +129,6 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 
 .sticker { display: inline-block; background: var(--accent-mustard); color: var(--text-main); border: 2px solid var(--border-dark); border-radius: 999px; padding: .1rem .7rem; font-weight: 700; font-size: .875rem; transform: rotate(-2deg); }
 .sticker--latam { background: var(--bg-cream); }
-.sticker--region-mx { background: var(--accent-red); color: var(--bg-cream); border-color: var(--accent-red); }
-.sticker--region-es { background: var(--accent-navy); color: var(--bg-cream); border-color: var(--accent-navy); }
 
 .enlace-fuerte { font-weight: 700; }
 
