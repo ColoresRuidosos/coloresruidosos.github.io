@@ -67,6 +67,17 @@
       },
       "vista": "2026-09-17T12:40:16.563426-06:00"
     },
+    "https://consequence.net/2026/09/brandy-clark-announces-new-album-the-bird-2027-tour-dates": {
+      "c": {
+        "artista": "Brandy Clark",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "the bird"
+      },
+      "vista": "2026-09-18T12:36:32.216801-06:00"
+    },
     "https://consequence.net/2026/09/carly-rae-jepsen-new-album-day-and-night-stream": {
       "c": {
         "artista": "Carly Rae Jepsen",
@@ -300,6 +311,17 @@
       },
       "vista": "2026-09-17T09:35:42.234762-06:00"
     },
+    "https://consequence.net/2026/09/sammy-hagar-alex-van-halen-idiot-response": {
+      "c": {
+        "artista": "Sammy Hagar",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-18T12:36:32.216801-06:00"
+    },
     "https://consequence.net/2026/09/soccer-mommy-rings-of-saturn-new-song": {
       "c": {
         "artista": "Soccer Mommy",
@@ -359,6 +381,21 @@
     "https://consequence.net/2026/09/trump-kennedy-center-rip-down": {
       "c": null,
       "vista": "2026-09-17T09:35:42.234762-06:00"
+    },
+    "https://consequence.net/2026/09/tsa-fake-ids-laguardia-tyler-the-creator-merch": {
+      "c": {
+        "artista": "Tyler, the Creator",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-18T12:36:32.216801-06:00"
+    },
+    "https://consequence.net/2026/09/v-for-vendetta-theaters-fathom": {
+      "c": null,
+      "vista": "2026-09-18T12:36:32.216801-06:00"
     },
     "https://indierocks.mx/musica/entrevistas/entrevista-con-nnux": {
       "c": {
@@ -1797,6 +1834,17 @@
         "titulo_lanzamiento": "The Diamond District, Volume 1"
       },
       "vista": "2026-09-18T11:31:31.351181-06:00"
+    },
+    "https://stereogum.com/2511928/curly-castro-black-dont-crack-feat-fatboi-sharif-blueprint-brian-ennals-skech185-aj-suede-billy-woods/music": {
+      "c": {
+        "artista": "Curly Castro",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Yaphet"
+      },
+      "vista": "2026-09-18T12:36:32.216801-06:00"
     }
   },
   "claves_publicadas": {
@@ -1804,22 +1852,30 @@
     "alcala norte|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "beck|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "bill callahan|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
+    "colin moulding|lanzamiento": "2026-09-18T12:36:32.216801-06:00",
     "dana margolin|lanzamiento": "2026-09-17T09:35:42.234762-06:00",
     "declive|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
+    "duncan sheik|anuncio": "2026-09-18T12:36:32.216801-06:00",
+    "eric slick|lanzamiento": "2026-09-18T12:36:32.216801-06:00",
     "ezta ilene|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
     "fontaines d c|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "fontaines dc|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
+    "gorillaz|anuncio": "2026-09-18T12:36:32.216801-06:00",
     "japanese breakfast|anuncio": "2026-09-17T09:35:42.234762-06:00",
     "matt berninger|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "quicksand|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "royal blood|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "soccer mommy|lanzamiento": "2026-09-17T09:35:42.234762-06:00",
+    "straw man army|lanzamiento": "2026-09-18T12:36:32.216801-06:00",
+    "sylvan esso|anuncio": "2026-09-18T12:36:32.216801-06:00",
     "troye sivan|lanzamiento": "2026-09-18T11:31:31.351181-06:00"
   },
   "urls_publicadas": {
     "https://consequence.net/2026/09/fontaines-dc-rosalia-new-song-announcement": "2026-09-17T10:49:42.995879-06:00",
+    "https://consequence.net/2026/09/gorillaz-kick-off-2026-north-american-tour-video-setlist": "2026-09-18T12:36:32.216801-06:00",
     "https://consequence.net/2026/09/matt-berninger-releases-ep": "2026-09-18T11:31:31.351181-06:00",
     "https://consequence.net/2026/09/soccer-mommy-rings-of-saturn-new-song": "2026-09-17T09:35:42.234762-06:00",
+    "https://consequence.net/2026/09/sylvan-esso-return-spotify-boycott": "2026-09-18T12:36:32.216801-06:00",
     "https://indierocks.mx/musica/noticias/royal-blood-estrena-swallow-the-bomb-su-nuevo-sencillo": "2026-09-18T11:31:31.351181-06:00",
     "https://jenesaispop.com/2026/09/17/530635/beck-entrevista": "2026-09-17T10:49:42.995879-06:00",
     "https://jenesaispop.com/2026/09/17/530653/alcala-endemoniao-critica": "2026-09-17T10:49:42.995879-06:00",
@@ -1841,6 +1897,10 @@
     "https://stereogum.com/2511729/japanese-breakfasts-michelle-zauner-announces-second-book-thank-you-for-your-suffering/news": "2026-09-17T09:35:42.234762-06:00",
     "https://stereogum.com/2511865/self-proclaimed-talk-singer-troye-sivan-samples-madonna-on-party/music": "2026-09-18T11:31:31.351181-06:00",
     "https://stereogum.com/2511871/meshell-ndegeocello-bill-callahan-chris-thile-with-god-on-our-side-bob-dylan-cover/music": "2026-09-18T11:31:31.351181-06:00",
+    "https://stereogum.com/2511872/xtcs-colin-moulding-shares-second-ever-solo-release-want-it-bad-the-pep-talks-and-playing-fields-of-old-england/music": "2026-09-18T12:36:32.216801-06:00",
+    "https://stereogum.com/2511881/duncan-sheik-dead-at-56/news": "2026-09-18T12:36:32.216801-06:00",
+    "https://stereogum.com/2511885/straw-man-army-announce-new-album-true-north-hear-striking-home/music": "2026-09-18T12:36:32.216801-06:00",
+    "https://stereogum.com/2511890/eric-slick-announces-new-album-bounce-house-hear-mannequin-feat-molly-martin-jamie-lidell/music": "2026-09-18T12:36:32.216801-06:00",
     "https://stereogum.com/2511902/matt-berninger-shares-new-surprise-ep-type-it-up/music": "2026-09-18T11:31:31.351181-06:00"
   }
 }
