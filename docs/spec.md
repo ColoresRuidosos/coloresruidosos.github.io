@@ -57,7 +57,7 @@
 
 **F9 Agenda.** JSON-LD de carteleras de recintos + pestaña Eventos del Sheet (siempre gana). Regla de supervivencia por recinto. Eventos del equipo para recintos sin cartelera legible. Solo próximos 60 días.
 
-**F10 Curadores.** Pardy, Tanelly, Dany y Pratz pueden recomendar/firmar un evento desde el Sheet (varios a la vez); sin firma aparece como Cartelera y se muestra igual en cada evento. El sitio filtra la agenda por recinto y por rango de precio, no por curador.
+**F10 Curadores.** Pardy, Tanelly, Dany y Pratz pueden recomendar/firmar un evento desde el Sheet (varios a la vez); sin firma aparece como Cartelera y se muestra igual en cada evento. El sitio filtra la agenda por recinto, no por curador.
 
 **F11 Calendario `.ics`.** El visitante elige conciertos del mes y descarga un archivo compatible con Google Calendar, Apple y Outlook.
 

@@ -3,7 +3,7 @@
 Sitio en Hugo con dos piezas automáticas que corren todos los días a las 8:00 (hora de CDMX):
 
 - **Notas:** lee feeds RSS de medios de indie/rock, elige hasta 7 noticias por corrida (al menos 3 de la escena mexicana y 3 de la española, relleno con lo demás), las redacta con Claude en la voz de la marca, con créditos visibles, y las publica.
-- **Agenda:** lee las carteleras de los recintos configurados, aplica las correcciones y recomendaciones del Google Sheet del equipo, y permite a quien visita el sitio filtrar por recinto y precio, y descargar su calendario `.ics`.
+- **Agenda:** lee las carteleras de los recintos configurados, aplica las correcciones y recomendaciones del Google Sheet del equipo, y permite a quien visita el sitio filtrar por recinto y descargar su calendario `.ics`.
 
 La especificación completa está en [`docs/spec.md`](docs/spec.md), las decisiones técnicas en [`docs/plan.md`](docs/plan.md) y el avance en [`docs/tasks.md`](docs/tasks.md).
 

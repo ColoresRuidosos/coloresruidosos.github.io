@@ -4,7 +4,7 @@
 <li class="evento" data-evento
     data-id="{{ $e.id }}" data-mes="{{ $fecha.Format "2006-01" }}" data-firmas="{{ $firmas }}"
     data-titulo="{{ $e.titulo }}" data-fecha="{{ $e.fecha }}" data-hora="{{ with $e.hora }}{{ . }}{{ end }}"
-    data-recinto="{{ $e.recinto }}" data-ciudad="{{ $e.ciudad }}" data-url="{{ $e.url }}" data-precio="{{ with $e.precio }}{{ . }}{{ end }}">
+    data-recinto="{{ $e.recinto }}" data-ciudad="{{ $e.ciudad }}" data-url="{{ $e.url }}">
   <div class="evento__fecha" aria-hidden="true">
     <span class="evento__dia">{{ $fecha.Format "2" }}</span>
     <span class="evento__mes">{{ $fecha | time.Format "Jan" }}</span>

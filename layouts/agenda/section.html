@@ -17,13 +17,6 @@
       {{ range uniq $recintos }}<button type="button" class="chip" aria-pressed="false" data-recinto="{{ . }}">{{ . }}</button>{{ end }}
     </div>
   </fieldset>
-  <fieldset class="filtros__grupo">
-    <legend>Precio (MXN)</legend>
-    <div class="filtros__rango">
-      <label>Desde <input type="number" inputmode="numeric" min="0" step="50" placeholder="0" data-precio-min></label>
-      <label>Hasta <input type="number" inputmode="numeric" min="0" step="50" placeholder="Sin límite" data-precio-max></label>
-    </div>
-  </fieldset>
   <label class="filtros__mes">
     <span>Mes</span>
     <select data-mes>
@@ -39,7 +32,7 @@
 <ul class="agenda" data-agenda>
   {{ range $eventos }}{{ partial "tarjeta-evento.html" . }}{{ end }}
 </ul>
-<p class="vacio" data-vacio hidden>No hay conciertos con este filtro en el mes elegido. Prueba con otro recinto, precio o mes.</p>
+<p class="vacio" data-vacio hidden>No hay conciertos con este filtro en el mes elegido. Prueba con otro recinto o mes.</p>
 
 <div class="descarga" data-descarga>
   <p data-contador>Elige conciertos para armar tu calendario.</p>
