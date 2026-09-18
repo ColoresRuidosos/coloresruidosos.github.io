@@ -9,11 +9,11 @@
   <section class="bloque" aria-labelledby="t-notas">
     <h2 id="t-notas" class="bloque__titulo">Notas recientes</h2>
     {{ $notas := where site.RegularPages "Section" "posts" }}
-    {{ with first 7 $notas }}
+    {{ with first 5 $notas }}
       <div class="notas">
         {{ range $i, $p := . }}{{ partial "tarjeta-nota.html" (dict "pagina" $p "destacada" (eq $i 0)) }}{{ end }}
       </div>
-      <a class="enlace-fuerte" href="{{ "/notas/" | relURL }}">Todas las notas</a>
+      <a class="enlace-fuerte" href="{{ "notas/" | relURL }}">Todas las notas</a>
     {{ else }}
       <p class="vacio">Todavía no hay notas publicadas. La primera corrida del radar llena esta sección.</p>
     {{ end }}
@@ -33,7 +33,7 @@
         </li>
         {{ end }}
       </ul>
-      <a class="enlace-fuerte" href="{{ "/agenda/" | relURL }}">Ver la agenda y armar tu calendario</a>
+      <a class="enlace-fuerte" href="{{ "agenda/" | relURL }}">Ver la agenda y armar tu calendario</a>
     {{ else }}
       <p class="vacio">Sin conciertos cargados todavía. Agrega recintos o eventos en el Google Sheet.</p>
     {{ end }}

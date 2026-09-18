@@ -27,13 +27,13 @@ node --test tests-js/ics.test.js
 ## 2. Ponerlo en línea hoy
 
 1. **Sube el repo a GitHub.**
-2. **Conecta el repo en Netlify** (Add new site → Import an existing project). `netlify.toml` ya trae el comando de build y la versión de Hugo. El sitio queda en tu URL `.netlify.app`.
+2. **Activa GitHub Pages:** repo → Settings → Pages → Source: **GitHub Actions**. El workflow «Publicar Colores Ruidosos» compila Hugo y despliega: cada día a las 8:00, al lanzarlo a mano, y en cada push que cambie el sitio (`content/`, `layouts/`, `assets/`, `data/`, `static/` o `hugo.toml`). El sitio queda en `https://TU-USUARIO.github.io/colores-ruidosos/`. Para volver a desplegar sin generar notas: Actions → Run workflow → marcar «Solo desplegar».
 3. **Crea las llaves** y guárdalas en GitHub → Settings → Secrets and variables → Actions:
 
    | Secret | Para qué | Obligatorio |
    |---|---|---|
    | `ANTHROPIC_API_KEY` | Clasificar y redactar notas | Sí, para notas |
-   | `SPOTIFY_CLIENT_ID` y `SPOTIFY_CLIENT_SECRET` | Embeds de Spotify (crear app en developer.spotify.com) | No: sin ellas no hay embed |
+   | `SPOTIFY_CLIENT_ID` y `SPOTIFY_CLIENT_SECRET` | Embeds de Spotify (crear app en developer.spotify.com; desde feb 2026 la cuenta que la crea debe tener Spotify Premium) | No: sin ellas no hay embed |
    | `YOUTUBE_API_KEY` | Embeds de YouTube (YouTube Data API v3 en Google Cloud) | No |
    | `SHEET_EVENTOS_CSV` | URL CSV de la pestaña Eventos | No, pero recomendado |
    | `SHEET_NOTAS_CSV` | URL CSV de la pestaña Notas | No, pero recomendado |
@@ -83,6 +83,6 @@ Crea un Sheet con dos pestañas. Publica **cada pestaña** como CSV (Archivo →
 - Si el scraper de un recinto se rompe o trae 0 eventos, se conservan sus eventos anteriores y se avisa en el resumen.
 - Si el Sheet no responde, se conservan las recomendaciones de la corrida anterior.
 - Si los tests fallan o el sitio no compila, ese día no se sube nada.
-- Si no hay cambios, no se hace commit y Netlify no reconstruye.
+- Si no hay cambios, no se hace commit (el despliegue diario a Pages sí corre, es gratuito).
 
 **Lo que NO verifica** (decisión del equipo de publicar sin revisión): que las fechas y datos de la noticia sean correctos, ni que el embed elegido sea la canción exacta. Revisen el resumen diario y usen la pestaña Notas para despublicar lo que esté mal.

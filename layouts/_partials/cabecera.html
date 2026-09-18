@@ -1,10 +1,10 @@
 <header class="cabecera">
-  <a class="cabecera__marca" href="{{ "/" | relURL }}">Colores Ruidosos</a>
+  <a class="cabecera__marca" href="{{ site.Home.RelPermalink }}">Colores Ruidosos</a>
   <nav aria-label="Principal">
     <ul class="cabecera__nav">
       {{ $actual := .Section }}
-      <li><a href="{{ "/notas/" | relURL }}" {{ if eq $actual "posts" }}aria-current="page"{{ end }}>Notas</a></li>
-      <li><a href="{{ "/agenda/" | relURL }}" {{ if eq $actual "agenda" }}aria-current="page"{{ end }}>Agenda</a></li>
+      <li><a href="{{ "notas/" | relURL }}" {{ if eq $actual "posts" }}aria-current="page"{{ end }}>Notas</a></li>
+      <li><a href="{{ "agenda/" | relURL }}" {{ if eq $actual "agenda" }}aria-current="page"{{ end }}>Agenda</a></li>
     </ul>
   </nav>
 </header>

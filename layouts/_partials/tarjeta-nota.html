@@ -6,5 +6,5 @@
     <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date | time.Format ":date_medium" }}</time>
   </div>
   <h3 class="nota__titulo"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
-  {{ with $p.Description }}<p class="nota__entrada">{{ . }}</p>{{ end }}
+  {{ if .destacada }}{{ with $p.Description }}<p class="nota__entrada">{{ . }}</p>{{ end }}{{ end }}
 </article>

@@ -1,4 +1,5 @@
-# El baseURL real lo pone Netlify en el build (hugo -b $URL). Ver netlify.toml.
+# El baseURL real lo pone el workflow en el build (hugo -b <url de GitHub Pages>). Ver .github/workflows/publicar.yml.
+# Los enlaces internos deben usar relURL SIN barra inicial ("notas/" | relURL) o .RelPermalink: el sitio vive en un subdirectorio.
 baseURL = "/"
 languageCode = "es-MX"
 defaultContentLanguage = "es"

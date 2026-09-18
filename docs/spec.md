@@ -24,7 +24,7 @@
 
 **Fuera de alcance (v1)**
 - Qué pasa con la web actual (reseñas, descargas y creador de stickers, tienda): **decisión abierta**.
-- Dominio propio (v1 vive en la URL de Netlify).
+- Dominio propio (v1 vive en la URL de GitHub Pages).
 - Recomendaciones de la comunidad (formulario abierto).
 - Fuentes desde X/Instagram.
 
@@ -51,7 +51,7 @@
 
 **F6 Embed oficial.** Spotify (artista o álbum con coincidencia exacta) y luego YouTube (canal oficial o Topic). Sin coincidencia: sin embed.
 
-**F7 Publicación automática.** Commit directo a `main` → Netlify despliega. Interruptor `autopublicar`.
+**F7 Publicación automática.** Commit directo a `main` y despliegue a GitHub Pages desde el mismo workflow. Interruptor `autopublicar`.
 
 **F8 Despublicación.** Pestaña Notas del Sheet → `draft: true/false`.
 
@@ -65,7 +65,7 @@
 
 ## 4. Flujos
 
-**A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → Netlify publica.
+**A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
 
 **B. Nota.** RSS → ventana 72 h → dedup URL → clasificar (con caché) → agrupar por hecho → excluir publicados → top 3 → redactar → validar (1 reintento) → embed → Markdown.
 
@@ -84,7 +84,7 @@ GitHub Actions (cron) ──► pipeline/ (Python)
    sync_sheet.py ──► Sheet ──► draft true/false
    hugo (verificación) ──► commit único a main
                                    │
-Netlify ◄──────────────────────────┘  hugo --gc --minify -b $URL
+GitHub Pages ◄─────────────────────┘  hugo --gc --minify -b <url de Pages>
    /            portada (notas + próximos conciertos)
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics

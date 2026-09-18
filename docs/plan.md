@@ -7,7 +7,7 @@
 | Pipeline | Python 3.12: `feedparser`, `requests`, `beautifulsoup4`, `pyyaml`, `anthropic` |
 | Tests | `pytest` (dominio e integración con dobles) + `node --test` (generador `.ics`) |
 | Orquestación | GitHub Actions, un job con pasos aislados y commit único |
-| Hosting | Netlify, URL `.netlify.app` |
+| Hosting | GitHub Pages (despliegue desde GitHub Actions), URL `usuario.github.io/colores-ruidosos/` |
 | Capa humana | Google Sheet publicado como CSV |
 
 ## Decisiones
@@ -20,7 +20,7 @@
 - **D7 El Sheet gana**, con match por recinto + fecha original + título parcial. `nueva_fecha` para no romper el match.
 - **D8 `.ics` en el navegador**, horas convertidas de UTC-6 a UTC; sin hora = día completo; duración 3 h.
 - **D9 Demo aislada** con `--config hugo.toml,demo/hugo.demo.toml` (cambia `contentDir` y `dataDir`).
-- **D10 `baseURL` desde Netlify** (`-b $URL`) para poder conectar dominio después sin tocar código.
+- **D10 `baseURL` desde `actions/configure-pages`** (`-b`) para poder conectar dominio después sin tocar código. **D11 Migración de Netlify a GitHub Pages (2026-09-18):** el plan gratis de Netlify (300 créditos, 15 por deploy) no alcanza para desplegar a diario y pausa el sitio al agotarse; Pages es gratis para repos públicos y el workflow ya compilaba Hugo. Costo: sin cabeceras HTTP personalizadas (el `Referrer-Policy` pasó a `<meta>`) y sin deploy previews.
 
 ## Verificaciones pendientes
 | ID | Qué | Plan B |

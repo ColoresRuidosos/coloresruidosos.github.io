@@ -115,11 +115,14 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 /* Tarjetas de nota */
 .notas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin-bottom: 1.75rem; }
 .notas--lista { grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); }
-.nota { background: var(--bg-cream); border: var(--borde); box-shadow: var(--sombra); padding: 1.25rem; display: flex; flex-direction: column; gap: .6rem; }
-.nota--destacada { grid-column: 1 / -1; padding: 1.75rem; }
+.nota { --pad: 1.25rem; --tono: var(--text-main); background: var(--bg-cream); border: var(--borde); box-shadow: var(--sombra); padding: var(--pad); display: flex; flex-direction: column; gap: .6rem; }
+/* Franja de color con puntos (retícula de impresión) en vez de fotos: el color depende de la categoría */
+.nota::before { content: ""; display: block; height: 3.5rem; margin: calc(var(--pad) * -1) calc(var(--pad) * -1) .35rem; border-bottom: var(--borde); background: radial-gradient(rgba(255, 255, 255, .3) 1.6px, transparent 1.8px) 0 0 / 12px 12px, var(--tono); }
+.nota--destacada { --pad: 1.75rem; grid-column: 1 / -1; }
+.nota--destacada::before { height: 6rem; }
 .nota--mx { box-shadow: 6px 6px 0 var(--accent-red); }
-.nota--cat-gira { border-left-width: 10px; border-left-color: var(--accent-navy); }
-.nota--cat-lanzamiento { border-left-width: 10px; border-left-color: var(--accent-red); }
+.nota--cat-gira { --tono: var(--accent-navy); }
+.nota--cat-lanzamiento { --tono: var(--accent-red); }
 .nota__meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem; font-size: .9375rem; font-weight: 500; color: var(--accent-navy); }
 .nota__titulo { font-family: var(--f-titulo); font-weight: 700; font-size: 1.375rem; line-height: 1.15; margin: 0; }
 .nota--destacada .nota__titulo { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; }

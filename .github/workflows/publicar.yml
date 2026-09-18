@@ -4,6 +4,22 @@ on:
   schedule:
     - cron: "0 14 * * *"   # 8:00 en Pachuca / CDMX (UTC-6)
   workflow_dispatch:
+    inputs:
+      solo_desplegar:
+        description: "Solo desplegar el sitio tal como está (sin generar notas ni agenda)"
+        type: boolean
+        default: false
+  # Cambios hechos a mano en el sitio. El commit del bot no dispara este evento (usa GITHUB_TOKEN);
+  # su corrida despliega por sí misma en el job "desplegar".
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "layouts/**"
+      - "assets/**"
+      - "data/**"
+      - "static/**"
+      - "hugo.toml"
 
 permissions:
   contents: write
@@ -17,6 +33,7 @@ env:
 
 jobs:
   publicar:
+    if: github.event_name != 'push' && !inputs.solo_desplegar
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -76,7 +93,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content/posts data pipeline/estado
           if git diff --cached --quiet; then
-            echo "Sin cambios: no se hace commit ni se dispara build en Netlify."
+            echo "Sin cambios: no se hace commit."
             exit 0
           fi
           git commit -m "radar: publicación automática $(date -u +%F)"
@@ -86,3 +103,43 @@ jobs:
         if: steps.noticias.outcome == 'failure' || steps.agenda.outcome == 'failure' || steps.sheet.outcome == 'failure'
         run: |
           echo "::warning::Algún paso falló (noticias=${{ steps.noticias.outcome }}, agenda=${{ steps.agenda.outcome }}, sheet=${{ steps.sheet.outcome }}). Lo que sí funcionó se publicó."
+
+  # Publica el sitio en GitHub Pages. Si "publicar" falla (tests o compilación), no se despliega nada.
+  desplegar:
+    needs: publicar
+    if: ${{ !cancelled() && (needs.publicar.result == 'success' || needs.publicar.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      TZ: America/Mexico_City
+    steps:
+      # ref: main para incluir el commit que el bot acaba de subir en el job anterior.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Instalar Hugo
+        run: |
+          curl -sL -o hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i hugo.deb
+
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - name: Compilar sitio
+        run: hugo --gc --minify -b "${{ steps.pages.outputs.base_url }}/" -d public
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
