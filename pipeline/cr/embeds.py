@@ -49,7 +49,9 @@ class BuscadorEmbeds:
                          params={"part": "snippet", "q": f"{artista} {titulo}".strip(), "type": "video", "maxResults": 10, "key": self.yt_llave},
                          timeout=TIEMPO)
         r.raise_for_status()
-        video = elegir_video_youtube(r.json().get("items", []), artista)
+        # La API a veces devuelve resultados sin videoId; se descartan antes de elegir.
+        items = [i for i in r.json().get("items", []) if isinstance(i.get("id"), dict) and i["id"].get("videoId")]
+        video = elegir_video_youtube(items, artista)
         if not video:
             return None
         vid = video["id"]["videoId"]
@@ -59,7 +61,9 @@ class BuscadorEmbeds:
         for metodo in (self._spotify, self._youtube):
             try:
                 resultado = metodo(artista, titulo_lanzamiento)
-            except requests.RequestException:
+            except Exception as exc:  # noqa: BLE001 — el embed es opcional: nunca debe frenar la publicación
+                codigo = getattr(getattr(exc, "response", None), "status_code", "")
+                print(f"Embed ({metodo.__name__}): {type(exc).__name__} {codigo}".rstrip() + "; se publica sin embed de esta fuente")
                 resultado = None
             if resultado:
                 return resultado
