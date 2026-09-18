@@ -92,7 +92,10 @@ def _clasificar_pendientes(nuevos, llm, estado, ahora):
     pendientes = [i for i in nuevos if i["url_norm"] not in estado["clasificaciones"]]
     for inicio in range(0, len(pendientes), LOTE):
         lote = pendientes[inicio : inicio + LOTE]
-        respuesta = llm.clasificar(lote, ahora.date().isoformat())
+        try:
+            respuesta = llm.clasificar(lote, ahora.date().isoformat())
+        except ValueError:
+            continue  # respuesta ilegible: el lote queda pendiente y se reintenta en la siguiente corrida
         por_indice = {r.get("i"): r for r in respuesta if isinstance(r, dict)} if isinstance(respuesta, list) else {}
         for n, item in enumerate(lote):
             crudo = por_indice.get(n)
@@ -104,7 +107,12 @@ def _redactar_valida(cand, llm, hoy, reglas, intentos: int = 2):
     textos = [f"{f['titulo']} {f['resumen']}" for f in cand["fuentes"]]
     errores = None
     for _ in range(intentos):
-        red = validar_redaccion(llm.redactar(cand, hoy.isoformat(), errores))
+        try:
+            crudo = llm.redactar(cand, hoy.isoformat(), errores)
+        except ValueError:
+            errores = ["la respuesta no era un JSON válido: responde solo con el objeto JSON y escapa los saltos de línea del texto como \\n"]
+            continue
+        red = validar_redaccion(crudo)
         if red is None:
             errores = ["la respuesta no trae titulo, entrada y cuerpo"]
             continue

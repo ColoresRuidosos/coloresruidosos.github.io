@@ -16,14 +16,15 @@ def extraer_json(texto: str):
     if texto is None:
         raise ValueError("respuesta vacía")
     limpio = re.sub(r"```(?:json)?", "", texto).strip()
+    # strict=False: el modelo suele dejar saltos de línea reales dentro de "cuerpo" en vez de \n.
     try:
-        return json.loads(limpio)
+        return json.loads(limpio, strict=False)
     except json.JSONDecodeError:
         inicio = min([i for i in (limpio.find("{"), limpio.find("[")) if i >= 0], default=-1)
         fin = max(limpio.rfind("}"), limpio.rfind("]"))
         if inicio < 0 or fin <= inicio:
             raise ValueError("no hay JSON en la respuesta")
-        return json.loads(limpio[inicio : fin + 1])
+        return json.loads(limpio[inicio : fin + 1], strict=False)
 
 
 def _fecha_iso(valor) -> str | None:
