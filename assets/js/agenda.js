@@ -1,22 +1,37 @@
-/* Agenda: filtro por curador, filtro por mes y descarga del calendario elegido. */
+/* Agenda: filtro por recinto, por rango de precio, por mes y descarga del calendario elegido. */
 (function () {
   var lista = document.querySelector("[data-agenda]");
   if (!lista) return;
 
   var tarjetas = Array.prototype.slice.call(lista.querySelectorAll("[data-evento]"));
-  var chips = Array.prototype.slice.call(document.querySelectorAll("[data-firma]"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll("[data-recinto]"));
   var selectorMes = document.querySelector("[data-mes]");
+  var precioMin = document.querySelector("[data-precio-min]");
+  var precioMax = document.querySelector("[data-precio-max]");
   var vacio = document.querySelector("[data-vacio]");
   var contador = document.querySelector("[data-contador]");
   var boton = document.querySelector("[data-descargar]");
-  var firmaActiva = "todos";
+  var recintoActivo = "todos";
+
+  function extraerPrecio(texto) {
+    var m = (texto || "").match(/\d+([.,]\d+)?/);
+    return m ? parseFloat(m[0].replace(",", "")) : null;
+  }
 
   function filtrar() {
     var mes = selectorMes.value;
+    var min = precioMin.value === "" ? null : parseFloat(precioMin.value);
+    var max = precioMax.value === "" ? null : parseFloat(precioMax.value);
     var visibles = 0;
     tarjetas.forEach(function (t) {
-      var firmas = t.dataset.firmas.split(",");
-      var ok = t.dataset.mes === mes && (firmaActiva === "todos" || firmas.indexOf(firmaActiva) !== -1);
+      var okRecinto = recintoActivo === "todos" || t.dataset.recinto === recintoActivo;
+      var okMes = t.dataset.mes === mes;
+      var okPrecio = true;
+      if (min !== null || max !== null) {
+        var precio = extraerPrecio(t.dataset.precio);
+        okPrecio = precio !== null && (min === null || precio >= min) && (max === null || precio <= max);
+      }
+      var ok = okRecinto && okMes && okPrecio;
       t.hidden = !ok;
       if (ok) visibles++;
     });
@@ -40,13 +55,15 @@
 
   chips.forEach(function (chip) {
     chip.addEventListener("click", function () {
-      firmaActiva = chip.dataset.firma;
+      recintoActivo = chip.dataset.recinto;
       chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
       filtrar();
     });
   });
 
   selectorMes.addEventListener("change", filtrar);
+  precioMin.addEventListener("input", filtrar);
+  precioMax.addEventListener("input", filtrar);
   lista.addEventListener("change", actualizarSeleccion);
 
   boton.addEventListener("click", function () {

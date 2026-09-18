@@ -9,11 +9,19 @@
 {{ if $eventos }}
 <div class="filtros" data-filtros>
   <fieldset class="filtros__grupo">
-    <legend>Quién lo recomienda</legend>
+    <legend>Recinto</legend>
     <div class="filtros__chips">
-      <button type="button" class="chip" aria-pressed="true" data-firma="todos">Todos</button>
-      {{ range site.Params.curadores }}<button type="button" class="chip" aria-pressed="false" data-firma="{{ . }}">{{ . }}</button>{{ end }}
-      <button type="button" class="chip" aria-pressed="false" data-firma="{{ site.Params.firma_sin_curador }}">{{ site.Params.firma_sin_curador }}</button>
+      <button type="button" class="chip" aria-pressed="true" data-recinto="todos">Todos</button>
+      {{ $recintos := slice }}
+      {{ range $eventos }}{{ $recintos = $recintos | append .recinto }}{{ end }}
+      {{ range uniq $recintos }}<button type="button" class="chip" aria-pressed="false" data-recinto="{{ . }}">{{ . }}</button>{{ end }}
+    </div>
+  </fieldset>
+  <fieldset class="filtros__grupo">
+    <legend>Precio (MXN)</legend>
+    <div class="filtros__rango">
+      <label>Desde <input type="number" inputmode="numeric" min="0" step="50" placeholder="0" data-precio-min></label>
+      <label>Hasta <input type="number" inputmode="numeric" min="0" step="50" placeholder="Sin límite" data-precio-max></label>
     </div>
   </fieldset>
   <label class="filtros__mes">
@@ -31,7 +39,7 @@
 <ul class="agenda" data-agenda>
   {{ range $eventos }}{{ partial "tarjeta-evento.html" . }}{{ end }}
 </ul>
-<p class="vacio" data-vacio hidden>No hay conciertos con este filtro en el mes elegido. Prueba con otro curador o mes.</p>
+<p class="vacio" data-vacio hidden>No hay conciertos con este filtro en el mes elegido. Prueba con otro recinto, precio o mes.</p>
 
 <div class="descarga" data-descarga>
   <p data-contador>Elige conciertos para armar tu calendario.</p>

@@ -43,7 +43,7 @@
 
 **F2 Deduplicación.** Por URL canónica y por hecho (artista + categoría). Varias fuentes del mismo hecho producen una nota con todas las fuentes. No se repite un hecho en 14 días.
 
-**F3 Clasificación y ranking.** Categoría (gira, lanzamiento, anuncio, otro), pertenencia a indie/rock y fechas explícitas. La relevancia se calcula en código: `mx` exige fecha futura en México; `latam`, en un país latinoamericano. Tope diario de 3 con relleno.
+**F3 Clasificación y ranking.** Categoría (gira, lanzamiento, anuncio, otro), pertenencia a indie/rock y fechas explícitas. La relevancia se calcula en código: `mx` exige fecha futura en México; `latam`, en un país latinoamericano. Tope diario de 7, con cuota de al menos 3 de escena mexicana y 3 de escena española (se rellenan entre sí antes que con fuentes internacionales).
 
 **F4 Redacción.** Claude redacta título, entrada y cuerpo (≤ 250 palabras) con la voz de la marca. El front matter lo construye el código; las fuentes vienen del RSS, nunca del modelo.
 
@@ -57,7 +57,7 @@
 
 **F9 Agenda.** JSON-LD de carteleras de recintos + pestaña Eventos del Sheet (siempre gana). Regla de supervivencia por recinto. Eventos del equipo para recintos sin cartelera legible. Solo próximos 60 días.
 
-**F10 Curadores.** Filtro por Pardy, Tanelly, Dany, Pratz o Cartelera (lo raspado sin recomendación). Varios curadores pueden firmar un evento.
+**F10 Curadores.** Pardy, Tanelly, Dany y Pratz pueden recomendar/firmar un evento desde el Sheet (varios a la vez); sin firma aparece como Cartelera y se muestra igual en cada evento. El sitio filtra la agenda por recinto y por rango de precio, no por curador.
 
 **F11 Calendario `.ics`.** El visitante elige conciertos del mes y descarga un archivo compatible con Google Calendar, Apple y Outlook.
 
