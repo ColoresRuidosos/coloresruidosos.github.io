@@ -1,51 +1,6 @@
 {
-  "actualizado": "2026-09-18T08:42:16-06:00",
+  "actualizado": "2026-09-19T11:02:53-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-09-18-devotchka",
-      "titulo": "DeVotchKa",
-      "fecha": "2026-09-18",
-      "hora": "20:00",
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "teatro-metropolitan-2026-09-18-bratty",
-      "titulo": "Bratty",
-      "fecha": "2026-09-18",
-      "hora": "20:30",
-      "recinto": "Teatro Metropólitan",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.ticketmaster.com.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "lunario-del-auditorio-nacional-2026-09-18-bengala",
-      "titulo": "Bengala",
-      "fecha": "2026-09-18",
-      "hora": "21:00",
-      "recinto": "Lunario del Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.ticketmaster.com.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "palacio-de-los-deportes-2026-09-19-robyn",
       "titulo": "Robyn",
