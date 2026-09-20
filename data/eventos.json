@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-09-19T11:02:53-06:00",
+  "actualizado": "2026-09-20T11:20:25-06:00",
   "eventos": [
-    {
-      "id": "palacio-de-los-deportes-2026-09-19-robyn",
-      "titulo": "Robyn",
-      "fecha": "2026-09-19",
-      "hora": "20:30",
-      "recinto": "Palacio de los Deportes",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.palaciodelosdeportes.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "la-maraka-2026-09-19-micro-tdh",
-      "titulo": "Micro TDH",
-      "fecha": "2026-09-19",
-      "hora": "21:30",
-      "recinto": "La Maraka",
-      "ciudad": "Ciudad de México",
-      "url": "https://lamaraka.com.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "lunario-del-auditorio-nacional-2026-09-20-beach-fossils",
       "titulo": "Beach Fossils",
