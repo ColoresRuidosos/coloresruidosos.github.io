@@ -28,11 +28,15 @@
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
+  {{ partial "laterales.html" . }}
   {{ partial "cabecera.html" . }}
   <main id="contenido">
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "pie.html" . }}
   {{ block "scripts" . }}{{ end }}
+  {{ if hugo.IsProduction }}
+  <script data-goatcounter="https://coloresruidosos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  {{ end }}
 </body>
 </html>

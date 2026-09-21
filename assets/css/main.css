@@ -62,6 +62,23 @@ a:hover { color: var(--text-main); text-decoration-color: var(--accent-red); }
 
 main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 4rem; background: var(--bg-cream); }
 
+/* Laterales: stickers decorativos en el espacio que sobra a los lados de <main>, solo en pantallas anchas.
+   Las ilustraciones son SVG en assets/laterales/ (izq.svg y der.svg) y se repiten hacia abajo. */
+.laterales { display: none; }
+@media (min-width: 1400px) {
+  body { position: relative; }
+  .laterales { display: block; position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .lateral {
+    position: absolute; top: 0; bottom: 0;
+    width: calc((100% - var(--ancho)) / 2);
+    background-repeat: repeat-y;
+    background-position: center top;
+    background-size: min(calc(100% - 1.5rem), 260px) auto;
+  }
+  .lateral--izq { left: 0; }
+  .lateral--der { right: 0; }
+}
+
 /* Cabecera */
 .cabecera {
   max-width: var(--ancho);
@@ -80,11 +97,12 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 .cabecera__nav a:hover, .cabecera__nav a[aria-current="page"] { border-bottom-color: var(--accent-red); }
 
 /* Portada: el único gesto grande del sitio */
-.portada { position: relative; padding: clamp(2rem, 6vw, 4.5rem) 0 2.5rem; border-bottom: 10px solid var(--accent-red); margin-bottom: 3rem; }
+/* container-type: el título se mide contra el ancho del contenedor (no de la ventana) para que "Ruidosos" quepa siempre */
+.portada { position: relative; container-type: inline-size; padding: clamp(2rem, 6vw, 4.5rem) 0 2.5rem; border-bottom: 10px solid var(--accent-red); margin-bottom: 3rem; }
 .portada__marca {
   font-family: var(--f-titulo);
   font-weight: 800;
-  font-size: clamp(3.5rem, 15vw, 12.5rem);
+  font-size: 13.6cqw;
   line-height: .86;
   letter-spacing: -.045em;
   margin: 0;

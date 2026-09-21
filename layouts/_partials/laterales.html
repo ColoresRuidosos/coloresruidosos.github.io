@@ -1,0 +1,9 @@
+{{/* Stickers decorativos a los lados de la página (solo se muestran en pantallas anchas; ver .laterales en main.css) */}}
+{{ $izq := resources.Get "laterales/izq.svg" }}
+{{ $der := resources.Get "laterales/der.svg" }}
+{{ if and $izq $der }}
+<div class="laterales" aria-hidden="true">
+  <div class="lateral lateral--izq" style="background-image:url({{ $izq.RelPermalink }})"></div>
+  <div class="lateral lateral--der" style="background-image:url({{ $der.RelPermalink }})"></div>
+</div>
+{{ end }}
