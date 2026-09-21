@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-09-20T11:20:25-06:00",
+  "actualizado": "2026-09-21T07:10:05-06:00",
   "eventos": [
-    {
-      "id": "lunario-del-auditorio-nacional-2026-09-20-beach-fossils",
-      "titulo": "Beach Fossils",
-      "fecha": "2026-09-20",
-      "hora": "20:00",
-      "recinto": "Lunario del Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.ticketmaster.com.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "auditorio-nacional-2026-09-22-gondwana-quique-neira",
       "titulo": "Gondwana & Quique Neira",
