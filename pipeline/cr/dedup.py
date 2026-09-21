@@ -43,6 +43,7 @@ def agrupar_por_hecho(clasificados: list[dict]) -> list[dict]:
                 "relevancia": c["relevancia"],
                 "region": region,
                 "es_indie_rock": c["es_indie_rock"],
+                "seguido": c.get("seguido", False),
                 "fechas_evento": list(c.get("fechas_evento", [])),
                 "titulo_lanzamiento": c.get("titulo_lanzamiento", ""),
                 "fecha": item["fecha"],
@@ -57,6 +58,7 @@ def agrupar_por_hecho(clasificados: list[dict]) -> list[dict]:
         g["fuentes"].append(fuente)
         g["fecha"] = max(g["fecha"], item["fecha"])
         g["es_indie_rock"] = g["es_indie_rock"] or c["es_indie_rock"]
+        g["seguido"] = g["seguido"] or c.get("seguido", False)
         if _prioridad(c["relevancia"]) < _prioridad(g["relevancia"]):
             g["relevancia"] = c["relevancia"]
         if _prioridad_region(region) < _prioridad_region(g["region"]):

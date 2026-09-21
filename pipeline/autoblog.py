@@ -14,6 +14,7 @@ import yaml
 
 from cr import estado as est
 from cr import resumen
+from cr import seguimiento
 from cr.dedup import agrupar_por_hecho, dedup_por_url, excluir_publicados, filtrar_ventana
 from cr.esquemas import validar_clasificacion, validar_redaccion
 from cr.frontmatter import construir_post
@@ -31,6 +32,7 @@ LOTE = 25
 def ejecutar(cfg: dict, items: list[dict], fallidos: list[str], llm, buscador, estado: dict,
              dir_posts: Path, ahora: datetime, dry_run: bool = False) -> dict:
     reglas = cfg["noticias"]
+    seguidos = seguimiento.cargar(cfg.get("seguimiento", []))
     hoy = ahora.date()
     urls_sitio, slugs = indice_sitio(dir_posts)
     publicadas_antes = set(estado["urls_publicadas"]) | urls_sitio
@@ -48,8 +50,11 @@ def ejecutar(cfg: dict, items: list[dict], fallidos: list[str], llm, buscador, e
     for item in nuevos:
         guardado = estado["clasificaciones"].get(item["url_norm"])
         c = validar_clasificacion(guardado["c"], hoy) if guardado and guardado["c"] else None
-        if c and c["es_indie_rock"] and c["categoria"] != "otro":
-            clasificados.append({**item, "clasificacion": c})
+        if not c or c["categoria"] == "otro":
+            continue
+        seguido = seguimiento.es_seguido(c["artista"], seguidos)
+        if c["es_indie_rock"] or seguido:
+            clasificados.append({**item, "clasificacion": {**c, "es_indie_rock": True, "seguido": seguido}})
 
     candidatos = excluir_publicados(agrupar_por_hecho(clasificados), estado, urls_sitio)
     m["candidatos"] = len(candidatos)
@@ -82,7 +87,8 @@ def ejecutar(cfg: dict, items: list[dict], fallidos: list[str], llm, buscador, e
         for url in cand["urls_norm"]:
             estado["urls_publicadas"][url] = ahora.isoformat()
         estado["claves_publicadas"][cand["clave"]] = ahora.isoformat()
-        m["publicadas"].append(f"[{cand['relevancia']}] {nota['titulo']}" + ("" if embed else " (sin embed)"))
+        m["publicadas"].append(f"[{cand['relevancia']}] {nota['titulo']}" + (" (seguido)" if cand.get("seguido") else "")
+                               + ("" if embed else " (sin embed)"))
 
     m["tokens"] = getattr(llm, "tokens_usados", 0)
     return m
@@ -141,6 +147,7 @@ def main():
 
     cfg = yaml.safe_load((PIPELINE / "config/pipeline.yaml").read_text(encoding="utf-8"))
     fuentes = yaml.safe_load((PIPELINE / "config/fuentes.yaml").read_text(encoding="utf-8"))["fuentes"]
+    cfg["seguimiento"] = yaml.safe_load((PIPELINE / "config/seguimiento.yaml").read_text(encoding="utf-8"))["artistas"]
     zona = ZoneInfo(cfg["zona_horaria"])
     ahora = datetime.now(zona)
     ruta_estado = PIPELINE / "estado/noticias.json"
