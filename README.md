@@ -74,6 +74,8 @@ Crea un Sheet con dos pestañas. Publica **cada pestaña** como CSV (Archivo →
 | Agregar o quitar un medio | `pipeline/config/fuentes.yaml` |
 | Agregar un recinto | Prueba primero: `python pipeline/probar_recinto.py URL`. Si encuentra eventos, agrégalo a `pipeline/config/recintos.yaml`. Si no, sus eventos van en el Sheet. |
 | Ajustar el tono de las notas | `pipeline/prompts/redactar.md` |
+| Embeds automáticos en las notas | Apple Music funciona sin configurar nada; YouTube con `YOUTUBE_API_KEY`; Spotify con sus credenciales (requiere Premium). Orden: Spotify, Apple Music, YouTube. |
+| Ponerle imagen a una nota | Subir un archivo con el slug de la nota como nombre a `assets/notas/` (ver el README de esa carpeta). Solo imágenes propias del equipo. |
 | Cambiar el tope diario | `tope_diario` en `pipeline.yaml` |
 
 ## 5. Qué hace el pipeline para no romper nada

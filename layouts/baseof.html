@@ -13,6 +13,11 @@
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
   <meta property="og:locale" content="es_MX">
+  {{ with and .IsPage .Slug (resources.GetMatch (printf "notas/%s.*" .Slug)) }}
+  {{ $og := cond (gt .Width 1200) (.Resize "1200x jpg q85") (.Process "jpg q85") }}
+  <meta property="og:image" content="{{ $og.Permalink }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {{ end }}
   <link rel="canonical" href="{{ .Permalink }}">
   {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}">{{ end }}
   <link rel="preconnect" href="https://fonts.googleapis.com">

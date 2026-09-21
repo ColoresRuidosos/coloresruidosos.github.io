@@ -1,5 +1,7 @@
 {{ $p := .pagina }}
-<article class="nota {{ if .destacada }}nota--destacada{{ end }} {{ with $p.Params.relevancia }}nota--{{ . }}{{ end }} {{ with $p.Params.categoria }}nota--cat-{{ . }}{{ end }}">
+{{ $foto := and $p.Slug (resources.GetMatch (printf "notas/%s.*" $p.Slug)) }}
+<article class="nota {{ if .destacada }}nota--destacada{{ end }} {{ with $p.Params.relevancia }}nota--{{ . }}{{ end }} {{ with $p.Params.categoria }}nota--cat-{{ . }}{{ end }} {{ if $foto }}nota--con-imagen{{ end }}">
+  {{ if $foto }}{{ partial "imagen-nota.html" (dict "pagina" $p "ancho" 900 "clase" "nota__imagen") }}{{ end }}
   <div class="nota__meta">
     {{ partial "etiqueta-relevancia.html" $p }}
     <span>{{ partial "categoria.html" $p.Params.categoria }}</span>

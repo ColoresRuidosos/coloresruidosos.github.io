@@ -7,6 +7,9 @@
   </div>
   <h1 class="articulo__titulo">{{ .Title }}</h1>
   {{ with .Description }}<p class="articulo__entrada">{{ . }}</p>{{ end }}
+  {{ if and .Slug (resources.GetMatch (printf "notas/%s.*" .Slug)) }}
+  <figure class="articulo__imagen">{{ partial "imagen-nota.html" (dict "pagina" . "ancho" 1400 "clase" "" "carga" "eager") }}</figure>
+  {{ end }}
   {{ partial "creditos.html" . }}
   {{ partial "embed.html" . }}
   <div class="articulo__cuerpo">{{ .Content }}</div>

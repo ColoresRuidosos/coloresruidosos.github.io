@@ -12,7 +12,7 @@
 **Principios editoriales**
 1. Solo hechos, redacción propia en español. Sin frases copiadas ni citas textuales.
 2. Créditos visibles con enlace a cada medio fuente.
-3. Sin imágenes ajenas: solo embeds oficiales (Spotify, YouTube).
+3. Sin imágenes ajenas: solo embeds oficiales (Spotify, YouTube) e imágenes propias del equipo (ilustraciones, fotos suyas) subidas a `assets/notas/<slug>.*`; nunca fotos tomadas de las fuentes.
 4. México primero: lo que viene a México, luego Latinoamérica, luego lo general.
 5. Transparencia: el sitio indica que las notas se redactan con ayuda de IA.
 6. Publicación 100% automática; la corrección es posterior (decisión explícita del equipo).
@@ -49,7 +49,7 @@
 
 **F5 Validación.** Créditos completos, sin 8+ palabras copiadas, sin citas, longitudes. Un reintento con los errores; si vuelve a fallar, se descarta.
 
-**F6 Embed oficial.** Spotify (artista o álbum con coincidencia exacta) y luego YouTube (canal oficial o Topic). Sin coincidencia: sin embed.
+**F6 Embed oficial.** Se prueba en orden Spotify (artista o álbum con coincidencia exacta; requiere credenciales y cuenta Premium), Apple Music (búsqueda gratuita sin llave; álbum exacto o, si no, la página del artista, cuyo reproductor muestra su foto o portada) y YouTube (canal oficial o Topic). Sin coincidencia: sin embed. El embed aparece en la nota completa, no en las tarjetas.
 
 **F7 Publicación automática.** Commit directo a `main` y despliegue a GitHub Pages desde el mismo workflow. Interruptor `autopublicar`.
 

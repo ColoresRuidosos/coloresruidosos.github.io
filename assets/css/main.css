@@ -120,6 +120,12 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 .nota::before { content: ""; display: block; height: 3.5rem; margin: calc(var(--pad) * -1) calc(var(--pad) * -1) .35rem; border-bottom: var(--borde); background: radial-gradient(rgba(255, 255, 255, .3) 1.6px, transparent 1.8px) 0 0 / 12px 12px, var(--tono); }
 .nota--destacada { --pad: 1.75rem; grid-column: 1 / -1; }
 .nota--destacada::before { height: 6rem; }
+/* Si la nota tiene imagen (assets/notas/<slug>.*), reemplaza a la franja de color */
+.nota--con-imagen::before { display: none; }
+.nota__imagen { display: block; width: calc(100% + var(--pad) * 2); max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover; margin: calc(var(--pad) * -1) calc(var(--pad) * -1) .35rem; border-bottom: var(--borde); }
+.nota--destacada .nota__imagen { aspect-ratio: 21 / 9; }
+.articulo__imagen { margin: 0 0 1.75rem; border: var(--borde); box-shadow: var(--sombra); }
+.articulo__imagen img { display: block; width: 100%; height: auto; }
 .nota--mx { box-shadow: 6px 6px 0 var(--accent-red); }
 .nota--cat-gira { --tono: var(--accent-navy); }
 .nota--cat-lanzamiento { --tono: var(--accent-red); }

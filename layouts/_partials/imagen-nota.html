@@ -1,0 +1,6 @@
+{{- /* Imagen de una nota: assets/notas/<slug>.<ext>. Recibe dict: pagina, ancho, clase, carga (lazy|eager). */ -}}
+{{- $p := .pagina -}}
+{{- with and $p.Slug (resources.GetMatch (printf "notas/%s.*" $p.Slug)) -}}
+  {{- $t := cond (gt .Width $.ancho) (.Resize (printf "%dx webp q80" $.ancho)) (.Process "webp q80") -}}
+  <img{{ with $.clase }} class="{{ . }}"{{ end }} src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}" alt="Ilustración de la nota: {{ $p.Title }}" loading="{{ $.carga | default "lazy" }}" decoding="async">
+{{- end -}}

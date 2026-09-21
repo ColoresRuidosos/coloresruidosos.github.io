@@ -7,6 +7,12 @@ fuentes:
     activa: true
     verificada: true
     region: mx
+  - nombre: Indie Rocks
+    # Anuncios de conciertos en CDMX (fecha, recinto y a veces precio); muchos son de bandas nacionales.
+    url: https://www.indierocks.mx/?post_type=agenda&feed=rss2
+    activa: true
+    verificada: true
+    region: mx
   - nombre: Jenesaispop
     url: https://jenesaispop.com/feed/
     activa: true

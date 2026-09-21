@@ -1,12 +1,21 @@
-"""Búsqueda de embeds oficiales en Spotify y YouTube. Sin credenciales, no hay embed."""
+"""Búsqueda de embeds oficiales: Spotify (con credenciales), Apple Music (sin llave) y YouTube (con llave).
+
+Orden de prueba: Spotify, Apple Music, YouTube. Solo se elige el primero que coincida exactamente."""
 import base64
 import os
 
 import requests
 
-from .embeds_match import elegir_album_spotify, elegir_artista_spotify, elegir_video_youtube
+from .embeds_match import (
+    elegir_album_apple,
+    elegir_album_spotify,
+    elegir_artista_apple,
+    elegir_artista_spotify,
+    elegir_video_youtube,
+)
 
 TIEMPO = 15
+APPLE = "https://itunes.apple.com/search"
 
 
 class BuscadorEmbeds:
@@ -42,6 +51,25 @@ class BuscadorEmbeds:
                 return {"plataforma": "spotify", "tipo": "album", "id": alb["id"], "url": f"https://open.spotify.com/album/{alb['id']}"}
         return {"plataforma": "spotify", "tipo": "artist", "id": art["id"], "url": f"https://open.spotify.com/artist/{art['id']}"}
 
+    def _apple(self, artista: str, titulo: str):
+        """API de búsqueda de iTunes: gratuita y sin llave. Álbum exacto si lo hay; si no, la página del artista."""
+        r = requests.get(APPLE, params={"term": artista, "entity": "musicArtist", "limit": 10, "country": "MX"}, timeout=TIEMPO)
+        r.raise_for_status()
+        art = elegir_artista_apple(r.json().get("results", []), artista)
+        if not art:
+            return None
+        if titulo:
+            r = requests.get(APPLE, params={"term": f"{titulo} {artista}", "entity": "album", "limit": 10, "country": "MX"}, timeout=TIEMPO)
+            r.raise_for_status()
+            alb = elegir_album_apple(r.json().get("results", []), art.get("artistId"), titulo)
+            url = (alb or {}).get("collectionViewUrl", "").split("?")[0]
+            if alb and url.startswith("https://music.apple.com/"):
+                return {"plataforma": "apple", "tipo": "album", "id": str(alb["collectionId"]), "url": url}
+        url = art.get("artistLinkUrl", "").split("?")[0]
+        if not url.startswith("https://music.apple.com/"):
+            return None
+        return {"plataforma": "apple", "tipo": "artist", "id": str(art["artistId"]), "url": url}
+
     def _youtube(self, artista: str, titulo: str):
         if not self.yt_llave:
             return None
@@ -58,7 +86,7 @@ class BuscadorEmbeds:
         return {"plataforma": "youtube", "tipo": "video", "id": vid, "url": f"https://www.youtube.com/watch?v={vid}"}
 
     def buscar(self, artista: str, titulo_lanzamiento: str = ""):
-        for metodo in (self._spotify, self._youtube):
+        for metodo in (self._spotify, self._apple, self._youtube):
             try:
                 resultado = metodo(artista, titulo_lanzamiento)
             except Exception as exc:  # noqa: BLE001 — el embed es opcional: nunca debe frenar la publicación
