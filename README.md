@@ -27,7 +27,7 @@ node --test tests-js/ics.test.js
 ## 2. Ponerlo en línea hoy
 
 1. **Sube el repo a GitHub.**
-2. **Activa GitHub Pages:** repo → Settings → Pages → Source: **GitHub Actions**. El workflow «Publicar Colores Ruidosos» compila Hugo y despliega: cada día a las 8:00, al lanzarlo a mano, y en cada push que cambie el sitio (`content/`, `layouts/`, `assets/`, `data/`, `static/` o `hugo.toml`). El sitio queda en `https://TU-USUARIO.github.io/colores-ruidosos/`. Para volver a desplegar sin generar notas: Actions → Run workflow → marcar «Solo desplegar».
+2. **Activa GitHub Pages:** repo → Settings → Pages → Source: **GitHub Actions**. El workflow «Publicar Colores Ruidosos» compila Hugo y despliega: cada día a las 8:00, al lanzarlo a mano, y en cada push que cambie el sitio (`content/`, `layouts/`, `assets/`, `data/`, `static/` o `hugo.toml`). El sitio queda en `https://coloresruidosos.github.io/` (el repo debe llamarse `coloresruidosos.github.io` dentro de la organización; con otro nombre el sitio quedaría en un subdirectorio). Para volver a desplegar sin generar notas: Actions → Run workflow → marcar «Solo desplegar».
 3. **Crea las llaves** y guárdalas en GitHub → Settings → Secrets and variables → Actions:
 
    | Secret | Para qué | Obligatorio |
