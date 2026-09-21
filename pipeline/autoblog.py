@@ -147,7 +147,7 @@ def main():
 
     cfg = yaml.safe_load((PIPELINE / "config/pipeline.yaml").read_text(encoding="utf-8"))
     fuentes = yaml.safe_load((PIPELINE / "config/fuentes.yaml").read_text(encoding="utf-8"))["fuentes"]
-    cfg["seguimiento"] = yaml.safe_load((PIPELINE / "config/seguimiento.yaml").read_text(encoding="utf-8"))["artistas"]
+    cfg["seguimiento"] = yaml.safe_load((RAIZ / "data/seguimiento.yaml").read_text(encoding="utf-8"))["artistas"]
     zona = ZoneInfo(cfg["zona_horaria"])
     ahora = datetime.now(zona)
     ruta_estado = PIPELINE / "estado/noticias.json"

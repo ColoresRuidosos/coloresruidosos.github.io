@@ -79,8 +79,14 @@ def test_flujo_un_seguido_no_indie_se_publica_primero(tmp_path):
 def test_la_lista_real_reconoce_nsqk_y_nesquik():
     import yaml
     from pathlib import Path
-    ruta = Path(__file__).resolve().parent.parent / "config" / "seguimiento.yaml"
+    ruta = Path(__file__).resolve().parent.parent.parent / "data" / "seguimiento.yaml"
     seguidos = seguimiento.cargar(yaml.safe_load(ruta.read_text(encoding="utf-8"))["artistas"])
     assert len(seguidos) == 26
     assert seguimiento.es_seguido("NSQK", seguidos) and seguimiento.es_seguido("Nesquik", seguidos)
     assert seguimiento.es_seguido("Camiches", seguidos) and seguimiento.es_seguido("Alcala Norte", seguidos)
+
+
+def test_entradas_con_alias_reconocen_todas_las_escrituras():
+    seguidos = seguimiento.cargar([{"nombre": "NSQK", "alias": ["Nesquik"]}, "Leiva", {"nombre": "Solo nombre"}])
+    assert seguidos == {"nsqk", "nesquik", "leiva", "solo nombre"}
+    assert seguimiento.es_seguido("Nesquik", seguidos) and seguimiento.es_seguido("nsqk", seguidos)

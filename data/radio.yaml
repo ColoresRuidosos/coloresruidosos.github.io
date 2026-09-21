@@ -1,0 +1,24 @@
+# Radio de Colores Ruidosos: barra abajo a la derecha con estaciones.
+#
+# 1) "Notas de la semana" es automática: junta los reproductores de las notas publicadas en los últimos `dias`.
+# 2) Las demás las pone el equipo. Cada estación es una playlist PÚBLICA: pega el enlace de "Compartir"
+#    de Spotify, Apple Music o YouTube (playlist o video). Enlaces vacíos se ignoran; otros sitios no se aceptan.
+#
+# Nada de Spotify, Apple o YouTube se carga hasta que alguien pulsa el botón de cargar (no hay rastreadores antes).
+# Al cambiar de página del sitio la música se detiene (el navegador recarga la página).
+
+notas_de_la_semana: true
+dias: 7            # cuántos días hacia atrás cuentan como "la semana"
+maximo_notas: 15   # tope de notas en esa estación
+
+estaciones:
+  - nombre: Selección Colores Ruidosos
+    url: ""        # ej. https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M
+  - nombre: Pardy
+    url: ""
+  - nombre: Tanelly
+    url: ""
+  - nombre: Dany
+    url: ""
+  - nombre: Pratz
+    url: ""

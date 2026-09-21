@@ -1,0 +1,66 @@
+{{ define "main" }}
+{{ $posts := where site.RegularPages "Section" "posts" }}
+{{ $con := slice }}
+{{ $sin := slice }}
+{{ range hugo.Data.seguimiento.artistas }}
+  {{ $nombre := . }}
+  {{ $escrituras := slice }}
+  {{ if reflect.IsMap . }}
+    {{ $nombre = .nombre }}
+    {{ $escrituras = slice .nombre }}
+    {{ with .alias }}{{ $escrituras = $escrituras | append . }}{{ end }}
+  {{ else }}
+    {{ $escrituras = slice . }}
+  {{ end }}
+  {{ $claves := slice }}
+  {{ range $escrituras }}{{ $claves = $claves | append (partial "partes-artista.html" .) }}{{ end }}
+  {{ $notas := slice }}
+  {{ range $posts }}
+    {{ $de_la_nota := partial "partes-artista.html" .Params.artista }}
+    {{ $coincide := false }}
+    {{ range $claves }}{{ if in $de_la_nota . }}{{ $coincide = true }}{{ end }}{{ end }}
+    {{ if $coincide }}{{ $notas = $notas | append . }}{{ end }}
+  {{ end }}
+  {{ if $notas }}
+    {{ $con = $con | append (dict "nombre" $nombre "notas" $notas "ultima" (index $notas 0).Date) }}
+  {{ else }}
+    {{ $sin = $sin | append (dict "nombre" $nombre) }}
+  {{ end }}
+{{ end }}
+{{ $con = sort $con "ultima" "desc" }}
+{{ $sin = sort $sin "nombre" "asc" }}
+
+<header class="encabezado">
+  <h1 class="encabezado__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
+  <p class="encabezado__nota">Seguimos a {{ add (len $con) (len $sin) }} bandas; {{ len $con }} tienen notas en el sitio.</p>
+</header>
+
+{{ if $con }}
+<ul class="bandas">
+  {{ range $con }}
+  <li class="banda">
+    <h2 class="banda__nombre">{{ .nombre }}</h2>
+    <p class="banda__cuenta">{{ len .notas }} {{ cond (eq (len .notas) 1) "nota" "notas" }}</p>
+    <ul class="banda__notas">
+      {{ range first 3 .notas }}
+      <li>
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_medium" }}</time>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </li>
+      {{ end }}
+    </ul>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}
+
+{{ if $sin }}
+<section class="bandas-sin" aria-labelledby="t-sin-notas">
+  <h2 id="t-sin-notas" class="bloque__titulo">Todavía sin notas</h2>
+  <ul>
+    {{ range $sin }}<li>{{ .nombre }}</li>{{ end }}
+  </ul>
+</section>
+{{ end }}
+{{ end }}

@@ -6,8 +6,13 @@ from .normalizar import normalizar_artista
 _COLABORACION = re.compile(r"\s+(?:y|and|con|feat|ft|x)\s+|\s*[,&+/]\s*")
 
 
-def cargar(entradas: list[str]) -> set[str]:
-    return {normalizar_artista(e) for e in entradas or [] if e and e.strip()}
+def cargar(entradas: list) -> set[str]:
+    """Cada entrada es un nombre o {nombre: ..., alias: [...]}; devuelve todos los nombres normalizados."""
+    nombres = set()
+    for e in entradas or []:
+        escritos = [e.get("nombre", ""), *(e.get("alias") or [])] if isinstance(e, dict) else [e]
+        nombres |= {normalizar_artista(n) for n in escritos if n and n.strip()}
+    return nombres
 
 
 def es_seguido(artista: str, seguidos: set[str]) -> bool:

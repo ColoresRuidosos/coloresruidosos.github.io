@@ -5,6 +5,7 @@
       {{ $actual := .Section }}
       <li><a href="{{ "notas/" | relURL }}" {{ if eq $actual "posts" }}aria-current="page"{{ end }}>Notas</a></li>
       <li><a href="{{ "agenda/" | relURL }}" {{ if eq $actual "agenda" }}aria-current="page"{{ end }}>Agenda</a></li>
+      <li><a href="{{ "bandas/" | relURL }}" {{ if eq $actual "bandas" }}aria-current="page"{{ end }}>Bandas</a></li>
     </ul>
   </nav>
 </header>

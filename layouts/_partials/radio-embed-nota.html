@@ -1,0 +1,13 @@
+{{/* Reproductor de una nota (su campo embed) como {src, alto, plataforma}; vacío si no hay uno válido.
+     Misma lógica que embed.html, pero sin escribir el iframe: el script de la radio lo crea al pulsar. */}}
+{{ $r := dict }}
+{{ with . }}
+  {{ if eq .plataforma "spotify" }}
+    {{ $r = dict "src" (printf "https://open.spotify.com/embed/%s/%s" .tipo .id) "alto" 352 "plataforma" "Spotify" }}
+  {{ else if and (eq .plataforma "apple") (hasPrefix .url "https://music.apple.com/") }}
+    {{ $r = dict "src" (replace .url "https://music.apple.com/" "https://embed.music.apple.com/") "alto" 450 "plataforma" "Apple Music" }}
+  {{ else if eq .plataforma "youtube" }}
+    {{ $r = dict "src" (printf "https://www.youtube-nocookie.com/embed/%s" .id) "alto" 0 "plataforma" "YouTube" }}
+  {{ end }}
+{{ end }}
+{{ return $r }}

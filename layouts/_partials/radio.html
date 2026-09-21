@@ -1,0 +1,56 @@
+{{/* Radio: barra fija con estaciones. Solo escribe el marcado; assets/js/radio.js crea los iframes al pulsar.
+     Configuración en data/radio.yaml. Sin estaciones válidas, no se muestra nada. */}}
+{{ $cfg := hugo.Data.radio | default dict }}
+{{ $estaciones := slice }}
+
+{{ if ne $cfg.notas_de_la_semana false }}
+  {{ $desde := now.AddDate 0 0 (mul (or $cfg.dias 7) -1) }}
+  {{ $items := slice }}
+  {{ range first (or $cfg.maximo_notas 15) (where (where site.RegularPages "Section" "posts") "Date" "ge" $desde) }}
+    {{ $p := . }}
+    {{ $e := partial "radio-embed-nota.html" .Params.embed }}
+    {{ if $e }}{{ $items = $items | append (dict "pagina" $p "embed" $e) }}{{ end }}
+  {{ end }}
+  {{ if $items }}{{ $estaciones = $estaciones | append (dict "nombre" "Notas de la semana" "items" $items) }}{{ end }}
+{{ end }}
+
+{{ range $cfg.estaciones }}
+  {{ $e := partial "radio-url.html" .url }}
+  {{ if and .nombre $e }}{{ $estaciones = $estaciones | append (dict "nombre" .nombre "embed" $e) }}{{ end }}
+{{ end }}
+
+{{ if $estaciones }}
+<aside class="radio" aria-label="Radio Colores Ruidosos" data-radio hidden>
+  <div class="radio__panel" id="radio-panel" hidden>
+    {{ if gt (len $estaciones) 1 }}
+    <div class="radio__tabs" role="tablist" aria-label="Estaciones">
+      {{ range $i, $e := $estaciones }}
+      <button type="button" class="chip" role="tab" id="radio-tab-{{ $i }}" aria-controls="radio-est-{{ $i }}" aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}" data-estacion="{{ $i }}">{{ $e.nombre }}</button>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ range $i, $e := $estaciones }}
+    <section class="radio__estacion" role="tabpanel" id="radio-est-{{ $i }}" aria-label="{{ $e.nombre }}" data-estacion-panel="{{ $i }}" {{ if $i }}hidden{{ end }}>
+      {{ if $e.items }}
+      <p class="radio__desc">Lo que salió esta semana en las notas. Elige una para escucharla.</p>
+      <ul class="radio__pistas">
+        {{ range $e.items }}
+        <li>
+          <button type="button" class="radio__pista" data-src="{{ .embed.src }}" data-alto="{{ .embed.alto }}" data-plataforma="{{ .embed.plataforma }}">
+            <span class="radio__artista">{{ .pagina.Params.artista }}</span>
+            <span class="radio__pista-meta">{{ partial "categoria.html" .pagina.Params.categoria }} · {{ .embed.plataforma }}</span>
+          </button>
+        </li>
+        {{ end }}
+      </ul>
+      {{ else }}
+      <button type="button" class="radio__cargar" data-src="{{ $e.embed.src }}" data-alto="{{ $e.embed.alto }}" data-plataforma="{{ $e.embed.plataforma }}">▶ Cargar la playlist</button>
+      <p class="radio__aviso">Al cargarla, {{ $e.embed.plataforma }} se entera de tu visita.</p>
+      {{ end }}
+      <div class="radio__reproductor" data-reproductor></div>
+    </section>
+    {{ end }}
+  </div>
+  <button type="button" class="radio__abrir" aria-expanded="false" aria-controls="radio-panel"><span aria-hidden="true">▶</span> Radio</button>
+</aside>
+{{ end }}

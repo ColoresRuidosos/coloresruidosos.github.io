@@ -1,0 +1,22 @@
+{{/* Convierte un enlace de "Compartir" (Spotify, Apple Music o YouTube) en la URL de su reproductor.
+     Devuelve un diccionario {src, alto, plataforma}, o uno vacío si el enlace no es de esos tres sitios.
+     alto 0 = video 16:9. Solo se aceptan estos sitios: el enlace lo escribe una persona en data/radio.yaml. */}}
+{{ $u := strings.TrimSpace (. | default "") }}
+{{ $r := dict }}
+{{ with findRESubmatch `^https://open\.spotify\.com/(?:intl-[a-z]+/)?(playlist|album|track|artist|show|episode)/([A-Za-z0-9]+)` $u 1 }}
+  {{ $m := index . 0 }}
+  {{ $r = dict "src" (printf "https://open.spotify.com/embed/%s/%s" (index $m 1) (index $m 2)) "alto" 352 "plataforma" "Spotify" }}
+{{ else }}
+  {{ if findRE `^https://music\.apple\.com/[a-z]{2}/(playlist|album|artist|station|song)/` $u 1 }}
+    {{ $r = dict "src" (replace $u "https://music.apple.com/" "https://embed.music.apple.com/") "alto" 450 "plataforma" "Apple Music" }}
+  {{ else }}
+    {{ with findRESubmatch `^https://(?:www\.|m\.)?youtube\.com/playlist\?(?:[^#]*&)?list=([A-Za-z0-9_-]+)` $u 1 }}
+      {{ $r = dict "src" (printf "https://www.youtube-nocookie.com/embed/videoseries?list=%s" (index (index . 0) 1)) "alto" 0 "plataforma" "YouTube" }}
+    {{ else }}
+      {{ with findRESubmatch `^https://(?:(?:www\.|m\.)?youtube\.com/watch\?(?:[^#]*&)?v=|youtu\.be/)([A-Za-z0-9_-]{11})` $u 1 }}
+        {{ $r = dict "src" (printf "https://www.youtube-nocookie.com/embed/%s" (index (index . 0) 1)) "alto" 0 "plataforma" "YouTube" }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $r }}

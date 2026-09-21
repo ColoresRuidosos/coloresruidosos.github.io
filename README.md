@@ -75,6 +75,8 @@ Crea un Sheet con dos pestañas. Publica **cada pestaña** como CSV (Archivo →
 | Agregar un recinto | Prueba primero: `python pipeline/probar_recinto.py URL`. Si encuentra eventos, agrégalo a `pipeline/config/recintos.yaml`. Si no, sus eventos van en el Sheet. |
 | Ajustar el tono de las notas | `pipeline/prompts/redactar.md` |
 | Embeds automáticos en las notas | Apple Music funciona sin configurar nada; YouTube con `YOUTUBE_API_KEY`; Spotify con sus credenciales (requiere Premium). Orden: Spotify, Apple Music, YouTube. |
+| Seguir a una banda | Agregar una línea a `data/seguimiento.yaml` (con `alias:` si los medios escriben su nombre distinto). Sus notas entran primero a la selección, se saltan el filtro de género y aparecen en la página `/bandas/`. |
+| Configurar la radio | `data/radio.yaml`: pegar el enlace de "Compartir" de una playlist pública de Spotify, Apple Music o YouTube en la estación de cada curador. La estación «Notas de la semana» es automática. Nada de esos servicios se carga hasta que alguien pulsa el botón; al cambiar de página la música se detiene. |
 | Ponerle imagen a una nota | Subir un archivo con el slug de la nota como nombre a `assets/notas/` (ver el README de esa carpeta). Solo imágenes propias del equipo. |
 | Cambiar el tope diario | `tope_diario` en `pipeline.yaml` |
 

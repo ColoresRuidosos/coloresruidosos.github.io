@@ -1,0 +1,33 @@
+# Artistas que seguimos de cerca. Sus notas van primero en la selección (dentro del tope de la corrida)
+# y no pasan por el filtro de género (aunque Haiku no los considere indie/rock).
+# Los acentos y las mayúsculas no importan; si un medio escribe el nombre distinto, agrega otra línea.
+# La coincidencia es contra el nombre del artista que devuelve el clasificador, no contra el texto de la nota.
+# Para varias escrituras de una misma banda: `- nombre: X` con `alias: [Y, Z]` debajo (ver NSQK).
+# La misma lista alimenta la página /bandas/ del sitio (el nombre de cada línea es el que se muestra allí).
+artistas:
+  - Veintiuno
+  - Love of Lesbian
+  - Iván Ferreiro
+  - Rubén Pozo
+  - Vetusta Morla
+  - Lori Meyers
+  - Viva Belgrado
+  - Biela
+  - Carolina Durante
+  - Alcalá Norte
+  - Cariño
+  - Las Dianas
+  - Dani Martín
+  - Caifanes
+  - Camilo Séptimo
+  - Enjambre
+  - Valgur
+  - No Somos Marineros
+  - nombre: NSQK      # Nesquik; disco: Roy. Los alias se reconocen en las notas pero no se muestran aparte
+    alias: [Nesquik]
+  - Latin Mafia
+  - Rusowsky
+  - Austin TV
+  - Camiches
+  - Leiva
+  - Adanowsky

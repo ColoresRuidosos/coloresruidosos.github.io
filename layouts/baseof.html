@@ -34,7 +34,10 @@
     {{ block "main" . }}{{ end }}
   </main>
   {{ partial "pie.html" . }}
+  {{ partial "radio.html" . }}
   {{ block "scripts" . }}{{ end }}
+  {{ $radio := resources.Get "js/radio.js" | minify | fingerprint }}
+  <script src="{{ $radio.RelPermalink }}" integrity="{{ $radio.Data.Integrity }}" defer></script>
   {{ if hugo.IsProduction }}
   <script data-goatcounter="https://coloresruidosos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   {{ end }}

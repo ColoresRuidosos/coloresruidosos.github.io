@@ -1,0 +1,18 @@
+{{/* Normaliza un nombre de artista y lo parte en participantes: minúsculas, sin acentos y separando
+     colaboraciones ("A y B", "A, B", "A & B", "A feat B"). Misma idea que pipeline/cr/seguimiento.py.
+     Devuelve una lista de textos, p. ej. "Iván Ferreiro y Rubén Pozo" → ["ivan ferreiro", "ruben pozo"]. */}}
+{{ $s := lower (. | default "") }}
+{{ $s = replaceRE `[áàäâ]` "a" $s }}
+{{ $s = replaceRE `[éèëê]` "e" $s }}
+{{ $s = replaceRE `[íìïî]` "i" $s }}
+{{ $s = replaceRE `[óòöô]` "o" $s }}
+{{ $s = replaceRE `[úùüû]` "u" $s }}
+{{ $s = replaceRE `ñ` "n" $s }}
+{{ $s = replaceRE `[^a-z0-9\s,&+/]` " " $s }}
+{{ $s = replaceRE `\s+(y|and|con|feat|ft|x)\s+|\s*[,&+/]\s*` "|" $s }}
+{{ $partes := slice }}
+{{ range split $s "|" }}
+  {{ $p := replaceRE `\s+` " " . | strings.TrimSpace }}
+  {{ with $p }}{{ $partes = $partes | append . }}{{ end }}
+{{ end }}
+{{ return $partes }}
