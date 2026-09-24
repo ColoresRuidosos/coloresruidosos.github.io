@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-09-23T12:19:08-06:00",
+  "actualizado": "2026-09-24T12:16:52-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-09-23-perfume-genius",
-      "titulo": "Perfume Genius",
-      "fecha": "2026-09-23",
-      "hora": "20:00",
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "multiforo-urbano-bajo-circuito-2026-09-24-chapterhouse",
       "titulo": "Chapterhouse",
