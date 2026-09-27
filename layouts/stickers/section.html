@@ -1,0 +1,33 @@
+{{ define "main" }}
+{{ $exts := slice "png" "jpg" "jpeg" "webp" "svg" "avif" }}
+{{ $stickers := slice }}
+{{ range resources.Match "stickers/*.*" }}
+  {{ $ext := lower (strings.TrimPrefix "." (path.Ext .Name)) }}
+  {{ if in $exts $ext }}{{ $stickers = $stickers | append . }}{{ end }}
+{{ end }}
+
+<header class="encabezado">
+  <h1 class="encabezado__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
+</header>
+
+{{ if $stickers }}
+<ul class="stickers-grid">
+  {{ range $stickers }}
+  {{ $ext := lower (strings.TrimPrefix "." (path.Ext .Name)) }}
+  {{ $base := path.Base .Name }}
+  {{ $nombre := humanize (strings.TrimSuffix (path.Ext $base) $base) }}
+  <li class="sticker-holo" tabindex="0">
+    {{ if eq $ext "svg" }}
+    <img src="{{ .RelPermalink }}" alt="Sticker: {{ $nombre }}" loading="lazy" decoding="async">
+    {{ else }}
+    {{ $img := cond (gt .Width 640) (.Resize "640x webp q90") (.Process "webp q90") }}
+    <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="Sticker: {{ $nombre }}" loading="lazy" decoding="async">
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ else }}
+<p class="stickers-vacio">Todavía no hay stickers. El equipo puede subir uno en <code>assets/stickers/</code> (ver el README de esa carpeta).</p>
+{{ end }}
+{{ end }}

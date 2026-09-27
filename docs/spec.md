@@ -23,7 +23,8 @@
 - Menos de 1 nota despublicada por error a la semana.
 
 **Fuera de alcance (v1)**
-- Qué pasa con la web actual (reseñas, descargas y creador de stickers, tienda): **decisión abierta**.
+- Qué pasa con la web actual (reseñas, descargas, tienda): **decisión abierta**.
+- Generador dinámico de stickers (crear uno nuevo con texto/IA): la web anterior lo tenía; la galería fija (F13) resuelve la parte de "mostrar stickers", el generador queda fuera por ahora.
 - Dominio propio (v1 vive en la URL de GitHub Pages).
 - Recomendaciones de la comunidad (formulario abierto).
 - Fuentes desde X/Instagram.
@@ -63,6 +64,8 @@
 
 **F12 Observabilidad.** Resumen por corrida en GitHub Actions: publicadas, descartadas con motivo, feeds con error, avisos de recintos y Sheet, tokens usados.
 
+**F13 Visor de stickers.** Página `/stickers/` con la galería de stickers propios del equipo (mismo principio que F6/imágenes de notas: nada de terceros). El equipo sube un archivo a `assets/stickers/`; sin configuración adicional aparece en la galería con un efecto visual tipo "sticker holográfico" (brillo/reflejo) al pasar el cursor o tocar. Sin stickers subidos, la página muestra un aviso en vez de una galería vacía.
+
 ## 4. Flujos
 
 **A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
@@ -88,6 +91,8 @@ GitHub Pages ◄─────────────────────�
    /            portada (notas + próximos conciertos)
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
+   /bandas/     bandas seguidas y sus notas
+   /stickers/   galería de stickers propios del equipo
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
