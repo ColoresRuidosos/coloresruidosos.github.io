@@ -17,17 +17,40 @@
   {{ $ext := lower (strings.TrimPrefix "." (path.Ext .Name)) }}
   {{ $base := path.Base .Name }}
   {{ $nombre := humanize (strings.TrimSuffix (path.Ext $base) $base) }}
-  <li class="sticker-holo" tabindex="0">
-    {{ if eq $ext "svg" }}
-    <img src="{{ .RelPermalink }}" alt="Sticker: {{ $nombre }}" loading="lazy" decoding="async">
-    {{ else }}
-    {{ $img := cond (gt .Width 640) (.Resize "640x webp q90") (.Process "webp q90") }}
-    <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="Sticker: {{ $nombre }}" loading="lazy" decoding="async">
-    {{ end }}
+  {{ $img := cond (eq $ext "svg") . (cond (gt .Width 640) (.Resize "640x webp q90") (.Process "webp q90")) }}
+  <li>
+    <button type="button" class="sticker-abrir" data-src="{{ $img.RelPermalink }}" data-alt="Sticker: {{ $nombre }}">
+      <img src="{{ $img.RelPermalink }}" alt="Sticker: {{ $nombre }}" loading="lazy" decoding="async">
+    </button>
   </li>
   {{ end }}
 </ul>
+
+<div class="visor3d" data-visor3d hidden>
+  <div class="visor3d__fondo" data-visor3d-cerrar></div>
+  <div class="visor3d__marco">
+    <button type="button" class="visor3d__cerrar" data-visor3d-cerrar aria-label="Cerrar">✕</button>
+    <div class="visor3d__carta">
+      <div class="visor3d__interior" data-visor3d-interior tabindex="0" role="button" aria-label="Sticker. Toca o pulsa Enter para voltear la tarjeta">
+        <div class="visor3d__cara visor3d__cara--frente">
+          <img data-visor3d-imagen src="" alt="">
+        </div>
+        <div class="visor3d__cara visor3d__cara--reverso">
+          <p class="visor3d__reverso-marca">Colores<br>Ruidosos</p>
+        </div>
+      </div>
+    </div>
+    <p class="visor3d__ayuda">Toca la tarjeta para voltearla</p>
+  </div>
+</div>
 {{ else }}
 <p class="stickers-vacio">Todavía no hay stickers. El equipo puede subir uno en <code>assets/stickers/</code> (ver el README de esa carpeta).</p>
+{{ end }}
+{{ end }}
+
+{{ define "scripts" }}
+{{ if resources.Match "stickers/*.*" }}
+{{ $js := resources.Get "js/stickers.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}
 {{ end }}

@@ -64,7 +64,7 @@
 
 **F12 Observabilidad.** Resumen por corrida en GitHub Actions: publicadas, descartadas con motivo, feeds con error, avisos de recintos y Sheet, tokens usados.
 
-**F13 Visor de stickers.** Página `/stickers/` con la galería de stickers propios del equipo (mismo principio que F6/imágenes de notas: nada de terceros). El equipo sube un archivo a `assets/stickers/`; sin configuración adicional aparece en la galería con un efecto visual tipo "sticker holográfico" (brillo/reflejo) al pasar el cursor o tocar. Sin stickers subidos, la página muestra un aviso en vez de una galería vacía.
+**F13 Visor de stickers.** Página `/stickers/` con la galería de stickers propios del equipo (mismo principio que F6/imágenes de notas: nada de terceros). El equipo sube un archivo a `assets/stickers/`; sin configuración adicional aparece en la galería. Clic en un sticker abre una tarjeta 3D: el frente muestra el sticker, se voltea con clic/Enter (o al tocar) hacia un reverso de tarjeta de colección con la marca "Colores Ruidosos", y se cierra con la X, el fondo o Escape. Sin stickers subidos, la página muestra un aviso en vez de una galería vacía.
 
 ## 4. Flujos
 
@@ -91,8 +91,7 @@ GitHub Pages ◄─────────────────────�
    /            portada (notas + próximos conciertos)
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
-   /bandas/     bandas seguidas y sus notas
-   /stickers/   galería de stickers propios del equipo
+   /stickers/   galería de stickers propios del equipo, con visor 3D
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
