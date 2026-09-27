@@ -30,17 +30,17 @@
   <div class="visor3d__fondo" data-visor3d-cerrar></div>
   <div class="visor3d__marco">
     <button type="button" class="visor3d__cerrar" data-visor3d-cerrar aria-label="Cerrar">✕</button>
-    <div class="visor3d__carta">
-      <div class="visor3d__interior" data-visor3d-interior tabindex="0" role="button" aria-label="Sticker. Toca o pulsa Enter para voltear la tarjeta">
-        <div class="visor3d__cara visor3d__cara--frente">
-          <img data-visor3d-imagen src="" alt="">
-        </div>
-        <div class="visor3d__cara visor3d__cara--reverso">
-          <p class="visor3d__reverso-marca">Colores<br>Ruidosos</p>
-        </div>
+    <div class="visor3d__carta" data-visor3d-carta>
+      <div class="visor3d__reverso">
+        <p class="visor3d__reverso-marca">Colores<br>Ruidosos</p>
       </div>
+      <div class="visor3d__sombra" aria-hidden="true"></div>
+      <button type="button" class="visor3d__frente" data-visor3d-frente aria-label="Sticker. Toca para despegarlo y ver el reverso">
+        <img data-visor3d-imagen src="" alt="">
+        <span class="visor3d__pliegue" aria-hidden="true"></span>
+      </button>
     </div>
-    <p class="visor3d__ayuda">Toca la tarjeta para voltearla</p>
+    <p class="visor3d__ayuda" data-visor3d-ayuda>Toca el sticker para despegarlo</p>
   </div>
 </div>
 {{ else }}
