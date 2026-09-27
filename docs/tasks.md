@@ -26,8 +26,10 @@
 - ✅ Agenda con filtro por curador, filtro por mes y descarga `.ics`
 - ✅ Identidad SPEC-001 con reglas de contraste; responsive; demo aislada
 - ⏳ Imagen Open Graph por defecto (ilustración del equipo)
-- ✅ Radio con estaciones y página `/bandas/`
-- ⏳ Visor de stickers (F13/D15): página `/stickers/`, listado automático de `assets/stickers/`, efecto holográfico en CSS, README para que el equipo suba archivos, aviso de galería vacía
+- ✅ Radio con estaciones
+- ✅ Visor de stickers (F13/D15/D16): página `/stickers/`, listado automático de `assets/stickers/`, tarjeta 3D con reverso "Colores Ruidosos" (D16), README para que el equipo suba archivos, aviso de galería vacía
+- ✅ Header responsive sin overflow horizontal (D17)
+- ⏳ Bandas: se quitó la página `/bandas/` (D16); si se retoma, decidir cómo mostrar las bandas seguidas sin repetir lo que hacía la página vieja
 
 ## Fase 4 — Automatización
 - ✅ Workflow diario con tests, pasos aislados, verificación de compilación y commit único
