@@ -93,6 +93,34 @@ main { max-width: var(--ancho); margin: 0 auto; padding: 0 clamp(1rem, 4vw, 2.5r
 .bandas-sin ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
 .bandas-sin li { background: var(--bg-cream); border: 2px solid var(--border-dark); border-radius: 999px; padding: .3rem 1rem; font-weight: 700; }
 
+/* Página "Stickers": galería con efecto holográfico, solo CSS */
+.stickers-grid { list-style: none; margin: 0 0 3rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 1.5rem; }
+.stickers-vacio { margin-bottom: 3rem; }
+.sticker-holo { position: relative; display: block; aspect-ratio: 1 / 1; border: var(--borde); box-shadow: var(--sombra); background: #fff; padding: .75rem; isolation: isolate; overflow: hidden; }
+.sticker-holo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.sticker-holo::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 15%, #ff5cf0 30%, #5cf0ff 45%, #b6ff5c 55%, #ffe75c 65%, #ff5c5c 80%, transparent 95%);
+  background-size: 300% 300%;
+  mix-blend-mode: color-dodge;
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.sticker-holo:hover::after, .sticker-holo:focus-visible::after, .sticker-holo:active::after {
+  opacity: .8;
+  animation: sticker-brillo 2.5s linear infinite;
+}
+@keyframes sticker-brillo {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sticker-holo::after { transition: none; animation: none !important; }
+  .sticker-holo:hover::after, .sticker-holo:focus-visible::after, .sticker-holo:active::after { opacity: .5; }
+}
+
 /* Radio: barra fija abajo a la derecha; el panel se abre encima del botón */
 .radio { position: fixed; right: 1rem; bottom: 1rem; z-index: 150; display: flex; flex-direction: column; align-items: flex-end; gap: .75rem; max-width: calc(100vw - 2rem); }
 .radio[hidden], .radio [hidden] { display: none; }
