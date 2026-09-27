@@ -1,51 +1,6 @@
 {
-  "actualizado": "2026-09-26T11:40:00-06:00",
+  "actualizado": "2026-09-27T12:05:08-06:00",
   "eventos": [
-    {
-      "id": "multiforo-urbano-bajo-circuito-2026-09-26-jose-ramirez",
-      "titulo": "José Ramírez",
-      "fecha": "2026-09-26",
-      "hora": "21:00",
-      "recinto": "Multiforo Urbano Bajo Circuito",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.passline.com/sitio/cartelera-bajo-circuito",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-del-tejedor-2026-09-26-madame-recamier",
-      "titulo": "Madame Récamier",
-      "fecha": "2026-09-26",
-      "hora": "21:00",
-      "recinto": "Foro del Tejedor",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.forodeltejedor.com/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "la-maraka-2026-09-26-la-garfield",
-      "titulo": "La Garfield",
-      "fecha": "2026-09-26",
-      "hora": "21:30",
-      "recinto": "La Maraka",
-      "ciudad": "Ciudad de México",
-      "url": "https://lamaraka.com.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "auditorio-nacional-2026-09-27-disney-en-concierto",
       "titulo": "Disney en Concierto",
