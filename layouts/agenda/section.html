@@ -11,10 +11,10 @@
   <fieldset class="filtros__grupo">
     <legend>Recinto</legend>
     <div class="filtros__chips">
-      <button type="button" class="chip" aria-pressed="true" data-recinto="todos">Todos</button>
+      <button type="button" class="chip" aria-pressed="true" data-filtro-recinto="todos">Todos</button>
       {{ $recintos := slice }}
       {{ range $eventos }}{{ $recintos = $recintos | append .recinto }}{{ end }}
-      {{ range uniq $recintos }}<button type="button" class="chip" aria-pressed="false" data-recinto="{{ . }}">{{ . }}</button>{{ end }}
+      {{ range uniq $recintos }}<button type="button" class="chip" aria-pressed="false" data-filtro-recinto="{{ . }}">{{ . }}</button>{{ end }}
     </div>
   </fieldset>
   <label class="filtros__mes">

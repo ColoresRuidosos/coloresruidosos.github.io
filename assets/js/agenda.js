@@ -4,7 +4,7 @@
   if (!lista) return;
 
   var tarjetas = Array.prototype.slice.call(lista.querySelectorAll("[data-evento]"));
-  var chips = Array.prototype.slice.call(document.querySelectorAll("[data-recinto]"));
+  var chips = Array.prototype.slice.call(document.querySelectorAll("[data-filtro-recinto]"));
   var selectorMes = document.querySelector("[data-mes]");
   var vacio = document.querySelector("[data-vacio]");
   var contador = document.querySelector("[data-contador]");
@@ -39,7 +39,7 @@
 
   chips.forEach(function (chip) {
     chip.addEventListener("click", function () {
-      recintoActivo = chip.dataset.recinto;
+      recintoActivo = chip.dataset.filtroRecinto;
       chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
       filtrar();
     });
