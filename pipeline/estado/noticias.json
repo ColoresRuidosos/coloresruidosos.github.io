@@ -126,6 +126,17 @@
       },
       "vista": "2026-09-26T11:38:04.625779-06:00"
     },
+    "https://consequence.net/2026/09/interpol-mercury-lounge-new-york-photos-setlist": {
+      "c": {
+        "artista": "Interpol",
+        "categoria": "otro",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-28T14:23:54.541448-06:00"
+    },
     "https://consequence.net/2026/09/jason-newsted-remembers-cliff-burton": {
       "c": {
         "artista": "Metallica",
@@ -516,6 +527,24 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-09-28T13:23:46.399249-06:00"
+    },
+    "https://indierocks.mx/agenda/precios-semana-ir-2026-las-ligas-menores-se-presentara-en-el-foro-indie-rocks": {
+      "c": {
+        "artista": "Las Ligas Menores",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2026-11-27",
+            "pais": "MX",
+            "recinto": "Foro Indie Rocks! Sala (A)"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-28T14:23:54.541448-06:00"
     },
     "https://indierocks.mx/agenda/semana-ir-2026-las-ligas-menores-se-presentara-en-el-foro-indie-rocks": {
       "c": {
@@ -1287,6 +1316,10 @@
         "titulo_lanzamiento": "My Own Fairytale"
       },
       "vista": "2026-09-28T13:23:46.399249-06:00"
+    },
+    "https://pitchfork.com/story/lily-konigsberg-krill-jane-remover-and-more-this-weeks-pitchfork-selects-playlist": {
+      "c": null,
+      "vista": "2026-09-28T14:23:54.541448-06:00"
     },
     "https://pitchfork.com/story/listen-to-phoebe-bridgers-new-song-for-a24-film-primetime": {
       "c": {
@@ -2109,8 +2142,11 @@
     "corona capital|gira": "2026-09-24T12:15:04.967757-06:00",
     "crab apples|lanzamiento": "2026-09-20T11:18:54.752671-06:00",
     "crim|anuncio": "2026-09-21T07:08:09.315925-06:00",
+    "cursive|lanzamiento": "2026-09-28T14:23:54.541448-06:00",
     "dana margolin|lanzamiento": "2026-09-17T09:35:42.234762-06:00",
     "danielle ponder|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
+    "danz cm|lanzamiento": "2026-09-28T14:23:54.541448-06:00",
+    "dazy|lanzamiento": "2026-09-28T14:23:54.541448-06:00",
     "declive|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "diara|lanzamiento": "2026-09-26T11:38:04.625779-06:00",
     "diiv|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
@@ -2119,6 +2155,8 @@
     "empress of|anuncio": "2026-09-23T12:16:54.834689-06:00",
     "eric slick|lanzamiento": "2026-09-18T12:36:32.216801-06:00",
     "ezta ilene|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
+    "feist|anuncio": "2026-09-28T14:23:54.541448-06:00",
+    "fiddlehead|anuncio": "2026-09-28T14:23:54.541448-06:00",
     "fontaines d c|gira": "2026-09-25T12:14:55.990706-06:00",
     "fontaines d c|lanzamiento": "2026-09-17T10:49:42.995879-06:00",
     "fontaines dc|lanzamiento": "2026-09-17T12:40:16.563426-06:00",
@@ -2155,12 +2193,14 @@
     "mercury rev|gira": "2026-09-23T12:16:54.834689-06:00",
     "michael kiwanuka|lanzamiento": "2026-09-28T13:23:46.399249-06:00",
     "ni hil|lanzamiento": "2026-09-22T11:57:49.204216-06:00",
+    "olivia tremor control|lanzamiento": "2026-09-28T14:23:54.541448-06:00",
     "orville peck|lanzamiento": "2026-09-19T11:01:22.257048-06:00",
     "pacifica|gira": "2026-09-27T12:03:50.850787-06:00",
     "pearl jam|anuncio": "2026-09-27T12:03:50.850787-06:00",
     "perfume genius|lanzamiento": "2026-09-23T12:16:54.834689-06:00",
     "queens of the stone age|lanzamiento": "2026-09-23T12:16:54.834689-06:00",
     "quicksand|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
+    "rachel chinouriri|anuncio": "2026-09-28T14:23:54.541448-06:00",
     "raye|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
     "royal blood|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "serpentwithfeet|lanzamiento": "2026-09-25T12:14:55.990706-06:00",
@@ -2312,7 +2352,14 @@
     "https://stereogum.com/2512596/ween-announce-boognish-provides-14-cd-box-set-of-previously-unreleased-chocolate-and-cheese-tour-shows/news": "2026-09-27T12:03:50.850787-06:00",
     "https://stereogum.com/2512654/brakence-ready-or-not/music": "2026-09-27T12:03:50.850787-06:00",
     "https://stereogum.com/2512693/pearl-jam-reveal-new-drummer-at-ohana-festival/news": "2026-09-27T12:03:50.850787-06:00",
+    "https://stereogum.com/2512712/danz-cm-announces-new-album-the-interdimensional-extraterrestrial-time-travelers-society-hear-two-tracks/music": "2026-09-28T14:23:54.541448-06:00",
+    "https://stereogum.com/2512776/rachel-chinouriri-performs-and-oasis-are-revealed-as-russian-psyop-on-snl-uk/news": "2026-09-28T14:23:54.541448-06:00",
+    "https://stereogum.com/2512782/feist-inducted-into-canadian-songwriters-hall-of-fame-gets-covered-by-jeff-tweedy-finneas-charlotte-cornfield/news": "2026-09-28T14:23:54.541448-06:00",
+    "https://stereogum.com/2512855/fiddlehead-play-bostons-alewife-station-bring-out-lou-barlow-in-maine/news": "2026-09-28T14:23:54.541448-06:00",
+    "https://stereogum.com/2512869/dazy-ugly/music": "2026-09-28T14:23:54.541448-06:00",
+    "https://stereogum.com/2512871/the-olivia-tremor-control-timewaster/music": "2026-09-28T14:23:54.541448-06:00",
     "https://stereogum.com/2512881/smush-announce-new-album-ill-always-wish-hear-milkweed-butterfly/music": "2026-09-28T13:31:31.838541-06:00",
+    "https://stereogum.com/2512889/cursive-share-wounded-animal-from-whos-watching-soundtrack/music": "2026-09-28T14:23:54.541448-06:00",
     "https://stereogum.com/2512909/watch-diiv-cover-charli-xcx-debut-zirp-tracks-in-sao-paulo/news": "2026-09-28T13:31:31.838541-06:00",
     "https://stereogum.com/2512947/steve-lacy-kicks-off-oh-yeah-tour-with-a-smiths-cover/news": "2026-09-28T13:31:31.838541-06:00"
   }
