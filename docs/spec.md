@@ -106,6 +106,6 @@ Estructura, modelo de datos y decisiones: ver `plan.md`.
 
 **Confiabilidad:** fallos aislados por fuente y por recinto; corrida idempotente; sin commit si no hay cambios; no se publica si fallan tests o compilación.
 
-**Identidad (SPEC-001):** crema `#F4EFEE`, tinta `#141416`, rojo `#E8322A`, azul `#2255CC`, amarillo `#F2C230`; Syne y Space Grotesk. Colores primarios vibrantes (no tonos apagados). Reglas de contraste: rojo solo en texto grande; amarillo reservado para el sticker "Viene a México", nunca como texto (solo fondo con tinta encima).
+**Identidad (SPEC-001):** crema `#F4EFE6`, tinta `#141414`, rosa `#FF3E7F`, azul `#2F5BFF`, amarillo `#FFD23F`, verde `#1FB57A`, naranja `#FF7A30`; Syne y Space Grotesk. Colores primarios vibrantes (no tonos apagados). Reglas de contraste: rosa, amarillo, verde y naranja solo con texto tinta encima (nunca blanco); rosa reservado para el sticker "Viene a México"; verde, naranja, azul y amarillo marcan respectivamente las categorías Lanzamiento, Gira, Anuncio y Crónica.
 
 **Accesibilidad y rendimiento:** foco visible, enlace para saltar al contenido, filtros con `aria-pressed`, responsive a 360 px, iframes con carga diferida, sin librerías JS.

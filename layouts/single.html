@@ -1,8 +1,8 @@
 {{ define "main" }}
-<article class="articulo">
+<article class="articulo {{ with .Params.categoria }}articulo--cat-{{ . }}{{ end }}">
   <div class="nota__meta">
     {{ partial "etiqueta-relevancia.html" . }}
-    <span>{{ partial "categoria.html" .Params.categoria }}</span>
+    <span class="categoria">{{ partial "categoria.html" .Params.categoria }}</span>
     <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
   </div>
   <h1 class="articulo__titulo">{{ .Title }}</h1>
