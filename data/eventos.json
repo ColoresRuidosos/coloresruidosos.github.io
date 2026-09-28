@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-09-27T12:05:08-06:00",
+  "actualizado": "2026-09-28T13:25:35-06:00",
   "eventos": [
-    {
-      "id": "auditorio-nacional-2026-09-27-disney-en-concierto",
-      "titulo": "Disney en Concierto",
-      "fecha": "2026-09-27",
-      "hora": "18:00",
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "https://www.auditorio.com.mx/",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-09-30-chiara-oliver",
       "titulo": "Chiara Oliver",
