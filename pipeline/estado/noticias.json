@@ -517,6 +517,24 @@
       },
       "vista": "2026-09-28T13:23:46.399249-06:00"
     },
+    "https://indierocks.mx/agenda/semana-ir-2026-las-ligas-menores-se-presentara-en-el-foro-indie-rocks": {
+      "c": {
+        "artista": "Las Ligas Menores",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2026-11-27",
+            "pais": "MX",
+            "recinto": "Foro Indie Rocks! Sala (A)"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-09-28T13:31:31.838541-06:00"
+    },
     "https://indierocks.mx/musica/buenas-nuevas/buenas-nuevas-del-11-al-24-de-septiembre": {
       "c": null,
       "vista": "2026-09-25T12:14:55.990706-06:00"
@@ -2085,6 +2103,7 @@
     "caifanes|gira": "2026-09-21T07:08:09.315925-06:00",
     "caloncho|lanzamiento": "2026-09-28T13:23:46.399249-06:00",
     "chvrches|lanzamiento": "2026-09-23T12:16:54.834689-06:00",
+    "claudia arenas|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
     "cock sparrer|gira": "2026-09-21T13:05:47.304639-06:00",
     "colin moulding|lanzamiento": "2026-09-18T12:36:32.216801-06:00",
     "corona capital|gira": "2026-09-24T12:15:04.967757-06:00",
@@ -2094,6 +2113,7 @@
     "danielle ponder|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
     "declive|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "diara|lanzamiento": "2026-09-26T11:38:04.625779-06:00",
+    "diiv|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
     "dropkick murphys|anuncio": "2026-09-19T11:01:22.257048-06:00",
     "duncan sheik|anuncio": "2026-09-18T12:36:32.216801-06:00",
     "empress of|anuncio": "2026-09-23T12:16:54.834689-06:00",
@@ -2116,7 +2136,9 @@
     "john maus|gira": "2026-09-24T12:15:04.967757-06:00",
     "karina galicia|lanzamiento": "2026-09-28T13:23:46.399249-06:00",
     "kate nash|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
+    "klein|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
     "lagwagon|gira": "2026-09-21T07:08:09.315925-06:00",
+    "las ligas menores|gira": "2026-09-28T13:31:31.838541-06:00",
     "las petunias|anuncio": "2026-09-26T11:38:04.625779-06:00",
     "lennixx|lanzamiento": "2026-09-26T11:38:04.625779-06:00",
     "leo rizzi|lanzamiento": "2026-09-22T11:57:49.204216-06:00",
@@ -2145,10 +2167,12 @@
     "shygirl|gira": "2026-09-21T07:08:09.315925-06:00",
     "sierra sonora|gira": "2026-09-24T12:15:04.967757-06:00",
     "simple plan|gira": "2026-09-22T11:57:49.204216-06:00",
+    "smush|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
     "soccer mommy|lanzamiento": "2026-09-17T09:35:42.234762-06:00",
     "spanish love songs|gira": "2026-09-27T12:03:50.850787-06:00",
     "sports|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
     "statuas d sal|gira": "2026-09-25T12:14:55.990706-06:00",
+    "steve lacy|gira": "2026-09-28T13:31:31.838541-06:00",
     "straw man army|lanzamiento": "2026-09-18T12:36:32.216801-06:00",
     "sylvan esso|anuncio": "2026-09-18T12:36:32.216801-06:00",
     "sylvan esso|lanzamiento": "2026-09-20T11:18:54.752671-06:00",
@@ -2156,6 +2180,7 @@
     "tomora|gira": "2026-09-24T12:15:04.967757-06:00",
     "torture methods|lanzamiento": "2026-09-20T11:18:54.752671-06:00",
     "tove lo|lanzamiento": "2026-09-22T11:57:49.204216-06:00",
+    "trentemøller|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
     "troye sivan|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
     "tubs|lanzamiento": "2026-09-19T11:01:22.257048-06:00",
     "u2|lanzamiento": "2026-09-25T12:14:55.990706-06:00",
@@ -2183,6 +2208,7 @@
     "https://indierocks.mx/agenda/precios-john-maus-se-presentara-en-el-teatro-de-la-ciudad-esperanza-iris": "2026-09-24T12:15:04.967757-06:00",
     "https://indierocks.mx/agenda/precios-lisa-maria-se-presentara-en-tonal": "2026-09-24T12:15:04.967757-06:00",
     "https://indierocks.mx/agenda/precios-tomora-se-presentara-en-el-pabellon-oeste": "2026-09-24T12:15:04.967757-06:00",
+    "https://indierocks.mx/agenda/semana-ir-2026-las-ligas-menores-se-presentara-en-el-foro-indie-rocks": "2026-09-28T13:31:31.838541-06:00",
     "https://indierocks.mx/musica/noticias/boys-noize-anuncia-7llvsion-y-estrena-111": "2026-09-26T11:38:04.625779-06:00",
     "https://indierocks.mx/musica/noticias/bullet-for-my-valentine-anuncia-disco-con-social-apocalypse": "2026-09-25T12:14:55.990706-06:00",
     "https://indierocks.mx/musica/noticias/caloncho-y-jaze-estrenan-fue-amor-su-nueva-colaboracion": "2026-09-28T13:23:46.399249-06:00",
@@ -2199,6 +2225,7 @@
     "https://indierocks.mx/musica/noticias/raye-estrena-el-video-de-joy": "2026-09-21T13:05:47.304639-06:00",
     "https://indierocks.mx/musica/noticias/royal-blood-estrena-swallow-the-bomb-su-nuevo-sencillo": "2026-09-18T11:31:31.351181-06:00",
     "https://indierocks.mx/musica/noticias/serpentwithfeet-anuncia-ep-con-sentinel": "2026-09-25T12:14:55.990706-06:00",
+    "https://indierocks.mx/musica/noticias/trentemoller-presenta-swerve-junto-a-sakura": "2026-09-28T13:31:31.838541-06:00",
     "https://jenesaispop.com/2026/09/17/530635/beck-entrevista": "2026-09-17T10:49:42.995879-06:00",
     "https://jenesaispop.com/2026/09/17/530653/alcala-endemoniao-critica": "2026-09-17T10:49:42.995879-06:00",
     "https://jenesaispop.com/2026/09/17/530670/akriila-lucy-critica": "2026-09-17T12:40:16.563426-06:00",
@@ -2220,6 +2247,7 @@
     "https://jenesaispop.com/2026/09/26/531159/robert-pattinson-petunias": "2026-09-26T11:38:04.625779-06:00",
     "https://jenesaispop.com/2026/09/26/531190/lennixx-well-critica": "2026-09-26T11:38:04.625779-06:00",
     "https://jenesaispop.com/2026/09/27/531155/boy-harsher-faulty": "2026-09-27T12:03:50.850787-06:00",
+    "https://jenesaispop.com/2026/09/28/531241/claudia-arenas-nadie-critica": "2026-09-28T13:31:31.838541-06:00",
     "https://mondosonoro.com/blog-musica/simple-plan-discos": "2026-09-22T11:57:49.204216-06:00",
     "https://mondosonoro.com/criticas/discos-musica/beck-ride-lonesome-disco": "2026-09-17T10:49:42.995879-06:00",
     "https://mondosonoro.com/criticas/discos-musica/buenos-vampiros-el-ultimo-disparo": "2026-09-21T13:05:47.304639-06:00",
@@ -2253,6 +2281,7 @@
     "https://pitchfork.com/story/bill-callahan-joins-meshell-ndegeocello-to-cover-bob-dylans-with-god-on-our-side": "2026-09-18T11:31:31.351181-06:00",
     "https://pitchfork.com/story/brakence-returns-with-new-song-ready-or-not": "2026-09-27T12:03:50.850787-06:00",
     "https://pitchfork.com/story/chvrches-return-with-first-song-in-three-years": "2026-09-23T12:16:54.834689-06:00",
+    "https://pitchfork.com/story/klein-surprise-releases-new-album-my-own-fairytale": "2026-09-28T13:31:31.838541-06:00",
     "https://pitchfork.com/story/michelle-zauner-announces-new-memoir-thank-you-for-your-suffering": "2026-09-17T09:35:42.234762-06:00",
     "https://pitchfork.com/story/perfume-genius-drops-new-song-natural-high": "2026-09-23T12:16:54.834689-06:00",
     "https://pitchfork.com/story/porridge-radios-dana-margolin-launches-debut-solo-single": "2026-09-17T09:35:42.234762-06:00",
@@ -2282,6 +2311,9 @@
     "https://stereogum.com/2512296/queens-of-the-stone-age-where-the-goth-girls-at/music": "2026-09-23T12:16:54.834689-06:00",
     "https://stereogum.com/2512596/ween-announce-boognish-provides-14-cd-box-set-of-previously-unreleased-chocolate-and-cheese-tour-shows/news": "2026-09-27T12:03:50.850787-06:00",
     "https://stereogum.com/2512654/brakence-ready-or-not/music": "2026-09-27T12:03:50.850787-06:00",
-    "https://stereogum.com/2512693/pearl-jam-reveal-new-drummer-at-ohana-festival/news": "2026-09-27T12:03:50.850787-06:00"
+    "https://stereogum.com/2512693/pearl-jam-reveal-new-drummer-at-ohana-festival/news": "2026-09-27T12:03:50.850787-06:00",
+    "https://stereogum.com/2512881/smush-announce-new-album-ill-always-wish-hear-milkweed-butterfly/music": "2026-09-28T13:31:31.838541-06:00",
+    "https://stereogum.com/2512909/watch-diiv-cover-charli-xcx-debut-zirp-tracks-in-sao-paulo/news": "2026-09-28T13:31:31.838541-06:00",
+    "https://stereogum.com/2512947/steve-lacy-kicks-off-oh-yeah-tour-with-a-smiths-cover/news": "2026-09-28T13:31:31.838541-06:00"
   }
 }
