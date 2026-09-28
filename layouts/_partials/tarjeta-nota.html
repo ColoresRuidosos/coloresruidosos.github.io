@@ -4,7 +4,7 @@
   {{ if $foto }}{{ partial "imagen-nota.html" (dict "pagina" $p "ancho" 900 "clase" "nota__imagen") }}{{ end }}
   <div class="nota__meta">
     {{ partial "etiqueta-relevancia.html" $p }}
-    <span>{{ partial "categoria.html" $p.Params.categoria }}</span>
+    <span class="categoria">{{ partial "categoria.html" $p.Params.categoria }}</span>
     <time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date | time.Format ":date_medium" }}</time>
   </div>
   <h3 class="nota__titulo"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></h3>
