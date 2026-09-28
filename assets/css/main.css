@@ -187,8 +187,19 @@ body.sin-scroll { overflow: hidden; }
 
 /* Portada: el único gesto grande del sitio */
 /* container-type: el título se mide contra el ancho del contenedor (no de la ventana) para que "Ruidosos" quepa siempre */
-.portada { position: relative; container-type: inline-size; padding: clamp(2rem, 6vw, 4.5rem) 0 2.5rem; border-bottom: 10px solid var(--accent-pink); margin-bottom: 3rem; }
+.portada { position: relative; overflow: hidden; container-type: inline-size; padding: clamp(2rem, 6vw, 4.5rem) 0 2.5rem; border-bottom: 10px solid var(--accent-pink); margin-bottom: 3rem; }
+/* Confeti de círculos detrás del logo, como en el video promocional. Ancladas por "top" (nunca "bottom")
+   para que no se corran hacia la descripción cuando el bloque crece en pantallas angostas. */
+.portada__circulos { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.portada__circulos span { position: absolute; border-radius: 50%; }
+.portada__circulos span:nth-child(1) { width: 38cqw; height: 38cqw; left: -10cqw; top: -12cqw; background: var(--accent-pink); }
+.portada__circulos span:nth-child(2) { width: 20cqw; height: 20cqw; right: 4cqw; top: -8cqw; background: var(--accent-yellow); }
+.portada__circulos span:nth-child(3) { width: 16cqw; height: 16cqw; left: 55cqw; top: 4cqw; background: var(--accent-orange); }
+.portada__circulos span:nth-child(4) { width: 30cqw; height: 30cqw; right: -10cqw; top: 18cqw; background: var(--accent-blue); }
+.portada__circulos span:nth-child(5) { width: 14cqw; height: 14cqw; left: 8cqw; top: 34cqw; background: var(--accent-green); }
 .portada__marca {
+  position: relative;
+  z-index: 1;
   font-family: var(--f-titulo);
   font-weight: 400;
   font-size: 13.6cqw;
@@ -207,6 +218,7 @@ body.sin-scroll { overflow: hidden; }
 .portada__marca span:last-child { color: var(--accent-yellow); }
 .portada__sticker {
   position: absolute;
+  z-index: 1;
   right: clamp(0rem, 3vw, 2rem);
   top: clamp(1.5rem, 8vw, 6rem);
   transform: rotate(-6deg);
@@ -221,7 +233,7 @@ body.sin-scroll { overflow: hidden; }
   font-size: clamp(.875rem, 1.6vw, 1.05rem);
   white-space: nowrap;
 }
-.portada__lema { max-width: 34rem; margin: 1.5rem 0 0; font-size: 1.1875rem; }
+.portada__lema { position: relative; z-index: 1; max-width: 34rem; margin: 1.5rem 0 0; font-size: 1.1875rem; }
 
 .portada__rejilla { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
 
@@ -351,7 +363,7 @@ body.sin-scroll { overflow: hidden; }
 
 @media (max-width: 860px) {
   .portada__rejilla { grid-template-columns: minmax(0, 1fr); }  /* minmax(0,…): con 1fr suelto una tarjeta ancha ensanchaba la página en celular */
-  .portada__sticker { position: static; display: inline-block; margin-top: 1.25rem; }
+  .portada__sticker { position: relative; right: auto; top: auto; display: inline-block; margin-top: 1.25rem; }
   .notas { grid-template-columns: minmax(0, 1fr); }
 }
 
