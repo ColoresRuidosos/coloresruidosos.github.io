@@ -1,14 +1,599 @@
 {
-  "actualizado": "2026-09-28T13:25:35-06:00",
+  "actualizado": "2026-09-28T14:30:40-06:00",
   "eventos": [
     {
-      "id": "foro-indie-rocks-2026-09-30-chiara-oliver",
-      "titulo": "Chiara Oliver",
-      "fecha": "2026-09-30",
-      "hora": "20:00",
+      "id": "auditorio-nacional-2026-10-01-motorama",
+      "titulo": "Motorama",
+      "fecha": "2026-10-01",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-02-festival-brillante-2026",
+      "titulo": "Festival Brillante 2026",
+      "fecha": "2026-10-02",
+      "hora": null,
       "recinto": "Foro Indie Rocks!",
       "ciudad": "Ciudad de México",
-      "url": "https://feverup.com/es/ciudad-de-mexico/venue/foro-indierocks",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "fvck-off-room-2026-10-02-frine",
+      "titulo": "Frine",
+      "fecha": "2026-10-02",
+      "hora": null,
+      "recinto": "FVCK OFF ROOM",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "estadio-gnp-seguros-2026-10-02-iron-maiden-the-future-past-tour",
+      "titulo": "Iron Maiden (The Future Past Tour)",
+      "fecha": "2026-10-02",
+      "hora": null,
+      "recinto": "Estadio GNP Seguros",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-03-azul-de-viena",
+      "titulo": "Azul de Viena",
+      "fecha": "2026-10-03",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-07-poison-girl-friend",
+      "titulo": "Poison Girl Friend",
+      "fecha": "2026-10-07",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-10-07-robbie-williams",
+      "titulo": "Robbie Williams",
+      "fecha": "2026-10-07",
+      "hora": null,
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-08-miami-horror",
+      "titulo": "Miami Horror",
+      "fecha": "2026-10-08",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-10-08-robbie-williams",
+      "titulo": "Robbie Williams",
+      "fecha": "2026-10-08",
+      "hora": null,
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "fvck-off-room-2026-10-09-almas",
+      "titulo": "Almas",
+      "fecha": "2026-10-09",
+      "hora": null,
+      "recinto": "FVCK OFF ROOM",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-09-vlad-holiday",
+      "titulo": "Vlad Holiday",
+      "fecha": "2026-10-09",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-10-son-lux",
+      "titulo": "Son Lux",
+      "fecha": "2026-10-10",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-11-peter-bjorn-and-john",
+      "titulo": "Peter Bjorn and John",
+      "fecha": "2026-10-11",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-12-enrique-bunbury",
+      "titulo": "Enrique Bunbury",
+      "fecha": "2026-10-12",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-13-candelabro",
+      "titulo": "Candelabro",
+      "fecha": "2026-10-13",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-13-hombres-g",
+      "titulo": "Hombres G",
+      "fecha": "2026-10-13",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-13-jane-remover",
+      "titulo": "Jane Remover",
+      "fecha": "2026-10-13",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-14-candelabro",
+      "titulo": "Candelabro",
+      "fecha": "2026-10-14",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-14-hombres-g",
+      "titulo": "Hombres G",
+      "fecha": "2026-10-14",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-15-enrique-bunbury",
+      "titulo": "Enrique Bunbury",
+      "fecha": "2026-10-15",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-15-vvv-trippin-you",
+      "titulo": "VVV [Trippin'you]",
+      "fecha": "2026-10-15",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-16-hombres-g",
+      "titulo": "Hombres G",
+      "fecha": "2026-10-16",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-17-dirty-sound-magnet",
+      "titulo": "Dirty Sound Magnet",
+      "fecha": "2026-10-17",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-17-enrique-bunbury",
+      "titulo": "Enrique Bunbury",
+      "fecha": "2026-10-17",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "fvck-off-room-2026-10-17-ray-coyote",
+      "titulo": "Ray Coyote",
+      "fecha": "2026-10-17",
+      "hora": null,
+      "recinto": "FVCK OFF ROOM",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-18-hombres-g",
+      "titulo": "Hombres G",
+      "fecha": "2026-10-18",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-18-the-midnight",
+      "titulo": "The Midnight",
+      "fecha": "2026-10-18",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-10-19-def-leppard",
+      "titulo": "Def Leppard",
+      "fecha": "2026-10-19",
+      "hora": null,
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "auditorio-nacional-2026-10-19-enrique-bunbury",
+      "titulo": "Enrique Bunbury",
+      "fecha": "2026-10-19",
+      "hora": null,
+      "recinto": "Auditorio Nacional",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-10-21-slayer-reign-in-blood-40th-anniversary",
+      "titulo": "Slayer (Reign In Blood 40th Anniversary)",
+      "fecha": "2026-10-21",
+      "hora": null,
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-22-nicolas-y-los-fumadores-isla-de-caras",
+      "titulo": "Nicolas y Los Fumadores / Isla de Caras",
+      "fecha": "2026-10-22",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "fvck-off-room-2026-10-23-downset-resorte",
+      "titulo": "Downset & Resorte",
+      "fecha": "2026-10-23",
+      "hora": null,
+      "recinto": "FVCK OFF ROOM",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-10-23-fobia",
+      "titulo": "Fobia",
+      "fecha": "2026-10-23",
+      "hora": null,
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-23-frank-turner",
+      "titulo": "Frank Turner",
+      "fecha": "2026-10-23",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "palacio-de-los-deportes-2026-10-24-fobia",
+      "titulo": "Fobia",
+      "fecha": "2026-10-24",
+      "hora": null,
+      "recinto": "Palacio de los Deportes",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-24-ploho",
+      "titulo": "Ploho",
+      "fecha": "2026-10-24",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "Ciudad de México",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-24-the-jungle-giants",
+      "titulo": "The Jungle Giants",
+      "fecha": "2026-10-24",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-25-emiliano-athie",
+      "titulo": "Emiliano Athie",
+      "fecha": "2026-10-25",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-indie-rocks-2026-10-30-mad-professor",
+      "titulo": "Mad Professor",
+      "fecha": "2026-10-30",
+      "hora": null,
+      "recinto": "Foro Indie Rocks!",
+      "ciudad": "",
+      "url": "",
+      "precio": null,
+      "origen": "equipo",
+      "curadores": [],
+      "firma": [
+        "Cartelera"
+      ]
+    },
+    {
+      "id": "foro-puebla-186-2026-10-31-indios",
+      "titulo": "Indios",
+      "fecha": "2026-10-31",
+      "hora": null,
+      "recinto": "Foro Puebla 186",
+      "ciudad": "",
+      "url": "",
       "precio": null,
       "origen": "equipo",
       "curadores": [],
