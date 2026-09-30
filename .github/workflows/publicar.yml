@@ -3,6 +3,7 @@ name: Publicar Colores Ruidosos
 on:
   schedule:
     - cron: "0 14 * * *"   # 8:00 en Pachuca / CDMX (UTC-6)
+    - cron: "0 20 * * *"   # Respaldo, 14:00 CDMX: por si GitHub retrasa o se salta la corrida de las 8:00
   workflow_dispatch:
     inputs:
       solo_desplegar:
