@@ -565,9 +565,17 @@
       },
       "vista": "2026-09-29T09:33:05.254509-06:00"
     },
+    "https://consequence.net/2026/10/austin-city-limits-2026-livestream-schedule": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
     "https://consequence.net/2026/10/best-october-prime-day-airpods-deals-2026": {
       "c": null,
       "vista": "2026-10-01T13:17:41.901631-06:00"
+    },
+    "https://consequence.net/2026/10/best-october-prime-day-bluetooth-speaker-deals-2026": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://consequence.net/2026/10/best-october-prime-day-headphone-deals-2026": {
       "c": null,
@@ -617,6 +625,10 @@
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
     },
+    "https://consequence.net/2026/10/judge-dismisses-sexual-assault-case-against-trailer-park-boys-mike-smith": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
     "https://consequence.net/2026/10/kelly-clarkson-ai-artists-separate-chart": {
       "c": {
         "artista": "Kelly Clarkson",
@@ -627,6 +639,32 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
+    },
+    "https://consequence.net/2026/10/kid-rock-christian-music-album-halfway-to-jesus": {
+      "c": {
+        "artista": "Kid Rock",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://consequence.net/2026/10/musk-review-alex-gibney-movie-documentary": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://consequence.net/2026/10/noah-weiland-new-singer-zephyring": {
+      "c": {
+        "artista": "Zephyring",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://consequence.net/2026/10/peter-gabriel-reveals-full-details-for-new-album-o-i": {
       "c": {
@@ -661,6 +699,10 @@
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
     },
+    "https://consequence.net/2026/10/sean-diddy-combs-back-in-solitary-confinement": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
     "https://consequence.net/2026/10/slipknot-summer-2027-stadium-tour-how-to-get-tickets": {
       "c": {
         "artista": "Slipknot",
@@ -683,6 +725,10 @@
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
     },
+    "https://consequence.net/2026/10/st-louis-man-discovers-hes-the-son-of-yacht-rock-icon-michael-mcdonald": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
     "https://consequence.net/2026/10/stella-lefty-snl-sketch": {
       "c": {
         "artista": "Stella Lefty",
@@ -693,6 +739,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
+    },
+    "https://consequence.net/2026/10/talking-heads-announce-super-deluxe-edition-of-fear-of-music-drop-new-live-video-of-life-during-wartime-watch": {
+      "c": {
+        "artista": "Talking Heads",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Fear of Music Super Deluxe Edition"
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://consequence.net/2026/10/the-red-clay-strays-2027-north-american-tour": {
       "c": {
@@ -720,6 +777,10 @@
     "https://indierocks.mx/agenda/conoce-los-eventos-del-5-al-11-de-octubre": {
       "c": null,
       "vista": "2026-09-30T12:50:45.936836-06:00"
+    },
+    "https://indierocks.mx/agenda/el-french-touch-connect-llegara-a-la-casa-del-lago-unam": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://indierocks.mx/agenda/koinoyokani-salven-al-tigre-futura-club-en-house-of-vans": {
       "c": {
@@ -796,6 +857,30 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-09-28T14:30:05.245539-06:00"
+    },
+    "https://indierocks.mx/agenda/nueva-fecha-fontaines-d-c-se-presentara-en-el-pepsi-center": {
+      "c": {
+        "artista": "Fontaines D.C.",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-03-24",
+            "pais": "MX",
+            "recinto": "Pepsi Center"
+          },
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-03-25",
+            "pais": "MX",
+            "recinto": "Pepsi Center"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://indierocks.mx/agenda/precios-a-perfect-circle-puscifer-dogstar-en-el-estadio-fray-nano": {
       "c": {
@@ -1040,6 +1125,17 @@
         "titulo_lanzamiento": "Tongue"
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/jonathan-bree-estrena-el-video-de-slow": {
+      "c": {
+        "artista": "Jonathan Bree",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Don't Call It Love"
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://indierocks.mx/musica/noticias/kings-of-leon-presenta-cold-blue-dawn-su-nueva-cancion": {
       "c": {
@@ -1953,6 +2049,10 @@
       },
       "vista": "2026-09-29T09:33:05.254509-06:00"
     },
+    "https://pitchfork.com/story/how-to-live-stream-austin-city-limits-festival-2026": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
     "https://pitchfork.com/story/kali-malone-unveils-us-tour-dates-and-new-song": {
       "c": {
         "artista": "Kali Malone",
@@ -2081,6 +2181,17 @@
         "titulo_lanzamiento": "Songs in the Key of Life (Unreleased Tracks)"
       },
       "vista": "2026-09-28T13:23:46.399249-06:00"
+    },
+    "https://pitchfork.com/story/talking-heads-set-fear-of-music-super-deluxe-edition": {
+      "c": {
+        "artista": "Talking Heads",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Fear of Music Super Deluxe Edition"
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     },
     "https://pitchfork.com/story/tara-clerkin-trio-set-2027-north-american-tour": {
       "c": {
@@ -3006,6 +3117,65 @@
         "titulo_lanzamiento": "o\\i"
       },
       "vista": "2026-10-01T13:17:41.901631-06:00"
+    },
+    "https://stereogum.com/2513288/prevention-announce-debut-album-and-nothings-mine-hear-tell-yourself/music": {
+      "c": {
+        "artista": "Prevention",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "And Nothing's Mine"
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://stereogum.com/2513304/courtney-marie-andrews-cornelia-murr-lola-kirke-katie-pearlman-debut-new-supergroup-tommy/news": {
+      "c": {
+        "artista": "Tommy",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://stereogum.com/2513307/radio-free-alice-big-ideas-feat-rachel-brown/music": {
+      "c": {
+        "artista": "Radio Free Alice",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "What's In Between"
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://stereogum.com/2513316/st-louis-man-discovers-his-father-is-michael-mcdonald/news": {
+      "c": null,
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://stereogum.com/2513319/hear-anna-dominos-previously-unreleased-happy-to-go-from-new-east-and-west-reissue/music": {
+      "c": {
+        "artista": "Anna Domino",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "East And West"
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
+    },
+    "https://stereogum.com/2513327/omnis-philip-frobos-shares-new-sorry-jane-birkin-covers/music": {
+      "c": {
+        "artista": "Philip Frobos",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-01T17:36:06.714335-06:00"
     }
   },
   "claves_publicadas": {
@@ -3065,9 +3235,11 @@
     "izaro|lanzamiento": "2026-09-19T11:01:22.257048-06:00",
     "jimena amarillo|lanzamiento": "2026-09-23T12:16:54.834689-06:00",
     "john maus|gira": "2026-09-24T12:15:04.967757-06:00",
+    "jonathan bree|lanzamiento": "2026-10-01T17:36:06.714335-06:00",
     "karina galicia|lanzamiento": "2026-09-28T13:23:46.399249-06:00",
     "kate nash|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
     "kiliki|anuncio": "2026-09-30T12:50:45.936836-06:00",
+    "kings of leon|lanzamiento": "2026-10-01T17:36:06.714335-06:00",
     "klein|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
     "koinoyokani|gira": "2026-10-01T13:17:41.901631-06:00",
     "lagwagon|gira": "2026-09-21T07:08:09.315925-06:00",
@@ -3079,6 +3251,7 @@
     "lisa maria|gira": "2026-09-24T12:15:04.967757-06:00",
     "lizzy mcalpine|lanzamiento": "2026-09-20T11:18:54.752671-06:00",
     "lori meyers|gira": "2026-09-29T09:33:05.254509-06:00",
+    "los nastys|gira": "2026-10-01T17:36:06.714335-06:00",
     "los punsetes|lanzamiento": "2026-09-25T12:14:55.990706-06:00",
     "luna ki|lanzamiento": "2026-09-29T13:07:46.057721-06:00",
     "m83|lanzamiento": "2026-09-25T12:14:55.990706-06:00",
@@ -3102,6 +3275,7 @@
     "perfume genius|lanzamiento": "2026-09-23T12:16:54.834689-06:00",
     "phoebe bridgers|lanzamiento": "2026-09-29T09:33:05.254509-06:00",
     "placebo|lanzamiento": "2026-09-29T09:33:05.254509-06:00",
+    "prevention|lanzamiento": "2026-10-01T17:36:06.714335-06:00",
     "pulp|anuncio": "2026-09-30T12:50:45.936836-06:00",
     "queens of the stone age|lanzamiento": "2026-09-23T12:16:54.834689-06:00",
     "quicksand|lanzamiento": "2026-09-18T11:31:31.351181-06:00",
@@ -3116,6 +3290,7 @@
     "simple plan|gira": "2026-09-22T11:57:49.204216-06:00",
     "slipknot|gira": "2026-09-29T09:33:05.254509-06:00",
     "smush|lanzamiento": "2026-09-28T13:31:31.838541-06:00",
+    "soft cell|lanzamiento": "2026-10-01T17:36:06.714335-06:00",
     "spanish love songs|gira": "2026-09-27T12:03:50.850787-06:00",
     "sports|lanzamiento": "2026-09-21T13:05:47.304639-06:00",
     "statuas d sal|gira": "2026-09-25T12:14:55.990706-06:00",
@@ -3124,6 +3299,7 @@
     "sylvan esso|anuncio": "2026-09-18T12:36:32.216801-06:00",
     "sylvan esso|lanzamiento": "2026-09-20T11:18:54.752671-06:00",
     "talking heads|anuncio": "2026-09-22T11:57:49.204216-06:00",
+    "talking heads|lanzamiento": "2026-10-01T17:36:06.714335-06:00",
     "tomora|gira": "2026-09-24T12:15:04.967757-06:00",
     "torture methods|lanzamiento": "2026-09-20T11:18:54.752671-06:00",
     "tove lo|lanzamiento": "2026-09-22T11:57:49.204216-06:00",
@@ -3153,6 +3329,7 @@
     "https://consequence.net/2026/09/sylvan-esso-return-spotify-boycott": "2026-09-18T12:36:32.216801-06:00",
     "https://consequence.net/2026/09/tv-on-the-radio-wolf-like-me-kimmel-watch": "2026-09-29T13:07:46.057721-06:00",
     "https://consequence.net/2026/09/ween-announce-boxset-boognish-provides": "2026-09-27T12:03:50.850787-06:00",
+    "https://consequence.net/2026/10/talking-heads-announce-super-deluxe-edition-of-fear-of-music-drop-new-live-video-of-life-during-wartime-watch": "2026-10-01T17:36:06.714335-06:00",
     "https://indierocks.mx/agenda/fontaines-d-c-se-presentara-en-el-pepsi-center": "2026-09-25T12:14:55.990706-06:00",
     "https://indierocks.mx/agenda/koinoyokani-salven-al-tigre-futura-club-en-house-of-vans": "2026-10-01T13:17:41.901631-06:00",
     "https://indierocks.mx/agenda/mary-in-the-junkyard-se-presentara-en-el-foro-indie-rocks": "2026-09-28T13:23:46.399249-06:00",
@@ -3178,7 +3355,9 @@
     "https://indierocks.mx/musica/noticias/elton-john-arlo-parks-burna-boy-y-mas-inauguraran-el-apple-music-hall": "2026-09-26T11:38:04.625779-06:00",
     "https://indierocks.mx/musica/noticias/erasure-esta-de-vuelta-con-radio-radio-su-nuevo-disco": "2026-09-29T09:33:05.254509-06:00",
     "https://indierocks.mx/musica/noticias/fat-dog-muestra-su-lado-mas-suave-en-heart-of-darkness": "2026-10-01T13:17:41.901631-06:00",
+    "https://indierocks.mx/musica/noticias/jonathan-bree-estrena-el-video-de-slow": "2026-10-01T17:36:06.714335-06:00",
     "https://indierocks.mx/musica/noticias/kate-nash-alza-la-voz-en-spilt-milk-su-nuevo-tema": "2026-09-21T13:05:47.304639-06:00",
+    "https://indierocks.mx/musica/noticias/kings-of-leon-presenta-cold-blue-dawn-su-nueva-cancion": "2026-10-01T17:36:06.714335-06:00",
     "https://indierocks.mx/musica/noticias/michael-kiwanuka-esta-de-vuelta-con-fudge-su-nuevo-disco": "2026-09-28T13:23:46.399249-06:00",
     "https://indierocks.mx/musica/noticias/mogwai-colabora-con-iggy-pop-en-underground": "2026-09-30T12:50:45.936836-06:00",
     "https://indierocks.mx/musica/noticias/nada-lo-nuevo-de-marion-raw": "2026-09-26T11:38:04.625779-06:00",
@@ -3220,6 +3399,8 @@
     "https://jenesaispop.com/2026/09/29/531338/luna-diva-suicida": "2026-09-29T13:07:46.057721-06:00",
     "https://jenesaispop.com/2026/09/30/530987/kiliki-tiktok-entrevista": "2026-09-30T12:50:45.936836-06:00",
     "https://jenesaispop.com/2026/09/30/531374/patti-smith-marilyn-manson-azkena-rock": "2026-09-30T12:50:45.936836-06:00",
+    "https://jenesaispop.com/2026/10/01/531395/soft-cell-danceteria": "2026-10-01T17:36:06.714335-06:00",
+    "https://jenesaispop.com/2026/10/01/531406/monkey-week-nastys-cartel": "2026-10-01T17:36:06.714335-06:00",
     "https://mondosonoro.com/blog-musica/simple-plan-discos": "2026-09-22T11:57:49.204216-06:00",
     "https://mondosonoro.com/criticas/discos-musica/beck-ride-lonesome-disco": "2026-09-17T10:49:42.995879-06:00",
     "https://mondosonoro.com/criticas/discos-musica/buenos-vampiros-el-ultimo-disparo": "2026-09-21T13:05:47.304639-06:00",
@@ -3271,6 +3452,7 @@
     "https://pitchfork.com/story/ryley-walker-signs-to-ad93-and-unveils-first-song-in-five-years": "2026-09-29T13:07:46.057721-06:00",
     "https://pitchfork.com/story/serpentwithfeet-announces-sentinel-ep": "2026-09-25T12:14:55.990706-06:00",
     "https://pitchfork.com/story/soccer-mommy-returns-with-new-song-rings-of-saturn": "2026-09-17T09:35:42.234762-06:00",
+    "https://pitchfork.com/story/talking-heads-set-fear-of-music-super-deluxe-edition": "2026-10-01T17:36:06.714335-06:00",
     "https://pitchfork.com/story/the-flaming-lips-reissuing-at-war-with-the-mystics-with-dozens-of-rarities": "2026-10-01T13:17:41.901631-06:00",
     "https://pitchfork.com/story/the-nationals-matt-berninger-launches-type-it-up-ep-with-new-video": "2026-09-18T11:31:31.351181-06:00",
     "https://pitchfork.com/story/u2-announce-first-album-in-nine-years": "2026-09-25T12:14:55.990706-06:00",
@@ -3312,6 +3494,7 @@
     "https://stereogum.com/2513022/watch-tv-on-the-radio-bring-back-their-spider-man-hit-wolf-like-me-on-kimmel/news": "2026-09-29T13:07:46.057721-06:00",
     "https://stereogum.com/2513036/death-from-above-1979-announce-new-album-private-lives-hear-the-title-track/music": "2026-09-29T13:07:46.057721-06:00",
     "https://stereogum.com/2513109/mogwai-underground-feat-iggy-pop/music": "2026-09-30T12:50:45.936836-06:00",
-    "https://stereogum.com/2513135/the-flaming-lips-announce-at-war-with-the-mystics-20th-anniversary-edition-with-previously-unreleased-tracks/music": "2026-10-01T13:17:41.901631-06:00"
+    "https://stereogum.com/2513135/the-flaming-lips-announce-at-war-with-the-mystics-20th-anniversary-edition-with-previously-unreleased-tracks/music": "2026-10-01T13:17:41.901631-06:00",
+    "https://stereogum.com/2513288/prevention-announce-debut-album-and-nothings-mine-hear-tell-yourself/music": "2026-10-01T17:36:06.714335-06:00"
   }
 }
