@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-09-28T14:30:40-06:00",
+  "actualizado": "2026-10-02T13:02:16-06:00",
   "eventos": [
-    {
-      "id": "auditorio-nacional-2026-10-01-motorama",
-      "titulo": "Motorama",
-      "fecha": "2026-10-01",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-02-festival-brillante-2026",
       "titulo": "Festival Brillante 2026",
