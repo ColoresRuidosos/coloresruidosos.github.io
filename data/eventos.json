@@ -1,51 +1,6 @@
 {
-  "actualizado": "2026-10-02T13:02:16-06:00",
+  "actualizado": "2026-10-03T11:50:21-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-02-festival-brillante-2026",
-      "titulo": "Festival Brillante 2026",
-      "fecha": "2026-10-02",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "fvck-off-room-2026-10-02-frine",
-      "titulo": "Frine",
-      "fecha": "2026-10-02",
-      "hora": null,
-      "recinto": "FVCK OFF ROOM",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "estadio-gnp-seguros-2026-10-02-iron-maiden-the-future-past-tour",
-      "titulo": "Iron Maiden (The Future Past Tour)",
-      "fecha": "2026-10-02",
-      "hora": null,
-      "recinto": "Estadio GNP Seguros",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-03-azul-de-viena",
       "titulo": "Azul de Viena",
