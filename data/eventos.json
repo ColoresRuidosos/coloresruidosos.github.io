@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-10-03T11:50:21-06:00",
+  "actualizado": "2026-10-04T12:01:09-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-03-azul-de-viena",
-      "titulo": "Azul de Viena",
-      "fecha": "2026-10-03",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-07-poison-girl-friend",
       "titulo": "Poison Girl Friend",
