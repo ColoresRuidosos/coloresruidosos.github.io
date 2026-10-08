@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-10-04T12:01:09-06:00",
+  "actualizado": "2026-10-08T13:43:18-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-07-poison-girl-friend",
-      "titulo": "Poison Girl Friend",
-      "fecha": "2026-10-07",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "palacio-de-los-deportes-2026-10-07-robbie-williams",
-      "titulo": "Robbie Williams",
-      "fecha": "2026-10-07",
-      "hora": null,
-      "recinto": "Palacio de los Deportes",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-puebla-186-2026-10-08-miami-horror",
       "titulo": "Miami Horror",
