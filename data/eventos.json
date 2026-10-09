@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-10-08T13:43:18-06:00",
+  "actualizado": "2026-10-09T13:18:52-06:00",
   "eventos": [
-    {
-      "id": "foro-puebla-186-2026-10-08-miami-horror",
-      "titulo": "Miami Horror",
-      "fecha": "2026-10-08",
-      "hora": null,
-      "recinto": "Foro Puebla 186",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "palacio-de-los-deportes-2026-10-08-robbie-williams",
-      "titulo": "Robbie Williams",
-      "fecha": "2026-10-08",
-      "hora": null,
-      "recinto": "Palacio de los Deportes",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "fvck-off-room-2026-10-09-almas",
       "titulo": "Almas",
