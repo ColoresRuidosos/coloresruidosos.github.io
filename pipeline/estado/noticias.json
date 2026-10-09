@@ -110,6 +110,10 @@
       "c": null,
       "vista": "2026-10-05T15:22:47.000574-06:00"
     },
+    "https://consequence.net/2026/10/bill-murray-ghostbusters-rivian-commercial": {
+      "c": null,
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
     "https://consequence.net/2026/10/billy-bragg-wilco-expanded-edition-of-woody-guthrie-project-mermaid-avenue": {
       "c": {
         "artista": "Billy Bragg and Wilco",
@@ -154,16 +158,31 @@
       },
       "vista": "2026-10-08T13:41:12.192325-06:00"
     },
-    "https://consequence.net/2026/10/chance-the-rapper-name-change-the-rapper": {
+    "https://consequence.net/2026/10/city-of-los-angeles-billy-idol-day": {
       "c": {
-        "artista": "Chance the Rapper",
+        "artista": "Billy Idol",
         "categoria": "anuncio",
-        "es_indie_rock": false,
-        "fechas_evento": [],
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Los Angeles",
+            "fecha": "2026-11-13",
+            "pais": "US",
+            "recinto": ""
+          }
+        ],
         "relevancia": "general",
         "titulo_lanzamiento": ""
       },
-      "vista": "2026-10-04T16:38:32.430065-06:00"
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://consequence.net/2026/10/crazy-rich-asians-tv-hbo-original-cast": {
+      "c": null,
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://consequence.net/2026/10/cyberpunk-2077-live-action-movie-paramount": {
+      "c": null,
+      "vista": "2026-10-08T18:04:19.576289-06:00"
     },
     "https://consequence.net/2026/10/david-byrne-let-me-sell-you-a-dream-elon-musk-stream": {
       "c": {
@@ -190,10 +209,6 @@
     "https://consequence.net/2026/10/digger-box-office-bomb-tom-cruise": {
       "c": null,
       "vista": "2026-10-07T17:57:07.177357-06:00"
-    },
-    "https://consequence.net/2026/10/digger-box-office-tom-cruise-bad": {
-      "c": null,
-      "vista": "2026-10-04T16:38:32.430065-06:00"
     },
     "https://consequence.net/2026/10/disney-stream-super-bowl-lxi": {
       "c": null,
@@ -440,6 +455,17 @@
       },
       "vista": "2026-10-08T13:41:12.192325-06:00"
     },
+    "https://consequence.net/2026/10/loretta-lynn-jack-white-produced-album-van-lear-rose-is-finally-returning-to-streaming": {
+      "c": {
+        "artista": "Loretta Lynn",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Van Lear Rose"
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
     "https://consequence.net/2026/10/mudvayne-hellyeah-chad-gray-vocal-injury": {
       "c": {
         "artista": "Mudvayne",
@@ -450,6 +476,10 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-10-06T13:19:23.063230-06:00"
+    },
+    "https://consequence.net/2026/10/october-prime-day-extended-deals-2026": {
+      "c": null,
+      "vista": "2026-10-08T18:04:19.576289-06:00"
     },
     "https://consequence.net/2026/10/october-prime-day-vinyl-cd-sale-2026": {
       "c": null,
@@ -2053,17 +2083,6 @@
       },
       "vista": "2026-10-06T13:19:23.063230-06:00"
     },
-    "https://stereogum.com/2513535/power-to-the-people-bruce-springsteen-covers-protest-songs-dave-grohl-shouts-out-jack-smith-tom-morello-reveals-he-certainly-did-not-vote-for-kamala-harris/news": {
-      "c": {
-        "artista": "Tom Morello",
-        "categoria": "otro",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-10-04T16:38:32.430065-06:00"
-    },
     "https://stereogum.com/2513570/primavera-sound-2027-lineup-has-phoebe-bridgers-fontaines-d-c-doechii-more/news": {
       "c": {
         "artista": "Phoebe Bridgers",
@@ -2821,6 +2840,17 @@
       },
       "vista": "2026-10-08T13:41:12.192325-06:00"
     },
+    "https://stereogum.com/2513945/john-glacier-lights/music": {
+      "c": {
+        "artista": "John Glacier",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Lights"
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
     "https://stereogum.com/2513949/jess-kerber-louisiana-song/music": {
       "c": {
         "artista": "Jess Kerber",
@@ -2853,10 +2883,88 @@
         "titulo_lanzamiento": "KOOL FAITH / LOOSIES II"
       },
       "vista": "2026-10-08T13:41:12.192325-06:00"
+    },
+    "https://stereogum.com/2513964/exre-sleep/music": {
+      "c": {
+        "artista": "Ex:Re",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Sleep"
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://stereogum.com/2513974/rosalia-says-bono-invented-new-spanish-words-for-u2s-tribute-song-about-her/news": {
+      "c": {
+        "artista": "Rosalía",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://stereogum.com/2513978/gay-meat-leslie/music": {
+      "c": {
+        "artista": "Gay Meat",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Leslie"
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://stereogum.com/2513981/weathering-the-storm-with-johnny-blue-skies-the-dark-clouds/reviews/concert-review": {
+      "c": {
+        "artista": "Sturgill Simpson",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://stereogum.com/2513990/steve-martin-alison-brown-del-mccoury-dan-tyminski-cover-lil-nas-xs-old-town-road/news": {
+      "c": {
+        "artista": "Steve Martin",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://stereogum.com/2514009/dua-lipa-eats-hot-dog/news": {
+      "c": {
+        "artista": "Dua Lipa",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
+    },
+    "https://stereogum.com/2514018/wilco-billy-braggs-mermaid-avenue-the-complete-sessions-gets-more-complete-with-expanded-new-box-set/news": {
+      "c": {
+        "artista": "Wilco",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Mermaid Avenue: The Complete Sessions (Box Set)"
+      },
+      "vista": "2026-10-08T18:04:19.576289-06:00"
     }
   },
   "claves_publicadas": {
     "a perfect circle|lanzamiento": "2026-09-30T12:50:45.936836-06:00",
+    "agorazein|gira": "2026-10-08T18:04:19.576289-06:00",
     "aiko el grupo|lanzamiento": "2026-09-26T11:38:04.625779-06:00",
     "alex lahey|lanzamiento": "2026-10-03T16:34:08.128888-06:00",
     "american football|anuncio": "2026-10-07T17:57:07.177357-06:00",
@@ -2908,6 +3016,7 @@
     "font|lanzamiento": "2026-10-07T17:57:07.177357-06:00",
     "frank black|lanzamiento": "2026-10-08T13:41:12.192325-06:00",
     "fuet|lanzamiento": "2026-10-08T13:41:12.192325-06:00",
+    "gay meat|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
     "gripper|lanzamiento": "2026-10-03T16:34:08.128888-06:00",
     "guillem gisbert|lanzamiento": "2026-09-27T12:03:50.850787-06:00",
     "guitarricadelafuente|gira": "2026-10-03T11:49:05.783436-06:00",
@@ -2916,10 +3025,12 @@
     "holly humberstone|lanzamiento": "2026-10-04T12:00:01.087878-06:00",
     "hour|anuncio": "2026-10-07T17:57:07.177357-06:00",
     "hudson freeman|lanzamiento": "2026-10-02T17:27:58.750796-06:00",
+    "iconic fugues|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
     "indios|gira": "2026-10-04T12:00:01.087878-06:00",
     "interrupters|gira": "2026-10-05T15:22:47.000574-06:00",
     "javiera mena|gira": "2026-10-07T13:45:47.438309-06:00",
     "jimmy eat world|anuncio": "2026-10-07T17:57:07.177357-06:00",
+    "john glacier|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
     "jonathan bree|lanzamiento": "2026-10-01T17:36:06.714335-06:00",
     "josh homme|gira": "2026-10-06T13:19:23.063230-06:00",
     "karina galicia|lanzamiento": "2026-09-28T13:23:46.399249-06:00",
@@ -2939,6 +3050,7 @@
     "lee ranaldo|anuncio": "2026-10-04T12:00:01.087878-06:00",
     "lennixx|lanzamiento": "2026-09-26T11:38:04.625779-06:00",
     "levitants|anuncio": "2026-10-01T13:17:41.901631-06:00",
+    "levitants|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
     "lori meyers|gira": "2026-09-29T09:33:05.254509-06:00",
     "los nastys|gira": "2026-10-01T17:36:06.714335-06:00",
     "los punsetes|lanzamiento": "2026-09-25T12:14:55.990706-06:00",
@@ -2974,6 +3086,7 @@
     "pulp|anuncio": "2026-09-30T12:50:45.936836-06:00",
     "rachel chinouriri|anuncio": "2026-09-28T14:23:54.541448-06:00",
     "rata|gira": "2026-10-06T13:19:23.063230-06:00",
+    "robbie bennett|anuncio": "2026-10-08T18:04:19.576289-06:00",
     "robbie bennett|lanzamiento": "2026-10-07T17:57:07.177357-06:00",
     "rodrigo y gabriela|lanzamiento": "2026-10-07T17:57:07.177357-06:00",
     "ryan hemsworth|lanzamiento": "2026-10-03T16:34:08.128888-06:00",
@@ -3013,7 +3126,8 @@
     "voivod|gira": "2026-10-05T19:03:28.834255-06:00",
     "walter esau|gira": "2026-10-07T13:45:47.438309-06:00",
     "way dynamic|anuncio": "2026-10-03T16:34:08.128888-06:00",
-    "ween|lanzamiento": "2026-09-27T12:03:50.850787-06:00"
+    "ween|lanzamiento": "2026-09-27T12:03:50.850787-06:00",
+    "wilco|lanzamiento": "2026-10-08T18:04:19.576289-06:00"
   },
   "urls_publicadas": {
     "https://consequence.net/2026/09/death-from-above-1979-new-album-private-lives-2027-tour": "2026-09-29T13:07:46.057721-06:00",
@@ -3145,9 +3259,11 @@
     "https://mondosonoro.com/criticas/discos-musica/the-tubs-hard-life": "2026-09-19T11:01:22.257048-06:00",
     "https://mondosonoro.com/criticas/discos-musica/vilvao": "2026-10-01T13:17:41.901631-06:00",
     "https://mondosonoro.com/entrevistas/ezta-ilen": "2026-09-17T12:40:16.563426-06:00",
+    "https://mondosonoro.com/entrevistas/levitants-que-ardera-manana": "2026-10-08T18:04:19.576289-06:00",
     "https://mondosonoro.com/entrevistas/quicksand": "2026-09-18T11:31:31.351181-06:00",
     "https://mondosonoro.com/entrevistas/tigers-jaw": "2026-10-03T11:49:05.783436-06:00",
     "https://mondosonoro.com/entrevistas/veta": "2026-09-19T11:01:22.257048-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/agorazein-libro-exposicion": "2026-10-08T18:04:19.576289-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/alcala-norte-endemoniao": "2026-09-17T10:49:42.995879-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/azkena-rock-festival-cartel-25-aniversario": "2026-09-30T12:50:45.936836-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/beth-orton-madrid": "2026-09-28T13:23:46.399249-06:00",
@@ -3179,6 +3295,7 @@
     "https://mondosonoro.com/noticias-actualidad-musical/pablopablo-piano": "2026-09-30T12:50:45.936836-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/pacifica-espana-en-octubre": "2026-09-27T12:03:50.850787-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/pinpilinpussies-cantar-motor": "2026-10-02T17:27:58.750796-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/robbie-bennett-war-drugs": "2026-10-08T18:04:19.576289-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/robert-del-naja-massive-attack-arrestado": "2026-09-28T13:23:46.399249-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/rubi-rock": "2026-10-02T17:27:58.750796-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/san-san-cartel-proxima-edicion": "2026-09-29T09:33:05.254509-06:00",
@@ -3193,6 +3310,7 @@
     "https://mondosonoro.com/noticias-actualidad-musical/uholdea-eh-sukarra": "2026-10-07T13:45:47.438309-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/vacaciones-permanentes-nueva-etapa": "2026-10-01T13:17:41.901631-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/zabal-anne-etchegoyen": "2026-10-08T13:41:12.192325-06:00",
+    "https://pitchfork.com/story/andrew-savage-launches-new-band-iconic-fugues-with-2025-dream-2025-blues": "2026-10-08T18:04:19.576289-06:00",
     "https://pitchfork.com/story/bill-callahan-joins-meshell-ndegeocello-to-cover-bob-dylans-with-god-on-our-side": "2026-09-18T11:31:31.351181-06:00",
     "https://pitchfork.com/story/brakence-returns-with-new-song-ready-or-not": "2026-09-27T12:03:50.850787-06:00",
     "https://pitchfork.com/story/chvrches-return-with-first-song-in-three-years": "2026-09-23T12:16:54.834689-06:00",
@@ -3290,6 +3408,10 @@
     "https://stereogum.com/2513788/st-vincent-covers-yeah-yeah-yeahs-at-gabriela-hearsts-spring-2027-runway-show/news": "2026-10-06T17:29:01.711577-06:00",
     "https://stereogum.com/2513846/watch-american-football-play-acoustic-cure-cover-on-siriusxmu/news": "2026-10-07T17:57:07.177357-06:00",
     "https://stereogum.com/2513891/font-punish-task/music": "2026-10-07T17:57:07.177357-06:00",
-    "https://stereogum.com/2513903/the-war-on-drugs-robbie-bennett-announces-two-new-double-albums-steloken-circulation-hear-two-tracks/music": "2026-10-07T17:57:07.177357-06:00"
+    "https://stereogum.com/2513903/the-war-on-drugs-robbie-bennett-announces-two-new-double-albums-steloken-circulation-hear-two-tracks/music": "2026-10-07T17:57:07.177357-06:00",
+    "https://stereogum.com/2513919/parquet-courts-andrew-savage-launches-new-band-iconic-fugues-with-2025-dream-2025-blues/music": "2026-10-08T18:04:19.576289-06:00",
+    "https://stereogum.com/2513945/john-glacier-lights/music": "2026-10-08T18:04:19.576289-06:00",
+    "https://stereogum.com/2513978/gay-meat-leslie/music": "2026-10-08T18:04:19.576289-06:00",
+    "https://stereogum.com/2514018/wilco-billy-braggs-mermaid-avenue-the-complete-sessions-gets-more-complete-with-expanded-new-box-set/news": "2026-10-08T18:04:19.576289-06:00"
   }
 }
