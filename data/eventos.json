@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-10-09T13:18:52-06:00",
+  "actualizado": "2026-10-10T12:15:17-06:00",
   "eventos": [
-    {
-      "id": "fvck-off-room-2026-10-09-almas",
-      "titulo": "Almas",
-      "fecha": "2026-10-09",
-      "hora": null,
-      "recinto": "FVCK OFF ROOM",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-indie-rocks-2026-10-09-vlad-holiday",
-      "titulo": "Vlad Holiday",
-      "fecha": "2026-10-09",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-10-son-lux",
       "titulo": "Son Lux",
