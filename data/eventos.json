@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-10-10T12:15:17-06:00",
+  "actualizado": "2026-10-11T12:39:42-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-10-son-lux",
-      "titulo": "Son Lux",
-      "fecha": "2026-10-10",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-puebla-186-2026-10-11-peter-bjorn-and-john",
       "titulo": "Peter Bjorn and John",
