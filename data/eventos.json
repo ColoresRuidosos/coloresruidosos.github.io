@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-10-11T12:39:42-06:00",
+  "actualizado": "2026-10-12T16:00:37-06:00",
   "eventos": [
-    {
-      "id": "foro-puebla-186-2026-10-11-peter-bjorn-and-john",
-      "titulo": "Peter Bjorn and John",
-      "fecha": "2026-10-11",
-      "hora": null,
-      "recinto": "Foro Puebla 186",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "auditorio-nacional-2026-10-12-enrique-bunbury",
       "titulo": "Enrique Bunbury",
