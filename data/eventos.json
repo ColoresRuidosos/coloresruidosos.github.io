@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-10-12T16:00:37-06:00",
+  "actualizado": "2026-10-13T14:07:54-06:00",
   "eventos": [
-    {
-      "id": "auditorio-nacional-2026-10-12-enrique-bunbury",
-      "titulo": "Enrique Bunbury",
-      "fecha": "2026-10-12",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-13-candelabro",
       "titulo": "Candelabro",
