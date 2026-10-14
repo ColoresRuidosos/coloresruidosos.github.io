@@ -1,51 +1,6 @@
 {
-  "actualizado": "2026-10-13T14:07:54-06:00",
+  "actualizado": "2026-10-14T12:21:29-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-13-candelabro",
-      "titulo": "Candelabro",
-      "fecha": "2026-10-13",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "auditorio-nacional-2026-10-13-hombres-g",
-      "titulo": "Hombres G",
-      "fecha": "2026-10-13",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-puebla-186-2026-10-13-jane-remover",
-      "titulo": "Jane Remover",
-      "fecha": "2026-10-13",
-      "hora": null,
-      "recinto": "Foro Puebla 186",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-14-candelabro",
       "titulo": "Candelabro",
