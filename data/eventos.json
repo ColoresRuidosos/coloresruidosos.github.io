@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-10-15T12:03:57-06:00",
+  "actualizado": "2026-10-16T11:51:09-06:00",
   "eventos": [
-    {
-      "id": "auditorio-nacional-2026-10-15-enrique-bunbury",
-      "titulo": "Enrique Bunbury",
-      "fecha": "2026-10-15",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-indie-rocks-2026-10-15-vvv-trippin-you",
-      "titulo": "VVV [Trippin'you]",
-      "fecha": "2026-10-15",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "auditorio-nacional-2026-10-16-hombres-g",
       "titulo": "Hombres G",
