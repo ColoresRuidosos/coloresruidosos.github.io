@@ -6,6 +6,11 @@
   <p class="portada__lema">{{ site.Params.descripcion }}</p>
 </section>
 
+{{ with resources.GetMatch "portada/destacada.*" }}
+  {{ $t := cond (gt .Width 1600) (.Resize "1600x webp q80") (.Process "webp q80") }}
+  <img class="portada__destacada" src="{{ $t.RelPermalink }}" width="{{ $t.Width }}" height="{{ $t.Height }}" alt="" loading="eager" decoding="async">
+{{ end }}
+
 <div class="portada__rejilla">
   <section class="bloque" aria-labelledby="t-notas">
     <h2 id="t-notas" class="bloque__titulo">Notas recientes</h2>

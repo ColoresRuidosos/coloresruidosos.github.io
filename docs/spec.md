@@ -66,6 +66,8 @@
 
 **F13 Visor de stickers.** Página `/stickers/` con la galería de stickers propios del equipo (mismo principio que F6/imágenes de notas: nada de terceros). El equipo sube un archivo a `assets/stickers/`; sin configuración adicional aparece en la galería. Clic en un sticker abre una tarjeta 3D: el sticker está pegado encima de un reverso de tarjeta de colección con la marca "Colores Ruidosos"; clic/toque lo despega (como una calcomanía) y lo levanta para revelar el reverso, clic de nuevo lo vuelve a pegar. Cierra con la X, el fondo o Escape. Sin stickers subidos, la página muestra un aviso en vez de una galería vacía.
 
+**F14 Imagen destacada de portada.** Banner opcional en la portada, debajo del lema y antes de "Notas recientes" (mismo principio que F6/F13: solo imágenes propias del equipo). El equipo sube `assets/portada/destacada.*`; si existe, aparece como banner ancho; si no existe, la portada se ve igual que hoy (sin banner).
+
 ## 4. Flujos
 
 **A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
