@@ -28,6 +28,7 @@
 - ⏳ Imagen Open Graph por defecto (ilustración del equipo)
 - ✅ Radio con estaciones
 - ✅ Visor de stickers (F13/D15/D16): página `/stickers/`, listado automático de `assets/stickers/`, tarjeta 3D con reverso "Colores Ruidosos" (D16), README para que el equipo suba archivos, aviso de galería vacía
+- ✅ Imagen destacada de portada (F14/D20): banner opcional desde `assets/portada/destacada.*`, README para el equipo, sin regresión si no hay archivo
 - ✅ Header responsive sin overflow horizontal (D17)
 - ⏳ Bandas: se quitó la página `/bandas/` (D16); si se retoma, decidir cómo mostrar las bandas seguidas sin repetir lo que hacía la página vieja
 
