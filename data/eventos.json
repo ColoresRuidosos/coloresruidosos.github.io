@@ -1,51 +1,6 @@
 {
-  "actualizado": "2026-10-17T10:52:13-06:00",
+  "actualizado": "2026-10-18T11:05:40-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-17-dirty-sound-magnet",
-      "titulo": "Dirty Sound Magnet",
-      "fecha": "2026-10-17",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "auditorio-nacional-2026-10-17-enrique-bunbury",
-      "titulo": "Enrique Bunbury",
-      "fecha": "2026-10-17",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "fvck-off-room-2026-10-17-ray-coyote",
-      "titulo": "Ray Coyote",
-      "fecha": "2026-10-17",
-      "hora": null,
-      "recinto": "FVCK OFF ROOM",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "auditorio-nacional-2026-10-18-hombres-g",
       "titulo": "Hombres G",
