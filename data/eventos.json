@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-10-18T11:05:40-06:00",
+  "actualizado": "2026-10-19T13:40:33-06:00",
   "eventos": [
-    {
-      "id": "auditorio-nacional-2026-10-18-hombres-g",
-      "titulo": "Hombres G",
-      "fecha": "2026-10-18",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-puebla-186-2026-10-18-the-midnight",
-      "titulo": "The Midnight",
-      "fecha": "2026-10-18",
-      "hora": null,
-      "recinto": "Foro Puebla 186",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "palacio-de-los-deportes-2026-10-19-def-leppard",
       "titulo": "Def Leppard",
