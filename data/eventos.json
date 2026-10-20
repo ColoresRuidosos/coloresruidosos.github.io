@@ -1,36 +1,6 @@
 {
-  "actualizado": "2026-10-19T13:40:33-06:00",
+  "actualizado": "2026-10-20T12:22:34-06:00",
   "eventos": [
-    {
-      "id": "palacio-de-los-deportes-2026-10-19-def-leppard",
-      "titulo": "Def Leppard",
-      "fecha": "2026-10-19",
-      "hora": null,
-      "recinto": "Palacio de los Deportes",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "auditorio-nacional-2026-10-19-enrique-bunbury",
-      "titulo": "Enrique Bunbury",
-      "fecha": "2026-10-19",
-      "hora": null,
-      "recinto": "Auditorio Nacional",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "palacio-de-los-deportes-2026-10-21-slayer-reign-in-blood-40th-anniversary",
       "titulo": "Slayer (Reign In Blood 40th Anniversary)",
