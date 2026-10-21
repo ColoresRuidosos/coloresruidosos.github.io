@@ -116,6 +116,10 @@
       },
       "vista": "2026-10-21T12:25:25.999252-06:00"
     },
+    "https://consequence.net/2026/10/clayface-review-dc-comics-mike-flanagan": {
+      "c": null,
+      "vista": "2026-10-21T16:55:39.017815-06:00"
+    },
     "https://consequence.net/2026/10/cloud-nothings-new-album-what-kind-of-hell-did-you-survive": {
       "c": {
         "artista": "Cloud Nothings",
@@ -190,6 +194,17 @@
       "c": null,
       "vista": "2026-10-21T12:25:25.999252-06:00"
     },
+    "https://consequence.net/2026/10/iron-maiden-nicko-mcbrain-turned-down-trump-golf-invite": {
+      "c": {
+        "artista": "Nicko McBrain",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-21T16:55:39.017815-06:00"
+    },
     "https://consequence.net/2026/10/jay-z-sofi-stadium-how-to-get-last-minute-tickets": {
       "c": {
         "artista": "JAY-Z",
@@ -262,6 +277,10 @@
       },
       "vista": "2026-10-21T12:25:25.999252-06:00"
     },
+    "https://consequence.net/2026/10/poison-ivy-hbo-series-lauren-lefranc": {
+      "c": null,
+      "vista": "2026-10-21T16:55:39.017815-06:00"
+    },
     "https://consequence.net/2026/10/robert-plant-didnt-need-led-zeppelin-after-son-death": {
       "c": {
         "artista": "Robert Plant",
@@ -321,6 +340,17 @@
       },
       "vista": "2026-10-20T17:14:29.421699-06:00"
     },
+    "https://consequence.net/2026/10/warpaint-announce-new-live-album-artifact-share-billie-holiday-and-new-song-stream": {
+      "c": {
+        "artista": "Warpaint",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "ARTIFACT"
+      },
+      "vista": "2026-10-21T16:55:39.017815-06:00"
+    },
     "https://indierocks.mx/agenda/damien-rice-se-presentara-en-el-auditorio-bb": {
       "c": {
         "artista": "Damien Rice",
@@ -356,6 +386,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-10-20T17:14:29.421699-06:00"
+    },
+    "https://indierocks.mx/musica/conciertos/shing02-spin-master-a-1-sam-nakamura-en-orbe": {
+      "c": {
+        "artista": "Shing02",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-21T16:55:39.017815-06:00"
     },
     "https://indierocks.mx/musica/entrevistas/entrevista-con-fat-dog": {
       "c": {
@@ -1710,6 +1751,28 @@
         "titulo_lanzamiento": "Loveandpain"
       },
       "vista": "2026-10-21T12:25:25.999252-06:00"
+    },
+    "https://stereogum.com/2515266/kid-cudi-is-writing-producing-and-starring-in-his-own-jean-michel-basquiat-biopic/news": {
+      "c": {
+        "artista": "Kid Cudi",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-10-21T16:55:39.017815-06:00"
+    },
+    "https://stereogum.com/2515282/dowsers-dogwood-three-forks-of-cheat/music": {
+      "c": {
+        "artista": "Dowsers",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Dogwood / Three Forks Of Cheat"
+      },
+      "vista": "2026-10-21T16:55:39.017815-06:00"
     }
   },
   "claves_publicadas": {
@@ -1725,9 +1788,11 @@
     "avalanches|lanzamiento": "2026-10-16T16:21:37.269720-06:00",
     "balkan paradise orchestra|lanzamiento": "2026-10-21T12:25:25.999252-06:00",
     "bausa|gira": "2026-10-13T17:32:46.318336-06:00",
+    "ben folds five|gira": "2026-10-21T16:55:39.017815-06:00",
     "big thief|anuncio": "2026-10-14T12:19:48.283150-06:00",
     "bjork|lanzamiento": "2026-10-09T17:44:27.733041-06:00",
     "black country new road|gira": "2026-10-09T17:44:27.733041-06:00",
+    "blanco palamera|lanzamiento": "2026-10-21T16:55:39.017815-06:00",
     "blondie|lanzamiento": "2026-10-15T12:02:06.040885-06:00",
     "blossoms|lanzamiento": "2026-10-13T14:06:08.464450-06:00",
     "bodywash|lanzamiento": "2026-10-15T16:48:11.581909-06:00",
@@ -1750,12 +1815,11 @@
     "decemberists|lanzamiento": "2026-10-09T13:17:15.669088-06:00",
     "dream theater|anuncio": "2026-10-13T17:32:46.318336-06:00",
     "eels|lanzamiento": "2026-10-20T17:14:29.421699-06:00",
-    "eh sukarra|lanzamiento": "2026-10-07T13:45:47.438309-06:00",
     "elliott murphy|gira": "2026-10-13T14:06:08.464450-06:00",
     "enjambre|gira": "2026-10-13T17:32:46.318336-06:00",
     "enter shikari|anuncio": "2026-10-10T12:14:09.717685-06:00",
-    "enter shikari|lanzamiento": "2026-10-07T13:45:47.438309-06:00",
     "exbats|gira": "2026-10-14T12:19:48.283150-06:00",
+    "fat dog|anuncio": "2026-10-21T16:55:39.017815-06:00",
     "fat dog|lanzamiento": "2026-10-16T11:49:27.320217-06:00",
     "femtanyl|lanzamiento": "2026-10-11T12:38:16.303815-06:00",
     "florence road|lanzamiento": "2026-10-10T17:07:00.480353-06:00",
@@ -1778,11 +1842,11 @@
     "iconic fugues|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
     "imperial teen|lanzamiento": "2026-10-15T12:02:06.040885-06:00",
     "jack white|anuncio": "2026-10-11T12:38:16.303815-06:00",
-    "javiera mena|gira": "2026-10-07T13:45:47.438309-06:00",
     "jimmy eat world|anuncio": "2026-10-07T17:57:07.177357-06:00",
     "john glacier|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
     "jonah yano|lanzamiento": "2026-10-14T16:53:52.646589-06:00",
     "june mcdoom|lanzamiento": "2026-10-14T16:53:52.646589-06:00",
+    "jungle|anuncio": "2026-10-21T16:55:39.017815-06:00",
     "justice|anuncio": "2026-10-15T16:48:11.581909-06:00",
     "justice|lanzamiento": "2026-10-15T16:48:11.581909-06:00",
     "katie dey|lanzamiento": "2026-10-10T12:14:09.717685-06:00",
@@ -1793,6 +1857,7 @@
     "levitation room|anuncio": "2026-10-21T12:25:25.999252-06:00",
     "los planetas|lanzamiento": "2026-10-20T17:14:29.421699-06:00",
     "los punsetes|lanzamiento": "2026-10-16T11:49:27.320217-06:00",
+    "loved ones|lanzamiento": "2026-10-21T16:55:39.017815-06:00",
     "m83|lanzamiento": "2026-10-11T12:38:16.303815-06:00",
     "marika hackman|lanzamiento": "2026-10-14T16:53:52.646589-06:00",
     "marina herlop|lanzamiento": "2026-10-12T15:59:01.567510-06:00",
@@ -1803,11 +1868,9 @@
     "michael stipe|lanzamiento": "2026-10-14T12:19:48.283150-06:00",
     "mj lenderman|anuncio": "2026-10-11T12:38:16.303815-06:00",
     "modest mouse|gira": "2026-10-10T12:14:09.717685-06:00",
-    "montflorit|lanzamiento": "2026-10-07T13:45:47.438309-06:00",
     "moonspell|gira": "2026-10-12T15:59:01.567510-06:00",
     "mynolia|lanzamiento": "2026-10-14T16:53:52.646589-06:00",
     "napoleon solo|lanzamiento": "2026-10-14T12:19:48.283150-06:00",
-    "o tortuga|lanzamiento": "2026-10-07T13:45:47.438309-06:00",
     "oasis|anuncio": "2026-10-09T13:17:15.669088-06:00",
     "of monsters and men|gira": "2026-10-07T17:57:07.177357-06:00",
     "olas al azar|gira": "2026-10-15T12:02:06.040885-06:00",
@@ -1833,7 +1896,9 @@
     "sampa the great|lanzamiento": "2026-10-09T17:44:27.733041-06:00",
     "santero y los muchachos|gira": "2026-10-15T12:02:06.040885-06:00",
     "she past away|gira": "2026-10-15T12:02:06.040885-06:00",
+    "she wants revenge|lanzamiento": "2026-10-21T16:55:39.017815-06:00",
     "shygirl|gira": "2026-10-13T17:32:46.318336-06:00",
+    "sleaford mods|lanzamiento": "2026-10-21T16:55:39.017815-06:00",
     "sleepwalk|lanzamiento": "2026-10-08T13:41:12.192325-06:00",
     "smashing pumpkins|anuncio": "2026-10-15T16:48:11.581909-06:00",
     "smashing pumpkins|lanzamiento": "2026-10-16T11:49:27.320217-06:00",
@@ -1841,7 +1906,6 @@
     "son lux|anuncio": "2026-10-09T17:44:27.733041-06:00",
     "spiral xp|lanzamiento": "2026-10-12T15:59:01.567510-06:00",
     "strokes|anuncio": "2026-10-21T12:25:25.999252-06:00",
-    "susanne sundfør|lanzamiento": "2026-10-07T13:45:47.438309-06:00",
     "teenage fanclub|lanzamiento": "2026-10-09T13:17:15.669088-06:00",
     "thundercat|lanzamiento": "2026-10-13T14:06:08.464450-06:00",
     "tiffany day|lanzamiento": "2026-10-13T17:32:46.318336-06:00",
@@ -1854,7 +1918,6 @@
     "vial|anuncio": "2026-10-12T15:59:01.567510-06:00",
     "victorias|gira": "2026-10-21T12:25:25.999252-06:00",
     "virga|anuncio": "2026-10-10T17:07:00.480353-06:00",
-    "walter esau|gira": "2026-10-07T13:45:47.438309-06:00",
     "wednesday|gira": "2026-10-15T16:48:11.581909-06:00",
     "westside cowboy|anuncio": "2026-10-11T17:19:59.282664-06:00",
     "wilco|lanzamiento": "2026-10-08T18:04:19.576289-06:00",
@@ -1871,6 +1934,7 @@
     "https://consequence.net/2026/09/tv-on-the-radio-wolf-like-me-kimmel-watch": "2026-09-29T13:07:46.057721-06:00",
     "https://consequence.net/2026/09/ween-announce-boxset-boognish-provides": "2026-09-27T12:03:50.850787-06:00",
     "https://consequence.net/2026/10/aoc-and-bernie-sanders-introduce-the-strokes-prior-to-nyc-show": "2026-10-03T11:49:05.783436-06:00",
+    "https://consequence.net/2026/10/ben-folds-five-2027-us-tour": "2026-10-21T16:55:39.017815-06:00",
     "https://consequence.net/2026/10/big-thief-live-archive-incomprehensible": "2026-10-14T12:19:48.283150-06:00",
     "https://consequence.net/2026/10/dream-theater-studio-17th-album": "2026-10-13T17:32:46.318336-06:00",
     "https://consequence.net/2026/10/fka-twigs-freed-from-labeouf-nda": "2026-10-06T17:29:01.711577-06:00",
@@ -1911,6 +1975,7 @@
     "https://indierocks.mx/agenda/she-past-away-llegara-al-auditorio-bb": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/agenda/sold-out-road-to-hipnosis-awakening-black-country-new-road-en-orbe": "2026-10-09T17:44:27.733041-06:00",
     "https://indierocks.mx/agenda/walter-esau-se-presentara-en-house-of-vans": "2026-10-07T13:45:47.438309-06:00",
+    "https://indierocks.mx/musica/entrevistas/entrevista-con-fat-dog": "2026-10-21T16:55:39.017815-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-garth-jennings": "2026-09-30T12:50:45.936836-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-kneecap-2": "2026-10-16T16:21:37.269720-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-levitation-room": "2026-10-21T12:25:25.999252-06:00",
@@ -1931,7 +1996,6 @@
     "https://indierocks.mx/musica/noticias/cecimonster-vs-donka-estrena-adult-violence": "2026-10-13T17:32:46.318336-06:00",
     "https://indierocks.mx/musica/noticias/chvrches-regresa-con-roses": "2026-09-23T12:16:54.834689-06:00",
     "https://indierocks.mx/musica/noticias/cicada-presenta-ocaso-una-cancion-sobre-los-cambios": "2026-10-08T13:41:12.192325-06:00",
-    "https://indierocks.mx/musica/noticias/danielle-ponder-anuncia-disco-con-sun-and-moon": "2026-09-21T13:05:47.304639-06:00",
     "https://indierocks.mx/musica/noticias/david-byrne-y-daniel-pemberton-estrenan-cancion-para-musk": "2026-10-09T17:44:27.733041-06:00",
     "https://indierocks.mx/musica/noticias/david-j-alza-la-voz-en-requiem-for-the-rose-garden": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/david-sylvian-regresa-con-un-album-instrumental": "2026-10-05T15:22:47.000574-06:00",
@@ -1946,7 +2010,6 @@
     "https://indierocks.mx/musica/noticias/hillsboro-presenta-my-god-adelanto-de-su-proximo-ep": "2026-10-16T16:21:37.269720-06:00",
     "https://indierocks.mx/musica/noticias/i-know-you-are-but-what-am-i-thinking-lo-nuevo-de": "2026-10-16T11:49:27.320217-06:00",
     "https://indierocks.mx/musica/noticias/jonathan-bree-estrena-el-video-de-slow": "2026-10-01T17:36:06.714335-06:00",
-    "https://indierocks.mx/musica/noticias/kate-nash-alza-la-voz-en-spilt-milk-su-nuevo-tema": "2026-09-21T13:05:47.304639-06:00",
     "https://indierocks.mx/musica/noticias/kings-of-leon-presenta-cold-blue-dawn-su-nueva-cancion": "2026-10-01T17:36:06.714335-06:00",
     "https://indierocks.mx/musica/noticias/lambrini-girls-estrena-the-basement-y-split": "2026-10-21T12:25:25.999252-06:00",
     "https://indierocks.mx/musica/noticias/loma-linda-lo-nuevo-de-l7": "2026-10-05T15:22:47.000574-06:00",
@@ -1967,10 +2030,11 @@
     "https://indierocks.mx/musica/noticias/por-ejemplo-tu-lo-nuevo-de-karina-galicia": "2026-09-28T13:23:46.399249-06:00",
     "https://indierocks.mx/musica/noticias/portugal-the-man-estrena-you-can-count-on-me": "2026-10-21T12:25:25.999252-06:00",
     "https://indierocks.mx/musica/noticias/queens-of-the-stone-age-presenta-where-the-goth-girls-at": "2026-09-23T12:16:54.834689-06:00",
-    "https://indierocks.mx/musica/noticias/raye-estrena-el-video-de-joy": "2026-09-21T13:05:47.304639-06:00",
     "https://indierocks.mx/musica/noticias/rosas-adelanta-su-proximo-material-con-quiero-te": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/musica/noticias/sampa-the-great-presenta-location-su-nuevo-sencillo": "2026-10-09T17:44:27.733041-06:00",
     "https://indierocks.mx/musica/noticias/serpentwithfeet-anuncia-ep-con-sentinel": "2026-09-25T12:14:55.990706-06:00",
+    "https://indierocks.mx/musica/noticias/she-wants-revenge-regresa-con-black-wax-our-love": "2026-10-21T16:55:39.017815-06:00",
+    "https://indierocks.mx/musica/noticias/sleaford-mods-lanza-la-edicion-deluxe-de-su-ultimo-album": "2026-10-21T16:55:39.017815-06:00",
     "https://indierocks.mx/musica/noticias/sleepwalk-encuentra-belleza-en-el-invierno-con-jan-22": "2026-10-08T13:41:12.192325-06:00",
     "https://indierocks.mx/musica/noticias/the-comet-is-coming-celebra-10-anos-de-channel-the-spirits": "2026-10-08T13:41:12.192325-06:00",
     "https://indierocks.mx/musica/noticias/the-flaming-lips-celebrara-a-at-war-with-the-mystics": "2026-10-01T13:17:41.901631-06:00",
@@ -1980,7 +2044,6 @@
     "https://indierocks.mx/musica/noticias/twisted-teens-presenta-stalks-su-nuevo-sencillo": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/winona-fighter-presenta-leech-su-nuevo-sencillo": "2026-10-21T12:25:25.999252-06:00",
     "https://indierocks.mx/musica/resenas/fat-dog-cancel-me-im-tired": "2026-10-16T11:49:27.320217-06:00",
-    "https://jenesaispop.com/2026/09/20/530739/sports-disco-critica": "2026-09-21T13:05:47.304639-06:00",
     "https://jenesaispop.com/2026/09/22/530856/guitarricadelafuente-nieve-mejor-cancion": "2026-09-22T11:57:49.204216-06:00",
     "https://jenesaispop.com/2026/09/22/530862/leo-rizzi-samba-tour": "2026-09-22T11:57:49.204216-06:00",
     "https://jenesaispop.com/2026/09/22/530872/tove-estrus-critica": "2026-09-22T11:57:49.204216-06:00",
@@ -2026,6 +2089,7 @@
     "https://jenesaispop.com/2026/10/15/532188/blondie-nuevo-disco": "2026-10-15T12:02:06.040885-06:00",
     "https://jenesaispop.com/2026/10/16/532302/novedades-16-octubre": "2026-10-16T16:21:37.269720-06:00",
     "https://jenesaispop.com/2026/10/20/532503/hot-chip-random-violence": "2026-10-20T17:14:29.421699-06:00",
+    "https://jenesaispop.com/2026/10/20/532546/jungle-sunshine-entrevista": "2026-10-21T16:55:39.017815-06:00",
     "https://jenesaispop.com/2026/10/20/532568/los-planetas-dos-cruces": "2026-10-20T17:14:29.421699-06:00",
     "https://jenesaispop.com/2026/10/20/532593/eels-cookie-happened": "2026-10-20T17:14:29.421699-06:00",
     "https://jenesaispop.com/2026/10/21/532630/ernest-urtasun-strokes": "2026-10-21T12:25:25.999252-06:00",
@@ -2033,13 +2097,13 @@
     "https://mondosonoro.com/criticas/conciertos-musica/rata-mardi-gras-coruna": "2026-10-06T13:19:23.063230-06:00",
     "https://mondosonoro.com/criticas/discos-musica/anni-b-sweet-alegria": "2026-10-16T11:49:27.320217-06:00",
     "https://mondosonoro.com/criticas/discos-musica/blossoms-songs-from-the-wedding-cake": "2026-10-13T14:06:08.464450-06:00",
-    "https://mondosonoro.com/criticas/discos-musica/buenos-vampiros-el-ultimo-disparo": "2026-09-21T13:05:47.304639-06:00",
     "https://mondosonoro.com/criticas/discos-musica/fat-dog-cancel-me-im-tired": "2026-10-01T13:17:41.901631-06:00",
     "https://mondosonoro.com/criticas/discos-musica/hijss": "2026-09-29T13:07:46.057721-06:00",
     "https://mondosonoro.com/criticas/discos-musica/imperial-teen-all-over-you": "2026-10-15T12:02:06.040885-06:00",
     "https://mondosonoro.com/criticas/discos-musica/levitants-que-ardera": "2026-10-01T13:17:41.901631-06:00",
     "https://mondosonoro.com/criticas/discos-musica/vilvao": "2026-10-01T13:17:41.901631-06:00",
     "https://mondosonoro.com/entrevistas/amorante": "2026-10-15T16:48:11.581909-06:00",
+    "https://mondosonoro.com/entrevistas/blanco-palamera-biiip": "2026-10-21T16:55:39.017815-06:00",
     "https://mondosonoro.com/entrevistas/levitants-que-ardera-manana": "2026-10-08T18:04:19.576289-06:00",
     "https://mondosonoro.com/entrevistas/revendless": "2026-10-12T15:59:01.567510-06:00",
     "https://mondosonoro.com/entrevistas/tigers-jaw": "2026-10-03T11:49:05.783436-06:00",
@@ -2060,7 +2124,6 @@
     "https://mondosonoro.com/noticias-actualidad-musical/gazella-reflejo": "2026-09-22T11:57:49.204216-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/guillem-gisbert-single-fechas": "2026-09-27T12:03:50.850787-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/hiru-gurdi-ni-hil": "2026-09-22T11:57:49.204216-06:00",
-    "https://mondosonoro.com/noticias-actualidad-musical/horarios-doinu-bat": "2026-09-21T13:05:47.304639-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/indios-gira-espana": "2026-10-04T12:00:01.087878-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/infojobs-amooma": "2026-09-24T12:15:04.967757-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/javiera-mena-madrid-y-barcelona": "2026-10-07T13:45:47.438309-06:00",
@@ -2093,6 +2156,7 @@
     "https://mondosonoro.com/noticias-actualidad-musical/talking-heads-nuevo-canal": "2026-09-22T11:57:49.204216-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/the-autumn-defense-gira": "2026-10-03T11:49:05.783436-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/the-interrupters-fechas-espanolas": "2026-10-05T15:22:47.000574-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/the-loved-ones-latest-hits": "2026-10-21T16:55:39.017815-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/u2-greatest-show-on-earth": "2026-10-16T16:21:37.269720-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/uholdea-eh-sukarra": "2026-10-07T13:45:47.438309-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/vacaciones-permanentes-nueva-etapa": "2026-10-01T13:17:41.901631-06:00",
@@ -2100,6 +2164,7 @@
     "https://mondosonoro.com/noticias-actualidad-musical/victorias-emocional-madrid": "2026-10-21T12:25:25.999252-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/zabal-anne-etchegoyen": "2026-10-08T13:41:12.192325-06:00",
     "https://pitchfork.com/story/andrew-savage-launches-new-band-iconic-fugues-with-2025-dream-2025-blues": "2026-10-08T18:04:19.576289-06:00",
+    "https://pitchfork.com/story/ben-folds-five-announce-first-tour-since-2013": "2026-10-21T16:55:39.017815-06:00",
     "https://pitchfork.com/story/big-thief-launch-free-concert-archive": "2026-10-14T12:19:48.283150-06:00",
     "https://pitchfork.com/story/blondie-announce-first-album-in-nine-years": "2026-10-15T12:02:06.040885-06:00",
     "https://pitchfork.com/story/brakence-returns-with-new-song-ready-or-not": "2026-09-27T12:03:50.850787-06:00",
