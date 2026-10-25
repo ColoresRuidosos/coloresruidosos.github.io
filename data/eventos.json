@@ -1,51 +1,6 @@
 {
-  "actualizado": "2026-10-24T11:14:10-06:00",
+  "actualizado": "2026-10-25T11:26:22-06:00",
   "eventos": [
-    {
-      "id": "palacio-de-los-deportes-2026-10-24-fobia",
-      "titulo": "Fobia",
-      "fecha": "2026-10-24",
-      "hora": null,
-      "recinto": "Palacio de los Deportes",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-indie-rocks-2026-10-24-ploho",
-      "titulo": "Ploho",
-      "fecha": "2026-10-24",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "Ciudad de México",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
-    {
-      "id": "foro-puebla-186-2026-10-24-the-jungle-giants",
-      "titulo": "The Jungle Giants",
-      "fecha": "2026-10-24",
-      "hora": null,
-      "recinto": "Foro Puebla 186",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-indie-rocks-2026-10-25-emiliano-athie",
       "titulo": "Emiliano Athie",
