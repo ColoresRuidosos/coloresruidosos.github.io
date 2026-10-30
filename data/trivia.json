@@ -1,6 +1,6 @@
 {
   "borrador": true,
-  "_nota": "Generado desde docs/trivia.md. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión y muestra un aviso.",
+  "_nota": "Generado desde docs/trivia.md. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión.",
   "preguntas": [
     {
       "id": "F01",
