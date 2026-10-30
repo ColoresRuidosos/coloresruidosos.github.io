@@ -1,0 +1,77 @@
+{{ define "main" }}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+
+<header class="encabezado">
+  <h1 class="encabezado__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
+</header>
+
+<noscript><p class="vacio">La trivia necesita JavaScript para funcionar.</p></noscript>
+
+<section class="trivia" data-trivia data-en="inicio" aria-label="Juego de trivia">
+  <div class="trivia__consola">
+    <canvas class="trivia__escena" data-escena width="160" height="144" role="img" aria-label="Escena pixel art"></canvas>
+
+    <div class="trivia__pantalla" data-pantalla="inicio">
+      <p class="trivia__aviso" data-borrador hidden>Versión de prueba: cada pregunta tiene su fuente, pero un grupo de fans todavía las está revisando.</p>
+      <p class="trivia__intro">15 preguntas en 6 etapas, de la etapa en inglés a la pausa de 2026. Fáciles valen 1 punto, difíciles 2 y muy difíciles 3.</p>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--grande" data-jugar data-foco>▶ Jugar</button>
+        <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
+        <button type="button" class="trivia__boton trivia__boton--chico" data-sonido aria-pressed="false">♪ Sonido: no</button>
+      </div>
+      <p class="trivia__record" data-record></p>
+    </div>
+
+    <div class="trivia__pantalla" data-pantalla="juego" hidden>
+      <div class="trivia__hud">
+        <span data-hud-etapa></span>
+        <span data-hud-num></span>
+        <span data-hud-puntos></span>
+      </div>
+      <p class="trivia__dificultad" data-dificultad></p>
+      <h2 class="trivia__pregunta" data-pregunta tabindex="-1"></h2>
+      <ol class="trivia__opciones" data-opciones></ol>
+      <p class="trivia__feedback" data-feedback aria-live="polite"></p>
+      <p class="trivia__fuentes" data-fuentes></p>
+      <button type="button" class="trivia__boton trivia__boton--grande" data-siguiente hidden>Siguiente ▶</button>
+    </div>
+
+    <div class="trivia__pantalla" data-pantalla="resultado" hidden>
+      <canvas class="trivia__avatar" data-avatar width="32" height="32" role="img" aria-label="Avatar"></canvas>
+      <p class="trivia__eres">Eres</p>
+      <h2 class="trivia__categoria" data-categoria tabindex="-1" data-foco></h2>
+      <p class="trivia__puntaje" data-puntaje></p>
+      <h3 class="trivia__subtitulo" data-nuevas-titulo>Nuevo en tu colección</h3>
+      <ul class="trivia__insignias" data-nuevas></ul>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--grande" data-compartir>Compartir mi resultado</button>
+        <button type="button" class="trivia__boton" data-jugar>Jugar otra vez</button>
+        <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
+      </div>
+      <p class="trivia__aviso-compartir" data-aviso-compartir aria-live="polite"></p>
+    </div>
+
+    <div class="trivia__pantalla" data-pantalla="coleccion" hidden>
+      <h2 class="trivia__categoria" tabindex="-1" data-foco>Mi colección</h2>
+      <p class="trivia__puntaje" data-conteo></p>
+      <h3 class="trivia__subtitulo">Portadas</h3>
+      <ul class="trivia__portadas" data-portadas></ul>
+      <h3 class="trivia__subtitulo">Insignias</h3>
+      <ul class="trivia__insignias" data-insignias></ul>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--grande" data-jugar>▶ Jugar</button>
+        <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
+      </div>
+    </div>
+  </div>
+  <p class="trivia__nota">Tu récord, insignias y portadas se guardan solo en este navegador. Las escenas son pixel art propio inspirado en las portadas de la banda. Las preguntas y sus fuentes están en <a href="https://github.com/ColoresRuidosos/coloresruidosos.github.io/blob/main/docs/trivia.md">docs/trivia.md</a>; si ves un error, avísanos.</p>
+</section>
+
+<script type="application/json" id="trivia-datos">{{ site.Data.trivia | jsonify | safeJS }}</script>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

@@ -112,6 +112,14 @@ test("el sorteo queda ordenado por etapa y, dentro de la etapa, de fácil a muy 
   }
 });
 
+test("cada partida pasa por las 6 etapas", () => {
+  const jug = T.preguntasJugables(datos);
+  for (let semilla = 1; semilla <= 200; semilla++) {
+    const etapas = new Set(T.sortear(jug, rngSemilla(semilla)).map((q) => q.etapa));
+    assert.strictEqual(etapas.size, 6, "semilla " + semilla);
+  }
+});
+
 test("la misma semilla da la misma partida y otra semilla da otra", () => {
   const jug = T.preguntasJugables(datos);
   const ids = (s) => T.sortear(jug, rngSemilla(s)).map((q) => q.id).join();

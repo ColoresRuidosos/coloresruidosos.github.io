@@ -73,13 +73,25 @@
     return a;
   }
 
+  function etapasDe(lista) {
+    var vistas = {};
+    lista.forEach(function (p) { vistas[p.etapa] = true; });
+    return Object.keys(vistas).length;
+  }
+
+  /* Sortea 5 por dificultad y repite el sorteo (hasta 200 veces) hasta que la
+     partida pase por todas las etapas que tiene el banco. */
   function sortear(preguntas, rng) {
     rng = rng || Math.random;
-    var elegidas = [];
-    DIFICULTADES.forEach(function (d) {
-      var grupo = preguntas.filter(function (p) { return p.dificultad === d; });
-      elegidas = elegidas.concat(barajar(grupo, rng).slice(0, POR_DIFICULTAD));
-    });
+    var meta = etapasDe(preguntas), elegidas = [];
+    for (var intento = 0; intento < 200; intento++) {
+      elegidas = [];
+      DIFICULTADES.forEach(function (d) {
+        var grupo = preguntas.filter(function (p) { return p.dificultad === d; });
+        elegidas = elegidas.concat(barajar(grupo, rng).slice(0, POR_DIFICULTAD));
+      });
+      if (etapasDe(elegidas) === meta) break;
+    }
     return elegidas.sort(function (a, b) {
       return (ETAPAS.indexOf(a.etapa) - ETAPAS.indexOf(b.etapa)) ||
         (DIFICULTADES.indexOf(a.dificultad) - DIFICULTADES.indexOf(b.dificultad));

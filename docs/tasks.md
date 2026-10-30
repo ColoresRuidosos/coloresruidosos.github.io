@@ -47,16 +47,15 @@
 ## Fase 6 — Trivia LoL 8 bits (F15/D21)
 Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Spec, plan y banco de preguntas con fuentes (`docs/trivia.md`)
-- ⏳ Revisión fan de las preguntas (V6) y segundas fuentes (V7)
-- ⏳ 🔴→🟢 Contrato de `data/trivia.json`: 4 opciones, correcta entre ellas, fuentes, estado; ≥ 5 verificadas por dificultad (`tests-js/trivia.test.js`)
-- ⏳ 🔴→🟢 Sorteo 5/5/5 sin repetir, solo verificadas, ordenado por etapa, con semilla
-- ⏳ 🔴→🟢 Puntaje 1/2/3 y categorías en los cortes 12/13, 22/23, 29/30
-- ⏳ 🔴→🟢 Insignias: cada una con su caso que la da y su caso que no; "El último baile" respeta la fecha límite en hora CDMX
-- ⏳ 🔴→🟢 Portadas coleccionables: etapa completa desbloquea; las 6 dan "Ejército de salvación"
-- ⏳ 🔴→🟢 Estado del jugador: guardar/leer versionado; `localStorage` que lanza error no rompe nada
-- ⏳ Escenas pixel art de prueba (*El poeta Halley* y *V.E.H.N.*) para validar el estilo con el equipo
-- ⏳ Las otras 4 escenas y los 4 avatares de máscara
-- ⏳ Página `/trivia/` (`layouts/trivia/`), navegación, teclado, lector de pantalla, movimiento reducido
-- ⏳ Tarjeta para compartir y sonido 8 bits
-- ⏳ Compilar con Hugo 0.166 y probar en móvil a 360 px con Playwright
+- ⏳ Revisión fan de las preguntas (V6) y segundas fuentes (V7); al terminar, `borrador: false` en `data/trivia.json`
+- ✅ 🔴→🟢 Contrato de `data/trivia.json`: 4 opciones, correcta entre ellas, fuentes, estado; ≥ 5 verificadas por dificultad (`tests-js/trivia.test.js`)
+- ✅ 🔴→🟢 Sorteo 5/5/5 sin repetir, solo verificadas (o sólidas en borrador), ordenado por etapa, con semilla y pasando por las 6 etapas
+- ✅ 🔴→🟢 Puntaje 1/2/3 y categorías en los cortes 12/13, 22/23, 29/30
+- ✅ 🔴→🟢 Insignias: cada una con su caso que la da y su caso que no; "El último baile" respeta la fecha límite en hora CDMX
+- ✅ 🔴→🟢 Portadas coleccionables: etapa completa desbloquea; las 6 dan "Ejército de salvación"
+- ✅ 🔴→🟢 Estado del jugador: guardar/leer versionado; `localStorage` que lanza error no rompe nada
+- ✅ Las 6 escenas pixel art y los 4 avatares de máscara (pendiente: visto bueno del equipo sobre el estilo)
+- ✅ Página `/trivia/` (`layouts/trivia/`), navegación, teclado, lector de pantalla, movimiento reducido
+- ✅ Tarjeta para compartir (1080×1350), sonido 8 bits y eventos en GoatCounter
+- ✅ Compilar con Hugo 0.166 y jugar partidas completas con Playwright a 360 px y en escritorio, sin errores ni desborde horizontal
 - ⏳ Segunda fase: tabla de récords y covers 8 bits con permiso de la banda
