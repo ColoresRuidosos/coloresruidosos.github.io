@@ -26,6 +26,17 @@
 **D18 Bug: elegir un evento ocultaba los demás (2026-09-27):** los chips de recinto y cada `<li>` de evento usaban el mismo atributo `data-recinto` (uno como filtro a aplicar, el otro como metadato de a qué recinto pertenece el evento). `document.querySelectorAll("[data-recinto]")` armaba la lista de chips agarrando también las tarjetas de evento, así que el clic del checkbox (que burbujea hasta el `<li>`) disparaba el handler de los chips y filtraba la agenda por el recinto de *ese* evento. Diagnosticado interceptando `addEventListener` con Playwright (no bastaba con leer el código: el bug no era visible ahí, solo en el DOM real). Corregido renombrando el atributo de los chips a `data-filtro-recinto`. Ahora se pueden elegir varios eventos de cualquier recinto/fecha sin que se oculten entre sí.
 **D19 Cron de respaldo (2026-09-30):** la corrida de las 8:00 (`cron: "0 14 * * *"`) a veces se retrasa varias horas o no se dispara — es comportamiento "mejor esfuerzo" de GitHub Actions con `schedule`, no un error del repo (confirmado: `state: active`, archivo sin cambios recientes). Se agregó un segundo `cron: "0 20 * * *"` (14:00 CDMX) como respaldo. Es seguro correr dos veces el mismo día: la deduplicación es por hecho (artista + categoría) en 14 días, no por calendario, y si no hay nada nuevo el paso de commit simplemente no hace nada (`git diff --cached --quiet`).
 
+**D21 Trivia Love of Lesbian en 8 bits (2026-10-30):** F15. Decisiones:
+- **Estático, sin backend ni API.** Preguntas en `data/trivia.json`, que Hugo incrusta en `/trivia/` como JSON; la lógica corre en el navegador. Cero costo por partida (relevante tras los créditos agotados). Una tabla de récords global obligaría a tener backend (Google Sheet + Apps Script o Supabase), sería falsificable desde el navegador y requeriría moderar apodos: se deja para una segunda fase.
+- **Lógica pura separada del dibujo.** `assets/js/trivia/logica.js` (sorteo, puntaje, categoría, insignias, desbloqueos) no toca el DOM y se prueba con `node --test tests-js/trivia.test.js`, igual que `.ics`. `escenas.js` dibuja en `<canvas>`; `juego.js` conecta ambos. Sin librerías.
+- **Sorteo con semilla.** El sorteo acepta un generador aleatorio inyectado para que las pruebas sean deterministas.
+- **Pixel art como datos.** Cada escena es una paleta de ≤ 16 colores más una matriz de 160×144 (resolución tipo consola portátil) dibujada a escala entera con `image-rendering: pixelated`. Se dibujan a mano, inspiradas en las portadas; nunca se pixela la imagen original.
+- **Veracidad por contrato.** `data/trivia.json` lleva por pregunta: `id`, `etapa`, `dificultad`, `tipo`, `pregunta`, `opciones` (4), `correcta`, `fuentes` (≥ 1 URL; ≥ 2 salvo que sea de `loveoflesbianband.com`) y `estado` (`propuesta` | `verificada`). Un test falla si algo de eso no se cumple, y el juego filtra a `verificada`. Un test exige además al menos 5 verificadas por dificultad, para que siempre se pueda armar una partida.
+- **Estado del jugador en `localStorage`** bajo una sola clave versionada (`cr-trivia-v1`), con todo envuelto en `try/catch`: sin almacenamiento, el juego funciona y solo pierde récord e insignias.
+- **Tarjeta para compartir** con `canvas.toBlob` → `navigator.share({files})` si existe; si no, descarga del PNG.
+- **Sonido** con Web Audio (osciladores de onda cuadrada), sin archivos de audio y apagado por defecto. Música: chiptune original, nunca melodías de la banda (D21 descarta covers 8 bits sin permiso).
+- **Fecha límite:** el 25 de noviembre de 2026 (último concierto en CDMX) marca el lanzamiento deseado y el fin de la insignia "El último baile".
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
@@ -34,6 +45,8 @@
 | V3 | Primera corrida real: calidad de clasificación y tono | Ajustar `prompts/` |
 | V4 | Costo real por corrida (resumen muestra tokens) | Bajar lote o tope |
 | V5 | Cuotas de Spotify y YouTube con uso diario | Solo Spotify |
+| V6 | Revisión fan de las 47 preguntas de `docs/trivia.md` | Lanzar con las que estén verificadas (mínimo 5 por dificultad) |
+| V7 | Segunda fuente para las 8 preguntas 🟡 | Se quedan fuera del juego |
 
 ## Riesgos aceptados por publicar sin revisión
 | Riesgo | Mitigación disponible |
