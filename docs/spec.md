@@ -28,6 +28,7 @@
 - Dominio propio (v1 vive en la URL de GitHub Pages).
 - Recomendaciones de la comunidad (formulario abierto).
 - Fuentes desde X/Instagram.
+- Trivia LoL (F15), segunda fase: tabla de récords entre jugadores y versiones 8 bits de canciones de la banda (requiere permiso de la banda o su editorial).
 
 ## 2. Usuarios
 
@@ -66,6 +67,10 @@
 
 **F13 Visor de stickers.** Página `/stickers/` con la galería de stickers propios del equipo (mismo principio que F6/imágenes de notas: nada de terceros). El equipo sube un archivo a `assets/stickers/`; sin configuración adicional aparece en la galería. Clic en un sticker abre una tarjeta 3D: el sticker está pegado encima de un reverso de tarjeta de colección con la marca "Colores Ruidosos"; clic/toque lo despega (como una calcomanía) y lo levanta para revelar el reverso, clic de nuevo lo vuelve a pegar. Cierra con la X, el fondo o Escape. Sin stickers subidos, la página muestra un aviso en vez de una galería vacía.
 
+**F15 Trivia Love of Lesbian en 8 bits.** Página `/trivia/`: un juego de 15 preguntas (5 fáciles, 5 difíciles, 5 muy difíciles; 30 puntos) que recorre las seis etapas de la banda en orden, cada una con su escena pixel art inspirada en las portadas (reinterpretación propia, no copia). Al final da una categoría (**Pequeño lesbiano**, **Lesbianito**, **Viejo lesbiano** y una secreta con 30/30), insignias con nombres de canciones, portadas coleccionables y una tarjeta 8 bits para compartir. Récord, insignias y colección se guardan solo en el navegador del jugador. **Objetivo: engagement**, con lanzamiento antes del último concierto de la banda en CDMX (Auditorio Nacional, 25 de noviembre de 2026) antes de su pausa indefinida. **Regla de veracidad:** cada pregunta tiene fuente enlazada (web oficial, o dos fuentes independientes), sin letras de canciones, y solo entra al juego tras la revisión de un fan. Contenido detallado (preguntas, categorías, insignias, datos descartados): `docs/trivia.md`. Sin llamadas a la API de Claude: cero costo por partida.
+
+**Métricas de éxito de F15:** partidas iniciadas vs. terminadas (> 60 % terminan); al menos 1 de cada 5 partidas termina en compartir la tarjeta; jugadores que vuelven a jugar (insignia "Universos infinitos"). *Sin analítica en el sitio hoy: medir requiere decidir una herramienta respetuosa con la privacidad (decisión abierta).*
+
 ## 4. Flujos
 
 **A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
@@ -75,6 +80,10 @@
 **C. Agenda.** Por recinto: leer JSON-LD → si falla o trae 0, conservar anteriores → aplicar Sheet (o conservar marcas si no responde) → filtrar futuros → firmar → `data/eventos.json`.
 
 **D. Corregir una nota publicada.** Curador ve error → pestaña Notas: slug + TRUE → siguiente corrida (o corrida manual) la oculta.
+
+**F. Partida de trivia.** Portada del juego → "Jugar" → sorteo de 15 preguntas verificadas (5/5/5) ordenadas por etapa → por cada etapa, escena pixel art y sus preguntas (4 opciones; acierto/error con sonido y animación breves) → resultado: puntaje, categoría con su avatar, insignias nuevas, portadas desbloqueadas → compartir tarjeta o volver a jugar.
+
+**G. Alta de una pregunta.** Se propone en `docs/trivia.md` con fuentes → un fan abre los enlaces y confirma → pasa a `data/trivia.json` con `estado: verificada` → los tests validan formato y fuentes → la siguiente compilación la incluye.
 
 **E. Recomendar un evento.** Curador en pestaña Eventos: recinto, fecha, parte del título, casilla con su nombre → siguiente corrida.
 
@@ -92,6 +101,7 @@ GitHub Pages ◄─────────────────────�
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
+   /trivia/     juego 8 bits sobre Love of Lesbian (data/trivia.json + canvas, sin backend)
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
@@ -107,5 +117,7 @@ Estructura, modelo de datos y decisiones: ver `plan.md`.
 **Confiabilidad:** fallos aislados por fuente y por recinto; corrida idempotente; sin commit si no hay cambios; no se publica si fallan tests o compilación.
 
 **Identidad (SPEC-001):** crema `#F4EFE6`, tinta `#141414`, rosa `#FF3E7F`, azul `#2F5BFF`, amarillo `#FFD23F`, verde `#1FB57A`, naranja `#FF7A30`; Syne y Space Grotesk. Colores primarios vibrantes (no tonos apagados). Reglas de contraste: rosa, amarillo, verde y naranja solo con texto tinta encima (nunca blanco); rosa reservado para el sticker "Viene a México"; verde, naranja, azul y amarillo marcan respectivamente las categorías Lanzamiento, Gira, Anuncio y Crónica.
+
+**Trivia (F15):** juego completo con teclado (1–4 y Enter) y lector de pantalla (las escenas pixel art tienen texto alternativo; las preguntas tipo portada describen la imagen); sin destellos de más de 3 por segundo; `prefers-reduced-motion` quita animaciones; sonido apagado por defecto; funciona a 360 px y sin `localStorage`. Portadas redibujadas en pixel art propio, nunca las originales pixeladas; sin letras ni audio de la banda.
 
 **Accesibilidad y rendimiento:** foco visible, enlace para saltar al contenido, filtros con `aria-pressed`, responsive a 360 px, iframes con carga diferida, sin librerías JS.

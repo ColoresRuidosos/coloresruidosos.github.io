@@ -1,0 +1,896 @@
+{
+  "borrador": true,
+  "_nota": "Generado desde docs/trivia.md. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión y muestra un aviso.",
+  "preguntas": [
+    {
+      "id": "F01",
+      "etapa": "E1",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿Cerca de qué ciudad se formó Love of Lesbian?",
+      "correcta": "Barcelona",
+      "incorrectas": [
+        "Madrid",
+        "Valencia",
+        "Bilbao"
+      ],
+      "fuentes": [
+        "https://www.todomusica.org/love_of_lesbian/biografia/",
+        "https://www.buenamusica.com/love-of-lesbian/biografia"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F02",
+      "etapa": "E1",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿Quién es el vocalista de la banda?",
+      "correcta": "Santi Balmes",
+      "incorrectas": [
+        "Jordi Roig",
+        "Oriol Bonet",
+        "Julián Saldarriaga"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/",
+        "https://www.todomusica.org/love_of_lesbian/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F03",
+      "etapa": "E1",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿En qué idioma cantaban en sus tres primeros discos?",
+      "correcta": "Inglés",
+      "incorrectas": [
+        "Catalán",
+        "Francés",
+        "Castellano"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/disco/ungravity-2003/",
+        "https://loveoflesbianband.com/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F04",
+      "etapa": "E2",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿Cuál fue su primer disco cantado en castellano?",
+      "correcta": "Maniobras de escapismo",
+      "incorrectas": [
+        "1999",
+        "Cuentos chinos para niños del Japón",
+        "El poeta Halley"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/disco/maniobras-de-escapismo-2005/",
+        "https://es.wikipedia.org/wiki/Maniobras_de_escapismo"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F05",
+      "etapa": "E3",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "\"Club de fans de John Boy\" y \"Allí donde solíamos gritar\" pertenecen al disco…",
+      "correcta": "1999",
+      "incorrectas": [
+        "La noche eterna",
+        "Ungravity",
+        "V.E.H.N."
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/disco/1999/",
+        "https://www.deezer.com/en/album/298527"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F06",
+      "etapa": "E4",
+      "dificultad": "facil",
+      "tipo": "portada",
+      "escena_alt": "cohete rojo en cielo turquesa",
+      "pregunta": "¿De qué disco es esta portada?",
+      "correcta": "El poeta Halley",
+      "incorrectas": [
+        "Ejército de salvación",
+        "Ungravity",
+        "1999"
+      ],
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/7335/",
+        "https://www.elgiradiscos.com/2016/04/love-of-lesbian-el-poeta-halley.html"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F07",
+      "etapa": "E4",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "\"Bajo el volcán\" fue el primer sencillo de…",
+      "correcta": "El poeta Halley",
+      "incorrectas": [
+        "1999",
+        "V.E.H.N.",
+        "Maniobras de escapismo"
+      ],
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/7335/tema/12018/",
+        "https://ecosdelvinilo.com/2016/01/love-of-lesbian-bajo-el-volcan-2.html"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F08",
+      "etapa": "E4",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "El gran truco final es…",
+      "correcta": "Un disco en directo",
+      "incorrectas": [
+        "Un disco de estudio",
+        "Un libro de Santi Balmes",
+        "Un documental"
+      ],
+      "fuentes": [
+        "https://www.laganzua.net/noticias/15796-love-of-lesbian-lanzan-el-gran-truco-final-disco-en-directo",
+        "https://www.excelsior.com.mx/funcion/love-lesbian-publica-su-nuevo-disco-el-gran-truco-final/1239960"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F09",
+      "etapa": "E5",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿Qué significan las siglas V.E.H.N.?",
+      "correcta": "Viaje épico hacia la nada",
+      "incorrectas": [
+        "Vida en Halley nunca",
+        "Viejos en huelga nocturna",
+        "Volver es hacerse nadie"
+      ],
+      "fuentes": [
+        "https://music.apple.com/es/album/v-e-h-n-viaje-%C3%A9pico-hacia-la-nada/1540993287",
+        "https://es.todoindie.com/love-of-lesbian-v-e-h-n/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F10",
+      "etapa": "E5",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿Con quién cantan \"El sur\"?",
+      "correcta": "Enrique Bunbury",
+      "incorrectas": [
+        "Joaquín Sabina",
+        "Fito Páez",
+        "Andrés Calamaro"
+      ],
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/tema/24773/",
+        "https://www.telecinco.es/noticias/cultura/love-of-lesbian-bunbury-colaboracion-concierto-5000-personas-be5ma_18_3101445268.html"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F11",
+      "etapa": "E6",
+      "dificultad": "facil",
+      "tipo": "portada",
+      "escena_alt": "cuatro personas con máscaras y una bandera",
+      "pregunta": "¿De qué disco es esta portada?",
+      "correcta": "Ejército de salvación",
+      "incorrectas": [
+        "El gran truco final",
+        "Nouvelle Cuisine Caníbal",
+        "V.E.H.N."
+      ],
+      "fuentes": [
+        "https://www.discogs.com/release/32078493-Love-Of-Lesbian-Ej%C3%A9rcito-De-Salvaci%C3%B3n",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F12",
+      "etapa": "E6",
+      "dificultad": "facil",
+      "tipo": "dato",
+      "pregunta": "¿Dónde es su último concierto en CDMX antes de la pausa?",
+      "correcta": "Auditorio Nacional",
+      "incorrectas": [
+        "Palacio de los Deportes",
+        "Foro Sol",
+        "Teatro Metropólitan"
+      ],
+      "fuentes": [
+        "https://www.eluniversal.com.mx/espectaculos/nueva-fecha-en-cdmx-para-love-of-lesbian-confirmacion-llega-desde-el-vive-latino-2026/",
+        "https://www.auditorio.com.mx/cartelera/2026/noviembre/love-of-lesbian.html"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F13",
+      "etapa": "E5",
+      "dificultad": "facil",
+      "tipo": "portada",
+      "escena_alt": "trampolín visto desde abajo entre muros de mosaico",
+      "pregunta": "¿De qué disco es esta portada?",
+      "correcta": "V.E.H.N.",
+      "incorrectas": [
+        "Ungravity",
+        "El poeta Halley",
+        "1999"
+      ],
+      "fuentes": [
+        "https://music.apple.com/es/album/v-e-h-n-viaje-%C3%A9pico-hacia-la-nada/1540993287",
+        "https://www.deezer.com/mx/album/219059692"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "F14",
+      "etapa": "E3",
+      "dificultad": "facil",
+      "tipo": "portada",
+      "escena_alt": "una persona en una bañera",
+      "pregunta": "¿De qué disco es esta portada?",
+      "correcta": "1999",
+      "incorrectas": [
+        "La noche eterna",
+        "Maniobras de escapismo",
+        "Ungravity"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/disco/1999/",
+        "https://www.deezer.com/en/album/298527"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D01",
+      "etapa": "E1",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿En qué año empezó la banda?",
+      "correcta": "1997",
+      "incorrectas": [
+        "1993",
+        "2001",
+        "2005"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/",
+        "https://www.todomusica.org/love_of_lesbian/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D02",
+      "etapa": "E1",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Cómo se llama su primer disco?",
+      "correcta": "Microscopic Movies",
+      "incorrectas": [
+        "Is It Fiction?",
+        "Ungravity",
+        "Fantastic Shine"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/",
+        "https://www.wikidata.org/wiki/Q28503651"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D03",
+      "etapa": "E1",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿De qué banda fueron teloneros en su Dream Tour?",
+      "correcta": "The Cure",
+      "incorrectas": [
+        "Radiohead",
+        "Coldplay",
+        "Pixies"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/",
+        "https://www.tomavistasfestival.com/en/conciertos/love-of-lesbian/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D04",
+      "etapa": "E2",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "Antes de ser miembro oficial, Julián Saldarriaga acompañaba a la banda como…",
+      "correcta": "Roadie",
+      "incorrectas": [
+        "Mánager",
+        "Ingeniero de sonido",
+        "Fotógrafo"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D05",
+      "etapa": "E2",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Con qué canción abre Cuentos chinos para niños del Japón?",
+      "correcta": "Universos infinitos",
+      "incorrectas": [
+        "Me amo",
+        "La niña imantada",
+        "Noches reversibles"
+      ],
+      "fuentes": [
+        "https://es.wikipedia.org/wiki/Cuentos_chinos_para_ni%C3%B1os_del_Jap%C3%B3n",
+        "https://open.spotify.com/album/2H8D7PqqvSyjrqZjbFxVYQ"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D06",
+      "etapa": "E3",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué disco les dio su primer disco de oro en España?",
+      "correcta": "1999",
+      "incorrectas": [
+        "Maniobras de escapismo",
+        "El poeta Halley",
+        "Cuentos chinos para niños del Japón"
+      ],
+      "fuentes": [
+        "https://es.wikipedia.org/wiki/1999_(%C3%A1lbum_de_Love_of_Lesbian",
+        "https://loveoflesbianband.com/disco/1999/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D07",
+      "etapa": "E3",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Cuál fue su primer disco en llegar al número 1 de ventas en España?",
+      "correcta": "La noche eterna. Los días no vividos",
+      "incorrectas": [
+        "1999",
+        "Cuentos chinos para niños del Japón",
+        "Maniobras de escapismo"
+      ],
+      "fuentes": [
+        "https://es.wikipedia.org/wiki/La_noche_eterna._Los_d%C3%ADas_no_vividos",
+        "https://www.fnac.es/Love-of-Lesbian/ia71418/biografia"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D08",
+      "etapa": "E3",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "La noche eterna. Los días no vividos (2012) es un disco…",
+      "correcta": "Doble",
+      "incorrectas": [
+        "En directo",
+        "Instrumental",
+        "En inglés"
+      ],
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://es.wikipedia.org/wiki/La_noche_eterna._Los_d%C3%ADas_no_vividos"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D09",
+      "etapa": "E4",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Quién tomó el bajo cuando Joan Ramon Planell dejó la banda en 2017?",
+      "correcta": "Ricky Falkner",
+      "incorrectas": [
+        "Dani Ferrer",
+        "Julián Saldarriaga",
+        "Jordi Roig"
+      ],
+      "fuentes": [
+        "https://elrescatemusical.com/love-of-lesbian-cambio-formacion/",
+        "https://www.mondosonoro.com/entrevistas/love-of-lesbian-entrevista-truco-final/",
+        "https://www.fnac.es/Love-of-Lesbian/ia71418/biografia"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D10",
+      "etapa": "E5",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Cuántas nominaciones al Latin Grammy 2021 recibieron con V.E.H.N.?",
+      "correcta": "3",
+      "incorrectas": [
+        "1",
+        "2",
+        "5"
+      ],
+      "fuentes": [
+        "https://www.latingrammy.com/en/artists/love-of-lesbian-39874/",
+        "https://www.enderrock.cat/noticia/23340/love-of-lesbian-triplement-nominat-grammy-llatins"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D11",
+      "etapa": "E5",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué canción de V.E.H.N. fue nominada a Mejor canción pop/rock en el Latin Grammy?",
+      "correcta": "Cosmos (Antisistema Solar)",
+      "incorrectas": [
+        "El sur",
+        "Viaje épico hacia la nada",
+        "Catalunya bondage"
+      ],
+      "fuentes": [
+        "https://estrellasenla.com/2021/09/29/el-grupo-espanol-love-of-lesbian-nominado-a-3-premios-grammy-latino-2021/",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D12",
+      "etapa": "E6",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Con qué gira tocaron por primera vez en el Palacio de los Deportes?",
+      "correcta": "Ejército de salvación",
+      "incorrectas": [
+        "V.E.H.N.",
+        "El poeta Halley",
+        "La noche eterna"
+      ],
+      "fuentes": [
+        "https://www.maspormas.com/ciudad/de-momento/love-of-lesbian-emocionados-por-su-primer-palacio-de-los-deportes/",
+        "https://idolosmx.com/love-of-lesbian-por-primera-vez-en-palacio-de-los-deportes/",
+        "https://www.sopitas.com/musica/love-of-lesbian-concierto-cdmx-palacio-de-los-deportes-fecha-detalles/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D13",
+      "etapa": "E6",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué anunció la banda en febrero de 2026?",
+      "correcta": "Una pausa indefinida",
+      "incorrectas": [
+        "Su separación definitiva",
+        "Un disco en inglés",
+        "La salida de Santi Balmes"
+      ],
+      "fuentes": [
+        "https://www.eldiario.es/cultura/musica/love-of-lesbian-anuncia-retira-escenarios-25-anos-hora-bajar-telon-tiempo_1_13025439.html",
+        "https://www.timeout.es/madrid/es/noticias/love-of-lesbian-deja-los-escenarios-indefinidamente-tras-25-anos-de-carrera-022726",
+        "https://www.ondavasca.com/love-of-lesbian-anuncia-un-paron-indefinido-tras-25-anos-de-trayectoria/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D14",
+      "etapa": "E4",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿En qué recinto se grabó El gran truco final?",
+      "correcta": "WiZink Center (Madrid)",
+      "incorrectas": [
+        "Palau Sant Jordi (Barcelona)",
+        "Auditorio Nacional (CDMX)",
+        "Teatro Gran Rex (Buenos Aires)"
+      ],
+      "fuentes": [
+        "https://es.wikipedia.org/wiki/El_gran_truco_final",
+        "https://loveoflesbianband.com/hace-un-ano-el-gran-truco-final/"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D15",
+      "etapa": "E4",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué cantautor participa recitando en \"El poeta Halley\"?",
+      "correcta": "Joan Manuel Serrat",
+      "incorrectas": [
+        "Joaquín Sabina",
+        "Jorge Drexler",
+        "Luis Eduardo Aute"
+      ],
+      "fuentes": [
+        "https://www.elgiradiscos.com/2016/04/love-of-lesbian-el-poeta-halley.html"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D16",
+      "etapa": "E3",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "\"Fantastic Shine\" (2013) nació como canción para la campaña de verano de…",
+      "correcta": "Estrella Damm",
+      "incorrectas": [
+        "Coca-Cola",
+        "Movistar",
+        "Seat"
+      ],
+      "fuentes": [
+        "https://www.musicoscopio.com/love-of-lesbian/letras/24914/"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D17",
+      "etapa": "E3",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿En qué año tocaron por primera vez en México?",
+      "correcta": "2013",
+      "incorrectas": [
+        "2009",
+        "2016",
+        "2021"
+      ],
+      "fuentes": [
+        "https://www.elfaroenlascalles.com/musica/love-of-lesbian-en-caradura/"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "D18",
+      "etapa": "E6",
+      "dificultad": "dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué canción con Rigoberta Bandini adelantó Ejército de salvación?",
+      "correcta": "Contradicción",
+      "incorrectas": [
+        "La hermandad",
+        "Tesis",
+        "Ya sale el sol"
+      ],
+      "fuentes": [
+        "https://jenesaispop.com/2024/04/29/474311/love-of-lesbian-anuncia-ejercito-de-salvacion/"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M01",
+      "etapa": "E1",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Dónde se grabó Microscopic Movies?",
+      "correcta": "En la cocina de su productor, insonorizada con colchones",
+      "incorrectas": [
+        "En un estudio de Londres",
+        "En el garaje de Santi Balmes",
+        "En una iglesia abandonada"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M02",
+      "etapa": "E1",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "El sello Pussycats Records, que editó su primer disco, era de…",
+      "correcta": "Málaga",
+      "incorrectas": [
+        "Barcelona",
+        "Madrid",
+        "Valencia"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M03",
+      "etapa": "E1",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "Ungravity (2003) fue la primera producción profesional de…",
+      "correcta": "Ricky Falkner",
+      "incorrectas": [
+        "Santos & Fluren",
+        "Jean Hugues Dollet",
+        "Dani Ferrer"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/",
+        "https://loveoflesbianband.com/disco/ungravity-2003/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M04",
+      "etapa": "E1",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué sello francés publicó Ungravity?",
+      "correcta": "Naïve",
+      "incorrectas": [
+        "Because Music",
+        "Barclay",
+        "Ed Banger"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/",
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M05",
+      "etapa": "E2",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Con qué canción abre Maniobras de escapismo?",
+      "correcta": "Carta a todas tus catástrofes",
+      "incorrectas": [
+        "Domingo astromántico",
+        "Música de ascensores",
+        "Houston, tenemos un poema"
+      ],
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M06",
+      "etapa": "E3",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "El segundo disco de La noche eterna. Los días no vividos trata sobre…",
+      "correcta": "Lo que se deja de hacer por vivir la noche",
+      "incorrectas": [
+        "Su etapa en inglés",
+        "Sus viajes a México",
+        "La infancia de Santi Balmes"
+      ],
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://es.wikipedia.org/wiki/La_noche_eterna._Los_d%C3%ADas_no_vividos"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M07",
+      "etapa": "E4",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "Nouvelle Cuisine Caníbal Vol. II se editó en vinilo de 10\" para…",
+      "correcta": "El Record Store Day 2017",
+      "incorrectas": [
+        "Un concierto en el Palau Sant Jordi",
+        "El 20 aniversario de la banda",
+        "La gira mexicana de 2017"
+      ],
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/8353/",
+        "https://www.discogs.com/release/10181990-Love-Of-Lesbian-Nouvelle-Cuisine-Can%C3%ADbal-Vol-II"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M08",
+      "etapa": "E5",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué fecha salió V.E.H.N.?",
+      "correcta": "16 de abril de 2021",
+      "incorrectas": [
+        "4 de marzo de 2016",
+        "11 de octubre de 2024",
+        "22 de mayo de 2012"
+      ],
+      "fuentes": [
+        "https://music.apple.com/es/album/v-e-h-n-viaje-%C3%A9pico-hacia-la-nada/1540993287",
+        "https://www.deezer.com/mx/album/219059692"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M09",
+      "etapa": "E5",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "En marzo de 2021 tocaron ante 5.000 personas sin distancia social, como parte de un estudio clínico. ¿Dónde?",
+      "correcta": "Palau Sant Jordi (Barcelona)",
+      "incorrectas": [
+        "WiZink Center (Madrid)",
+        "Razzmatazz (Barcelona)",
+        "Auditorio Nacional (CDMX)"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/sin-impacto-en-la-transmision-de-covid-19/",
+        "https://www.telecinco.es/noticias/cultura/love-of-lesbian-bunbury-colaboracion-concierto-5000-personas-be5ma_18_3101445268.html"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M10",
+      "etapa": "E6",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Dónde fueron sus últimos conciertos en Madrid antes de la pausa?",
+      "correcta": "Noches del Botánico",
+      "incorrectas": [
+        "WiZink Center",
+        "Mad Cool",
+        "La Riviera"
+      ],
+      "fuentes": [
+        "https://en.nochesdelbotanico.com/noticias/love-of-lesbian-anuncian-un-paron-indefinido-y-sus-tres-conciertos-en-noches-del-botanico-seran-los-ultimos-en-madrid",
+        "https://pozueloin.es/noticias/noticia/love-of-lesbian-anuncia-un-paron-indefinido-y-convertira-sus-conciertos-en-noches-del-botanico-en-una-despedida-temporal-en-madrid/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M11",
+      "etapa": "E3",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Con qué libro debutó Santi Balmes en la literatura (2011)?",
+      "correcta": "Yo mataré monstruos por ti",
+      "incorrectas": [
+        "Canción de bruma",
+        "La doble vida de las hadas",
+        "Moraland"
+      ],
+      "fuentes": [
+        "https://www.lecturalia.com/libro/71122/yo-matare-monstruos-por-ti",
+        "https://principaldeloslibros.com/infantil/94-monstruos-por-ti.html"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M12",
+      "etapa": "E6",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Cómo se tituló el comunicado con el que anunciaron la pausa?",
+      "correcta": "El arte de detener el tiempo",
+      "incorrectas": [
+        "Nos vemos en el último verso",
+        "Hasta pronto, Halley",
+        "El gran truco final"
+      ],
+      "fuentes": [
+        "https://www.ondavasca.com/love-of-lesbian-anuncia-un-paron-indefinido-tras-25-anos-de-trayectoria/"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M13",
+      "etapa": "E5",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Qué banda invitada canta en \"Catalunya bondage\"?",
+      "correcta": "El Columpio Asesino",
+      "incorrectas": [
+        "Vetusta Morla",
+        "Lori Meyers",
+        "Sidonie"
+      ],
+      "fuentes": [
+        "https://rocksesion.com/2021/04/22/love-of-lesbian-v-e-h-n-viaje-epico-hacia-la-nada/",
+        "https://www.popelera.net/love-of-lesbian-disco-v-e-h-n/"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M14",
+      "etapa": "E1",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿En qué puesto colocó Mondo Sonoro a Ungravity entre los discos nacionales de su año?",
+      "correcta": "4.º",
+      "incorrectas": [
+        "1.º",
+        "8.º",
+        "10.º"
+      ],
+      "fuentes": [
+        "https://loveoflesbianband.com/biografia/"
+      ],
+      "fuerza": "solida",
+      "estado": "propuesta"
+    },
+    {
+      "id": "M15",
+      "etapa": "E3",
+      "dificultad": "muy_dificil",
+      "tipo": "dato",
+      "pregunta": "¿Cuántas copias había que superar para el disco de oro de 1999 (2011)?",
+      "correcta": "20.000",
+      "incorrectas": [
+        "10.000",
+        "40.000",
+        "100.000"
+      ],
+      "fuentes": [
+        "https://es.wikipedia.org/wiki/1999_(%C3%A1lbum_de_Love_of_Lesbian"
+      ],
+      "fuerza": "una_fuente",
+      "estado": "propuesta"
+    }
+  ]
+}
