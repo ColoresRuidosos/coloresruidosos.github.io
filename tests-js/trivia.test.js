@@ -228,10 +228,11 @@ test("La noche eterna entre las 00:00 y las 04:59 hora local", () => {
   assert.ok(!T.cerrarPartida(T.estadoInicial(), partida(NADA), local(23)).nuevas.includes("noche_eterna"));
 });
 
-test("El último baile hasta el 25 de noviembre de 2026 a las 23:59 de CDMX", () => {
+test("El último baile hasta el 28 de noviembre de 2026 a las 23:59 de CDMX (Puebla, última fecha en México)", () => {
   const en = (iso) => T.cerrarPartida(T.estadoInicial(), partida(NADA), new Date(iso)).nuevas.includes("ultimo_baile");
-  assert.ok(en("2026-11-26T05:59:00Z"));   // 25-nov 23:59 CDMX
-  assert.ok(!en("2026-11-26T06:00:00Z"));  // 26-nov 00:00 CDMX
+  assert.ok(en("2026-11-26T12:00:00Z"));   // entre las fechas de CDMX y Puebla
+  assert.ok(en("2026-11-29T05:59:00Z"));   // 28-nov 23:59 CDMX
+  assert.ok(!en("2026-11-29T06:00:00Z"));  // 29-nov 00:00 CDMX
   assert.ok(en(ANTES_DEL_BAILE.toISOString()));
 });
 

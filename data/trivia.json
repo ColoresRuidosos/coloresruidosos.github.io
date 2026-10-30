@@ -218,16 +218,16 @@
       "etapa": "E6",
       "dificultad": "facil",
       "tipo": "dato",
-      "pregunta": "¿Dónde es su último concierto en CDMX antes de la pausa?",
-      "correcta": "Auditorio Nacional",
+      "pregunta": "¿En qué ciudad es su última fecha anunciada en México antes de la pausa?",
+      "correcta": "Puebla",
       "incorrectas": [
-        "Palacio de los Deportes",
-        "Foro Sol",
-        "Teatro Metropólitan"
+        "Guadalajara",
+        "Monterrey",
+        "Querétaro"
       ],
       "fuentes": [
-        "https://www.eluniversal.com.mx/espectaculos/nueva-fecha-en-cdmx-para-love-of-lesbian-confirmacion-llega-desde-el-vive-latino-2026/",
-        "https://www.auditorio.com.mx/cartelera/2026/noviembre/love-of-lesbian.html"
+        "https://www.riotimesonline.com/love-of-lesbian-mexico-city-auditorio-nacional-november-2026/",
+        "https://www.eluniversal.com.mx/espectaculos/love-of-lesbian-anuncia-concierto-de-despedida-en-cdmx-fecha-preventa-y-venta-de-boletos/"
       ],
       "fuerza": "solida",
       "estado": "propuesta"

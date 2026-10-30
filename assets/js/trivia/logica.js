@@ -8,8 +8,8 @@
   var POR_DIFICULTAD = 5;
   var CLAVE = "cr-trivia-v1";
   var FUENTE_OFICIAL = /^https:\/\/(www\.)?loveoflesbianband\.com\//;
-  // 25 de noviembre de 2026, 23:59:59 en CDMX (UTC-6): último concierto en el Auditorio Nacional.
-  var FIN_ULTIMO_BAILE = Date.UTC(2026, 10, 26, 5, 59, 59, 999);
+  // 28 de noviembre de 2026, 23:59:59 en CDMX (UTC-6): Tecate Comuna en Puebla, su última fecha anunciada en México.
+  var FIN_ULTIMO_BAILE = Date.UTC(2026, 10, 29, 5, 59, 59, 999);
 
   var CATEGORIAS = [
     { id: "pequeno", nombre: "Pequeño lesbiano", nivel: 1, desde: 0 },
@@ -32,7 +32,7 @@
     { id: "1999", nombre: "1999", como: "Acumular 99 aciertos" },
     { id: "alli_donde", nombre: "Allí donde solíamos gritar", como: "Compartir tu resultado" },
     { id: "ejercito", nombre: "Ejército de salvación", como: "Desbloquear las 6 portadas" },
-    { id: "ultimo_baile", nombre: "El último baile", como: "Jugar antes del 25 de noviembre de 2026" },
+    { id: "ultimo_baile", nombre: "El último baile", como: "Jugar antes del 28 de noviembre de 2026" },
   ];
 
   function validarPregunta(p) {
