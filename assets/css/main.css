@@ -235,6 +235,8 @@ body.sin-scroll { overflow: hidden; }
 }
 .portada__lema { position: relative; z-index: 1; max-width: 34rem; margin: 1.5rem 0 0; font-size: 1.1875rem; }
 
+.portada__destacada { display: block; width: 100%; max-height: 26rem; object-fit: cover; border-bottom: 10px solid var(--accent-pink); margin-bottom: 3rem; }
+
 .portada__rejilla { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
 
 .bloque__titulo { font-family: var(--f-titulo); font-weight: 400; font-size: 1.75rem; line-height: 1.1; margin: 0 0 1.25rem; }
