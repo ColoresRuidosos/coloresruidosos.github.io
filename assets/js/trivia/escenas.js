@@ -105,25 +105,44 @@
     p.r(110, 20, 2, 2, "#ffd23f"); p.r(113, 24, 2, 2, "#ffd23f"); p.r(113, 28, 2, 2, "#ffd23f"); p.r(110, 31, 2, 2, "#ffd23f");
   }
 
-  // E3 · la bañera de 1999.
+  // E3 · la bañera de 1999: ella al frente mirando por encima del hombro, toda de negro; él dentro de la bañera.
   function e3(p, t) {
-    p.r(0, 0, ANCHO, ALTO, "#2f6f6a");
-    for (var x = 0; x < ANCHO; x += 12) p.r(x, 0, 1, ALTO, "#24524f");
-    for (var y = 0; y < ALTO; y += 12) p.r(0, y, ANCHO, 1, "#24524f");
-    p.r(64, 12, 32, 20, "#9aa7a4"); p.r(66, 14, 28, 16, "#cfd8d6"); p.r(68, 16, 6, 4, "#ffffff");
-    p.elipse(124, 74, 7, 8, "#c99a7a"); p.elipse(124, 68, 7, 4, "#3b2a20");
-    p.r(132, 64, 2, 22, "#d8d0c4");
-    p.r(16, 82, 136, 6, "#ffffff"); p.r(20, 88, 128, 36, "#e9ece8"); p.r(20, 120, 128, 4, "#b8bfbb");
-    p.r(22, 88, 124, 4, "#7fb4c4");
-    if (t && (t >> 3) % 2) p.r(40, 89, 30, 1, "#bfe3ec");
-    p.r(26, 124, 6, 6, "#b8bfbb"); p.r(136, 124, 6, 6, "#b8bfbb");
-    p.r(0, 130, ANCHO, 14, "#1c3b38");
-    for (var k = 0; k < ANCHO; k += 8) p.r(k + ((k / 8) % 2) * 4, 134, 4, 2, "#2a5450");
-    p.elipse(58, 62, 15, 16, "#111111");
-    p.elipse(60, 68, 8, 9, "#f0d6c8");
-    p.r(51, 56, 18, 6, "#111111");
-    p.r(56, 68, 2, 1, "#141414"); p.r(63, 68, 2, 1, "#141414");
-    for (var j = 0; j < 62; j++) p.r(46 - j / 4, 82 + j, 30 + j / 2, 1, "#141414");
+    p.r(0, 0, ANCHO, ALTO, "#2a6764");
+    for (var x = 0; x < ANCHO; x += 14) p.r(x, 0, 1, 74, "#3f8580");
+    for (var y = 0; y < 74; y += 14) p.r(0, y, ANCHO, 1, "#3f8580");
+    p.tramado(0, 0, 12, 74, "#2a6764", "#1d4b49", 2); p.tramado(148, 0, 12, 74, "#2a6764", "#1d4b49", 2);
+    p.r(60, 18, 34, 16, "#d6ddd6"); p.r(62, 20, 30, 12, "#6f8f88");
+    p.r(65, 23, 7, 9, "#e8e2d6"); p.r(66, 22, 5, 2, "#c64a3c"); p.r(76, 27, 12, 5, "#cfd6cc");
+    p.r(4, 48, 22, 10, "#24302f"); p.r(8, 44, 8, 6, "#1a2322"); p.r(22, 52, 10, 3, "#8a9a96");
+    p.linea(150, 20, 146, 58, "#9fb3ae", 2);
+    p.r(10, 60, 146, 5, "#e4e9e3");
+    p.r(14, 65, 138, 9, "#2f4f52");
+    if (t && (t >> 3) % 2) p.r(30, 68, 40, 1, "#4d7275");
+    p.elipse(132, 54, 8, 6, "#231a16");
+    p.elipse(131, 60, 6, 7, "#c4977f");
+    p.r(126, 63, 11, 5, "#3a2a22"); p.r(128, 59, 2, 1, "#231a16"); p.r(133, 59, 2, 1, "#231a16");
+    p.elipse(124, 68, 12, 3, "#b48a74"); p.r(110, 70, 34, 2, "#2f4f52");
+    p.r(8, 74, 150, 6, "#f2f5f0");
+    p.r(12, 80, 144, 28, "#d8ddd5"); p.r(12, 100, 144, 8, "#b3bcb3");
+    p.r(0, 108, ANCHO, 36, "#142c2b");
+    for (var k = 0; k < 6; k++) for (var m = 0; m < 9; m++) {
+      var hx = m * 20 + (k % 2) * 10, hy = 112 + k * 7;
+      p.r(hx, hy, 10, 1, "#2b4c4a"); p.r(hx - 2, hy + 1, 2, 3, "#2b4c4a");
+    }
+    // Ella: de espaldas, mirando por encima del hombro hacia la derecha; fleco en diagonal sobre un ojo,
+    // nariz de perfil, labios rojos, pelo negro brillante y blusa negra. El brazo descansa en la bañera.
+    p.r(18, 94, 30, 6, "#e3d8cf"); p.r(18, 99, 30, 2, "#b9aca2");
+    p.elipse(70, 116, 34, 16, "#0e0e0e"); p.r(36, 116, 70, 28, "#0e0e0e");
+    p.r(56, 86, 16, 8, "#0e0e0e"); p.r(56, 92, 34, 14, "#0e0e0e");
+    p.elipse(80, 84, 10, 13, "#ece2da");
+    p.r(89, 80, 2, 4, "#ece2da"); p.r(90, 83, 1, 1, "#d8c9be");
+    p.r(84, 88, 5, 2, "#c8102e"); p.r(85, 90, 4, 1, "#8e0c22");
+    p.r(70, 95, 16, 4, "#0e0e0e");
+    p.elipse(64, 68, 22, 20, "#0b0b0b");
+    for (var y = 62; y < 88; y++) p.r(42, y, Math.round(87 - (y - 62) * 0.7) - 42, 1, "#0b0b0b");
+    p.r(42, 80, 16, 32, "#0b0b0b"); p.elipse(50, 110, 9, 6, "#0b0b0b");
+    p.r(80, 78, 3, 1, "#2a3236"); p.r(81, 77, 1, 1, "#d9e2e4");
+    p.linea(50, 60, 46, 96, "#262626"); p.linea(56, 54, 52, 92, "#1f1f1f"); p.linea(66, 50, 76, 60, "#262626");
   }
 
   // E4 · el cohete de El poeta Halley.

@@ -386,7 +386,6 @@ body.sin-scroll { overflow: hidden; }
 .trivia__pantalla { margin-top: 1rem; }
 .trivia__intro, .trivia__record { font-size: 1rem; margin: 0 0 1rem; }
 .trivia__record:empty { display: none; }
-.trivia__aviso { background: var(--accent-yellow); color: var(--text-main); font-weight: 700; padding: .6rem .8rem; margin: 0 0 1rem; border: 2px solid var(--tinta-clara); }
 .trivia__acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0; }
 .trivia__boton { font-family: var(--pixel); font-size: .75rem; line-height: 1.5; color: var(--text-main); background: var(--tinta-clara); border: 3px solid var(--tinta-clara); box-shadow: 4px 4px 0 var(--accent-pink); padding: .8rem 1rem; cursor: pointer; }
 .trivia__boton:hover { background: var(--accent-yellow); }
