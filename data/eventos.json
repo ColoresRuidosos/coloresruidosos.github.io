@@ -1,21 +1,6 @@
 {
-  "actualizado": "2026-10-26T13:45:55-06:00",
+  "actualizado": "2026-10-31T12:15:43-06:00",
   "eventos": [
-    {
-      "id": "foro-indie-rocks-2026-10-30-mad-professor",
-      "titulo": "Mad Professor",
-      "fecha": "2026-10-30",
-      "hora": null,
-      "recinto": "Foro Indie Rocks!",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    },
     {
       "id": "foro-puebla-186-2026-10-31-indios",
       "titulo": "Indios",
