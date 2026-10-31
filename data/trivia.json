@@ -1,6 +1,6 @@
 {
   "borrador": true,
-  "_nota": "Generado desde docs/trivia.md. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión.",
+  "_nota": "Generado desde docs/trivia.md con docs/generar_trivia_json.py. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión.",
   "preguntas": [
     {
       "id": "F01",
@@ -786,12 +786,12 @@
       "etapa": "E6",
       "dificultad": "muy_dificil",
       "tipo": "dato",
-      "pregunta": "¿Dónde fueron sus últimos conciertos en Madrid antes de la pausa?",
+      "pregunta": "En junio de 2026 dieron tres conciertos de despedida en Madrid. ¿Dónde?",
       "correcta": "Noches del Botánico",
       "incorrectas": [
         "WiZink Center",
         "Mad Cool",
-        "La Riviera"
+        "Palacio Vistalegre"
       ],
       "fuentes": [
         "https://en.nochesdelbotanico.com/noticias/love-of-lesbian-anuncian-un-paron-indefinido-y-sus-tres-conciertos-en-noches-del-botanico-seran-los-ultimos-en-madrid",
