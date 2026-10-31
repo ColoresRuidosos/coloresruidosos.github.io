@@ -37,7 +37,8 @@
 - **Métricas** con GoatCounter, que el sitio ya usa: eventos `trivia-iniciada`, `trivia-terminada-<categoría>` y `trivia-compartida`. Sin datos personales.
 - **Fuente 8 bits** Press Start 2P (Google Fonts), solo en `/trivia/` y sin `text-transform: uppercase`, porque no trae mayúsculas acentuadas (Í, É, Ú).
 - **Sonido** con Web Audio (osciladores de onda cuadrada), sin archivos de audio y apagado por defecto. Música: chiptune original, nunca melodías de la banda (D21 descarta covers 8 bits sin permiso).
-- **Fecha límite:** el 25 de noviembre de 2026 (último concierto en CDMX) marca el lanzamiento deseado y el fin de la insignia "El último baile".
+- **Sin aviso de "versión de prueba" (2026-10-30):** a pedido del equipo se quitó el letrero amarillo. `borrador: true` sigue limitando el juego a las preguntas de fuente sólida mientras los fans revisan; cada pregunta muestra su fuente al responder.
+- **Fecha límite:** el 28 de noviembre de 2026 (Tecate Comuna, Puebla: última fecha anunciada en México) marca el fin de la insignia "El último baile". Al principio era el 25 (Auditorio Nacional), pero el equipo avisó que había fechas posteriores; se corrigió el 2026-10-30.
 
 ## Verificaciones pendientes
 | ID | Qué | Plan B |

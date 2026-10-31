@@ -364,7 +364,6 @@
     }
   });
 
-  if (datos.borrador) $("[data-borrador]").hidden = false;
   pintarBotonSonido();
   pintarInicio();
   mostrar("inicio", true);

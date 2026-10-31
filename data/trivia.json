@@ -1,6 +1,6 @@
 {
   "borrador": true,
-  "_nota": "Generado desde docs/trivia.md. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión y muestra un aviso.",
+  "_nota": "Generado desde docs/trivia.md con docs/generar_trivia_json.py. Una pregunta pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el juego usa las de fuente sólida aunque falte la revisión.",
   "preguntas": [
     {
       "id": "F01",
@@ -218,16 +218,16 @@
       "etapa": "E6",
       "dificultad": "facil",
       "tipo": "dato",
-      "pregunta": "¿Dónde es su último concierto en CDMX antes de la pausa?",
-      "correcta": "Auditorio Nacional",
+      "pregunta": "¿En qué ciudad es su última fecha anunciada en México antes de la pausa?",
+      "correcta": "Puebla",
       "incorrectas": [
-        "Palacio de los Deportes",
-        "Foro Sol",
-        "Teatro Metropólitan"
+        "Guadalajara",
+        "Monterrey",
+        "Querétaro"
       ],
       "fuentes": [
-        "https://www.eluniversal.com.mx/espectaculos/nueva-fecha-en-cdmx-para-love-of-lesbian-confirmacion-llega-desde-el-vive-latino-2026/",
-        "https://www.auditorio.com.mx/cartelera/2026/noviembre/love-of-lesbian.html"
+        "https://www.riotimesonline.com/love-of-lesbian-mexico-city-auditorio-nacional-november-2026/",
+        "https://www.eluniversal.com.mx/espectaculos/love-of-lesbian-anuncia-concierto-de-despedida-en-cdmx-fecha-preventa-y-venta-de-boletos/"
       ],
       "fuerza": "solida",
       "estado": "propuesta"
@@ -379,7 +379,7 @@
         "Cuentos chinos para niños del Japón"
       ],
       "fuentes": [
-        "https://es.wikipedia.org/wiki/1999_(%C3%A1lbum_de_Love_of_Lesbian",
+        "https://es.wikipedia.org/wiki/1999_%28%C3%A1lbum_de_Love_of_Lesbian%29",
         "https://loveoflesbianband.com/disco/1999/"
       ],
       "fuerza": "solida",
@@ -786,12 +786,12 @@
       "etapa": "E6",
       "dificultad": "muy_dificil",
       "tipo": "dato",
-      "pregunta": "¿Dónde fueron sus últimos conciertos en Madrid antes de la pausa?",
+      "pregunta": "En junio de 2026 dieron tres conciertos de despedida en Madrid. ¿Dónde?",
       "correcta": "Noches del Botánico",
       "incorrectas": [
         "WiZink Center",
         "Mad Cool",
-        "La Riviera"
+        "Palacio Vistalegre"
       ],
       "fuentes": [
         "https://en.nochesdelbotanico.com/noticias/love-of-lesbian-anuncian-un-paron-indefinido-y-sus-tres-conciertos-en-noches-del-botanico-seran-los-ultimos-en-madrid",
@@ -887,7 +887,7 @@
         "100.000"
       ],
       "fuentes": [
-        "https://es.wikipedia.org/wiki/1999_(%C3%A1lbum_de_Love_of_Lesbian"
+        "https://es.wikipedia.org/wiki/1999_%28%C3%A1lbum_de_Love_of_Lesbian%29"
       ],
       "fuerza": "una_fuente",
       "estado": "propuesta"
