@@ -105,7 +105,7 @@
     p.r(110, 20, 2, 2, "#ffd23f"); p.r(113, 24, 2, 2, "#ffd23f"); p.r(113, 28, 2, 2, "#ffd23f"); p.r(110, 31, 2, 2, "#ffd23f");
   }
 
-  // E3 · la bañera de 1999: ella al frente, de negro, con el fleco sobre los ojos; él dentro de la bañera.
+  // E3 · la bañera de 1999: ella al frente, de frente a la cámara y toda de negro; él dentro de la bañera.
   function e3(p, t) {
     p.r(0, 0, ANCHO, ALTO, "#2a6764");
     for (var x = 0; x < ANCHO; x += 14) p.r(x, 0, 1, 74, "#3f8580");
@@ -129,14 +129,17 @@
       var hx = m * 20 + (k % 2) * 10, hy = 112 + k * 7;
       p.r(hx, hy, 10, 1, "#2b4c4a"); p.r(hx - 2, hy + 1, 2, 3, "#2b4c4a");
     }
-    for (var j = 0; j < 58; j++) p.r(48 - j / 5, 86 + j, 34 + (j * 2) / 5, 1, "#0e0e0e");
-    p.r(56, 78, 18, 10, "#0e0e0e"); p.r(80, 96, 2, 40, "#1a1a1a");
-    p.elipse(62, 66, 15, 16, "#0b0b0b");
-    p.elipse(70, 72, 6, 8, "#ece2da");
-    p.r(64, 62, 13, 9, "#0b0b0b");
-    p.r(48, 64, 10, 22, "#0b0b0b");
-    p.r(72, 78, 4, 2, "#c8102e");
-    p.r(75, 72, 1, 3, "#d4c6bc");
+    // Ella, de frente a la cámara: blusa negra, todo el conjunto negro.
+    p.r(44, 96, 46, 48, "#0e0e0e");
+    p.elipse(52, 98, 9, 5, "#0e0e0e"); p.elipse(82, 98, 9, 5, "#0e0e0e");
+    p.r(52, 104, 1, 40, "#1d1d1d"); p.r(82, 104, 1, 40, "#1d1d1d");
+    p.r(60, 92, 14, 8, "#0e0e0e");
+    p.elipse(67, 74, 16, 17, "#0b0b0b");
+    p.elipse(67, 80, 8, 10, "#ece2da");
+    p.r(57, 64, 21, 14, "#0b0b0b");
+    p.r(58, 78, 3, 12, "#0b0b0b"); p.r(74, 78, 3, 12, "#0b0b0b");
+    p.r(64, 85, 6, 2, "#c8102e");
+    p.r(70, 77, 2, 1, "#3a2f2a");
   }
 
   // E4 · el cohete de El poeta Halley.
