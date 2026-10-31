@@ -105,7 +105,7 @@
     p.r(110, 20, 2, 2, "#ffd23f"); p.r(113, 24, 2, 2, "#ffd23f"); p.r(113, 28, 2, 2, "#ffd23f"); p.r(110, 31, 2, 2, "#ffd23f");
   }
 
-  // E3 · la bañera de 1999: ella al frente, de frente a la cámara y toda de negro; él dentro de la bañera.
+  // E3 · la bañera de 1999: ella al frente mirando por encima del hombro, toda de negro; él dentro de la bañera.
   function e3(p, t) {
     p.r(0, 0, ANCHO, ALTO, "#2a6764");
     for (var x = 0; x < ANCHO; x += 14) p.r(x, 0, 1, 74, "#3f8580");
@@ -129,17 +129,20 @@
       var hx = m * 20 + (k % 2) * 10, hy = 112 + k * 7;
       p.r(hx, hy, 10, 1, "#2b4c4a"); p.r(hx - 2, hy + 1, 2, 3, "#2b4c4a");
     }
-    // Ella, de frente a la cámara: blusa negra, todo el conjunto negro.
-    p.r(44, 96, 46, 48, "#0e0e0e");
-    p.elipse(52, 98, 9, 5, "#0e0e0e"); p.elipse(82, 98, 9, 5, "#0e0e0e");
-    p.r(52, 104, 1, 40, "#1d1d1d"); p.r(82, 104, 1, 40, "#1d1d1d");
-    p.r(60, 92, 14, 8, "#0e0e0e");
-    p.elipse(67, 74, 16, 17, "#0b0b0b");
-    p.elipse(67, 80, 8, 10, "#ece2da");
-    p.r(57, 64, 21, 14, "#0b0b0b");
-    p.r(58, 78, 3, 12, "#0b0b0b"); p.r(74, 78, 3, 12, "#0b0b0b");
-    p.r(64, 85, 6, 2, "#c8102e");
-    p.r(70, 77, 2, 1, "#3a2f2a");
+    // Ella: de espaldas, mirando por encima del hombro hacia la derecha; fleco en diagonal sobre un ojo,
+    // nariz de perfil, labios rojos, pelo negro brillante y blusa negra. El brazo descansa en la bañera.
+    p.r(18, 94, 30, 6, "#e3d8cf"); p.r(18, 99, 30, 2, "#b9aca2");
+    p.elipse(70, 116, 34, 16, "#0e0e0e"); p.r(36, 116, 70, 28, "#0e0e0e");
+    p.r(56, 86, 16, 8, "#0e0e0e"); p.r(56, 92, 34, 14, "#0e0e0e");
+    p.elipse(80, 84, 10, 13, "#ece2da");
+    p.r(89, 80, 2, 4, "#ece2da"); p.r(90, 83, 1, 1, "#d8c9be");
+    p.r(84, 88, 5, 2, "#c8102e"); p.r(85, 90, 4, 1, "#8e0c22");
+    p.r(70, 95, 16, 4, "#0e0e0e");
+    p.elipse(64, 68, 22, 20, "#0b0b0b");
+    for (var y = 62; y < 88; y++) p.r(42, y, Math.round(87 - (y - 62) * 0.7) - 42, 1, "#0b0b0b");
+    p.r(42, 80, 16, 32, "#0b0b0b"); p.elipse(50, 110, 9, 6, "#0b0b0b");
+    p.r(80, 78, 3, 1, "#2a3236"); p.r(81, 77, 1, 1, "#d9e2e4");
+    p.linea(50, 60, 46, 96, "#262626"); p.linea(56, 54, 52, 92, "#1f1f1f"); p.linea(66, 50, 76, 60, "#262626");
   }
 
   // E4 · el cohete de El poeta Halley.
