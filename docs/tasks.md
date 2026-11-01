@@ -39,7 +39,8 @@
 
 ## Fase 5 — Datos reales
 - ⏳ V1: verificar feeds
-- ⏳ V2: lista de recintos + `probar_recinto.py`
+- ⏳ V2: lista de recintos + `probar_recinto.py` (9 foros candidatos anotados en `recintos.yaml` el 2026-11-01; falta probarlos fuera del entorno de desarrollo)
+- ✅ 🔴→🟢 José Madero (alias Pepe Madero) y PXNDX (alias Panda) en `data/seguimiento.yaml`: su fandom es el que más responde en Instagram
 - ⏳ Crear Sheet con pestañas Eventos y Notas y publicar como CSV
 - ⏳ Leer `prompts/redactar.md` en equipo y ajustar la voz
 - ⏳ Primera semana: revisar el resumen diario y anotar despublicaciones y motivos

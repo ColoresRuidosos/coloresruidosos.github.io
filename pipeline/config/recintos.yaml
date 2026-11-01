@@ -10,6 +10,15 @@
 # de JavaScript). Sus eventos van por el Sheet mientras no cambien de sitio.
 # Ticketmaster México sí trae JSON-LD pero bloquea al runner de GitHub
 # Actions (403); se retira de aquí hasta encontrar una forma honesta de leerlo.
+#
+# 2026-11-01: candidatos por probar, sacados de los foros que más aparecen en
+# la cuenta de Instagram (auditoría de noviembre). No se pudieron probar desde
+# el entorno de desarrollo (su red bloquea estos sitios); hay que correr
+# probar_recinto.py con la URL de la cartelera de cada uno y activar solo los
+# que respondan con eventos:
+#   Segundo Piso (CDMX) · Lunario (CDMX) · Auditorio BB (CDMX) ·
+#   Foro Puebla 186 (CDMX) · Sala Urbana Avenue (CDMX) · Foro del Tejedor (CDMX) ·
+#   Foro Hilvana (CDMX) · Foro Rebel Rebel (CDMX) · C4 Concert House (Guadalajara)
 recintos: []
 #  - nombre: Nombre del foro
 #    ciudad: Pachuca

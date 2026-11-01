@@ -81,7 +81,7 @@ def test_la_lista_real_reconoce_nsqk_y_nesquik():
     from pathlib import Path
     ruta = Path(__file__).resolve().parent.parent.parent / "data" / "seguimiento.yaml"
     seguidos = seguimiento.cargar(yaml.safe_load(ruta.read_text(encoding="utf-8"))["artistas"])
-    assert len(seguidos) == 26
+    assert len(seguidos) == 30  # 26 + José Madero, Pepe Madero, PXNDX, Panda
     assert seguimiento.es_seguido("NSQK", seguidos) and seguimiento.es_seguido("Nesquik", seguidos)
     assert seguimiento.es_seguido("Camiches", seguidos) and seguimiento.es_seguido("Alcala Norte", seguidos)
 
@@ -90,3 +90,16 @@ def test_entradas_con_alias_reconocen_todas_las_escrituras():
     seguidos = seguimiento.cargar([{"nombre": "NSQK", "alias": ["Nesquik"]}, "Leiva", {"nombre": "Solo nombre"}])
     assert seguidos == {"nsqk", "nesquik", "leiva", "solo nombre"}
     assert seguimiento.es_seguido("Nesquik", seguidos) and seguimiento.es_seguido("nsqk", seguidos)
+
+
+def test_lista_real_incluye_a_jose_madero_y_panda_por_sus_alias():
+    """José Madero y Panda son el fandom que más responde en Instagram (auditoría de nov. 2026)."""
+    from pathlib import Path
+
+    import yaml
+
+    datos = yaml.safe_load((Path(__file__).resolve().parents[2] / "data/seguimiento.yaml").read_text(encoding="utf-8"))
+    seguidos = seguimiento.cargar(datos["artistas"])
+    for escrito in ("José Madero", "Pepe Madero", "PXNDX", "Panda"):
+        assert seguimiento.es_seguido(escrito, seguidos), escrito
+    assert not seguimiento.es_seguido("Panda Bear", seguidos)
