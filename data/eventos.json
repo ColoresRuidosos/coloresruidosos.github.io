@@ -1,20 +1,4 @@
 {
-  "actualizado": "2026-10-31T12:15:43-06:00",
-  "eventos": [
-    {
-      "id": "foro-puebla-186-2026-10-31-indios",
-      "titulo": "Indios",
-      "fecha": "2026-10-31",
-      "hora": null,
-      "recinto": "Foro Puebla 186",
-      "ciudad": "",
-      "url": "",
-      "precio": null,
-      "origen": "equipo",
-      "curadores": [],
-      "firma": [
-        "Cartelera"
-      ]
-    }
-  ]
+  "actualizado": "2026-11-01T12:47:00-06:00",
+  "eventos": []
 }
