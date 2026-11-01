@@ -591,6 +591,17 @@
       },
       "vista": "2026-11-01T12:45:53.275008-06:00"
     },
+    "https://consequence.net/2026/11/kid-rock-reveals-he-used-ai-on-song": {
+      "c": {
+        "artista": "Kid Rock",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-01T17:15:36.681791-06:00"
+    },
     "https://consequence.net/2026/11/michael-mann-shoots-himself-at-firing-range": {
       "c": {
         "artista": "Michael Mann",
@@ -612,6 +623,24 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-01T12:45:53.275008-06:00"
+    },
+    "https://consequence.net/2026/11/wu-tang-clan-thanksgiving-day-lions-halftime-show": {
+      "c": {
+        "artista": "Wu-Tang Clan",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [
+          {
+            "ciudad": "Detroit",
+            "fecha": "2026-11-26",
+            "pais": "US",
+            "recinto": "Detroit Lions Stadium"
+          }
+        ],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-01T17:15:36.681791-06:00"
     },
     "https://indierocks.mx/agenda/bahidora-revela-su-lineup-2027": {
       "c": null,
@@ -3134,7 +3163,6 @@
     "https://indierocks.mx/musica/noticias/berlin-project-la-nueva-banda-de-paul-banks": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/bjork-anuncia-un-disco-en-vivo": "2026-10-09T17:44:27.733041-06:00",
     "https://indierocks.mx/musica/noticias/blondie-anuncia-disco-y-estrena-spectral-eyes": "2026-10-15T12:02:06.040885-06:00",
-    "https://indierocks.mx/musica/noticias/budaya-y-hello-seahorse-presentan-la-vida-que-debo": "2026-10-02T13:00:34.940185-06:00",
     "https://indierocks.mx/musica/noticias/calva-louise-explora-sus-raices-en-la-promesa": "2026-10-14T12:19:48.283150-06:00",
     "https://indierocks.mx/musica/noticias/cecimonster-vs-donka-estrena-adult-violence": "2026-10-13T17:32:46.318336-06:00",
     "https://indierocks.mx/musica/noticias/chvrches-presenta-su-lado-mas-intimo-con-overthinker": "2026-10-28T23:25:45.404979-06:00",
@@ -3162,7 +3190,6 @@
     "https://indierocks.mx/musica/noticias/napoleon-solo-vuelve-tras-11-anos-con-mil-demonios": "2026-10-14T12:19:48.283150-06:00",
     "https://indierocks.mx/musica/noticias/nortec-bostich-fussible-regresa-con-tropics-disco": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/o-tortuga-anuncia-deriva-santa-su-cuarto-disco": "2026-10-07T13:45:47.438309-06:00",
-    "https://indierocks.mx/musica/noticias/piercing-girl-el-nuevo-sencillo-de-miranda-santizo": "2026-10-02T13:00:34.940185-06:00",
     "https://indierocks.mx/musica/noticias/portugal-the-man-estrena-you-can-count-on-me": "2026-10-21T12:25:25.999252-06:00",
     "https://indierocks.mx/musica/noticias/queens-of-the-stone-age-estrena-run-away-from-the-mob": "2026-10-29T13:26:03.077263-06:00",
     "https://indierocks.mx/musica/noticias/rosas-adelanta-su-proximo-material-con-quiero-te": "2026-10-15T12:02:06.040885-06:00",
@@ -3180,10 +3207,6 @@
     "https://indierocks.mx/musica/noticias/twisted-teens-presenta-stalks-su-nuevo-sencillo": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/winona-fighter-presenta-leech-su-nuevo-sencillo": "2026-10-21T12:25:25.999252-06:00",
     "https://indierocks.mx/musica/resenas/fat-dog-cancel-me-im-tired": "2026-10-16T11:49:27.320217-06:00",
-    "https://jenesaispop.com/2026/10/02/531451/casa-azul-cambio-barcelona": "2026-10-02T13:00:34.940185-06:00",
-    "https://jenesaispop.com/2026/10/02/531463/muse-gira-espana": "2026-10-02T13:00:34.940185-06:00",
-    "https://jenesaispop.com/2026/10/02/531471/rftw-2-octubre": "2026-10-02T13:00:34.940185-06:00",
-    "https://jenesaispop.com/2026/10/02/531484/fiestas-pilar-zaragoza": "2026-10-02T13:00:34.940185-06:00",
     "https://jenesaispop.com/2026/10/03/531515/guitarricadelafuente-cronica": "2026-10-03T11:49:05.783436-06:00",
     "https://jenesaispop.com/2026/10/04/531540/turnstile-snl-videos": "2026-10-04T12:00:01.087878-06:00",
     "https://jenesaispop.com/2026/10/04/531547/holly-humberstone-merece-su-cuento-de-hadas": "2026-10-04T12:00:01.087878-06:00",
@@ -3247,7 +3270,6 @@
     "https://mondosonoro.com/noticias-actualidad-musical/hostia-pedagogica-gira": "2026-10-29T13:26:03.077263-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/indios-gira-espana": "2026-10-04T12:00:01.087878-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/javiera-mena-madrid-y-barcelona": "2026-10-07T13:45:47.438309-06:00",
-    "https://mondosonoro.com/noticias-actualidad-musical/kim-deal-en-directo-barbican": "2026-10-02T13:00:34.940185-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/liam-gallaguer-beatles": "2026-10-09T13:17:15.669088-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/los-estanques-no-queda-nada": "2026-10-28T23:30:45.136900-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/los-punsetes-acepto-mi-condicion": "2026-10-16T11:49:27.320217-06:00",
@@ -3256,7 +3278,6 @@
     "https://mondosonoro.com/noticias-actualidad-musical/michael-stipe-r-e-m-ya-tiene-fecha-debut-en-solitario": "2026-10-14T12:19:48.283150-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/montflorit-caiguda-lliure": "2026-10-07T13:45:47.438309-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/moonspell-gira-de-aniversario": "2026-10-12T15:59:01.567510-06:00",
-    "https://mondosonoro.com/noticias-actualidad-musical/muse-nuevas-fechas": "2026-10-02T13:00:34.940185-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/panda-bear": "2026-11-01T12:45:53.275008-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/parquesvr-ojala-todo-fueran-huesos": "2026-10-09T13:17:15.669088-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/pinpilinpussies-cantar-motor": "2026-10-02T17:27:58.750796-06:00",
