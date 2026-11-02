@@ -14,7 +14,7 @@ const shade = (hex, k) => {
 // Puertas del pasillo (se dibujan detrás de Pepe). info[id] = { state, piezas, total }.
 // v8: a la izquierda, el retrato de Pepe con sus 8 piezas de identidad.
 export function drawMuseumDoors(g, hub, info, t, art = null, worldsDone = []) {
-  if (art) drawPortrait(g, art, worldsDone, 22, 52);
+  if (art) drawPortrait(g, art, worldsDone, 40, 56);
   for (const d of hub.doors) {
     const x = d.x, y = d.y;
     if (d.id === 'galeria') {

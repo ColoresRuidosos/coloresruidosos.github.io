@@ -38,7 +38,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ### ⭐ Dónde vive ahora (v0.7)
 - **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
-- En la carpeta: `npm ci` → `npm test` (**146 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
+- En la carpeta: `npm ci` → `npm test` (**186 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
 - ⏸ **No se sube a la web** (lo decidió el usuario el 2 nov): no hay copia en `static/` ni enlace en el menú. Al usuario se le entrega el HTML. `npm run publish:web` queda listo para cuando lo decida.
 - **Novedades de la v0.7** (spec §3.0f):
   - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
@@ -52,6 +52,24 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - Jefe Enmascarado (provisional; v7.2 más difícil tras tu feedback: 8 golpes, doble embestida en la fase 2).
   - Retos de los trajes (por ejemplo, Mundo 1 en menos de 4:00).
   - Arte de Noche: ✅ Invitado, Murciélago, Fantasma y Enmascarado hechos con ChatGPT (`art/source/noche/`, recortados con `scripts/slice_rows.py`). ⏳ Faltan los escenarios.
+
+### ⭐ v0.9 (2 nov 2026): Noche en la fiesta + historia
+- **Historia** (spec §1.1b, ✅ aprobada):
+  - Prólogo de 5 viñetas: Estadio GNP Seguros, 24 ene 2026 → la Arena → algo se pierde → despierta en el museo de la carpa → cada disco guarda una parte de él.
+  - Retrato de identidad de 8 piezas en el Museo, con el contador «IDENTIDAD n/8». Pepe empieza sin color y lo recupera.
+  - Tarjeta «RECUERDO RECUPERADO» al terminar cada mundo, y pensamientos de Pepe en los checkpoints.
+- **Noche** transcurre entera en una fiesta de disfraces (spec §3.0f G): 2-1 El Jardín, 2-2 La Casona (se va la luz) y 2-3 El Muelle.
+- **Invitados disfrazados dibujados por código** (estilo Neo Geo: `src/render/pixel.js` + `sprites-fiesta.js`): Gigante cosido, Hombre invisible, Hombre anfibio, La Llorona y Charro Negro.
+  - El primer golpe les quita el disfraz y entonces van más rápido; el segundo los vence.
+  - Sin Jason ni Freddy, y sin el diseño de Universal.
+- **De ChatGPT** se quedan el Murciélago (vampiro), el Fantasma y el Enmascarado. Se recortan con `scripts/slice_rows.py`.
+- **Jefe El Enmascarado:** repertorio de embestida, salto con ondas, 3 máscaras (se rompen con el micro), niebla con aviso detrás de Pepe e invitados en la fase 2.
+  - Nunca repite el mismo ataque dos veces seguidas.
+  - Tiene 8 golpes, uno por ventana.
+- ⏳ **Pendiente:**
+  - Créditos que separen los datos de la ficción (S4).
+  - Escenarios de Noche hechos con IA.
+  - El HTML pesa ~0,95 MB: antes de añadir mundos, cargar el arte aparte.
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.
