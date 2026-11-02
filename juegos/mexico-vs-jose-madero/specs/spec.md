@@ -26,7 +26,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 
 > El arco se apoya en algo que él ha contado: que al principio de su carrera fue arrogante y que lo dejó atrás («En algún momento fui un pendejo, pero dejé atrás eso hace mucho tiempo», La Razón, 2024; «no fuera tan arrogante», Publimetro, 2025). No se usan sus declaraciones sobre salud emocional o vida privada.
 
-### 1.1b v8 · La historia contada dentro del juego (propuesta del usuario, 2 nov 2026) ⏳ pendiente de aprobar
+### 1.1b v8 · La historia contada dentro del juego (propuesta del usuario, 2 nov 2026) ✅ aprobada
 
 **Problema:** la historia está en la spec (§1.1), pero el juego no la cuenta. Hoy se pasa de la portada al Museo sin saber por qué Pepe está ahí, y los capítulos son datos sueltos.
 
@@ -67,7 +67,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 
 **5. Texto:** todo en la fuente del juego, con frases de 44 caracteres como máximo.
 
-### 1.1c v8 · Jefe de Noche con patrones variados ⏳ pendiente de aprobar
+### 1.1c v8 · Jefe de Noche con patrones variados ✅ aprobado (detalle final en §3.0f G)
 **Problema (usuario):** el Enmascarado «va de aquí para allá», con un patrón súper repetitivo.
 
 **Propuesta:** un repertorio de ataques. Nunca repite el mismo dos veces seguidas y la elección depende de dónde está Pepe. Se mantiene determinista con un generador pseudoaleatorio propio, para que los tests sigan siendo repetibles.
@@ -361,7 +361,7 @@ Hasta que lleguen las poses que faltan:
 
 Así nunca se mezclan dos trajes en el mismo personaje.
 
-#### E. Mundo 2 «Noche» (W2) ⏳ textos y jefe pendientes de tu visto bueno
+#### E. Mundo 2 «Noche» (W2): versión v7. **La sustituye §3.0f G** en niveles, reparto y jefe
 **Datos que usa** (todos ya verificados en la tabla de fuentes; ⏳ falta que los apruebes para este uso):
 
 | ID | Dato en pantalla | Fuentes |
@@ -429,6 +429,58 @@ La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuent
   - Los Titulares no repiten datos: si se acaban, solo gritan su titular.
   - **Dato nuevo verificado:** N8, «*Noche* salió el 28 de julio de 2017» (AllMusic, Diario de México). Time Out México menciona una presentación el 14 de abril; no se usa esa fecha.
   - **Candidatos con una sola fuente** (⚠️ no se usan hasta tener la segunda): «Noche de brujas» fue la tercera canción que compuso para el disco y marcó su tono oscuro (Time Out México, entrevista); todas las canciones pasan por alguna actividad nocturna (Milenio); n.º 1 en México la semana del 3 ago 2017 (Wikipedia); la última pista es «Natt i Stockholm» (Time Out México).
+
+#### G. v8.1 · Noche es la fiesta de disfraces (✅ aprobado por el usuario, 2 nov 2026)
+**Historia del mundo (ficción del juego):** Pepe, sin memoria, llega a una **fiesta de disfraces** en una casona junto a un lago. Todo el mundo transcurre en la fiesta. El final es el duelo contra **El Enmascarado** en el muelle.
+
+| Nivel | Capítulo | Dónde | Farol |
+|---|---|---|---|
+| 2-1 El Jardín | «NOCHE DE BRUJAS» (declara N2) | Jardín de la casona con farolillos y papel picado; la fiesta en marcha | No |
+| 2-2 La Casona | «SE VA LA LUZ» | Dentro de la casona: pasillos, escaleras y salones. Se va la luz | Sí |
+| 2-3 El Muelle | «EL ENMASCARADO» | Muelle con barcas y plataformas (más altura) | Sí |
+
+**Reparto: los invitados disfrazados.** Monstruos clásicos de **dominio público** en versión genérica y **leyendas mexicanas** (de dominio público), todos con diseño propio.
+- **Prohibido:** máscara de hockey, suéter de rayas con guante de cuchillas, cabeza plana con tornillos en el cuello, y nombres o caras de actores o películas.
+- Por eso no hay Jason ni Freddy: lo que los hace reconocibles es justo lo que está protegido.
+
+| Invitado | `char` | Arte | Comportamiento | Al perder el disfraz |
+|---|---|---|---|---|
+| **Vampiro** (murciélago) | `W` | Hoja de ChatGPT | Cuelga del techo y se lanza en curva | — (vencido de un golpe) |
+| **Fantasma** | `O` | Hoja de ChatGPT | Flota hacia Pepe, atraviesa paredes y solo se ve con luz | — (vencido de un golpe) |
+| **Gigante cosido** | `K` | Código | Lento (20 px/s); su empujón lanza más lejos; hacen falta **2 golpes** para quitarle el disfraz | Persona con un disfraz de cartón roto |
+| **Hombre invisible** | `N` | Código | Camina hacia Pepe. Fuera de la luz solo se ven el sombrero, las gafas y los guantes | Se le caen las vendas: persona sorprendida |
+| **Hombre anfibio** | `U` | Código | Espera en el agua (un foso) y salta en arco cuando Pepe pasa cerca | Persona con traje de buzo de fiesta |
+| **La Llorona** | `Q` | Código | Flota despacio hacia Pepe. Su llanto (a menos de 64 px) lo **frena** 1 s, a mitad de velocidad. No hace daño, solo frena | Muchacha disfrazada que se ríe |
+| **Charro Negro** | `X` | Código | Como el Reportero: se prepara y embiste | Persona con traje de charro de fiesta |
+
+**Regla de los disfrazados** (K, N, U, Q, X): el primer golpe le quita el disfraz y entonces va **más rápido** y sigue atacando; el segundo golpe lo vence. El Gigante necesita 2 golpes para perder el disfraz. El Solo de guitarra los vence de una vez.
+
+- **Se retira** el invitado de frac de la hoja de ChatGPT (`I`): sus sprites quedan en `art/source/`, pero no se usan.
+- **Sprites por código, estilo Neo Geo:** se pintan formas planas en una rejilla pequeña y el generador añade **contorno oscuro** y **3 tonos por color** (luz arriba a la izquierda, sombra abajo a la derecha). Cada animación tiene de 4 a 6 fotogramas, con anticipación y retroceso. Se generan una vez al cargar, nunca en el bucle.
+
+**Jefe: El Enmascarado** (sustituye a §3.0f E «Jefe»; ✅ propuesta §1.1c aprobada). **8 golpes**; la fase 2 empieza con 4 o menos. Elige el siguiente ataque con un generador pseudoaleatorio propio y determinista, **sin repetir el anterior**. Cada ventana de vulnerabilidad admite **un golpe**.
+
+| Ataque | Fase | Cómo se esquiva | Ventana vulnerable |
+|---|---|---|---|
+| **Embestida** | 1 y 2 | Saltar | Aturdido 1,0 s tras chocar con la pared (en la fase 2, tras rebotar una vez) |
+| **Salto encima** | 1 y 2 | Apartarse. Al caer lanza dos ondas por el suelo (160 px/s); se saltan | 0,8 s al aterrizar |
+| **Máscaras** | 1 y 2 | Tres antifaces en abanico (150 px/s). Se esquivan o se rompen con el micrófono | 0,8 s mientras recarga |
+| **Niebla** | 2 | Desaparece (solo los ojos, 0,6 s) y reaparece **detrás** de Pepe con un zarpazo | 0,6 s tras el zarpazo |
+| **Invitados** | 2 | Llama a 2 disfrazados (Charro Negro y Gigante) si no queda ninguno de los suyos | 1,0 s mientras los llama |
+
+- **Fase 2:** antes de cada ataque hay un apagón de 0,6 s con solo los ojos visibles, y se mueve más deprisa.
+- **Al vencerlo:** se quita el antifaz, debajo hay una persona amable que sonríe y saluda, y deja la **Máscara de fiesta**. La recompensa nunca cae dentro de una pared.
+- **Arte:** hoja de ChatGPT (caminar, embestida, salto, lanzar, aturdido y quitarse la máscara).
+
+**Historia del juego (✅ §1.1b aprobada).** Esta entrega incluye:
+- el prólogo de 5 viñetas;
+- el retrato de 8 piezas en el Museo y el contador «IDENTIDAD n/8»;
+- Pepe desaturado que gana color con cada mundo;
+- la tarjeta «RECUERDO RECUPERADO» al vencer a cada jefe;
+- los pensamientos en los checkpoints;
+- la línea de Pepe al volver al Museo.
+
+Quedan para después los créditos que separan los datos de la ficción (S4).
 
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:

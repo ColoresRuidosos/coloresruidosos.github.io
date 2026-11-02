@@ -92,6 +92,15 @@
 - [x] A7 🎨 Hojas de Noche hechas con **ChatGPT** (prompts §0d): Invitado, Murciélago, Fantasma y Enmascarado → `scripts/slice_rows.py` (nuevo: recorta por filas y huecos y une piezas sueltas) · ⏳ escenarios
 - [ ] D8 ⚠️ Verificar «el estadio más grande de México» y el nombre (Foro / Estadio GNP Seguros)
 
+## Fase 2e — v8.1 · Noche en la fiesta (✅ aprobado; 🧪 primero)
+- [ ] B1 🧪 Enmascarado: repertorio (embestida, salto con ondas, máscaras, niebla, invitados), sin repetir, PRNG determinista, un golpe por ventana
+- [ ] B2 🎨 Muelle 2-3 más ancho, con barcas y plataformas
+- [ ] G1 🧪 Disfrazados: regla de los 2 golpes (3 el Gigante), más rápidos sin disfraz; Solo de una vez
+- [ ] G2 🧪 IA: Gigante (empujón fuerte), Hombre invisible, Hombre anfibio (salta desde el foso), La Llorona (frena 1 s), Charro Negro (embiste)
+- [ ] G3 🎨 Generador de sprites por código (contorno y 3 tonos) + 5 personajes, con y sin disfraz
+- [ ] G4 🎨 Niveles 2-1 El Jardín, 2-2 La Casona y 2-3 El Muelle; temas, capítulos y bots que los completan
+- [ ] S1–S3 de la Fase 2d (prólogo, identidad, recuerdos y pensamientos)
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
