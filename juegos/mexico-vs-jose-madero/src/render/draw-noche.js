@@ -2,7 +2,7 @@
 // hasta tener el arte de Gemini. Sin máscaras de hockey ni personajes de terror registrados: antifaz de fiesta propio.
 import { W, H } from '../game/constants.js';
 import { text, sprite } from './draw.js';
-import { inLight, lightRadius } from '../game/noche.js';
+import { inLight, lightRadius, MASK_VULNERABLE as MASK_VULN } from '../game/noche.js';
 
 const R = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
 const INK = '#000000';
@@ -83,28 +83,53 @@ export function drawMaskBoss(g, game, art, t) {
     g.restore();
     return;
   }
-  if (b.state === 'lurk' || b.state === 'blackout') return; // solo sus ojos (drawMaskEyes)
+  drawShots(g, game, t);
+  if (b.state === 'lurk' || b.state === 'blackout' || b.state === 'fade') return; // solo sus ojos (drawMaskEyes)
   if (b.hurtT > 0 && Math.floor(t * 30) % 2) return;
-  const dash = b.state === 'dash' || b.state === 'redash';
+  const A = sh.meta.anims, st = b.state;
+  // Pose de cada ataque (hoja de ChatGPT: caminar, embestida, salto, lanzar, aturdido, sin máscara).
   const key = game.intro ? frameOf(sh, 'maskWalk', t, 8)
-    : dash ? frameOf(sh, 'maskDash', t, 14)
-    : b.state === 'stun' ? frameOf(sh, 'maskStun', t, 6)
+    : st === 'dash' || st === 'redash' ? frameOf(sh, 'maskDash', t, 14)
+    : st === 'crouch' ? A.maskLeap[0]
+    : st === 'leap' ? A.maskLeap[b.vy < 0 ? 2 : 3]
+    : st === 'landed' ? A.maskLeap[4]
+    : st === 'aim' ? A.maskThrow[Math.min(2, Math.floor((b.t / 0.5) * 3))]
+    : st === 'recover' ? A.maskThrow[5]
+    : st === 'claw' ? A.maskThrow[2]
+    : st === 'summon' ? A.maskThrow[Math.floor(t * 6) % 2]
+    : st === 'stun' || st === 'clawRecover' ? frameOf(sh, 'maskStun', t, 6)
     : frameOf(sh, 'maskWalk', t, 8);
   sprite(g, sh, key, fx, fy, flip);
   const top = fy - 62;
-  if (b.state === 'stun') text(g, '¡AHORA!', fx, top - 8, { color: '#ffcf7a', align: 'center' });
-  if (dash) text(g, '¡SALTA!', fx, top - 4, { color: '#ffcf7a', align: 'center' });
+  const say = (w) => text(g, w, fx, top - 6, { color: '#ffcf7a', align: 'center' });
+  if (MASK_VULN.has(st) && !b.hitThisWindow) say('¡AHORA!');
+  else if (st === 'dash' || st === 'redash') say('¡SALTA!');
+  else if (st === 'crouch') say('¡APÁRTATE!');
+  else if (st === 'aim') say('¡CUIDADO!');
+}
+
+// Lo que lanza el Enmascarado: antifaces que giran y ondas en el suelo (se ven también a oscuras).
+function drawShots(g, game, t) {
+  for (const s of game.shots ?? []) {
+    if (s.kind === 'mask') {
+      const flip = Math.floor(t * 12) % 2 === 0;
+      antifaz(g, Math.round(s.x + s.w / 2), Math.round(s.y + 1), flip);
+    } else {
+      const x = Math.round(s.x), y = Math.round(s.y + s.h);
+      for (let k = 0; k < 3; k++) R(g, k === 1 ? '#ffffff' : '#bdbdbd', x + k * 3, y - 4 - (k === 1 ? 4 : 0) - Math.round(Math.sin(t * 20 + k) * 1), 3, 4 + (k === 1 ? 4 : 0));
+    }
+  }
 }
 
 // Ojos del Enmascarado: se ven siempre, también a oscuras y en el apagón.
 export function drawMaskEyes(g, game, t) {
   const b = game.boss;
-  if (!b?.alive || game.intro || !(b.state === 'lurk' || b.state === 'blackout')) return;
+  if (!b?.alive || game.intro || !(b.state === 'lurk' || b.state === 'blackout' || b.state === 'fade')) return;
   const fx = Math.round(b.x + b.w / 2), y = Math.round(b.y + 4); // a la altura del antifaz del sprite
   const on = b.state === 'blackout' || b.t > 0.15;
   if (!on) return;
   R(g, '#ffffff', fx - 4, y, 3, 2); R(g, '#ffffff', fx + 2, y, 3, 2);
-  if (b.state === 'lurk' && b.t > 0.4) text(g, '!', fx, y - 14, { color: '#ffcf7a', align: 'center' });
+  if ((b.state === 'lurk' && b.t > 0.4) || (b.state === 'fade' && b.t > 0.3)) text(g, '!', fx, y - 14, { color: '#ffcf7a', align: 'center' });
 }
 
 // Oscuridad con el círculo de luz del farol (y, en el apagón, casi negro del todo).

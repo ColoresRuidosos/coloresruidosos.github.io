@@ -5,7 +5,7 @@ import { edges } from '../engine/buttons.js';
 import { QUOTES, HEADLINES } from '../data/quotes.js';
 import { createEnemy, stepEnemy, bounceOff } from './enemies.js';
 import { createBoss, stepBoss, hitBoss as hitFlashBot } from './boss.js';
-import { createLantern, stepLantern, refill, createMask, stepMask, hitMask } from './noche.js';
+import { createLantern, stepLantern, refill, createMask, stepMask, hitMask, setMicTip } from './noche.js';
 
 // Jefe según el nivel: 'B' Cámara Flash-Bot (Mundo 1), 'E' El Enmascarado del Lago (Mundo 2).
 export const hitBoss = (g, b, force = false) => (b.kind === 'mask' ? hitMask(g, b, force) : hitFlashBot(g, b, force));
@@ -31,7 +31,7 @@ export function createGame(levelText, carry = {}, opts = {}) {
     checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
     status: 'play', popups: [], floats: [], events: [], prev: {},
     facts: opts.facts ?? QUOTES,
-    assist: !!opts.assist, hurts: 0, lantern: opts.lantern ? createLantern() : null, blackout: false,
+    assist: !!opts.assist, hurts: 0, lantern: opts.lantern ? createLantern() : null, blackout: false, shots: [],
   };
   // Niveles con jefe: empiezan con su cinemática de entrada.
   g.intro = level.boss ? { t: 0, x0: g.player.x, drop: INTRO.dropH, landed: false } : null;
@@ -41,6 +41,7 @@ export function createGame(levelText, carry = {}, opts = {}) {
 export const micRange = (g) => MIC.range * (g.amp > 0 ? AMP.mult : 1);
 export const micHand = (g) => ({ x: g.player.x + g.player.w / 2 + g.mic.dir * MIC.handX, y: g.player.y + g.player.h - MIC.handY });
 export const micTip = (g) => {
+  // (también lo usa el Enmascarado para romper sus máscaras con el micrófono)
   const h = micHand(g);
   return { x: h.x + g.mic.ax * g.mic.len, y: h.y + g.mic.ay * g.mic.len };
 };
@@ -290,3 +291,5 @@ export function stepGame(g, btn) {
   g.floats = g.floats.filter((f) => f.t > 0);
   return g;
 }
+
+setMicTip(micTip);

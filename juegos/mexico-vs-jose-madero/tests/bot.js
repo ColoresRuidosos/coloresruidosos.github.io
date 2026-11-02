@@ -51,32 +51,65 @@ export function bossBot(g) {
   return btn;
 }
 
-// Bot del Enmascarado (Mundo 2): se queda en el centro, salta la embestida cuando llega
-// y, si queda aturdido contra la pared, se acerca y lo golpea con el micrófono.
+// Bot del Enmascarado (v8.1): esquiva cada ataque y golpea con el micrófono en las ventanas.
+const VULN = new Set(['stun', 'landed', 'recover', 'clawRecover', 'summon']);
 export function maskBot(g) {
   const p = g.player, b = g.boss;
   const btn = { left: false, right: false, jump: false, mic: false, special: false };
-  const pc = p.x + p.w / 2;
+  const pc = p.x + p.w / 2, feet = p.y + p.h;
   if (!b || !b.alive) {
     if (g.disco) { const dx = g.disco.x - pc; btn.right = dx > 2; btn.left = dx < -2; }
     return btn;
   }
+  const W = g.level.w * TILE, mid = W / 2;
   const bc = b.x + b.w / 2, dx = bc - pc, gap = Math.abs(dx) - (b.w + p.w) / 2;
-  const toward = dx > 0 ? 'right' : 'left';
+  const toward = dx > 0 ? 'right' : 'left', away = dx > 0 ? 'left' : 'right';
+  const keepJumping = !p.onGround && p.vy < 0;
   if (g.ovacion >= 100 && g.frame % 2 === 0) btn.special = true;
-  if (b.state === 'stun') {
-    if (gap > MIC.range - 30) btn[toward] = true;
+  // Lo que viene volando (ondas y máscaras): saltar cuando está a punto de llegar.
+  let danger = false;
+  for (const s of g.shots) {
+    const sx = s.x + s.w / 2, coming = Math.sign(s.vx) === Math.sign(pc - sx), dist = Math.abs(sx - pc);
+    if (!coming || dist > 90) continue;
+    danger = true;
+    // Máscara a la altura de la mano y a tiro: se rompe con el micrófono. Si no, se salta.
+    const handY = feet - 29;
+    if (s.kind === 'mask' && Math.abs(s.y + s.h / 2 - handY) < 14 && dist < 70 && Math.sign(sx - pc) === p.facing && g.mic.phase === 'idle') btn.mic = g.frame % 2 === 0;
+    else if (dist / Math.max(1, Math.abs(s.vx)) < 0.22 && s.y + s.h > p.y && s.y < feet && p.onGround) btn.jump = true;
+  }
+  if (danger && !btn.jump && !btn.mic) {
+    // Mirar hacia lo que viene, para poder romperlo.
+    const s = g.shots.find((x) => x.kind === 'mask');
+    if (s && Math.sign(s.x - pc) !== p.facing && p.onGround) btn[s.x > pc ? 'right' : 'left'] = true;
+  }
+  // Invitados que ha llamado: micrófono si están a tiro.
+  const hand = { x: pc + p.facing * 18, y: feet - 29 };
+  const guest = g.enemies.find((e) => e.alive && Math.abs(e.x + e.w / 2 - pc) < 80 && hand.y >= e.y - 2 && hand.y <= e.y + e.h);
+  if (danger) {
+    // (primero esquivar lo que viene volando)
+  } else if (VULN.has(b.state) && !b.hitThisWindow) {
+    if (gap > 46) btn[toward] = true;
     else if (Math.sign(dx) !== p.facing) btn[toward] = true;
     else btn.mic = g.mic.phase === 'idle' && g.frame % 2 === 0;
   } else if (b.state === 'dash' || b.state === 'redash') {
     const coming = Math.sign(b.vx) === -Math.sign(dx);
-    // Salta cuando al jefe le faltan ~0,2 s para llegar (el margen depende de su velocidad).
     if (coming && gap / Math.max(1, Math.abs(b.vx)) < 0.2 && gap > 0 && p.onGround) btn.jump = true;
-    else if (!p.onGround && p.vy < 0) btn.jump = true;
-  } else {
-    // Acecho y apagón: al centro del muelle.
-    const mid = (g.level.w * TILE) / 2;
-    if (Math.abs(mid - pc) > 8) btn[mid > pc ? 'right' : 'left'] = true;
-  }
+  } else if (b.state === 'crouch' || b.state === 'leap') {
+    // Cae donde estaba Pepe: huir hacia el lado contrario al jefe; contra la pared, pasar por debajo.
+    const wallBehind = away === 'left' ? pc < 4 * TILE : pc > W - 4 * TILE;
+    btn[wallBehind ? toward : away] = true;
+  } else if (b.state === 'fade' || b.state === 'claw') {
+    // Reaparece detrás: seguir hacia delante (hacia donde mira Pepe), salvo que haya pared.
+    const dir = p.facing > 0 ? 'right' : 'left';
+    const wall = p.facing > 0 ? pc > W - 3 * TILE : pc < 3 * TILE;
+    btn[wall ? (p.facing > 0 ? 'left' : 'right') : dir] = true;
+  } else if (guest && Math.sign(guest.x - pc) === p.facing) {
+    btn.mic = g.mic.phase === 'idle' && g.frame % 2 === 0;
+  } else if (gap < 60) {
+    btn[away] = true;
+    const wallBehind = away === 'left' ? p.x < 2 * TILE + 4 : p.x + p.w > W - 2 * TILE - 4;
+    if (wallBehind) { btn[away] = false; btn[toward] = true; btn.jump = p.onGround; }
+  } else if (Math.abs(mid - pc) > 40) btn[mid > pc ? 'right' : 'left'] = true;
+  if (keepJumping) btn.jump = true;
   return btn;
 }

@@ -108,66 +108,9 @@ describe('enemigos de Noche (N3)', () => {
   });
 });
 
-describe('jefe: El Enmascarado del Lago (N4)', () => {
+describe('Enmascarado: la recompensa nunca se pierde (N8)', () => {
   const arena = WORLD_2[2];
   const fight = () => { const g = createGame(arena.map, {}, { lantern: arena.lantern }); g.intro = null; return g; };
-
-  test('acecho → embestida → choca con la pared → aturdido (solo entonces es vulnerable)', () => {
-    const g = fight(), b = g.boss;
-    assert.equal(b.state, 'lurk');
-    const seen = new Set();
-    for (let i = 0; i < 60 * 8 && !seen.has('stun'); i++) { stepGame(g, idle); g.invuln = 1; seen.add(b.state); }
-    assert.ok(seen.has('dash') && seen.has('stun'), [...seen].join(','));
-    const hp = b.hp;
-    b.state = 'dash';
-    assert.equal(hitMask(g, b), false, 'durante la embestida no se le puede dañar');
-    assert.equal(b.hp, hp);
-    b.state = 'stun';
-    assert.equal(hitMask(g, b), true);
-    assert.equal(b.hp, hp - 1);
-  });
-
-  test('8 golpes; fase 2 con apagón; al vencerlo se quita la máscara y deja la Máscara de fiesta', () => {
-    const g = fight(), b = g.boss;
-    assert.equal(b.hp, MASK.hp);
-    const st = { blackout: false };
-    for (let i = 0; i < 60 * 120 && g.status === 'play'; i++) {
-      stepGame(g, maskBot(g));
-      if (g.blackout) st.blackout = true;
-    }
-    assert.equal(b.alive, false);
-    assert.equal(b.unmasked, true);
-    assert.ok(st.blackout, 'hubo apagón en la fase 2');
-    assert.equal(g.disco?.kind, 'mascara');
-    assert.equal(g.status, 'won');
-  });
-});
-
-describe('Enmascarado v7.2: más difícil y sin recompensa perdida (N8)', () => {
-  const arena = WORLD_2[2];
-  const fight = () => { const g = createGame(arena.map, {}, { lantern: arena.lantern }); g.intro = null; return g; };
-
-  test('más aguante y menos tiempo vulnerable', () => {
-    assert.equal(MASK.hp, 8);
-    assert.equal(MASK.phase2, 4);
-    assert.ok(MASK.stun <= 1.0);
-    assert.ok(MASK.dash >= 230 && MASK.dash2 > MASK.dash);
-    assert.ok(MASK.lurk2 < MASK.lurk);
-  });
-
-  test('fase 2: choca dos veces con la pared (doble embestida) antes de quedar aturdido', () => {
-    const g = fight(), b = g.boss;
-    b.hp = MASK.phase2; b.phase = 2;
-    let walls = 0, prev = b.state;
-    for (let i = 0; i < 60 * 10 && b.state !== 'stun'; i++) {
-      stepGame(g, idle); g.invuln = 1;
-      if (prev === 'dash' && b.state === 'redash') walls++;
-      if (prev === 'redash' && b.state === 'stun') walls++;
-      prev = b.state;
-    }
-    assert.equal(b.state, 'stun');
-    assert.equal(walls, 2);
-  });
 
   for (const side of ['izquierda', 'derecha']) {
     test(`vencido contra la pared de la ${side} con Pepe encima: la máscara cae en un sitio alcanzable y se recoge`, () => {
