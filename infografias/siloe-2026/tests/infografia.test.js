@@ -59,3 +59,21 @@ test("las fechas exactas en México no se publican mientras estén pendientes", 
     assert.ok(!D.publicables(datos).some((d) => d.id === "mexico-dias"));
   }
 });
+
+test("fuente oficial del organizador: verifica aunque no haya dos URLs", () => {
+  const oficial = { organizador: "El Claustro", medio: "flyer oficial", recibido: "2026-11-02" };
+  assert.deepStrictEqual(D.validar(dato({ fuentes: [], oficial })), []);
+  assert.ok(D.validar(dato({ fuentes: [], oficial: { organizador: "El Claustro" } })).length > 0, "oficial incompleto");
+  assert.ok(D.validar(dato({ fuentes: [] })).length > 0, "sin nada");
+});
+
+test("charla-showcase en El Claustro: verificada, martes 3 de noviembre de 2026 a las 14:00", () => {
+  const s = datos.datos.find((d) => d.id === "showcase-claustro");
+  assert.ok(s, "existe");
+  assert.strictEqual(s.estado, "verificado");
+  assert.strictEqual(s.fecha, "2026-11-03");
+  assert.strictEqual(s.hora, "14:00");
+  assert.strictEqual(D.diaSemana(s.fecha), s.dia, "el día de la semana coincide con la fecha");
+  assert.strictEqual(s.dia, "martes");
+  assert.ok(D.publicables(datos).some((d) => d.id === "showcase-claustro"));
+});

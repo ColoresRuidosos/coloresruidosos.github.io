@@ -76,3 +76,11 @@ test("si los días en México se verifican, el guion los incluye solo", () => {
   assert.strictEqual(E.guion(copia).mexico.dias, d.texto);
   assert.strictEqual(E.guion(datos).mexico.dias, null);
 });
+
+test("el guion incluye la charla-showcase en El Claustro", () => {
+  const sc = E.guion(datos).showcase;
+  assert.ok(sc, "hay showcase");
+  assert.strictEqual(sc.fecha, "2026-11-03");
+  assert.strictEqual(sc.hora, "14:00");
+  assert.match(sc.lugar, /Gran Claustro/);
+});

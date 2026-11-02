@@ -26,3 +26,9 @@
 - ✅ 🔴→🟢 `escenas.js`: guion solo con datos verificados, línea de tiempo, resorte con rebote, pulso de 120 BPM, cortinilla entre escenas (`tests/video.test.js`)
 - ✅ `video.html` (seek(t), 1080×1920) y `render-video.js`
 - ✅ Revisión de fotogramas (que nada se encime ni se corte) y render final
+
+## Fase 6: Charla-showcase en El Claustro (I5, S6, F6)
+- ✅ 🔴→🟢 `datos.js` acepta la fuente oficial del organizador; la fecha del showcase cae en martes
+- ✅ 🔴→🟢 El guion del vídeo incluye el showcase
+- ✅ Vídeo actualizado y revisado (la infografía se queda sin el showcase, por decisión del equipo)
+- ⏳ Agregar la URL de la publicación de El Claustro cuando exista

@@ -10,7 +10,7 @@
     { id: "quienes", titulo: "Quiénes son", dur: 5.5 },
     { id: "discos", titulo: "Sus discos", dur: 7 },
     { id: "conozcas", titulo: "Para que los conozcas", dur: 6 },
-    { id: "mexico", titulo: "En México", dur: 5.5 },
+    { id: "mexico", titulo: "En México", dur: 7.5 },
     { id: "logo", titulo: "", dur: 4.5 },
   ];
   var INICIOS = [];
@@ -54,6 +54,7 @@
     var de = function (b) { return pub.filter(function (d) { return d.bloque === b; }); };
     var mx = de("mexico").filter(function (d) { return d.cuando; })[0];
     var dias = pub.filter(function (d) { return d.id === "mexico-dias"; })[0];
+    var sc = pub.filter(function (d) { return d.id === "showcase-claustro"; })[0];
     return {
       banda: datos.banda,
       cabecera: de("cabecera")[0].texto,
@@ -61,6 +62,7 @@
       discos: D.discos(datos).map(function (d) { return { anio: d.anio, titulo: d.texto, nota: d.nota || null }; }),
       curiosidades: de("curiosidades").map(function (d) { return d.texto; }),
       mexico: { cuando: mx.cuando, donde: mx.donde, con: mx.con, dias: dias ? dias.texto : null },
+      showcase: sc ? { tipo: sc.tipo, fecha: sc.fecha, dia: sc.dia, hora: sc.hora, lugar: sc.lugar } : null,
     };
   }
 

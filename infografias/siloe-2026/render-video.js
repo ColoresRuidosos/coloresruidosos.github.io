@@ -59,7 +59,7 @@ async function renderizar(pagina, cuadros) {
   // Hoja de contacto: un momento ya asentado de cada escena + mitad de una cortinilla.
   const contacto = await pagina.evaluate(() => {
     const E = window.CRescenas, ini = E.INICIOS;
-    const tiempos = [ini[0] + 4.0, ini[1] + 3.5, ini[2] + 6.0, ini[3] + 5.5, ini[4] + 5.0, ini[5] + 4.0, ini[1] + 0.9, ini[2] - 0.05];
+    const tiempos = [ini[0] + 4.0, ini[1] + 3.5, ini[2] + 6.0, ini[3] + 5.5, ini[4] + 7.0, ini[5] + 4.0, ini[1] + 0.9, ini[2] - 0.05];
     const c = document.createElement("canvas"); c.width = 4 * 360; c.height = 2 * 640;
     const g = c.getContext("2d"), fuente = document.getElementById("lienzo");
     tiempos.forEach((t, i) => { window.seek(t); g.drawImage(fuente, (i % 4) * 360, Math.floor(i / 4) * 640, 360, 640); });

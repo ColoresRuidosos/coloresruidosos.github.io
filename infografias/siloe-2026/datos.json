@@ -89,6 +89,20 @@
       "estado": "verificado"
     },
     {
+      "id": "showcase-claustro",
+      "bloque": "mexico",
+      "texto": "Charla-showcase el martes 3 de noviembre de 2026 a las 14:00 en el Patio Gran Claustro de El Claustro de Sor Juana, CDMX",
+      "tipo": "Charla-showcase",
+      "fecha": "2026-11-03",
+      "dia": "martes",
+      "hora": "14:00",
+      "lugar": "Patio Gran Claustro · El Claustro de Sor Juana, CDMX",
+      "fuentes": [],
+      "oficial": { "organizador": "Universidad del Claustro de Sor Juana (El Claustro)", "medio": "Flyer oficial «Te invitamos a ver a Siloé · Charla-showcase», compartido por el equipo", "recibido": "2026-11-02" },
+      "estado": "verificado",
+      "_nota": "Agregar la URL cuando El Claustro lo publique en su web o redes."
+    },
+    {
       "id": "mexico-dias",
       "bloque": "mexico",
       "texto": "Fechas con Morat: 14, 15 y 17 de noviembre",

@@ -9,7 +9,7 @@
 
 **Solución.** Una infografía de 1080×1350 (formato vertical del feed de Instagram) que presenta a la banda en un vistazo: quiénes son, sus cinco discos, dos datos que enganchan y cuándo y dónde verlos en México. Con la identidad del fanzine y el sticker rosa «Viene a México».
 
-**Regla de veracidad (no negociable).** Cada dato que aparece en la imagen tiene **al menos dos fuentes independientes** registradas en `datos.json`. Un dato con una sola fuente no se publica; queda en `pendientes` para que el equipo lo confirme. Las pruebas lo hacen cumplir y la imagen solo dibuja datos `verificado`.
+**Regla de veracidad (no negociable).** Cada dato que aparece en la imagen tiene **al menos dos fuentes independientes** registradas en `datos.json`, **o el anuncio oficial del organizador** (fuente primaria) registrado con quién lo emite, por qué medio y cuándo lo recibió el equipo. *(Ampliación del 2026-11-02, por el flyer oficial de El Claustro.)* Un dato con una sola fuente no se publica; queda en `pendientes` para que el equipo lo confirme. Las pruebas lo hacen cumplir y la imagen solo dibuja datos `verificado`.
 
 **Métricas de éxito**
 - 0 correcciones después de publicar.
@@ -31,6 +31,7 @@
 
 - **I1 Datos con evidencia.** `datos.json`: cada dato tiene id, texto, fuentes (≥ 2, https, de dominios distintos) y estado (`verificado` o `pendiente`).
 - **I2 Bloques.** Cabecera (nombre, origen, género y sticker «Viene a México»), integrantes, línea de tiempo de discos, «para que los conozcas» (2 datos) y la fecha en México.
+- **I5 Charla-showcase en El Claustro (solo en el vídeo).** Martes 3 de noviembre de 2026, 14:00, Patio Gran Claustro (Universidad del Claustro de Sor Juana, CDMX). Fuente: flyer oficial de El Claustro. Una prueba comprueba que la fecha cae en martes, como dice el flyer. Por decisión del equipo aparece en el vídeo, no en la infografía, que se queda como estaba.
 - **I3 Exportación.** `node exportar.js` genera `siloe-viene-a-mexico.png` (1080×1350).
 - **I4 Pie.** `pie.md` con el texto de la publicación y las fuentes.
 
@@ -72,6 +73,7 @@ exportar.js (Playwright: captura) ──► siloe-viene-a-mexico.png
 | «Nada que se parezca a ti», campaña de turismo de Castilla y León 2023 | Turismo Castilla y León (oficial); Cortes de Castilla y León (BOCCL) | ✅ |
 | Tocaron ante el papa León XIV en Madrid (junio de 2026) | La Ganzúa; esMadrid (programa oficial) | ✅ |
 | En México: invitados de Morat, Palacio de los Deportes, noviembre de 2026 | Navarra Arena; Cádiz Directo; Nosoloindie | ✅ |
+| Charla-showcase en El Claustro: martes 3 de noviembre de 2026, 14:00, Patio Gran Claustro | Flyer oficial de El Claustro (compartido por el equipo el 2026-11-02); no aparece en la web todavía | ✅ (fuente oficial) |
 | Días exactos en México: 14, 15 y 17 de noviembre | Solo Cádiz Directo (cita a Ticketmaster) | ⏳ pendiente |
 | Beca de Fito Robles en Berklee | Cierra por Fuera; Vigoé (fuentes menores) | ⏳ pendiente |
 | Origen del nombre (estanque de Siloé) | Solo Fnac | ⏳ pendiente |

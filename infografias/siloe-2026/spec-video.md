@@ -36,6 +36,7 @@
 - **S2 Escenas (5 + logo):** 01 Viene a México · 02 Quiénes son · 03 Sus discos · 04 Para que los conozcas · 05 En México · cierre con el logo.
 - **S3 Ritmo:** pulso de 120 BPM (0.5 s); las entradas caen en el pulso con resorte (pequeño rebote).
 - **S4 Transiciones:** cortinilla de franjas de la marca entre escenas (0.6 s), sin cortes secos.
+- **S6 Charla-showcase:** la escena 05 empieza con la charla-showcase en El Claustro (martes 3 de noviembre, 14:00) y después pasa al Palacio de los Deportes con Morat. Dura 7.5 s.
 - **S5 Render:** `node render-video.js` → `siloe-viene-a-mexico.mp4` (1080×1920, 30 fps, H.264) + `contacto-video.png`.
 
 ## 4. Flujos

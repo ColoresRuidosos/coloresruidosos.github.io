@@ -213,15 +213,32 @@
     var sube = E.llegar(l, 0, 0.5);
     caja(40, 330 + (H - 330) * (1 - sube), W - 80, 1400, C.naranja);
     etiqueta("En México", l, 5);
-    var mx = g.mexico, partes = mx.cuando.split(" ");
-    [[partes[0].toUpperCase(), 520, 190, 0.5], [partes.slice(1).join(" "), 760, 250, 0.9]].forEach(function (p) {
-      var k = E.llegar(l, p[3], 0.3);
-      if (k > 0) alfa(Math.min(1, k * 2), function () { escalaDesde(M + 300, p[1] - p[2] / 3, 1 + 0.5 * (1 - k), function () { textoMarca(p[0], M + 20, p[1], p[2], p[0].length > 5 ? C.crema : C.amarillo); }); });
-    });
-    var y = palabras(mx.donde.replace(",", " ·").toUpperCase(), M + 20, 900, W - 2 * M - 40, 92, "400", "Anton", C.tinta, l, 1.5, 0.12, 1.02);
-    y = palabras(mx.con, M + 22, y + 40, W - 2 * M - 40, 62, "700", "'Space Grotesk'", C.tinta, l, 2.2, 0.1);
-    palabras(mx.dias || "Fechas y boletos en la taquilla oficial", M + 22, y + 30, W - 2 * M - 300, 40, "700", "Space Mono", C.tinta, l, 2.7, 0.06, 1.25);
-    stickerViene(800, 1500, 170, l, 3.1);
+    var sc = g.showcase, mx = g.mexico, y = 360, t0 = 0.4;
+    if (sc) {
+      // 1) Charla-showcase en El Claustro (flyer oficial)
+      var MES = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"], p = sc.fecha.split("-");
+      var k = E.llegar(l, t0, 0.3);
+      if (k > 0) alfa(Math.min(1, k * 2), function () {
+        escalaDesde(M + 260, y + 120, 1 + 0.5 * (1 - k), function () {
+          textoMarca(sc.dia.toUpperCase() + " " + Number(p[2]) + " " + MES[Number(p[1]) - 1], M + 20, y + 150, 150, C.crema);
+        });
+      });
+      var k2 = E.llegar(l, t0 + 0.4, 0.3);
+      if (k2 > 0) alfa(k2, function () { textoMarca(sc.hora + " H", M + 20, y + 270, 110, C.amarillo); });
+      var yy = palabras(sc.lugar.toUpperCase(), M + 22, y + 350, W - 2 * M - 40, 62, "400", "Anton", C.tinta, l, t0 + 0.8, 0.1, 1.05);
+      palabras(sc.tipo + " con la banda", M + 22, yy + 14, W - 2 * M - 40, 46, "700", "'Space Grotesk'", C.tinta, l, t0 + 1.4, 0.08);
+      var kd = E.llegar(l, t0 + 1.8, 0.4);
+      ctx.fillStyle = C.tinta; for (var x = M + 20; x < M + 20 + (W - 2 * M - 40) * Math.min(1, kd); x += 30) ctx.fillRect(x, yy + 70, 18, 6);
+      y = yy + 100; t0 = 2.6;
+    }
+    // 2) Palacio de los Deportes con Morat
+    var partes = mx.cuando.toUpperCase();
+    var k3 = E.llegar(l, t0, 0.3);
+    if (k3 > 0) alfa(Math.min(1, k3 * 2), function () { escalaDesde(M + 300, y + 60, 1 + 0.5 * (1 - k3), function () { textoMarca(partes, M + 20, y + 110, 110, C.crema); }); });
+    var y2 = palabras(mx.donde.replace(",", " ·").toUpperCase(), M + 22, y + 200, W - 2 * M - 40, 62, "400", "Anton", C.tinta, l, t0 + 0.5, 0.1, 1.05);
+    y2 = palabras(mx.con, M + 22, y2 + 14, W - 2 * M - 40, 46, "700", "'Space Grotesk'", C.tinta, l, t0 + 1.0, 0.08);
+    palabras(mx.dias || "Fechas y boletos en la taquilla oficial", M + 22, y2 + 10, W - 2 * M - 320, 34, "700", "Space Mono", C.tinta, l, t0 + 1.4, 0.05, 1.25);
+    stickerViene(820, 1560, 150, l, t0 + 1.8);
   }
 
   function logo(l) {
