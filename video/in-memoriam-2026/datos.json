@@ -1,0 +1,141 @@
+{
+  "_leeme": "Solo artistas de nuestro ámbito fallecidos en 2026, en orden cronológico, con dos fuentes cada uno. 'linea' es redacción propia (máx. 70 caracteres) y nunca menciona la causa de muerte. Ver spec.md.",
+  "titulo": "In memoriam 2026",
+  "artistas": [
+    {
+      "id": "alvaro-pena-rojas",
+      "nombre": "Álvaro Peña-Rojas",
+      "fecha": "2026-01-08",
+      "pais": "CL",
+      "proyectos": ["The 101'ers"],
+      "linea": "El punk antes del punk, de Valparaíso a Londres.",
+      "fuentes": ["https://www.emol.com/noticias/Espectaculos/2026/01/09/1188127/muere-alvaro-pena-musico-chileno.html", "https://www.elmostrador.cl/cultura/2026/01/09/fallecio-alvaro-pena-mito-del-punk-chileno-a-los-82-anos/"]
+    },
+    {
+      "id": "adrian-bar",
+      "nombre": "Adrián Bar",
+      "fecha": "2026-01",
+      "pais": "AR",
+      "proyectos": ["Orion's Beethoven"],
+      "linea": "Pionero del rock progresivo argentino desde los setenta.",
+      "fuentes": ["https://elintransigente.com/2026/01/adios-a-adrian-bar-los-3-logros-mas-aplaudidos-del-pionero-del-rock-argentino-que-no-todos-conocian/", "https://www.sitioandino.com.ar/muchoshow/murio-adrian-bar-el-adios-al-alma-orions-beethoven-y-leyenda-del-rock-nacional-n5716462"]
+    },
+    {
+      "id": "rafael-amador",
+      "nombre": "Rafael Amador",
+      "fecha": "2026-02-08",
+      "pais": "ES",
+      "proyectos": ["Pata Negra", "Veneno"],
+      "linea": "Llevó el blues y el rock al flamenco.",
+      "fuentes": ["https://www.efeeme.com/muere-rafael-amador/", "https://www.hola.com/actualidad/20260209882876/muere-rafael-amador-exmiembro-pata-negra-65-anos/"]
+    },
+    {
+      "id": "saul-cornejo",
+      "nombre": "Saúl Cornejo",
+      "fecha": "2026-02-12",
+      "pais": "PE",
+      "proyectos": ["Laghonia", "We All Together"],
+      "linea": "Pionero del rock peruano de los sesenta y setenta.",
+      "fuentes": ["https://en.wikipedia.org/wiki/We_All_Together", "https://elcongresista.mx/politica/nacional/fallece-saul-cornejo-pionero-rock-peruano"]
+    },
+    {
+      "id": "daniel-buira",
+      "nombre": "Daniel Buira",
+      "fecha": "2026-03-21",
+      "pais": "AR",
+      "proyectos": ["Los Piojos", "La Chilinga"],
+      "linea": "Fundó Los Piojos y enseñó percusión a miles.",
+      "fuentes": ["https://www.lacapital.com.ar/zoom/los-piojos-luto-dani-buira-murio-y-la-banda-perdio-uno-sus-fundadores-n10250383.html", "https://www.canal26.com/espectaculos/2026/03/21/murio-daniel-dani-buira-historico-baterista-de-los-piojos-conmocion-en-el-rock-argentino/"]
+    },
+    {
+      "id": "felipe-staiti",
+      "nombre": "Felipe Staiti",
+      "fecha": "2026-04-13",
+      "pais": "AR",
+      "proyectos": ["Enanitos Verdes"],
+      "linea": "La guitarra de Enanitos Verdes desde Mendoza.",
+      "fuentes": ["https://www.elimparcial.com/espectaculos/2026/04/14/muere-felipe-staiti-guitarrista-de-enanitos-verdes-a-los-64-anos-en-argentina/", "https://www.cnnchile.com/cultura/muere-felipe-staiti-los-enanitos-verdes-fundador-banda_20260414/"]
+    },
+    {
+      "id": "walo-carrillo",
+      "nombre": "Walo Carrillo",
+      "fecha": "2026-05",
+      "pais": "PE",
+      "proyectos": ["Los Holys", "Tarkus"],
+      "linea": "Batería precursora del rock psicodélico en Lima.",
+      "fuentes": ["https://elpopular.pe/actualidad/2026/05/17/luto-en-la-musica-peruana-fallece-legendaria-figura-de-rock-nacional-a-los-75-anos-1165214", "https://www.expreso.com.pe/entretenimiento/rock-peruano-esta-de-luto-por-muerte-de-emblematico-musico-patricio-suarez-vertiz-grupo-rio-noticia/1286721/"]
+    },
+    {
+      "id": "indio-solari",
+      "nombre": "Indio Solari",
+      "fecha": "2026-06-05",
+      "pais": "AR",
+      "proyectos": ["Patricio Rey y sus Redonditos de Ricota"],
+      "linea": "La voz del pogo más grande del mundo.",
+      "fuentes": ["https://www.elobservador.com.uy/argentina/espectaculos/murio-el-indio-solari-el-lider-patricio-rey-y-sus-redonditos-ricota-n6046437", "https://www.perfil.com/noticias/sociedad/murio-el-indio-solari-a-los-77-anos.phtml"]
+    },
+    {
+      "id": "daniel-melingo",
+      "nombre": "Daniel Melingo",
+      "fecha": "2026-06-30",
+      "pais": "AR",
+      "proyectos": ["Los Twist", "Los Abuelos de la Nada"],
+      "linea": "Del rock de los ochenta a un tango inclasificable.",
+      "fuentes": ["https://www.ambito.com/espectaculos/murio-daniel-melingo-exmiembro-los-abuelos-la-nada-cofundador-los-twist-y-referente-del-rock-nacional-n6294477", "https://www.lagaceta.com.ar/nota/1143461/espectaculos/murio-daniel-melingo-ex-integrante-abuelos-nada-abandono-rock-para-volverse-tanguero.html"]
+    },
+    {
+      "id": "victor-coyote",
+      "nombre": "Víctor Coyote",
+      "fecha": "2026-08-13",
+      "pais": "ES",
+      "proyectos": ["Los Coyotes"],
+      "linea": "Rock y ritmos latinos en plena Movida madrileña.",
+      "fuentes": ["https://www.infobae.com/espana/cultura/2026/08/13/muere-a-los-68-anos-y-de-forma-repentina-victor-coyote-figura-de-la-movida-madrilena/", "https://www.hola.com/actualidad/20260813917933/victor-coyote-fundador-los-coyotes-muere-repentina/"]
+    },
+    {
+      "id": "ruben-rada",
+      "nombre": "Rubén Rada",
+      "fecha": "2026-08-26",
+      "pais": "UY",
+      "proyectos": ["Totem", "El Kinto"],
+      "linea": "El Negro Rada, padre del candombe beat.",
+      "fuentes": ["https://www.infobae.com/teleshow/2026/08/26/murio-a-los-83-anos-el-reconocido-musico-uruguayo-ruben-rada/", "https://www.telesurtv.net/murio-musico-cantante-uruguay-ruben-rada/"]
+    },
+    {
+      "id": "miguel-zavaleta",
+      "nombre": "Miguel Zavaleta",
+      "fecha": "2026-08-31",
+      "pais": "AR",
+      "proyectos": ["Suéter"],
+      "linea": "Líder de Suéter, ironía y pop del rock de los ochenta.",
+      "fuentes": ["https://www.perfil.com/noticias/cultura/murio-miguel-zavaleta-lider-de-sueter-y-figura-del-rock-nacional-de-los-ochenta-a42.phtml", "https://www.lacapitalmdp.com/adios-a-miguel-zavaleta-una-de-las-voces-del-rock-argentino-de-los-80/"]
+    },
+    {
+      "id": "jonathan-melendez",
+      "nombre": "Jonathan “Honas” Meléndez",
+      "fecha": "2026-09",
+      "pais": "MX",
+      "proyectos": ["Camilo Séptimo"],
+      "linea": "Teclados y producción del indie mexicano.",
+      "fuentes": ["https://www.unotv.com/entretenimiento/quien-es-jonathan-melendez-tecladista-de-la-banda-camilo-septimo-asesinado-en-edomex/", "https://www.emol.com/noticias/Espectaculos/2026/09/03/1210488/camilo-septimo-lamenta-murete-tecladista.html"]
+    },
+    {
+      "id": "ricardo-soule",
+      "nombre": "Ricardo Soulé",
+      "fecha": "2026-10-02",
+      "pais": "AR",
+      "proyectos": ["Vox Dei"],
+      "linea": "Fundó Vox Dei y escribió «Presente».",
+      "fuentes": ["https://www.infobae.com/teleshow/2026/10/02/murio-ricardo-soule-fundador-de-vox-dei-y-figura-clave-del-rock-argentino/", "https://es.rollingstone.com/arg-murio-ricardo-soule-guitarrista-de-vox-dei-y-pionero-del-rock-argentino/"]
+    },
+    {
+      "id": "carlos-riganti",
+      "nombre": "Carlos Riganti",
+      "fecha": "2026-10-23",
+      "pais": "AR",
+      "proyectos": ["Alas"],
+      "linea": "Batería de Alas, rock progresivo de los setenta.",
+      "fuentes": ["https://www.infobae.com/teleshow/2026/10/24/murio-a-los-75-anos-carlos-riganti-baterista-de-alas-y-referente-del-rock-progresivo/", "https://www.rockaxis.com/vanguardia/noticia/52412/fallece-carlos-riganti-historico-baterista-de-alas-y-figura-clave-del-rock-argentino/"]
+    }
+  ]
+}

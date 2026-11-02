@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>In memoriam 2026 · Colores Ruidosos</title>
+<link rel="stylesheet" href="fuentes/fuentes.css">
+<style>
+  html, body { margin: 0; background: #141414; }
+  canvas { display: block; width: min(100vw, calc(100vh * 9 / 16)); height: auto; margin: 0 auto; }
+  .ayuda { position: fixed; left: 8px; bottom: 8px; font: 12px "Space Mono", monospace; color: #F4EFE6; opacity: .6; }
+</style>
+</head>
+<body>
+<canvas id="lienzo" width="1080" height="1920" aria-label="Vídeo In memoriam 2026"></canvas>
+<p class="ayuda">Vista previa: se reproduce sola. render.js usa window.seek(t).</p>
+<script src="linea.js"></script>
+<script>
+/* Vídeo «In memoriam 2026» (spec.md). Cada fotograma es función pura de t:
+   window.seek(t) dibuja el instante t, sin reloj, para que el render sea exacto. */
+(function () {
+  var L = window.CRvideo, T = L.T;
+  var W = 1080, H = 1920, MARGEN = 90;
+  var C = { tinta: "#141414", crema: "#F4EFE6", naranja: "#FF7A30", amarillo: "#FFD23F", apagada: "#3a2a22" };
+  var lienzo = document.getElementById("lienzo");
+  var ctx = lienzo.getContext("2d");
+  var datos = null, artistas = [], n = 0;
+
+  // ---------- utilidades ----------
+  function alfa(a, fn) { if (a <= 0) return; ctx.save(); ctx.globalAlpha *= Math.min(1, a); fn(); ctx.restore(); }
+  function fuente(peso, px, familia) { ctx.font = peso + " " + px + "px " + familia; }
+  function lineas(texto, ancho) {
+    var palabras = texto.split(" "), out = [], actual = "";
+    palabras.forEach(function (p) {
+      var prueba = actual ? actual + " " + p : p;
+      if (ctx.measureText(prueba).width > ancho && actual) { out.push(actual); actual = p; } else actual = prueba;
+    });
+    if (actual) out.push(actual);
+    return out;
+  }
+  // Nombre lo más grande posible (máx. 150 px) en una o dos líneas dentro del ancho útil.
+  function ajustarNombre(nombre, ancho) {
+    for (var px = 150; px >= 80; px -= 4) {
+      fuente("400", px, "Anton");
+      var ls = lineas(nombre, ancho);
+      if (ls.length <= 2 && ls.every(function (l) { return ctx.measureText(l).width <= ancho; })) return { px: px, lineas: ls };
+    }
+    return { px: 80, lineas: lineas(nombre, ancho) };
+  }
+
+  // Grano de papel: ruido fijo con semilla, dibujado una sola vez.
+  var grano = document.createElement("canvas");
+  grano.width = 360; grano.height = 640;
+  (function () {
+    var g = grano.getContext("2d"), img = g.createImageData(grano.width, grano.height), r = L.aleatorio(2026);
+    for (var i = 0; i < img.data.length; i += 4) {
+      var v = Math.floor(r() * 255);
+      img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 14;
+    }
+    g.putImageData(img, 0, 0);
+  })();
+
+  // Pétalos de cempasúchil: parámetros fijos, posición calculada desde t.
+  var petalos = (function () {
+    var r = L.aleatorio(1102), lista = [];
+    for (var i = 0; i < 34; i++) {
+      lista.push({ x: r() * W, y0: r() * H, vel: 26 + r() * 40, vaiven: 20 + r() * 50, fase: r() * 6.28, giro: 0.3 + r() * 0.9, tam: 9 + r() * 12, tono: r() < 0.7 ? C.naranja : C.amarillo });
+    }
+    return lista;
+  })();
+
+  function fondo(t) {
+    ctx.fillStyle = C.tinta; ctx.fillRect(0, 0, W, H);
+    var luz = ctx.createRadialGradient(W / 2, 1420, 40, W / 2, 1420, 900);
+    luz.addColorStop(0, "rgba(255,122,48,0.10)"); luz.addColorStop(1, "rgba(255,122,48,0)");
+    ctx.fillStyle = luz; ctx.fillRect(0, 0, W, H);
+    petalos.forEach(function (p) {
+      var y = ((p.y0 + p.vel * t) % (H + 80)) - 40;
+      var x = p.x + Math.sin(t * 0.6 + p.fase) * p.vaiven;
+      alfa(0.42, function () {
+        ctx.translate(x, y); ctx.rotate(p.fase + t * p.giro);
+        ctx.fillStyle = p.tono; ctx.beginPath(); ctx.ellipse(0, 0, p.tam, p.tam * 0.55, 0, 0, Math.PI * 2); ctx.fill();
+      });
+    });
+    ctx.drawImage(grano, 0, 0, W, H);
+  }
+
+  // ---------- veladora ----------
+  // x, y: centro de la base. s: escala. luz: 0 apagada, 1 encendida. destello: brillo extra al encenderse.
+  function veladora(x, y, s, luz, t, semilla, destello) {
+    var w = 74 * s, h = 96 * s;
+    if (luz > 0) {
+      var r = (150 + 90 * (destello || 0)) * s;
+      var halo = ctx.createRadialGradient(x, y - h - 26 * s, 4 * s, x, y - h - 26 * s, r);
+      halo.addColorStop(0, "rgba(255,210,63," + (0.38 * luz) + ")"); halo.addColorStop(1, "rgba(255,210,63,0)");
+      ctx.fillStyle = halo; ctx.fillRect(x - r, y - h - 26 * s - r, r * 2, r * 2);
+    }
+    ctx.lineWidth = 5 * s; ctx.strokeStyle = C.tinta; ctx.lineJoin = "round";
+    // vaso
+    ctx.fillStyle = luz > 0 ? C.naranja : C.apagada;
+    ctx.beginPath(); ctx.roundRect(x - w / 2, y - h, w, h, 6 * s); ctx.fill();
+    ctx.strokeStyle = luz > 0 ? C.tinta : "#5c4537"; ctx.stroke();
+    ctx.fillStyle = luz > 0 ? C.crema : "#4a3a31";
+    ctx.fillRect(x - w / 2, y - h + 18 * s, w, 14 * s);
+    ctx.beginPath(); ctx.arc(x, y - h * 0.38, 12 * s, 0, Math.PI * 2); ctx.fill();
+    // pabilo
+    ctx.fillStyle = luz > 0 ? C.tinta : "#5c4537"; ctx.fillRect(x - 2.5 * s, y - h - 12 * s, 5 * s, 12 * s);
+    // flama: oscila suave con seno (sin azar), crece al encenderse
+    if (luz > 0) {
+      var osc = Math.sin(t * 5.1 + semilla * 1.7) * 0.06 + Math.sin(t * 8.3 + semilla) * 0.03;
+      var fh = 46 * s * luz * (1 + osc), fw = 17 * s * luz;
+      var by = y - h - 10 * s;
+      ctx.save(); ctx.translate(x, by); ctx.rotate(osc * 0.8);
+      ctx.fillStyle = C.amarillo; ctx.strokeStyle = C.tinta; ctx.lineWidth = 4 * s;
+      ctx.beginPath(); ctx.moveTo(0, -fh);
+      ctx.bezierCurveTo(fw * 1.3, -fh * 0.45, fw, 0, 0, 0);
+      ctx.bezierCurveTo(-fw, 0, -fw * 1.3, -fh * 0.45, 0, -fh);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = C.naranja; ctx.beginPath(); ctx.ellipse(0, -fh * 0.28, fw * 0.42, fh * 0.24, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // ---------- ofrenda: N veladoras en repisas ----------
+  function ofrenda(t, encendidas, actual, aparece) {
+    var g = L.cuadricula(n), top = 1200, alto = 440, filaH = alto / g.filas;
+    var s = Math.min(1.15, filaH / 170, ((W - 2 * MARGEN) / g.columnas) / 120);
+    alfa(aparece, function () {
+      for (var f = 0; f < g.filas; f++) {
+        var yBase = top + filaH * (f + 1) - 10;
+        ctx.fillStyle = C.crema; ctx.globalAlpha *= 0.9;
+        ctx.fillRect(MARGEN - 20, yBase, W - 2 * MARGEN + 40, 8);
+        ctx.globalAlpha /= 0.9;
+        var enFila = Math.min(g.columnas, n - f * g.columnas);
+        var paso = (W - 2 * MARGEN) / g.columnas;
+        var x0 = W / 2 - (enFila - 1) * paso / 2;
+        for (var c = 0; c < enFila; c++) {
+          var i = f * g.columnas + c;
+          var luz = 0, destello = 0;
+          if (i < encendidas) {
+            var desde = T.INTRO + i * T.TRAMO + T.ENCENDER;
+            var k = L.suave((t - desde) / 0.6);
+            luz = Math.max(0.0001, k);
+            destello = i === actual ? Math.max(0, 1 - (t - desde) / 1.6) : 0;
+          }
+          veladora(x0 + c * paso, yBase, s, luz, t, i + 1, destello);
+        }
+      }
+    });
+  }
+
+  // ---------- escenas ----------
+  function intro(e, t) {
+    var p = e.local;
+    // primero sale todo lo de la intro (3.0–3.5 s) y después entra la ofrenda (3.5–4.0 s), sin encimarse
+    var sale = 1 - L.suave((p - 3.0) / 0.5);
+    alfa(sale, function () { veladora(W / 2, 1190, 2.2, L.suave((p - 0.6) / 0.8), t, 0, Math.max(0, 1 - Math.abs(p - 1.6))); });
+    alfa(sale, function () {
+      ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+      alfa(L.suave((p - 0.2) / 0.6), function () {
+        fuente("700", 30, "Space Mono"); ctx.fillStyle = C.naranja;
+        ctx.fillText("COLORES RUIDOSOS", W / 2, 300);
+      });
+      alfa(L.suave((p - 1.0) / 0.8), function () {
+        fuente("400", 168, "Anton"); ctx.fillStyle = C.crema;
+        ctx.fillText("In memoriam", W / 2, 520 - 20 * (1 - L.suave((p - 1.0) / 0.8)));
+      });
+      alfa(L.suave((p - 1.5) / 0.8), function () {
+        fuente("400", 240, "Anton"); ctx.fillStyle = C.naranja;
+        ctx.fillText(L.ANIO, W / 2, 760);
+      });
+      alfa(L.suave((p - 2.1) / 0.7), function () {
+        fuente("500", 44, "Space Grotesk"); ctx.fillStyle = C.crema;
+        ctx.fillText("Los que se nos adelantaron este año", W / 2, 1300);
+        fuente("400", 30, "Space Mono"); ctx.globalAlpha *= 0.7;
+        ctx.fillText("México · España · Latinoamérica", W / 2, 1360);
+      });
+    });
+    // las veladoras pequeñas aparecen mientras sale el título
+    ofrenda(t, 0, -1, L.suave((p - 3.5) / 0.5));
+  }
+
+  function tarjeta(e, t) {
+    var a = artistas[e.indice], p = e.local;
+    var entra = L.suave(p / T.ENTRA), sale = 1 - L.suave((p - (T.TRAMO - T.SALE)) / T.SALE);
+    var dy = 40 * (1 - entra);
+    ofrenda(t, L.encendidas(t, n), e.indice, 1);
+    alfa(Math.min(entra, sale), function () {
+      ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+      ctx.translate(0, dy);
+      var ancho = W - 2 * MARGEN;
+      // medir primero para centrar el bloque en la zona libre sobre la ofrenda (250–1150 px)
+      var nom = ajustarNombre(a.nombre, ancho);
+      fuente("700", 46, "Space Grotesk"); var proy = lineas(a.proyectos.join(" · "), ancho);
+      fuente("500", 40, "Space Grotesk"); var texto = lineas(a.linea, ancho);
+      var alto = 130 + nom.lineas.length * nom.px * 1.02 + 30 + proy.length * 58 + 18 + texto.length * 54;
+      var y0 = Math.max(290, 700 - alto / 2 + 30);
+      fuente("700", 30, "Space Mono"); ctx.fillStyle = C.naranja;
+      var num = String(e.indice + 1).padStart(2, "0") + " / " + String(n).padStart(2, "0");
+      ctx.fillText(num, MARGEN, y0);
+      fuente("700", 36, "Space Mono"); ctx.fillStyle = C.crema;
+      ctx.fillText((L.fechaTexto(a.fecha) + " · " + L.paisTexto(a.pais)).toUpperCase(), MARGEN, y0 + 80);
+      ctx.fillStyle = C.naranja; ctx.fillRect(MARGEN, y0 + 110, 120, 8);
+      fuente("400", nom.px, "Anton"); ctx.fillStyle = C.crema;
+      var y = y0 + 130 + nom.px;
+      nom.lineas.forEach(function (l) { ctx.fillText(l, MARGEN, y); y += nom.px * 1.02; });
+      y += 30 - nom.px * 0.02;
+      fuente("700", 46, "Space Grotesk"); ctx.fillStyle = C.amarillo;
+      proy.forEach(function (l) { ctx.fillText(l, MARGEN, y); y += 58; });
+      y += 18;
+      fuente("500", 40, "Space Grotesk"); ctx.fillStyle = C.crema; ctx.globalAlpha *= 0.85;
+      texto.forEach(function (l) { ctx.fillText(l, MARGEN, y); y += 54; });
+    });
+  }
+
+  function cierre(e, t) {
+    var p = e.local;
+    ofrenda(t, n, -1, 1);
+    ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+    alfa(L.suave(p / 0.8), function () {
+      fuente("400", 112, "Anton"); ctx.fillStyle = C.crema;
+      ctx.fillText("Gracias por la música", W / 2, 360);
+    });
+    // los nombres en dos columnas, uno tras otro
+    var mitad = Math.ceil(n / 2);
+    fuente("400", 28, "Space Mono");
+    artistas.forEach(function (a, i) {
+      var col = i < mitad ? 0 : 1, fila = col ? i - mitad : i;
+      alfa(L.suave((p - 0.6 - i * 0.08) / 0.5), function () {
+        ctx.fillStyle = C.crema; ctx.textAlign = "left";
+        ctx.fillText(a.nombre.replace(/ “.*”/, ""), col ? W / 2 + 20 : MARGEN, 470 + fila * 50);
+      });
+    });
+    alfa(L.suave((p - 2.4) / 0.8), function () {
+      ctx.textAlign = "center";
+      fuente("400", 64, "Anton"); ctx.fillStyle = C.naranja;
+      ctx.fillText("Colores Ruidosos", W / 2, 1000);
+      fuente("400", 32, "Space Mono"); ctx.fillStyle = C.crema;
+      ctx.fillText("@coloresruidosos", W / 2, 1052);
+    });
+  }
+
+  function seek(t) {
+    var e = L.escena(t, n);
+    ctx.save(); fondo(t);
+    if (e.tipo === "intro") intro(e, t);
+    else if (e.tipo === "artista") tarjeta(e, t);
+    else cierre(e, t);
+    ctx.restore();
+  }
+
+  window.seek = seek;
+  window.listo = Promise.all([
+    fetch("datos.json").then(function (r) { return r.json(); }),
+    document.fonts.load("400 100px Anton"), document.fonts.load("700 40px 'Space Grotesk'"),
+    document.fonts.load("500 40px 'Space Grotesk'"), document.fonts.load("700 30px 'Space Mono'"),
+    document.fonts.load("400 30px 'Space Mono'"),
+  ]).then(function (r) {
+    datos = r[0];
+    var errores = [];
+    datos.artistas.forEach(function (a) { L.validar(a).forEach(function (x) { errores.push(a.id + ": " + x); }); });
+    if (errores.length) throw new Error(errores.join("\n"));
+    artistas = L.ordenar(datos.artistas); n = artistas.length;
+    window.DURACION = L.duracion(n);
+    seek(0);
+    return window.DURACION;
+  });
+
+  // Vista previa en el navegador (no se usa al renderizar).
+  if (!/[?&]render/.test(location.search)) {
+    window.listo.then(function () {
+      var inicio = performance.now();
+      (function cuadro(ahora) {
+        seek(((ahora - inicio) / 1000) % window.DURACION);
+        requestAnimationFrame(cuadro);
+      })(inicio);
+    });
+  }
+})();
+</script>
+</body>
+</html>
