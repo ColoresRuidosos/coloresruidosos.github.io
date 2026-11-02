@@ -2,6 +2,7 @@
 //   walk → charge (aviso) → beam (rayo bajo o alto) → exposed (lente vulnerable) → walk …
 import { BOSS, DT } from './constants.js';
 import { moveBody, freeX } from '../engine/tilemap.js';
+import { bossDrop } from './noche.js';
 
 export function createBoss(spawn) {
   return {
@@ -25,6 +26,7 @@ export function hitBoss(g, b, force = false) {
   if (!b.alive || b.hurtT > 0) return false;
   if (!force && b.state !== 'exposed') { g.events.push('clank'); return false; }
   b.hp--; b.hurtT = BOSS.hurtT;
+  bossDrop(g);
   g.events.push('bosshit');
   g.score += 500;
   g.hitstop = 6; g.shake = Math.max(g.shake, 0.3);

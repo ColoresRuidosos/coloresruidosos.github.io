@@ -1,4 +1,4 @@
-import { TILE, P, MIC, DT, ENEMY, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP, INTRO } from './constants.js';
+import { TILE, P, MIC, DT, ENEMY, PUA, STAR, DROP_EVERY, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP, INTRO } from './constants.js';
 import { parseLevel } from '../engine/tilemap.js';
 import { createPlayer, stepPlayerMotion } from '../engine/physics.js';
 import { edges } from '../engine/buttons.js';
@@ -31,6 +31,7 @@ export function createGame(levelText, carry = {}, opts = {}) {
     checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
     status: 'play', popups: [], floats: [], events: [], prev: {},
     facts: opts.facts ?? QUOTES,
+    pua: 0, star: 0, picks: [], defeats: 0, bossHits: 0,
     thoughts: opts.thoughts ?? null, thoughtIdx: carry.thoughtIdx ?? 0, thoughtsShown: [], thought: null,
     assist: !!opts.assist, hurts: 0, lantern: opts.lantern ? createLantern() : null, blackout: false, shots: [],
   };
@@ -48,7 +49,7 @@ export const micTip = (g) => {
 };
 
 export function hurt(g, fromX) {
-  if (g.invuln > 0) return;
+  if (g.invuln > 0 || g.star > 0) return; // con el Antifaz, nada hace daño
   g.hurts++;
   if (!g.assist) g.hearts--;
   g.invuln = P.invuln;
@@ -96,6 +97,8 @@ export function defeat(g, e, force = false) {
   e.alive = false;
   g.events.push('defeat');
   scoreHit(g, e.x + e.w / 2, e.y);
+  // Cada 6 enemigos vencidos, el último deja caer una carta de fan (spec §3.0f H).
+  if (++g.defeats % DROP_EVERY === 0) g.items.push({ kind: 'carta', x: e.x + e.w / 2, y: e.y + e.h - 12, taken: false, drop: true });
   // Cada dato sale una sola vez (v7.3): cuando se acaban, el Titular solo grita su titular.
   if (e.kind === 'titular' && g.quoteIdx < g.facts.length) {
     const q = g.facts[g.quoteIdx++];
@@ -119,6 +122,8 @@ function guitar(g) {
 function stepMic(g, pressed) {
   const m = g.mic, p = g.player, range = micRange(g);
   if (m.phase === 'idle') {
+    // Púa de guitarra: con cada lanzamiento sale también una púa recta.
+    if (pressed && g.pua > 0) { const h = micHand(g); g.picks.push({ x: h.x - PUA.w / 2, y: h.y - PUA.h / 2, w: PUA.w, h: PUA.h, vx: p.facing * PUA.speed, dist: 0 }); }
     if (pressed) {
       m.phase = 'out'; m.dir = p.facing; m.len = 0; m.ax = m.dir; m.ay = 0; m.target = null;
       // Asistencia de puntería: si hay un gancho delante a tiro, el micro sale hacia él.
@@ -203,6 +208,20 @@ function stepIntro(g, btn) {
   return g;
 }
 
+// Púas en vuelo: golpean al primer enemigo (o al jefe, si está vulnerable) y se acaban a los 200 px.
+function stepPicks(g) {
+  for (const k of g.picks) {
+    const dx = k.vx * DT;
+    k.x += dx; k.dist += Math.abs(dx);
+    if (k.dist >= PUA.range || g.level.tileAt(Math.floor((k.x + k.w / 2) / TILE), Math.floor((k.y + k.h / 2) / TILE)) === '#') { k.done = true; continue; }
+    const e = g.enemies.find((en) => en.alive && overlap(k, en));
+    if (e) { defeat(g, e); k.done = true; continue; }
+    const b = g.boss;
+    if (b?.alive && overlap(k, b)) { hitBoss(g, b); k.done = true; }
+  }
+  g.picks = g.picks.filter((k) => !k.done);
+}
+
 // Un paso de 1/60 s. `btn` = botones mantenidos {left,right,jump,mic,special}.
 export function stepGame(g, btn) {
   g.events = [];
@@ -216,6 +235,8 @@ export function stepGame(g, btn) {
   g.invuln = Math.max(0, g.invuln - DT);
   g.comboT = Math.max(0, g.comboT - DT);
   g.amp = Math.max(0, g.amp - DT);
+  g.pua = Math.max(0, g.pua - DT);
+  g.star = Math.max(0, g.star - DT);
   g.shake = Math.max(0, g.shake - DT);
   g.guitarT = Math.max(0, g.guitarT - DT);
   const p = g.player;
@@ -238,6 +259,7 @@ export function stepGame(g, btn) {
   for (const e of g.enemies) {
     stepEnemy(g, e);
     if (!e.alive || !overlap(p, e)) continue;
+    if (g.star > 0) { defeat(g, e, true); continue; } // Antifaz: lo que tocas queda vencido
     if (p.vy > 0 && prevBottom <= e.y + 6) {
       defeat(g, e);
       p.vy = -P.stompBounce; p.jumping = false;
@@ -249,6 +271,7 @@ export function stepGame(g, btn) {
     }
   }
   if (g.boss) (g.boss.kind === 'mask' ? stepMask : stepBoss)(g, g.boss, hurt, prevBottom);
+  stepPicks(g);
   stepLantern(g);
   // Disco de Oro que deja el jefe: tocarlo completa el mundo.
   if (g.disco && !g.disco.taken && g.boss.deadT > 0.4 && Math.abs(g.disco.x - (p.x + p.w / 2)) < 16 && Math.abs(g.disco.y - (p.y + p.h / 2)) < 26) {
@@ -261,6 +284,8 @@ export function stepGame(g, btn) {
     if (it.taken || !near(it)) continue;
     it.taken = true;
     if (it.kind === 'amp') { g.amp = AMP.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'MICRO X2', t: 1.2 }); }
+    else if (it.kind === 'pua') { g.pua = PUA.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'PÚA', t: 1.2 }); }
+    else if (it.kind === 'antifaz') { g.star = STAR.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: '¡INVENCIBLE!', t: 1.2 }); }
     else if (it.kind === 'aceite') { refill(g); g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'ACEITE', t: 1.2 }); }
     else if (it.kind === 'carta') { g.hearts = Math.min(3, g.hearts + 1); g.events.push('heal'); g.floats.push({ x: it.x, y: it.y - 10, text: '+♥', t: 1.2 }); }
   }

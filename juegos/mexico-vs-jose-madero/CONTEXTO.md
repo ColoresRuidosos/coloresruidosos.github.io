@@ -38,7 +38,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ### ⭐ Dónde vive ahora (v0.7)
 - **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
-- En la carpeta: `npm ci` → `npm test` (**186 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
+- En la carpeta: `npm ci` → `npm test` (**194 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
 - ⏸ **No se sube a la web** (lo decidió el usuario el 2 nov): no hay copia en `static/` ni enlace en el menú. Al usuario se le entrega el HTML. `npm run publish:web` queda listo para cuando lo decida.
 - **Novedades de la v0.7** (spec §3.0f):
   - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
@@ -70,6 +70,18 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - Créditos que separen los datos de la ficción (S4).
   - Escenarios de Noche hechos con IA.
   - El HTML pesa ~0,95 MB: antes de añadir mundos, cargar el arte aparte.
+
+### v0.9.1: más ayudas (feedback: «los niveles se hacen muy complicados»)
+- **Cartas de fan:**
+  - 3 por nivel;
+  - una más cada 6 enemigos vencidos;
+  - con el jefe, una cada 2 golpes si falta algún corazón.
+- **3 checkpoints** por nivel.
+- **Power-ups nuevos:**
+  - Púa de guitarra `J` (15 s): el micro también dispara púas.
+  - Antifaz `Z` (8 s): invencible.
+- **Continuar:** se entra a un mundo por el primer nivel sin superar.
+- `scripts/ayudas.py` reparte las ayudas en los niveles.
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.

@@ -91,8 +91,9 @@ export function drawThought(g, thought) {
   const a = Math.min(1, thought.t * 3);
   g.save(); g.globalAlpha = a;
   const w = Math.min(W - 16, thought.text.length * 6 + 20);
-  R(g, '#1b1226', W / 2 - w / 2 - 1, 37, w + 2, 15); R(g, '#efe8d4', W / 2 - w / 2, 38, w, 13);
-  text(g, thought.text, W / 2, 41, { align: 'center', color: '#1b1226', shadow: null });
+  // Debajo del HUD y de los contadores de ayudas.
+  R(g, '#1b1226', W / 2 - w / 2 - 1, 45, w + 2, 15); R(g, '#efe8d4', W / 2 - w / 2, 46, w, 13);
+  text(g, thought.text, W / 2, 49, { align: 'center', color: '#1b1226', shadow: null });
   g.restore();
 }
 

@@ -101,6 +101,12 @@
 - [x] G4 🎨 Niveles 2-1 El Jardín, 2-2 La Casona y 2-3 El Muelle; temas, capítulos y bots que los completan
 - [x] S1–S3 de la Fase 2d (prólogo, identidad, recuerdos y pensamientos)
 
+## Fase 2f — v8.2 · Más ayudas (🧪 primero)
+- [x] AY1 🧪 Cartas: ≥ 3 por nivel; una cada 6 enemigos vencidos; con el jefe, una cada 2 golpes si falta corazón
+- [x] AY2 🧪 Púa de guitarra `J` (15 s) y Antifaz `Z` (8 s, invencible)
+- [x] AY3 🧪 Continuar el mundo desde el primer nivel sin superar
+- [x] AY4 🎨 Niveles con más cartas, checkpoints y power-ups; iconos, HUD y efectos
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

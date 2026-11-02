@@ -4,6 +4,7 @@ import { TILE } from '../game/constants.js';
 // 'P' Pepe, 'T' Titular, 'F' Paparazzi, 'R' Reportero, 'C' checkpoint, 'G' puerta (meta).
 // v5: 'V' Rumor Volador, 'M' Micrófono Traidor, 'B' jefe, 'A' Amplificador, '+' Carta de fan. Un carácter = 16×16 px.
 // v7 (Noche): 'W' Murciélago (vampiro), 'O' Fantasma, 'E' jefe Enmascarado, 'L' lata de aceite.
+// v8.2 (ayudas): 'J' Púa de guitarra, 'Z' Antifaz de la fiesta.
 // v8.1 (disfrazados): 'K' Gigante cosido, 'N' Hombre invisible, 'U' Hombre anfibio, 'Q' La Llorona, 'X' Charro Negro.
 export function parseLevel(text) {
   const rows = text.split('\n');
@@ -31,6 +32,8 @@ export function parseLevel(text) {
       else if (c === 'B') L.boss = { ...feet, kind: 'flash' };
       else if (c === 'E') L.boss = { ...feet, kind: 'mask' };
       else if (c === 'L') L.items.push({ ...center, kind: 'aceite' });
+      else if (c === 'J') L.items.push({ ...center, kind: 'pua' });
+      else if (c === 'Z') L.items.push({ ...center, kind: 'antifaz' });
       else if (c === 'A') L.items.push({ ...center, kind: 'amp' });
       else if (c === '+') L.items.push({ ...center, kind: 'carta' });
       else if (c === '*') L.pieces.push(center);

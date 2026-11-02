@@ -2,7 +2,7 @@ import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
 import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
-import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared } from './game/progress.js';
+import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
 import { PROLOGO, RECUERDOS, PENSAMIENTOS, VUELTA_AL_MUSEO } from './data/historia.js';
 import { drawPrologue } from './render/draw-historia.js';
 import { HUB, createHub, doorAt } from './game/museum.js';
@@ -80,7 +80,12 @@ function startLevel(i, c) {
   const wd = WORLD_DATA[run.world], L = wd.levels[i];
   showCard({ kind: 'chapter', n: (wd.n - 1) * 3 + i + 1, ...wd.chapters[L.id], then: () => {} });
 }
-function startWorld(id) { run = { world: id, idx: 0, carry: {}, levelStart: {}, time: 0, assistUsed: opt.assist }; startLevel(0); }
+// Continuar (spec §3.0f H): se entra por el primer nivel sin superar. Si no se empieza desde el 1, no cuenta para el reto de tiempo.
+function startWorld(id) {
+  const i = startLevelIndex(save, id, WORLD_DATA[id].levels);
+  run = { world: id, idx: 0, carry: {}, levelStart: {}, time: 0, assistUsed: opt.assist, partial: i > 0 };
+  startLevel(i);
+}
 
 const costumeName = (id) => COSTUMES.find((c) => c.id === id)?.name ?? id;
 function finishLevel() {
@@ -89,7 +94,7 @@ function finishLevel() {
   run.assistUsed ||= game.assist;
   const stats = { time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length };
   recordLevel(save, run.world, L.id, stats);
-  const ctxU = { world: run.world, levelId: L.id, ...stats, hurts: game.hurts, assist: game.assist, worldDone: !next, runTime: run.assistUsed ? Infinity : run.time };
+  const ctxU = { world: run.world, levelId: L.id, ...stats, hurts: game.hurts, assist: game.assist, worldDone: !next, runTime: run.assistUsed || run.partial ? Infinity : run.time };
   const unlocks = checkUnlocks(save, ctxU);
   if (!next && !run.assistUsed) save.data.record = Math.max(save.data.record, game.score);
   save.commit();

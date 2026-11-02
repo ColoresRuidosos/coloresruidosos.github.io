@@ -179,7 +179,20 @@ function drawDisc(ctx, x, y, t, gold = '#e8b33c', hi = '#fff2b0', r = 6) {
   rect(ctx, hi, x - sx, y - r, Math.max(1, sx - 1), 3);
   rect(ctx, '#1b1226', x - 1, y - 1, 2, 2);
 }
+// v8.2: Púa de guitarra (triángulo redondeado con brillo) y Antifaz de la fiesta (con destello suave).
+function drawPua(ctx, x, y, s = 1) {
+  ctx.fillStyle = '#1b1226'; ctx.beginPath(); ctx.moveTo(x - 5 * s, y - 5 * s); ctx.lineTo(x + 5 * s, y - 5 * s); ctx.lineTo(x, y + 6 * s); ctx.fill();
+  ctx.fillStyle = '#ffcf7a'; ctx.beginPath(); ctx.moveTo(x - 4 * s, y - 4 * s); ctx.lineTo(x + 4 * s, y - 4 * s); ctx.lineTo(x, y + 4.5 * s); ctx.fill();
+  rect(ctx, '#fff2c0', x - 2 * s, y - 3 * s, 2 * s, 1);
+}
 function drawItem(ctx, it, t) {
+  if (it.kind === 'pua') { drawPua(ctx, it.x, it.y + Math.round(Math.sin(t * 3 + it.x) * 2), 1.2); return; }
+  if (it.kind === 'antifaz') {
+    const y = it.y + Math.round(Math.sin(t * 3 + it.x) * 2);
+    rect(ctx, '#1b1226', it.x - 8, y - 3, 16, 7); rect(ctx, '#ffcf7a', it.x - 7, y - 2, 14, 5);
+    rect(ctx, '#1b1226', it.x - 5, y - 1, 3, 2); rect(ctx, '#1b1226', it.x + 2, y - 1, 3, 2); rect(ctx, '#fff2c0', it.x - 7, y - 2, 14, 1);
+    return;
+  }
   const y = it.y + Math.round(Math.sin(t * 3 + it.x) * 2);
   if (it.kind === 'amp') {
     // Amplificador (diseño propio): caja con rejilla y piloto.
@@ -287,6 +300,8 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     }
   }
 
+  // Púas en vuelo.
+  for (const k of g.picks ?? []) drawPua(ctx, k.x + k.w / 2, k.y + k.h / 2, 0.8);
   // Micrófono con su cable.
   if (g.mic.phase !== 'idle') {
     const a = micHand(g), b = micTip(g);
@@ -310,6 +325,11 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     ctx.restore();
   }
   if (g.guitarT > 0) drawGuitar(ctx, p.x + p.w / 2 - 6, p.y + 18);
+  // Antifaz: aura dorada alrededor de Pepe (sin parpadeo si los destellos están apagados).
+  if (g.star > 0) {
+    ctx.save(); ctx.globalAlpha = flashes ? 0.35 + 0.25 * Math.sin(t * 12) : 0.4; ctx.fillStyle = '#ffcf7a';
+    ctx.beginPath(); ctx.ellipse(p.x + p.w / 2, p.y + p.h / 2, 16, 26, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  }
   // Invulnerable: parpadea; sin destellos, semitransparente.
   const blink = g.invuln > 0 && g.invuln < 1.1 && g.guitarT <= 0;
   if (!(blink && flashes && Math.floor(t * 15) % 2)) {
@@ -487,6 +507,9 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
   rect(ctx, full ? (Math.floor(t * 6) % 2 ? '#ffcf7a' : '#ff5a4f') : '#d8312b', 51, 18, Math.round(80 * g.ovacion / OVATION.max), 6);
   if (full) text(ctx, '★ SOLO: C', 138, 17, { color: Math.floor(t * 4) % 2 ? '#ffcf7a' : '#ffffff' });
   else if (g.combo > 1 && g.comboT > 0) text(ctx, `COMBO X${g.combo}`, 138, 17, { color: '#ff9a5a' });
+  // Ayudas activas (v8.2), bajo la barra.
+  const aids = [g.star > 0 && `ANTIFAZ ${Math.ceil(g.star)}`, g.pua > 0 && `PÚA ${Math.ceil(g.pua)}`].filter(Boolean);
+  if (aids.length) text(ctx, aids.join('  '), W - 6, 33, { align: 'right', color: '#ffcf7a' });
   if (g.amp > 0) text(ctx, `MICRO X2 ${Math.ceil(g.amp)}`, W - 6, 17, { align: 'right', color: '#ff5a4f' });
   else if (g.lantern) {
     text(ctx, 'FAROL', W - 50, 17, { align: 'right', color: '#e6e6e6' });

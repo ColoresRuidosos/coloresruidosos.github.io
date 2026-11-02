@@ -482,6 +482,28 @@ La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuent
 
 Quedan para después los créditos que separan los datos de la ficción (S4).
 
+#### H. v8.2 · Más ayudas (feedback del usuario, 2 nov 2026: «los niveles se hacen muy complicados»)
+**Cartas de fan (+1 corazón, máximo 3):**
+- Al menos **3 por nivel** normal.
+- **Cada 6 enemigos vencidos**, el último deja caer una carta.
+- **Con el jefe:** cada 2 golpes que le das cae una carta en el centro del escenario, si te falta algún corazón.
+- **Más checkpoints:** al menos 3 por nivel normal.
+
+**Power-ups nuevos** (del banco de ideas §3.4, adaptados):
+
+| Objeto | `char` | Efecto | Duración |
+|---|---|---|---|
+| **Púa de guitarra** | `J` | Cada vez que lanzas el micro, sale además una púa que vuela recto (300 px/s, 200 px) y golpea al primer enemigo o al jefe (si está vulnerable) | 15 s |
+| **Antifaz de la fiesta** | `Z` | Invencible: los enemigos que tocas quedan vencidos y el jefe no te hace daño. Sustituye a la «máscara de hockey» del banco, que no se usa por derechos | 8 s |
+
+Al menos uno de los dos en cada nivel normal; el Amplificador `A` sigue.
+
+**Continuar:** al entrar por la puerta de un mundo se empieza en el **primer nivel sin superar**. Si el mundo ya está terminado, se empieza desde el principio. Sustituye a «un mundo siempre empieza en su primer nivel» (§3.0f C).
+
+**Guardado:** se guarda en el navegador (`localStorage`), por dispositivo y por dirección web.
+- El HTML abierto desde el ordenador y la web tienen guardados distintos.
+- Se guarda al superar un nivel, no a mitad de nivel.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

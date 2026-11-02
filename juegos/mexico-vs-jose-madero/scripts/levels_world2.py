@@ -95,4 +95,6 @@ for id_, theme, name, lantern, g in levels:
     out.append(f"  {{ id: '{id_}', theme: '{theme}', name: '{name}', lantern: {str(lantern).lower()}, map: [\n{rows},\n  ].join('\\n') }},")
 out.append('];\n')
 open('src/data/world2.js', 'w').write('\n'.join(out))
+# v8.2: reparte cartas, checkpoints y power-ups (spec §3.0f H).
+import ayudas; ayudas.fix('src/data/world2.js')
 print('ok')

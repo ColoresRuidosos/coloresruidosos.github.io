@@ -92,6 +92,14 @@ export function stepFantasma(g, e, k) {
 // Repertorio: dash (embestida) · leap (salto encima + ondas) · throw (máscaras) · fog (niebla, fase 2) ·
 // summon (invitados, fase 2). Elige con un generador propio y determinista, sin repetir el anterior.
 // Tras cada ataque hay una ventana vulnerable (un golpe). Fase 2: apagón antes de cada ataque.
+// v8.2: cada 2 golpes al jefe cae una carta de fan en el centro, si a Pepe le falta algún corazón.
+export function bossDrop(g) {
+  g.bossHits = (g.bossHits ?? 0) + 1;
+  if (g.bossHits % 2 || g.hearts >= 3) return;
+  const x = (g.level.w * TILE) / 2, y = (g.level.h - 2) * TILE - 20;
+  g.items.push({ kind: 'carta', x, y, taken: false, drop: true });
+}
+
 export const MASK_VULNERABLE = new Set(['stun', 'landed', 'recover', 'clawRecover', 'summon']);
 
 export function createMask(spawn, level) {
@@ -146,6 +154,7 @@ export function hitMask(g, b, force = false) {
   if (!b.alive || b.hurtT > 0) return false;
   if (!force && (!MASK_VULNERABLE.has(b.state) || b.hitThisWindow)) { g.events.push('clank'); return false; }
   b.hp--; b.hurtT = MASK.hurtT; b.hitThisWindow = true;
+  bossDrop(g);
   g.events.push('bosshit');
   g.score += 500;
   g.hitstop = 6; g.shake = Math.max(g.shake, 0.3);

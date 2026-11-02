@@ -55,6 +55,13 @@ export function checkUnlocks(save, ctx) {
   return got;
 }
 
+// Continuar (spec §3.0f H): primer nivel sin superar; con el mundo terminado, desde el principio.
+export function startLevelIndex(save, world, levels) {
+  const done = save.data.worlds[world]?.cleared ?? [];
+  const i = levels.findIndex((l) => !done.includes(l.id));
+  return i < 0 ? 0 : i;
+}
+
 // IDENTIDAD n/8 (spec §1.1b): cuántos discos ha recuperado Pepe.
 export const identity = (save) => WORLDS.filter((w) => worldCleared(save, w.id)).length;
 

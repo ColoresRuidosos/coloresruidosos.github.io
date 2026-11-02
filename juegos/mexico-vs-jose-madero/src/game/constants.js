@@ -19,6 +19,10 @@ export const POINTS = 100; // × combo
 export const OVATION = { max: 100, perHit: 12 }; // × combo
 export const GUITAR = { reach: 176, invuln: 1, fx: 0.8 }; // px a cada lado de Pepe («en pantalla»)
 export const AMP = { time: 10, mult: 2 };
+// v8.2 · Más ayudas (spec §3.0f H).
+export const PUA = { time: 15, speed: 300, range: 200, w: 8, h: 6 }; // Púa de guitarra
+export const STAR = { time: 8 }; // Antifaz de la fiesta: invencible
+export const DROP_EVERY = 6; // cada 6 enemigos vencidos cae una carta
 
 export const ENEMY = {
   titular: { w: 18, h: 30, speed: 30 },
