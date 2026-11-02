@@ -5,8 +5,9 @@
 export const PROLOGO = [
   { scene: 'estadio', kind: 'dato', source: 'CHILANGO · EXCÉLSIOR', lines: ['24 DE ENERO DE 2026.', 'ESTADIO GNP SEGUROS.', '«ÉRASE UNA BESTIA»: SU PRIMER ESTADIO.'] },
   { scene: 'arena', kind: 'ficcion', lines: ['LO SIGUIENTE:', 'LA ARENA CIUDAD DE MÉXICO.'] },
-  { scene: 'titulares', kind: 'ficcion', lines: ['ESA NOCHE, ENTRE FLASHES Y TITULARES,', 'ALGO SE LE PERDIÓ.'] },
-  { scene: 'museo', kind: 'ficcion', lines: ['PEPE DESPIERTA EN EL MUSEO DE LA CARPA.', 'NO RECUERDA QUIÉN ES.'] },
+  // Esa noche en el Estadio GNP, Pepe lleva el traje negro con lentes oscuros (decisión del usuario).
+  { scene: 'titulares', costume: 'lentes', kind: 'ficcion', lines: ['ESA NOCHE, ENTRE FLASHES Y TITULARES,', 'ALGO SE LE PERDIÓ.'] },
+  { scene: 'museo', costume: 'lentes', kind: 'ficcion', lines: ['PEPE DESPIERTA EN EL MUSEO DE LA CARPA.', 'NO RECUERDA QUIÉN ES.'] },
   { scene: 'puertas', kind: 'ficcion', lines: ['CADA DISCO GUARDA UNA PARTE DE ÉL.', 'HAY QUE RECUPERARLAS UNA A UNA', 'ANTES DEL CONCIERTO.'] },
 ];
 

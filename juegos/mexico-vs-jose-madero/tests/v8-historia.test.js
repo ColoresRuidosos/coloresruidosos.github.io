@@ -44,6 +44,11 @@ describe('prólogo (S1)', () => {
   });
 });
 
+test('esa noche en el Estadio GNP Pepe lleva el traje negro con lentes oscuros (decisión del usuario)', () => {
+  for (const scene of ['titulares', 'museo']) assert.equal(PROLOGO.find((p) => p.scene === scene).costume, 'lentes', scene);
+  assert.equal(PROLOGO.find((p) => p.scene === 'puertas').costume, undefined);
+});
+
 describe('identidad (S2)', () => {
   test('IDENTIDAD n/8: cuenta los mundos terminados', () => {
     const s = createSave(mem());

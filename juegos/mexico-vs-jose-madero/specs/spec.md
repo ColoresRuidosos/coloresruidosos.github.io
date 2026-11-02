@@ -47,6 +47,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 2. «LO SIGUIENTE: LA ARENA CIUDAD DE MÉXICO.»
 3. *(Ficción)* «ESA NOCHE, ENTRE FLASHES Y TITULARES, ALGO SE LE PERDIÓ.» Los Titulares rodean a Pepe y la pantalla se llena de ruido.
 4. *(Ficción)* «PEPE DESPIERTA EN EL MUSEO DE LA CARPA. NO RECUERDA QUIÉN ES.» Pepe aparece **en gris, sin color**.
+   - **v9 (decisión del usuario):** en las viñetas de esa noche (3 y 4), Pepe lleva el traje negro con lentes oscuros. Es una elección visual: no se afirma en pantalla que lo usara ese día, porque sigue sin fuente ⚠️.
 5. «CADA DISCO GUARDA UNA PARTE DE ÉL. RECUPÉRALAS UNA A UNA ANTES DEL CONCIERTO.»
 
 **2. La identidad como mecánica visible:**

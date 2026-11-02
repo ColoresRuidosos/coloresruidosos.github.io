@@ -55,21 +55,26 @@ function sceneArena(g, t) {
   for (let i = 0; i < 9; i++) R(g, Math.floor(t * 4 + i) % 3 ? '#7a6ad0' : '#ffe9a8', W / 2 - 72 + i * 18, 118, 6, 3);
   R(g, '#140f2a', 0, 128, W, 4);
 }
-function sceneTitulares(g, t, art, flashes) {
+function sceneTitulares(g, t, art, flashes, panel) {
   R(g, flashes && Math.floor(t * 3) % 4 === 0 ? '#3a1020' : '#1a0810', 0, 0, W, H);
   for (let i = 0; i < 30; i++) R(g, '#2a1420', 0, hash(i, Math.floor(t * 8)) * 140, W, 1); // ruido
   if (art) {
-    sprite(g, art.pepe, 'hurt0', W / 2, 120);
+    // Con el traje de esa noche si la viñeta lo pide (los trajes no tienen pose de daño: salto).
+    if (panel?.costume) sprite(g, art.costumes, `${panel.costume}_jump`, W / 2, 120);
+    else sprite(g, art.pepe, 'hurt0', W / 2, 120);
     for (const [x, y, f] of [[70, 110, false], [250, 112, true], [110, 132, false], [212, 134, true]]) sprite(g, art.foes, art.foes.meta.anims.titularWalk[Math.floor(t * 6) % 2], x, y, f);
   }
   const words = ['¡EXCLUSIVA!', '¡POLÉMICA!', '¡ÚLTIMA HORA!'];
   words.forEach((w, i) => text(g, w, 60 + i * 100, 30 + ((i + Math.floor(t * 2)) % 2) * 8, { color: '#ff5a4f', align: 'center' }));
 }
-function sceneMuseo(g, t, art) {
+function sceneMuseo(g, t, art, flashes, panel) {
   R(g, '#1b1226', 0, 0, W, H); R(g, '#2a1e36', 0, 20, W, 110);
   for (let x = 20; x < W; x += 80) { R(g, '#c8963c', x, 40, 44, 34); R(g, '#1b1226', x + 3, 43, 38, 28); }
   R(g, '#e6e0d4', 0, 130, W, 4); R(g, '#8a8094', 0, 134, W, 10);
-  if (art) sprite(g, art.pepeGray ?? art.pepe, 'idle0', W / 2, 130);
+  if (art) {
+    if (panel?.costume) sprite(g, art.costumesGray ?? art.costumes, `${panel.costume}_idle`, W / 2, 130);
+    else sprite(g, art.pepeGray ?? art.pepe, 'idle0', W / 2, 130);
+  }
   text(g, '?', W / 2 + 14, 72 + Math.round(Math.sin(t * 4) * 2), { scale: 2, color: '#ffcf7a' });
 }
 function scenePuertas(g, t) {
