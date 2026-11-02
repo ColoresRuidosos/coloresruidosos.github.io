@@ -19,8 +19,8 @@ def block(g, x0, y0, w, h, c='#'):
 def plat(g, x0, y, w): block(g, x0, y, w, 1, '=')
 def text(g): return [''.join(r) for r in g]
 
-# v8.1 (spec §3.0f G): todo el mundo transcurre en la fiesta de disfraces de la casona junto al lago.
-# ── 2-1 El Jardín: la fiesta en marcha, estanques con el Hombre anfibio (sin farol) ──
+# v8.3 (spec §3.0f I): 2-1 afuera del salón de fiestas; 2-2 y 2-3 dentro del salón (como en el video de «Noche de brujas»).
+# ── 2-1 La Entrada: la calle frente al salón, con la fila de invitados y estanques con el Hombre anfibio (sin farol) ──
 a = level(150)
 put(a, 2, 11, 'P')
 put(a, 12, 11, 'T')
@@ -47,7 +47,7 @@ block(a, 132, 11, 1, 1); block(a, 133, 10, 1, 2); put(a, 133, 8, '*')
 put(a, 138, 11, 'Q')
 put(a, 144, 11, 'G')
 
-# ── 2-2 La Casona: se va la luz; pasillos, escalones, fantasmas y el Hombre invisible (con farol) ──
+# ── 2-2 El Salón: se va la luz; mesas, escalones, fantasmas y el Hombre invisible (con farol) ──
 b = level(160)
 for x in range(160): b[0][x] = '#'; b[1][x] = '#'   # techo
 put(b, 2, 11, 'P')
@@ -77,17 +77,17 @@ put(b, 142, 11, 'N')
 put(b, 146, 9, '*')
 put(b, 154, 11, 'G')
 
-# ── 2-3 El Muelle: más ancho, con barcas a dos alturas (spec §3.0f G, B2) ──
+# ── 2-3 La Pista: pista de baile con palcos a dos alturas para el combate final ──
 c = [['.'] * 30 for _ in range(H)]
 for y in range(H): c[y][0] = c[y][29] = '#'
 for y in (12, 13):
     for x in range(30): c[y][x] = '#'
 put(c, 3, 11, 'P'); put(c, 14, 4, '*')
-plat(c, 4, 8, 4); plat(c, 22, 8, 4)     # barcas bajas
-plat(c, 12, 5, 6)                       # pasarela alta
+plat(c, 4, 8, 4); plat(c, 22, 8, 4)     # palcos bajos
+plat(c, 12, 5, 6)                       # palco alto
 put(c, 22, 11, 'E')
 
-levels = [('2-1', 'jardin', 'EL JARDÍN', False, a), ('2-2', 'casona', 'LA CASONA', True, b), ('2-3', 'muelle', 'EL MUELLE', True, c)]
+levels = [('2-1', 'afuera', 'LA ENTRADA', False, a), ('2-2', 'salon', 'EL SALÓN', True, b), ('2-3', 'pista', 'LA PISTA', True, c)]
 out = ["// Mundo 2 «Noche» (spec §3.0f E). Generado al inicio con scripts/levels_world2.py; se puede editar a mano.",
        "// Leyenda en src/engine/tilemap.js. `lantern`: nivel a oscuras con farol.", "export const WORLD_2 = ["]
 for id_, theme, name, lantern, g in levels:

@@ -107,6 +107,13 @@
 - [x] AY3 🧪 Continuar el mundo desde el primer nivel sin superar
 - [x] AY4 🎨 Niveles con más cartas, checkpoints y power-ups; iconos, HUD y efectos
 
+## Fase 2g — v8.3 · Salón, color, portada, escenas y festejo (🧪 primero)
+- [x] SA1 🎨 Noche: 2-1 La Entrada (afuera), 2-2 El Salón, 2-3 La Pista; fondos por código y suelo ajedrezado; textos sin lago
+- [x] SA2 🎨 Pepe a todo color (solo el retrato y la viñeta 4 del prólogo en gris)
+- [x] SA3 🎨 Portada solo con el nombre (`GAME_TITLE`) · ⏳ nombre definitivo
+- [x] SA4 🧪 Escenas de entrada y de salida de cada mundo (datos con fuente, ficción marcada, saltables)
+- [x] SA5 🧪 Pose de festejo al vencer a cada jefe (3 s, saltable a los 0,5 s)
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

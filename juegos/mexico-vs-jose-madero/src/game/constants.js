@@ -19,6 +19,10 @@ export const POINTS = 100; // × combo
 export const OVATION = { max: 100, perHit: 12 }; // × combo
 export const GUITAR = { reach: 176, invuln: 1, fx: 0.8 }; // px a cada lado de Pepe («en pantalla»)
 export const AMP = { time: 10, mult: 2 };
+// v8.3 · Título del juego (⏳ el usuario decide el definitivo): una entrada por línea de la portada.
+export const GAME_TITLE = ['MÉXICO', 'VS.', 'JOSÉ MADERO'];
+// v8.3 · Pose de festejo al vencer a un jefe (s).
+export const VICTORY = { time: 3, skip: 0.5 };
 // v8.2 · Más ayudas (spec §3.0f H).
 export const PUA = { time: 15, speed: 300, range: 200, w: 8, h: 6 }; // Púa de guitarra
 export const STAR = { time: 8 }; // Antifaz de la fiesta: invencible

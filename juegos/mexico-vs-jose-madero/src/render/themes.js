@@ -188,67 +188,96 @@ function cabin(g, x, y, w, h, c, lit) {
 function fog(g, y, w, seed) { for (let x = 0; x < w; x += 2) { const k = Math.round(Math.sin(x / 23 + seed) * 3 + Math.sin(x / 7) * 1); rect(g, '#3a3a3a', x, y + k, 2, 2); } }
 const BW_TILES = { top: '#6e6e6e', topHi: '#b0b0b0', body: '#262626', bodyHi: '#3a3a3a', bodyDk: '#141414', semi: '#8c8c8c', semiHi: '#d0d0d0' };
 
-// v8.1 · La fiesta de disfraces en la casona junto al lago (spec §3.0f G).
-function casonaSilhouette(g, x, base, c, lit) {
-  rect(g, c, x, base - 70, 120, 70); // cuerpo
-  for (let k = 0; k < 30; k += 2) rect(g, c, x - 6 + k, base - 70 - k / 2, 132 - 2 * k, 2); // tejado
-  rect(g, c, x + 90, base - 108, 12, 30); // chimenea
-  windows(g, x + 8, base - 62, 104, 56, x, lit, '#0e0e0e', 0.6);
+// v8.3 · Noche: afuera del salón de fiestas y dentro de él, en blanco y negro (spec §3.0f I).
+function bulbs(g, x0, x1, y, step = 6) { for (let x = x0; x < x1; x += step) { rect(g, '#2a2a2a', x - 1, y - 1, 4, 4); rect(g, '#f4f4f4', x, y, 2, 2); } }
+function guestSilhouette(g, x, base, kind, c = '#0a0a0a') {
+  // Invitados disfrazados haciendo fila: capa, sombrero de charro, velo, sombrero de copa (siluetas genéricas).
+  rect(g, c, x - 4, base - 26, 9, 26); g.fillStyle = c; g.beginPath(); g.arc(x, base - 30, 5, 0, Math.PI * 2); g.fill();
+  if (kind === 0) { g.beginPath(); g.moveTo(x - 4, base - 26); g.lineTo(x - 10, base); g.lineTo(x + 10, base); g.lineTo(x + 5, base - 26); g.fill(); } // capa
+  if (kind === 1) { g.beginPath(); g.ellipse(x, base - 34, 11, 2.5, 0, 0, Math.PI * 2); g.fill(); rect(g, c, x - 4, base - 40, 9, 6); } // sombrero ancho
+  if (kind === 2) { g.beginPath(); g.moveTo(x - 6, base - 34); g.lineTo(x + 6, base - 34); g.lineTo(x + 8, base - 8); g.lineTo(x - 8, base - 8); g.fill(); } // velo
+  if (kind === 3) { rect(g, c, x - 5, base - 37, 11, 2); rect(g, c, x - 3, base - 44, 7, 7); } // sombrero de copa
 }
-function farolillos(g, x0, x1, y) {
-  for (let x = x0; x < x1; x++) rect(g, '#2a2a2a', x, y + Math.round(Math.sin(((x - x0) / (x1 - x0)) * Math.PI) * 8), 1, 1);
-  for (let x = x0 + 8; x < x1 - 6; x += 22) {
-    const yy = y + Math.round(Math.sin(((x - x0) / (x1 - x0)) * Math.PI) * 8) + 1;
-    rect(g, '#e8e8e8', x - 3, yy + 1, 7, 8); rect(g, '#bdbdbd', x - 3, yy + 6, 7, 3); rect(g, '#2a2a2a', x - 1, yy, 3, 1);
-  }
-}
-function jardin() {
-  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 110, 3); moon(g, 260, 38, 14); });
+function afuera() {
+  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 100, 3); moon(g, 48, 36, 13); });
   const far = prerender(640, H, (g) => {
-    for (let x = 0; x < 640; x += 11) pine(g, x + Math.floor(hash(x, 2) * 6), 170 + Math.floor(hash(x, 3) * 6), 30 + Math.floor(hash(x, 4) * 26), '#101010');
-    casonaSilhouette(g, 250, 178, '#1a1a1a', '#d8d8d8'); // la casona de la fiesta, al fondo
-  });
-  const mid = prerender(256, H, (g) => {
-    farolillos(g, 0, 256, 40);
-    for (let x = 0; x < 256; x += 32) { g.fillStyle = '#141414'; g.beginPath(); g.arc(x + 16, 192, 14 + (x % 3) * 2, Math.PI, 0); g.fill(); } // setos
-    rect(g, '#0a0a0a', 120, 92, 3, 100); rect(g, '#0a0a0a', 114, 88, 15, 5); rect(g, '#f0f0f0', 117, 93, 9, 3); // farola
-    g.fillStyle = 'rgba(255,255,255,0.10)'; g.beginPath(); g.moveTo(121, 96); g.lineTo(96, 192); g.lineTo(146, 192); g.fill();
-  });
-  return { sky, far, mid, tiles: { ...BW_TILES, water: ['#1e1e1e', '#3a3a3a', '#8a8a8a'] }, goal: 'LA CASONA', gray: true, piece: 'luna' };
-}
-
-function casona() {
-  // Interior: papel pintado, ventanas con luna, retratos y candelabros apagados (se ha ido la luz).
-  const sky = prerender(W, H, (g) => { bands(g, ['#0a0a0a', '#121212', '#1a1a1a', '#202020'], 0, H); });
-  const far = prerender(640, H, (g) => {
-    for (let x = 0; x < 640; x += 8) for (let y = 34; y < 190; y += 8) if ((x / 8 + y / 8) % 2) rect(g, '#1c1c1c', x + 3, y + 3, 2, 2); // papel pintado
-    for (let x = 30; x < 640; x += 160) {
-      rect(g, '#2c2c2c', x, 60, 44, 70); rect(g, '#0c0c0c', x + 4, 64, 36, 62); moon(g, x + 26, 82, 7); rect(g, '#2c2c2c', x + 21, 64, 2, 62); rect(g, '#2c2c2c', x + 4, 94, 36, 2);
-      rect(g, '#3a3a3a', x + 80, 70, 30, 38); rect(g, '#141414', x + 83, 73, 24, 32); g.fillStyle = '#2a2a2a'; g.beginPath(); g.ellipse(x + 95, 86, 6, 8, 0, 0, Math.PI * 2); g.fill(); // retrato
+    for (let x = 0; x < 640; x += 54) { const h = 50 + Math.floor(hash(x, 7) * 40); rect(g, '#121212', x, 176 - h, 50, h); windows(g, x + 4, 180 - h, 42, h - 8, x, '#9a9a9a', '#0a0a0a', 0.3); }
+    // El salón de fiestas: fachada con arco de entrada, ventanales iluminados y marquesina de focos (sin letreros).
+    const X = 220;
+    rect(g, '#1e1e1e', X, 70, 200, 106); rect(g, '#2a2a2a', X, 70, 200, 4);
+    for (let k = 0; k < 4; k++) {
+      const wx = X + 14 + k * 48 - (k > 1 ? -8 : 0);
+      if (k === 2) continue;
+      rect(g, '#0a0a0a', wx, 92, 26, 40); rect(g, '#d8d8d8', wx + 2, 94, 22, 36);
+      for (let d = 0; d < 3; d++) guestSilhouette(g, wx + 6 + d * 7, 130, (k + d) % 4, '#3a3a3a'); // gente bailando dentro
     }
-    rect(g, '#141414', 0, 176, 640, 16); // zócalo
+    g.fillStyle = '#0a0a0a'; g.beginPath(); g.arc(X + 100, 150, 22, Math.PI, 0); g.fill(); rect(g, '#0a0a0a', X + 78, 150, 44, 26); // arco de la puerta
+    rect(g, '#e8e8e8', X + 84, 154, 32, 22); // luz que sale por la puerta
+    rect(g, '#3a3a3a', X + 60, 76, 80, 12); bulbs(g, X + 62, X + 140, 79); // marquesina
   });
   const mid = prerender(256, H, (g) => {
-    rect(g, '#0e0e0e', 0, 0, 256, 34);
-    rect(g, '#2a2a2a', 60, 34, 2, 14); rect(g, '#3a3a3a', 48, 48, 26, 3); for (let k = 0; k < 4; k++) rect(g, '#d0d0d0', 50 + k * 7, 44, 2, 4); // candelabro
-    rect(g, '#1a1a1a', 180, 100, 40, 92); rect(g, '#262626', 184, 104, 32, 84); rect(g, '#8a8a8a', 210, 146, 3, 3); // puerta
+    papelPicado(g, 0, 256, 30, ['#e6e6e6', '#9a9a9a', '#5a5a5a']);
+    for (let k = 0; k < 5; k++) guestSilhouette(g, 150 + k * 16, 192, k % 4); // la fila para entrar
+    rect(g, '#0a0a0a', 60, 92, 3, 100); rect(g, '#0a0a0a', 54, 88, 15, 5); rect(g, '#f0f0f0', 57, 93, 9, 3); // farola
+    g.fillStyle = 'rgba(255,255,255,0.10)'; g.beginPath(); g.moveTo(61, 96); g.lineTo(36, 192); g.lineTo(86, 192); g.fill();
   });
-  return { sky, far, mid, tiles: { ...BW_TILES, top: '#5c5248', topHi: '#8c8070', body: '#2a241e', bodyDk: '#16120e' }, goal: 'EL MUELLE', gray: true, piece: 'luna' };
+  return { sky, far, mid, tiles: { ...BW_TILES, water: ['#1e1e1e', '#3a3a3a', '#8a8a8a'] }, goal: 'EL SALÓN', gray: true, piece: 'luna' };
 }
 
-function muelle() {
-  const sky = prerender(W, H, (g) => {
-    bands(g, NIGHT, 0, 150); stars(g, W, 100, 11); moon(g, 160, 44, 16);
-    rect(g, '#141414', 0, 150, W, H - 150);
-    for (let y = 154; y < H; y += 3) rect(g, '#bdbdbd', 160 - 8 + Math.round(Math.sin(y) * 3), y, 16 - (y - 154) / 6, 1); // reflejo de la luna
-  });
+function chandelierBW(g, x, y, lit) {
+  rect(g, '#3a3a3a', x, 0, 1, y);
+  rect(g, '#6a6a6a', x - 12, y, 25, 3); rect(g, '#4a4a4a', x - 8, y + 3, 17, 2);
+  for (let k = -2; k <= 2; k++) { rect(g, '#9a9a9a', x + k * 5, y - 4, 1, 4); rect(g, lit ? '#ffffff' : '#5a5a5a', x + k * 5, y - 6, 1, 2); }
+  if (lit) { g.fillStyle = 'rgba(255,255,255,0.08)'; g.beginPath(); g.ellipse(x, y + 20, 34, 22, 0, 0, Math.PI * 2); g.fill(); }
+}
+function salonWalls(g, w) {
+  for (let x = 0; x < w; x += 8) for (let y = 30; y < 176; y += 8) if ((x / 8 + y / 8) % 2) rect(g, '#1a1a1a', x + 3, y + 3, 2, 2); // papel pintado
+  rect(g, '#2a2a2a', 0, 150, w, 3); rect(g, '#141414', 0, 153, w, 23); // zócalo de madera
+  for (let x = 0; x < w; x += 20) rect(g, '#202020', x, 156, 1, 18);
+}
+function salon() {
+  const sky = prerender(W, H, (g) => { bands(g, ['#0a0a0a', '#121212', '#181818', '#1e1e1e'], 0, H); });
   const far = prerender(640, H, (g) => {
-    for (let x = 0; x < 640; x += 9) pine(g, x, 150, 26 + Math.floor(hash(x, 8) * 26), '#0b0b0b');
-    casonaSilhouette(g, 420, 150, '#121212', '#9a9a9a'); // la casona, al otro lado del lago
-    fog(g, 146, 640, 2);
+    salonWalls(g, 640);
+    for (let x = 40; x < 640; x += 160) {
+      // Ventanal en arco con cortinas recogidas y la luna.
+      g.fillStyle = '#2c2c2c'; g.beginPath(); g.arc(x + 22, 62, 22, Math.PI, 0); g.fill(); rect(g, '#2c2c2c', x, 62, 44, 80);
+      g.fillStyle = '#0c0c0c'; g.beginPath(); g.arc(x + 22, 64, 18, Math.PI, 0); g.fill(); rect(g, '#0c0c0c', x + 4, 64, 36, 74);
+      moon(g, x + 28, 70, 6); rect(g, '#2c2c2c', x + 21, 46, 2, 92);
+      for (const side of [0, 1]) { const cx = side ? x + 36 : x - 6; g.fillStyle = '#3a3a3a'; g.beginPath(); g.moveTo(cx, 40); g.lineTo(cx + 14, 40); g.lineTo(cx + (side ? 4 : 10), 140); g.lineTo(cx + (side ? 0 : 14), 140); g.fill(); }
+    }
+    for (let x = 120; x < 640; x += 160) { rect(g, '#3a3a3a', x, 70, 26, 34); rect(g, '#141414', x + 3, 73, 20, 28); g.fillStyle = '#2a2a2a'; g.beginPath(); g.ellipse(x + 13, 85, 5, 7, 0, 0, Math.PI * 2); g.fill(); } // retratos
   });
-  const mid = prerender(256, H, (g) => { for (let x = 8; x < 256; x += 64) { rect(g, '#1e1a16', x, 150, 5, 42); rect(g, '#3a342c', x, 150, 5, 2); } });
-  return { sky, far, mid, tiles: { ...BW_TILES, top: '#5c5248', topHi: '#8c8070', body: '#2a241e', bodyDk: '#16120e' }, gray: true, piece: 'luna' };
+  const mid = prerender(256, H, (g) => {
+    rect(g, '#0e0e0e', 0, 0, 256, 30);
+    chandelierBW(g, 70, 44, false); chandelierBW(g, 198, 50, false); // se ha ido la luz
+    // Mesa con mantel, velas y globos.
+    rect(g, '#d0d0d0', 110, 164, 56, 4); rect(g, '#9a9a9a', 112, 168, 52, 24); rect(g, '#6a6a6a', 112, 168, 52, 2);
+    for (const k of [0, 1, 2]) { rect(g, '#e8e8e8', 124 + k * 14, 156, 2, 8); }
+    for (const [bx, by] of [[180, 120], [192, 112], [204, 124]]) { g.fillStyle = '#b0b0b0'; g.beginPath(); g.ellipse(bx, by, 6, 8, 0, 0, Math.PI * 2); g.fill(); rect(g, '#5a5a5a', bx, by + 8, 1, 44); }
+  });
+  return { sky, far, mid, tiles: { ...BW_TILES, checker: true }, goal: 'LA PISTA', gray: true, piece: 'luna' };
+}
+
+function pista() {
+  const sky = prerender(W, H, (g) => { bands(g, ['#0a0a0a', '#141414', '#1c1c1c', '#242424'], 0, H); });
+  const far = prerender(640, H, (g) => {
+    salonWalls(g, 640);
+    // Escenario de la orquesta: tarima, telón y músicos en silueta (instrumentos genéricos, sin marcas).
+    const X = 240;
+    for (let k = 0; k < 12; k++) rect(g, k % 2 ? '#2e2e2e' : '#3a3a3a', X - 20 + k * 16, 34, 16, 90);
+    rect(g, '#444444', X - 30, 124, 220, 10); rect(g, '#5a5a5a', X - 30, 124, 220, 2);
+    for (let k = 0; k < 4; k++) guestSilhouette(g, X + 10 + k * 46, 124, 3, '#0e0e0e');
+    g.fillStyle = '#0e0e0e'; g.beginPath(); g.ellipse(X + 20, 108, 7, 12, 0, 0, Math.PI * 2); g.fill(); rect(g, '#0e0e0e', X + 19, 80, 2, 20); // contrabajo
+    g.beginPath(); g.arc(X + 120, 112, 9, 0, Math.PI * 2); g.fill(); rect(g, '#0e0e0e', X + 108, 100, 24, 2); // batería
+    rect(g, '#0e0e0e', X + 150, 100, 30, 14); rect(g, '#d0d0d0', X + 152, 100, 26, 2); // piano
+  });
+  const mid = prerender(256, H, (g) => {
+    rect(g, '#0e0e0e', 0, 0, 256, 26);
+    chandelierBW(g, 64, 40, true); chandelierBW(g, 192, 46, true);
+    for (const x of [8, 136]) { rect(g, '#262626', x, 26, 10, 166); rect(g, '#3a3a3a', x, 26, 2, 166); } // columnas
+  });
+  return { sky, far, mid, tiles: { ...BW_TILES, checker: true, semi: '#6a6a6a', semiHi: '#bdbdbd' }, gray: true, piece: 'luna' };
 }
 
 // ── v7 · El Museo (hub): pasillo con cuadros y vitrinas (spec §3.0f C) ──
@@ -263,7 +292,7 @@ function museo() {
   return { sky, far, mid, tiles: { top: '#e6e0d4', topHi: '#ffffff', body: '#8a8094', bodyHi: '#a89eb4', bodyDk: '#5a5068', semi: '#c8963c', semiHi: '#f0c870' } };
 }
 
-export const THEMES = { calle, azoteas, teatro, jardin, casona, muelle, museo };
+export const THEMES = { calle, azoteas, teatro, afuera, salon, pista, museo };
 import { BACKDROPS } from '../data/backdrops-w1.js';
 
 // Si hay fondo panorámico importado (Gemini → scripts/import_backdrop.py), sustituye a las capas por código.

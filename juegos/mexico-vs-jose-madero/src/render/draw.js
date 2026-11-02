@@ -1,4 +1,4 @@
-import { W, H, TILE, OVATION, BOSS, MASK, INTRO } from '../game/constants.js';
+import { W, H, TILE, OVATION, BOSS, MASK, INTRO, GAME_TITLE } from '../game/constants.js';
 import { GLYPHS, ADVANCE, ACCENT, textWidth } from './font.js';
 import { micHand, micTip } from '../game/game.js';
 import { beamRect } from '../game/boss.js';
@@ -94,7 +94,7 @@ export function createArt(level, theme = 'calle', opts = {}) {
   const s = sheets();
   const th = buildTheme(theme);
   const art = { ...s, theme: th, themeName: theme, tiles: renderTiles(level, th.tiles), costume: opts.costume ?? 'clasico' };
-  // v8: Pepe empieza sin color y lo recupera con cada disco (spec §1.1b).
+  // v8.3: Pepe siempre a todo color (la identidad perdida se ve en el retrato del Museo y en el prólogo).
   art.saturation = opts.saturation ?? 1;
   Object.defineProperty(art, 'pepeGray', { get: () => graySheet(s.pepe) });
   Object.defineProperty(art, 'costumesGray', { get: () => graySheet(s.costumes) });
@@ -143,6 +143,8 @@ function renderTiles(L, T) {
         rect(g, '#14060c', x, y, 16, 6);
         rect(g, T.top, x, y, 16, 5); rect(g, T.topHi, x, y, 16, 1);
         rect(g, T.bodyDk, x, y + 5, 16, 1);
+        // Salón de fiestas: suelo ajedrezado blanco y negro.
+        if (T.checker) for (let k = 0; k < 4; k++) rect(g, (k + tx * 4 + ty) % 2 ? '#e6e6e6' : '#1a1a1a', x + k * 4, y, 4, 5);
       }
     } else if (t === '=') {
       rect(g, '#14060c', x, y, 16, 7);
@@ -277,7 +279,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     text(ctx, 'JMV', c.x + 3, c.y - 33, { color: on ? '#fff' : '#b9bec6', shadow: null });
   }
   if (g.level.goal) {
-    // Puerta del Teatro Carmesí (en Noche, la salida hacia el lago o el muelle).
+    // Puerta del Teatro Carmesí (en Noche, la entrada al salón o a la pista).
     const { x, y } = g.level.goal;
     rect(ctx, '#1b1226', x - 18, y - 50, 36, 50);
     rect(ctx, '#7a0e1e', x - 16, y - 48, 32, 48);
@@ -490,7 +492,7 @@ export function drawCostume(ctx, art, id, pose, x, y, flip = false) {
 
 const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
-const BOSS_NAME = { flash: 'CÁMARA FLASH-BOT', mask: 'EL ENMASCARADO DEL LAGO' };
+const BOSS_NAME = { flash: 'CÁMARA FLASH-BOT', mask: 'EL ENMASCARADO' };
 export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
   // Barra superior.
   ctx.globalAlpha = 0.55; rect(ctx, '#12040a', 0, 0, W, 30); ctx.globalAlpha = 1;
@@ -553,20 +555,16 @@ export function drawBadge(ctx, x, y) {
 
 export function drawTitle(ctx, t, art) {
   for (let i = 0; i < TITLE_SKY.length; i++) rect(ctx, TITLE_SKY[i], 0, Math.floor((i * H) / TITLE_SKY.length), W, 34);
-  drawBadge(ctx, W / 2, 18);
-  text(ctx, 'MÉXICO', W / 2, 58, { scale: 3, align: 'center', color: '#f7c86a' });
-  text(ctx, 'VS.', W / 2, 84, { scale: 2, align: 'center', color: '#ffffff' });
-  text(ctx, 'JOSÉ MADERO', W / 2, 104, { scale: 3, align: 'center', bands: CHROME });
-  if (art) {
-    sprite(ctx, art.pepe, loop(art.pepe, 'shout', t, 6), 40, 176);
-    sprite(ctx, art.boss, loop(art.boss, 'bossWalk', t, 8), 292, 204, true);
-    sprite(ctx, art.traidor, loop(art.traidor, 'traidorHover', t, 8), 292, 52 + Math.round(Math.sin(t * 4) * 3));
-    sprite(ctx, art.rumor, loop(art.rumor, 'rumorFly', t, 8), 30, 46 + Math.round(Math.sin(t * 5) * 3));
-  }
-  if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START / A', W / 2, 140, { align: 'center' });
-  text(ctx, 'B: OPCIONES', W / 2, 160, { align: 'center', color: '#ffcf7a' });
-  text(ctx, 'HOMENAJE NO OFICIAL HECHO POR FANS', W / 2, 196, { align: 'center', color: '#e6e9f0' });
-  text(ctx, '@COLORESRUIDOSOS', W / 2, 208, { align: 'center', color: '#ffcf7a' });
+  // v8.3: solo el nombre del juego (spec §3.0f I). El título vive en GAME_TITLE.
+  drawBadge(ctx, W / 2, 26);
+  const n = GAME_TITLE.length, y0 = 92 - (n - 1) * 14;
+  GAME_TITLE.forEach((line, i) => {
+    const small = line.length <= 3; // «VS.» más pequeño
+    text(ctx, line, W / 2, y0 + i * 26 + (small ? 4 : 0), { scale: small ? 2 : 3, align: 'center', ...(i === n - 1 ? { bands: CHROME } : { color: i === 0 ? '#f7c86a' : '#ffffff' }) });
+  });
+  if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START', W / 2, 168, { align: 'center' });
+  text(ctx, 'B: OPCIONES', W / 2, 184, { align: 'center', color: '#8a7a9a' });
+  text(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, 208, { align: 'center', color: '#e6e9f0' });
 }
 
 // Tarjetas entre niveles: «nivel superado» y «¿Sabías que…?».
@@ -624,7 +622,7 @@ export function drawEnd(ctx, g, best, art, t = 0, info = {}) {
 const ease = (x) => Math.max(0, Math.min(1, x));
 const BOSS_CARD = {
   flash: { world: 'JEFE · MUNDO 1', name: 'CÁMARA FLASH-BOT', sub: '«LA PRENSA ROSA»', bg: '#7a0e1e', sub2: '#ffb3b3' },
-  mask: { world: 'JEFE · MUNDO 2', name: 'EL ENMASCARADO', sub: '«DEL LAGO»', bg: '#1a1a1a', sub2: '#d0d0d0' },
+  mask: { world: 'JEFE · MUNDO 2', name: 'EL ENMASCARADO', sub: '«EL ANFITRIÓN»', bg: '#1a1a1a', sub2: '#d0d0d0' },
 };
 export function drawIntro(ctx, g, camX, t, opts = {}) {
   const it = g.intro, b = g.boss;

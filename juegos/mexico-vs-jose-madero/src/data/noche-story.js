@@ -12,9 +12,9 @@ export const ERA_FACTS_W2 = [
 // Cartel al empezar cada nivel: cuenta la historia (ficción del juego). Como mucho declara un dato en `uses`,
 // y ese dato ya no sale en Titulares ni tarjetas (v7.3: cada dato una sola vez por mundo).
 export const CHAPTERS_W2 = {
-  '2-1': { title: 'NOCHE DE BRUJAS', uses: ['N2'], lines: ['JUNIO DE 2017. SALE «NOCHE DE BRUJAS»,', 'EL PRIMER SENCILLO DE NOCHE.', '', 'PEPE LLEGA A UNA FIESTA DE DISFRACES', 'EN UNA CASONA JUNTO AL LAGO.', 'NADIE ENSEÑA LA CARA. ¿Y LA SUYA?'] },
-  '2-2': { title: 'SE VA LA LUZ', uses: [], lines: ['DENTRO DE LA CASONA', 'SE VA LA LUZ DE GOLPE.', '', 'SOLO TIENE UN FAROL', 'Y UN POCO DE ACEITE.', 'ALGUIEN ESPERA EN EL MUELLE.'] },
-  '2-3': { title: 'EL ENMASCARADO', uses: [], lines: ['EL ANFITRIÓN DE LA FIESTA', 'NUNCA SE QUITA EL ANTIFAZ.', '', 'QUIZÁ, DEBAJO,', 'HAYA ALGUIEN COMO TÚ.'] },
+  '2-1': { title: 'NOCHE DE BRUJAS', uses: ['N2'], lines: ['JUNIO DE 2017. SALE «NOCHE DE BRUJAS»,', 'EL PRIMER SENCILLO DE NOCHE.', '', 'AFUERA DE UN SALÓN DE FIESTAS', 'HAY FILA PARA ENTRAR A UN BAILE', 'DE DISFRACES. NADIE ENSEÑA LA CARA.'] },
+  '2-2': { title: 'SE VA LA LUZ', uses: [], lines: ['DENTRO DEL SALÓN, A MITAD DEL BAILE,', 'SE VA LA LUZ DE GOLPE.', '', 'SOLO TIENE UN FAROL', 'Y UN POCO DE ACEITE.', 'ALGUIEN LO ESPERA EN LA PISTA.'] },
+  '2-3': { title: 'EL ENMASCARADO', uses: [], lines: ['EL ANFITRIÓN DEL BAILE', 'NUNCA SE QUITA EL ANTIFAZ.', '', 'QUIZÁ, DEBAJO,', 'HAYA ALGUIEN COMO TÚ.'] },
 };
 
 // Tarjeta «¿SABÍAS QUE…?» al terminar cada nivel.

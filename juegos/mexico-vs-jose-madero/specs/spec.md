@@ -504,6 +504,39 @@ Al menos uno de los dos en cada nivel normal; el Amplificador `A` sigue.
 - El HTML abierto desde el ordenador y la web tienen guardados distintos.
 - Se guarda al superar un nivel, no a mitad de nivel.
 
+#### I. v8.3 · Salón de fiestas, color, portada, escenas y festejo (pedido del usuario, 2 nov 2026)
+**Noche: afuera y dentro de un salón de fiestas.** El nivel 1 transcurre afuera de la fiesta; los demás, dentro de un salón de fiestas, como en el video de «Noche de brujas». El video es en blanco y negro y homenajea al terror clásico (dato verificado). La ambientación se dibuja por código y es de diseño propio.
+
+| Nivel | Nombre | Escenario | Farol |
+|---|---|---|---|
+| 2-1 | LA ENTRADA | Calle frente al salón: fachada con marquesina de focos (sin letreros), fila de invitados disfrazados en silueta, farolas y papel picado; estanques en el jardín de enfrente | No |
+| 2-2 | EL SALÓN | Interior: ventanales con cortinas, candelabros apagados, mesas con mantel y globos, suelo ajedrezado. Se va la luz | Sí |
+| 2-3 | LA PISTA | Pista de baile: escenario de la orquesta (instrumentos en silueta, sin marcas), candelabros y suelo ajedrezado; las plataformas son los palcos | Sí |
+
+- El jefe pasa a llamarse **El Enmascarado**: ya no hay lago.
+- Los capítulos y los pensamientos se ajustan a la nueva ambientación.
+
+**Pepe a todo color.** La desaturación de §1.1b se quita: el usuario la notó «muy gris».
+- Pepe se ve con su color en los niveles y en el Museo.
+- La identidad perdida solo se ve en el **retrato** del Museo y en la viñeta 4 del prólogo, donde Pepe sale en gris.
+
+**Portada solo con el nombre:** el sello JMV y el título, más tres líneas pequeñas:
+- «PULSA START»;
+- «B: OPCIONES»;
+- «HOMENAJE NO OFICIAL · @COLORESRUIDOSOS», que es obligatoria por la decisión legal.
+
+Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder cambiarlo. ⏳ El usuario decide el nombre definitivo.
+
+**Escenas de cada mundo (saltables con B):**
+- **Entrada:** al entrar a un mundo por su primer nivel, 2 viñetas.
+- **Salida:** tras el «RECUERDO RECUPERADO», 2 viñetas.
+- Mismo formato que el prólogo, con `kind`: los datos llevan fuente y la ficción va marcada.
+
+**Pose de festejo** (como en los juegos de acción clásicos):
+1. Al recoger la recompensa del jefe, la acción se congela 3 s.
+2. Pepe hace su pose de victoria (la animación `win` de la hoja oficial; con traje, salto y reposo), con un foco, confeti y el cartel «¡JEFE VENCIDO!».
+3. A los 0,5 s, A lo salta.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

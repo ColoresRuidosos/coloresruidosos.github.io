@@ -4,7 +4,9 @@ import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
 import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
 import { PROLOGO, RECUERDOS, PENSAMIENTOS, VUELTA_AL_MUSEO } from './data/historia.js';
-import { drawPrologue } from './render/draw-historia.js';
+import { drawPrologue, drawVictory } from './render/draw-historia.js';
+import { WORLD_SCENES } from './data/cinematicas.js';
+import { VICTORY } from './game/constants.js';
 import { HUB, createHub, doorAt } from './game/museum.js';
 import { WORLD_1 } from './data/world1.js';
 import { WORLD_2 } from './data/world2.js';
@@ -52,15 +54,16 @@ function museumInfo() {
 const hub = createHub();
 let screen = 'title', back = 'title', camX = 0, cam = null, t = 0, paused = false, card = null, screenT = 0;
 let game, art, run = null, museumDoor = null, toast = null, toastT = 0, endInfo = {};
-let optSel = 0, galSel = 0, prologueIdx = 0;
-const saturation = () => 0.3 + (0.7 * identity(save)) / 8; // Pepe recupera el color disco a disco
+let optSel = 0, galSel = 0, prologueIdx = 0, cut = null, cutArt = null;
+// Escenas de cada mundo (spec §3.0f I): A avanza, B las salta. Se dibujan siempre a color (con el arte del Museo).
+function playCutscene(panels, then) { cut = { panels, idx: 0, then }; screen = 'cutscene'; screenT = 0; }
 const worldsDone = () => WORLDS.filter((w) => worldCleared(save, w.id)).map((w) => w.id);
 
 function enterMuseum(atDoor = null, returning = false) {
   run = null; paused = false;
   if (returning) { toast = VUELTA_AL_MUSEO; toastT = 2.5; }
   game = createGame(HUB, { hearts: 3 });
-  art = createArt(game.level, 'museo', { costume: costumeFor(save, 'carmesi'), saturation: saturation() });
+  art = createArt(game.level, 'museo', { costume: costumeFor(save, 'carmesi') });
   const d = atDoor && hub.doors.find((x) => x.id === atDoor);
   if (d) { game.player.x = d.x - game.player.w / 2; game.player.facing = 1; }
   cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
@@ -71,7 +74,7 @@ function loadLevel(i, c = {}) {
   const wd = WORLD_DATA[run.world], L = wd.levels[i];
   run.idx = i; run.carry = c; run.levelStart = { ...c };
   game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern, thoughts: PENSAMIENTOS[run.world] });
-  art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world), saturation: saturation() });
+  art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world) });
   cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
 }
 const showCard = (c) => { card = c; screen = 'card'; screenT = 0; };
@@ -84,7 +87,9 @@ function startLevel(i, c) {
 function startWorld(id) {
   const i = startLevelIndex(save, id, WORLD_DATA[id].levels);
   run = { world: id, idx: 0, carry: {}, levelStart: {}, time: 0, assistUsed: opt.assist, partial: i > 0 };
-  startLevel(i);
+  // Al empezar el mundo desde su primer nivel, su escena de entrada.
+  if (i === 0 && WORLD_SCENES[id]) playCutscene(WORLD_SCENES[id].intro, () => startLevel(0));
+  else startLevel(i);
 }
 
 const costumeName = (id) => COSTUMES.find((c) => c.id === id)?.name ?? id;
@@ -109,7 +114,8 @@ function finishLevel() {
     endInfo = { title: `¡MUNDO ${wd.n} COMPLETADO!`, lines: [...nuevos, run.world === 'carmesi' ? 'SE ABRIÓ LA PUERTA DE NOCHE EN EL MUSEO' : `${w.name} YA ESTÁ EN TU MUSEO`] };
     // Al terminar el mundo: «¿Sabías que…?» → «RECUERDO RECUPERADO» (con el retrato ya con su pieza) → final.
     const rec = RECUERDOS[run.world];
-    const recuerdo = { kind: 'recuerdo', ...rec, worldsDone: worldsDone(), then: () => { screen = 'end'; screenT = 0; } };
+    const toEnd = () => { screen = 'end'; screenT = 0; };
+    const recuerdo = { kind: 'recuerdo', ...rec, worldsDone: worldsDone(), then: () => (WORLD_SCENES[run.world] ? playCutscene(WORLD_SCENES[run.world].outro, toEnd) : toEnd()) };
     showCard({ ...fact, then: () => showCard(recuerdo) });
   }
 }
@@ -225,6 +231,13 @@ function frame(now) {
         if (pr.jump && prologueIdx < PROLOGO.length - 1) { prologueIdx++; screenT = 0; }
         else { save.data.seenPrologue = true; save.commit(); enterMuseum('carmesi'); }
       }
+    } else if (screen === 'cutscene') {
+      if (pr.mic) { const then = cut.then; cut = null; then(); }
+      else if (pr.jump && screenT > 0.4) {
+        if (cut.idx < cut.panels.length - 1) { cut.idx++; screenT = 0; } else { const then = cut.then; cut = null; then(); }
+      }
+    } else if (screen === 'victory') {
+      if (screenT >= VICTORY.time || (pr.jump && screenT > VICTORY.skip)) finishLevel();
     } else if (screen === 'options') stepOptions(pr);
     else if (screen === 'gallery') stepGallery(pr);
     else if (screen === 'museum') stepMuseum(btn, pr);
@@ -236,7 +249,8 @@ function frame(now) {
       } else {
         stepGame(game, btn);
         audio.play(game.events);
-        if (game.status === 'won') finishLevel();
+        // Jefe vencido: pose de festejo (3 s, A la salta a los 0,5 s) antes de las tarjetas.
+        if (game.status === 'won') { if (game.boss) { screen = 'victory'; screenT = 0; } else finishLevel(); }
         else if (game.status === 'gameover') { screen = 'end'; screenT = 0; }
       }
     } else if (screen === 'card' && pr.jump && screenT > 0.6) {
@@ -255,6 +269,10 @@ function frame(now) {
   camX = stepCamera(cam, target, game.level.w * 16, duel ? 0 : p.facing);
   const vis = { flashes: opt.flashes, shake: opt.shake };
   if (screen === 'prologue') drawPrologue(ctx, PROLOGO[prologueIdx], prologueIdx, screenT, art, opt.flashes);
+  else if (screen === 'cutscene') {
+    cutArt ??= createArt(createGame(HUB).level, 'museo');
+    drawPrologue(ctx, cut.panels[cut.idx], cut.idx, screenT, cutArt, opt.flashes, cut.panels.length);
+  }
   else if (screen === 'title' || (screen === 'options' && back === 'title')) {
     drawTitle(ctx, t, art);
     if (screen === 'options') drawOptions(ctx, opt, optSel, t);
@@ -268,6 +286,7 @@ function frame(now) {
     drawWorld(ctx, game, art, camX, t, L.id, vis);
     if (game.intro) drawIntro(ctx, game, camX, t, vis);
     else drawHud(ctx, game, `${L.id} ${L.name}`, t, art);
+    if (screen === 'victory') drawVictory(ctx, game, camX, screenT, opt.flashes);
     if (screen === 'card') drawCard(ctx, card, art, t);
     if (screen === 'end') drawEnd(ctx, game, save.data.record, art, t, endInfo);
     if (paused && screen === 'play') drawPause(ctx, t);

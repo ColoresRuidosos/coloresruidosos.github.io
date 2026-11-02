@@ -44,10 +44,10 @@ describe('Noche · datos (N1)', () => {
 });
 
 describe('Noche · niveles (N5)', () => {
-  test('tres niveles en la fiesta: jardín, casona y muelle; farol en 2-2 y 2-3', () => {
+  test('tres niveles: afuera del salón, el salón y la pista; farol en 2-2 y 2-3', () => {
     assert.deepEqual(WORLD_2.map((l) => l.id), ['2-1', '2-2', '2-3']);
-    assert.deepEqual(WORLD_2.map((l) => l.theme), ['jardin', 'casona', 'muelle']);
-    assert.deepEqual(WORLD_2.map((l) => l.name), ['EL JARDÍN', 'LA CASONA', 'EL MUELLE']);
+    assert.deepEqual(WORLD_2.map((l) => l.theme), ['afuera', 'salon', 'pista']);
+    assert.deepEqual(WORLD_2.map((l) => l.name), ['LA ENTRADA', 'EL SALÓN', 'LA PISTA']);
     assert.deepEqual(WORLD_2.map((l) => !!l.lantern), [false, true, true]);
   });
 

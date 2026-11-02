@@ -42,6 +42,13 @@ test('START: la primera vez sale el prólogo (B lo salta) y después el Museo; B
   await page.screenshot({ path: 'out/02a-museo.png' });
   await page.keyboard.press('KeyX');
   await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'cutscene', 'escena de entrada del mundo');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Enter'); // A: siguiente viñeta
+  await page.waitForTimeout(150);
+  await page.screenshot({ path: 'out/02c-escena.png' });
+  await page.keyboard.press('KeyX'); // B: saltar
+  await page.waitForTimeout(150);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'card');
   await page.waitForTimeout(700);
   await page.keyboard.press('Enter');
@@ -164,6 +171,8 @@ test('v7: la puerta de Noche está cerrada hasta terminar Carmesí', async () =>
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'museum');
   await page.evaluate(() => { window.__jmv.save.data.worlds.carmesi = { cleared: ['1-1', '1-2', '1-3'], best: {} }; });
   await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'cutscene');
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
   assert.equal(await page.evaluate(() => [window.__jmv.screen, window.__jmv.level].join(' ')), 'card 2-1');
 });
 
@@ -175,5 +184,21 @@ test('v7: los tres niveles de Noche se dibujan sin errores (con farol en 2-2 y 2
     assert.equal(await page.evaluate(() => !!window.__jmv.game.lantern), i > 0);
     await page.screenshot({ path: `out/08-nivel-${id}.png` });
   }
+  assert.deepEqual(errors, []);
+});
+
+// ── v8.3 (spec §3.0f I) ─────────────────────────────────
+test('v8.3: al vencer al jefe, pose de festejo; A la salta y salen las tarjetas', async () => {
+  await page.evaluate(() => {
+    window.__jmv.goto(2, 'carmesi');
+    const g = window.__jmv.game; g.intro = null; g.boss.alive = false; g.boss.deadT = 1;
+    g.disco = { kind: 'disco', x: g.player.x + g.player.w / 2, y: g.player.y + g.player.h / 2, taken: false };
+  });
+  await page.waitForTimeout(200);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'victory');
+  await page.screenshot({ path: 'out/09-festejo.png' });
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Enter'); await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'card');
   assert.deepEqual(errors, []);
 });
