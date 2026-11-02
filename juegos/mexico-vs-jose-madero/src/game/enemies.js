@@ -1,20 +1,21 @@
 // IA de los enemigos: funciones puras sobre el estado del juego (sin DOM).
 import { TILE, ENEMY, FREEZE, DT } from './constants.js';
 import { moveBody } from '../engine/tilemap.js';
-import { stepInvitado, stepMurcielago, stepFantasma } from './noche.js';
+import { stepMurcielago, stepFantasma, stepGigante, stepInvisible, stepAnfibio, stepLlorona } from './noche.js';
 
-const INITIAL = { rumor: 'fly', murcielago: 'hang', fantasma: 'float' };
+const INITIAL = { rumor: 'fly', murcielago: 'hang', fantasma: 'float', anfibio: 'hide', llorona: 'float' };
 
 export function createEnemy(spawn, i, headlines) {
   const k = ENEMY[spawn.kind];
   const x = spawn.x - k.w / 2;
   // De pie sobre su casilla; los voladores, 2 px por encima del borde inferior (sin tocar el suelo).
-  const y = spawn.y - k.h - (k.fly ? 2 : 0);
+  // El Hombre anfibio empieza escondido en el foso, por debajo del borde.
+  const y = spawn.kind === 'anfibio' ? spawn.y + k.hide : spawn.y - k.h - (k.fly ? 2 : 0);
   return {
     kind: spawn.kind, x, y, w: k.w, h: k.h, vx: k.speed ? -k.speed : 0, vy: 0, facing: -1,
     state: INITIAL[spawn.kind] ?? (k.fly ? 'hover' : 'walk'),
     t: 0, alive: true, deadT: 0, word: headlines[i % headlines.length],
-    home: { x, y }, target: null,
+    home: { x, y }, target: null, unmasked: false,
   };
 }
 
@@ -135,7 +136,11 @@ export function stepEnemy(g, e) {
   else if (e.kind === 'reportero') stepReportero(g, e, k);
   else if (e.kind === 'rumor') stepRumor(g, e, k);
   else if (e.kind === 'traidor') stepTraidor(g, e, k);
-  else if (e.kind === 'invitado') stepInvitado(g, e, k, patrol, sees);
+  else if (e.kind === 'gigante') stepGigante(g, e, k, patrol, sees);
+  else if (e.kind === 'invisible') stepInvisible(g, e, k, patrol);
+  else if (e.kind === 'anfibio') stepAnfibio(g, e, k);
+  else if (e.kind === 'llorona') stepLlorona(g, e, k);
+  else if (e.kind === 'charro') stepReportero(g, e, e.unmasked ? { ...k, speed: k.speed2, dashSpeed: k.dashSpeed2 } : k);
   else if (e.kind === 'murcielago') stepMurcielago(g, e, k);
   else if (e.kind === 'fantasma') stepFantasma(g, e, k);
   else patrol(g, e, k.speed);

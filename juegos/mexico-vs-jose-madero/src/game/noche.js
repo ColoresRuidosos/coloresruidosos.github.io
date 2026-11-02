@@ -16,20 +16,48 @@ export function inLight(g, x, y) {
 // ── Enemigos ───────────────────────────────────────────
 const center = (b) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
-// Invitado enmascarado: patrulla y, si te ve, se acerca deprisa. Sin máscara (1.er golpe), aún más rápido.
-export function stepInvitado(g, e, k, patrol, sees) {
+// ── v8.1 · Invitados disfrazados (spec §3.0f G). Sin disfraz (`unmasked`) usan sus valores «2». ──
+const spd = (e, k) => (e.unmasked ? k.speed2 : k.speed);
+const towardPepe = (g, e) => Math.sign(g.player.x + g.player.w / 2 - (e.x + e.w / 2)) || e.facing;
+
+// Gigante cosido: lento; si te ve, camina hacia ti (su empujón lo aplica game.js).
+export function stepGigante(g, e, k, patrol, sees) {
   if (e.unmasked) e.unmaskT = (e.unmaskT ?? 0) + DT;
-  const chase = e.unmasked ? k.chase2 : k.chase;
-  if (e.state === 'walk') {
-    patrol(g, e, k.speed);
-    if (sees(g, e, k.sight, false)) { e.state = 'chase'; e.t = 0; }
+  e.hitT = Math.max(0, (e.hitT ?? 0) - DT);
+  if (sees(g, e, k.sight, false)) { e.facing = towardPepe(g, e); e.vx = e.facing * spd(e, k); }
+  patrol(g, e, spd(e, k));
+}
+
+// Hombre invisible: siempre va hacia Pepe (lo que se ve de él lo decide el render).
+export function stepInvisible(g, e, k, patrol) {
+  if (e.unmasked) e.unmaskT = (e.unmaskT ?? 0) + DT;
+  e.facing = towardPepe(g, e); e.vx = e.facing * spd(e, k);
+  patrol(g, e);
+  e.vx = e.facing * spd(e, k);
+}
+
+// Hombre anfibio: escondido en el foso; cuando Pepe pasa cerca, salta en arco y vuelve a esconderse.
+export function stepAnfibio(g, e, k) {
+  if (e.unmasked) e.unmaskT = (e.unmaskT ?? 0) + DT;
+  const near = Math.abs(g.player.x + g.player.w / 2 - (e.x + e.w / 2)) <= k.sight;
+  if (e.state === 'hide') {
+    if ((!e.jumped || e.t >= (e.unmasked ? k.rest2 : k.rest)) && near) {
+      e.jumped = true; e.state = 'jump'; e.t = 0; e.vy = -k.jumpV; e.facing = towardPepe(g, e); g.events.push('dive'); }
   } else {
-    e.facing = Math.sign(g.player.x + g.player.w / 2 - (e.x + e.w / 2)) || e.facing;
-    e.vx = e.facing * chase;
-    patrol(g, e);
-    e.vx = e.facing * chase;
-    if (!sees(g, e, k.sight + 40, false)) { e.state = 'walk'; e.t = 0; e.vx = e.facing * k.speed; }
+    e.vy = Math.min(600, e.vy + 1400 * DT);
+    e.y += e.vy * DT;
+    if (e.vy > 0 && e.y >= e.home.y) { e.y = e.home.y; e.vy = 0; e.state = 'hide'; e.t = 0; }
   }
+}
+
+// La Llorona: flota hacia Pepe; su llanto lo frena un momento (no quita corazones).
+export function stepLlorona(g, e, k) {
+  if (e.unmasked) e.unmaskT = (e.unmaskT ?? 0) + DT;
+  const p = g.player, dx = p.x + p.w / 2 - (e.x + e.w / 2), dy = p.y + p.h / 2 - (e.y + e.h / 2), d = Math.hypot(dx, dy) || 1;
+  if (d <= k.sight) { e.x += (dx / d) * spd(e, k) * DT; e.y += (dy / d) * spd(e, k) * DT * 0.5; e.facing = Math.sign(dx) || e.facing; }
+  e.cryT = Math.max(0, (e.cryT ?? 0) - DT);
+  if (d <= k.cry && e.cryT <= 0) { p.slowT = k.slow; e.cryT = k.cool; e.state = 'cry'; e.t = 0; g.events.push('frozen'); }
+  else if (e.state === 'cry' && e.t > 0.6) e.state = 'float';
 }
 
 // Murciélago: cuelga del techo; si Pepe pasa cerca (por debajo), baja en curva y vuelve a subir algo más allá.

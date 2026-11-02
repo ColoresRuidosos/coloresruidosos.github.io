@@ -28,7 +28,12 @@ export const ENEMY = {
   rumor: { w: 22, h: 18, speed: 40, amp: 10, sight: 28, dive: 260, climb: 90, fly: true },
   traidor: { w: 16, h: 24, sight: 150, aim: 0.6, lunge: 230, lungeT: 0.55, rest: 0.8, back: 60, fly: true },
   // v7 · Noche (spec §3.0f E)
-  invitado: { w: 18, h: 40, speed: 30, chase: 80, chase2: 125, sight: 140 }, // chase2: sin máscara
+  // v8.1 · Invitados disfrazados de la fiesta (spec §3.0f G). `speed2` y demás «2»: sin disfraz.
+  gigante: { w: 22, h: 44, speed: 18, speed2: 40, sight: 160, costumeHits: 2, push: 2 },
+  invisible: { w: 16, h: 40, speed: 28, speed2: 60, sight: 220 },
+  anfibio: { w: 18, h: 30, speed: 0, speed2: 0, sight: 56, jumpV: 560, rest: 1.2, rest2: 0.6, hide: 8 },
+  llorona: { w: 18, h: 36, speed: 22, speed2: 40, sight: 220, cry: 64, slow: 1.0, cool: 2.5, fly: true },
+  charro: { w: 18, h: 42, speed: 22, speed2: 34, sight: 140, windup: 0.3, dash: 0.7, dashSpeed: 180, dashSpeed2: 240, rest: 0.7 },
   murcielago: { w: 16, h: 12, sight: 40, swoop: 1.3, depth: 72, speed: 110, rest: 1.0, fly: true },
   fantasma: { w: 18, h: 22, speed: 26, sight: 220, fly: true },
 };

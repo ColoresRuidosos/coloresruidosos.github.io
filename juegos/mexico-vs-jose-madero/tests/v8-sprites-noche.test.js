@@ -1,14 +1,12 @@
-// v8 · Sprites de Noche hechos con ChatGPT (spec §1.2b; tarea A7): las hojas se recortan completas,
+// v8 · Sprites de Noche hechos con ChatGPT (v8.1: se quedan Murciélago, Fantasma y Enmascarado) (spec §1.2b; tarea A7): las hojas se recortan completas,
 // con sus animaciones y tamaños, y sustituyen a los dibujos por código.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { INVITADO_META } from '../src/data/invitado-atlas.js';
 import { MURCIELAGO_META } from '../src/data/murcielago-atlas.js';
 import { FANTASMA_META } from '../src/data/fantasma-atlas.js';
 import { ENMASCARADO_META } from '../src/data/enmascarado-atlas.js';
 
 const SHEETS = {
-  invitado: [INVITADO_META, { invWalk: 6, invRun: 6, invUnmask: 4, invKo: 3 }, 46],
   murcielago: [MURCIELAGO_META, { batHang: 4, batFly: 6, batKo: 3 }, 24],
   fantasma: [FANTASMA_META, { ghostFloat: 6, ghostAttack: 4, ghostKo: 3 }, 28],
   enmascarado: [ENMASCARADO_META, { maskWalk: 6, maskDash: 6, maskLeap: 6, maskThrow: 6, maskStun: 6, maskUnmask: 6 }, 58],

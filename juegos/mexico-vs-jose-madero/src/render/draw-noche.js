@@ -23,24 +23,45 @@ const frameOf = (sheet, anim, t, fps, once = false) => {
   return a[once ? Math.min(a.length - 1, i) : i % a.length];
 };
 
+// Qué hace cada disfrazado ahora mismo (para elegir su animación de ataque).
+const ACTING = {
+  charro: (e) => e.state === 'windup' || e.state === 'dash',
+  anfibio: (e) => e.state === 'jump',
+  llorona: (e) => e.state === 'cry',
+  gigante: (e) => (e.hitT ?? 0) > 0,
+  invisible: () => false,
+};
+const BUBBLE = { llorona: (e) => (e.state === 'cry' && !e.unmasked ? '¡AAAY…!' : null) };
+
 export function drawNocheEnemy(g, game, e, t, art) {
   const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
   const sheet = art[e.kind];
+  const costumed = e.kind in ACTING;
   if (!e.alive) {
     if (e.deadT > 0.9) return;
     g.save(); g.globalAlpha = Math.max(0, Math.min(1, (0.9 - e.deadT) * 3));
-    const ko = { invitado: 'invKo', murcielago: 'batKo', fantasma: 'ghostKo' }[e.kind];
-    sprite(g, sheet, frameOf(sheet, ko, e.deadT, 6, true), fx, fy + (e.kind === 'murcielago' ? e.deadT * 40 : 0), flip);
+    if (costumed) sprite(g, sheet, 'hit0', fx, fy + e.deadT * 20, flip);
+    else {
+      const ko = { murcielago: 'batKo', fantasma: 'ghostKo' }[e.kind];
+      sprite(g, sheet, frameOf(sheet, ko, e.deadT, 6, true), fx, fy + (e.kind === 'murcielago' ? e.deadT * 40 : 0), flip);
+    }
     g.restore();
     return;
   }
-  if (e.kind === 'invitado') {
-    // Sin máscara: primero el gesto de sorpresa y después corre con la cara descubierta.
-    const key = e.unmasked
-      ? ((e.unmaskT ?? 1) < 0.45 ? frameOf(sheet, 'invUnmask', e.unmaskT, 6, true) : `invUnmask${1 + (Math.floor(t * 8) % 2)}`)
-      : e.state === 'chase' ? frameOf(sheet, 'invRun', t, 12) : frameOf(sheet, 'invWalk', t, 8);
-    sprite(g, sheet, key, fx, fy, flip);
-  } else if (e.kind === 'murcielago') {
+  if (costumed) {
+    if (e.kind === 'anfibio' && e.state === 'hide') return; // escondido en el foso
+    const acting = ACTING[e.kind](e);
+    let anim = (e.unmasked ? 'u' : '') + (acting ? 'act' : 'walk');
+    // El Hombre invisible, a oscuras y con disfraz: solo sombrero, gafas y guantes.
+    if (e.kind === 'invisible' && !e.unmasked && !inLight(game, fx, e.y + e.h / 2)) anim = 'parts';
+    if (e.kind === 'gigante' && (e.hitT ?? 0) > 0) anim = 'hit';
+    const speed = e.kind === 'charro' && e.state === 'dash' ? 14 : 8;
+    sprite(g, sheet, frameOf(sheet, anim, t, speed), fx, fy, flip);
+    const word = BUBBLE[e.kind]?.(e);
+    if (word) text(g, word, fx, e.y - 12, { color: '#ffffff', align: 'center' });
+    return;
+  }
+  if (e.kind === 'murcielago') {
     const key = e.state === 'swoop' ? frameOf(sheet, 'batFly', t, 14) : frameOf(sheet, 'batHang', t, 3);
     sprite(g, sheet, key, fx, fy, flip);
   } else {

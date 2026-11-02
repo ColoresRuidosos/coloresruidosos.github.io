@@ -44,9 +44,10 @@ describe('Noche · datos (N1)', () => {
 });
 
 describe('Noche · niveles (N5)', () => {
-  test('tres niveles: fiesta, cabañas y lago; farol en 2-2 y 2-3', () => {
+  test('tres niveles en la fiesta: jardín, casona y muelle; farol en 2-2 y 2-3', () => {
     assert.deepEqual(WORLD_2.map((l) => l.id), ['2-1', '2-2', '2-3']);
-    assert.deepEqual(WORLD_2.map((l) => l.theme), ['fiesta', 'cabanas', 'lago']);
+    assert.deepEqual(WORLD_2.map((l) => l.theme), ['jardin', 'casona', 'muelle']);
+    assert.deepEqual(WORLD_2.map((l) => l.name), ['EL JARDÍN', 'LA CASONA', 'EL MUELLE']);
     assert.deepEqual(WORLD_2.map((l) => !!l.lantern), [false, true, true]);
   });
 
@@ -56,9 +57,11 @@ describe('Noche · niveles (N5)', () => {
     assert.equal(gs[2].boss?.kind, 'mask');
     const pieces = gs.reduce((n, g) => n + g.pieces.length, 0);
     assert.ok(pieces >= 12 && pieces <= 13, `piezas=${pieces}`);
+    // v8.1: el reparto de la fiesta (spec §3.0f G); el invitado de frac ya no está.
     const foes = new Set(gs.flatMap((g) => g.enemies.map((e) => e.kind)));
-    for (const k of ['invitado', 'murcielago', 'fantasma']) assert.ok(foes.has(k), k);
-    assert.ok(gs[1].items.some((i) => i.kind === 'aceite'), 'latas de aceite en las cabañas');
+    for (const k of ['gigante', 'invisible', 'anfibio', 'llorona', 'charro', 'murcielago', 'fantasma', 'titular']) assert.ok(foes.has(k), k);
+    assert.ok(!foes.has('invitado'));
+    assert.ok(gs[1].items.some((i) => i.kind === 'aceite'), 'latas de aceite en la casona');
   });
 });
 
@@ -83,32 +86,6 @@ describe('farol (N2)', () => {
 });
 
 describe('enemigos de Noche (N3)', () => {
-  test('Invitado: se acerca deprisa al verte; el 1.er golpe le quita la máscara (más rápido y sigue atacando), el 2.º lo vence', () => {
-    const g = createGame('.P.......I.\n###########');
-    const e = g.enemies[0];
-    run(g, 20);
-    assert.equal(e.state, 'chase');
-    const masked = Math.abs(e.vx);
-    assert.ok(masked > 40);
-    defeat(g, e);
-    assert.equal(e.alive, true, 'sigue en pie');
-    assert.equal(e.unmasked, true);
-    assert.ok(g.score > 0);
-    run(g, 8); // (pasa el parón de impacto)
-    assert.ok(Math.abs(e.vx) > masked, 'sin máscara es más rápido');
-    g.invuln = 0; e.x = g.player.x + 4; e.y = g.player.y; run(g, 2);
-    assert.ok(g.hearts < 3, 'sin máscara sigue haciendo daño');
-    defeat(g, e);
-    assert.equal(e.alive, false);
-  });
-
-  test('Invitado: el Solo de guitarra lo vence de una vez', () => {
-    const g = createGame('.P..I.\n######');
-    g.ovacion = 100;
-    stepGame(g, { ...idle, special: true });
-    assert.equal(g.enemies[0].alive, false);
-  });
-
   test('Murciélago: cuelga quieto y baja en curva cuando pasas cerca; luego vuelve arriba', () => {
     const g = createGame('......W.\n........\n........\n........\n........\n.P......\n########');
     const e = g.enemies[0], y0 = e.y;

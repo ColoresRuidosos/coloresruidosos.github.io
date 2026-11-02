@@ -1,4 +1,4 @@
-import { TILE, P, MIC, DT, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP, INTRO } from './constants.js';
+import { TILE, P, MIC, DT, ENEMY, HITSTOP, COMBO_WINDOW, POINTS, OVATION, GUITAR, AMP, INTRO } from './constants.js';
 import { parseLevel } from '../engine/tilemap.js';
 import { createPlayer, stepPlayerMotion } from '../engine/physics.js';
 import { edges } from '../engine/buttons.js';
@@ -79,11 +79,14 @@ export function scoreHit(g, x, y) {
 }
 
 // Vencer a un enemigo; si es un Titular, sale una frase verificada de Madero.
-// Invitado enmascarado (Noche): el primer golpe solo le quita la máscara (sigue, más rápido); `force` (Solo) lo vence.
+// Disfrazados de Noche (v8.1): el primer golpe les quita el disfraz (el Gigante necesita 2) y siguen, más rápidos;
+// el siguiente los vence. `force` (Solo de guitarra) vence siempre.
+export const COSTUMED = new Set(['gigante', 'invisible', 'anfibio', 'llorona', 'charro']);
 export function defeat(g, e, force = false) {
   if (!e.alive) return;
-  if (e.kind === 'invitado' && !e.unmasked && !force) {
-    e.unmasked = true; e.unmaskT = 0; e.state = 'chase'; e.t = 0;
+  if (COSTUMED.has(e.kind) && !e.unmasked && !force) {
+    e.costumeHits = (e.costumeHits ?? 0) + 1;
+    if (e.costumeHits >= (ENEMY[e.kind].costumeHits ?? 1)) { e.unmasked = true; e.unmaskT = 0; } else e.hitT = 0.3;
     g.events.push('defeat');
     scoreHit(g, e.x + e.w / 2, e.y);
     return;
@@ -226,6 +229,8 @@ export function stepGame(g, btn) {
   const prevBottom = p.y + p.h;
   const wasGround = p.onGround;
   g.events.push(...stepPlayerMotion(p, input, g.level));
+  // Llanto de La Llorona: Pepe va a media velocidad un momento.
+  if (p.slowT > 0) { p.slowT = Math.max(0, p.slowT - DT); const m = P.maxRun / 2; p.vx = Math.max(-m, Math.min(m, p.vx)); }
   p.landT = p.onGround && !wasGround ? 0 : (p.landT ?? 1) + DT;
 
   for (const e of g.enemies) {
@@ -237,6 +242,7 @@ export function stepGame(g, btn) {
       g.events.push('stomp');
     } else if (g.invuln <= 0) {
       hurt(g, e.x + e.w / 2);
+      if (ENEMY[e.kind].push) p.vx *= ENEMY[e.kind].push; // el empujón del Gigante
       bounceOff(g, e);
     }
   }

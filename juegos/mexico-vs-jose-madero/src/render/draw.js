@@ -8,7 +8,8 @@ import { TRAIDOR_META, TRAIDOR_PNG } from '../data/traidor-atlas.js';
 import { FLASHBOT_META, FLASHBOT_PNG } from '../data/flashbot-atlas.js';
 import { RUMOR_META, RUMOR_PNG } from '../data/rumor-atlas.js';
 import { COSTUMES_META, COSTUMES_PNG } from '../data/costumes-atlas.js';
-import { INVITADO_META, INVITADO_PNG } from '../data/invitado-atlas.js';
+import { toSheet } from './pixel.js';
+import { renderCharacter } from './sprites-fiesta.js';
 import { MURCIELAGO_META, MURCIELAGO_PNG } from '../data/murcielago-atlas.js';
 import { FANTASMA_META, FANTASMA_PNG } from '../data/fantasma-atlas.js';
 import { ENMASCARADO_META, ENMASCARADO_PNG } from '../data/enmascarado-atlas.js';
@@ -57,13 +58,17 @@ export function wrap(str, maxChars) {
 // ── Sprites (atlas generados por scripts/slice_sheet.py) ──
 const loadImage = (src) => { const img = new Image(); img.src = src; return img; };
 let SHEETS = null;
+const FIESTA_IDS = ['gigante', 'invisible', 'anfibio', 'llorona', 'charro'];
+const NOCHE_KINDS = new Set(['murcielago', 'fantasma', ...FIESTA_IDS]);
 function sheets() {
   if (SHEETS) return SHEETS;
   const mk = (png, meta) => ({ img: loadImage(png), meta });
   SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), traidor: mk(TRAIDOR_PNG, TRAIDOR_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META), costumes: mk(COSTUMES_PNG, COSTUMES_META),
     // v8 · Noche (hojas de ChatGPT recortadas con scripts/slice_rows.py)
-    invitado: mk(INVITADO_PNG, INVITADO_META), murcielago: mk(MURCIELAGO_PNG, MURCIELAGO_META), fantasma: mk(FANTASMA_PNG, FANTASMA_META), enmascarado: mk(ENMASCARADO_PNG, ENMASCARADO_META) };
-  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor', 'costumes', 'invitado', 'murcielago', 'fantasma', 'enmascarado'].map((k) => SHEETS[k].img.decode()));
+    murcielago: mk(MURCIELAGO_PNG, MURCIELAGO_META), fantasma: mk(FANTASMA_PNG, FANTASMA_META), enmascarado: mk(ENMASCARADO_PNG, ENMASCARADO_META) };
+  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor', 'costumes', 'murcielago', 'fantasma', 'enmascarado'].map((k) => SHEETS[k].img.decode()));
+  // v8.1 · Invitados disfrazados dibujados por código (se generan una vez, aquí).
+  for (const id of FIESTA_IDS) { const c = renderCharacter(id); SHEETS[id] = toSheet(c.frames, c.anims); }
   return SHEETS;
 }
 
@@ -86,7 +91,7 @@ export function createArt(level, theme = 'calle', opts = {}) {
   const s = sheets();
   const th = buildTheme(theme);
   const art = { ...s, theme: th, themeName: theme, tiles: renderTiles(level, th.tiles), costume: opts.costume ?? 'clasico' };
-  if (th.gray) for (const k of ['pepe', 'foes', 'costumes', 'invitado', 'murcielago', 'fantasma', 'enmascarado']) art[k] = graySheet(s[k]);
+  if (th.gray) for (const k of ['pepe', 'foes', 'costumes', 'murcielago', 'fantasma', 'enmascarado', ...FIESTA_IDS]) art[k] = graySheet(s[k]);
   return art;
 }
 
@@ -321,7 +326,7 @@ const BUBBLE = (e) => e.kind === 'titular' ? e.word
 
 function drawEnemies(ctx, g, art, t, flashes = true) {
   for (const e of g.enemies) {
-    if (['invitado', 'murcielago', 'fantasma'].includes(e.kind)) { drawNocheEnemy(ctx, g, e, t, art); continue; }
+    if (NOCHE_KINDS.has(e.kind)) { drawNocheEnemy(ctx, g, e, t, art); continue; }
     if (!e.alive && e.deadT > 0.8) continue;
     const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
     const carm = e.kind === 'rumor' || e.kind === 'traidor';
