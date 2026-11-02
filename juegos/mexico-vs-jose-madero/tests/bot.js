@@ -45,3 +45,32 @@ export function bossBot(g) {
   }
   return btn;
 }
+
+// Bot del Enmascarado (Mundo 2): se queda en el centro, salta la embestida cuando llega
+// y, si queda aturdido contra la pared, se acerca y lo golpea con el micrófono.
+export function maskBot(g) {
+  const p = g.player, b = g.boss;
+  const btn = { left: false, right: false, jump: false, mic: false, special: false };
+  const pc = p.x + p.w / 2;
+  if (!b || !b.alive) {
+    if (g.disco) { const dx = g.disco.x - pc; btn.right = dx > 2; btn.left = dx < -2; }
+    return btn;
+  }
+  const bc = b.x + b.w / 2, dx = bc - pc, gap = Math.abs(dx) - (b.w + p.w) / 2;
+  const toward = dx > 0 ? 'right' : 'left';
+  if (g.ovacion >= 100 && g.frame % 2 === 0) btn.special = true;
+  if (b.state === 'stun') {
+    if (gap > MIC.range - 30) btn[toward] = true;
+    else if (Math.sign(dx) !== p.facing) btn[toward] = true;
+    else btn.mic = g.mic.phase === 'idle' && g.frame % 2 === 0;
+  } else if (b.state === 'dash') {
+    const coming = Math.sign(b.vx) === -Math.sign(dx);
+    if (coming && gap < 34 && p.onGround) btn.jump = true;
+    else if (!p.onGround && p.vy < 0) btn.jump = true;
+  } else {
+    // Acecho y apagón: al centro del muelle.
+    const mid = (g.level.w * TILE) / 2;
+    if (Math.abs(mid - pc) > 8) btn[mid > pc ? 'right' : 'left'] = true;
+  }
+  return btn;
+}

@@ -1,6 +1,9 @@
 // IA de los enemigos: funciones puras sobre el estado del juego (sin DOM).
 import { TILE, ENEMY, FREEZE, DT } from './constants.js';
 import { moveBody } from '../engine/tilemap.js';
+import { stepInvitado, stepUnmasked, stepMurcielago, stepFantasma } from './noche.js';
+
+const INITIAL = { rumor: 'fly', murcielago: 'hang', fantasma: 'float' };
 
 export function createEnemy(spawn, i, headlines) {
   const k = ENEMY[spawn.kind];
@@ -9,7 +12,7 @@ export function createEnemy(spawn, i, headlines) {
   const y = spawn.y - k.h - (k.fly ? 2 : 0);
   return {
     kind: spawn.kind, x, y, w: k.w, h: k.h, vx: k.speed ? -k.speed : 0, vy: 0, facing: -1,
-    state: k.fly ? (spawn.kind === 'rumor' ? 'fly' : 'hover') : 'walk',
+    state: INITIAL[spawn.kind] ?? (k.fly ? 'hover' : 'walk'),
     t: 0, alive: true, deadT: 0, word: headlines[i % headlines.length],
     home: { x, y }, target: null,
   };
@@ -125,13 +128,16 @@ function stepTraidor(g, e, k) {
 }
 
 export function stepEnemy(g, e) {
-  if (!e.alive) { e.deadT += DT; return; }
+  if (!e.alive) { e.deadT += DT; if (e.unmasked) stepUnmasked(e); return; }
   const k = ENEMY[e.kind];
   e.t += DT;
   if (e.kind === 'paparazzi') stepPaparazzi(g, e, k);
   else if (e.kind === 'reportero') stepReportero(g, e, k);
   else if (e.kind === 'rumor') stepRumor(g, e, k);
   else if (e.kind === 'traidor') stepTraidor(g, e, k);
+  else if (e.kind === 'invitado') stepInvitado(g, e, k, patrol, sees);
+  else if (e.kind === 'murcielago') stepMurcielago(g, e, k);
+  else if (e.kind === 'fantasma') stepFantasma(g, e, k);
   else patrol(g, e, k.speed);
   if (e.y > g.level.h * TILE + 64) e.alive = false;
 }
@@ -145,4 +151,5 @@ export function bounceOff(g, e) {
   else if (e.state === 'dash') { e.state = 'rest'; e.t = 0; e.vx = 0; }
   else if (e.state === 'lunge') { e.state = 'rest'; e.t = 0; e.vx = 0; e.vy = 0; }
   else if (e.state === 'dive') { e.state = 'climb'; e.t = 0; }
+  else if (e.state === 'chase') e.vx = 0;
 }

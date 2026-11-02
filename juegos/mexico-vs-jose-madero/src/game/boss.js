@@ -5,7 +5,7 @@ import { moveBody } from '../engine/tilemap.js';
 
 export function createBoss(spawn) {
   return {
-    x: spawn.x - BOSS.w / 2, y: spawn.y - BOSS.h, w: BOSS.w, h: BOSS.h, vx: 0, vy: 0,
+    kind: 'flash', x: spawn.x - BOSS.w / 2, y: spawn.y - BOSS.h, w: BOSS.w, h: BOSS.h, vx: 0, vy: 0,
     hp: BOSS.hp, phase: 1, state: 'walk', t: 0, facing: -1, cycle: 0, beamKind: 'low',
     hurtT: 0, alive: true, deadT: 0,
   };
@@ -38,7 +38,7 @@ export function hitBoss(g, b, force = false) {
     g.score += 5000;
     g.events.push('bossdown');
     g.floats.push({ x: b.x + b.w / 2, y: b.y - 10, text: '+5000', t: 1.6 });
-    g.disco = { x: b.x + b.w / 2, y: b.y + b.h - 14, taken: false };
+    g.disco = { kind: 'disco', x: b.x + b.w / 2, y: b.y + b.h - 14, taken: false };
   }
   return true;
 }

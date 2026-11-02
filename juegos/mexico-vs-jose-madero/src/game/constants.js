@@ -27,7 +27,16 @@ export const ENEMY = {
   // v5 · Carmesí (voladores: no les afecta la gravedad)
   rumor: { w: 22, h: 18, speed: 40, amp: 10, sight: 28, dive: 260, climb: 90, fly: true },
   traidor: { w: 16, h: 24, sight: 150, aim: 0.6, lunge: 230, lungeT: 0.55, rest: 0.8, back: 60, fly: true },
+  // v7 · Noche (spec §3.0f E)
+  invitado: { w: 18, h: 40, speed: 30, chase: 80, sight: 140 },
+  murcielago: { w: 16, h: 12, sight: 40, swoop: 1.3, depth: 72, speed: 110, rest: 1.0, fly: true },
+  fantasma: { w: 18, h: 22, speed: 26, sight: 220, fly: true },
 };
+
+// v7 · Farol de Noche: radio de luz en px; se gasta en `duration` s y nunca baja de `min`.
+export const LANTERN = { max: 96, min: 40, duration: 40 };
+// v7 · Jefe El Enmascarado del Lago ⏳ (provisional, spec §3.0f E).
+export const MASK = { w: 26, h: 44, hp: 5, phase2: 2, lurk: 0.8, dash: 190, dashMax: 3, stun: 1.6, blackout: 1.0, hurtT: 0.3, spot: 3 };
 
 // Jefe Cámara Flash-Bot (spec §3.0d).
 export const BOSS = {

@@ -3,6 +3,7 @@ import { TILE } from '../game/constants.js';
 // Niveles como texto: '#' sólido, '=' semisólido, '^' pinchos, 'H' gancho, '*' pieza,
 // 'P' Pepe, 'T' Titular, 'F' Paparazzi, 'R' Reportero, 'C' checkpoint, 'G' puerta (meta).
 // v5: 'V' Rumor Volador, 'M' Micrófono Traidor, 'B' jefe, 'A' Amplificador, '+' Carta de fan. Un carácter = 16×16 px.
+// v7 (Noche): 'I' Invitado enmascarado, 'W' Murciélago, 'O' Fantasma, 'E' jefe Enmascarado, 'L' lata de aceite.
 export function parseLevel(text) {
   const rows = text.split('\n');
   const h = rows.length, w = Math.max(...rows.map((r) => r.length));
@@ -19,7 +20,12 @@ export function parseLevel(text) {
       else if (c === 'R') L.enemies.push({ ...feet, kind: 'reportero' });
       else if (c === 'V') L.enemies.push({ ...feet, kind: 'rumor' });
       else if (c === 'M') L.enemies.push({ ...feet, kind: 'traidor' });
-      else if (c === 'B') L.boss = feet;
+      else if (c === 'I') L.enemies.push({ ...feet, kind: 'invitado' });
+      else if (c === 'W') L.enemies.push({ ...feet, kind: 'murcielago' });
+      else if (c === 'O') L.enemies.push({ ...feet, kind: 'fantasma' });
+      else if (c === 'B') L.boss = { ...feet, kind: 'flash' };
+      else if (c === 'E') L.boss = { ...feet, kind: 'mask' };
+      else if (c === 'L') L.items.push({ ...center, kind: 'aceite' });
       else if (c === 'A') L.items.push({ ...center, kind: 'amp' });
       else if (c === '+') L.items.push({ ...center, kind: 'carta' });
       else if (c === '*') L.pieces.push(center);

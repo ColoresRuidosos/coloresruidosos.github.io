@@ -4,12 +4,17 @@ import { createPlayer, stepPlayerMotion } from '../engine/physics.js';
 import { edges } from '../engine/buttons.js';
 import { QUOTES, HEADLINES } from '../data/quotes.js';
 import { createEnemy, stepEnemy, bounceOff } from './enemies.js';
-import { createBoss, stepBoss, hitBoss } from './boss.js';
+import { createBoss, stepBoss, hitBoss as hitFlashBot } from './boss.js';
+import { createLantern, stepLantern, refill, createMask, stepMask, hitMask } from './noche.js';
+
+// Jefe según el nivel: 'B' Cámara Flash-Bot (Mundo 1), 'E' El Enmascarado del Lago (Mundo 2).
+export const hitBoss = (g, b, force = false) => (b.kind === 'mask' ? hitMask(g, b, force) : hitFlashBot(g, b, force));
 
 const overlap = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
 
 // `carry`: lo que se conserva entre niveles del mismo mundo (puntos, Ovación, corazones).
 // `opts.facts`: datos que salen al vencer a un Titular (por mundo; por defecto, las citas generales).
+// `opts.assist`: modo asistido (no se pierden corazones). `opts.lantern`: nivel a oscuras con farol (Noche).
 export function createGame(levelText, carry = {}, opts = {}) {
   const level = parseLevel(levelText);
   const g = {
@@ -19,13 +24,14 @@ export function createGame(levelText, carry = {}, opts = {}) {
     enemies: level.enemies.map((s, i) => createEnemy(s, i, HEADLINES)),
     pieces: level.pieces.map((s) => ({ ...s, taken: false })),
     items: level.items.map((s) => ({ ...s, taken: false })),
-    boss: level.boss ? createBoss(level.boss) : null, disco: null,
+    boss: !level.boss ? null : level.boss.kind === 'mask' ? createMask(level.boss, level) : createBoss(level.boss), disco: null,
     hearts: carry.hearts ?? 3, piezas: 0, time: 0, frame: 0, invuln: 0,
     score: carry.score ?? 0, combo: 0, comboT: 0, ovacion: carry.ovacion ?? 0,
     hitstop: 0, shake: 0, guitarT: 0, amp: 0,
     checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
     status: 'play', popups: [], floats: [], events: [], prev: {},
     facts: opts.facts ?? QUOTES,
+    assist: !!opts.assist, hurts: 0, lantern: opts.lantern ? createLantern() : null, blackout: false,
   };
   // Niveles con jefe: empiezan con su cinemática de entrada.
   g.intro = level.boss ? { t: 0, x0: g.player.x, drop: INTRO.dropH, landed: false } : null;
@@ -41,7 +47,8 @@ export const micTip = (g) => {
 
 export function hurt(g, fromX) {
   if (g.invuln > 0) return;
-  g.hearts--;
+  g.hurts++;
+  if (!g.assist) g.hearts--;
   g.invuln = P.invuln;
   g.combo = 0; g.comboT = 0;
   g.shake = Math.max(g.shake, 0.25);
@@ -75,6 +82,7 @@ export function scoreHit(g, x, y) {
 export function defeat(g, e) {
   if (!e.alive) return;
   e.alive = false;
+  if (e.kind === 'invitado') { e.unmasked = true; e.facing = Math.sign(e.x - g.player.x) || 1; }
   g.events.push('defeat');
   scoreHit(g, e.x + e.w / 2, e.y);
   if (e.kind === 'titular') {
@@ -225,7 +233,8 @@ export function stepGame(g, btn) {
       bounceOff(g, e);
     }
   }
-  if (g.boss) stepBoss(g, g.boss, hurt, prevBottom);
+  if (g.boss) (g.boss.kind === 'mask' ? stepMask : stepBoss)(g, g.boss, hurt, prevBottom);
+  stepLantern(g);
   // Disco de Oro que deja el jefe: tocarlo completa el mundo.
   if (g.disco && !g.disco.taken && g.boss.deadT > 0.4 && Math.abs(g.disco.x - (p.x + p.w / 2)) < 16 && Math.abs(g.disco.y - (p.y + p.h / 2)) < 26) {
     g.disco.taken = true; g.status = 'won'; g.events.push('won');
@@ -237,6 +246,7 @@ export function stepGame(g, btn) {
     if (it.taken || !near(it)) continue;
     it.taken = true;
     if (it.kind === 'amp') { g.amp = AMP.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'MICRO X2', t: 1.2 }); }
+    else if (it.kind === 'aceite') { refill(g); g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'ACEITE', t: 1.2 }); }
     else if (it.kind === 'carta') { g.hearts = Math.min(3, g.hearts + 1); g.events.push('heal'); g.floats.push({ x: it.x, y: it.y - 10, text: '+♥', t: 1.2 }); }
   }
 
