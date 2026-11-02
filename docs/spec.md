@@ -28,7 +28,6 @@
 - Dominio propio (v1 vive en la URL de GitHub Pages).
 - Recomendaciones de la comunidad (formulario abierto).
 - Fuentes desde X/Instagram.
-- In memoriam (F16): detección automática de fallecimientos desde el pipeline, fotos por artista y Brasil (decisión abierta, ver `docs/in-memoriam.md`).
 - Trivia LoL (F15), segunda fase: tabla de récords entre jugadores y versiones 8 bits de canciones de la banda (requiere permiso de la banda o su editorial).
 
 ## 2. Usuarios
@@ -70,8 +69,6 @@
 
 **F15 Trivia Love of Lesbian en 8 bits.** Página `/trivia/`: un juego de 15 preguntas (5 fáciles, 5 difíciles, 5 muy difíciles; 30 puntos) que recorre las seis etapas de la banda en orden, cada una con su escena pixel art inspirada en las portadas (reinterpretación propia, no copia). Al final da una categoría (**Pequeño lesbiano**, **Lesbianito**, **Viejo lesbiano** y una secreta con 30/30), insignias con nombres de canciones, portadas coleccionables y una tarjeta 8 bits para compartir. Récord, insignias y colección se guardan solo en el navegador del jugador. **Objetivo: engagement**, con lanzamiento antes de las últimas fechas de la banda en México antes de su pausa indefinida (CDMX, 24–26 de noviembre de 2026, y Puebla, 28 de noviembre). **Regla de veracidad:** cada pregunta tiene fuente enlazada (web oficial, o dos fuentes independientes), sin letras de canciones, y solo entra al juego tras la revisión de un fan. Contenido detallado (preguntas, categorías, insignias, datos descartados): `docs/trivia.md`. Sin llamadas a la API de Claude: cero costo por partida.
 
-**F16 In memoriam.** Página `/in-memoriam/`: muro de artistas de nuestro ámbito (rock, indie, alternativo, punk, pop-rock y cantautores de esa escena) de México, España y Latinoamérica que ya fallecieron. Bloque "Este año" arriba, el resto agrupado por año de fallecimiento, filtro por región. Cada entrada lleva al menos una fuente enlazada; si las fuentes no coinciden en el día, se publica solo año-mes o año. Sin causa de muerte, sin fotos ajenas. Datos en `data/in_memoriam.json` (solo `estado: verificada` se publica). Spec completa: `docs/in-memoriam.md`.
-
 **Métricas de éxito de F15:** partidas iniciadas vs. terminadas (> 60 % terminan); al menos 1 de cada 5 partidas termina en compartir la tarjeta; jugadores que vuelven a jugar (insignia "Universos infinitos"). *Sin analítica en el sitio hoy: medir requiere decidir una herramienta respetuosa con la privacidad (decisión abierta).*
 
 ## 4. Flujos
@@ -87,8 +84,6 @@
 **F. Partida de trivia.** Portada del juego → "Jugar" → sorteo de 15 preguntas verificadas (5/5/5) ordenadas por etapa → por cada etapa, escena pixel art y sus preguntas (4 opciones; acierto/error con sonido y animación breves) → resultado: puntaje, categoría con su avatar, insignias nuevas, portadas desbloqueadas → compartir tarjeta o volver a jugar.
 
 **G. Alta de una pregunta.** Se propone en `docs/trivia.md` con fuentes → un fan abre los enlaces y confirma → pasa a `data/trivia.json` con `estado: verificada` → los tests validan formato y fuentes → la siguiente compilación la incluye.
-
-**H. In memoriam: alta de un artista.** Muere alguien del ámbito → se agrega a `data/in_memoriam.json` como `propuesta`, con fuente → alguien del equipo abre la fuente y confirma → `verificada` → las pruebas validan → la siguiente compilación lo publica. Detalle en `docs/in-memoriam.md`.
 
 **E. Recomendar un evento.** Curador en pestaña Eventos: recinto, fecha, parte del título, casilla con su nombre → siguiente corrida.
 
@@ -107,7 +102,6 @@ GitHub Pages ◄─────────────────────�
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
    /trivia/     juego 8 bits sobre Love of Lesbian (data/trivia.json + canvas, sin backend)
-   /in-memoriam/ muro de artistas que se nos adelantaron (data/in_memoriam.json, sin backend)
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
