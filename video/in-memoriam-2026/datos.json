@@ -1,7 +1,34 @@
 {
-  "_leeme": "Solo artistas de nuestro ámbito fallecidos en 2026, en orden cronológico, con dos fuentes cada uno. 'linea' es redacción propia (máx. 70 caracteres) y nunca menciona la causa de muerte. Ver spec.md.",
-  "titulo": "In memoriam 2026",
+  "_leeme": "Solo artistas de nuestro ámbito fallecidos de ofrenda a ofrenda (2025-11-02 a 2026-11-02), en orden cronológico, con dos fuentes cada uno. 'linea' es redacción propia (máx. 70 caracteres) y nunca menciona la causa de muerte. Ver spec.md.",
+  "titulo": "In memoriam 2025–2026",
   "artistas": [
+    {
+      "id": "tony-mendez",
+      "nombre": "Tony Méndez",
+      "fecha": "2025-12-07",
+      "pais": "MX",
+      "proyectos": ["Kerigma", "Rockotitlán"],
+      "linea": "Guitarrista de Kerigma y creador del foro Rockotitlán.",
+      "fuentes": ["https://www.unotv.com/entretenimiento/muere-tony-mendez-guitarrista-de-kerigma-y-fundador-de-rockotitlan/", "https://los40.com.mx/2025/12/08/muere-tony-mendez-figura-esencial-del-rock-mexicano-y-guardian-de-la-escena-independiente/"]
+    },
+    {
+      "id": "jorge-martinez-ilegales",
+      "nombre": "Jorge Martínez",
+      "fecha": "2025-12-09",
+      "pais": "ES",
+      "proyectos": ["Ilegales"],
+      "linea": "Guitarra, voz y cerebro de Ilegales desde Asturias.",
+      "fuentes": ["https://www.eldiario.es/asturias/muere-jorge-ilegales_1_12830024.amp.html", "https://www.hola.com/actualidad/20251209871960/muere-jorge-martinez-guitarrista-lider-ilegales-a-los-70/"]
+    },
+    {
+      "id": "robe-iniesta",
+      "nombre": "Robe Iniesta",
+      "fecha": "2025-12-10",
+      "pais": "ES",
+      "proyectos": ["Extremoduro", "Robe"],
+      "linea": "Fundó Extremoduro: poesía salvaje del rock en español.",
+      "fuentes": ["https://www.elsaltodiario.com/obituario/muere-robe-iniesta-musico-extremoduro-rock-transgresivo", "https://www.lanacion.com.ar/espectaculos/musica/murio-robe-iniesta-lider-de-extremoduro-y-referente-del-rock-espanol-nid10122025/"]
+    },
     {
       "id": "alvaro-pena-rojas",
       "nombre": "Álvaro Peña-Rojas",

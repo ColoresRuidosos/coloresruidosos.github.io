@@ -7,7 +7,7 @@
 
 **Problema.** En 2026 se fueron varios músicos de la escena que cubre el fanzine. Las notas del día no alcanzan para despedirlos juntos, y el equipo quiere un homenaje que se pueda compartir.
 
-**Solución.** Un vídeo vertical de alrededor de un minuto (16 artistas: 64 s) para Reels, TikTok y Shorts. Muestra una veladora por cada artista que murió **en 2026**, en orden cronológico: nombre, fecha, país y banda. Al final, todas las veladoras quedan encendidas en una ofrenda, con el cierre «Gracias por la música». Está hecho igual que los vídeos de [awesome-opus5-5-videos](https://github.com/edgaralrohe/awesome-opus5-5-videos): un solo HTML que dibuja cada fotograma desde una función `seek(t)` y se renderiza con Playwright y ffmpeg. Todo está escrito en código: sin generadores de vídeo con IA y sin fotos ajenas.
+**Solución.** Un vídeo vertical de poco más de un minuto (19 artistas: 75 s) para Reels, TikTok y Shorts. Muestra una veladora por cada artista que murió **en 2026**, en orden cronológico: nombre, fecha, país y banda. Al final, todas las veladoras quedan encendidas en una ofrenda, con el cierre «Gracias por la música». Está hecho igual que los vídeos de [awesome-opus5-5-videos](https://github.com/edgaralrohe/awesome-opus5-5-videos): un solo HTML que dibuja cada fotograma desde una función `seek(t)` y se renderiza con Playwright y ffmpeg. Todo está escrito en código: sin generadores de vídeo con IA y sin fotos ajenas.
 
 **Prompt base elegido (2026-11-02):** [`x4b47x-034026`](https://skillry.dev/ai-videos/opus-5-5/x4b47x-034026), el que mejor encaja de los 703 del repo: *«Create a pure javascript animation. 30-60s, vertical 9:16, paper cut-out shadow theatre style…»*. Ya es vertical, de un minuto y de papel recortado, y el papel recortado mexicano es el **papel picado**. Adaptado:
 
@@ -16,7 +16,7 @@
 Se descartó `eric-khun-667455` (festival de medio otoño), que es 16:9, gira en torno a un personaje y tiene cortes rápidos: no va con un homenaje.
 
 **Principios**
-1. **Solo 2026.** Nadie que haya muerto en otro año, aunque sea un aniversario.
+1. **De ofrenda a ofrenda.** Solo quienes murieron entre el Día de Muertos de 2025 y el de 2026 (del 2 de noviembre de 2025 al 2 de noviembre de 2026), como en la ofrenda, que recibe a quienes se fueron en el último año. Así entran Robe Iniesta, Jorge Martínez (Ilegales) y Tony Méndez (Kerigma), de diciembre de 2025. Ningún aniversario de alguien que murió antes. *(Cambio del 2026-11-02: antes era «solo 2026».)*
 2. **Veracidad.** Cada artista tiene al menos **dos fuentes** de prensa que confirman la muerte. Si no coinciden en el día, se muestra solo el mes. Un caso con una sola fuente queda pendiente.
 3. **Respeto.** Sin causa de muerte, sin detalles de cómo ocurrió, sin fotos de prensa. Se recuerda la obra.
 4. **Nuestro ámbito.** Rock, indie, alternativo, punk, progresivo y pop-rock de México, España y Latinoamérica hispanohablante. Fuera: regional mexicano, flamenco puro, pop masivo, urbano y tropical.
@@ -82,6 +82,9 @@ Vive en `video/in-memoriam-2026/` del repo del fanzine: Hugo no lo publica y el 
 
 | Fecha | Artista | País | Proyecto |
 |---|---|---|---|
+| 7 dic 2025 | Tony Méndez | México | Kerigma, Rockotitlán |
+| 9 dic 2025 | Jorge Martínez | España | Ilegales |
+| 10 dic 2025 | Robe Iniesta | España | Extremoduro |
 | 8 ene | Álvaro Peña-Rojas | Chile | The 101'ers, pionero del punk |
 | ene | Adrián Bar | Argentina | Orion's Beethoven |
 | 8 feb | Rafael Amador | España | Pata Negra |
@@ -101,7 +104,7 @@ Vive en `video/in-memoriam-2026/` del repo del fanzine: Hugo no lo publica y el 
 
 **Corregido al verificar:** una lista que compartió el equipo situaba a MilkMan en agosto; Los40, N+ y BMI coinciden en el 12 de febrero.
 
-**Descartados al verificar:** Maximiliano Djerfy (murió en 2021), Patricio Suárez-Vértiz (vive; quien murió fue su hermano Pedro, en 2023), Eduardo Rodríguez Rodway de Triana (vive), Armando Vega Gil (2019), Robe Iniesta y Jorge Martínez de Ilegales (diciembre de 2025).
+**Descartados al verificar:** Maximiliano Djerfy (murió en 2021), Patricio Suárez-Vértiz (vive; quien murió fue su hermano Pedro, en 2023), Eduardo Rodríguez Rodway de Triana (vive), Armando Vega Gil (2019). Fuera de la ventana: Lô Borges (Brasil, noviembre de 2025).
 
 ## Decisiones abiertas (para el equipo)
 

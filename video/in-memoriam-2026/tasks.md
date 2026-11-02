@@ -7,7 +7,7 @@
 - ✅ Revertir la sección `/in-memoriam/` del sitio (el equipo quería un vídeo, no una página)
 
 ## Fase 2: Dominio (TDD)
-- ✅ 🔴→🟢 Contrato de `datos.json`: campos, fecha `AAAA-MM[-DD]` válida y **de 2026**, país hispanohablante, dos fuentes https, ids únicos (`tests/video.test.js`)
+- ✅ 🔴→🟢 Contrato de `datos.json`: campos, fecha `AAAA-MM[-DD]` válida y dentro de la ventana, país hispanohablante, dos fuentes https, ids únicos (`tests/video.test.js`)
 - ✅ 🔴→🟢 Línea propia ≤ 70 caracteres y sin causa de muerte
 - ✅ 🔴→🟢 Orden cronológico (las fechas de solo mes van al final de su mes)
 - ✅ 🔴→🟢 Fecha legible: «8 de enero», «enero»
@@ -26,6 +26,11 @@
 - ✅ 🔴→🟢 Paleta de papel picado y color de texto con contraste ≥ 3:1 (AA, texto grande) (`colorTexto`, `papel`)
 - ✅ Papel picado con recortes propios, cempasúchil, ofrenda de tres niveles a color
 - ✅ Volver a renderizar y revisar la hoja de contacto
+
+## Fase 3c: De ofrenda a ofrenda (E12)
+- ✅ 🔴→🟢 Ventana del 2025-11-02 al 2026-11-02, meses parciales solo si caen completos dentro, fechas con año, título «2025–2026»
+- ✅ Agregar a Tony Méndez, Jorge Martínez y Robe Iniesta (diciembre de 2025) con dos fuentes cada uno
+- ✅ Volver a renderizar (19 artistas, 75 s)
 
 ## Fase 4: Publicación
 - ⏳ El equipo revisa la lista y decide B1–B5 (`spec.md`)

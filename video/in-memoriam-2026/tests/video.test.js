@@ -29,8 +29,11 @@ test("una entrada completa no tiene errores", () => {
   assert.deepStrictEqual(L.validar(artista({ fecha: "2026-01" })), []);
 });
 
-test("solo 2026", () => {
-  ["2025-12-10", "2027-01-01", "2026", "1985-09-19"].forEach((f) => {
+test("de ofrenda a ofrenda: del 2 de noviembre de 2025 al 2 de noviembre de 2026", () => {
+  ["2025-11-02", "2025-12-10", "2026-01", "2026-10", "2026-11-02"].forEach((f) => {
+    assert.deepStrictEqual(L.validar(artista({ fecha: f })), [], f);
+  });
+  ["2025-11-01", "2025-11", "2026-11", "2026-11-03", "2027-01-01", "2026", "1985-09-19"].forEach((f) => {
     assert.ok(L.validar(artista({ fecha: f })).length > 0, f);
   });
 });
@@ -75,6 +78,10 @@ test("id con formato de slug", () => {
 
 // ---------- Orden y fechas legibles ----------
 
+test("periodo del título", () => {
+  assert.strictEqual(L.PERIODO, "2025–2026");
+});
+
 test("ordena por fecha; el mes sin día va al final de su mes", () => {
   const lista = [
     artista({ id: "c", fecha: "2026-09" }),
@@ -87,9 +94,9 @@ test("ordena por fecha; el mes sin día va al final de su mes", () => {
 });
 
 test("fecha legible en español", () => {
-  assert.strictEqual(L.fechaTexto("2026-01-08"), "8 de enero");
-  assert.strictEqual(L.fechaTexto("2026-10-23"), "23 de octubre");
-  assert.strictEqual(L.fechaTexto("2026-05"), "mayo");
+  assert.strictEqual(L.fechaTexto("2026-01-08"), "8 de enero de 2026");
+  assert.strictEqual(L.fechaTexto("2025-12-10"), "10 de diciembre de 2025");
+  assert.strictEqual(L.fechaTexto("2026-05"), "mayo de 2026");
 });
 
 test("nombre del país", () => {

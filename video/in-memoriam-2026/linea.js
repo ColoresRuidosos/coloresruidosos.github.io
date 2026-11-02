@@ -3,7 +3,8 @@
 (function (raiz) {
   // Tiempos en segundos (plan.md, E3).
   var T = { INTRO: 4, TRAMO: 3.4, CIERRE: 6, ENCENDER: 0.3, ENTRA: 0.5, SALE: 0.4 };
-  var ANIO = "2026";
+  // De ofrenda a ofrenda (plan.md, E12): del Día de Muertos de 2025 al de 2026.
+  var DESDE = "2025-11-02", HASTA = "2026-11-02", PERIODO = "2025–2026";
   var MAX_LINEA = 70;
   var PAISES = {
     MX: "México", ES: "España", AR: "Argentina", BO: "Bolivia", CL: "Chile", CO: "Colombia",
@@ -31,6 +32,12 @@
     return { anio: m[1], mes: mes, dia: dia };
   }
 
+  // Una fecha de solo mes vale si el mes completo cae dentro de la ventana.
+  function enVentana(f) {
+    if (f.length === 10) return f >= DESDE && f <= HASTA;
+    return f > DESDE.slice(0, 7) && f < HASTA.slice(0, 7);
+  }
+
   function validar(a) {
     var e = [];
     if (!a || typeof a !== "object") return ["no es un objeto"];
@@ -38,7 +45,7 @@
     if (!texto(a.nombre)) e.push("falta nombre");
     var f = leerFecha(a.fecha);
     if (!f) e.push("fecha inválida (AAAA-MM o AAAA-MM-DD): " + a.fecha);
-    else if (f.anio !== ANIO) e.push("solo artistas fallecidos en " + ANIO);
+    else if (!enVentana(a.fecha)) e.push("fuera de la ventana " + DESDE + " a " + HASTA);
     if (!PAISES[a.pais]) e.push("país fuera del ámbito: " + a.pais);
     if (!Array.isArray(a.proyectos) || !a.proyectos.length || !a.proyectos.every(texto)) e.push("proyectos: lista de textos");
     if (!texto(a.linea)) e.push("falta línea");
@@ -62,7 +69,7 @@
 
   function fechaTexto(f) {
     var d = leerFecha(f);
-    return d.dia === null ? MESES[d.mes - 1] : d.dia + " de " + MESES[d.mes - 1];
+    return (d.dia === null ? "" : d.dia + " de ") + MESES[d.mes - 1] + " de " + d.anio;
   }
   function paisTexto(p) { return PAISES[p]; }
 
@@ -136,7 +143,7 @@
   }
 
   raiz.CRvideo = {
-    T: T, ANIO: ANIO, validar: validar, ordenar: ordenar, fechaTexto: fechaTexto, paisTexto: paisTexto,
+    T: T, DESDE: DESDE, HASTA: HASTA, PERIODO: PERIODO, validar: validar, ordenar: ordenar, fechaTexto: fechaTexto, paisTexto: paisTexto,
     duracion: duracion, escena: escena, encendidas: encendidas, cuadricula: cuadricula, niveles: niveles,
     aleatorio: aleatorio, suave: suave,
     TINTA: TINTA, CREMA: CREMA, PALETA: PALETA, contraste: contraste, colorTexto: colorTexto, papel: papel,
