@@ -1,4 +1,4 @@
-import { W, H, TILE, OVATION, BOSS, INTRO } from '../game/constants.js';
+import { W, H, TILE, OVATION, BOSS, MASK, INTRO } from '../game/constants.js';
 import { GLYPHS, ADVANCE, ACCENT, textWidth } from './font.js';
 import { micHand, micTip } from '../game/game.js';
 import { beamRect } from '../game/boss.js';
@@ -8,6 +8,10 @@ import { TRAIDOR_META, TRAIDOR_PNG } from '../data/traidor-atlas.js';
 import { FLASHBOT_META, FLASHBOT_PNG } from '../data/flashbot-atlas.js';
 import { RUMOR_META, RUMOR_PNG } from '../data/rumor-atlas.js';
 import { COSTUMES_META, COSTUMES_PNG } from '../data/costumes-atlas.js';
+import { INVITADO_META, INVITADO_PNG } from '../data/invitado-atlas.js';
+import { MURCIELAGO_META, MURCIELAGO_PNG } from '../data/murcielago-atlas.js';
+import { FANTASMA_META, FANTASMA_PNG } from '../data/fantasma-atlas.js';
+import { ENMASCARADO_META, ENMASCARADO_PNG } from '../data/enmascarado-atlas.js';
 import { buildTheme, hash } from './themes.js';
 import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
@@ -56,8 +60,10 @@ let SHEETS = null;
 function sheets() {
   if (SHEETS) return SHEETS;
   const mk = (png, meta) => ({ img: loadImage(png), meta });
-  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), traidor: mk(TRAIDOR_PNG, TRAIDOR_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META), costumes: mk(COSTUMES_PNG, COSTUMES_META) };
-  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor', 'costumes'].map((k) => SHEETS[k].img.decode()));
+  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), traidor: mk(TRAIDOR_PNG, TRAIDOR_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META), costumes: mk(COSTUMES_PNG, COSTUMES_META),
+    // v8 · Noche (hojas de ChatGPT recortadas con scripts/slice_rows.py)
+    invitado: mk(INVITADO_PNG, INVITADO_META), murcielago: mk(MURCIELAGO_PNG, MURCIELAGO_META), fantasma: mk(FANTASMA_PNG, FANTASMA_META), enmascarado: mk(ENMASCARADO_PNG, ENMASCARADO_META) };
+  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor', 'costumes', 'invitado', 'murcielago', 'fantasma', 'enmascarado'].map((k) => SHEETS[k].img.decode()));
   return SHEETS;
 }
 
@@ -80,7 +86,7 @@ export function createArt(level, theme = 'calle', opts = {}) {
   const s = sheets();
   const th = buildTheme(theme);
   const art = { ...s, theme: th, themeName: theme, tiles: renderTiles(level, th.tiles), costume: opts.costume ?? 'clasico' };
-  if (th.gray) for (const k of ['pepe', 'foes', 'costumes']) art[k] = graySheet(s[k]);
+  if (th.gray) for (const k of ['pepe', 'foes', 'costumes', 'invitado', 'murcielago', 'fantasma', 'enmascarado']) art[k] = graySheet(s[k]);
   return art;
 }
 
@@ -251,7 +257,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
   for (const it of g.items) if (!it.taken) (it.kind === 'aceite' ? drawAceite : drawItem)(ctx, it, t);
 
   drawEnemies(ctx, g, art, t, flashes);
-  if (g.boss) (g.boss.kind === 'mask' ? drawMaskBoss : drawBoss)(ctx, g, art, t, flashes);
+  if (g.boss && g.boss.kind !== 'mask') drawBoss(ctx, g, art, t, flashes);
   if (g.disco && !g.disco.taken && g.boss.deadT > 0.4) {
     const dy = g.disco.y + Math.round(Math.sin(t * 3) * 3);
     if (g.disco.kind === 'mascara') {
@@ -296,7 +302,9 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
   }
   // Noche: oscuridad con el farol de Pepe (y los ojos del Enmascarado, que se ven siempre).
   if (g.lantern) drawDarkness(ctx, g, camX, art);
-  if (g.boss?.kind === 'mask') drawMaskEyes(ctx, g, t);
+  // El Enmascarado se ve aunque esté fuera del farol (si no, sus ataques serían injustos);
+  // al acechar y en el apagón, solo sus ojos.
+  if (g.boss?.kind === 'mask') { drawMaskBoss(ctx, g, art, t); drawMaskEyes(ctx, g, t); }
   for (const f of g.floats) {
     ctx.globalAlpha = Math.min(1, f.t * 3);
     text(ctx, f.text, f.x, f.y, { color: f.text.startsWith('+♥') ? '#ff5a4f' : '#ffcf7a', align: 'center' });
@@ -313,7 +321,7 @@ const BUBBLE = (e) => e.kind === 'titular' ? e.word
 
 function drawEnemies(ctx, g, art, t, flashes = true) {
   for (const e of g.enemies) {
-    if (['invitado', 'murcielago', 'fantasma'].includes(e.kind)) { drawNocheEnemy(ctx, g, e, t); continue; }
+    if (['invitado', 'murcielago', 'fantasma'].includes(e.kind)) { drawNocheEnemy(ctx, g, e, t, art); continue; }
     if (!e.alive && e.deadT > 0.8) continue;
     const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
     const carm = e.kind === 'rumor' || e.kind === 'traidor';
@@ -460,7 +468,7 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
   // Vida del jefe.
   const b = g.boss;
   if (b && b.alive) {
-    const maxHp = b.kind === 'mask' ? 5 : BOSS.hp, seg = Math.floor(120 / maxHp);
+    const maxHp = b.kind === 'mask' ? MASK.hp : BOSS.hp, seg = Math.floor(120 / maxHp);
     text(ctx, BOSS_NAME[b.kind] ?? '', W / 2, H - 20, { align: 'center', color: '#ffcf7a' });
     rect(ctx, '#1b1226', W / 2 - 61, H - 11, 122, 8);
     for (let i = 0; i < maxHp; i++) rect(ctx, i < b.hp ? (b.phase === 2 ? '#ff5a4f' : '#d8312b') : '#3a2050', W / 2 - 60 + i * seg, H - 10, seg - 1, 6);

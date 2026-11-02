@@ -91,6 +91,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
   - contorno oscuro grueso;
   - sombreado de 2 a 3 tonos por color y paleta corta por personaje;
   - poses exageradas (anticipación antes de atacar y retroceso al recibir un golpe).
+- ✅ **v8:** las hojas de Noche se hicieron con **ChatGPT** con los prompts §0d. Se recortan con `scripts/slice_rows.py` y se ven en gris. El Enmascarado se dibuja por encima de la oscuridad, salvo en el acecho y el apagón. Su caja de colisión pasa a 28×50 para ajustarse al sprite.
 - **Cómo se consigue:** el camino ya probado en Carmesí. Hojas de Gemini con referencia a la hoja de Pepe, importadas con `scripts/slice_sheet.py`.
 - **Prompts listos:** en `art/PROMPTS-GEMINI.md` §0d piden **más fotogramas** que los de Carmesí, para un movimiento más Neo Geo.
 - **Phaser (repo `edgaralrohe/phaser`):**

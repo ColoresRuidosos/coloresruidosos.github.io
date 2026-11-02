@@ -18,6 +18,7 @@ const center = (b) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
 // Invitado enmascarado: patrulla y, si te ve, se acerca deprisa. Sin máscara (1.er golpe), aún más rápido.
 export function stepInvitado(g, e, k, patrol, sees) {
+  if (e.unmasked) e.unmaskT = (e.unmaskT ?? 0) + DT;
   const chase = e.unmasked ? k.chase2 : k.chase;
   if (e.state === 'walk') {
     patrol(g, e, k.speed);

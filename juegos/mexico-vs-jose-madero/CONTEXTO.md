@@ -38,7 +38,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ### ⭐ Dónde vive ahora (v0.7)
 - **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
-- En la carpeta: `npm ci` → `npm test` (**138 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
+- En la carpeta: `npm ci` → `npm test` (**146 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
 - ⏸ **No se sube a la web** (lo decidió el usuario el 2 nov): no hay copia en `static/` ni enlace en el menú. Al usuario se le entrega el HTML. `npm run publish:web` queda listo para cuando lo decida.
 - **Novedades de la v0.7** (spec §3.0f):
   - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
@@ -51,7 +51,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - Textos N1–N7 y los capítulos de Noche.
   - Jefe Enmascarado (provisional; v7.2 más difícil tras tu feedback: 8 golpes, doble embestida en la fase 2).
   - Retos de los trajes (por ejemplo, Mundo 1 en menos de 4:00).
-  - Arte de Noche: hoy se dibuja por código; falta pedirlo a Gemini.
+  - Arte de Noche: ✅ Invitado, Murciélago, Fantasma y Enmascarado hechos con ChatGPT (`art/source/noche/`, recortados con `scripts/slice_rows.py`). ⏳ Faltan los escenarios.
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.

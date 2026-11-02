@@ -89,7 +89,7 @@
 - [ ] S4 🧪 Créditos que separan datos con fuente e historia inventada
 - [ ] B1 🧪 Enmascarado con repertorio: embestida, salto encima, máscaras lanzadas, niebla por detrás, invitados (fase 2); sin repetir dos veces seguidas; PRNG determinista
 - [ ] B2 🎨 Arena 2-3 con barcas y plataformas
-- [ ] A7 🎨 Hojas de Gemini de Noche (PROMPTS §0d): Invitado, Fantasma, Murciélago, Enmascarado y escenarios → `slice_sheet.py`
+- [x] A7 🎨 Hojas de Noche hechas con **ChatGPT** (prompts §0d): Invitado, Murciélago, Fantasma y Enmascarado → `scripts/slice_rows.py` (nuevo: recorta por filas y huecos y une piezas sueltas) · ⏳ escenarios
 - [ ] D8 ⚠️ Verificar «el estadio más grande de México» y el nombre (Foro / Estadio GNP Seguros)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)

@@ -83,7 +83,7 @@ export function scoreHit(g, x, y) {
 export function defeat(g, e, force = false) {
   if (!e.alive) return;
   if (e.kind === 'invitado' && !e.unmasked && !force) {
-    e.unmasked = true; e.state = 'chase'; e.t = 0;
+    e.unmasked = true; e.unmaskT = 0; e.state = 'chase'; e.t = 0;
     g.events.push('defeat');
     scoreHit(g, e.x + e.w / 2, e.y);
     return;

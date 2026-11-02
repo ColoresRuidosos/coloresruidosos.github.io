@@ -37,7 +37,7 @@ export const ENEMY = {
 export const LANTERN = { max: 96, min: 40, duration: 40 };
 // v7 · Jefe El Enmascarado del Lago ⏳ (provisional, spec §3.0f E).
 // v7.2 (feedback del usuario: «muy fácil»): más golpes, menos tiempo aturdido, más rápido y doble embestida en la fase 2.
-export const MASK = { w: 26, h: 44, hp: 8, phase2: 4, lurk: 0.8, lurk2: 0.55, dash: 230, dash2: 270, dashMax: 3, stun: 1.0, blackout: 1.0, hurtT: 0.3, spot: 3 };
+export const MASK = { w: 28, h: 50, hp: 8, phase2: 4, lurk: 0.8, lurk2: 0.55, dash: 230, dash2: 270, dashMax: 3, stun: 1.0, blackout: 1.0, hurtT: 0.3, spot: 3 };
 
 // Jefe Cámara Flash-Bot (spec §3.0d).
 export const BOSS = {
