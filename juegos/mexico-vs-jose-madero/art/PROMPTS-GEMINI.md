@@ -267,6 +267,46 @@ Gemini no separa capas, así que son escenas completas que el juego usa como fon
 
 ---
 
+## 0e. ⭐ PRIORIDAD v9 · Ilustraciones de las escenas y escenarios de Noche (ChatGPT, 2 nov 2026)
+
+Sustituyen a las escenas y fondos dibujados por código. **Una conversación por imagen.** Adjunta siempre `art/source/pepe-sheet.jpg`; en la escena 3 adjunta además la hoja de prensa.
+
+### Bloque común para escenas (pégalo al principio)
+```
+ESTILO: ilustración en pixel art de una cinemática de videojuego arcade de 16 bits de los años 90 (como las intros de los juegos de Neo Geo): píxeles grandes y nítidos, contorno oscuro, sombreado plano de 3 tonos, paleta corta y con mucho contraste, encuadre de cine.
+PERSONAJE: si sale el protagonista, es EXACTAMENTE el de la hoja adjunta (pelo, barba, camiseta blanca, pañuelo rojo, vaqueros), en proporción chibi.
+FORMATO: imagen horizontal 3:2. Todo lo importante en la franja central (arriba y abajo se recortan). SIN texto, sin letras, sin números, sin logotipos ni marcas, sin marcos ni bordes.
+```
+
+### Bloque común para escenarios de Noche (pégalo al principio)
+```
+ESTILO: fondo de un videojuego de plataformas 2D en pixel art de 16 bits, en BLANCO Y NEGRO (escala de grises), como una película de terror clásica de los años 30, con niebla y contraluces. Vista lateral, sin perspectiva de tres cuartos.
+FORMATO: imagen horizontal 3:2, panorámica. SIN personajes en primer plano, SIN texto, sin logotipos, sin marcos. El 20 % inferior queda oscuro y liso (ahí va el suelo del juego).
+```
+
+| Archivo | Prompt (después del bloque común) |
+|---|---|
+| `p1-estadio.png` | El protagonista canta en un escenario enorme, visto de lado; delante, un estadio lleno de noche, miles de luces de móvil, tres haces de luz desde arriba y confeti. Estadio genérico, sin marcas. Tonos morados y dorados |
+| `p2-arena.png` | Ciudad de México de noche: edificios con ventanas encendidas y, en el centro, una arena de conciertos genérica con cúpula iluminada de morado. Sin nombre ni letreros. Estrellas y estelas de faros de coches |
+| `p3-titulares.png` | El protagonista, asustado, rodeado de periódicos voladores con caras enfadadas (como los de la hoja de prensa adjunta) y destellos de cámaras de fotos. Ambiente rojo, caótico y mareante. Titulares ilegibles, solo garabatos |
+| `p4-museo.png` | Interior de un museo dentro de una gran carpa, en penumbra: vitrinas vacías, cuadros con marcos dorados sin imagen. En el centro, el protagonista solo, en gris (sin color), mirando a su alrededor confundido |
+| `p5-puertas.png` | Pasillo largo de museo con 8 puertas seguidas, de colores, de izquierda a derecha: rojo, negro, blanco, azul, amarillo, naranja óxido, lila y verde. El protagonista de espaldas, mirándolas. Solo la roja tiene luz por debajo |
+| `c1-puerta-roja.png` | Puerta roja de museo entreabierta; por la rendija sale luz cálida y vuelan pétalos de rosa rojos. El protagonista se acerca caminando |
+| `c2-calle-roja.png` | Calle del centro de una ciudad mexicana a medianoche, toda en rojos y morados: balcones de hierro, papel picado sin letras, faroles y pétalos en el aire. Sin gente |
+| `c3-disco-oro.png` | Escenario de teatro vacío con telón rojo; en el suelo, bajo un foco, un disco de oro y una rosa roja. Polvo flotando en la luz |
+| `c4-pepe-carmesi.png` | El protagonista en pose de victoria (brazos arriba), con un fondo rojo de pétalos y un halo de luz detrás |
+| `n1-puerta-negra.png` | Puerta negra de museo que se abre a una calle en blanco y negro; al fondo, un salón de fiestas con ventanas encendidas. Lo de dentro del museo, a color; lo de fuera, en gris |
+| `n2-invitacion.png` | Primer plano de una mano con guante que sostiene una invitación elegante sin texto, con un antifaz de fiesta dibujado. Fondo negro con estrellas. Blanco y negro |
+| `n3-baile.png` | Salón de baile en blanco y negro con las luces encendidas: candelabros, suelo ajedrezado, invitados elegantes bailando, ya sin máscaras, y confeti. Sonrisas |
+| `n4-pepe-noche.png` | El protagonista se quita un antifaz de fiesta y sonríe. Blanco y negro, pero con su pañuelo en rojo |
+| `w2-afuera.png` *(escenario)* | La calle frente a un salón de fiestas elegante de noche: fachada con marquesina de focos sin letras, ventanales con siluetas bailando, fila de invitados disfrazados en silueta (capas, sombreros anchos, velos), farolas, papel picado y luna llena |
+| `w2-salon.png` *(escenario)* | Interior de un gran salón de fiestas con la luz apagada: ventanales en arco con cortinas y la luna, candelabros apagados, mesas con mantel, globos, retratos antiguos, suelo ajedrezado |
+| `w2-pista.png` *(escenario)* | Pista de baile de un salón de fiestas: al fondo, un escenario con telón y una orquesta en silueta (contrabajo, batería, piano, sin marcas), candelabros encendidos, palcos a los lados, suelo ajedrezado |
+
+**Cómo se importan** (lo hago yo al recibirlas): las escenas se recortan a 320×150 con paleta reducida y las de Noche pasan a gris; los escenarios van al fondo panorámico de su nivel, en gris.
+
+---
+
 ## 1. BLOQUE DE ESTILO (pégalo al inicio de cada prompt)
 
 ```

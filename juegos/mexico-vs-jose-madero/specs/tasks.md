@@ -114,6 +114,12 @@
 - [x] SA4 🧪 Escenas de entrada y de salida de cada mundo (datos con fuente, ficción marcada, saltables)
 - [x] SA5 🧪 Pose de festejo al vencer a cada jefe (3 s, saltable a los 0,5 s)
 
+## Fase 2h — v9 · Ilustraciones de escenas y escenarios de Noche (⏳ el usuario genera las imágenes con ChatGPT)
+- [x] IL1 Prompts (PROMPTS §0e): 5 del prólogo, 8 de mundos y 3 escenarios de Noche
+- [ ] IL2 🧪 Importador de escenas (320×150, paleta reducida; las de Noche en gris) con respaldo por código si falta alguna
+- [ ] IL3 🧪 Importador de escenarios de Noche (en gris) sin pisar los de Carmesí
+- [ ] IL4 ⏳ Decidir el tamaño: el HTML pasaría de ~0,9 a ~1,4 MB
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
