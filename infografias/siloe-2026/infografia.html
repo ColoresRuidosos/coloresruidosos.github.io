@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Siloé viene a México · Colores Ruidosos</title>
+<link rel="stylesheet" href="fuentes/fuentes.css">
+<style>
+  /* Identidad SPEC-001 del fanzine: crema, tinta, bordes de 3 px y sombras duras.
+     Verde = Lanzamiento (discos), naranja = Gira (México), rosa solo en el sticker «Viene a México». */
+  :root {
+    --crema: #F4EFE6; --tinta: #141414; --rosa: #FF3E7F; --azul: #2F5BFF;
+    --amarillo: #FFD23F; --verde: #1FB57A; --naranja: #FF7A30;
+    --borde: 3px solid var(--tinta); --sombra: 6px 6px 0 var(--tinta);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #ddd6ca; }
+  .lienzo {
+    position: relative; width: 1080px; height: 1350px; margin: 0 auto; overflow: hidden;
+    background: var(--crema); color: var(--tinta); font-family: "Space Grotesk", sans-serif;
+    padding: 46px 64px 40px; display: flex; flex-direction: column; gap: 20px;
+  }
+  .lienzo::before { /* franjas de la marca en el borde superior */
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 18px;
+    background: repeating-linear-gradient(135deg, var(--rosa) 0 14px, var(--azul) 14px 28px, var(--amarillo) 28px 42px, var(--crema) 42px 70px);
+  }
+  .marca { font: 700 24px "Space Mono", monospace; letter-spacing: .08em; text-transform: uppercase; margin: 6px 0 0; }
+  .sticker {
+    position: absolute; top: 58px; right: 56px; width: 220px; height: 220px; border-radius: 50%;
+    background: var(--rosa); border: var(--borde); box-shadow: var(--sombra); transform: rotate(9deg);
+    display: grid; place-items: center; text-align: center;
+    font: 400 46px/0.95 "Anton", sans-serif; text-transform: uppercase; color: var(--tinta);
+  }
+  .sticker small { display: block; font: 700 20px "Space Mono", monospace; margin-top: 8px; letter-spacing: .06em; }
+  h1 { font: 400 210px/0.84 "Anton", sans-serif; margin: 6px 0 0; letter-spacing: -.01em; }
+  .bajada { font-size: 36px; font-weight: 700; margin: 4px 0 0; max-width: 760px; line-height: 1.15; }
+  .etiqueta {
+    display: inline-block; font: 700 22px "Space Mono", monospace; text-transform: uppercase; letter-spacing: .08em;
+    border: var(--borde); padding: 4px 12px; margin-bottom: 12px; background: var(--crema);
+  }
+  .integrantes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .persona { border: var(--borde); box-shadow: var(--sombra); padding: 12px 16px; background: #fff; }
+  .persona b { display: block; font: 400 40px/1.05 "Anton", sans-serif; }
+  .persona span { font: 700 24px/1.2 "Space Grotesk", sans-serif; }
+  .discos { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; padding-top: 8px; }
+  .discos::before { content: ""; position: absolute; left: 20px; right: 20px; top: 34px; border-top: 4px solid var(--tinta); }
+  .disco { position: relative; text-align: center; }
+  .disco .anio { position: relative; z-index: 1; display: inline-block; font: 700 26px "Space Mono", monospace; background: var(--verde); border: var(--borde); padding: 6px 10px; }
+  .disco .titulo { display: block; font: 400 32px/1 "Anton", sans-serif; margin-top: 10px; }
+  .disco .nota { display: block; font: 700 21px/1.2 "Space Grotesk", sans-serif; margin-top: 6px; }
+  .disco.nuevo .anio { background: var(--amarillo); }
+  .curiosidades { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .curiosidad { margin: 0; border: var(--borde); padding: 14px 18px; font-size: 26px; line-height: 1.22; background: #fff; box-shadow: 6px 6px 0 var(--azul); }
+  .mexico {
+    margin-top: auto; border: var(--borde); box-shadow: var(--sombra); background: var(--naranja);
+    padding: 20px 26px; display: grid; grid-template-columns: 310px 1fr; gap: 4px 24px; align-items: center;
+  }
+  .mexico .cuando { grid-row: span 3; font: 400 70px/0.92 "Anton", sans-serif; text-transform: uppercase; }
+  .mexico .donde { font: 400 42px/1 "Anton", sans-serif; }
+  .mexico .con { font-size: 30px; font-weight: 700; }
+  .mexico .aviso { font: 400 22px "Space Mono", monospace; }
+  .pie { margin: 0; display: flex; justify-content: space-between; font: 700 20px "Space Mono", monospace; }
+</style>
+</head>
+<body>
+<div class="lienzo" id="lienzo">
+  <p class="marca">Colores Ruidosos · Te presentamos a</p>
+  <div class="sticker" aria-hidden="true"><div>Viene a<br>México<small>NOV 2026</small></div></div>
+  <header>
+    <h1 data-campo="banda"></h1>
+    <p class="bajada" data-campo="cabecera"></p>
+  </header>
+  <section><span class="etiqueta">Quiénes son</span><div class="integrantes" data-campo="integrantes"></div></section>
+  <section><span class="etiqueta">Sus discos</span><div class="discos" data-campo="discos"></div></section>
+  <section><span class="etiqueta">Para que los conozcas</span><div class="curiosidades" data-campo="curiosidades"></div></section>
+  <section class="mexico" data-campo="mexico"></section>
+  <p class="pie"><span>Datos verificados con dos fuentes · fuentes en el pie</span><span>@coloresruidosos</span></p>
+</div>
+<script src="datos.js"></script>
+<script>
+(function () {
+  var D = window.CRinfo;
+  function el(tag, clase, texto) { var e = document.createElement(tag); if (clase) e.className = clase; if (texto != null) e.textContent = texto; return e; }
+  function campo(n) { return document.querySelector('[data-campo="' + n + '"]'); }
+
+  window.listo = fetch("datos.json").then(function (r) { return r.json(); }).then(function (datos) {
+    var errores = [];
+    datos.datos.forEach(function (d) { D.validar(d).forEach(function (x) { errores.push(d.id + ": " + x); }); });
+    if (errores.length) throw new Error(errores.join("\n"));
+    var pub = D.publicables(datos);          // solo lo verificado se dibuja
+    var de = function (b) { return pub.filter(function (d) { return d.bloque === b; }); };
+
+    campo("banda").textContent = datos.banda;
+    campo("cabecera").textContent = de("cabecera")[0].texto;
+
+    de("integrantes")[0].personas.forEach(function (p) {
+      var c = el("div", "persona"); c.appendChild(el("b", null, p.nombre)); c.appendChild(el("span", null, p.rol));
+      campo("integrantes").appendChild(c);
+    });
+
+    var discos = D.discos(datos);
+    discos.forEach(function (d, i) {
+      var c = el("div", "disco" + (i === discos.length - 1 ? " nuevo" : ""));
+      c.appendChild(el("span", "anio", d.anio)); c.appendChild(el("span", "titulo", d.texto));
+      if (d.nota) c.appendChild(el("span", "nota", d.nota));
+      campo("discos").appendChild(c);
+    });
+
+    de("curiosidades").forEach(function (d) { campo("curiosidades").appendChild(el("p", "curiosidad", d.texto)); });
+
+    var mx = de("mexico").filter(function (d) { return d.cuando; })[0], caja = campo("mexico");
+    caja.appendChild(el("div", "cuando", mx.cuando));
+    caja.appendChild(el("div", "donde", mx.donde));
+    caja.appendChild(el("div", "con", mx.con));
+    caja.appendChild(el("div", "aviso", "Fechas y boletos en la taquilla oficial"));
+    return true;
+  });
+})();
+</script>
+</body>
+</html>

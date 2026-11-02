@@ -1,0 +1,116 @@
+{
+  "_leeme": "Solo se dibujan los datos 'verificado' (dos fuentes de dominios distintos). Los 'pendiente' esperan una segunda fuente. Registro completo en spec.md.",
+  "banda": "Siloé",
+  "actualizado": "2026-11-02",
+  "datos": [
+    {
+      "id": "banda",
+      "bloque": "cabecera",
+      "texto": "Trío indie pop-rock de Valladolid, España",
+      "fuentes": ["https://es.rollingstone.com/artista-que-debes-conocer-siloe/", "https://www.laganzua.net/noticias/32249-el-papa-bendice-a-siloe-tras-dar-dos-conciertos-ante-el-en-barcelona-y-madrid"],
+      "estado": "verificado"
+    },
+    {
+      "id": "integrantes",
+      "bloque": "integrantes",
+      "texto": "Fito Robles, Xavi Road y Jaco Betanzos",
+      "personas": [
+        { "nombre": "Fito Robles", "rol": "Voz" },
+        { "nombre": "Xavi Road", "rol": "Guitarra y producción" },
+        { "nombre": "Jaco Betanzos", "rol": "Batería, desde 2022" }
+      ],
+      "fuentes": ["https://es.rollingstone.com/artista-que-debes-conocer-siloe/", "https://www.cierraporfuera.com/siloe"],
+      "estado": "verificado"
+    },
+    {
+      "id": "disco-la-verdad",
+      "bloque": "discos",
+      "texto": "La Verdad",
+      "anio": 2016,
+      "nota": "El debut",
+      "fuentes": ["https://www.qobuz.com/us-en/interpreter/siloe/2619261", "https://www.lahiguera.net/musicalia/artistas/siloe/disco/7461"],
+      "estado": "verificado"
+    },
+    {
+      "id": "disco-la-luz",
+      "bloque": "discos",
+      "texto": "La Luz",
+      "anio": 2018,
+      "fuentes": ["https://www.qobuz.com/us-en/interpreter/siloe/2619261", "https://www.last.fm/music/Silo%C3%A9/+wiki"],
+      "estado": "verificado"
+    },
+    {
+      "id": "disco-metropolis",
+      "bloque": "discos",
+      "texto": "Metrópolis",
+      "anio": 2020,
+      "fuentes": ["https://www.deezer.com/us/artist/1432891", "https://www.last.fm/music/Silo%C3%A9/+wiki"],
+      "estado": "verificado"
+    },
+    {
+      "id": "disco-santa-trinidad",
+      "bloque": "discos",
+      "texto": "Santa Trinidad",
+      "anio": 2023,
+      "fuentes": ["https://www.deezer.com/us/artist/1432891", "https://www.laganzua.net/noticias/26978-siloe-anuncian-la-gira-2023-y-2024-del-disco-santa-trinidad"],
+      "estado": "verificado"
+    },
+    {
+      "id": "disco-terrorismo-emocional",
+      "bloque": "discos",
+      "texto": "Terrorismo Emocional",
+      "anio": 2026,
+      "nota": "El nuevo · 8 de mayo",
+      "fuentes": ["https://www.laganzua.net/noticias/32071-siloe-lanzan-el-disco-terrorismo-emocional-sobre-el-poder-de-las-palabras-y-la-verdad", "https://music.apple.com/es/artist/silo%C3%A9/467432490"],
+      "estado": "verificado"
+    },
+    {
+      "id": "castilla-y-leon",
+      "bloque": "curiosidades",
+      "texto": "«Nada que se parezca a ti» fue la canción de la campaña de turismo de Castilla y León en 2023.",
+      "fuentes": ["https://turismocastillayleon.com/en/nadaqueseparezcaati", "https://sirdoc.ccyl.es/sirdoc/pdf/PUBLOFI/BO/CCL/11L/BOCCL1100339/BOCCL-11-010272.pdf"],
+      "estado": "verificado"
+    },
+    {
+      "id": "papa",
+      "bloque": "curiosidades",
+      "texto": "En junio de 2026 tocaron ante el papa León XIV durante su visita a Madrid.",
+      "fuentes": ["https://www.laganzua.net/noticias/32249-el-papa-bendice-a-siloe-tras-dar-dos-conciertos-ante-el-en-barcelona-y-madrid", "https://www.esmadrid.com/en/pope-leo-xivs-visit-madrid"],
+      "estado": "verificado"
+    },
+    {
+      "id": "mexico",
+      "bloque": "mexico",
+      "texto": "Invitados de Morat en el Palacio de los Deportes, CDMX, en noviembre de 2026",
+      "cuando": "Noviembre 2026",
+      "donde": "Palacio de los Deportes, CDMX",
+      "con": "Invitados de Morat",
+      "fuentes": ["https://navarrarena.com/en/agenda/2027-10-30/siloe", "https://www.cadizdirecto.com/cadiz/siloe-prepara-su-mayor-salto-en-directo-con-una-gira-que-llegara-a-tres-continentes-haciendo-parada-en-el-bahia-sound-de-san-fernando", "https://nosoloindie.com/anuncia/"],
+      "estado": "verificado"
+    },
+    {
+      "id": "mexico-dias",
+      "bloque": "mexico",
+      "texto": "Fechas con Morat: 14, 15 y 17 de noviembre",
+      "fuentes": ["https://www.cadizdirecto.com/cadiz/siloe-prepara-su-mayor-salto-en-directo-con-una-gira-que-llegara-a-tres-continentes-haciendo-parada-en-el-bahia-sound-de-san-fernando"],
+      "estado": "pendiente",
+      "_nota": "Una sola fuente. Confirmar en Ticketmaster MX u OCESA."
+    },
+    {
+      "id": "berklee",
+      "bloque": "curiosidades",
+      "texto": "Fito Robles estudió con una beca en Berklee antes del primer disco.",
+      "fuentes": ["https://www.cierraporfuera.com/siloe", "https://vigoe.es/cultura/musica/vigo-abre-con-siloe-los-conciertos-en-galicia-de-directos-vibra-mahou"],
+      "estado": "pendiente",
+      "_nota": "Dos fuentes menores, sin confirmación de un medio grande ni de la banda."
+    },
+    {
+      "id": "titulo-balmes",
+      "bloque": "curiosidades",
+      "texto": "El título «Terrorismo Emocional» salió de una broma de Santi Balmes (Love of Lesbian).",
+      "fuentes": ["https://www.laganzua.net/noticias/32071-siloe-lanzan-el-disco-terrorismo-emocional-sobre-el-poder-de-las-palabras-y-la-verdad"],
+      "estado": "pendiente",
+      "_nota": "Una sola fuente."
+    }
+  ]
+}
