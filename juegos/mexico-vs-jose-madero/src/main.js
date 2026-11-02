@@ -1,9 +1,16 @@
 import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
 import { followCamera } from './engine/camera.js';
+import { createSave } from './engine/save.js';
+import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES } from './game/progress.js';
+import { HUB, createHub, doorAt } from './game/museum.js';
 import { WORLD_1 } from './data/world1.js';
+import { WORLD_2 } from './data/world2.js';
+import { worldById } from './data/worlds.js';
 import { ERA_FACTS_W1, CHAPTERS_W1, LEVEL_CARDS_W1 } from './data/carmesi-story.js';
+import { ERA_FACTS_W2, CHAPTERS_W2, LEVEL_CARDS_W2 } from './data/noche-story.js';
 import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard, drawIntro } from './render/draw.js';
+import { drawMuseumDoors, drawMuseumHud, drawGallery, drawOptions, drawPause, OPTION_ITEMS } from './render/draw-menus.js';
 import { createAudio } from './audio/audio.js';
 
 const cv = document.getElementById('game');
@@ -12,37 +19,104 @@ const ctx = cv.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 const audio = createAudio();
 
-// ── Progresión del Mundo 1 (spec §3.0e): capítulo → nivel → resumen → «¿Sabías que…?» → siguiente capítulo ──
-let levelIdx = 0, carry = {}, levelStart = {};
-let game, art;
-function loadLevel(i, c = {}) {
-  levelIdx = i; carry = c; levelStart = { ...c };
-  const L = WORLD_1[i];
-  game = createGame(L.map, c, { facts: ERA_FACTS_W1 });
-  art = createArt(game.level, L.theme);
+// ── Guardado y opciones (spec §3.0f A–B) ────────────────
+let storage = null;
+try { storage = window.localStorage; } catch { /* sin almacenamiento: el juego sigue en memoria */ }
+const save = createSave(storage);
+const opt = save.data.options;
+const musicBtn = document.getElementById('music');
+function setMusic(on) {
+  if (audio.toggleMusic() !== on) audio.toggleMusic();
+  opt.music = on; musicBtn.textContent = on ? '♪ ON' : '♪ OFF';
 }
-loadLevel(0);
+setMusic(opt.music);
 
-let screen = 'title', camX = 0, t = 0, paused = false, card = null, screenT = 0;
-const showCard = (c) => { card = c; screen = 'card'; screenT = 0; };
-const chapterCard = (i) => ({ kind: 'chapter', n: i + 1, ...CHAPTERS_W1[WORLD_1[i].id], then: () => {} });
-function startLevel(i, c) { loadLevel(i, c); showCard(chapterCard(i)); }
-const store = {
-  get: () => { try { return Number(localStorage.getItem('jmv-record')) || 0; } catch { return 0; } },
-  set: (v) => { try { localStorage.setItem('jmv-record', String(v)); } catch { /* sin almacenamiento */ } },
+// ── Mundos jugables ─────────────────────────────────────
+const WORLD_DATA = {
+  carmesi: { n: 1, levels: WORLD_1, facts: ERA_FACTS_W1, chapters: CHAPTERS_W1, cards: LEVEL_CARDS_W1 },
+  noche: { n: 2, levels: WORLD_2, facts: ERA_FACTS_W2, chapters: CHAPTERS_W2, cards: LEVEL_CARDS_W2 },
 };
+const piecesIn = (map) => (map.match(/\*/g) || []).length;
+function museumInfo() {
+  const info = {};
+  for (const id of ['carmesi', 'noche', 'alba', 'psalmos', 'giallo', 'aurora', 'sarajevo', 'querido']) {
+    const wd = WORLD_DATA[id], best = save.data.worlds[id]?.best ?? {};
+    info[id] = { state: doorState(save, id), total: wd ? wd.levels.reduce((n, l) => n + piecesIn(l.map), 0) : 0, piezas: Object.values(best).reduce((n, b) => n + b.piezas, 0) };
+  }
+  return info;
+}
+
+// ── Estado ──────────────────────────────────────────────
+const hub = createHub();
+let screen = 'title', back = 'title', camX = 0, t = 0, paused = false, card = null, screenT = 0;
+let game, art, run = null, museumDoor = null, toast = null, toastT = 0, endInfo = {};
+let optSel = 0, galSel = 0;
+
+function enterMuseum(atDoor = null) {
+  run = null; paused = false;
+  game = createGame(HUB, { hearts: 3 });
+  art = createArt(game.level, 'museo', { costume: costumeFor(save, 'carmesi') });
+  const d = atDoor && hub.doors.find((x) => x.id === atDoor);
+  if (d) { game.player.x = d.x - game.player.w / 2; game.player.facing = 1; }
+  camX = followCamera(0, game.player.x, game.level.w * 16);
+  screen = 'museum'; screenT = 0;
+}
+
+function loadLevel(i, c = {}) {
+  const wd = WORLD_DATA[run.world], L = wd.levels[i];
+  run.idx = i; run.carry = c; run.levelStart = { ...c };
+  game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern });
+  art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world) });
+}
+const showCard = (c) => { card = c; screen = 'card'; screenT = 0; };
+function startLevel(i, c) {
+  loadLevel(i, c);
+  const wd = WORLD_DATA[run.world], L = wd.levels[i];
+  showCard({ kind: 'chapter', n: (wd.n - 1) * 3 + i + 1, ...wd.chapters[L.id], then: () => {} });
+}
+function startWorld(id) { run = { world: id, idx: 0, carry: {}, levelStart: {}, time: 0, assistUsed: opt.assist }; startLevel(0); }
+
+const costumeName = (id) => COSTUMES.find((c) => c.id === id)?.name ?? id;
+function finishLevel() {
+  const wd = WORLD_DATA[run.world], L = wd.levels[run.idx], next = wd.levels[run.idx + 1];
+  run.time += game.time;
+  run.assistUsed ||= game.assist;
+  const stats = { time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length };
+  recordLevel(save, run.world, L.id, stats);
+  const ctxU = { world: run.world, levelId: L.id, ...stats, hurts: game.hurts, assist: game.assist, worldDone: !next, runTime: run.assistUsed ? Infinity : run.time };
+  const unlocks = checkUnlocks(save, ctxU);
+  if (!next && !run.assistUsed) save.data.record = Math.max(save.data.record, game.score);
+  save.commit();
+  const nuevos = unlocks.map((u) => `NUEVO TRAJE EN LA GALERÍA: ${costumeName(u)}`);
+  const c = { score: game.score, ovacion: game.ovacion, hearts: Math.max(game.hearts, 1), quoteIdx: game.quoteIdx };
+  const fact = { kind: 'fact', facts: wd.cards[L.id].facts };
+  if (next) {
+    fact.then = () => startLevel(run.idx + 1, c);
+    showCard({ kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, unlocks: nuevos, pieceName: run.world === 'noche' ? 'LUNAS' : 'CARMESÍS', then: () => showCard(fact) });
+  } else {
+    const w = worldById(run.world);
+    endInfo = { title: `¡MUNDO ${wd.n} COMPLETADO!`, lines: [...nuevos, run.world === 'carmesi' ? 'SE ABRIÓ LA PUERTA DE NOCHE EN EL MUSEO' : `${w.name} YA ESTÁ EN TU MUSEO`] };
+    showCard({ ...fact, then: () => { screen = 'end'; screenT = 0; } });
+  }
+}
 
 // ── Entrada: teclado, táctil y mando → mismos 5 botones ──
 const held = { left: false, right: false, jump: false, mic: false, special: false };
 const KEYS = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', KeyZ: 'jump', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', KeyX: 'mic', KeyJ: 'mic', KeyK: 'mic', KeyC: 'special', KeyL: 'special' };
-let startPressed = false;
+const MENUS = ['options', 'gallery'];
+let menuMove = 0, escPressed = false;
+// Pulsaciones «enganchadas»: una tecla que se pulsa y se suelta entre dos pasos del bucle no se pierde.
+const latch = { left: false, right: false, jump: false, mic: false };
 addEventListener('keydown', (e) => {
-  if (KEYS[e.code]) { held[KEYS[e.code]] = true; e.preventDefault(); }
-  if (['Enter', 'KeyZ', 'Space'].includes(e.code)) startPressed = true;
-  if (e.code === 'KeyP' || e.code === 'Escape') paused = !paused;
-  if (e.code === 'KeyM') document.getElementById('music').textContent = audio.toggleMusic() ? '♪ ON' : '♪ OFF';
+  // En los menús, ▲ ▼ mueven el cursor (no saltan) y Escape vuelve.
+  if (MENUS.includes(screen) && (e.code === 'ArrowUp' || e.code === 'ArrowDown')) { menuMove += e.code === 'ArrowUp' ? -1 : 1; e.preventDefault(); return; }
+  if (KEYS[e.code]) { held[KEYS[e.code]] = true; e.preventDefault(); if (!e.repeat && KEYS[e.code] in latch) latch[KEYS[e.code]] = true; }
+  if (e.code === 'Enter') { held.jump = true; if (!e.repeat) latch.jump = true; }
+  if (e.code === 'Escape' && MENUS.includes(screen)) { escPressed = true; return; }
+  if ((e.code === 'KeyP' || e.code === 'Escape') && screen === 'play') paused = !paused;
+  if (e.code === 'KeyM') { setMusic(!opt.music); save.commit(); }
 });
-addEventListener('keyup', (e) => { if (KEYS[e.code]) held[KEYS[e.code]] = false; });
+addEventListener('keyup', (e) => { if (KEYS[e.code]) held[KEYS[e.code]] = false; if (e.code === 'Enter') held.jump = false; });
 
 // Controles táctiles. En iOS, mantener pulsado selecciona texto y abre el menú «Copiar / Traducir»,
 // y el botón se queda pegado: se bloquean esos gestos y cualquier interrupción suelta los botones.
@@ -51,7 +125,7 @@ const release = (k) => { held[k] = false; document.querySelector(`[data-btn="${k
 const releaseAll = () => { touching.clear(); for (const b of document.querySelectorAll('[data-btn]')) release(b.dataset.btn); };
 for (const btn of document.querySelectorAll('[data-btn]')) {
   const k = btn.dataset.btn;
-  const on = (e) => { e.preventDefault(); touching.set(e.pointerId, k); held[k] = true; btn.classList.add('on'); if (k === 'jump') startPressed = true; audio.unlock(); };
+  const on = (e) => { e.preventDefault(); touching.set(e.pointerId, k); held[k] = true; if (k in latch) latch[k] = true; btn.classList.add('on'); audio.unlock(); };
   const off = (e) => { e.preventDefault(); touching.delete(e.pointerId); release(k); };
   btn.addEventListener('pointerdown', on);
   btn.addEventListener('pointerup', off);
@@ -62,38 +136,62 @@ const padEl = document.querySelector('.pad');
 for (const ev of ['touchstart', 'touchmove']) padEl?.addEventListener(ev, (e) => e.preventDefault(), { passive: false });
 padEl?.addEventListener('contextmenu', (e) => e.preventDefault());
 document.addEventListener('selectstart', (e) => { if (e.target.closest?.('.pad')) e.preventDefault(); });
-// Toque interrumpido por el sistema (selección, llamada, cambio de app): se suelta ese botón.
 addEventListener('pointercancel', (e) => { const k = touching.get(e.pointerId); touching.delete(e.pointerId); if (k) release(k); });
 addEventListener('pointerup', (e) => { const k = touching.get(e.pointerId); if (k) { touching.delete(e.pointerId); release(k); } });
 addEventListener('blur', releaseAll);
-document.addEventListener('visibilitychange', () => { if (document.hidden) releaseAll(); });
-document.getElementById('music').addEventListener('click', (e) => { e.currentTarget.textContent = audio.toggleMusic() ? '♪ ON' : '♪ OFF'; });
-cv.addEventListener('pointerdown', () => { startPressed = true; audio.unlock(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) { releaseAll(); if (screen === 'play') paused = true; } });
+musicBtn.addEventListener('click', () => { setMusic(!opt.music); save.commit(); });
+document.getElementById('pause')?.addEventListener('click', () => { if (screen === 'play') paused = !paused; });
+let tapStart = false;
+cv.addEventListener('pointerdown', () => { tapStart = true; audio.unlock(); });
 
 function pad() {
   const gp = navigator.getGamepads?.()[0];
   if (!gp) return {};
   const ax = gp.axes[0] || 0;
-  if (gp.buttons[9]?.pressed || gp.buttons[0]?.pressed) startPressed = startPressed || screen !== 'play';
-  return { left: ax < -0.4 || gp.buttons[14]?.pressed, right: ax > 0.4 || gp.buttons[15]?.pressed, jump: gp.buttons[0]?.pressed, mic: gp.buttons[2]?.pressed || gp.buttons[1]?.pressed, special: gp.buttons[3]?.pressed };
+  return { left: ax < -0.4 || gp.buttons[14]?.pressed, right: ax > 0.4 || gp.buttons[15]?.pressed, jump: gp.buttons[0]?.pressed || gp.buttons[9]?.pressed, mic: gp.buttons[2]?.pressed || gp.buttons[1]?.pressed, special: gp.buttons[3]?.pressed };
 }
 
-function finishLevel() {
-  const L = WORLD_1[levelIdx];
-  const next = WORLD_1[levelIdx + 1];
-  const c = { score: game.score, ovacion: game.ovacion, hearts: Math.max(game.hearts, 1), quoteIdx: game.quoteIdx };
-  const fact = { kind: 'fact', facts: LEVEL_CARDS_W1[L.id].facts };
-  if (next) {
-    fact.then = () => startLevel(levelIdx + 1, c);
-    showCard({ kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, then: () => showCard(fact) });
-  } else {
-    if (game.score > store.get()) store.set(game.score);
-    showCard({ ...fact, then: () => { screen = 'end'; screenT = 0; } });
+// ── Menús ───────────────────────────────────────────────
+function openOptions(from) { back = from; optSel = 0; screen = 'options'; screenT = 0; }
+function stepOptions(pr) {
+  const n = OPTION_ITEMS.length;
+  if (pr.right || menuMove > 0) optSel = (optSel + 1) % n;
+  if (pr.left || menuMove < 0) optSel = (optSel + n - 1) % n;
+  const it = OPTION_ITEMS[optSel];
+  if (pr.jump) {
+    if (it.key === 'back') pr.mic = true;
+    else if (it.key === 'music') setMusic(!opt.music);
+    else { opt[it.key] = !opt[it.key]; if (it.key === 'assist' && game && run) { game.assist = opt.assist; if (opt.assist) run.assistUsed = true; } }
+    save.commit();
   }
+  if (pr.mic || escPressed) { screen = back; screenT = 0; }
+}
+function stepGallery(pr) {
+  const n = COSTUMES.length + 1;
+  if (pr.right || menuMove > 0) galSel = (galSel + 1) % n;
+  if (pr.left || menuMove < 0) galSel = (galSel + n - 1) % n;
+  const id = galSel === 0 ? 'auto' : COSTUMES[galSel - 1].id;
+  if (pr.jump && (id === 'auto' || save.data.unlocked.includes(id))) {
+    save.data.costume = id; save.commit();
+    art.costume = costumeFor(save, 'carmesi');
+  }
+  if (pr.mic || escPressed) { screen = 'museum'; screenT = 0; }
+}
+function stepMuseum(btn, pr) {
+  const door = doorAt(hub, game.player);
+  museumDoor = door;
+  stepGame(game, { ...btn, mic: false, special: false });
+  if (toastT > 0) toastT -= DT; else toast = null;
+  if (!door || !pr.mic) return;
+  if (door.id === 'galeria') { galSel = 0; screen = 'gallery'; screenT = 0; return; }
+  const st = doorState(save, door.id);
+  if (st === 'open' && WORLD_DATA[door.id]) startWorld(door.id);
+  else { toast = st === 'locked' ? 'AÚN NO: ' + `TERMINA ${worldById(worldById(door.id).requires).name}` : 'ESTA SALA SE ABRIRÁ PRÓXIMAMENTE'; toastT = 1.6; }
 }
 
 // ── Bucle de paso fijo ─────────────────────────────────
-let last = performance.now(), acc = 0;
+let last = performance.now(), acc = 0, prev = { ...held };
 function frame(now) {
   acc += Math.min(0.1, (now - last) / 1000);
   last = now;
@@ -101,44 +199,73 @@ function frame(now) {
   const btn = { left: held.left || gp.left, right: held.right || gp.right, jump: held.jump || gp.jump, mic: held.mic || gp.mic, special: held.special || gp.special };
   while (acc >= DT) {
     acc -= DT; t += DT; screenT += DT;
-    if (screen === 'title' && startPressed) { audio.unlock(); startLevel(0); }
-    else if (screen === 'play' && !paused) {
-      stepGame(game, btn);
-      audio.play(game.events);
-      if (game.status === 'won') finishLevel();
-      else if (game.status === 'gameover') { screen = 'end'; screenT = 0; }
-    } else if (screen === 'card' && startPressed && screenT > 0.6) {
+    const pr = { left: (btn.left && !prev.left) || latch.left, right: (btn.right && !prev.right) || latch.right, jump: (btn.jump && !prev.jump) || latch.jump || tapStart, mic: (btn.mic && !prev.mic) || latch.mic };
+    prev = { ...btn }; tapStart = false;
+    for (const k in latch) latch[k] = false;
+    if (screen === 'title') {
+      if (pr.jump) { audio.unlock(); enterMuseum('carmesi'); }
+      else if (pr.mic) openOptions('title');
+    } else if (screen === 'options') stepOptions(pr);
+    else if (screen === 'gallery') stepGallery(pr);
+    else if (screen === 'museum') stepMuseum(btn, pr);
+    else if (screen === 'play') {
+      if (paused) {
+        if (pr.jump) paused = false;
+        else if (pr.mic) openOptions('play');
+        else if (pr.left) enterMuseum(run.world);
+      } else {
+        stepGame(game, btn);
+        audio.play(game.events);
+        if (game.status === 'won') finishLevel();
+        else if (game.status === 'gameover') { screen = 'end'; screenT = 0; }
+      }
+    } else if (screen === 'card' && pr.jump && screenT > 0.6) {
       const then = card.then; card = null; screen = 'play'; then();
-    } else if (screen === 'end' && startPressed && screenT > 0.6) {
-      // Tras perder, se repite el nivel con lo que tenías al empezarlo; tras ganar, vuelta a la portada.
-      if (game.status === 'gameover') { loadLevel(levelIdx, { ...levelStart, hearts: 3 }); screen = 'play'; }
-      else screen = 'title';
+    } else if (screen === 'end' && screenT > 0.6) {
+      // Tras perder: A repite el nivel con lo que tenías al empezarlo, B vuelve al Museo. Tras ganar: al Museo.
+      if (game.status === 'gameover' && pr.jump) { loadLevel(run.idx, { ...run.levelStart, hearts: 3 }); screen = 'play'; }
+      else if (game.status === 'gameover' && pr.mic) enterMuseum(run.world);
+      else if (game.status === 'won' && pr.jump) enterMuseum(run.world);
     }
-    startPressed = false;
+    menuMove = 0; escPressed = false;
   }
   const p = game.player;
-  // Contra el jefe (y en su cinemática), la cámara encuadra a Pepe y al jefe a la vez.
   const duel = game.boss && game.boss.alive;
   const target = duel ? (p.x + p.w / 2 + game.boss.x + game.boss.w / 2) / 2 + W * 0.08 : p.x + p.w / 2;
   camX = followCamera(camX, target, game.level.w * 16, duel ? 0 : p.facing * 24);
-  if (screen === 'title') drawTitle(ctx, t, art);
-  else {
-    const L = WORLD_1[levelIdx];
-    drawWorld(ctx, game, art, camX, t, L.id);
-    if (game.intro) drawIntro(ctx, game, camX, t);
-    else drawHud(ctx, game, `${L.id} ${L.name}`, t);
+  const vis = { flashes: opt.flashes, shake: opt.shake };
+  if (screen === 'title' || (screen === 'options' && back === 'title')) {
+    drawTitle(ctx, t, art);
+    if (screen === 'options') drawOptions(ctx, opt, optSel, t);
+  } else if (screen === 'museum' || screen === 'gallery' || (screen === 'options' && back === 'museum')) {
+    const info = museumInfo();
+    drawWorld(ctx, game, art, camX, t, 'museo', { ...vis, decor: (g) => drawMuseumDoors(g, hub, info, t) });
+    drawMuseumHud(ctx, museumDoor, info, save.data.record, toast, t);
+    if (screen === 'gallery') drawGallery(ctx, art, save, galSel, t);
+  } else {
+    const L = WORLD_DATA[run.world].levels[run.idx];
+    drawWorld(ctx, game, art, camX, t, L.id, vis);
+    if (game.intro) drawIntro(ctx, game, camX, t, vis);
+    else drawHud(ctx, game, `${L.id} ${L.name}`, t, art);
     if (screen === 'card') drawCard(ctx, card, art, t);
-    if (screen === 'end') drawEnd(ctx, game, store.get(), art, t);
-    if (paused) { ctx.fillStyle = 'rgba(27,18,38,0.7)'; ctx.fillRect(0, 0, W, H); }
+    if (screen === 'end') drawEnd(ctx, game, save.data.record, art, t, endInfo);
+    if (paused && screen === 'play') drawPause(ctx, t);
+    if (screen === 'options') drawOptions(ctx, opt, optSel, t);
   }
   requestAnimationFrame(frame);
 }
+
 // Acceso para pruebas automáticas (no afecta al juego).
 window.__jmv = {
   get held() { return held; },
-  get game() { return game; }, get screen() { return screen; }, get level() { return WORLD_1[levelIdx].id; },
-  start() { startPressed = true; }, goto(i) { loadLevel(i, carry); screen = 'play'; },
+  get game() { return game; }, get screen() { return screen; }, get save() { return save; },
+  get level() { return run ? WORLD_DATA[run.world].levels[run.idx].id : 'museo'; },
+  get door() { return museumDoor?.id ?? null; },
+  start() { tapStart = true; },
+  goto(i, world = run?.world ?? 'carmesi') { if (!run || run.world !== world) run = { world, idx: 0, carry: {}, levelStart: {}, time: 0 }; loadLevel(i, run.carry); screen = 'play'; },
+  museum(door) { enterMuseum(door); },
 };
+enterMuseum('carmesi'); screen = 'title';
 art.ready.then(() => requestAnimationFrame(frame));
 
 // Escalado: entero cuando cabe (píxeles nítidos); fraccionario en pantallas pequeñas.

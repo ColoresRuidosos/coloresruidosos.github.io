@@ -303,6 +303,8 @@ Así nunca se mezclan dos trajes en el mismo personaje.
 - N5 no nombra a ningún personaje registrado.
 - N1 depende de que *Carmesí* (2016) sea su primer disco solista, dato que ya está verificado.
 
+**Piezas del mundo:** **pequeñas lunas plateadas** (12–13, como en Carmesí), dibujadas por código.
+
 **Ambientación:** todo en **blanco y negro**. Los sprites de Pepe y de la prensa pasan a escala de grises al cargar el mundo; los fondos y bloques se dibujan por código con luna, cabañas, lago y niebla. El HUD conserva el color.
 
 **Mecánica del mundo: el farol.** Encaja con la regla del memorial: la luciérnaga no es un power-up y en los niveles oscuros se usa un farol.

@@ -9,7 +9,7 @@
 - [x] E2 🧪 `physics`: gravedad, velocidad máxima, salto variable (soltar antes = salto más bajo), coyote time y jump buffer (6 frames)
 - [x] E3 🧪 `tilemap`: parsear niveles de texto; colisión sólida, semisólida y pinchos; no atravesar paredes a velocidad máxima
 - [x] E4 🧪 `camera`: zona muerta y límites
-- [ ] E5 🧪 `save`: serializar y deserializar con almacenamiento inyectado; versión del esquema
+- [x] E5 🧪 `save`: serializar y deserializar con almacenamiento inyectado; versión del esquema
 - [x] E6 🎮 Prototipo: Pepe (sprite del dibujo de CR) corre, salta y lanza el micrófono en un nivel gris
 
 ## Fase 1.5 — Arte v3 (hoja oficial de CR)
@@ -36,7 +36,7 @@
 - [ ] J3 🧪 Jefe base (máquina de fases) + La Rosa Carmesí
 - [ ] J4 🎨 Mundo 1 «Carmesí» completo (nivel + jefe + hito)
 - [ ] J5 🧪 Repetición: el mundo 1 se completa con una secuencia de entradas grabada
-- [ ] J6 🎨 Museo (hub) con 1 puerta + vitrinas
+- [x] J6 🎨 Museo (hub) con 1 puerta + vitrinas
 - [ ] J7 Controles táctiles + mando
 - [ ] J8 Chiptune en tiempo real (tema de mundo y de jefe)
 - [x] J9 🧪 Micrófono con cable: alcance, retorno, enganche a ganchos
@@ -57,26 +57,26 @@
 - [x] H2 🧪 Titulares: un dato distinto cada vez, el contador sigue entre niveles
 - [x] H3 🧪 Capítulo al empezar cada nivel y tarjeta «¿Sabías que…?» al terminarlo
 - [x] H4 🎨 Piezas = pequeños Carmesís (moneda con rosa)
-- [ ] H5 🧪 Trajes por mundo + Galería del Museo con desbloqueos (guardado en el navegador)
+- [x] H5 🧪 Trajes por mundo + Galería del Museo con desbloqueos (guardado en el navegador)
 - [~] H6 🎨 Escenarios: Gemini entrega escenas completas, no capas → se usan como **fondo panorámico** (`scripts/import_backdrop.py`, `src/render/backdrop.js`): ✅ 1-1 Calle, ✅ 1-2 Azoteas, ⏳ 1-3 Teatro (sigue el fondo por código)
 - [ ] C10 🎨 Arte final sin texto ni sombras (Gemini, un personaje por imagen); logo real de CR (archivo)
 
 ## Fase 2c — v7 · Opciones, guardado, Museo, Galería y Noche (§3.0f; 🧪 primero)
-- [ ] O1 🧪 `save.js`: valores por defecto, ida y vuelta, datos dañados, sin almacenamiento, migración de `jmv-record` (= E5)
-- [ ] O2 🧪 Modo asistido: sin perder corazones ni por golpe ni por foso; no cuenta para «sin daño»
-- [ ] O3 🎨 Opciones Destellos y Temblor en el render + pantalla de Opciones (portada y pausa) (= P1)
-- [ ] O4 🧪 `progress.js`: marcas por nivel, puertas del museo, desbloqueos de los 8 trajes, traje automático por mundo
-- [ ] O5 🧪 Museo: pasillo sin enemigos, `doorAt`, puertas abiertas/cerradas según el guardado (= J6)
-- [ ] O6 🧪 Recorte de trajes: 6 trajes × 4 poses, anclas en los pies, alto ≈ 48 px (`slice_costumes.py`)
-- [ ] O7 🎨 Galería: vitrinas, reto, equipar; Pepe con el traje elegido y poses de reserva (= H5)
-- [ ] N1 🧪 Datos N1–N7 con fuente y dibujables; capítulos y tarjetas de los 3 niveles
-- [ ] N2 🧪 Farol: gasta, mínimo 40 px, lata de aceite lo rellena; `inLight`
-- [ ] N3 🧪 Invitado enmascarado (desenmascarar, no hace daño después), Murciélago (picado en curva), Fantasma (atraviesa paredes)
-- [ ] N4 🧪 Jefe Enmascarado: acecho → embestida → aturdido; fase 2 con apagón; 5 golpes; se quita la máscara y deja la Máscara de fiesta
-- [ ] N5 🎨 Niveles 2-1, 2-2, 2-3 + temas B y N por código + sprites en grises
-- [ ] N6 🧪 Repetición: el bot completa 2-1 y 2-2; un bot de jefe vence al Enmascarado
-- [ ] N7 🧪 Navegador: portada → museo → Carmesí; Opciones; Galería; Noche
-- [ ] W1 Publicar en la web: `static/juegos/mexico-vs-jose-madero/` + enlace (se despliega al fusionar en `main`)
+- [x] O1 🧪 `save.js`: valores por defecto, ida y vuelta, datos dañados, sin almacenamiento, migración de `jmv-record` (= E5)
+- [x] O2 🧪 Modo asistido: sin perder corazones ni por golpe ni por foso; no cuenta para «sin daño»
+- [x] O3 🎨 Opciones Destellos y Temblor en el render + pantalla de Opciones (portada y pausa) (= P1)
+- [x] O4 🧪 `progress.js`: marcas por nivel, puertas del museo, desbloqueos de los 8 trajes, traje automático por mundo
+- [x] O5 🧪 Museo: pasillo sin enemigos, `doorAt`, puertas abiertas/cerradas según el guardado (= J6)
+- [x] O6 🧪 Recorte de trajes: 7 trajes × 4 poses, anclas en los pies, alto ≈ 48 px (`slice_costumes.py`)
+- [x] O7 🎨 Galería: vitrinas, reto, equipar; Pepe con el traje elegido y poses de reserva (= H5)
+- [x] N1 🧪 Datos N1–N7 con fuente y dibujables; capítulos y tarjetas de los 3 niveles
+- [x] N2 🧪 Farol: gasta, mínimo 40 px, lata de aceite lo rellena; `inLight`
+- [x] N3 🧪 Invitado enmascarado (desenmascarar, no hace daño después), Murciélago (picado en curva), Fantasma (atraviesa paredes)
+- [x] N4 🧪 Jefe Enmascarado: acecho → embestida → aturdido; fase 2 con apagón; 5 golpes; se quita la máscara y deja la Máscara de fiesta
+- [x] N5 🎨 Niveles 2-1, 2-2, 2-3 + temas B y N por código + sprites en grises
+- [x] N6 🧪 Repetición: el bot completa 2-1 y 2-2; un bot de jefe vence al Enmascarado
+- [x] N7 🧪 Navegador: portada → museo → Carmesí; Opciones; Galería; Noche
+- [x] W1 Publicar en la web: `static/juegos/mexico-vs-jose-madero/` + enlace en el menú (`npm run publish:web`; se despliega al fusionar en `main`)
 - [ ] F1 ⏳ Ajustes de jugabilidad con el feedback del usuario (`constants.js`)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
@@ -84,7 +84,7 @@
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
 
 ## Fase 4 — Publicación
-- [ ] P1 Accesibilidad (flashes desactivables, modo asistido, remapeo)
+- [~] P1 Accesibilidad: ✅ destellos y temblor desactivables, modo asistido (v7) · ⏳ P1b remapeo de teclas
 - [ ] P2 Créditos con fuentes + aviso de homenaje
 - [ ] P3 Build estático < 1 MB + integración en la web
 - [ ] P4 Modo grabación 9:16 para reels

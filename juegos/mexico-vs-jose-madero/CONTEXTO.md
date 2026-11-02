@@ -1,6 +1,6 @@
 # Contexto para retomar el trabajo (Colores Ruidosos)
 
-> Última actualización: 2 nov 2026 (noche). Pega este archivo, o su ruta, al empezar una sesión nueva.
+> Última actualización: 2 nov 2026 (v0.7 del juego, ya en el repo de la web). Pega este archivo, o su ruta, al empezar una sesión nueva.
 
 ## Quién y cómo trabajamos
 - **Cliente:** Colores Ruidosos (@coloresruidosos), medio musical que hace reels de Instagram y una web. Escribe en español.
@@ -34,9 +34,26 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ---
 
-## 2. `projects/super-pepe/` — juego «MÉXICO VS. JOSÉ MADERO» (en curso)
+## 2. Juego «MÉXICO VS. JOSÉ MADERO» (en curso)
 
-### Cómo seguir en otro repo
+### ⭐ Dónde vive ahora (v0.7)
+- **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
+- En la carpeta: `npm ci` → `npm test` (**124 tests**) → `npm run publish:web`. Ese comando genera `dist/` y copia el HTML (≈ 650 KB) a `static/juegos/mexico-vs-jose-madero/index.html` de la web.
+- En el menú de la web hay un enlace «México vs. José Madero». **Se despliega al fusionar en `main`** (todavía no hay PR).
+- **Novedades de la v0.7** (spec §3.0f):
+  - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
+  - **Guardado:** `src/engine/save.js`, clave `jmv-save`.
+  - **Museo (hub):** 8 puertas; Noche se abre al terminar Carmesí.
+  - **Galería de 8 trajes con retos:** 7 recortados con `scripts/slice_costumes.py`; las poses que faltan usan la más parecida.
+  - **Mundo 2 «Noche»:** 2-1 La Fiesta, 2-2 Las Cabañas (con farol) y 2-3 El Lago. Enemigos: Invitado enmascarado, Murciélago y Fantasma. Jefe: El Enmascarado del Lago.
+  - **Datos de Noche:** N1–N7, en `src/data/noche-story.js`.
+- ⏳ **Pendiente de visto bueno:**
+  - Textos N1–N7 y los capítulos de Noche.
+  - Jefe Enmascarado (provisional).
+  - Retos de los trajes (por ejemplo, Mundo 1 en menos de 4:00).
+  - Arte de Noche: hoy se dibuja por código; falta pedirlo a Gemini.
+
+### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.
 - En la carpeta: `npm ci` → `npm test` (deben pasar **82 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, un solo archivo de unos 510 KB) → `npm run dev` (servidor en :5174).
 - **Versión jugable compartida:** https://claude.ai/artifact/APwgHNVC6q7ajF9JwtmU3r (artifact del usuario, compartido con «cualquiera con el enlace»). Para actualizarla desde otra sesión: publicar el nuevo `dist/…html` pasando esa URL como `url`.
@@ -106,7 +123,12 @@ Noche: El Enmascarado del Lago (al vencerlo se quita la máscara) · Alba: La No
 8. Alcance: piloto Carmesí + Noche (recomendado) o los 8. ¿Panda/PXNDX como mundo 0?
 9. Publicación oficial en la web de CR (usa el nombre de un artista real: decide el usuario). Al tener los 8 mundos, cargar los fondos aparte (el HTML único pasaría de 1 MB).
 
-**Siguiente tarea recomendada:** feedback del Mundo 1 → escena del Teatro → **Museo (hub) + Galería de trajes** (H5) → **Mundo 2 «Noche»** con TDD (spec, tests y después código).
+**Siguiente tarea recomendada:**
+1. Feedback de jugar Carmesí y Noche → ajustes en `constants.js`.
+2. Visto bueno de los textos y del jefe de Noche.
+3. Arte de Noche en Gemini (Invitado, Murciélago, Fantasma, Enmascarado y escenarios) y escena del Teatro.
+4. Remapeo de teclas (P1b).
+5. PR para publicar en `main`.
 
 ### Lecciones de verificación
 - **No usar la Wikipedia EN de *Carmesí* como fuente única:** decía que «La noche de la mesa triste» era sencillo del disco (es de PXNDX, *Bonanza*, 2012).

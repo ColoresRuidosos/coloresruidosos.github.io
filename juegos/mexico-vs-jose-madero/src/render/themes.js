@@ -168,7 +168,82 @@ function teatro() {
   return { sky, far, mid, tiles: { top: '#7a3a20', topHi: '#b86a3a', body: '#3a1a12', bodyHi: '#4c2418', bodyDk: '#22100a', semi: '#c8963c', semiHi: '#f0c870' }, chandelier: true };
 }
 
-export const THEMES = { calle, azoteas, teatro };
+
+// ── v7 · Mundo 2 «Noche»: todo en blanco y negro (spec §3.0f E) ──────────────
+const NIGHT = ['#050505', '#0d0d0d', '#171717', '#222222', '#2e2e2e'];
+function moon(g, x, y, r) {
+  g.fillStyle = '#d9d9d9'; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+  g.fillStyle = '#f2f2f2'; g.beginPath(); g.arc(x - 2, y - 2, r - 3, 0, Math.PI * 2); g.fill();
+  rect(g, '#bdbdbd', x + 3, y - 4, 3, 3); rect(g, '#c8c8c8', x - 6, y + 3, 4, 2);
+}
+function stars(g, w, h, seed) { for (let i = 0; i < 70; i++) rect(g, hash(i, seed) < 0.2 ? '#ffffff' : '#8a8a8a', Math.floor(hash(i, seed + 1) * w), Math.floor(hash(i, seed + 2) * h), 1, 1); }
+function pine(g, x, base, h, c) { for (let k = 0; k < h; k += 3) { const w = Math.round((k / h) * 14) + 2; rect(g, c, x - w / 2, base - h + k, w, 3); } rect(g, c, x - 1, base, 3, 6); }
+function cabin(g, x, y, w, h, c, lit) {
+  rect(g, c, x, y, w, h);
+  for (let k = 0; k < w / 2 + 4; k += 2) rect(g, c, x - 4 + k, y - k / 2, w + 8 - 2 * k, 2);
+  for (let k = 3; k < h; k += 4) rect(g, '#000000', x, y + k, w, 1);
+  rect(g, lit ? '#e6e6e6' : '#3a3a3a', x + w / 2 - 4, y + h / 2 - 4, 8, 7);
+  rect(g, '#000000', x + w / 2, y + h / 2 - 4, 1, 7);
+}
+function fog(g, y, w, seed) { for (let x = 0; x < w; x += 2) { const k = Math.round(Math.sin(x / 23 + seed) * 3 + Math.sin(x / 7) * 1); rect(g, '#3a3a3a', x, y + k, 2, 2); } }
+const BW_TILES = { top: '#6e6e6e', topHi: '#b0b0b0', body: '#262626', bodyHi: '#3a3a3a', bodyDk: '#141414', semi: '#8c8c8c', semiHi: '#d0d0d0' };
+
+function fiesta() {
+  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 110, 3); moon(g, 252, 40, 14); });
+  const far = prerender(640, H, (g) => {
+    // Casas con ventanas encendidas: la fiesta de disfraces.
+    for (let x = 0; x < 640; x += 64) {
+      const h = 70 + Math.floor(hash(x, 1) * 40), y = 190 - h;
+      rect(g, '#1c1c1c', x + 2, y, 58, h); rect(g, '#2a2a2a', x + 2, y, 58, 3);
+      windows(g, x + 8, y + 10, 46, h - 20, x, '#cfcfcf', '#101010', 0.45);
+    }
+  });
+  const mid = prerender(256, H, (g) => {
+    // Banderines en grises y una farola.
+    papelPicado(g, 0, 256, 34, ['#e6e6e6', '#9a9a9a', '#5a5a5a']);
+    rect(g, '#0a0a0a', 180, 70, 3, 122); rect(g, '#0a0a0a', 174, 66, 15, 5);
+    g.fillStyle = 'rgba(255,255,255,0.10)'; g.beginPath(); g.moveTo(181, 72); g.lineTo(150, 192); g.lineTo(212, 192); g.fill();
+    rect(g, '#f0f0f0', 177, 71, 9, 3);
+  });
+  return { sky, far, mid, tiles: BW_TILES, goal: 'EL LAGO', gray: true, piece: 'luna' };
+}
+
+function cabanas() {
+  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 90, 7); moon(g, 60, 34, 12); });
+  const far = prerender(640, H, (g) => {
+    for (let x = 0; x < 640; x += 11) pine(g, x + Math.floor(hash(x, 2) * 6), 160 + Math.floor(hash(x, 3) * 8), 40 + Math.floor(hash(x, 4) * 30), '#121212');
+    rect(g, '#1d1d1d', 0, 168, 640, 40); // lago
+    for (let x = 0; x < 640; x += 6) if (hash(x, 5) < 0.4) rect(g, '#5a5a5a', x, 172 + Math.floor(hash(x, 6) * 30), 4, 1);
+    fog(g, 160, 640, 1);
+  });
+  const mid = prerender(256, H, (g) => { cabin(g, 40, 140, 44, 52, '#1a1a1a', true); pine(g, 150, 192, 70, '#0c0c0c'); pine(g, 210, 192, 52, '#0c0c0c'); });
+  return { sky, far, mid, tiles: { ...BW_TILES, body: '#2c2620', bodyDk: '#16120e', top: '#585858' }, goal: 'EL MUELLE', gray: true, piece: 'luna' };
+}
+
+function lago() {
+  const sky = prerender(W, H, (g) => {
+    bands(g, NIGHT, 0, 150); stars(g, W, 100, 11); moon(g, 160, 44, 16);
+    rect(g, '#141414', 0, 150, W, H - 150);
+    for (let y = 154; y < H; y += 3) rect(g, '#bdbdbd', 160 - 8 + Math.round(Math.sin(y) * 3), y, 16 - (y - 154) / 6, 1); // reflejo de la luna
+  });
+  const far = prerender(640, H, (g) => { for (let x = 0; x < 640; x += 9) pine(g, x, 150, 26 + Math.floor(hash(x, 8) * 26), '#0b0b0b'); fog(g, 146, 640, 2); });
+  const mid = prerender(256, H, (g) => { for (let x = 8; x < 256; x += 64) { rect(g, '#1e1a16', x, 150, 5, 42); rect(g, '#3a342c', x, 150, 5, 2); } });
+  return { sky, far, mid, tiles: { ...BW_TILES, top: '#5c5248', topHi: '#8c8070', body: '#2a241e', bodyDk: '#16120e' }, gray: true, piece: 'luna' };
+}
+
+// ── v7 · El Museo (hub): pasillo con cuadros y vitrinas (spec §3.0f C) ──
+function museo() {
+  const sky = prerender(W, H, (g) => { bands(g, ['#1b1226', '#241830', '#2e1f3a', '#3a2848'], 0, H); });
+  const far = prerender(640, H, (g) => {
+    rect(g, '#2a1e36', 0, 20, 640, 150);
+    for (let x = 0; x < 640; x += 80) { rect(g, '#c8963c', x + 18, 44, 44, 34); rect(g, '#1b1226', x + 21, 47, 38, 28); rect(g, '#3a2848', x + 23, 49, 34, 24); }
+    rect(g, '#1b1226', 0, 150, 640, 4); rect(g, '#3a2848', 0, 154, 640, 38); rect(g, '#c8963c', 0, 154, 640, 1);
+  });
+  const mid = prerender(256, H, (g) => { rect(g, '#120c1a', 0, 0, 256, 12); for (let x = 30; x < 256; x += 128) { rect(g, '#f0c870', x, 12, 2, 6); rect(g, '#fff2c0', x - 3, 18, 8, 3); } });
+  return { sky, far, mid, tiles: { top: '#e6e0d4', topHi: '#ffffff', body: '#8a8094', bodyHi: '#a89eb4', bodyDk: '#5a5068', semi: '#c8963c', semiHi: '#f0c870' } };
+}
+
+export const THEMES = { calle, azoteas, teatro, fiesta, cabanas, lago, museo };
 import { BACKDROPS } from '../data/backdrops-w1.js';
 
 // Si hay fondo panorámico importado (Gemini → scripts/import_backdrop.py), sustituye a las capas por código.

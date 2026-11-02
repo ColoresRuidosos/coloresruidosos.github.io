@@ -2,19 +2,22 @@
 
 Homenaje **no oficial** hecho por fans (Colores Ruidosos). Spec en [`specs/`](specs/spec.md).
 
-**Jugar:** abre `dist/mexico-vs-jose-madero.html` (un único archivo de unos 32 KB; funciona sin servidor, también en el móvil).
+**Jugar:** abre `dist/mexico-vs-jose-madero.html` (un único archivo de unos 650 KB; funciona sin servidor, también en el móvil). En la web de CR se publica en `/juegos/mexico-vs-jose-madero/` con `npm run publish:web`.
+
+**v0.7:** Museo (hub) con 8 puertas · Galería de 8 trajes con retos · Opciones (destellos, temblor, modo asistido, música) con guardado · Mundo 1 «Carmesí» y Mundo 2 «Noche» (farol, Invitados enmascarados, Murciélagos, Fantasmas y El Enmascarado del Lago).
 
 | Control | Teclado | Táctil | Mando |
 |---|---|---|---|
 | Mover | ← → / A D | ◀ ▶ | cruceta / stick |
 | Saltar (mantén para saltar más) | Z / Espacio | A | A / Cruz |
-| Micrófono (golpea, se engancha a ganchos) | X | B | X / B |
-| Pausa · Música | P · M | — | — |
+| Micrófono (golpea, se engancha a ganchos; en el Museo, entrar) | X | B | X / B |
+| Pausa (y Opciones) · Música | P / Esc · M | botón ❚❚ PAUSA | — |
 
 ```bash
-npm test      # 27 tests: física, colisiones, micrófono, Titular, bot que completa el nivel, navegador
+npm test      # 124 tests: motor, guardado, progreso y trajes, Museo, Noche, bots que completan niveles, navegador
 npm run dev   # http://localhost:5174
 npm run build # dist/mexico-vs-jose-madero.html
+npm run publish:web  # build + copia a ../../static/juegos/mexico-vs-jose-madero/index.html
 ```
 
 Qué incluye el prototipo v0.2:

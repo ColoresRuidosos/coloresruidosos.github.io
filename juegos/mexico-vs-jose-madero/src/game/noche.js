@@ -92,7 +92,9 @@ export function hitMask(g, b, force = false) {
     g.score += 5000;
     g.events.push('bossdown');
     g.floats.push({ x: b.x + b.w / 2, y: b.y - 10, text: 'SOLO ERA UNA MÁSCARA', t: 2.4 });
-    g.disco = { kind: 'mascara', x: b.x + b.w / 2, y: b.y + b.h - 14, taken: false };
+    // La máscara cae a un lado, hacia Pepe, para no taparle la cara a quien había debajo.
+    const side = g.player.x + g.player.w / 2 < b.x + b.w / 2 ? -1 : 1;
+    g.disco = { kind: 'mascara', x: b.x + b.w / 2 + side * 30, y: b.y + b.h - 14, taken: false };
     return true;
   }
   if (b.phase === 2) { b.state = 'blackout'; b.t = 0; } else lurkAt(g, b);

@@ -7,7 +7,9 @@ import { ENEMIES_META, ENEMIES_PNG } from '../data/enemies-atlas.js';
 import { TRAIDOR_META, TRAIDOR_PNG } from '../data/traidor-atlas.js';
 import { FLASHBOT_META, FLASHBOT_PNG } from '../data/flashbot-atlas.js';
 import { RUMOR_META, RUMOR_PNG } from '../data/rumor-atlas.js';
+import { COSTUMES_META, COSTUMES_PNG } from '../data/costumes-atlas.js';
 import { buildTheme, hash } from './themes.js';
+import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
@@ -54,15 +56,32 @@ let SHEETS = null;
 function sheets() {
   if (SHEETS) return SHEETS;
   const mk = (png, meta) => ({ img: loadImage(png), meta });
-  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), traidor: mk(TRAIDOR_PNG, TRAIDOR_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META) };
-  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor'].map((k) => SHEETS[k].img.decode()));
+  SHEETS = { pepe: mk(PEPE_PNG, PEPE_META), foes: mk(ENEMIES_PNG, ENEMIES_META), traidor: mk(TRAIDOR_PNG, TRAIDOR_META), boss: mk(FLASHBOT_PNG, FLASHBOT_META), rumor: mk(RUMOR_PNG, RUMOR_META), costumes: mk(COSTUMES_PNG, COSTUMES_META) };
+  SHEETS.ready = Promise.all(['pepe', 'foes', 'traidor', 'boss', 'rumor', 'costumes'].map((k) => SHEETS[k].img.decode()));
   return SHEETS;
 }
 
-export function createArt(level, theme = 'calle') {
+// Copia en escala de grises (Mundo 2 «Noche»): se calcula una vez por hoja, nunca en el bucle.
+const GRAY = new Map();
+function graySheet(sheet) {
+  if (GRAY.has(sheet)) return GRAY.get(sheet);
+  const img = sheet.img, c = canvas(img.naturalWidth || img.width, img.naturalHeight || img.height), x = c.getContext('2d');
+  x.drawImage(img, 0, 0);
+  const d = x.getImageData(0, 0, c.width, c.height), a = d.data;
+  for (let i = 0; i < a.length; i += 4) { const v = Math.round(a[i] * 0.3 + a[i + 1] * 0.59 + a[i + 2] * 0.11); a[i] = a[i + 1] = a[i + 2] = v; }
+  x.putImageData(d, 0, 0);
+  const out = { img: c, meta: sheet.meta };
+  GRAY.set(sheet, out);
+  return out;
+}
+
+// opts.costume: id del traje (spec §3.0f D); 'clasico' usa la hoja oficial de 29 poses.
+export function createArt(level, theme = 'calle', opts = {}) {
   const s = sheets();
   const th = buildTheme(theme);
-  return { ...s, theme: th, themeName: theme, tiles: renderTiles(level, th.tiles) };
+  const art = { ...s, theme: th, themeName: theme, tiles: renderTiles(level, th.tiles), costume: opts.costume ?? 'clasico' };
+  if (th.gray) for (const k of ['pepe', 'foes', 'costumes']) art[k] = graySheet(s[k]);
+  return art;
 }
 
 // Dibuja el fotograma `key` con su ancla (centro de los pies) en (x, y); flip = mirando a la izquierda.
@@ -179,9 +198,9 @@ function drawGuitar(ctx, x, y) {
 }
 
 // ── Fotograma ─────────────────────────────────────────────
-export function drawWorld(ctx, g, art, camX, t, levelId = '') {
-  const th = art.theme;
-  const shake = g.shake > 0 ? Math.round((hash(g.frame, 3) - 0.5) * 6 * Math.min(1, g.shake * 4)) : 0;
+export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
+  const th = art.theme, flashes = opts.flashes !== false;
+  const shake = g.shake > 0 && opts.shake !== false ? Math.round((hash(g.frame, 3) - 0.5) * 6 * Math.min(1, g.shake * 4)) : 0;
   if (th.backdrop && th.backdrop.complete && th.backdrop.naturalWidth) {
     // Fondo panorámico de Gemini: recorre la imagen de un borde al otro a lo largo del nivel.
     const ox = panOffset(camX, g.level.w * TILE, th.backdropW);
@@ -212,6 +231,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '') {
   }
 
   ctx.drawImage(art.tiles, 0, 0);
+  opts.decor?.(ctx);
   for (const h of g.level.hooks) th.chandelier ? drawChandelier(ctx, h, t) : drawHook(ctx, h, t);
   for (const c of g.level.checkpoints) {
     const on = g.checkpoint.x >= c.x;
@@ -220,21 +240,27 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '') {
     text(ctx, 'JMV', c.x + 3, c.y - 33, { color: on ? '#fff' : '#b9bec6', shadow: null });
   }
   if (g.level.goal) {
-    // Puerta del Teatro Carmesí.
+    // Puerta del Teatro Carmesí (en Noche, la salida hacia el lago o el muelle).
     const { x, y } = g.level.goal;
     rect(ctx, '#1b1226', x - 18, y - 50, 36, 50);
     rect(ctx, '#7a0e1e', x - 16, y - 48, 32, 48);
     rect(ctx, Math.floor(t * 3) % 2 ? '#ffcf7a' : '#e8a23c', x - 11, y - 40, 22, 40);
-    text(ctx, 'TEATRO', x, y - 60, { color: '#ffcf7a', align: 'center' });
+    text(ctx, th.goal ?? 'TEATRO', x, y - 60, { color: th.gray ? '#e6e6e6' : '#ffcf7a', align: 'center' });
   }
-  for (const pc of g.pieces) if (!pc.taken) drawCarmesi(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
-  for (const it of g.items) if (!it.taken) drawItem(ctx, it, t);
+  for (const pc of g.pieces) if (!pc.taken) (th.piece === 'luna' ? drawLunaPiece : drawCarmesi)(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
+  for (const it of g.items) if (!it.taken) (it.kind === 'aceite' ? drawAceite : drawItem)(ctx, it, t);
 
-  drawEnemies(ctx, g, art, t);
-  if (g.boss) drawBoss(ctx, g, art, t);
+  drawEnemies(ctx, g, art, t, flashes);
+  if (g.boss) (g.boss.kind === 'mask' ? drawMaskBoss : drawBoss)(ctx, g, art, t, flashes);
   if (g.disco && !g.disco.taken && g.boss.deadT > 0.4) {
-    drawDisc(ctx, g.disco.x, g.disco.y + Math.round(Math.sin(t * 3) * 3), t, '#ffd34a', '#fffbe0', 9);
-    text(ctx, 'DISCO DE ORO', g.disco.x, g.disco.y - 22, { color: '#ffd34a', align: 'center' });
+    const dy = g.disco.y + Math.round(Math.sin(t * 3) * 3);
+    if (g.disco.kind === 'mascara') {
+      drawMascara(ctx, g.disco.x, dy);
+      text(ctx, 'MÁSCARA DE FIESTA', g.disco.x, g.disco.y - 22, { color: '#ffffff', align: 'center' });
+    } else {
+      drawDisc(ctx, g.disco.x, dy, t, '#ffd34a', '#fffbe0', 9);
+      text(ctx, 'DISCO DE ORO', g.disco.x, g.disco.y - 22, { color: '#ffd34a', align: 'center' });
+    }
   }
 
   // Micrófono con su cable.
@@ -247,7 +273,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '') {
 
   // Pepe (sprites oficiales de la hoja de Colores Ruidosos).
   const p = g.player;
-  if (g.guitarT > 0) {
+  if (g.guitarT > 0 && flashes) {
     // Solo de guitarra: ondas que salen de Pepe (sin destellos de pantalla completa).
     const k = 1 - g.guitarT / 0.8;
     ctx.save();
@@ -258,13 +284,19 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '') {
       ctx.beginPath(); ctx.arc(p.x + p.w / 2, p.y + p.h / 2, r, 0, Math.PI * 2); ctx.stroke();
     }
     ctx.restore();
-    drawGuitar(ctx, p.x + p.w / 2 - 6, p.y + 18);
   }
-  if (!(g.invuln > 0 && g.invuln < 1.1 && g.guitarT <= 0 && Math.floor(t * 15) % 2)) {
+  if (g.guitarT > 0) drawGuitar(ctx, p.x + p.w / 2 - 6, p.y + 18);
+  // Invulnerable: parpadea; sin destellos, semitransparente.
+  const blink = g.invuln > 0 && g.invuln < 1.1 && g.guitarT <= 0;
+  if (!(blink && flashes && Math.floor(t * 15) % 2)) {
+    if (blink && !flashes) ctx.globalAlpha = 0.55;
     if (p.frozen > 0) ctx.filter = 'brightness(1.7) saturate(0.4)';
-    sprite(ctx, art.pepe, pepeFrame(g, t, art), p.x + p.w / 2, p.y + p.h, p.facing < 0);
-    ctx.filter = 'none';
+    drawPepe(ctx, g, art, t, p.x + p.w / 2, p.y + p.h, p.facing < 0);
+    ctx.filter = 'none'; ctx.globalAlpha = 1;
   }
+  // Noche: oscuridad con el farol de Pepe (y los ojos del Enmascarado, que se ven siempre).
+  if (g.lantern) drawDarkness(ctx, g, camX, art);
+  if (g.boss?.kind === 'mask') drawMaskEyes(ctx, g, t);
   for (const f of g.floats) {
     ctx.globalAlpha = Math.min(1, f.t * 3);
     text(ctx, f.text, f.x, f.y, { color: f.text.startsWith('+♥') ? '#ff5a4f' : '#ffcf7a', align: 'center' });
@@ -279,8 +311,9 @@ const BUBBLE = (e) => e.kind === 'titular' ? e.word
   : e.kind === 'traidor' && e.state === 'aim' ? '¿Y EL ESCÁNDALO?'
   : e.kind === 'rumor' && e.state === 'dive' ? '¡DICEN QUE…!' : null;
 
-function drawEnemies(ctx, g, art, t) {
+function drawEnemies(ctx, g, art, t, flashes = true) {
   for (const e of g.enemies) {
+    if (['invitado', 'murcielago', 'fantasma'].includes(e.kind)) { drawNocheEnemy(ctx, g, e, t); continue; }
     if (!e.alive && e.deadT > 0.8) continue;
     const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
     const carm = e.kind === 'rumor' || e.kind === 'traidor';
@@ -304,7 +337,7 @@ function drawEnemies(ctx, g, art, t) {
     // Los voladores aletean (pequeño balanceo) y el Traidor tiembla al apuntar.
     const wob = carm ? (e.kind === 'traidor' && e.state === 'aim' ? Math.round(Math.sin(t * 60)) : Math.round(Math.sin(t * 10))) : 0;
     sprite(ctx, sheet, key, fx + (e.kind === 'traidor' && e.state === 'aim' ? wob : 0), fy + (e.kind === 'rumor' ? wob : 0), e.kind === 'traidor' ? (e.state === 'aim' || e.state === 'lunge' ? flip : false) : flip);
-    if (e.kind === 'paparazzi' && e.state === 'flash') {
+    if (e.kind === 'paparazzi' && e.state === 'flash' && flashes) {
       ctx.save(); ctx.globalAlpha = 0.45 * (1 - e.t / 0.25); ctx.fillStyle = '#fff6a8';
       ctx.beginPath(); ctx.arc(fx + e.facing * 10, fy - 38, 26, 0, Math.PI * 2); ctx.fill(); ctx.restore();
     }
@@ -385,14 +418,29 @@ function pepeFrame(g, t, art) {
   return loop(art.pepe, 'idle', t, 5);
 }
 
+// Pepe con su traje. Los trajes solo traen 4 poses (reposo, correr, saltar, lanzar): el resto usa la más parecida.
+const POSE = { idle: 'idle', run: 'run', jump: 'jump', throw: 'throw', land: 'idle', crouch: 'idle', ko: 'idle', win: 'idle', hurt: 'jump', shout: 'throw' };
+export function drawPepe(ctx, g, art, t, x, y, flip) {
+  const key = pepeFrame(g, t, art);
+  if (!art.costume || art.costume === 'clasico') return sprite(ctx, art.pepe, key, x, y, flip);
+  const pose = POSE[key.replace(/\d+$/, '')] ?? 'idle';
+  const bob = pose === 'run' ? Math.floor(t * 12) % 2 : 0;
+  sprite(ctx, art.costumes, `${art.costume}_${pose}`, x, y - bob, flip);
+}
+export function drawCostume(ctx, art, id, pose, x, y, flip = false) {
+  if (id === 'clasico') return sprite(ctx, art.pepe, pose === 'run' ? 'run2' : pose === 'jump' ? 'jump0' : pose === 'throw' ? 'throw1' : 'idle0', x, y, flip);
+  sprite(ctx, art.costumes, `${id}_${pose}`, x, y, flip);
+}
+
 const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
-export function drawHud(ctx, g, levelName = '', t = 0) {
+const BOSS_NAME = { flash: 'CÁMARA FLASH-BOT', mask: 'EL ENMASCARADO DEL LAGO' };
+export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
   // Barra superior.
   ctx.globalAlpha = 0.55; rect(ctx, '#12040a', 0, 0, W, 30); ctx.globalAlpha = 1;
   for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });
   text(ctx, String(g.score).padStart(7, '0'), 36, 5, { color: '#ffffff' });
-  drawCarmesi(ctx, 86, 9, 0, 4);
+  if (art?.theme?.piece === 'luna') drawLunaPiece(ctx, 86, 9, 0, 4); else drawCarmesi(ctx, 86, 9, 0, 4);
   text(ctx, `${g.piezas}/${g.pieces.length}`, 94, 5);
   text(ctx, clock(g.time), 124, 5, { color: '#b9c0d0' });
   text(ctx, levelName, W - 6, 5, { align: 'right', color: '#ffcf7a' });
@@ -404,12 +452,18 @@ export function drawHud(ctx, g, levelName = '', t = 0) {
   if (full) text(ctx, '★ SOLO: C', 138, 17, { color: Math.floor(t * 4) % 2 ? '#ffcf7a' : '#ffffff' });
   else if (g.combo > 1 && g.comboT > 0) text(ctx, `COMBO X${g.combo}`, 138, 17, { color: '#ff9a5a' });
   if (g.amp > 0) text(ctx, `MICRO X2 ${Math.ceil(g.amp)}`, W - 6, 17, { align: 'right', color: '#ff5a4f' });
+  else if (g.lantern) {
+    text(ctx, 'FAROL', W - 50, 17, { align: 'right', color: '#e6e6e6' });
+    rect(ctx, '#1b1226', W - 46, 17, 40, 8); rect(ctx, g.lantern.oil < 0.25 ? '#ff9a5a' : '#ffe9a8', W - 45, 18, Math.round(38 * g.lantern.oil), 6);
+  }
+  if (g.assist) text(ctx, 'ASISTIDO', 6, 34, { color: '#7ad0ff' });
   // Vida del jefe.
   const b = g.boss;
   if (b && b.alive) {
-    text(ctx, 'CÁMARA FLASH-BOT', W / 2, H - 20, { align: 'center', color: '#ffcf7a' });
+    const maxHp = b.kind === 'mask' ? 5 : BOSS.hp, seg = Math.floor(120 / maxHp);
+    text(ctx, BOSS_NAME[b.kind] ?? '', W / 2, H - 20, { align: 'center', color: '#ffcf7a' });
     rect(ctx, '#1b1226', W / 2 - 61, H - 11, 122, 8);
-    for (let i = 0; i < BOSS.hp; i++) rect(ctx, i < b.hp ? (b.phase === 2 ? '#ff5a4f' : '#d8312b') : '#3a2050', W / 2 - 60 + i * 20, H - 10, 19, 6);
+    for (let i = 0; i < maxHp; i++) rect(ctx, i < b.hp ? (b.phase === 2 ? '#ff5a4f' : '#d8312b') : '#3a2050', W / 2 - 60 + i * seg, H - 10, seg - 1, 6);
   }
   // Frase verificada al vencer a un Titular (cartel pequeño abajo).
   const pop = g.popups.at(-1);
@@ -449,7 +503,7 @@ export function drawTitle(ctx, t, art) {
     sprite(ctx, art.rumor, loop(art.rumor, 'rumorFly', t, 8), 30, 46 + Math.round(Math.sin(t * 5) * 3));
   }
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START / A', W / 2, 140, { align: 'center' });
-  text(ctx, 'MUNDO 1 · CARMESÍ', W / 2, 160, { align: 'center', color: '#ffcf7a' });
+  text(ctx, 'B: OPCIONES', W / 2, 160, { align: 'center', color: '#ffcf7a' });
   text(ctx, 'HOMENAJE NO OFICIAL HECHO POR FANS', W / 2, 196, { align: 'center', color: '#e6e9f0' });
   text(ctx, '@COLORESRUIDOSOS', W / 2, 208, { align: 'center', color: '#ffcf7a' });
 }
@@ -462,8 +516,9 @@ export function drawCard(ctx, card, art, t) {
     text(ctx, `${card.id} SUPERADO`, W / 2, 82, { scale: 2, align: 'center', color: '#ffcf7a' });
     text(ctx, `TIEMPO ${clock(card.time)}`, W / 2, 108, { align: 'center' });
     text(ctx, `PUNTOS ${String(card.score).padStart(7, '0')}`, W / 2, 120, { align: 'center' });
-    text(ctx, `CARMESÍS ${card.piezas}/${card.total}`, W / 2, 132, { align: 'center' });
-    text(ctx, `SIGUIENTE: ${card.next}`, W / 2, 156, { align: 'center', color: '#ff9a5a' });
+    text(ctx, `${card.pieceName ?? 'CARMESÍS'} ${card.piezas}/${card.total}`, W / 2, 132, { align: 'center' });
+    text(ctx, `SIGUIENTE: ${card.next}`, W / 2, 148, { align: 'center', color: '#ff9a5a' });
+    (card.unlocks ?? []).forEach((u, i) => text(ctx, u, W / 2, 162 + i * 10, { align: 'center', color: '#7ad0ff' }));
   } else if (card.kind === 'fact') {
     text(ctx, '¿SABÍAS QUE…?', W / 2, 24, { scale: 2, align: 'center', color: '#ffcf7a' });
     let y = 54;
@@ -484,26 +539,30 @@ export function drawCard(ctx, card, art, t) {
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA A PARA SEGUIR', W / 2, 190, { align: 'center' });
 }
 
-export function drawEnd(ctx, g, best, art, t = 0) {
+export function drawEnd(ctx, g, best, art, t = 0, info = {}) {
   ctx.fillStyle = 'rgba(18,4,10,0.85)'; ctx.fillRect(0, 0, W, H);
   if (g.status === 'won') {
-    if (art) sprite(ctx, art.pepe, loop(art.pepe, 'win', t, 8), W / 2, 70);
-    text(ctx, '¡MUNDO 1 COMPLETADO!', W / 2, 80, { scale: 2, align: 'center', color: '#ffcf7a' });
+    if (art) drawCostume(ctx, art, art.costume, 'idle', W / 2, 70);
+    text(ctx, info.title ?? '¡MUNDO COMPLETADO!', W / 2, 80, { scale: 2, align: 'center', color: '#ffcf7a' });
     text(ctx, `PUNTOS ${String(g.score).padStart(7, '0')}`, W / 2, 106, { align: 'center' });
     if (best) text(ctx, `RÉCORD ${String(best).padStart(7, '0')}`, W / 2, 118, { align: 'center', color: '#b9c0d0' });
-    text(ctx, 'PRÓXIMAMENTE: MUNDO 2 · NOCHE', W / 2, 146, { align: 'center', color: '#ff9a5a' });
+    (info.lines ?? []).forEach((l, i) => text(ctx, l, W / 2, 140 + i * 11, { align: 'center', color: '#ff9a5a' }));
   } else {
     if (art) sprite(ctx, art.pepe, 'ko1', W / 2, 70);
     text(ctx, 'LOS TITULARES', W / 2, 84, { scale: 2, align: 'center', color: '#ff5a4f' });
     text(ctx, 'GANARON ESTA VEZ…', W / 2, 106, { scale: 2, align: 'center', color: '#ff5a4f' });
-    text(ctx, 'VUELVES AL INICIO DEL NIVEL', W / 2, 134, { align: 'center', color: '#b9c0d0' });
+    text(ctx, 'A: REPETIR EL NIVEL · B: AL MUSEO', W / 2, 134, { align: 'center', color: '#b9c0d0' });
   }
-  text(ctx, 'PULSA A PARA SEGUIR', W / 2, 180, { align: 'center' });
+  text(ctx, g.status === 'won' ? 'PULSA A PARA VOLVER AL MUSEO' : '', W / 2, 180, { align: 'center' });
 }
 
 // Cinemática de entrada del jefe (spec §3.0d): bandas de cine, foco sobre el jefe, cartel y «¡A ESCENA!».
 const ease = (x) => Math.max(0, Math.min(1, x));
-export function drawIntro(ctx, g, camX, t) {
+const BOSS_CARD = {
+  flash: { world: 'JEFE · MUNDO 1', name: 'CÁMARA FLASH-BOT', sub: '«LA PRENSA ROSA»', bg: '#7a0e1e', sub2: '#ffb3b3' },
+  mask: { world: 'JEFE · MUNDO 2', name: 'EL ENMASCARADO', sub: '«DEL LAGO»', bg: '#1a1a1a', sub2: '#d0d0d0' },
+};
+export function drawIntro(ctx, g, camX, t, opts = {}) {
   const it = g.intro, b = g.boss;
   if (!it || !b) return;
   const out = ease((INTRO.total - it.t) / 0.3), inn = ease(it.t / 0.4);
@@ -515,7 +574,7 @@ export function drawIntro(ctx, g, camX, t) {
   ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(bx, by, 56 + (it.landed ? 6 : 0), 0, Math.PI * 2); ctx.fill('evenodd');
   ctx.restore();
   // Focos del jefe que se encienden al aterrizar.
-  if (it.landed) {
+  if (it.landed && opts.flashes !== false) {
     const k = ease((it.t - INTRO.dropEnd) / 0.5) * out;
     ctx.save(); ctx.globalAlpha = 0.35 * k; ctx.fillStyle = '#fff2c0';
     for (const dx of [-12, 10]) { ctx.beginPath(); ctx.arc(bx + dx * (b.facing < 0 ? -1 : 1), b.y - 14, 8, 0, Math.PI * 2); ctx.fill(); }
@@ -527,10 +586,11 @@ export function drawIntro(ctx, g, camX, t) {
   // Cartel del jefe: entra desde la derecha.
   if (it.t >= INTRO.card && it.t < INTRO.fight + 0.1) {
     const k = ease((it.t - INTRO.card) / 0.3), x = W / 2 + (1 - k) * 220;
-    rect(ctx, '#1b1226', x - 130, 40, 260, 54); rect(ctx, '#7a0e1e', x - 128, 42, 256, 50); rect(ctx, '#c8963c', x - 128, 42, 256, 2); rect(ctx, '#c8963c', x - 128, 90, 256, 2);
-    text(ctx, 'JEFE · MUNDO 1', x, 48, { align: 'center', color: '#ffcf7a' });
-    text(ctx, 'CÁMARA FLASH-BOT', x, 60, { scale: 2, align: 'center', bands: CHROME });
-    text(ctx, '«LA PRENSA ROSA»', x, 79, { align: 'center', color: '#ffb3b3' });
+    const c = BOSS_CARD[b.kind] ?? BOSS_CARD.flash;
+    rect(ctx, '#1b1226', x - 130, 40, 260, 54); rect(ctx, c.bg, x - 128, 42, 256, 50); rect(ctx, '#c8963c', x - 128, 42, 256, 2); rect(ctx, '#c8963c', x - 128, 90, 256, 2);
+    text(ctx, c.world, x, 48, { align: 'center', color: '#ffcf7a' });
+    text(ctx, c.name, x, 60, { scale: 2, align: 'center', bands: CHROME });
+    text(ctx, c.sub, x, 79, { align: 'center', color: c.sub2 });
   }
   if (it.t >= INTRO.fight) {
     const k = ease((it.t - INTRO.fight) / 0.15);

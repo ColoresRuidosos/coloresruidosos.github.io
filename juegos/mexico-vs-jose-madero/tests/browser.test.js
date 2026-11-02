@@ -26,9 +26,19 @@ test('carga sin errores y muestra la portada', async () => {
   assert.deepEqual(errors, []);
 });
 
-test('START arranca la partida y Pepe se mueve a la derecha', async () => {
+test('START lleva al Museo; B en la puerta de Carmesí abre el capítulo 1 y A empieza 1-1', async () => {
   await page.keyboard.press('Enter');
   await page.waitForTimeout(200);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'museum');
+  assert.equal(await page.evaluate(() => window.__jmv.door), 'carmesi');
+  await page.screenshot({ path: 'out/02a-museo.png' });
+  await page.keyboard.press('KeyX');
+  await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'card');
+  await page.waitForTimeout(700);
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(() => [window.__jmv.screen, window.__jmv.level].join(' ')), 'play 1-1');
   await page.keyboard.down('ArrowRight');
   await page.waitForTimeout(1200);
   await page.keyboard.press('KeyZ');
@@ -106,4 +116,56 @@ test('móvil: los botones no se seleccionan ni se quedan pegados (iOS)', async (
   assert.equal(r.afterCancel, false);
   assert.equal(r.afterBlur, false);
   assert.equal(r.menuBlocked, true);
+});
+
+// ── v7 (spec §3.0f; tarea N7) ──────────────────────────
+test('v7: Opciones desde la pausa; «Destellos: no» se guarda y sobrevive a recargar', async () => {
+  await page.evaluate(() => window.__jmv.goto(0, 'carmesi'));
+  await page.keyboard.press('KeyP'); await page.waitForTimeout(80);
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'options');
+  await page.keyboard.press('KeyZ'); await page.waitForTimeout(80); // primera opción: Destellos
+  await page.screenshot({ path: 'out/06-opciones.png' });
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.flashes), false);
+  await page.reload(); await page.waitForTimeout(400);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('jmv-save')).options.flashes), false);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.flashes), false);
+  assert.deepEqual(errors, []);
+});
+
+test('v7: Galería — un traje bloqueado no se puede poner; uno desbloqueado, sí', async () => {
+  await page.evaluate(() => window.__jmv.museum('galeria'));
+  await page.waitForTimeout(100);
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'gallery');
+  for (let i = 0; i < 2; i++) { await page.keyboard.press('ArrowRight'); await page.waitForTimeout(60); } // boina
+  await page.keyboard.press('KeyZ'); await page.waitForTimeout(60);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.costume), 'auto');
+  await page.evaluate(() => window.__jmv.save.data.unlocked.push('boina'));
+  await page.keyboard.press('KeyZ'); await page.waitForTimeout(60);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.costume), 'boina');
+  await page.screenshot({ path: 'out/07-galeria.png' });
+  await page.keyboard.press('Escape'); await page.waitForTimeout(60);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'museum');
+  assert.deepEqual(errors, []);
+});
+
+test('v7: la puerta de Noche está cerrada hasta terminar Carmesí', async () => {
+  await page.evaluate(() => { window.__jmv.save.data.worlds = {}; window.__jmv.museum('noche'); });
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'museum');
+  await page.evaluate(() => { window.__jmv.save.data.worlds.carmesi = { cleared: ['1-1', '1-2', '1-3'], best: {} }; });
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
+  assert.equal(await page.evaluate(() => [window.__jmv.screen, window.__jmv.level].join(' ')), 'card 2-1');
+});
+
+test('v7: los tres niveles de Noche se dibujan sin errores (con farol en 2-2 y 2-3)', async () => {
+  for (const [i, id] of [[0, '2-1'], [1, '2-2'], [2, '2-3']]) {
+    await page.evaluate((n) => window.__jmv.goto(n, 'noche'), i);
+    await page.waitForTimeout(1200);
+    assert.equal(await page.evaluate(() => window.__jmv.level), id);
+    assert.equal(await page.evaluate(() => !!window.__jmv.game.lantern), i > 0);
+    await page.screenshot({ path: `out/08-nivel-${id}.png` });
+  }
+  assert.deepEqual(errors, []);
 });
