@@ -83,23 +83,23 @@
 - [ ] F1 ⏳ Ajustes de jugabilidad con el feedback del usuario (`constants.js`)
 
 ## Fase 2d — v8 · Historia, jefe de Noche y arte (⏳ esperando aprobación del usuario; 🧪 primero)
-- [ ] S1 🧪 Prólogo: 5 viñetas, saltable, solo la primera vez (se guarda); textos ≤ 44 caracteres; datos con fuente y ficción marcada
-- [ ] S2 🧪 Identidad: retrato de 8 piezas en el Museo, «IDENTIDAD n/8», Pepe desaturado que gana color por mundo
-- [ ] S3 🧪 «RECUERDO RECUPERADO» al vencer cada jefe; pensamientos en los checkpoints; línea al volver al Museo
+- [x] S1 🧪 Prólogo: 5 viñetas, saltable, solo la primera vez (se guarda); textos ≤ 44 caracteres; datos con fuente y ficción marcada
+- [x] S2 🧪 Identidad: retrato de 8 piezas en el Museo, «IDENTIDAD n/8», Pepe desaturado que gana color por mundo
+- [x] S3 🧪 «RECUERDO RECUPERADO» al vencer cada jefe; pensamientos en los checkpoints; línea al volver al Museo
 - [ ] S4 🧪 Créditos que separan datos con fuente e historia inventada
-- [ ] B1 🧪 Enmascarado con repertorio: embestida, salto encima, máscaras lanzadas, niebla por detrás, invitados (fase 2); sin repetir dos veces seguidas; PRNG determinista
-- [ ] B2 🎨 Arena 2-3 con barcas y plataformas
+- [x] B1 🧪 Enmascarado con repertorio: embestida, salto encima, máscaras lanzadas, niebla por detrás, invitados (fase 2); sin repetir dos veces seguidas; PRNG determinista
+- [x] B2 🎨 Arena 2-3 con barcas y plataformas
 - [x] A7 🎨 Hojas de Noche hechas con **ChatGPT** (prompts §0d): Invitado, Murciélago, Fantasma y Enmascarado → `scripts/slice_rows.py` (nuevo: recorta por filas y huecos y une piezas sueltas) · ⏳ escenarios
 - [ ] D8 ⚠️ Verificar «el estadio más grande de México» y el nombre (Foro / Estadio GNP Seguros)
 
 ## Fase 2e — v8.1 · Noche en la fiesta (✅ aprobado; 🧪 primero)
-- [ ] B1 🧪 Enmascarado: repertorio (embestida, salto con ondas, máscaras, niebla, invitados), sin repetir, PRNG determinista, un golpe por ventana
-- [ ] B2 🎨 Muelle 2-3 más ancho, con barcas y plataformas
-- [ ] G1 🧪 Disfrazados: regla de los 2 golpes (3 el Gigante), más rápidos sin disfraz; Solo de una vez
-- [ ] G2 🧪 IA: Gigante (empujón fuerte), Hombre invisible, Hombre anfibio (salta desde el foso), La Llorona (frena 1 s), Charro Negro (embiste)
-- [ ] G3 🎨 Generador de sprites por código (contorno y 3 tonos) + 5 personajes, con y sin disfraz
-- [ ] G4 🎨 Niveles 2-1 El Jardín, 2-2 La Casona y 2-3 El Muelle; temas, capítulos y bots que los completan
-- [ ] S1–S3 de la Fase 2d (prólogo, identidad, recuerdos y pensamientos)
+- [x] B1 🧪 Enmascarado: repertorio (embestida, salto con ondas, máscaras, niebla, invitados), sin repetir, PRNG determinista, un golpe por ventana
+- [x] B2 🎨 Muelle 2-3 más ancho, con barcas y plataformas
+- [x] G1 🧪 Disfrazados: regla de los 2 golpes (3 el Gigante), más rápidos sin disfraz; Solo de una vez
+- [x] G2 🧪 IA: Gigante (empujón fuerte), Hombre invisible, Hombre anfibio (salta desde el foso), La Llorona (frena 1 s), Charro Negro (embiste)
+- [x] G3 🎨 Generador de sprites por código (contorno y 3 tonos) + 5 personajes, con y sin disfraz
+- [x] G4 🎨 Niveles 2-1 El Jardín, 2-2 La Casona y 2-3 El Muelle; temas, capítulos y bots que los completan
+- [x] S1–S3 de la Fase 2d (prólogo, identidad, recuerdos y pensamientos)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…

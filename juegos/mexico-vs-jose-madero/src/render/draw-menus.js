@@ -1,6 +1,7 @@
 // v7 · Museo (puertas y vitrinas), Galería de trajes, Opciones y pausa (spec §3.0f A, C y D).
 import { W, H } from '../game/constants.js';
 import { text, drawCostume, drawCarmesi } from './draw.js';
+import { drawPortrait } from './draw-historia.js';
 import { COSTUMES } from '../game/progress.js';
 import { worldById } from '../data/worlds.js';
 
@@ -11,7 +12,9 @@ const shade = (hex, k) => {
 };
 
 // Puertas del pasillo (se dibujan detrás de Pepe). info[id] = { state, piezas, total }.
-export function drawMuseumDoors(g, hub, info, t) {
+// v8: a la izquierda, el retrato de Pepe con sus 8 piezas de identidad.
+export function drawMuseumDoors(g, hub, info, t, art = null, worldsDone = []) {
+  if (art) drawPortrait(g, art, worldsDone, 22, 52);
   for (const d of hub.doors) {
     const x = d.x, y = d.y;
     if (d.id === 'galeria') {

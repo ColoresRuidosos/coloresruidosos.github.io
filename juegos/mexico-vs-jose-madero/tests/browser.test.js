@@ -26,10 +26,18 @@ test('carga sin errores y muestra la portada', async () => {
   assert.deepEqual(errors, []);
 });
 
-test('START lleva al Museo; B en la puerta de Carmesí abre el capítulo 1 y A empieza 1-1', async () => {
+test('START: la primera vez sale el prólogo (B lo salta) y después el Museo; B en Carmesí abre el capítulo 1 y A empieza 1-1', async () => {
   await page.keyboard.press('Enter');
   await page.waitForTimeout(200);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'prologue');
+  await page.waitForTimeout(500);
+  await page.keyboard.press('Enter'); // A: siguiente viñeta
+  await page.waitForTimeout(150);
+  await page.screenshot({ path: 'out/02p-prologo.png' });
+  await page.keyboard.press('KeyX'); // B: saltar
+  await page.waitForTimeout(200);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'museum');
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.seenPrologue), true);
   assert.equal(await page.evaluate(() => window.__jmv.door), 'carmesi');
   await page.screenshot({ path: 'out/02a-museo.png' });
   await page.keyboard.press('KeyX');

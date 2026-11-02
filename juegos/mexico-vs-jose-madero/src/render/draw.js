@@ -14,6 +14,7 @@ import { MURCIELAGO_META, MURCIELAGO_PNG } from '../data/murcielago-atlas.js';
 import { FANTASMA_META, FANTASMA_PNG } from '../data/fantasma-atlas.js';
 import { ENMASCARADO_META, ENMASCARADO_PNG } from '../data/enmascarado-atlas.js';
 import { buildTheme, hash } from './themes.js';
+import { drawRecuerdo, drawThought } from './draw-historia.js';
 import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
 
@@ -76,6 +77,8 @@ function sheets() {
 const GRAY = new Map();
 function graySheet(sheet) {
   if (GRAY.has(sheet)) return GRAY.get(sheet);
+  // Imagen aún sin cargar: se usa la original (y se vuelve a intentar en el siguiente fotograma).
+  if (!(sheet.img.naturalWidth || sheet.img.width)) return sheet;
   const img = sheet.img, c = canvas(img.naturalWidth || img.width, img.naturalHeight || img.height), x = c.getContext('2d');
   x.drawImage(img, 0, 0);
   const d = x.getImageData(0, 0, c.width, c.height), a = d.data;
@@ -91,6 +94,10 @@ export function createArt(level, theme = 'calle', opts = {}) {
   const s = sheets();
   const th = buildTheme(theme);
   const art = { ...s, theme: th, themeName: theme, tiles: renderTiles(level, th.tiles), costume: opts.costume ?? 'clasico' };
+  // v8: Pepe empieza sin color y lo recupera con cada disco (spec §1.1b).
+  art.saturation = opts.saturation ?? 1;
+  Object.defineProperty(art, 'pepeGray', { get: () => graySheet(s.pepe) });
+  Object.defineProperty(art, 'costumesGray', { get: () => graySheet(s.costumes) });
   if (th.gray) for (const k of ['pepe', 'foes', 'costumes', 'murcielago', 'fantasma', 'enmascarado', ...FIESTA_IDS]) art[k] = graySheet(s[k]);
   return art;
 }
@@ -439,12 +446,22 @@ function pepeFrame(g, t, art) {
 
 // Pepe con su traje. Los trajes solo traen 4 poses (reposo, correr, saltar, lanzar): el resto usa la más parecida.
 const POSE = { idle: 'idle', run: 'run', jump: 'jump', throw: 'throw', land: 'idle', crouch: 'idle', ko: 'idle', win: 'idle', hurt: 'jump', shout: 'throw' };
-export function drawPepe(ctx, g, art, t, x, y, flip) {
+function pepeSprite(ctx, g, art, t, x, y, flip, pepe, costumes) {
   const key = pepeFrame(g, t, art);
-  if (!art.costume || art.costume === 'clasico') return sprite(ctx, art.pepe, key, x, y, flip);
+  if (!art.costume || art.costume === 'clasico') return sprite(ctx, pepe, key, x, y, flip);
   const pose = POSE[key.replace(/\d+$/, '')] ?? 'idle';
   const bob = pose === 'run' ? Math.floor(t * 12) % 2 : 0;
-  sprite(ctx, art.costumes, `${art.costume}_${pose}`, x, y - bob, flip);
+  sprite(ctx, costumes, `${art.costume}_${pose}`, x, y - bob, flip);
+}
+export function drawPepe(ctx, g, art, t, x, y, flip) {
+  const sat = art.theme?.gray ? 1 : art.saturation ?? 1;
+  if (sat >= 1) return pepeSprite(ctx, g, art, t, x, y, flip, art.pepe, art.costumes);
+  // Sin identidad completa: Pepe en gris con su color encima, tan opaco como discos haya recuperado.
+  const a = ctx.globalAlpha;
+  pepeSprite(ctx, g, art, t, x, y, flip, art.pepeGray, art.costumesGray);
+  ctx.globalAlpha = a * sat;
+  pepeSprite(ctx, g, art, t, x, y, flip, art.pepe, art.costumes);
+  ctx.globalAlpha = a;
 }
 export function drawCostume(ctx, art, id, pose, x, y, flip = false) {
   if (id === 'clasico') return sprite(ctx, art.pepe, pose === 'run' ? 'run2' : pose === 'jump' ? 'jump0' : pose === 'throw' ? 'throw1' : 'idle0', x, y, flip);
@@ -484,6 +501,8 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
     rect(ctx, '#1b1226', W / 2 - 61, H - 11, 122, 8);
     for (let i = 0; i < maxHp; i++) rect(ctx, i < b.hp ? (b.phase === 2 ? '#ff5a4f' : '#d8312b') : '#3a2050', W / 2 - 60 + i * seg, H - 10, seg - 1, 6);
   }
+  // Pensamiento de Pepe al tocar un checkpoint (ficción).
+  drawThought(ctx, g.thought);
   // Frase verificada al vencer a un Titular (cartel pequeño abajo).
   const pop = g.popups.at(-1);
   if (pop) {
@@ -546,6 +565,9 @@ export function drawCard(ctx, card, art, t) {
       text(ctx, `FUENTE: ${f.source}`, W / 2, y + 2, { align: 'center', color: '#b9a8d6' });
       y += 24;
     }
+  } else if (card.kind === 'recuerdo') {
+    drawRecuerdo(ctx, card, art, t);
+    return;
   } else if (card.kind === 'chapter') {
     // Por qué Pepe está aquí (spec §3.0e).
     rect(ctx, '#7a0e1e', 0, 22, W, 2); rect(ctx, '#7a0e1e', 0, H - 24, W, 2);

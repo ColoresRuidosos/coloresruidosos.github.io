@@ -31,6 +31,7 @@ export function createGame(levelText, carry = {}, opts = {}) {
     checkpoint: { ...level.player }, quoteIdx: carry.quoteIdx ?? 0,
     status: 'play', popups: [], floats: [], events: [], prev: {},
     facts: opts.facts ?? QUOTES,
+    thoughts: opts.thoughts ?? null, thoughtIdx: carry.thoughtIdx ?? 0, thoughtsShown: [], thought: null,
     assist: !!opts.assist, hurts: 0, lantern: opts.lantern ? createLantern() : null, blackout: false, shots: [],
   };
   // Niveles con jefe: empiezan con su cinemática de entrada.
@@ -278,7 +279,16 @@ export function stepGame(g, btn) {
     if (g.status === 'play') respawn(g);
   }
 
-  for (const c of g.level.checkpoints) if (p.x > c.x && c.x > g.checkpoint.x) { g.checkpoint = { ...c }; g.events.push('checkpoint'); }
+  for (const c of g.level.checkpoints) {
+    if (!(p.x > c.x && c.x > g.checkpoint.x)) continue;
+    g.checkpoint = { ...c }; g.events.push('checkpoint');
+    // Pepe piensa en voz alta (spec §1.1b): un pensamiento por checkpoint, en orden por todo el mundo.
+    if (g.thoughts && g.thoughtIdx < g.thoughts.length) {
+      const text = g.thoughts[g.thoughtIdx++];
+      g.thoughtsShown.push(text); g.thought = { text, t: 2.6 };
+    }
+  }
+  if (g.thought && (g.thought.t -= DT) <= 0) g.thought = null;
 
   const goal = g.level.goal;
   if (goal && Math.abs(goal.x - (p.x + p.w / 2)) < 10 && Math.abs(goal.y - (p.y + p.h)) < 20) {

@@ -55,6 +55,9 @@ export function checkUnlocks(save, ctx) {
   return got;
 }
 
+// IDENTIDAD n/8 (spec §1.1b): cuántos discos ha recuperado Pepe.
+export const identity = (save) => WORLDS.filter((w) => worldCleared(save, w.id)).length;
+
 export function costumeFor(save, worldId) {
   const c = save.data.costume;
   if (c !== 'auto' && save.data.unlocked.includes(c)) return c;

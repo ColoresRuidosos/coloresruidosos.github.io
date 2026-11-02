@@ -10,6 +10,7 @@ export const defaults = () => ({
   unlocked: ['clasico'],
   costume: 'auto',
   record: 0,
+  seenPrologue: false, // v8: el prólogo solo se ve la primera vez
 });
 
 const safe = (fn, fallback) => { try { return fn(); } catch { return fallback; } };
@@ -28,6 +29,7 @@ function load(storage) {
     unlocked: Array.isArray(d.unlocked) && d.unlocked.length ? d.unlocked : base.unlocked,
     costume: typeof d.costume === 'string' ? d.costume : 'auto',
     record: Math.max(Number(d.record) || 0, old),
+    seenPrologue: !!d.seenPrologue,
   };
 }
 

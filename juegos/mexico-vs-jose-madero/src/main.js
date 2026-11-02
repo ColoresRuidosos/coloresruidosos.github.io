@@ -2,11 +2,13 @@ import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
 import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
-import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES } from './game/progress.js';
+import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared } from './game/progress.js';
+import { PROLOGO, RECUERDOS, PENSAMIENTOS, VUELTA_AL_MUSEO } from './data/historia.js';
+import { drawPrologue } from './render/draw-historia.js';
 import { HUB, createHub, doorAt } from './game/museum.js';
 import { WORLD_1 } from './data/world1.js';
 import { WORLD_2 } from './data/world2.js';
-import { worldById } from './data/worlds.js';
+import { worldById, WORLDS } from './data/worlds.js';
 import { ERA_FACTS_W1, CHAPTERS_W1, LEVEL_CARDS_W1 } from './data/carmesi-story.js';
 import { ERA_FACTS_W2, CHAPTERS_W2, LEVEL_CARDS_W2 } from './data/noche-story.js';
 import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard, drawIntro } from './render/draw.js';
@@ -50,12 +52,15 @@ function museumInfo() {
 const hub = createHub();
 let screen = 'title', back = 'title', camX = 0, cam = null, t = 0, paused = false, card = null, screenT = 0;
 let game, art, run = null, museumDoor = null, toast = null, toastT = 0, endInfo = {};
-let optSel = 0, galSel = 0;
+let optSel = 0, galSel = 0, prologueIdx = 0;
+const saturation = () => 0.3 + (0.7 * identity(save)) / 8; // Pepe recupera el color disco a disco
+const worldsDone = () => WORLDS.filter((w) => worldCleared(save, w.id)).map((w) => w.id);
 
-function enterMuseum(atDoor = null) {
+function enterMuseum(atDoor = null, returning = false) {
   run = null; paused = false;
+  if (returning) { toast = VUELTA_AL_MUSEO; toastT = 2.5; }
   game = createGame(HUB, { hearts: 3 });
-  art = createArt(game.level, 'museo', { costume: costumeFor(save, 'carmesi') });
+  art = createArt(game.level, 'museo', { costume: costumeFor(save, 'carmesi'), saturation: saturation() });
   const d = atDoor && hub.doors.find((x) => x.id === atDoor);
   if (d) { game.player.x = d.x - game.player.w / 2; game.player.facing = 1; }
   cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
@@ -65,8 +70,8 @@ function enterMuseum(atDoor = null) {
 function loadLevel(i, c = {}) {
   const wd = WORLD_DATA[run.world], L = wd.levels[i];
   run.idx = i; run.carry = c; run.levelStart = { ...c };
-  game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern });
-  art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world) });
+  game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern, thoughts: PENSAMIENTOS[run.world] });
+  art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world), saturation: saturation() });
   cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
 }
 const showCard = (c) => { card = c; screen = 'card'; screenT = 0; };
@@ -89,7 +94,7 @@ function finishLevel() {
   if (!next && !run.assistUsed) save.data.record = Math.max(save.data.record, game.score);
   save.commit();
   const nuevos = unlocks.map((u) => `NUEVO TRAJE EN LA GALERÍA: ${costumeName(u)}`);
-  const c = { score: game.score, ovacion: game.ovacion, hearts: Math.max(game.hearts, 1), quoteIdx: game.quoteIdx };
+  const c = { score: game.score, ovacion: game.ovacion, hearts: Math.max(game.hearts, 1), quoteIdx: game.quoteIdx, thoughtIdx: game.thoughtIdx };
   const fact = { kind: 'fact', facts: wd.cards[L.id].facts };
   if (next) {
     fact.then = () => startLevel(run.idx + 1, c);
@@ -97,7 +102,10 @@ function finishLevel() {
   } else {
     const w = worldById(run.world);
     endInfo = { title: `¡MUNDO ${wd.n} COMPLETADO!`, lines: [...nuevos, run.world === 'carmesi' ? 'SE ABRIÓ LA PUERTA DE NOCHE EN EL MUSEO' : `${w.name} YA ESTÁ EN TU MUSEO`] };
-    showCard({ ...fact, then: () => { screen = 'end'; screenT = 0; } });
+    // Al terminar el mundo: «¿Sabías que…?» → «RECUERDO RECUPERADO» (con el retrato ya con su pieza) → final.
+    const rec = RECUERDOS[run.world];
+    const recuerdo = { kind: 'recuerdo', ...rec, worldsDone: worldsDone(), then: () => { screen = 'end'; screenT = 0; } };
+    showCard({ ...fact, then: () => showCard(recuerdo) });
   }
 }
 
@@ -204,8 +212,14 @@ function frame(now) {
     prev = { ...btn }; tapStart = false;
     for (const k in latch) latch[k] = false;
     if (screen === 'title') {
-      if (pr.jump) { audio.unlock(); enterMuseum('carmesi'); }
+      if (pr.jump) { audio.unlock(); if (save.data.seenPrologue) enterMuseum('carmesi'); else { prologueIdx = 0; screen = 'prologue'; screenT = 0; } }
       else if (pr.mic) openOptions('title');
+    } else if (screen === 'prologue') {
+      // Prólogo (spec §1.1b): A avanza, B lo salta. Solo la primera vez.
+      if ((pr.jump && screenT > 0.4) || pr.mic) {
+        if (pr.jump && prologueIdx < PROLOGO.length - 1) { prologueIdx++; screenT = 0; }
+        else { save.data.seenPrologue = true; save.commit(); enterMuseum('carmesi'); }
+      }
     } else if (screen === 'options') stepOptions(pr);
     else if (screen === 'gallery') stepGallery(pr);
     else if (screen === 'museum') stepMuseum(btn, pr);
@@ -226,7 +240,7 @@ function frame(now) {
       // Tras perder: A repite el nivel con lo que tenías al empezarlo, B vuelve al Museo. Tras ganar: al Museo.
       if (game.status === 'gameover' && pr.jump) { loadLevel(run.idx, { ...run.levelStart, hearts: 3 }); screen = 'play'; }
       else if (game.status === 'gameover' && pr.mic) enterMuseum(run.world);
-      else if (game.status === 'won' && pr.jump) enterMuseum(run.world);
+      else if (game.status === 'won' && pr.jump) enterMuseum(run.world, true);
     }
     menuMove = 0; escPressed = false;
   }
@@ -235,12 +249,13 @@ function frame(now) {
   const target = duel ? (p.x + p.w / 2 + game.boss.x + game.boss.w / 2) / 2 + W * 0.08 : p.x + p.w / 2;
   camX = stepCamera(cam, target, game.level.w * 16, duel ? 0 : p.facing);
   const vis = { flashes: opt.flashes, shake: opt.shake };
-  if (screen === 'title' || (screen === 'options' && back === 'title')) {
+  if (screen === 'prologue') drawPrologue(ctx, PROLOGO[prologueIdx], prologueIdx, screenT, art, opt.flashes);
+  else if (screen === 'title' || (screen === 'options' && back === 'title')) {
     drawTitle(ctx, t, art);
     if (screen === 'options') drawOptions(ctx, opt, optSel, t);
   } else if (screen === 'museum' || screen === 'gallery' || (screen === 'options' && back === 'museum')) {
     const info = museumInfo();
-    drawWorld(ctx, game, art, camX, t, 'museo', { ...vis, decor: (g) => drawMuseumDoors(g, hub, info, t) });
+    drawWorld(ctx, game, art, camX, t, 'museo', { ...vis, decor: (g) => drawMuseumDoors(g, hub, info, t, art, worldsDone()) });
     drawMuseumHud(ctx, museumDoor, info, save.data.record, toast, t);
     if (screen === 'gallery') drawGallery(ctx, art, save, galSel, t);
   } else {
