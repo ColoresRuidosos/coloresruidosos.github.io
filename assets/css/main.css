@@ -434,3 +434,38 @@ body.sin-scroll { overflow: hidden; }
 .trivia__aviso-compartir { text-align: center; font-weight: 700; color: var(--accent-green); min-height: 1.2em; }
 .trivia__nota { font-size: .875rem; margin: 1.25rem 0 0; }
 @media (prefers-reduced-motion: reduce) { .trivia__boton:active { transform: none; } }
+
+/* F16/D22 Página de prensa. Rosa y amarillo solo como fondo con texto tinta (reglas de contraste). */
+.pie__prensa a { font-weight: 700; color: var(--text-main); }
+.prensa__kicker { font-family: var(--f-mono); font-size: .8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 .5rem; }
+.prensa__equipo { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1rem 0 0; }
+.prensa__equipo li { border: var(--borde); background: #fff; padding: .2rem .8rem; font-weight: 700; border-radius: 999px; }
+.prensa__acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0 0; }
+.prensa__boton { display: inline-block; background: var(--accent-blue); color: #fff; font-weight: 700; text-decoration: none; padding: .7rem 1.1rem; border: var(--borde); box-shadow: 4px 4px 0 var(--border-dark); }
+.prensa__boton:hover, .prensa__boton:focus-visible { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--border-dark); }
+.prensa__boton--claro { background: #fff; color: var(--text-main); }
+.prensa__bloque { margin: 0 0 2.5rem; }
+.prensa__titulo { font-family: var(--f-titulo); font-weight: 400; font-size: clamp(1.5rem, 4vw, 2.125rem); line-height: 1.1; margin: 0 0 .75rem; }
+.prensa__corte, .prensa__nota { font-size: .9375rem; margin: 0 0 1rem; }
+.prensa__nota { margin-top: 1rem; max-width: var(--lectura); }
+.prensa__cifras, .prensa__tarjetas, .prensa__piezas { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.prensa__cifras { grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); }
+.prensa__tarjetas { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.prensa__cifra, .prensa__tarjeta { background: #fff; border: var(--borde); box-shadow: var(--sombra); padding: 1rem 1.1rem; }
+.prensa__cifra strong { display: block; font-family: var(--f-titulo); font-weight: 400; font-size: 2.25rem; line-height: 1; margin-bottom: .35rem; }
+.prensa__cifra span { display: block; font-weight: 700; }
+.prensa__cifra small { display: block; font-size: .8125rem; margin-top: .25rem; }
+.prensa__fuente { opacity: .75; }
+.prensa__cifra--sitio { background: var(--bg-cream); border-style: dashed; }
+.prensa__tarjeta h3 { margin: 0 0 .4rem; font-size: 1.125rem; }
+.prensa__tarjeta p { margin: 0 0 .5rem; }
+.prensa__tarjeta a { font-weight: 700; color: var(--text-main); }
+.prensa__destacado { background: #fff; border: var(--borde); box-shadow: var(--sombra); padding: clamp(1rem, 3vw, 2rem); }
+.prensa__texto { max-width: var(--lectura); }
+.prensa__piezas { grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); align-items: center; margin-top: 1.25rem; }
+.prensa__piezas img { width: 100%; height: auto; display: block; }
+.prensa__dos { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+.prensa__lista { margin: 0; padding-left: 1.25rem; }
+.prensa__lista li { margin-bottom: .35rem; }
+.prensa__contacto { background: var(--text-main); color: var(--bg-cream); padding: clamp(1rem, 3vw, 2rem); border: var(--borde); }
+.prensa__contacto a:not(.prensa__boton) { color: var(--bg-cream); font-weight: 700; }

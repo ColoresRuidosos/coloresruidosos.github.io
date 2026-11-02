@@ -60,3 +60,12 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Tarjeta para compartir (1080×1350), sonido 8 bits y eventos en GoatCounter
 - ✅ Compilar con Hugo 0.166 y jugar partidas completas con Playwright a 360 px y en escritorio, sin errores ni desborde horizontal
 - ⏳ Segunda fase: tabla de récords y covers 8 bits con permiso de la banda
+
+## Fase 7 — Página de prensa (F16/D22)
+Orden TDD: primero la prueba en rojo, luego el código.
+- ✅ Spec (F16), plan (D22) y estas tareas
+- ✅ 🔴→🟢 Contrato de `data/prensa.yaml`: claves obligatorias, `fecha_corte` ISO, cada cifra con fuente, correo válido; existen las imágenes y el PDF que menciona
+- ✅ 🔴→🟢 Compilación: `/prensa/` trae cifras, fecha de corte, contador de notas real, enlace al PDF; el pie enlaza a `/prensa/`
+- ✅ `content/prensa/_index.md`, `layouts/prensa/section.html`, estilos y enlace en el pie (el contador de conciertos se oculta si la agenda está vacía)
+- ✅ Revisar a 360 px y en escritorio con Playwright, sin desborde horizontal
+- ⏳ Visto bueno del equipo al texto antes de mandar el enlace

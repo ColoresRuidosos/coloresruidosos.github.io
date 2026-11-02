@@ -38,6 +38,7 @@
 | Curador (Pardy, Tanelly, Dany, Pratz) | Recomendar, corregir u ocultar eventos y despublicar notas desde el celular, sin GitHub |
 | Mantenedor técnico (Edgar) | Resumen diario claro, costos acotados, poder ajustar fuentes, recintos y prompts sin tocar lógica |
 | Pipeline (actor automatizado) | Configuración clara y estado persistente para no repetir |
+| Prensa y aliados (foros, promotoras, artistas, clubes de fans) | Saber en un minuto quiénes somos, a cuánta gente llegamos, qué ofrecemos y cómo contactarnos, desde un enlace que se pueda mandar por mensaje directo |
 
 ## 3. Funcionalidades
 
@@ -71,6 +72,10 @@
 
 **Métricas de éxito de F15:** partidas iniciadas vs. terminadas (> 60 % terminan); al menos 1 de cada 5 partidas termina en compartir la tarjeta; jugadores que vuelven a jugar (insignia "Universos infinitos"). *Sin analítica en el sitio hoy: medir requiere decidir una herramienta respetuosa con la privacidad (decisión abierta).*
 
+**F16 Página de prensa.** Página `/prensa/`: la versión web del kit de prensa, para mandar como enlace (Instagram no deja adjuntar PDF en mensajes directos). Muestra quiénes somos, cifras de alcance con su fecha de corte, el caso principal (stickers coleccionables con Ultraligera MX) y otros casos, qué ofrecemos, qué pedimos, nuestro compromiso y el contacto. Las cifras editables viven en un solo archivo (`data/prensa.yaml`) para que actualizarlas sea cambiar números, no plantillas; dos cifras se calculan solas al compilar: notas publicadas y conciertos próximos en la agenda. Botón para descargar el kit en PDF. Enlace discreto en el pie del sitio, no en el menú principal (es para aliados, no para lectores). Solo imágenes propias. Cada cifra dice de dónde sale; nada se redondea hacia arriba.
+
+**Métricas de éxito de F16:** acreditaciones conseguidas por mes (se registran en el Sheet de prospectos); al menos 1 respuesta por cada 5 contactos.
+
 ## 4. Flujos
 
 **A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
@@ -87,6 +92,8 @@
 
 **E. Recomendar un evento.** Curador en pestaña Eventos: recinto, fecha, parte del título, casilla con su nombre → siguiente corrida.
 
+**H. Actualizar la página de prensa (el día 1 de cada mes).** Mantenedor copia las cifras de Instagram del mes en `data/prensa.yaml` y cambia `fecha_corte` → regenera el PDF si cambió el contenido → push → la siguiente compilación publica `/prensa/`.
+
 ## 5. Arquitectura
 
 ```
@@ -102,6 +109,7 @@ GitHub Pages ◄─────────────────────�
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
    /trivia/     juego 8 bits sobre Love of Lesbian (data/trivia.json + canvas, sin backend)
+   /prensa/     kit de prensa web (data/prensa.yaml + contadores de notas y agenda) y PDF descargable
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
@@ -119,5 +127,7 @@ Estructura, modelo de datos y decisiones: ver `plan.md`.
 **Identidad (SPEC-001):** crema `#F4EFE6`, tinta `#141414`, rosa `#FF3E7F`, azul `#2F5BFF`, amarillo `#FFD23F`, verde `#1FB57A`, naranja `#FF7A30`; Syne y Space Grotesk. Colores primarios vibrantes (no tonos apagados). Reglas de contraste: rosa, amarillo, verde y naranja solo con texto tinta encima (nunca blanco); rosa reservado para el sticker "Viene a México"; verde, naranja, azul y amarillo marcan respectivamente las categorías Lanzamiento, Gira, Anuncio y Crónica.
 
 **Trivia (F15):** juego completo con teclado (1–4 y Enter) y lector de pantalla (las escenas pixel art tienen texto alternativo; las preguntas tipo portada describen la imagen); sin destellos de más de 3 por segundo; `prefers-reduced-motion` quita animaciones; sonido apagado por defecto; funciona a 360 px y sin `localStorage`. Portadas redibujadas en pixel art propio, nunca las originales pixeladas; sin letras ni audio de la banda.
+
+**Prensa (F16):** sin JavaScript; funciona a 360 px; imágenes con texto alternativo; mismas reglas de contraste que el resto del sitio; el PDF pesa menos de 5 MB; un dato sin fuente no se publica (lo vigila un test).
 
 **Accesibilidad y rendimiento:** foco visible, enlace para saltar al contenido, filtros con `aria-pressed`, responsive a 360 px, iframes con carga diferida, sin librerías JS.

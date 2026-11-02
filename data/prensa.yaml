@@ -1,0 +1,99 @@
+# Kit de prensa web (F16/D22). Se actualiza el día 1 de cada mes:
+# copiar las cifras de Instagram, cambiar fecha_corte y hacer push.
+# Cada cifra lleva su fuente; un test (pipeline/tests/test_prensa.py) no deja publicar una sin ella.
+# Notas publicadas y conciertos próximos NO van aquí: Hugo los cuenta al compilar.
+fecha_corte: 2026-11-01
+
+presentacion: >-
+  Un fanzine de indie y rock hecho por cuatro amigos que van a conciertos y dibujan a sus
+  artistas favoritos. Cubrimos lo que suena en México y España, con la mirada puesta en lo
+  que llega a CDMX y Pachuca.
+equipo: [Pardy, Tanelly, Dany, Pratz]
+arte: >-
+  Los dibujos que entregamos a los artistas son originales hechos a mano. Las piezas
+  digitales para redes las diseña Tanelly, con apoyo parcial de IA y a partir de su
+  experiencia en marketing y diseño.
+
+cifras:
+  - valor: "58,3 mil"
+    etiqueta: visualizaciones en Instagram
+    detalle: últimos 30 días
+    fuente: Panel de Instagram
+  - valor: "8.574"
+    etiqueta: cuentas en una sola historia de concierto
+    detalle: nuestro récord en historias
+    fuente: Estadísticas de historias de Instagram
+  - valor: "96 %"
+    etiqueta: de quienes interactúan no nos sigue todavía
+    detalle: llegamos más allá de nuestra comunidad (ago-oct 2026)
+    fuente: Interacciones con el contenido de Instagram
+  - valor: "506"
+    etiqueta: seguidores en Instagram
+    detalle: 25 a 44 años, 80 % en México y 13 % en España
+    fuente: Estadísticas del público de Instagram
+
+caso_principal:
+  etiqueta: Ultraligera en México
+  titulo: Una pieza coleccionable por ciudad
+  texto: >-
+    Con el club de fans Ultraligera MX diseñamos tres stickers de edición limitada para la
+    gira de Ultraligera en México: un diseño distinto en cada recinto, regalado a los fans en
+    el concierto. La misión para el público: conseguirlos todos. El anuncio en colaboración
+    sumó 5.011 visualizaciones y 27 comentarios, la conversación más activa de nuestra cuenta.
+  imagenes:
+    - archivo: prensa/ultraligera-sello.jpg
+      alt: Sticker en forma de estampilla con un perezoso en blanco y negro y el texto Ultraligeramx x Colores Ruidosos
+    - archivo: prensa/ultraligera-as-holografico.jpg
+      alt: Sticker en forma de as de espadas con la banda en tonos holográficos violeta y el logo de Ultraligera
+    - archivo: prensa/ultraligera-as-grabado.jpg
+      alt: Sticker en forma de as de espadas con la banda dibujada en estilo grabado y el logo de Ultraligera
+
+casos:
+  - etiqueta: Trivia Love of Lesbian
+    titulo: "12.185 visualizaciones"
+    texto: >-
+      Un juego 8 bits gratuito hecho por nosotros rumbo a su último concierto en CDMX.
+      8.459 cuentas alcanzadas, 174 guardados y 90 envíos.
+    enlace: trivia/
+  - etiqueta: Morti
+    titulo: Su dibujo, en el backstage
+    texto: >-
+      Le entregamos su dibujo en el Segundo Piso, CDMX, el 24 de octubre de 2026.
+      Publicación en colaboración con b_sidemx y otras tres cuentas.
+  - etiqueta: Supersubmarina
+    titulo: "2.289 visualizaciones"
+    texto: >-
+      "Vinieron 2 veces", un carrusel sobre su paso por México hecho en colaboración con la
+      cuenta de fans eterna_supersubmarina.
+
+ofrecemos:
+  - titulo: Un dibujo original del artista
+    texto: Una pieza hecha a mano, con valor artístico, que le entregamos en persona.
+  - titulo: Anuncio y agenda
+    texto: Nota en el sitio, lugar en la agenda con calendario descargable y publicación de anuncio en Instagram.
+  - titulo: Historias en vivo
+    texto: Cobertura desde el foro con material propio, etiquetando al artista, al foro y a la promotora.
+  - titulo: Crónica
+    texto: Reel o carrusel con nuestra mirada de fans, más la nota en el sitio, en colaboración con quien quiera sumarse.
+  - titulo: Coleccionables y juegos
+    texto: Piezas de edición limitada por ciudad, trivias y dinámicas propias, sin pedir datos personales.
+  - titulo: Créditos y respeto
+    texto: Etiquetamos y damos crédito a todos. Solo usamos material propio o el que nos autoricen.
+
+pedimos:
+  - Acreditación de prensa para dos personas.
+  - Permiso para grabar clips cortos con celular, si el foro lo permite.
+  - Cinco minutos para entregar el dibujo al artista (opcional).
+  - Los datos del evento con anticipación, para la agenda.
+
+compromisos:
+  - Historias el día del concierto.
+  - Crónica publicada en menos de un día hábil.
+  - Etiquetas y créditos a artista, foro y promotora.
+  - Compartir las cifras de la publicación si las piden.
+
+contacto:
+  correo: coloresruidosos@outlook.com
+  instagram: "@coloresruidosos"
+
+pdf: prensa/colores-ruidosos-kit-de-prensa.pdf

@@ -40,6 +40,14 @@
 - **Sin aviso de "versión de prueba" (2026-10-30):** a pedido del equipo se quitó el letrero amarillo. `borrador: true` sigue limitando el juego a las preguntas de fuente sólida mientras los fans revisan; cada pregunta muestra su fuente al responder.
 - **Fecha límite:** el 28 de noviembre de 2026 (Tecate Comuna, Puebla: última fecha anunciada en México) marca el fin de la insignia "El último baile". Al principio era el 25 (Auditorio Nacional), pero el equipo avisó que había fechas posteriores; se corrigió el 2026-10-30.
 
+**D22 Página de prensa (2026-11-02):** F16. Decisiones:
+- **Datos aparte de la plantilla.** `data/prensa.yaml` guarda `fecha_corte`, cifras (valor, etiqueta, detalle, fuente), casos, ofertas, pedidos, compromisos y contacto. `layouts/prensa/section.html` solo pinta. Un test de pytest (`pipeline/tests/test_prensa.py`) valida el archivo: claves obligatorias, fecha ISO, cada cifra con fuente, correo válido, y que existan las imágenes y el PDF que menciona.
+- **Contadores calculados por Hugo**, no escritos a mano: notas publicadas (`posts` sin borrador) y conciertos próximos (`data/eventos.json` con fecha ≥ hoy al compilar). Así nunca quedan viejos.
+- **PDF en `static/prensa/`**, generado fuera del sitio (HTML + Chromium) y versionado. Se regenera solo si cambia el contenido; las cifras del mes viven en la página.
+- **Imágenes en `assets/prensa/`**, procesadas a WebP por Hugo como los stickers. Solo arte propio (stickers de Ultraligera MX × Colores Ruidosos, ilustración de Paloma Morphy).
+- **Enlace en el pie**, no en la cabecera: el menú sigue siendo para lectores.
+- **Prueba de compilación** (`pipeline/tests/test_prensa.py`, se salta si no hay `hugo`): compila el sitio y revisa que `/prensa/` traiga las cifras, la fecha de corte, el contador de notas igual al número real, el enlace al PDF y el enlace del pie.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|

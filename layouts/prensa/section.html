@@ -1,0 +1,107 @@
+{{ define "main" }}
+{{/* F16/D22: kit de prensa web. Datos en data/prensa.yaml; notas y conciertos se cuentan al compilar. */}}
+{{ $p := hugo.Data.prensa }}
+{{ $corte := time.AsTime $p.fecha_corte }}
+{{ $notas := len (where site.RegularPages "Section" "posts") }}
+{{ $hoy := now.Format "2006-01-02" }}
+{{ $proximos := 0 }}
+{{ range hugo.Data.eventos.eventos | default slice }}{{ if ge .fecha $hoy }}{{ $proximos = add $proximos 1 }}{{ end }}{{ end }}
+
+<header class="encabezado">
+  <p class="prensa__kicker">Kit de prensa</p>
+  <h1 class="encabezado__titulo">Colores Ruidosos</h1>
+  <p class="encabezado__desc">{{ $p.presentacion }}</p>
+  {{ with $p.equipo }}<ul class="prensa__equipo" aria-label="Equipo">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+  <p class="prensa__acciones">
+    <a class="prensa__boton" href="{{ $p.pdf | relURL }}" download>Descargar el kit en PDF</a>
+    <a class="prensa__boton prensa__boton--claro" href="mailto:{{ $p.contacto.correo }}">Escribirnos</a>
+  </p>
+</header>
+
+<section class="prensa__bloque" aria-labelledby="prensa-cifras">
+  <h2 id="prensa-cifras" class="prensa__titulo">A cuánta gente llegamos</h2>
+  <p class="prensa__corte">Cifras de Instagram al <time datetime="{{ $corte.Format "2006-01-02" }}">{{ $corte | time.Format ":date_long" }}</time>.</p>
+  <ul class="prensa__cifras">
+    {{ range $p.cifras }}
+    <li class="prensa__cifra">
+      <strong>{{ .valor }}</strong>
+      <span>{{ .etiqueta }}</span>
+      {{ with .detalle }}<small>{{ . }}</small>{{ end }}
+      <small class="prensa__fuente">Fuente: {{ .fuente }}</small>
+    </li>
+    {{ end }}
+    <li class="prensa__cifra prensa__cifra--sitio">
+      <strong data-notas="{{ $notas }}">{{ lang.FormatNumber 0 $notas }}</strong>
+      <span>notas publicadas en el sitio</span>
+      <small class="prensa__fuente">Se cuenta sola cada vez que se publica el sitio</small>
+    </li>
+    {{ if gt $proximos 0 }}{{/* con la agenda vacía, mejor no mostrar un cero */}}
+    <li class="prensa__cifra prensa__cifra--sitio">
+      <strong data-proximos="{{ $proximos }}">{{ $proximos }}</strong>
+      <span>conciertos próximos en nuestra <a href="{{ "agenda/" | relURL }}">agenda</a></span>
+      <small class="prensa__fuente">Se cuenta sola cada vez que se publica el sitio</small>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+
+{{ with $p.caso_principal }}
+<section class="prensa__bloque prensa__destacado" aria-labelledby="prensa-caso">
+  <p class="prensa__kicker">Caso principal · {{ .etiqueta }}</p>
+  <h2 id="prensa-caso" class="prensa__titulo">{{ .titulo }}</h2>
+  <p class="prensa__texto">{{ .texto }}</p>
+  {{ with .imagenes }}
+  <ul class="prensa__piezas">
+    {{ range . }}
+    {{ $alt := .alt }}
+    {{ with resources.Get .archivo }}
+    {{ $img := cond (gt .Width 640) (.Resize "640x webp q85") (.Process "webp q85") }}
+    <li><img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $alt }}" loading="lazy" decoding="async"></li>
+    {{ end }}
+    {{ end }}
+  </ul>
+  {{ end }}
+</section>
+{{ end }}
+
+<section class="prensa__bloque" aria-labelledby="prensa-casos">
+  <h2 id="prensa-casos" class="prensa__titulo">Más casos</h2>
+  <ul class="prensa__tarjetas">
+    {{ range $p.casos }}
+    <li class="prensa__tarjeta">
+      <p class="prensa__kicker">{{ .etiqueta }}</p>
+      <h3>{{ .titulo }}</h3>
+      <p>{{ .texto }}</p>
+      {{ with .enlace }}<a href="{{ . | relURL }}">Verlo</a>{{ end }}
+    </li>
+    {{ end }}
+  </ul>
+</section>
+
+<section class="prensa__bloque" aria-labelledby="prensa-ofrecemos">
+  <h2 id="prensa-ofrecemos" class="prensa__titulo">Qué ofrecemos a artistas, foros y promotoras</h2>
+  <ul class="prensa__tarjetas">
+    {{ range $p.ofrecemos }}<li class="prensa__tarjeta"><h3>{{ .titulo }}</h3><p>{{ .texto }}</p></li>{{ end }}
+  </ul>
+  {{ with $p.arte }}<p class="prensa__nota">{{ . }}</p>{{ end }}
+</section>
+
+<section class="prensa__bloque prensa__dos">
+  <div class="prensa__tarjeta">
+    <h2 class="prensa__titulo">Qué pedimos</h2>
+    <ul class="prensa__lista">{{ range $p.pedimos }}<li>{{ . }}</li>{{ end }}</ul>
+  </div>
+  <div class="prensa__tarjeta">
+    <h2 class="prensa__titulo">Nuestro compromiso</h2>
+    <ul class="prensa__lista">{{ range $p.compromisos }}<li>{{ . }}</li>{{ end }}</ul>
+  </div>
+</section>
+
+<section class="prensa__bloque prensa__contacto" aria-labelledby="prensa-contacto">
+  <h2 id="prensa-contacto" class="prensa__titulo">Hablemos</h2>
+  <p>Escríbenos y te mandamos ejemplos de dibujos y crónicas.</p>
+  <p>Correo: <a href="mailto:{{ $p.contacto.correo }}">{{ $p.contacto.correo }}</a><br>
+     Instagram: <a href="https://www.instagram.com/{{ strings.TrimPrefix "@" $p.contacto.instagram }}/" rel="noopener">{{ $p.contacto.instagram }}</a></p>
+  <p><a class="prensa__boton" href="{{ $p.pdf | relURL }}" download>Descargar el kit en PDF</a></p>
+</section>
+{{ end }}
