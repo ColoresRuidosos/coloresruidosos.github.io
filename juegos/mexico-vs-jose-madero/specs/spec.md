@@ -416,6 +416,19 @@ La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuent
 - **Riesgo legal:** nada de máscara de hockey ni de personajes de terror registrados. La máscara es un antifaz de fiesta, de diseño propio.
 - **Museo:** la puerta de *Noche* es negra con marco blanco; el año sale en la puerta.
 
+
+#### F. v7.3 · Correcciones del usuario (2 nov 2026)
+- **🐞 La pantalla «se recarga» al girar a la izquierda.** La cámara mira un poco por delante de Pepe (24 px). Al girarse, ese margen cambiaba de lado en un solo fotograma y toda la pantalla saltaba 48 px.
+  - **Arreglo:** el margen se desliza (1,5 px por fotograma).
+  - Si la cámara tiene que moverse mucho de golpe (por ejemplo, al empezar el combate con el jefe), se desliza en vez de saltar. Pepe a velocidad máxima sigue encuadrado igual.
+  - Al cargar un nivel, la cámara se coloca directamente, sin deslizarse.
+- **Datos repetidos en Noche.** Los carteles de capítulo contaban los mismos datos que luego repetían los Titulares y las tarjetas.
+  - **Regla nueva (para todos los mundos):** cada dato (por su ID) sale **una sola vez** en todo el mundo, sumando capítulos, Titulares y tarjetas.
+  - Los capítulos cuentan la historia (ficción) y como mucho declaran un dato (`uses`).
+  - Los Titulares no repiten datos: si se acaban, solo gritan su titular.
+  - **Dato nuevo verificado:** N8, «*Noche* salió el 28 de julio de 2017» (AllMusic, Diario de México). Time Out México menciona una presentación el 14 de abril; no se usa esa fecha.
+  - **Candidatos con una sola fuente** (⚠️ no se usan hasta tener la segunda): «Noche de brujas» fue la tercera canción que compuso para el disco y marcó su tono oscuro (Time Out México, entrevista); todas las canciones pasan por alguna actividad nocturna (Milenio); n.º 1 en México la semana del 3 ago 2017 (Wikipedia); la última pista es «Natt i Stockholm» (Time Out México).
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

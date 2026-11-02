@@ -78,6 +78,8 @@
 - [x] N7 🧪 Navegador: portada → museo → Carmesí; Opciones; Galería; Noche
 - [x] W1 Publicar en la web: `static/juegos/mexico-vs-jose-madero/` + enlace en el menú (`npm run publish:web`; se despliega al fusionar en `main`)
 - [x] N8 🧪 Enmascarado v7.2: 8 golpes, fase 2 con 4, aturdido 1,0 s, más rápido, doble embestida en la fase 2; la recompensa nunca cae dentro de una pared (🐞 del usuario)
+- [x] C12 🧪 🐞 Cámara: el margen por delante de Pepe se desliza al girar (sin saltos de 48 px); movimientos grandes, suavizados; colocación directa al cargar
+- [x] H7 🧪 Cada dato una sola vez por mundo (capítulos `uses` + Titulares + tarjetas); Titulares sin dato cuando se acaban; N8 (28 jul 2017)
 - [ ] F1 ⏳ Ajustes de jugabilidad con el feedback del usuario (`constants.js`)
 
 ## Fase 2d — v8 · Historia, jefe de Noche y arte (⏳ esperando aprobación del usuario; 🧪 primero)

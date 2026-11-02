@@ -4,16 +4,17 @@
 // Al vencer a un Titular: uno distinto cada vez (el contador sigue entre niveles).
 export const ERA_FACTS_W2 = [
   { id: 'N1', text: 'NOCHE (2017) ES EL SEGUNDO DISCO DE JOSÉ MADERO EN SOLITARIO, DESPUÉS DE CARMESÍ.', source: 'WIKIPEDIA (NOCHE) · MILENIO' },
-  { id: 'N2', text: '«NOCHE DE BRUJAS» FUE EL PRIMER SENCILLO DEL DISCO: SALIÓ EL 9 DE JUNIO DE 2017.', source: 'WIKIPEDIA (NOCHE) · REVISTA KUADRO' },
+  { id: 'N8', text: 'NOCHE SALIÓ A LA VENTA EL 28 DE JULIO DE 2017.', source: 'ALLMUSIC · DIARIO DE MÉXICO' },
   { id: 'N6', text: '«FANTASMAS» SONABA EN LOS CONCIERTOS DE LA GIRA NOCHE.', source: 'EL ALEBRIJE · SOULWAVEZ' },
   { id: 'N7', text: 'MADERO ES FAN DEL CINE DE TERROR Y DE STEPHEN KING.', source: 'MILENIO · LOOKING BACK' },
 ];
 
-// Cartel al empezar cada nivel. La frase de 2-3 es ficción del juego (no es un dato y no lleva fuente).
+// Cartel al empezar cada nivel: cuenta la historia (ficción del juego). Como mucho declara un dato en `uses`,
+// y ese dato ya no sale en Titulares ni tarjetas (v7.3: cada dato una sola vez por mundo).
 export const CHAPTERS_W2 = {
-  '2-1': { title: 'NOCHE DE BRUJAS', lines: ['JUNIO DE 2017. SALE «NOCHE DE BRUJAS»,', 'EL PRIMER SENCILLO DE NOCHE.', '', 'NO HABLA DE HALLOWEEN:', 'HABLA DE LAS MÁSCARAS QUE NOS PONEMOS.', 'LA FIESTA DE DISFRACES YA EMPEZÓ.'] },
-  '2-2': { title: 'FANTASMAS', lines: ['EN LA GIRA DE NOCHE, EL ESCENARIO', 'SE LLENÓ DE FIGURAS DEL TERROR CLÁSICO', 'Y SONABA «FANTASMAS».', '', 'JUNTO AL LAGO,', 'LAS CABAÑAS ESTÁN A OSCURAS.'] },
-  '2-3': { title: 'EL ENMASCARADO', lines: ['AL FONDO DEL MUELLE', 'ESPERA ALGUIEN CON MÁSCARA.', '', 'QUIZÁ, DEBAJO,', 'HAYA ALGUIEN COMO TÚ.'] },
+  '2-1': { title: 'NOCHE DE BRUJAS', uses: ['N2'], lines: ['JUNIO DE 2017. SALE «NOCHE DE BRUJAS»,', 'EL PRIMER SENCILLO DE NOCHE.', '', 'PEPE CRUZA UNA FIESTA DE DISFRACES.', 'NADIE ENSEÑA LA CARA.', 'A LO MEJOR AQUÍ RECUERDA LA SUYA.'] },
+  '2-2': { title: 'LAS CABAÑAS', uses: [], lines: ['LA FIESTA QUEDA ATRÁS.', 'JUNTO AL LAGO, LAS CABAÑAS', 'ESTÁN A OSCURAS.', '', 'SOLO TIENE UN FAROL', 'Y UN POCO DE ACEITE.'] },
+  '2-3': { title: 'EL ENMASCARADO', uses: [], lines: ['AL FONDO DEL MUELLE', 'ESPERA ALGUIEN CON MÁSCARA.', '', 'QUIZÁ, DEBAJO,', 'HAYA ALGUIEN COMO TÚ.'] },
 };
 
 // Tarjeta «¿SABÍAS QUE…?» al terminar cada nivel.

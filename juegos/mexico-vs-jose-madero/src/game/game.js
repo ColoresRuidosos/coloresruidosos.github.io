@@ -91,8 +91,9 @@ export function defeat(g, e, force = false) {
   e.alive = false;
   g.events.push('defeat');
   scoreHit(g, e.x + e.w / 2, e.y);
-  if (e.kind === 'titular') {
-    const q = g.facts[g.quoteIdx++ % g.facts.length];
+  // Cada dato sale una sola vez (v7.3): cuando se acaban, el Titular solo grita su titular.
+  if (e.kind === 'titular' && g.quoteIdx < g.facts.length) {
+    const q = g.facts[g.quoteIdx++];
     g.popups.push({ text: q.text, source: q.source, t: 3 });
   }
 }

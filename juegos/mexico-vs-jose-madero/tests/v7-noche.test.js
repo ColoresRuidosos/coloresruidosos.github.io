@@ -14,10 +14,11 @@ const run = (g, n, btn = idle) => { for (let i = 0; i < n; i++) stepGame(g, type
 const wrap = (s, n) => { const out = []; let l = ''; for (const w of s.split(' ')) { if ((l + ' ' + w).trim().length > n) { out.push(l); l = w; } else l = (l + ' ' + w).trim(); } if (l) out.push(l); return out; };
 
 describe('Noche · datos (N1)', () => {
-  const APPROVED = new Set(['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7']);
+  // N8 (v7.3): 28 jul 2017, con dos fuentes (AllMusic, Diario de México).
+  const APPROVED = new Set(['N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8']);
   const cards = Object.values(LEVEL_CARDS_W2).flatMap((c) => c.facts);
 
-  test('solo N1–N7, cada uno con fuente; sin repetir entre Titulares y tarjetas', () => {
+  test('solo N1–N8, cada uno con fuente; sin repetir entre Titulares y tarjetas', () => {
     for (const f of [...ERA_FACTS_W2, ...cards]) { assert.ok(APPROVED.has(f.id), f.id); assert.ok(f.source.length > 3, f.id); }
     const cardTexts = new Set(cards.map((f) => f.text));
     for (const f of ERA_FACTS_W2) assert.ok(!cardTexts.has(f.text), f.id);

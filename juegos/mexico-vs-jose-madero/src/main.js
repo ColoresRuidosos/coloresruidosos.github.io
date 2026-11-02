@@ -1,6 +1,6 @@
 import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
-import { followCamera } from './engine/camera.js';
+import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
 import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES } from './game/progress.js';
 import { HUB, createHub, doorAt } from './game/museum.js';
@@ -48,7 +48,7 @@ function museumInfo() {
 
 // ── Estado ──────────────────────────────────────────────
 const hub = createHub();
-let screen = 'title', back = 'title', camX = 0, t = 0, paused = false, card = null, screenT = 0;
+let screen = 'title', back = 'title', camX = 0, cam = null, t = 0, paused = false, card = null, screenT = 0;
 let game, art, run = null, museumDoor = null, toast = null, toastT = 0, endInfo = {};
 let optSel = 0, galSel = 0;
 
@@ -58,7 +58,7 @@ function enterMuseum(atDoor = null) {
   art = createArt(game.level, 'museo', { costume: costumeFor(save, 'carmesi') });
   const d = atDoor && hub.doors.find((x) => x.id === atDoor);
   if (d) { game.player.x = d.x - game.player.w / 2; game.player.facing = 1; }
-  camX = followCamera(0, game.player.x, game.level.w * 16);
+  cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
   screen = 'museum'; screenT = 0;
 }
 
@@ -67,6 +67,7 @@ function loadLevel(i, c = {}) {
   run.idx = i; run.carry = c; run.levelStart = { ...c };
   game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern });
   art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world) });
+  cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
 }
 const showCard = (c) => { card = c; screen = 'card'; screenT = 0; };
 function startLevel(i, c) {
@@ -232,7 +233,7 @@ function frame(now) {
   const p = game.player;
   const duel = game.boss && game.boss.alive;
   const target = duel ? (p.x + p.w / 2 + game.boss.x + game.boss.w / 2) / 2 + W * 0.08 : p.x + p.w / 2;
-  camX = followCamera(camX, target, game.level.w * 16, duel ? 0 : p.facing * 24);
+  camX = stepCamera(cam, target, game.level.w * 16, duel ? 0 : p.facing);
   const vis = { flashes: opt.flashes, shake: opt.shake };
   if (screen === 'title' || (screen === 'options' && back === 'title')) {
     drawTitle(ctx, t, art);
