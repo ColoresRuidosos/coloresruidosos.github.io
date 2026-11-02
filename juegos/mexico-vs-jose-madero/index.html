@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>México vs. José Madero</title>
+<meta name="description" content="Mundo 1 «Carmesí» de un homenaje no oficial a José Madero, por Colores Ruidosos.">
+<style>
+  :root { --bg: #f3eefb; --fg: #1b1226; --muted: #5b4880; --btn: #e6ddf3; --btn-on: #d8312b; --accent: #d8312b; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #120b1c; --fg: #efe8d4; --muted: #b9a8d6; --btn: #2a1d3d; --btn-on: #d8312b; } }
+  :root[data-theme="dark"] { --bg: #120b1c; --fg: #efe8d4; --muted: #b9a8d6; --btn: #2a1d3d; --btn-on: #d8312b; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 500 13px system-ui, sans-serif; overscroll-behavior: none; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 8px 16px; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; max-width: 100%; box-shadow: 0 8px 32px #0006; }
+  .bar { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 12px; max-width: 100%; flex-wrap: wrap; justify-content: center; }
+  .bar button { background: var(--btn); color: var(--fg); border: 0; border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
+  .pad { display: none; width: min(100%, 520px); justify-content: space-between; align-items: center; }
+  @media (pointer: coarse) { .pad { display: flex; } .keys { display: none; } }
+  .pad .dir, .pad .act { display: flex; gap: 12px; align-items: center; }
+  .pad, .pad * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+  .pad button { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--fg); background: var(--btn); color: var(--fg); font: 800 22px system-ui, sans-serif; touch-action: none; }
+  .pad button.on { background: var(--btn-on); color: #fff; }
+  .pad .act button:last-child { transform: translateY(-18px); }
+  .pad .act button.star { width: 54px; height: 54px; font-size: 20px; transform: translateY(26px); }
+</style>
+</head>
+<body>
+<canvas id="game" aria-label="Juego México vs. José Madero (prototipo)"></canvas>
+<div class="pad" aria-label="Controles táctiles">
+  <div class="dir"><button data-btn="left" aria-label="Izquierda">◀</button><button data-btn="right" aria-label="Derecha">▶</button></div>
+  <div class="act"><button class="star" data-btn="special" aria-label="Solo de guitarra">★</button><button data-btn="mic" aria-label="Micrófono">B</button><button data-btn="jump" aria-label="Saltar">A</button></div>
+</div>
+<div class="bar">
+  <span class="keys">← → mover · Z saltar · X micrófono · C solo de guitarra · P pausa · M música</span>
+  <button id="music" type="button">♪ ON</button>
+  <span>Homenaje no oficial · Colores Ruidosos</span>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
