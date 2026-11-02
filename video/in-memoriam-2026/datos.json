@@ -39,6 +39,15 @@
       "fuentes": ["https://en.wikipedia.org/wiki/We_All_Together", "https://elcongresista.mx/politica/nacional/fallece-saul-cornejo-pionero-rock-peruano"]
     },
     {
+      "id": "milkman",
+      "nombre": "MilkMan",
+      "fecha": "2026-02-12",
+      "pais": "MX",
+      "proyectos": ["Rap", "Producción"],
+      "linea": "Rapero y productor regio entre lo alternativo y lo urbano.",
+      "fuentes": ["https://los40.com.mx/2026/02/13/muere-rapero-mexicano-tras-dias-hospitalizado-en-cdmx-belinda-pidio-apoyo-para-cubrir-gastos-medicos/", "https://www.nmas.com.mx/entretenimiento/muere-milkman-rapero-mexicano-tras-ser-internado-urgencia-esto-sabemos-fallecimiento/"]
+    },
+    {
       "id": "daniel-buira",
       "nombre": "Daniel Buira",
       "fecha": "2026-03-21",

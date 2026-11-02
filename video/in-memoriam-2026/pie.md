@@ -6,7 +6,7 @@ In memoriam 2026 🕯️
 
 Este Día de Muertos les ponemos una veladora a quienes se nos adelantaron este año y nos dejaron canciones para siempre.
 
-Álvaro Peña-Rojas · Adrián Bar · Rafael Amador · Saúl Cornejo · Daniel Buira · Felipe Staiti · Walo Carrillo · Indio Solari · Daniel Melingo · Víctor Coyote · Rubén Rada · Miguel Zavaleta · Jonathan “Honas” Meléndez · Ricardo Soulé · Carlos Riganti
+Álvaro Peña-Rojas · Adrián Bar · Rafael Amador · Saúl Cornejo · MilkMan · Daniel Buira · Felipe Staiti · Walo Carrillo · Indio Solari · Daniel Melingo · Víctor Coyote · Rubén Rada · Miguel Zavaleta · Jonathan “Honas” Meléndez · Ricardo Soulé · Carlos Riganti
 
 Gracias por la música. ¿A quién más le ponemos una veladora? Te leemos en comentarios.
 
@@ -14,7 +14,7 @@ Gracias por la música. ¿A quién más le ponemos una veladora? Te leemos en co
 
 ## Primer comentario (fuentes)
 
-Fuentes de cada fecha (dos por artista): Emol y El Mostrador (Peña-Rojas) · El Intransigente y Sitio Andino (Bar) · Efe Eme y ¡Hola! (Amador) · Wikipedia y El Congresista (Cornejo) · La Capital y Canal 26 (Buira) · El Imparcial y CNN Chile (Staiti) · El Popular y Expreso (Carrillo) · El Observador y Perfil (Solari) · Ámbito y La Gaceta (Melingo) · Infobae y ¡Hola! (Coyote) · Infobae y teleSUR (Rada) · Perfil y La Capital MdP (Zavaleta) · UnoTV y Emol (Meléndez) · Infobae y Rolling Stone (Soulé) · Infobae y Rockaxis (Riganti). Si ves un error, avísanos.
+Fuentes de cada fecha (dos por artista): Emol y El Mostrador (Peña-Rojas) · El Intransigente y Sitio Andino (Bar) · Efe Eme y ¡Hola! (Amador) · Wikipedia y El Congresista (Cornejo) · Los40 y N+ (MilkMan) · La Capital y Canal 26 (Buira) · El Imparcial y CNN Chile (Staiti) · El Popular y Expreso (Carrillo) · El Observador y Perfil (Solari) · Ámbito y La Gaceta (Melingo) · Infobae y ¡Hola! (Coyote) · Infobae y teleSUR (Rada) · Perfil y La Capital MdP (Zavaleta) · UnoTV y Emol (Meléndez) · Infobae y Rolling Stone (Soulé) · Infobae y Rockaxis (Riganti). Si ves un error, avísanos.
 
 ## Notas para quien publique
 

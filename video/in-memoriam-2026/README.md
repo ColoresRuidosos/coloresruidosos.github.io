@@ -1,6 +1,6 @@
 # In memoriam 2026 (vídeo)
 
-Vídeo vertical (1080×1920, 30 fps, 61 s, sin audio) para Reels, TikTok y Shorts: una veladora por cada músico de nuestro ámbito que murió en 2026. No forma parte del sitio: Hugo no publica esta carpeta.
+Vídeo vertical (1080×1920, 30 fps, 64 s, sin audio) para Reels, TikTok y Shorts: una veladora por cada músico de nuestro ámbito que murió en 2026. No forma parte del sitio: Hugo no publica esta carpeta.
 
 - **Vídeo:** [`in-memoriam-2026.mp4`](in-memoriam-2026.mp4) · **Revisión rápida:** [`contacto.png`](contacto.png) · **Texto para publicar:** [`pie.md`](pie.md)
 - **Spec:** [`spec.md`](spec.md) (incluye la lista verificada y las decisiones abiertas) · [`plan.md`](plan.md) · [`tasks.md`](tasks.md)
