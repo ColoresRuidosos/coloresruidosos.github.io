@@ -1,10 +1,11 @@
-# Spec — «MÉXICO VS. JOSÉ MADERO» (v7)
+# Spec — «MÉXICO VS. JOSÉ MADERO» (v8, borrador)
 
 > Spec-Driven Development (Dominicode). Juego de plataformas y acción **16 bits estilo Neo Geo** (referencia: *Spin Master*, Data East, 1993), jugable en la web de Colores Ruidosos, que recorre la carrera solista de José Madero. Cada disco es un mundo con su propia jugabilidad y un jefe. El hub es **el Museo**. El final es un concierto que sirve de **preludio a su show en la Arena Ciudad de México**.
 >
 > **v2:** título tomado de la playera oficial; estética 16 bits; micrófono como arma; un giro de jugabilidad por mundo; enemigos de prensa; jefe final «VS» en concierto.
 > **v5 (2 nov 2026):** Mundo 1 «Carmesí» definido a partir de los conceptos rescatados de Gemini (§3.0d): jefe **Cámara Flash-Bot**, enemigos **Rumor Volador** y **Micrófono Traidor**, tres niveles, juego **más rápido** (combos, puntuación, cronómetro) y **power-ups** con el **Solo de guitarra**. Los Titulares gritan titulares genéricos, no insultos. Logo de Colores Ruidosos: el real.
 > **v7 (2 nov 2026):** el juego pasa a la web de Colores Ruidosos (`juegos/mexico-vs-jose-madero/`): **Opciones** (sin destellos, sin temblor, modo asistido), **guardado**, **Museo** (hub), **Galería de trajes** y **Mundo 2 «Noche»** (§3.0f).
+> **v8 (2 nov 2026, ⏳ pendiente de aprobar):** feedback del usuario. La **historia se cuenta dentro del juego**: prólogo tras el Estadio GNP, Pepe sin memoria e identidad recuperada disco a disco (§1.1b). **Jefe de Noche con ataques variados** (§1.1c). **Arte Neo Geo** con hojas de Gemini (§1.2b).
 > Estado: **borrador para definir con el equipo**. Las celdas marcadas con ⚠️ esperan verificación o decisión.
 
 ---
@@ -24,6 +25,78 @@ Un homenaje jugable, hecho por fans, en el que cada disco de José Madero es un 
 José Madero tiene que **recordar quién es** antes de su concierto en la **Arena Ciudad de México**. La prensa lo ha perseguido durante años con titulares sensacionalistas («¡EXCLUSIVA!», «¡POLÉMICA!»), y entre tanto ruido su carrera se ha quedado desordenada en **el Museo**: cada sala es un disco y cada disco, un mundo. Recuperando las piezas de cada etapa, Pepe reconstruye su historia. Con ella llega a la Arena, donde le espera el combate final: **MÉXICO VS. JOSÉ MADERO**, un concierto en el que no se derrota a nadie: hay que **ganarse al público**.
 
 > El arco se apoya en algo que él ha contado: que al principio de su carrera fue arrogante y que lo dejó atrás («En algún momento fui un pendejo, pero dejé atrás eso hace mucho tiempo», La Razón, 2024; «no fuera tan arrogante», Publimetro, 2025). No se usan sus declaraciones sobre salud emocional o vida privada.
+
+### 1.1b v8 · La historia contada dentro del juego (propuesta del usuario, 2 nov 2026) ⏳ pendiente de aprobar
+
+**Problema:** la historia está en la spec (§1.1), pero el juego no la cuenta. Hoy se pasa de la portada al Museo sin saber por qué Pepe está ahí, y los capítulos son datos sueltos.
+
+**Premisa (del usuario):** José Madero acaba de llenar el estadio GNP y le toca tocar en la **Arena Ciudad de México**. Pero ha olvidado quién es y tiene que ir **disco por disco** recuperando su identidad.
+
+**Qué es dato y qué es ficción:**
+
+| Elemento | Tipo | Estado |
+|---|---|---|
+| 24 ene 2026, Estadio GNP Seguros, «Érase una Bestia», su primer estadio, con museo en una carpa | Dato | ✅ Chilango, Excélsior |
+| «El más grande de México» | Dato | ⚠️ Sin verificar: no sale en pantalla hasta tener fuente |
+| «Foro GNP» como nombre | — | ⚠️ La fuente dice **Estadio GNP Seguros**; se usa ese nombre |
+| Fecha del concierto en la Arena CDMX | Dato | ⚠️ Sin fuente pública: no se pone fecha |
+| Que olvide quién es y lo recupere | **Ficción del juego** | Se presenta como cuento, nunca como dato |
+
+**1. Prólogo** (al pulsar START la primera vez; saltable; unos 30 s; viñetas con texto, estilo intro de arcade):
+1. «24 DE ENERO DE 2026. ESTADIO GNP SEGUROS. "ÉRASE UNA BESTIA": SU PRIMER ESTADIO.» Sale el escenario con público y luces de móvil.
+2. «LO SIGUIENTE: LA ARENA CIUDAD DE MÉXICO.»
+3. *(Ficción)* «ESA NOCHE, ENTRE FLASHES Y TITULARES, ALGO SE LE PERDIÓ.» Los Titulares rodean a Pepe y la pantalla se llena de ruido.
+4. *(Ficción)* «PEPE DESPIERTA EN EL MUSEO DE LA CARPA. NO RECUERDA QUIÉN ES.» Pepe aparece **en gris, sin color**.
+5. «CADA DISCO GUARDA UNA PARTE DE ÉL. RECUPÉRALAS UNA A UNA ANTES DEL CONCIERTO.»
+
+**2. La identidad como mecánica visible:**
+- En el Museo hay un **retrato de Pepe** en la pared, hecho de 8 piezas (una por disco). Al empezar está apagado; cada mundo terminado **enciende su pieza** con el color del disco.
+- Contador en el Museo: «IDENTIDAD 1/8».
+- Pepe empieza la partida **desaturado** y gana color con cada mundo. Noche es la excepción, porque el mundo entero es en blanco y negro.
+
+**3. Cada mundo cuenta un tramo** (de 3 a 5 frases cortas en total):
+
+| Momento | Qué pasa |
+|---|---|
+| Al entrar por la puerta | Cartel «MUNDO N · DISCO · AÑO» y una frase de Pepe en primera persona, presentada como ficción: «ESTA PUERTA ROJA… ME SUENA». |
+| Durante los niveles | Los capítulos actuales (datos con fuente). En los checkpoints, **pensamientos** de Pepe de una línea (ficción): «EMPECÉ ESTAS CANCIONES EN 2008… ¿O NO?» |
+| Al vencer al jefe | Tarjeta «**RECUERDO RECUPERADO**»: qué significó ese disco, solo con datos verificados. Ej. Carmesí: «EMPEZAR DE CERO, EN SOLITARIO (2016)»; Noche: «LO QUE HAY DEBAJO DE LAS MÁSCARAS (2017)» |
+| De vuelta en el Museo | El retrato gana su pieza y Pepe dice una línea: «YA ME ACUERDO DE ALGO MÁS». |
+
+**4. Final:** con los 8 recuerdos, se abre la puerta de la Arena y empieza el VS (§3.3). En los créditos se separan con claridad los **datos con fuente** de la **historia inventada del juego**.
+
+**5. Texto:** todo en la fuente del juego, con frases de 44 caracteres como máximo.
+
+### 1.1c v8 · Jefe de Noche con patrones variados ⏳ pendiente de aprobar
+**Problema (usuario):** el Enmascarado «va de aquí para allá», con un patrón súper repetitivo.
+
+**Propuesta:** un repertorio de ataques. Nunca repite el mismo dos veces seguidas y la elección depende de dónde está Pepe. Se mantiene determinista con un generador pseudoaleatorio propio, para que los tests sigan siendo repetibles.
+
+| Ataque | Cómo se esquiva | Ventana para golpearle |
+|---|---|---|
+| **Embestida** (la actual) | Saltar por encima | Aturdido tras chocar con la pared |
+| **Salto encima de Pepe**: salto en arco hasta donde está Pepe; al caer, onda en el suelo | Apartarse y saltar la onda | 0,8 s al aterrizar |
+| **Máscaras lanzadas**: tira 3 antifaces en abanico | Esquivar o romperlas con el micrófono | Mientras recarga |
+| **Entre la niebla**: desaparece y reaparece **detrás** de Pepe, con aviso de ojos | Girarse y saltar | Tras el zarpazo, 0,6 s |
+| **Fase 2: invitados**: llama a 2 Invitados enmascarados | Vencerlos | Mientras los llama |
+
+- **Muelle con altura:** el escenario 2-3 gana barcas y plataformas para moverse en vertical. La embestida deja de ser lo único que pasa.
+- **Fase 2:** apagones más largos, combina dos ataques seguidos y se mueve más deprisa.
+- **Lo que no cambia:** 8 golpes y, al vencerlo, se quita la máscara.
+
+### 1.2b v8 · Arte estilo Neo Geo ⏳
+- **Por qué los enemigos de Noche no se parecen:** están **dibujados por código** como provisionales. Ninguna librería los va a acercar al estilo de Pepe.
+- **Qué da el aspecto Neo Geo:**
+  - sprites grandes con muchos fotogramas (de 4 a 8 por animación);
+  - contorno oscuro grueso;
+  - sombreado de 2 a 3 tonos por color y paleta corta por personaje;
+  - poses exageradas (anticipación antes de atacar y retroceso al recibir un golpe).
+- **Cómo se consigue:** el camino ya probado en Carmesí. Hojas de Gemini con referencia a la hoja de Pepe, importadas con `scripts/slice_sheet.py`.
+- **Prompts listos:** en `art/PROMPTS-GEMINI.md` §0d piden **más fotogramas** que los de Carmesí, para un movimiento más Neo Geo.
+- **Phaser (repo `edgaralrohe/phaser`):**
+  - Es un motor de juegos. **No genera ni mejora el arte.**
+  - Su guía de pixel art trata de cómo **mostrar** píxeles sin emborronarlos. Este juego ya lo hace: escalado entero y `image-rendering: pixelated`.
+  - Cambiar a Phaser no cambiaría el aspecto de los enemigos y obligaría a rehacer el motor y los tests (decisión 1 del plan: sin framework).
 
 ### 1.2 Dirección de arte
 | Elemento | Decisión |

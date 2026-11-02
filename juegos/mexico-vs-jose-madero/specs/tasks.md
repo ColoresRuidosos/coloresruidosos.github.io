@@ -80,6 +80,16 @@
 - [x] N8 🧪 Enmascarado v7.2: 8 golpes, fase 2 con 4, aturdido 1,0 s, más rápido, doble embestida en la fase 2; la recompensa nunca cae dentro de una pared (🐞 del usuario)
 - [ ] F1 ⏳ Ajustes de jugabilidad con el feedback del usuario (`constants.js`)
 
+## Fase 2d — v8 · Historia, jefe de Noche y arte (⏳ esperando aprobación del usuario; 🧪 primero)
+- [ ] S1 🧪 Prólogo: 5 viñetas, saltable, solo la primera vez (se guarda); textos ≤ 44 caracteres; datos con fuente y ficción marcada
+- [ ] S2 🧪 Identidad: retrato de 8 piezas en el Museo, «IDENTIDAD n/8», Pepe desaturado que gana color por mundo
+- [ ] S3 🧪 «RECUERDO RECUPERADO» al vencer cada jefe; pensamientos en los checkpoints; línea al volver al Museo
+- [ ] S4 🧪 Créditos que separan datos con fuente e historia inventada
+- [ ] B1 🧪 Enmascarado con repertorio: embestida, salto encima, máscaras lanzadas, niebla por detrás, invitados (fase 2); sin repetir dos veces seguidas; PRNG determinista
+- [ ] B2 🎨 Arena 2-3 con barcas y plataformas
+- [ ] A7 🎨 Hojas de Gemini de Noche (PROMPTS §0d): Invitado, Fantasma, Murciélago, Enmascarado y escenarios → `slice_sheet.py`
+- [ ] D8 ⚠️ Verificar «el estadio más grande de México» y el nombre (Foro / Estadio GNP Seguros)
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

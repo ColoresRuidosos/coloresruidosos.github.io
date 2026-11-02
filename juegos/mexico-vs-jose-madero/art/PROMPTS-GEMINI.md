@@ -195,6 +195,78 @@ HOJA DE TEXTURAS sobre gris liso #474747, sin texto: tres cuadrados grandes sepa
 
 ---
 
+## 0d. ⭐ PRIORIDAD v8 · Mundo 2 «Noche», estilo Neo Geo (2 nov 2026)
+
+Sustituyen a los enemigos que hoy se **dibujan por código**. Piden **más fotogramas** que Carmesí: el movimiento fluido, con anticipación y retroceso, es lo que más acerca al Neo Geo.
+
+**Cómo pedirlos:**
+- Una conversación nueva por prompt.
+- Adjunta siempre `art/source/pepe-sheet.jpg`, para el estilo y el tamaño.
+- **Genéralos a color.** El juego los pasa a blanco y negro, y con color salen más volúmenes.
+
+**Cómo se recortan** (las filas tienen que coincidir **exactamente**):
+```
+python3 scripts/slice_sheet.py art/source/noche/w2-invitado.png invitado 46 6,6,4,3 invWalk:6,invRun:6,invUnmask:4,invKo:3
+python3 scripts/slice_sheet.py art/source/noche/w2-murcielago.png murcielago 22 4,6,3 batHang:4,batFly:6,batKo:3
+python3 scripts/slice_sheet.py art/source/noche/w2-fantasma.png fantasma 34 6,4,3 ghostFloat:6,ghostAttack:4,ghostKo:3
+python3 scripts/slice_sheet.py art/source/noche/w2-enmascarado.png enmascarado 72 6,6,4,4,4,4 maskWalk:6,maskDash:6,maskLeap:4,maskThrow:4,maskStun:4,maskUnmask:4
+```
+
+### Bloque común (pégalo al principio de cada prompt)
+```
+ESTILO: pixel art de arcade de 16 bits de los 90, estilo Neo Geo (como los juegos de lucha y de acción de SNK): contorno oscuro grueso, sombreado plano de 3 tonos por color con un brillo duro, paleta corta y saturada, proporciones chibi como la hoja de Pepe adjunta, poses EXAGERADAS con anticipación antes de atacar y retroceso al recibir un golpe.
+VISTA: PERFIL ESTRICTO mirando a la DERECHA, como un juego de plataformas 2D. Nada de tres cuartos.
+FORMATO: hoja de sprites sobre fondo gris completamente liso #474747, sin degradado. Sin texto, sin números, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio (que no se toquen). Mismo tamaño del personaje en todas las poses, todas apoyadas en la misma línea de suelo. Exactamente las filas y poses pedidas, de izquierda a derecha.
+```
+
+### A. `w2-invitado.png` — Invitado enmascarado (95 % de la altura de Pepe)
+```
+[BLOQUE COMÚN]
+PERSONAJE: invitado de una fiesta de disfraces elegante: frac negro, camisa blanca, pajarita, guantes blancos y una MÁSCARA VENECIANA NEGRA con borde dorado que le tapa los ojos. Persona genérica, sin parecido con nadie real.
+Fila 1: CAMINAR ×6 (paso elegante, como bailando).
+Fila 2: CORRER ×6 (se lanza hacia delante con los brazos extendidos).
+Fila 3: PIERDE LA MÁSCARA ×4 (golpe → la máscara sale volando → cara SORPRENDIDA con ojos muy abiertos y boca en «O» → se recompone, enfadado).
+Fila 4: DERROTA ×3 (cae de espaldas y queda tumbado).
+```
+
+### B. `w2-murcielago.png` — Murciélago (50 %)
+```
+[BLOQUE COMÚN]
+PERSONAJE: murciélago chibi con orejas grandes, ojos brillantes y dos COLMILLOS blancos bien visibles. Gracioso, no gore.
+Fila 1: COLGADO ×4 (boca abajo, envuelto en sus alas, balanceándose).
+Fila 2: VOLAR ×6 (ciclo de aleteo completo, alas arriba y abajo).
+Fila 3: DERROTA ×3 (se encoge, gira y cae).
+```
+
+### C. `w2-fantasma.png` — Fantasma (85 %)
+```
+[BLOQUE COMÚN]
+PERSONAJE: fantasma clásico de sábana blanca, con dos ojos negros ovalados y el borde de abajo ondulado. Tierno, no aterrador.
+Fila 1: FLOTAR ×6 (la sábana ondea, sube y baja).
+Fila 2: ATACAR ×4 (se estira hacia delante con la boca abierta en «O»).
+Fila 3: DERROTA ×3 (se deshace en jirones hacia arriba).
+```
+
+### D. `w2-enmascarado.png` — Jefe El Enmascarado del Lago (1,5 veces la altura de Pepe)
+```
+[BLOQUE COMÚN]
+PERSONAJE: figura alta y elegante con abrigo largo negro, sombrero de copa baja, guantes blancos y un ANTIFAZ DE FIESTA blanco con detalles plateados (NO máscara de hockey ni de ningún personaje de terror conocido). Misterioso, no gore.
+Fila 1: CAMINAR ×6 (paso lento y amenazante).
+Fila 2: EMBESTIDA ×6 (agachado, corre con el abrigo ondeando).
+Fila 3: SALTO ×4 (se agacha, salta en arco con el abrigo abierto, aterriza con una rodilla en el suelo).
+Fila 4: LANZAR ×4 (saca tres antifaces y los lanza en abanico).
+Fila 5: ATURDIDO ×4 (tambaleándose, con estrellitas y el sombrero torcido).
+Fila 6: SIN MÁSCARA ×4 (se quita el antifaz → debajo hay una PERSONA NORMAL y amable → sonríe → saluda con la mano).
+```
+
+### E. Escenarios de Noche (escena completa)
+Gemini no separa capas, así que son escenas completas que el juego usa como fondo panorámico (`scripts/import_backdrop.py`). Formato: **panorámica muy ancha (proporción 4:1), sin personajes, sin texto, a color** (el juego la pasa a blanco y negro).
+- `w2-fiesta.png`: calle de barrio mexicano de noche con una fiesta de disfraces: casas con ventanas encendidas, papel picado, farolas y luna llena. Sin gente.
+- `w2-cabanas.png`: bosque de pinos con niebla junto a un lago, cabañas de madera con alguna ventana encendida, luna entre nubes.
+- `w2-lago.png`: muelle de madera sobre un lago quieto con niebla, barcas amarradas, bosque oscuro al fondo, la luna reflejada en el agua.
+
+---
+
 ## 1. BLOQUE DE ESTILO (pégalo al inicio de cada prompt)
 
 ```
