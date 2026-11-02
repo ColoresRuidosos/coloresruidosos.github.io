@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Siloé viene a México (vídeo) · Colores Ruidosos</title>
+<link rel="stylesheet" href="fuentes/fuentes.css">
+<style>
+  html, body { margin: 0; background: #F4EFE6; }
+  canvas { display: block; width: min(100vw, calc(100vh * 9 / 16)); height: auto; margin: 0 auto; }
+</style>
+</head>
+<body>
+<canvas id="lienzo" width="1080" height="1920" aria-label="Vídeo: Siloé viene a México"></canvas>
+<script src="datos.js"></script>
+<script src="escenas.js"></script>
+<script>
+/* «Siloé viene a México», vídeo dinámico (spec-video.md).
+   Prompt base: aschapmann-724497 (historia en escenas, tipografía cinética, resorte en el pulso, logo final).
+   Técnica: notdwd-766641 (un seek(t) por fotograma; llegar rápido, aterrizar suave; nada se congela).
+   Estilo Colores Ruidosos tomado de assets/css/main.css y layouts/home.html. */
+(function () {
+  var E = window.CRescenas;
+  var W = 1080, H = 1920, M = 80;
+  var C = { crema: "#F4EFE6", tinta: "#141414", rosa: "#FF3E7F", azul: "#2F5BFF", amarillo: "#FFD23F", verde: "#1FB57A", naranja: "#FF7A30", blanco: "#FFFFFF" };
+  var ctx = document.getElementById("lienzo").getContext("2d");
+  var g = null;
+
+  // ---------- utilidades ----------
+  function alfa(a, fn) { if (a <= 0) return; ctx.save(); ctx.globalAlpha *= Math.min(1, a); fn(); ctx.restore(); }
+  function fuente(peso, px, fam) { ctx.font = peso + " " + px + "px " + fam; }
+  function lineas(texto, ancho) {
+    var out = [], act = "";
+    texto.split(" ").forEach(function (p) { var pr = act ? act + " " + p : p; if (ctx.measureText(pr).width > ancho && act) { out.push(act); act = p; } else act = pr; });
+    if (act) out.push(act);
+    return out;
+  }
+  // Caja del fanzine: relleno, borde de tinta y sombra dura.
+  function caja(x, y, w, h, relleno, sombra) {
+    ctx.fillStyle = sombra || C.tinta; ctx.fillRect(x + 10, y + 10, w, h);
+    ctx.fillStyle = relleno; ctx.fillRect(x, y, w, h);
+    ctx.lineWidth = 5; ctx.strokeStyle = C.tinta; ctx.strokeRect(x, y, w, h);
+  }
+  // Texto con el tratamiento del logo: contorno de tinta y sombra dura.
+  function textoMarca(t, x, y, px, relleno) {
+    fuente("400", px, "Anton"); ctx.lineJoin = "round";
+    ctx.fillStyle = C.tinta; ctx.fillText(t, x + px * 0.04, y + px * 0.04);
+    ctx.lineWidth = px * 0.035; ctx.strokeStyle = C.tinta; ctx.strokeText(t, x, y);
+    ctx.fillStyle = relleno; ctx.fillText(t, x, y);
+  }
+  // Palabra por palabra: cada una entra con resorte, desplazada `paso` segundos de la anterior.
+  function palabras(texto, x, y, ancho, px, peso, fam, color, l, inicio, paso, interlinea) {
+    fuente(peso, px, fam);
+    var ls = lineas(texto, ancho), i = 0;
+    ls.forEach(function (linea, n) {
+      var cx = x;
+      linea.split(" ").forEach(function (p) {
+        var k = E.llegar(l, inicio + i * paso, 0.35);
+        alfa(Math.min(1, k * 1.4), function () {
+          fuente(peso, px, fam); ctx.fillStyle = color; ctx.fillText(p, cx, y + n * px * (interlinea || 1.2) + 26 * (1 - k));
+        });
+        cx += ctx.measureText(p + " ").width; i++;
+      });
+    });
+    return y + ls.length * px * (interlinea || 1.2);
+  }
+  function escalaDesde(cx, cy, s, fn) { ctx.save(); ctx.translate(cx, cy); ctx.scale(s, s); ctx.translate(-cx, -cy); fn(); ctx.restore(); }
+
+  // ---------- fondo y marco de la marca ----------
+  var grano = document.createElement("canvas"); grano.width = 360; grano.height = 640;
+  (function () {
+    var gg = grano.getContext("2d"), img = gg.createImageData(360, 640), s = 7;
+    for (var i = 0; i < img.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; var v = s >>> 24; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 13; }
+    gg.putImageData(img, 0, 0);
+  })();
+  function franjas(x0, y0, w, h, desplaza) {
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, y0, w, h); ctx.clip();
+    var cols = [C.rosa, C.azul, C.amarillo, C.crema], paso = 46;
+    for (var k = -40; k < 80; k++) {
+      ctx.fillStyle = cols[((k % 4) + 4) % 4];
+      var x = x0 + k * paso + (desplaza || 0) % (paso * 4);
+      ctx.beginPath(); ctx.moveTo(x, y0 + h); ctx.lineTo(x + h, y0); ctx.lineTo(x + h + paso, y0); ctx.lineTo(x + paso, y0 + h); ctx.fill();
+    }
+    ctx.restore();
+  }
+  function fondo(t) {
+    ctx.fillStyle = C.crema; ctx.fillRect(0, 0, W, H);
+    franjas(0, H - 70, W, 70, t * 60); // franjas de la marca abajo, siempre en movimiento
+  }
+  function cabecera(t, indice, sale) {
+    alfa(1 - sale, function () {
+      ctx.translate(0, -170 * sale);
+      ctx.fillStyle = C.tinta; ctx.fillRect(0, 0, W, 150);
+      ctx.fillStyle = C.rosa; ctx.fillRect(0, 150, W, 10);
+      fuente("400", 52, "Anton"); ctx.fillStyle = C.amarillo; ctx.textAlign = "left"; ctx.fillText("COLORES RUIDOSOS", M, 100);
+      if (indice < 5) { fuente("700", 32, "Space Mono"); ctx.fillStyle = C.crema; ctx.textAlign = "right"; ctx.fillText(String(indice + 1).padStart(2, "0") + " / 05", W - M, 96); ctx.textAlign = "left"; }
+    });
+  }
+  function etiqueta(texto, l, n) {
+    var k = E.llegar(l, 0.05, 0.4);
+    alfa(k, function () {
+      fuente("700", 34, "Space Mono");
+      var txt = String(n).padStart(2, "0") + " · " + texto.toUpperCase(), w = ctx.measureText(txt).width + 44;
+      ctx.translate(-60 * (1 - k), 0);
+      caja(M, 210, w, 66, C.crema); ctx.fillStyle = C.tinta; ctx.fillText(txt, M + 22, 256);
+    });
+  }
+  function confeti(l, inicio, lista) {
+    lista.forEach(function (c, i) {
+      var k = E.llegar(l, inicio + i * 0.08, 0.45);
+      if (k <= 0) return;
+      ctx.fillStyle = c[3]; ctx.beginPath(); ctx.arc(c[0] + Math.sin(l * 0.8 + i) * 8, c[1] + Math.cos(l * 0.7 + i) * 8, c[2] * k, 0, Math.PI * 2); ctx.fill();
+    });
+  }
+  function stickerViene(x, y, r, l, inicio) {
+    var k = E.llegar(l, inicio, 0.4);
+    if (k <= 0) return;
+    ctx.save(); ctx.translate(x, y); ctx.rotate((8 - 38 * (1 - k)) * Math.PI / 180); ctx.scale(0.4 + 0.6 * k, 0.4 + 0.6 * k);
+    ctx.fillStyle = C.tinta; ctx.beginPath(); ctx.arc(12, 12, r, 0, 7); ctx.fill();
+    ctx.fillStyle = C.rosa; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill();
+    ctx.lineWidth = 6; ctx.strokeStyle = C.tinta; ctx.stroke();
+    ctx.textAlign = "center"; ctx.fillStyle = C.tinta;
+    fuente("400", r * 0.42, "Anton"); ctx.fillText("VIENE A", 0, -r * 0.08); ctx.fillText("MÉXICO", 0, r * 0.34);
+    ctx.restore();
+  }
+
+  // ---------- escenas ----------
+  function viene(l) {
+    confeti(l, 0, [[120, 560, 190, C.rosa], [980, 470, 120, C.amarillo], [930, 1530, 230, C.azul], [150, 1480, 110, C.verde], [600, 1700, 70, C.naranja]]);
+    etiqueta("Viene a México", l, 1);
+    // SILOÉ: una letra por medio pulso, golpe de escala con resorte
+    var letras = g.banda.toUpperCase().split(""), px = 330;
+    fuente("400", px, "Anton");
+    var total = ctx.measureText(g.banda.toUpperCase()).width, x = W / 2 - total / 2;
+    letras.forEach(function (le, i) {
+      fuente("400", px, "Anton");
+      var w = ctx.measureText(le).width, k = E.llegar(l, 0.35 + i * E.PULSO / 2, 0.3);
+      if (k > 0) alfa(Math.min(1, k * 2), function () { escalaDesde(x + w / 2, 760, 1 + 0.6 * (1 - k), function () { textoMarca(le, x, 820, px, i % 2 ? C.amarillo : C.crema); }); });
+      x += w;
+    });
+    palabras(g.cabecera, M, 960, W - 2 * M, 60, "700", "'Space Grotesk'", C.tinta, l, 2.0, 0.09);
+    stickerViene(760, 1300, 200, l, 2.6);
+  }
+
+  function quienes(l) {
+    etiqueta("Quiénes son", l, 2);
+    g.personas.forEach(function (p, i) {
+      var k = E.llegar(l, 0.4 + i * E.PULSO, 0.45), y = 360 + i * 270, lado = i % 2 ? 1 : -1;
+      if (k <= 0) return;
+      ctx.save(); ctx.translate(lado * (W * 0.9) * (1 - k), 0);
+      caja(M, y, W - 2 * M, 220, C.blanco);
+      ctx.fillStyle = [C.rosa, C.azul, C.verde][i]; ctx.fillRect(M, y, 26, 220); ctx.strokeRect(M, y, 26, 220);
+      fuente("400", 104, "Anton"); ctx.fillStyle = C.tinta; ctx.fillText(p.nombre, M + 60, y + 118);
+      fuente("700", 46, "'Space Grotesk'"); ctx.fillText(p.rol, M + 62, y + 182);
+      ctx.restore();
+    });
+    // marquesina con datos verificados de la cabecera
+    var k = E.llegar(l, 1.9, 0.4);
+    alfa(k, function () {
+      ctx.fillStyle = C.tinta; ctx.fillRect(0, 1240, W, 120);
+      fuente("400", 76, "Anton"); ctx.fillStyle = C.amarillo;
+      var txt = "TRÍO · VALLADOLID · ESPAÑA · ", w = ctx.measureText(txt).width, x0 = -((l * 160) % w);
+      for (var x = x0; x < W; x += w) ctx.fillText(txt, x, 1328);
+    });
+    confeti(l, 2.3, [[200, 1560, 120, C.amarillo], [880, 1580, 150, C.rosa], [560, 1640, 60, C.naranja]]);
+  }
+
+  function discos(l) {
+    etiqueta("Sus discos", l, 3);
+    var y0 = 400, paso = 250, xl = M + 70;
+    var largo = E.llegar(l, 0.2, 1.2);
+    ctx.fillStyle = C.tinta; ctx.fillRect(xl - 4, y0, 8, (g.discos.length - 1) * paso * largo);
+    g.discos.forEach(function (d, i) {
+      var y = y0 + i * paso, t0 = 0.5 + i * 2 * E.PULSO, k = E.llegar(l, t0, 0.35), nuevo = i === g.discos.length - 1;
+      if (k <= 0) return;
+      escalaDesde(xl, y, 0.5 + 0.5 * k, function () {
+        var w = 170; caja(xl - w / 2, y - 38, w, 76, nuevo ? C.amarillo : C.verde);
+        fuente("700", 44, "Space Mono"); ctx.fillStyle = C.tinta; ctx.textAlign = "center"; ctx.fillText(String(d.anio), xl, y + 15); ctx.textAlign = "left";
+      });
+      var fin = palabras(d.titulo, xl + 130, y + 30, W - xl - 130 - M, 88, "400", "Anton", C.tinta, l, t0 + 0.15, 0.12, 1.0);
+      // la nota va debajo de la última línea del título (si el título ocupa dos, no se enciman)
+      if (d.nota) palabras(d.nota, xl + 132, fin - 88 + 60, W - xl - 130 - M, 40, "700", "'Space Grotesk'", nuevo ? C.azul : C.tinta, l, t0 + 0.4, 0.08);
+    });
+  }
+
+  function conozcas(l) {
+    etiqueta("Para que los conozcas", l, 4);
+    var y = 360;
+    g.curiosidades.forEach(function (texto, i) {
+      var t0 = 0.4 + i * 2.2, k = E.llegar(l, t0, 0.4);
+      if (k <= 0) return;
+      fuente("500", 60, "'Space Grotesk'");
+      var alto = lineas(texto, W - 2 * M - 80).length * 74 + 100;
+      ctx.save(); ctx.translate(0, 80 * (1 - k)); ctx.globalAlpha *= Math.min(1, k * 1.5);
+      caja(M, y, W - 2 * M, alto, C.blanco, C.azul);
+      ctx.fillStyle = C.amarillo; ctx.beginPath(); ctx.arc(M + 6, y + 6, 44, 0, 7); ctx.fill(); ctx.lineWidth = 5; ctx.stroke();
+      fuente("400", 52, "Anton"); ctx.fillStyle = C.tinta; ctx.textAlign = "center"; ctx.fillText(String(i + 1), M + 6, y + 25); ctx.textAlign = "left";
+      ctx.restore();
+      palabras(texto, M + 40, y + 104 + 80 * (1 - k), W - 2 * M - 80, 60, "500", "'Space Grotesk'", C.tinta, l, t0 + 0.25, 0.07, 1.22);
+      y += alto + 90;
+    });
+    // marquesina con el nombre (sentido contrario a la de la escena 2)
+    var km = E.llegar(l, 2.0, 0.4);
+    alfa(km, function () {
+      ctx.fillStyle = C.tinta; ctx.fillRect(0, 1380, W, 150);
+      fuente("400", 110, "Anton"); ctx.fillStyle = C.crema;
+      var txt = g.banda.toUpperCase() + " · ", w = ctx.measureText(txt).width, x0 = -w + ((l * 180) % w);
+      for (var x = x0; x < W; x += w) ctx.fillText(txt, x, 1495);
+    });
+    confeti(l, 2.4, [[160, 1640, 90, C.verde], [940, 1660, 120, C.amarillo]]);
+  }
+
+  function mexico(l) {
+    var sube = E.llegar(l, 0, 0.5);
+    caja(40, 330 + (H - 330) * (1 - sube), W - 80, 1400, C.naranja);
+    etiqueta("En México", l, 5);
+    var mx = g.mexico, partes = mx.cuando.split(" ");
+    [[partes[0].toUpperCase(), 520, 190, 0.5], [partes.slice(1).join(" "), 760, 250, 0.9]].forEach(function (p) {
+      var k = E.llegar(l, p[3], 0.3);
+      if (k > 0) alfa(Math.min(1, k * 2), function () { escalaDesde(M + 300, p[1] - p[2] / 3, 1 + 0.5 * (1 - k), function () { textoMarca(p[0], M + 20, p[1], p[2], p[0].length > 5 ? C.crema : C.amarillo); }); });
+    });
+    var y = palabras(mx.donde.replace(",", " ·").toUpperCase(), M + 20, 900, W - 2 * M - 40, 92, "400", "Anton", C.tinta, l, 1.5, 0.12, 1.02);
+    y = palabras(mx.con, M + 22, y + 40, W - 2 * M - 40, 62, "700", "'Space Grotesk'", C.tinta, l, 2.2, 0.1);
+    palabras(mx.dias || "Fechas y boletos en la taquilla oficial", M + 22, y + 30, W - 2 * M - 300, 40, "700", "Space Mono", C.tinta, l, 2.7, 0.06, 1.25);
+    stickerViene(800, 1500, 170, l, 3.1);
+  }
+
+  function logo(l) {
+    confeti(l, 0, [[90, 380, 300, C.rosa], [960, 330, 170, C.amarillo], [620, 560, 110, C.naranja], [1010, 1000, 260, C.azul], [130, 1640, 120, C.verde]]);
+    [["COLORES", 760, C.crema, 0.35], ["RUIDOSOS", 980, C.amarillo, 0.85]].forEach(function (p) {
+      var k = E.llegar(l, p[3], 0.3);
+      if (k > 0) alfa(Math.min(1, k * 2), function () { escalaDesde(W / 2, p[1] - 80, 1 + 0.5 * (1 - k), function () { ctx.textAlign = "center"; textoMarca(p[0], W / 2, p[1], 230, p[2]); ctx.textAlign = "left"; }); });
+    });
+    var k = E.llegar(l, 1.4, 0.4);
+    if (k > 0) {
+      ctx.save(); ctx.translate(W / 2, 1110); ctx.rotate((-6 - 20 * (1 - k)) * Math.PI / 180); ctx.scale(0.5 + 0.5 * k, 0.5 + 0.5 * k);
+      fuente("700", 46, "'Space Grotesk'"); var w = ctx.measureText("@coloresruidosos").width + 70;
+      ctx.fillStyle = C.tinta; ctx.beginPath(); ctx.roundRect(-w / 2 + 10, -42 + 10, w, 84, 42); ctx.fill();
+      ctx.fillStyle = C.amarillo; ctx.beginPath(); ctx.roundRect(-w / 2, -42, w, 84, 42); ctx.fill(); ctx.lineWidth = 5; ctx.strokeStyle = C.tinta; ctx.stroke();
+      ctx.fillStyle = C.tinta; ctx.textAlign = "center"; ctx.fillText("@coloresruidosos", 0, 16);
+      ctx.restore();
+    }
+    ctx.textAlign = "left";
+    var y = palabras("Fanzine digital de la escena indie y rock, hecho por un grupo de amigos en México.", M, 1290, W - 2 * M, 48, "500", "'Space Grotesk'", C.tinta, l, 1.9, 0.06);
+    palabras("coloresruidosos.github.io", M, y + 50, W - 2 * M, 40, "700", "Space Mono", C.azul, l, 2.7, 0.05);
+  }
+
+  var DIBUJA = { viene: viene, quienes: quienes, discos: discos, conozcas: conozcas, mexico: mexico, logo: logo };
+
+  // Cortinilla con las franjas de la marca: cruza en diagonal y tapa el cambio de escena.
+  function cortina(c) {
+    var cx = -1600 + 3868 * c, sk = 400, L = cx - 1.1 * W, R = cx + 1.1 * W;
+    ctx.save(); ctx.beginPath(); ctx.moveTo(L, 0); ctx.lineTo(R, 0); ctx.lineTo(R + sk, H); ctx.lineTo(L + sk, H); ctx.closePath(); ctx.clip();
+    ctx.translate(W / 2, H / 2); ctx.rotate(-0.5);
+    var cols = [C.rosa, C.azul, C.amarillo, C.crema];
+    for (var k = -40; k < 40; k++) { ctx.fillStyle = cols[((k % 4) + 4) % 4]; ctx.fillRect(k * 90, -2000, 90, 4000); }
+    ctx.restore();
+    ctx.lineWidth = 8; ctx.strokeStyle = C.tinta; ctx.beginPath(); ctx.moveTo(L, 0); ctx.lineTo(L + sk, H); ctx.moveTo(R, 0); ctx.lineTo(R + sk, H); ctx.stroke();
+  }
+
+  function seek(t) {
+    var e = E.escena(t);
+    ctx.save(); ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+    fondo(t);
+    // empuje lento: la escena nunca se queda quieta
+    escalaDesde(W / 2, H / 2, 1 + 0.025 * e.progreso, function () { DIBUJA[e.id](e.local); });
+    cabecera(t, e.indice, e.id === "logo" ? E.llegar(e.local, 0, 0.4) : 0);
+    ctx.drawImage(grano, 0, 0, W, H);
+    var c = E.cortinilla(t); if (c !== null) cortina(c);
+    ctx.restore();
+  }
+
+  window.seek = seek;
+  window.listo = Promise.all([
+    fetch("datos.json").then(function (r) { return r.json(); }),
+    document.fonts.load("400 100px Anton"), document.fonts.load("700 40px 'Space Grotesk'"),
+    document.fonts.load("500 40px 'Space Grotesk'"), document.fonts.load("700 30px 'Space Mono'"),
+  ]).then(function (r) {
+    var errores = [];
+    r[0].datos.forEach(function (d) { window.CRinfo.validar(d).forEach(function (x) { errores.push(d.id + ": " + x); }); });
+    if (errores.length) throw new Error(errores.join("\n"));
+    g = E.guion(r[0]);
+    window.DURACION = E.duracion();
+    seek(0);
+    return window.DURACION;
+  });
+
+  if (!/[?&]render/.test(location.search)) {
+    window.listo.then(function () {
+      var inicio = performance.now();
+      (function cuadro(a) { seek(((a - inicio) / 1000) % window.DURACION); requestAnimationFrame(cuadro); })(inicio);
+    });
+  }
+})();
+</script>
+</body>
+</html>

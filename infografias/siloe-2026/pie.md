@@ -17,6 +17,10 @@ Revisa las fechas exactas y los boletos en la taquilla oficial.
 
 Cada dato tiene dos fuentes: Rolling Stone en Español y La Ganzúa (la banda) · Rolling Stone en Español y Cierra por Fuera (integrantes) · Qobuz, La Higuera, Deezer, Last.fm, La Ganzúa y Apple Music (discos) · Turismo Castilla y León y las Cortes de Castilla y León (la campaña) · La Ganzúa y esMadrid (el papa) · Navarra Arena, Cádiz Directo y Nosoloindie (México). ¿Ves un error? Avísanos.
 
+## Vídeo (Reels / TikTok)
+
+`siloe-viene-a-mexico.mp4`: 1080×1920, 33 s, sin audio. Usa el mismo texto y el mismo comentario de fuentes. Al publicar, elige una canción de Siloé de la biblioteca de la plataforma; «Nada que se parezca a ti» encaja con el dato de la escena 4.
+
 ## Antes de publicar
 
 - **Pendiente:** confirmar en Ticketmaster MX u OCESA en qué fechas abre Siloé para Morat. Una sola fuente habla del 14, 15 y 17 de noviembre. Si se confirma, se agregan al pie (y a la imagen, cambiando `mexico-dias` a `verificado` en `datos.json` y volviendo a exportar).

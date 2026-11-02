@@ -20,3 +20,9 @@
 ## Fase 4: Publicación
 - ⏳ Confirmar en Ticketmaster MX u OCESA en qué fechas abre Siloé y, si se confirma, agregarlas
 - ⏳ Publicar
+
+## Fase 5: Vídeo dinámico (`spec-video.md`)
+- ✅ Elegir el prompt base del repo (`aschapmann-724497`, con la técnica de `notdwd-766641`) y leer la identidad del sitio desde el código
+- ✅ 🔴→🟢 `escenas.js`: guion solo con datos verificados, línea de tiempo, resorte con rebote, pulso de 120 BPM, cortinilla entre escenas (`tests/video.test.js`)
+- ✅ `video.html` (seek(t), 1080×1920) y `render-video.js`
+- ✅ Revisión de fotogramas (que nada se encime ni se corte) y render final
