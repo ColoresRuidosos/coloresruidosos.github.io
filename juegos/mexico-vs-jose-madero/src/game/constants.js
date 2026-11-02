@@ -36,7 +36,8 @@ export const ENEMY = {
 // v7 · Farol de Noche: radio de luz en px; se gasta en `duration` s y nunca baja de `min`.
 export const LANTERN = { max: 96, min: 40, duration: 40 };
 // v7 · Jefe El Enmascarado del Lago ⏳ (provisional, spec §3.0f E).
-export const MASK = { w: 26, h: 44, hp: 5, phase2: 2, lurk: 0.8, dash: 190, dashMax: 3, stun: 1.6, blackout: 1.0, hurtT: 0.3, spot: 3 };
+// v7.2 (feedback del usuario: «muy fácil»): más golpes, menos tiempo aturdido, más rápido y doble embestida en la fase 2.
+export const MASK = { w: 26, h: 44, hp: 8, phase2: 4, lurk: 0.8, lurk2: 0.55, dash: 230, dash2: 270, dashMax: 3, stun: 1.0, blackout: 1.0, hurtT: 0.3, spot: 3 };
 
 // Jefe Cámara Flash-Bot (spec §3.0d).
 export const BOSS = {

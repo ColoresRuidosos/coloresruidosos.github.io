@@ -77,6 +77,7 @@
 - [x] N6 🧪 Repetición: el bot completa 2-1 y 2-2; un bot de jefe vence al Enmascarado
 - [x] N7 🧪 Navegador: portada → museo → Carmesí; Opciones; Galería; Noche
 - [x] W1 Publicar en la web: `static/juegos/mexico-vs-jose-madero/` + enlace en el menú (`npm run publish:web`; se despliega al fusionar en `main`)
+- [x] N8 🧪 Enmascarado v7.2: 8 golpes, fase 2 con 4, aturdido 1,0 s, más rápido, doble embestida en la fase 2; la recompensa nunca cae dentro de una pared (🐞 del usuario)
 - [ ] F1 ⏳ Ajustes de jugabilidad con el feedback del usuario (`constants.js`)
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)

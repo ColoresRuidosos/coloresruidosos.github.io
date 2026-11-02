@@ -100,7 +100,7 @@ export function drawMaskBoss(g, game, art, t) {
   if (b.state === 'lurk' || b.state === 'blackout') return; // solo sus ojos (drawMaskEyes)
   const shakeX = b.state === 'stun' ? Math.round(Math.sin(t * 30)) : 0;
   if (b.hurtT > 0 && Math.floor(t * 30) % 2) return;
-  figure(g, fx + shakeX, top, b.facing < 0, t, b.state === 'dash');
+  figure(g, fx + shakeX, top, b.facing < 0, t, b.state === 'dash' || b.state === 'redash');
   antifaz(g, fx + shakeX, top + 8, b.facing < 0, 1);
   if (b.state === 'stun') {
     for (let i = 0; i < 3; i++) {
@@ -109,7 +109,7 @@ export function drawMaskBoss(g, game, art, t) {
     }
     text(g, '¡AHORA!', fx, top - 18, { color: '#ffcf7a', align: 'center' });
   }
-  if (b.state === 'dash') text(g, '¡SALTA!', fx, top - 14, { color: '#ffcf7a', align: 'center' });
+  if (b.state === 'dash' || b.state === 'redash') text(g, '¡SALTA!', fx, top - 14, { color: '#ffcf7a', align: 'center' });
 }
 
 // Figura alta con abrigo largo y sombrero de copa baja (diseño propio).

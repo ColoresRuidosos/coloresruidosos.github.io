@@ -149,7 +149,7 @@ describe('jefe: El Enmascarado del Lago (N4)', () => {
     assert.equal(b.hp, hp - 1);
   });
 
-  test('5 golpes; fase 2 con apagón; al vencerlo se quita la máscara y deja la Máscara de fiesta', () => {
+  test('8 golpes; fase 2 con apagón; al vencerlo se quita la máscara y deja la Máscara de fiesta', () => {
     const g = fight(), b = g.boss;
     assert.equal(b.hp, MASK.hp);
     const st = { blackout: false };
@@ -163,6 +163,50 @@ describe('jefe: El Enmascarado del Lago (N4)', () => {
     assert.equal(g.disco?.kind, 'mascara');
     assert.equal(g.status, 'won');
   });
+});
+
+describe('Enmascarado v7.2: más difícil y sin recompensa perdida (N8)', () => {
+  const arena = WORLD_2[2];
+  const fight = () => { const g = createGame(arena.map, {}, { lantern: arena.lantern }); g.intro = null; return g; };
+
+  test('más aguante y menos tiempo vulnerable', () => {
+    assert.equal(MASK.hp, 8);
+    assert.equal(MASK.phase2, 4);
+    assert.ok(MASK.stun <= 1.0);
+    assert.ok(MASK.dash >= 230 && MASK.dash2 > MASK.dash);
+    assert.ok(MASK.lurk2 < MASK.lurk);
+  });
+
+  test('fase 2: choca dos veces con la pared (doble embestida) antes de quedar aturdido', () => {
+    const g = fight(), b = g.boss;
+    b.hp = MASK.phase2; b.phase = 2;
+    let walls = 0, prev = b.state;
+    for (let i = 0; i < 60 * 10 && b.state !== 'stun'; i++) {
+      stepGame(g, idle); g.invuln = 1;
+      if (prev === 'dash' && b.state === 'redash') walls++;
+      if (prev === 'redash' && b.state === 'stun') walls++;
+      prev = b.state;
+    }
+    assert.equal(b.state, 'stun');
+    assert.equal(walls, 2);
+  });
+
+  for (const side of ['izquierda', 'derecha']) {
+    test(`vencido contra la pared de la ${side} con Pepe encima: la máscara cae en un sitio alcanzable y se recoge`, () => {
+      const g = fight(), b = g.boss, L = g.level, p = g.player;
+      b.hp = 1; b.phase = 2; b.state = 'stun'; b.t = 0;
+      b.x = side === 'izquierda' ? TILE : (L.w - 1) * TILE - b.w;
+      p.x = side === 'izquierda' ? TILE : (L.w - 1) * TILE - p.w; // Pepe del lado de la pared
+      hitMask(g, b);
+      const d = g.disco;
+      assert.ok(d, 'deja la máscara');
+      const tx = Math.floor(d.x / TILE), ty = Math.floor(d.y / TILE);
+      for (const dx of [-12, 0, 12]) assert.equal(L.tileAt(Math.floor((d.x + dx) / TILE), ty), '.', `x=${d.x} toca la pared`);
+      assert.ok(tx >= 1 && tx <= L.w - 2);
+      for (let i = 0; i < 60 * 6 && g.status === 'play'; i++) stepGame(g, maskBot(g));
+      assert.equal(g.status, 'won');
+    });
+  }
 });
 
 describe('repeticiones (N6)', () => {

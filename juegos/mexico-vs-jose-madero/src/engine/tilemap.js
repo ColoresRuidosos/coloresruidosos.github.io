@@ -104,3 +104,13 @@ export function moveBody(L, b, dx, dy) {
   }
   return res;
 }
+
+// x donde cabe un objeto (±margin px) a la altura y sin tocar bloques sólidos: si cae dentro de una pared,
+// se desplaza hacia `toward` hasta encontrar hueco (recompensas de los jefes; 🐞 v7.2).
+export function freeX(L, x, y, toward, margin = 12) {
+  const ty = Math.floor(y / TILE);
+  const free = (cx) => [cx - margin, cx, cx + margin].every((px) => tileAt(L, Math.floor(px / TILE), ty) !== '#');
+  const step = Math.sign(toward - x) || 1;
+  for (let i = 0; i < 2000 && !free(x); i++) x += step;
+  return x;
+}

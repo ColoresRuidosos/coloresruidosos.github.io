@@ -329,17 +329,16 @@ La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuent
 | **Murciélago** | `W` | Chibi con colmillos. Cuelga del techo. Cuando Pepe pasa cerca, baja en curva y vuelve a subir |
 | **Fantasma** | `O` | Flota hacia Pepe despacio y atraviesa paredes. Solo se ve dentro de la luz del farol (en 2-1, con las farolas). Se vence con el micrófono o pisándolo |
 
-**Jefe: El Enmascarado del Lago** ⏳ (provisional: cambia si lo revisas). Máquina de fases. 5 golpes; la fase 2 llega con 2 o menos.
+**Jefe: El Enmascarado del Lago** ⏳ (provisional). **v7.2** (feedback del usuario, 2 nov: «muy fácil, va de aquí para allá»). Máquina de fases con **8 golpes**; la fase 2 llega con 4 o menos.
 
-1. **Acecho**: sus ojos aparecen sobre uno de los muelles durante 0,8 s, como aviso, y salta allí.
-2. **Embestida**: corre hacia Pepe por el muelle. Se salta por encima.
-3. Si choca con la pared, queda **aturdido 1,6 s** (vulnerable: micrófono o pisotón). Si no choca, vuelve al acecho.
-4. **Fase 2**: antes de cada embestida hay un **apagón** de 1 s en el que solo se le ven los ojos. La luz del farol sigue encendida alrededor de Pepe.
-5. **Al vencerlo**:
-   - **Se quita la máscara** y debajo hay una persona normal que saluda.
-   - Cartel: «SOLO ERA UNA MÁSCARA».
-   - Deja la **Máscara de fiesta**, que completa el mundo.
-   - No se dice que *Noche* tuviera disco de oro: no está verificado.
+1. **Acecho**: sus ojos aparecen sobre el muelle más alejado de Pepe y salta allí. El aviso dura 0,8 s en la fase 1 y 0,55 s en la fase 2.
+2. **Embestida** (230 px/s; 270 px/s en la fase 2): corre hacia Pepe por el muelle. Se salta por encima.
+3. **Fase 2, doble embestida:** al chocar con la pared se da la vuelta y embiste otra vez, sin pararse. Solo queda aturdido tras el segundo choque.
+4. Tras chocar queda **aturdido 1,0 s** (antes 1,6). Es vulnerable al micrófono o al pisotón, y solo admite **un golpe por aturdimiento**.
+5. **Fase 2, apagón:** antes de cada acecho hay un apagón de 1 s en el que solo se le ven los ojos.
+6. **Al vencerlo:** se quita la máscara y deja la **Máscara de fiesta**, que completa el mundo.
+   - 🐞 Corregido: la máscara **nunca cae dentro de una pared**. Cae del lado libre y a menos de una casilla de los muros; si no, se recoloca hacia el centro.
+   - Esta misma regla se aplica al Disco de Oro del Flash-Bot.
 
 - **Riesgo legal:** nada de máscara de hockey ni de personajes de terror registrados. La máscara es un antifaz de fiesta, de diseño propio.
 - **Museo:** la puerta de *Noche* es negra con marco blanco; el año sale en la puerta.

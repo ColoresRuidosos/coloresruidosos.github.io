@@ -1,7 +1,7 @@
 // Jefe del Mundo 1: Cámara Flash-Bot («La Prensa Rosa»). Máquina de fases pura (spec §3.0d).
 //   walk → charge (aviso) → beam (rayo bajo o alto) → exposed (lente vulnerable) → walk …
 import { BOSS, DT } from './constants.js';
-import { moveBody } from '../engine/tilemap.js';
+import { moveBody, freeX } from '../engine/tilemap.js';
 
 export function createBoss(spawn) {
   return {
@@ -38,7 +38,7 @@ export function hitBoss(g, b, force = false) {
     g.score += 5000;
     g.events.push('bossdown');
     g.floats.push({ x: b.x + b.w / 2, y: b.y - 10, text: '+5000', t: 1.6 });
-    g.disco = { kind: 'disco', x: b.x + b.w / 2, y: b.y + b.h - 14, taken: false };
+    g.disco = { kind: 'disco', x: freeX(g.level, b.x + b.w / 2, b.y + b.h - 14, (g.level.w * 16) / 2), y: b.y + b.h - 14, taken: false };
   }
   return true;
 }

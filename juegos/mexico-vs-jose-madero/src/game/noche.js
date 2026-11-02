@@ -1,6 +1,6 @@
 // Mundo 2 «Noche» (spec §3.0f E): farol, enemigos nuevos y jefe El Enmascarado del Lago. Lógica pura (sin DOM).
 import { TILE, DT, ENEMY, LANTERN, MASK } from './constants.js';
-import { moveBody } from '../engine/tilemap.js';
+import { moveBody, freeX } from '../engine/tilemap.js';
 
 // ── Farol ──────────────────────────────────────────────
 export const createLantern = () => ({ oil: 1 });
@@ -57,7 +57,8 @@ export function stepFantasma(g, e, k) {
 }
 
 // ── Jefe: El Enmascarado del Lago ⏳ ────────────────────
-//   lurk (solo ojos, aviso) → dash (embestida) → stun (aturdido, vulnerable) → [fase 2: blackout] → lurk …
+//   lurk (solo ojos, aviso) → dash (embestida) → [fase 2: redash, vuelve a embestir] → stun (aturdido, vulnerable)
+//   → [fase 2: blackout] → lurk …
 export function createMask(spawn, level) {
   const left = MASK.spot * TILE, right = (level.w - MASK.spot) * TILE - MASK.w;
   return {
@@ -91,8 +92,10 @@ export function hitMask(g, b, force = false) {
     g.events.push('bossdown');
     g.floats.push({ x: b.x + b.w / 2, y: b.y - 10, text: 'SOLO ERA UNA MÁSCARA', t: 2.4 });
     // La máscara cae a un lado, hacia Pepe, para no taparle la cara a quien había debajo.
+    // Nunca dentro de una pared: si ese lado está tapado, se recoloca hacia el centro del muelle.
     const side = g.player.x + g.player.w / 2 < b.x + b.w / 2 ? -1 : 1;
-    g.disco = { kind: 'mascara', x: b.x + b.w / 2 + side * 30, y: b.y + b.h - 14, taken: false };
+    const y = b.y + b.h - 14, mid = (g.level.w * TILE) / 2;
+    g.disco = { kind: 'mascara', x: freeX(g.level, b.x + b.w / 2 + side * 30, y, mid), y, taken: false };
     return true;
   }
   if (b.phase === 2) { b.state = 'blackout'; b.t = 0; } else lurkAt(g, b);
@@ -108,14 +111,21 @@ export function stepMask(g, b, hurt, prevBottom) {
   b.hurtT = Math.max(0, b.hurtT - DT);
   const p = g.player, pc = p.x + p.w / 2, bc = b.x + b.w / 2;
   b.vy = Math.min(420, b.vy + 1400 * DT);
-  const r = moveBody(g.level, b, (b.state === 'dash' ? b.vx : 0) * DT, b.vy * DT);
+  const dashing = b.state === 'dash' || b.state === 'redash';
+  const r = moveBody(g.level, b, (dashing ? b.vx : 0) * DT, b.vy * DT);
   if (r.ground) b.vy = 0;
 
   if (b.state === 'lurk') {
     b.facing = Math.sign(pc - bc) || b.facing;
-    if (b.t >= MASK.lurk) { b.state = 'dash'; b.t = 0; b.vx = b.facing * MASK.dash; g.events.push('dash'); }
-  } else if (b.state === 'dash') {
-    if (r.hitX) { b.state = 'stun'; b.t = 0; b.vx = 0; g.shake = Math.max(g.shake, 0.25); g.events.push('bossland'); }
+    if (b.t >= (b.phase === 2 ? MASK.lurk2 : MASK.lurk)) {
+      b.state = 'dash'; b.t = 0; b.vx = b.facing * (b.phase === 2 ? MASK.dash2 : MASK.dash); g.events.push('dash');
+    }
+  } else if (dashing) {
+    if (r.hitX && b.state === 'dash' && b.phase === 2) {
+      // Doble embestida: rebota en la pared y vuelve sin pararse.
+      b.state = 'redash'; b.t = 0; b.facing = -b.facing; b.vx = b.facing * MASK.dash2;
+      g.shake = Math.max(g.shake, 0.2); g.events.push('dash');
+    } else if (r.hitX) { b.state = 'stun'; b.t = 0; b.vx = 0; g.shake = Math.max(g.shake, 0.25); g.events.push('bossland'); }
     else if (b.t >= MASK.dashMax) lurkAt(g, b);
   } else if (b.state === 'stun' && b.t >= MASK.stun) {
     if (b.phase === 2) { b.state = 'blackout'; b.t = 0; } else lurkAt(g, b);
@@ -125,8 +135,8 @@ export function stepMask(g, b, hurt, prevBottom) {
   }
 
   // Tocarlo: pisarlo rebota (y le daña si está aturdido); la embestida hace daño; acechando no se le puede tocar.
-  if ((b.state === 'dash' || b.state === 'stun') && overlap(p, b)) {
+  if ((dashing || b.state === 'stun') && overlap(p, b)) {
     if (p.vy > 0 && prevBottom <= b.y + 8) { p.vy = -300; p.jumping = false; hitMask(g, b); }
-    else if (b.state === 'dash') hurt(g, bc);
+    else if (dashing) hurt(g, bc);
   }
 }

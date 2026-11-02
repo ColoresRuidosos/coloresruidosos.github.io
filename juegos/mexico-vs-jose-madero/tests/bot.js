@@ -63,9 +63,10 @@ export function maskBot(g) {
     if (gap > MIC.range - 30) btn[toward] = true;
     else if (Math.sign(dx) !== p.facing) btn[toward] = true;
     else btn.mic = g.mic.phase === 'idle' && g.frame % 2 === 0;
-  } else if (b.state === 'dash') {
+  } else if (b.state === 'dash' || b.state === 'redash') {
     const coming = Math.sign(b.vx) === -Math.sign(dx);
-    if (coming && gap < 34 && p.onGround) btn.jump = true;
+    // Salta cuando al jefe le faltan ~0,2 s para llegar (el margen depende de su velocidad).
+    if (coming && gap / Math.max(1, Math.abs(b.vx)) < 0.2 && gap > 0 && p.onGround) btn.jump = true;
     else if (!p.onGround && p.vy < 0) btn.jump = true;
   } else {
     // Acecho y apagón: al centro del muelle.
