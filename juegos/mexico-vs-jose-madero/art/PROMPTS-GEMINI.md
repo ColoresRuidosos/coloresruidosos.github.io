@@ -286,7 +286,7 @@ FORMATO: imagen horizontal 3:2, panorámica. SIN personajes en primer plano, SIN
 
 | Archivo | Prompt (después del bloque común) |
 |---|---|
-| `p1-estadio.png` | El protagonista canta en un escenario enorme, visto de lado; delante, un estadio lleno de noche, miles de luces de móvil, tres haces de luz desde arriba y confeti. Estadio genérico, sin marcas. Tonos morados y dorados |
+| `p1-estadio.png` | Vista aérea de noche de un gran estadio de conciertos en una ciudad: estadio de planta cuadrada con un techo cobrizo alrededor de las gradas, la cancha y las gradas llenas de gente con luces rosas y moradas, un escenario con pantalla al fondo y haces de luz, y la ciudad encendida alrededor (calles, casas, árboles). SIN letras ni lemas en el techo, sin logotipos. (Referencia del usuario: Estadio GNP Seguros) |
 | `p2-arena.png` | Ciudad de México de noche: edificios con ventanas encendidas y, en el centro, una arena de conciertos genérica con cúpula iluminada de morado. Sin nombre ni letreros. Estrellas y estelas de faros de coches |
 | `p3-titulares.png` | El protagonista, asustado, rodeado de periódicos voladores con caras enfadadas (como los de la hoja de prensa adjunta) y destellos de cámaras de fotos. Ambiente rojo, caótico y mareante. Titulares ilegibles, solo garabatos |
 | `p4-museo.png` | Interior de un museo dentro de una gran carpa, en penumbra: vitrinas vacías, cuadros con marcos dorados sin imagen. En el centro, el protagonista solo, en gris (sin color), mirando a su alrededor confundido |

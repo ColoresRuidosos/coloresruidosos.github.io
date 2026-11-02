@@ -8,24 +8,42 @@ const R = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Mat
 
 // ── Prólogo: escenas dibujadas por código ──
 function sceneEstadio(g, t, art, flashes) {
-  R(g, '#06040c', 0, 0, W, H);
-  // Graderío: anillos de público con luces de móvil.
-  for (let ring = 0; ring < 4; ring++) {
-    const y = 40 + ring * 18;
-    g.fillStyle = ['#140c22', '#1c1230', '#241840', '#2c1e4c'][ring];
-    g.beginPath(); g.ellipse(W / 2, y + 60, 190 - ring * 18, 40, 0, Math.PI, 0); g.fill();
-    for (let i = 0; i < 40; i++) {
-      const a = Math.PI + (i / 40) * Math.PI, x = W / 2 + Math.cos(a) * (180 - ring * 18), yy = y + 60 + Math.sin(a) * 34;
-      const on = flashes ? hash(i + ring * 40, Math.floor(t * 3)) < 0.6 : hash(i, ring) < 0.6;
-      if (on) R(g, hash(i, ring + 9) < 0.5 ? '#fff8d0' : '#bfe6ff', x, yy, 1, 1);
-    }
+  // Vista aérea de noche del estadio (referencia del usuario: Estadio GNP Seguros, sin lemas ni marcas):
+  // estadio cuadrado con techo cobrizo alrededor de las gradas, público iluminado de rosa y morado,
+  // escenario al fondo y la ciudad encendida alrededor.
+  R(g, '#05040a', 0, 0, W, 150);
+  // Manzanas de casas con ventanas encendidas, parques oscuros y avenidas con farolas.
+  for (let by = 0; by < 150; by += 22) for (let bx = -10; bx < W; bx += 30) {
+    const ox = bx + (by / 22 % 2) * 12;
+    if (hash(ox, by) < 0.15) { R(g, '#0a140a', ox, by + 2, 26, 18); continue; } // parque
+    R(g, '#0e0c14', ox, by + 2, 26, 18);
+    for (let k = 0; k < 9; k++) if (hash(ox + k, by) < 0.55) R(g, hash(k, ox) < 0.7 ? '#c8963c' : '#fff2c0', ox + 2 + (k % 3) * 8, by + 4 + Math.floor(k / 3) * 5, 2, 2);
   }
-  // Escenario con haces de luz y Pepe.
-  R(g, '#2a1a3a', 90, 118, 140, 14); R(g, '#3a2650', 90, 118, 140, 2);
-  g.save(); g.globalAlpha = 0.18; g.fillStyle = '#ffe9a8';
-  for (const x of [120, 160, 200]) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x - 20, 118); g.lineTo(x + 20, 118); g.fill(); }
+  for (let k = 0; k < 7; k++) { const y = 21 + k * 22; R(g, '#181208', 0, y, W, 2); for (let x = 4; x < W; x += 9) R(g, '#ffb36b', x, y, 1, 1); } // avenidas
+  // Techo cobrizo (trapecio en perspectiva) y, dentro, la cancha llena.
+  const q = (pts, c) => { g.fillStyle = c; g.beginPath(); g.moveTo(...pts[0]); for (const p of pts.slice(1)) g.lineTo(...p); g.closePath(); g.fill(); };
+  q([[96, 30], [244, 30], [282, 132], [58, 132]], '#120c08');
+  q([[100, 32], [240, 32], [276, 128], [64, 128]], '#6a3e22');
+  q([[104, 35], [236, 35], [268, 123], [72, 123]], '#a8683a');
+  // Nervaduras del techo (paneles) y borde interior iluminado.
+  for (let k = 0; k <= 20; k++) {
+    const u = k / 20, xt = 104 + u * 132, xb = 72 + u * 196;
+    g.strokeStyle = '#8a5230'; g.lineWidth = 1; g.beginPath(); g.moveTo(xt, 35); g.lineTo(xt + (xt - 170) * 0.08, 46); g.moveTo(xb, 123); g.lineTo(xb + (170 - xb) * 0.1, 112); g.stroke();
+  }
+  q([[116, 45], [224, 45], [248, 113], [92, 113]], '#d08a50');
+  q([[118, 46], [222, 46], [246, 112], [94, 112]], '#3a1440'); // gradas y cancha
+  g.save(); g.globalAlpha = 0.35; g.fillStyle = '#ff7ad0'; g.beginPath(); g.ellipse(170, 84, 62, 26, 0, 0, Math.PI * 2); g.fill(); g.restore();
+  for (let i = 0; i < 900; i++) { // el público, con luces de móvil
+    const u = hash(i, 21), v = hash(i, 22), y = 48 + v * 62, half = 52 + (y - 46) * 0.36;
+    const x = 170 - half + u * half * 2;
+    const on = flashes ? hash(i, Math.floor(t * 4)) < 0.75 : hash(i, 5) < 0.75;
+    if (on) R(g, ['#ff7ad0', '#c86aff', '#ffd0f0', '#ffffff'][i % 4], x, y, 1, 1);
+  }
+  R(g, '#1a1a2a', 150, 46, 40, 8); R(g, '#8ad0ff', 152, 47, 36, 2); // escenario con su pantalla
+  g.save(); g.globalAlpha = 0.16; g.fillStyle = '#ffe9a8';
+  for (const x of [156, 170, 184]) { g.beginPath(); g.moveTo(x, 54); g.lineTo(x - 18, 112); g.lineTo(x + 18, 112); g.fill(); }
   g.restore();
-  if (art) sprite(g, art.pepe, art.pepe.meta.anims.shout[Math.floor(t * 6) % 3], W / 2, 118);
+  if (flashes) for (let i = 0; i < 16; i++) R(g, ['#ffcf7a', '#ff5a4f', '#7ad0ff'][i % 3], 140 + hash(i, 31) * 60, (60 + hash(i, 32) * 50 + t * 20) % 110 + 4, 1, 2); // confeti
 }
 function sceneArena(g, t) {
   R(g, '#08061a', 0, 0, W, H);

@@ -38,7 +38,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 |---|---|---|
 | 24 ene 2026, Estadio GNP Seguros, «Érase una Bestia», su primer estadio, con museo en una carpa | Dato | ✅ Chilango, Excélsior |
 | «El más grande de México» | Dato | ⚠️ Sin verificar: no sale en pantalla hasta tener fuente |
-| «Foro GNP» como nombre | — | ⚠️ La fuente dice **Estadio GNP Seguros**; se usa ese nombre |
+| «Foro GNP» como nombre | — | ✅ El usuario confirma (con fotos, 2 nov) que se refiere al **Estadio GNP Seguros**, al que también se le llama así. En pantalla se usa el nombre de las fuentes: «ESTADIO GNP SEGUROS». La viñeta 1 lo muestra en vista aérea: planta cuadrada y techo cobrizo, sin el lema publicitario del techo ni marcas |
 | Fecha del concierto en la Arena CDMX | Dato | ⚠️ Sin fuente pública: no se pone fecha |
 | Que olvide quién es y lo recupere | **Ficción del juego** | Se presenta como cuento, nunca como dato |
 
