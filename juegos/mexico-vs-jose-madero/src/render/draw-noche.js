@@ -16,6 +16,16 @@ export function antifaz(g, cx, y, flip = false, s = 1) {
   R(g, '#bdbdbd', cx + d * 6 * s, y - 4 * s, 2 * s, 5 * s);
 }
 
+// Máscara veneciana negra (la del Invitado; definida en PROMPTS-GEMINI §5): antifaz con borde claro y punta curva.
+function veneciana(g, cx, y, flip) {
+  const d = flip ? -1 : 1;
+  R(g, '#9a9a9a', cx - 7, y - 1, 14, 6);
+  R(g, INK, cx - 6, y, 12, 4);
+  R(g, '#e6e6e6', cx - 4, y + 1, 3, 2); R(g, '#e6e6e6', cx + 1, y + 1, 3, 2);
+  R(g, INK, cx - 1, y + 3, 2, 3); // pico de la nariz
+  R(g, INK, cx + d * 6, y - 3, 2, 3); R(g, INK, cx + d * 7, y - 5, 2, 2);
+}
+
 function invitado(g, e, t) {
   const fx = Math.round(e.x + e.w / 2), top = Math.round(e.y), f = e.facing < 0;
   const step = e.alive ? Math.floor(t * (e.state === 'chase' ? 12 : 6)) % 2 : 0;
@@ -24,12 +34,13 @@ function invitado(g, e, t) {
   R(g, INK, fx - 8, top + 13, 16, 17); R(g, '#3a3a3a', fx - 7, top + 14, 14, 15); R(g, '#d6d6d6', fx - 2, top + 14, 4, 10);
   R(g, INK, fx - 6, top + 1, 12, 13); R(g, '#b8b8b8', fx - 5, top + 2, 10, 11);
   R(g, '#2a2a2a', fx - 6, top, 12, 3); // pelo
-  if (!e.unmasked) antifaz(g, fx, top + 5, f);
+  if (!e.unmasked) veneciana(g, fx, top + 5, f);
   else {
-    // Sin máscara: una persona normal que sonríe y saluda.
-    R(g, INK, fx - 3, top + 6, 2, 2); R(g, INK, fx + 2, top + 6, 2, 2); R(g, INK, fx - 2, top + 10, 5, 1);
-    const wave = Math.floor(t * 8) % 2;
-    R(g, '#3a3a3a', fx + (f ? -12 : 8), top + 4 + wave, 4, 12); R(g, '#b8b8b8', fx + (f ? -12 : 8), top + 1 + wave, 4, 4);
+    // Sin máscara: cara sorprendida (ojos muy abiertos y boca en «O»), y corre más.
+    R(g, '#ffffff', fx - 4, top + 5, 3, 3); R(g, '#ffffff', fx + 1, top + 5, 3, 3);
+    R(g, INK, fx - 3, top + 6, 1, 1); R(g, INK, fx + 2, top + 6, 1, 1);
+    R(g, INK, fx - 1, top + 9, 3, 3); R(g, '#5a5a5a', fx, top + 10, 1, 1);
+    R(g, INK, fx - 4, top + 3, 3, 1); R(g, INK, fx + 1, top + 3, 3, 1); // cejas arriba
   }
 }
 
@@ -38,10 +49,13 @@ function murcielago(g, e, t) {
   if (e.state === 'hang') {
     R(g, INK, cx - 1, e.y - 4, 2, 4); R(g, INK, cx - 4, cy - 5, 8, 11); R(g, '#3a3a3a', cx - 3, cy - 4, 6, 9);
     R(g, '#e6e6e6', cx - 2, cy + 2, 1, 1); R(g, '#e6e6e6', cx + 1, cy + 2, 1, 1);
+    R(g, '#ffffff', cx - 2, cy - 2, 1, 2); R(g, '#ffffff', cx + 1, cy - 2, 1, 2); // colmillos (cabeza abajo)
     return;
   }
   const up = Math.floor(t * 14) % 2;
   R(g, INK, cx - 3, cy - 3, 6, 7); R(g, '#e6e6e6', cx - 2, cy - 1, 1, 1); R(g, '#e6e6e6', cx + 1, cy - 1, 1, 1);
+  R(g, '#ffffff', cx - 2, cy + 2, 1, 2); R(g, '#ffffff', cx + 1, cy + 2, 1, 2); // colmillos
+  R(g, INK, cx - 3, cy - 5, 2, 2); R(g, INK, cx + 1, cy - 5, 2, 2); // orejas
   for (const d of [-1, 1]) {
     for (let k = 0; k < 6; k++) R(g, INK, cx + d * (3 + k), cy - 2 + (up ? -k / 2 : k / 3), 1, 3);
   }
@@ -58,11 +72,11 @@ function fantasma(g, e, t) {
 
 export function drawNocheEnemy(g, game, e, t) {
   if (!e.alive) {
-    const life = e.unmasked ? 2.2 : 0.8;
+    const life = 0.8;
     if (e.deadT > life) return;
     g.save(); g.globalAlpha = Math.max(0, Math.min(1, (life - e.deadT) * 2));
-    if (e.kind === 'invitado') invitado(g, e, t);
-    else { g.translate(0, e.deadT * 30); (e.kind === 'murcielago' ? murcielago : fantasma)(g, e, t); }
+    g.translate(0, e.deadT * 30);
+    ({ invitado, murcielago, fantasma })[e.kind](g, e, t);
     g.restore();
     return;
   }

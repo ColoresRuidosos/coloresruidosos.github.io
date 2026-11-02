@@ -71,7 +71,7 @@
 - [x] O7 🎨 Galería: vitrinas, reto, equipar; Pepe con el traje elegido y poses de reserva (= H5)
 - [x] N1 🧪 Datos N1–N7 con fuente y dibujables; capítulos y tarjetas de los 3 niveles
 - [x] N2 🧪 Farol: gasta, mínimo 40 px, lata de aceite lo rellena; `inLight`
-- [x] N3 🧪 Invitado enmascarado (desenmascarar, no hace daño después), Murciélago (picado en curva), Fantasma (atraviesa paredes)
+- [x] N3 🧪 Invitado enmascarado (1.er golpe: sin máscara, más rápido y sigue atacando; 2.º golpe: vencido; el Solo lo vence de una vez), Murciélago (picado en curva), Fantasma (atraviesa paredes)
 - [x] N4 🧪 Jefe Enmascarado: acecho → embestida → aturdido; fase 2 con apagón; 5 golpes; se quita la máscara y deja la Máscara de fiesta
 - [x] N5 🎨 Niveles 2-1, 2-2, 2-3 + temas B y N por código + sprites en grises
 - [x] N6 🧪 Repetición: el bot completa 2-1 y 2-2; un bot de jefe vence al Enmascarado

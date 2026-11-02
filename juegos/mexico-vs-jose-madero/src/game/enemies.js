@@ -1,7 +1,7 @@
 // IA de los enemigos: funciones puras sobre el estado del juego (sin DOM).
 import { TILE, ENEMY, FREEZE, DT } from './constants.js';
 import { moveBody } from '../engine/tilemap.js';
-import { stepInvitado, stepUnmasked, stepMurcielago, stepFantasma } from './noche.js';
+import { stepInvitado, stepMurcielago, stepFantasma } from './noche.js';
 
 const INITIAL = { rumor: 'fly', murcielago: 'hang', fantasma: 'float' };
 
@@ -128,7 +128,7 @@ function stepTraidor(g, e, k) {
 }
 
 export function stepEnemy(g, e) {
-  if (!e.alive) { e.deadT += DT; if (e.unmasked) stepUnmasked(e); return; }
+  if (!e.alive) { e.deadT += DT; return; }
   const k = ENEMY[e.kind];
   e.t += DT;
   if (e.kind === 'paparazzi') stepPaparazzi(g, e, k);

@@ -28,7 +28,7 @@ export const ENEMY = {
   rumor: { w: 22, h: 18, speed: 40, amp: 10, sight: 28, dive: 260, climb: 90, fly: true },
   traidor: { w: 16, h: 24, sight: 150, aim: 0.6, lunge: 230, lungeT: 0.55, rest: 0.8, back: 60, fly: true },
   // v7 · Noche (spec §3.0f E)
-  invitado: { w: 18, h: 40, speed: 30, chase: 80, sight: 140 },
+  invitado: { w: 18, h: 40, speed: 30, chase: 80, chase2: 125, sight: 140 }, // chase2: sin máscara
   murcielago: { w: 16, h: 12, sight: 40, swoop: 1.3, depth: 72, speed: 110, rest: 1.0, fly: true },
   fantasma: { w: 18, h: 22, speed: 26, sight: 220, fly: true },
 };

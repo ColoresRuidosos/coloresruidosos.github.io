@@ -321,12 +321,12 @@ Así nunca se mezclan dos trajes en el mismo personaje.
 
 La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuente.
 
-**Enemigos nuevos** (dibujados por código en blanco y negro hasta tener el arte de Gemini):
+**Enemigos propios de Noche** (como se definieron en §3.2 y en `art/PROMPTS-GEMINI.md` §5; ✅ confirmado por el usuario el 2 nov). Se dibujan por código en blanco y negro hasta tener el arte de Gemini (`w2-invitado.png`, `w2-fantasma.png`, `w2-murcielago.png`):
 
 | Enemigo | `char` | Comportamiento |
 |---|---|---|
-| **Invitado enmascarado** | `I` | Patrulla y, si te ve, se acerca deprisa. Al primer golpe (pisotón o micrófono) **pierde la máscara**: pasa a ser un invitado normal que ya no hace daño, saluda y se va. Da puntos igual. Es el mensaje de «Noche de brujas»: debajo de la máscara hay una persona |
-| **Murciélago** | `W` | Cuelga del techo. Cuando Pepe pasa cerca, baja en curva y vuelve a subir |
+| **Invitado enmascarado** | `I` | Traje elegante y **máscara veneciana negra**. Patrulla y, si te ve, se acerca deprisa. Al primer golpe (pisotón o micrófono) **pierde la máscara y cambia de comportamiento** (§3.2): cara sorprendida, **más rápido**, y sigue atacando. El segundo golpe lo vence. El Solo de guitarra lo vence de una vez. Cada golpe da puntos |
+| **Murciélago** | `W` | Chibi con colmillos. Cuelga del techo. Cuando Pepe pasa cerca, baja en curva y vuelve a subir |
 | **Fantasma** | `O` | Flota hacia Pepe despacio y atraviesa paredes. Solo se ve dentro de la luz del farol (en 2-1, con las farolas). Se vence con el micrófono o pisándolo |
 
 **Jefe: El Enmascarado del Lago** ⏳ (provisional: cambia si lo revisas). Máquina de fases. 5 golpes; la fase 2 llega con 2 o menos.

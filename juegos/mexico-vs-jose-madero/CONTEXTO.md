@@ -38,14 +38,14 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ### ⭐ Dónde vive ahora (v0.7)
 - **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
-- En la carpeta: `npm ci` → `npm test` (**124 tests**) → `npm run publish:web`. Ese comando genera `dist/` y copia el HTML (≈ 650 KB) a `static/juegos/mexico-vs-jose-madero/index.html` de la web.
-- En el menú de la web hay un enlace «México vs. José Madero». **Se despliega al fusionar en `main`** (todavía no hay PR).
+- En la carpeta: `npm ci` → `npm test` (**125 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
+- ⏸ **No se sube a la web** (lo decidió el usuario el 2 nov): no hay copia en `static/` ni enlace en el menú. Al usuario se le entrega el HTML. `npm run publish:web` queda listo para cuando lo decida.
 - **Novedades de la v0.7** (spec §3.0f):
   - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
   - **Guardado:** `src/engine/save.js`, clave `jmv-save`.
   - **Museo (hub):** 8 puertas; Noche se abre al terminar Carmesí.
   - **Galería de 8 trajes con retos:** 7 recortados con `scripts/slice_costumes.py`; las poses que faltan usan la más parecida.
-  - **Mundo 2 «Noche»:** 2-1 La Fiesta, 2-2 Las Cabañas (con farol) y 2-3 El Lago. Enemigos: Invitado enmascarado, Murciélago y Fantasma. Jefe: El Enmascarado del Lago.
+  - **Mundo 2 «Noche»:** 2-1 La Fiesta, 2-2 Las Cabañas (con farol) y 2-3 El Lago. Enemigos propios, como se definieron (spec §3.2 y PROMPTS §5): Invitado enmascarado (máscara veneciana negra; el 1.er golpe se la quita y va más rápido, el 2.º lo vence), Murciélago con colmillos y Fantasma. El usuario confirmó que Noche lleva sus propios enemigos. Jefe: El Enmascarado del Lago.
   - **Datos de Noche:** N1–N7, en `src/data/noche-story.js`.
 - ⏳ **Pendiente de visto bueno:**
   - Textos N1–N7 y los capítulos de Noche.
@@ -128,7 +128,7 @@ Noche: El Enmascarado del Lago (al vencerlo se quita la máscara) · Alba: La No
 2. Visto bueno de los textos y del jefe de Noche.
 3. Arte de Noche en Gemini (Invitado, Murciélago, Fantasma, Enmascarado y escenarios) y escena del Teatro.
 4. Remapeo de teclas (P1b).
-5. PR para publicar en `main`.
+5. Publicar en la web solo cuando lo decida el usuario.
 
 ### Lecciones de verificación
 - **No usar la Wikipedia EN de *Carmesí* como fuente única:** decía que «La noche de la mesa triste» era sencillo del disco (es de PXNDX, *Bonanza*, 2012).

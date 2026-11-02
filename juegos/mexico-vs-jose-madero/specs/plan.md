@@ -63,7 +63,7 @@ projects/super-pepe/
   - `createGame(text, carry, opts)` acepta `opts.assist` y `opts.lantern`.
   - El jefe se crea según su `char`: `B` es el Flash-Bot y `E` el Enmascarado.
   - `hurt` respeta el modo asistido.
-  - Los golpes al Invitado lo desenmascaran en vez de vencerlo.
+  - El primer golpe al Invitado le quita la máscara (sigue vivo y más rápido); el segundo lo vence. `defeat(g, e, force)`: el Solo vence siempre.
 - **Datos:**
   - `src/data/world2.js`: 3 niveles en texto.
   - `src/data/noche-story.js`: N1–N7, capítulos y tarjetas, con el mismo formato que `carmesi-story.js`.
@@ -76,4 +76,4 @@ projects/super-pepe/
   - El farol es un degradado radial sobre una capa negra.
 - **main.js:** máquina de pantallas `title → museum ⇄ (gallery | options) → card → play → …`.
 - **Tests de repetición:** el bot completa 2-1 y 2-2, y un bot de jefe vence al Enmascarado.
-- **Publicación:** `npm run build` copia el HTML a `static/juegos/mexico-vs-jose-madero/index.html` del repo de la web (`npm run publish:web`).
+- **Publicación:** ⏸ por decisión del usuario, **no se sube a la web** por ahora: se le entrega `dist/mexico-vs-jose-madero.html`. `npm run publish:web` queda preparado para cuando decida.

@@ -16,22 +16,20 @@ export function inLight(g, x, y) {
 // ── Enemigos ───────────────────────────────────────────
 const center = (b) => ({ x: b.x + b.w / 2, y: b.y + b.h / 2 });
 
-// Invitado enmascarado: patrulla y, si te ve, se acerca deprisa. (Al golpearlo, game.defeat lo desenmascara.)
+// Invitado enmascarado: patrulla y, si te ve, se acerca deprisa. Sin máscara (1.er golpe), aún más rápido.
 export function stepInvitado(g, e, k, patrol, sees) {
+  const chase = e.unmasked ? k.chase2 : k.chase;
   if (e.state === 'walk') {
     patrol(g, e, k.speed);
     if (sees(g, e, k.sight, false)) { e.state = 'chase'; e.t = 0; }
   } else {
     e.facing = Math.sign(g.player.x + g.player.w / 2 - (e.x + e.w / 2)) || e.facing;
-    e.vx = e.facing * k.chase;
+    e.vx = e.facing * chase;
     patrol(g, e);
-    e.vx = e.facing * k.chase;
+    e.vx = e.facing * chase;
     if (!sees(g, e, k.sight + 40, false)) { e.state = 'walk'; e.t = 0; e.vx = e.facing * k.speed; }
   }
 }
-
-// Ya sin máscara: no hace daño, saluda y se va (solo animación; ya no está «vivo»).
-export function stepUnmasked(e) { e.x += e.facing * 24 * DT; }
 
 // Murciélago: cuelga del techo; si Pepe pasa cerca (por debajo), baja en curva y vuelve a subir algo más allá.
 export function stepMurcielago(g, e, k) {

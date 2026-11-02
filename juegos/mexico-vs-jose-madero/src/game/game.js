@@ -79,10 +79,16 @@ export function scoreHit(g, x, y) {
 }
 
 // Vencer a un enemigo; si es un Titular, sale una frase verificada de Madero.
-export function defeat(g, e) {
+// Invitado enmascarado (Noche): el primer golpe solo le quita la máscara (sigue, más rápido); `force` (Solo) lo vence.
+export function defeat(g, e, force = false) {
   if (!e.alive) return;
+  if (e.kind === 'invitado' && !e.unmasked && !force) {
+    e.unmasked = true; e.state = 'chase'; e.t = 0;
+    g.events.push('defeat');
+    scoreHit(g, e.x + e.w / 2, e.y);
+    return;
+  }
   e.alive = false;
-  if (e.kind === 'invitado') { e.unmasked = true; e.facing = Math.sign(e.x - g.player.x) || 1; }
   g.events.push('defeat');
   scoreHit(g, e.x + e.w / 2, e.y);
   if (e.kind === 'titular') {
@@ -94,7 +100,7 @@ export function defeat(g, e) {
 // Solo de guitarra: vence a todo lo que hay en pantalla (y daña al jefe, si lo hay).
 function guitar(g) {
   const pc = g.player.x + g.player.w / 2;
-  for (const e of g.enemies) if (e.alive && Math.abs(e.x + e.w / 2 - pc) <= GUITAR.reach) defeat(g, e);
+  for (const e of g.enemies) if (e.alive && Math.abs(e.x + e.w / 2 - pc) <= GUITAR.reach) defeat(g, e, true);
   const b = g.boss;
   if (b?.alive && Math.abs(b.x + b.w / 2 - pc) <= GUITAR.reach + b.w / 2) hitBoss(g, b, true);
   g.ovacion = 0;

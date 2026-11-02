@@ -82,19 +82,30 @@ describe('farol (N2)', () => {
 });
 
 describe('enemigos de Noche (N3)', () => {
-  test('Invitado: se acerca deprisa al verte; al golpearlo pierde la máscara y ya no hace daño', () => {
+  test('Invitado: se acerca deprisa al verte; el 1.er golpe le quita la máscara (más rápido y sigue atacando), el 2.º lo vence', () => {
     const g = createGame('.P.......I.\n###########');
     const e = g.enemies[0];
     run(g, 20);
     assert.equal(e.state, 'chase');
-    assert.ok(e.vx < -40);
+    const masked = Math.abs(e.vx);
+    assert.ok(masked > 40);
     defeat(g, e);
-    assert.equal(e.alive, false);
+    assert.equal(e.alive, true, 'sigue en pie');
     assert.equal(e.unmasked, true);
     assert.ok(g.score > 0);
-    const hearts = g.hearts;
-    e.x = g.player.x; run(g, 10);
-    assert.equal(g.hearts, hearts);
+    run(g, 8); // (pasa el parón de impacto)
+    assert.ok(Math.abs(e.vx) > masked, 'sin máscara es más rápido');
+    g.invuln = 0; e.x = g.player.x + 4; e.y = g.player.y; run(g, 2);
+    assert.ok(g.hearts < 3, 'sin máscara sigue haciendo daño');
+    defeat(g, e);
+    assert.equal(e.alive, false);
+  });
+
+  test('Invitado: el Solo de guitarra lo vence de una vez', () => {
+    const g = createGame('.P..I.\n######');
+    g.ovacion = 100;
+    stepGame(g, { ...idle, special: true });
+    assert.equal(g.enemies[0].alive, false);
   });
 
   test('Murciélago: cuelga quieto y baja en curva cuando pasas cerca; luego vuelve arriba', () => {
