@@ -7,14 +7,21 @@
 
 **Problema.** En 2026 se fueron varios músicos de la escena que cubre el fanzine. Las notas del día no alcanzan para despedirlos juntos, y el equipo quiere un homenaje que se pueda compartir.
 
-**Solución.** Un vídeo vertical de alrededor de un minuto para Reels, TikTok y Shorts. Muestra una veladora por cada artista que murió **en 2026**, en orden cronológico: nombre, fecha, país y banda. Al final, todas las veladoras quedan encendidas en una ofrenda, con el cierre «Gracias por la música». Está hecho igual que los vídeos de [awesome-opus5-5-videos](https://github.com/edgaralrohe/awesome-opus5-5-videos) (por ejemplo `notdwd-766641`): un solo HTML que dibuja cada fotograma desde una función `seek(t)` y se renderiza con Playwright y ffmpeg. Todo está escrito en código: sin generadores de vídeo con IA y sin fotos ajenas.
+**Solución.** Un vídeo vertical de alrededor de un minuto para Reels, TikTok y Shorts. Muestra una veladora por cada artista que murió **en 2026**, en orden cronológico: nombre, fecha, país y banda. Al final, todas las veladoras quedan encendidas en una ofrenda, con el cierre «Gracias por la música». Está hecho igual que los vídeos de [awesome-opus5-5-videos](https://github.com/edgaralrohe/awesome-opus5-5-videos): un solo HTML que dibuja cada fotograma desde una función `seek(t)` y se renderiza con Playwright y ffmpeg. Todo está escrito en código: sin generadores de vídeo con IA y sin fotos ajenas.
+
+**Prompt base elegido (2026-11-02):** [`x4b47x-034026`](https://skillry.dev/ai-videos/opus-5-5/x4b47x-034026), el que mejor encaja de los 703 del repo: *«Create a pure javascript animation. 30-60s, vertical 9:16, paper cut-out shadow theatre style…»*. Ya es vertical, de un minuto y de papel recortado, y el papel recortado mexicano es el **papel picado**. Adaptado:
+
+> Animación en JavaScript puro, 61 s, vertical 9:16, en estilo de papel picado mexicano: alegre y a todo color, como una ofrenda de Día de Muertos. Tema: los músicos de rock e indie de México, España y Latinoamérica que se nos adelantaron en 2026. Nada explícito: sin calaveras, sin cruces y sin causas de muerte. La alusión a Día de Muertos viene del papel picado, el cempasúchil, las veladoras y la ofrenda de tres niveles.
+
+Se descartó `eric-khun-667455` (festival de medio otoño), que es 16:9, gira en torno a un personaje y tiene cortes rápidos: no va con un homenaje.
 
 **Principios**
 1. **Solo 2026.** Nadie que haya muerto en otro año, aunque sea un aniversario.
 2. **Veracidad.** Cada artista tiene al menos **dos fuentes** de prensa que confirman la muerte. Si no coinciden en el día, se muestra solo el mes. Un caso con una sola fuente queda pendiente.
 3. **Respeto.** Sin causa de muerte, sin detalles de cómo ocurrió, sin fotos de prensa. Se recuerda la obra.
 4. **Nuestro ámbito.** Rock, indie, alternativo, punk, progresivo y pop-rock de México, España y Latinoamérica hispanohablante. Fuera: regional mexicano, flamenco puro, pop masivo, urbano y tropical.
-5. **Identidad (SPEC-001).** Tinta `#141414`, crema `#F4EFE6`, naranja cempasúchil `#FF7A30` y amarillo `#FFD23F` para la flama. Tipografías Anton, Space Grotesk y Space Mono. Sin rosa.
+5. **Color y cultura mexicana, nada explícito.** Fondo de papel crema y paleta de papel picado: rosa mexicano, morado, naranja cempasúchil, amarillo, verde, turquesa y azul. Elementos: papel picado (recortes propios de flores, estrellas, soles y rombos), flores de cempasúchil y camino de pétalos, veladoras y ofrenda de tres niveles con mantel. **Sin calaveras, cruces, ataúdes ni símbolos de muerte**: es una fiesta de recuerdo, no un luto. Tipografías del fanzine (Anton, Space Grotesk y Space Mono).
+6. **Legible sobre color.** Cada texto sobre papel de color usa tinta o crema, la que dé más contraste. Todo el texto del vídeo mide 30 px o más, así que aplica el criterio de texto grande de WCAG AA (≥ 3:1); lo valida una prueba para cada color de la paleta.
 
 **Métricas de éxito**
 - Retención media de al menos el 50 % del vídeo en Reels.
@@ -38,7 +45,7 @@
 
 - **V1 Datos.** `datos.json` con los artistas de 2026: nombre, fecha (`AAAA-MM-DD` o `AAAA-MM`), país, proyectos, una línea propia (≤ 70 caracteres) y fuentes. Pruebas que impiden que entre alguien fuera de 2026, sin dos fuentes `https`, con una causa de muerte en el texto o desordenado.
 - **V2 Línea de tiempo.** Intro de 4 s, un tramo de 3.4 s por artista y un cierre de 6 s. Una función pura dice qué escena y qué progreso corresponden a cada instante `t`.
-- **V3 Escenas.** Intro (veladora y título «In memoriam 2026»), tarjeta por artista con la ofrenda de veladoras abajo (la de ese artista se enciende) y cierre con todas encendidas, la lista completa y la marca.
+- **V3 Escenas.** Intro: caen las tiras de papel picado y aparece el título «In memoriam 2026». Tarjeta por artista: una hoja de papel de color con el nombre, mientras abajo, en la ofrenda, se enciende su veladora. Cierre: todas las veladoras encendidas, el camino de cempasúchil completo, la lista de nombres y la marca.
 - **V4 Render.** `node render.js` genera `in-memoriam-2026.mp4` (1080×1920, 30 fps, H.264, sin audio) y una hoja de contacto para revisar.
 - **V5 Pie de publicación.** `pie.md`: texto listo para pegar, con los nombres y las fuentes.
 

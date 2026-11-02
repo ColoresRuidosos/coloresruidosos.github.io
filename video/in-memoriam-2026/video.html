@@ -5,243 +5,345 @@
 <title>In memoriam 2026 · Colores Ruidosos</title>
 <link rel="stylesheet" href="fuentes/fuentes.css">
 <style>
-  html, body { margin: 0; background: #141414; }
+  html, body { margin: 0; background: #F4EFE6; }
   canvas { display: block; width: min(100vw, calc(100vh * 9 / 16)); height: auto; margin: 0 auto; }
-  .ayuda { position: fixed; left: 8px; bottom: 8px; font: 12px "Space Mono", monospace; color: #F4EFE6; opacity: .6; }
 </style>
 </head>
 <body>
 <canvas id="lienzo" width="1080" height="1920" aria-label="Vídeo In memoriam 2026"></canvas>
-<p class="ayuda">Vista previa: se reproduce sola. render.js usa window.seek(t).</p>
 <script src="linea.js"></script>
 <script>
-/* Vídeo «In memoriam 2026» (spec.md). Cada fotograma es función pura de t:
-   window.seek(t) dibuja el instante t, sin reloj, para que el render sea exacto. */
+/* «In memoriam 2026», dirección de arte v2: papel picado a color (plan.md, E9–E11).
+   Prompt base: x4b47x-034026 de awesome-opus5-5-videos (papel recortado, vertical, 30–60 s).
+   Cada fotograma es función pura de t: window.seek(t) dibuja el instante t, sin reloj.
+   Nada explícito: sin calaveras ni cruces; la alusión es papel picado, cempasúchil, veladoras y ofrenda. */
 (function () {
   var L = window.CRvideo, T = L.T;
-  var W = 1080, H = 1920, MARGEN = 90;
-  var C = { tinta: "#141414", crema: "#F4EFE6", naranja: "#FF7A30", amarillo: "#FFD23F", apagada: "#3a2a22" };
+  var W = 1080, H = 1920;
+  var TINTA = L.TINTA, CREMA = L.CREMA;
+  var ROSA = "#E4007C", NARANJA = "#FF7A30", AMARILLO = "#FFD23F", MORADO = "#6C2A8C", TURQUESA = "#00A3A6";
   var lienzo = document.getElementById("lienzo");
   var ctx = lienzo.getContext("2d");
-  var datos = null, artistas = [], n = 0;
+  var artistas = [], n = 0, niveles = [], puestos = [], tarjetas = [], hojaCierre = null;
 
   // ---------- utilidades ----------
   function alfa(a, fn) { if (a <= 0) return; ctx.save(); ctx.globalAlpha *= Math.min(1, a); fn(); ctx.restore(); }
   function fuente(peso, px, familia) { ctx.font = peso + " " + px + "px " + familia; }
-  function lineas(texto, ancho) {
-    var palabras = texto.split(" "), out = [], actual = "";
-    palabras.forEach(function (p) {
+  function lineasDe(c, texto, ancho) {
+    var out = [], actual = "";
+    texto.split(" ").forEach(function (p) {
       var prueba = actual ? actual + " " + p : p;
-      if (ctx.measureText(prueba).width > ancho && actual) { out.push(actual); actual = p; } else actual = prueba;
+      if (c.measureText(prueba).width > ancho && actual) { out.push(actual); actual = p; } else actual = prueba;
     });
     if (actual) out.push(actual);
     return out;
   }
-  // Nombre lo más grande posible (máx. 150 px) en una o dos líneas dentro del ancho útil.
-  function ajustarNombre(nombre, ancho) {
-    for (var px = 150; px >= 80; px -= 4) {
-      fuente("400", px, "Anton");
-      var ls = lineas(nombre, ancho);
-      if (ls.length <= 2 && ls.every(function (l) { return ctx.measureText(l).width <= ancho; })) return { px: px, lineas: ls };
+  function lienzoNuevo(w, h) { var c = document.createElement("canvas"); c.width = w; c.height = h; return c; }
+  // Sombra suave debajo de cada pieza de papel: da la profundidad del recorte.
+  function sombra(c, fn) { c.save(); c.shadowColor = "rgba(20,20,20,0.22)"; c.shadowBlur = 10; c.shadowOffsetY = 7; fn(); c.restore(); }
+
+  // ---------- recortes de papel picado (se cortan con destination-out) ----------
+  function flor(g, x, y, r) {
+    g.beginPath(); g.arc(x, y, r * 0.38, 0, Math.PI * 2); g.fill();
+    for (var k = 0; k < 8; k++) {
+      var a = k * Math.PI / 4;
+      g.beginPath(); g.ellipse(x + Math.cos(a) * r * 0.78, y + Math.sin(a) * r * 0.78, r * 0.2, r * 0.42, a + Math.PI / 2, 0, Math.PI * 2); g.fill();
     }
-    return { px: 80, lineas: lineas(nombre, ancho) };
+  }
+  function estrella(g, x, y, r, puntas) {
+    g.beginPath();
+    for (var k = 0; k < puntas * 2; k++) {
+      var rr = k % 2 ? r * 0.45 : r, a = k * Math.PI / puntas - Math.PI / 2;
+      g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+    }
+    g.closePath(); g.fill();
+  }
+  function sol(g, x, y, r) {
+    g.beginPath(); g.arc(x, y, r * 0.4, 0, Math.PI * 2); g.fill();
+    for (var k = 0; k < 12; k++) {
+      var a = k * Math.PI / 6;
+      g.beginPath();
+      g.moveTo(x + Math.cos(a - 0.12) * r * 0.55, y + Math.sin(a - 0.12) * r * 0.55);
+      g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r);
+      g.lineTo(x + Math.cos(a + 0.12) * r * 0.55, y + Math.sin(a + 0.12) * r * 0.55);
+      g.fill();
+    }
+  }
+  function rombo(g, x, y, r) { g.beginPath(); g.moveTo(x, y - r); g.lineTo(x + r, y); g.lineTo(x, y + r); g.lineTo(x - r, y); g.fill(); }
+  function feston(g, w, h, r) { for (var x = r; x < w; x += r * 2) { g.beginPath(); g.arc(x, h, r, 0, Math.PI * 2); g.fill(); } }
+
+  // Banderita de papel picado: color + motivo, con dobladillo arriba.
+  function banderita(color, motivo) {
+    var w = 140, h = 190, c = lienzoNuevo(w, h), g = c.getContext("2d");
+    g.fillStyle = color; g.fillRect(0, 0, w, h);
+    g.fillStyle = "rgba(0,0,0,0.12)"; g.fillRect(0, 0, w, 12);
+    g.globalCompositeOperation = "destination-out"; g.fillStyle = "#000";
+    feston(g, w, h, 10);
+    for (var x = 14; x < w; x += 16) { rombo(g, x, 26, 4); rombo(g, x, h - 30, 4); }
+    for (var y = 44; y < h - 44; y += 18) { g.beginPath(); g.arc(12, y, 3, 0, 7); g.arc(w - 12, y, 3, 0, 7); g.fill(); }
+    var cx = w / 2, cy = h / 2 + 4;
+    if (motivo === 0) flor(g, cx, cy, 40);
+    else if (motivo === 1) estrella(g, cx, cy, 44, 8);
+    else if (motivo === 2) sol(g, cx, cy, 44);
+    else { for (var i = -1; i <= 1; i++) for (var j = -1; j <= 1; j++) rombo(g, cx + i * 28, cy + j * 32, 11); }
+    return c;
   }
 
-  // Grano de papel: ruido fijo con semilla, dibujado una sola vez.
-  var grano = document.createElement("canvas");
-  grano.width = 360; grano.height = 640;
+  // Hoja de papel grande (tarjeta de cada artista y cierre).
+  function hoja(color, w, h) {
+    var c = lienzoNuevo(w, h), g = c.getContext("2d");
+    g.fillStyle = color; g.fillRect(0, 0, w, h);
+    g.globalCompositeOperation = "destination-out"; g.fillStyle = "#000";
+    feston(g, w, h, 16);
+    for (var x = 46; x < w - 30; x += 64) flor(g, x, 36, 15);
+    for (var x2 = 30; x2 < w; x2 += 24) rombo(g, x2, h - 40, 5);
+    sol(g, w - 48, h - 92, 22); sol(g, 48, h - 92, 22);
+    return c;
+  }
+
+  // ---------- fondo, papel picado colgante y pétalos ----------
+  var grano = lienzoNuevo(360, 640);
   (function () {
-    var g = grano.getContext("2d"), img = g.createImageData(grano.width, grano.height), r = L.aleatorio(2026);
-    for (var i = 0; i < img.data.length; i += 4) {
-      var v = Math.floor(r() * 255);
-      img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 14;
-    }
+    var g = grano.getContext("2d"), img = g.createImageData(360, 640), r = L.aleatorio(2026);
+    for (var i = 0; i < img.data.length; i += 4) { var v = Math.floor(r() * 255); img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 12; }
     g.putImageData(img, 0, 0);
   })();
+  var tira = [];
+  for (var b = 0; b < 8; b++) tira.push(banderita(L.papel(b), b % 4));
 
-  // Pétalos de cempasúchil: parámetros fijos, posición calculada desde t.
   var petalos = (function () {
-    var r = L.aleatorio(1102), lista = [];
-    for (var i = 0; i < 34; i++) {
-      lista.push({ x: r() * W, y0: r() * H, vel: 26 + r() * 40, vaiven: 20 + r() * 50, fase: r() * 6.28, giro: 0.3 + r() * 0.9, tam: 9 + r() * 12, tono: r() < 0.7 ? C.naranja : C.amarillo });
-    }
+    var r = L.aleatorio(1102), lista = [], tonos = [NARANJA, AMARILLO, NARANJA, ROSA, "#FF9F1C"];
+    for (var i = 0; i < 30; i++) lista.push({ x: r() * W, y0: r() * H, vel: 30 + r() * 45, vaiven: 20 + r() * 50, fase: r() * 6.28, giro: 0.3 + r() * 0.9, tam: 8 + r() * 10, tono: tonos[i % tonos.length] });
     return lista;
   })();
 
-  function fondo(t) {
-    ctx.fillStyle = C.tinta; ctx.fillRect(0, 0, W, H);
-    var luz = ctx.createRadialGradient(W / 2, 1420, 40, W / 2, 1420, 900);
-    luz.addColorStop(0, "rgba(255,122,48,0.10)"); luz.addColorStop(1, "rgba(255,122,48,0)");
-    ctx.fillStyle = luz; ctx.fillRect(0, 0, W, H);
+  function fondo(t, calor) {
+    ctx.fillStyle = CREMA; ctx.fillRect(0, 0, W, H);
+    if (calor > 0) {
+      var luz = ctx.createRadialGradient(W / 2, 1450, 60, W / 2, 1450, 950);
+      luz.addColorStop(0, "rgba(255,159,28," + (0.22 * calor) + ")"); luz.addColorStop(1, "rgba(255,159,28,0)");
+      ctx.fillStyle = luz; ctx.fillRect(0, 0, W, H);
+    }
     petalos.forEach(function (p) {
-      var y = ((p.y0 + p.vel * t) % (H + 80)) - 40;
-      var x = p.x + Math.sin(t * 0.6 + p.fase) * p.vaiven;
-      alfa(0.42, function () {
-        ctx.translate(x, y); ctx.rotate(p.fase + t * p.giro);
-        ctx.fillStyle = p.tono; ctx.beginPath(); ctx.ellipse(0, 0, p.tam, p.tam * 0.55, 0, 0, Math.PI * 2); ctx.fill();
-      });
+      var y = ((p.y0 + p.vel * t) % (H + 80)) - 40, x = p.x + Math.sin(t * 0.6 + p.fase) * p.vaiven;
+      alfa(0.55, function () { ctx.translate(x, y); ctx.rotate(p.fase + t * p.giro); ctx.fillStyle = p.tono; ctx.beginPath(); ctx.ellipse(0, 0, p.tam, p.tam * 0.55, 0, 0, 7); ctx.fill(); });
     });
     ctx.drawImage(grano, 0, 0, W, H);
   }
 
-  // ---------- veladora ----------
-  // x, y: centro de la base. s: escala. luz: 0 apagada, 1 encendida. destello: brillo extra al encenderse.
-  function veladora(x, y, s, luz, t, semilla, destello) {
-    var w = 74 * s, h = 96 * s;
-    if (luz > 0) {
-      var r = (150 + 90 * (destello || 0)) * s;
-      var halo = ctx.createRadialGradient(x, y - h - 26 * s, 4 * s, x, y - h - 26 * s, r);
-      halo.addColorStop(0, "rgba(255,210,63," + (0.38 * luz) + ")"); halo.addColorStop(1, "rgba(255,210,63,0)");
-      ctx.fillStyle = halo; ctx.fillRect(x - r, y - h - 26 * s - r, r * 2, r * 2);
-    }
-    ctx.lineWidth = 5 * s; ctx.strokeStyle = C.tinta; ctx.lineJoin = "round";
-    // vaso
-    ctx.fillStyle = luz > 0 ? C.naranja : C.apagada;
-    ctx.beginPath(); ctx.roundRect(x - w / 2, y - h, w, h, 6 * s); ctx.fill();
-    ctx.strokeStyle = luz > 0 ? C.tinta : "#5c4537"; ctx.stroke();
-    ctx.fillStyle = luz > 0 ? C.crema : "#4a3a31";
-    ctx.fillRect(x - w / 2, y - h + 18 * s, w, 14 * s);
-    ctx.beginPath(); ctx.arc(x, y - h * 0.38, 12 * s, 0, Math.PI * 2); ctx.fill();
-    // pabilo
-    ctx.fillStyle = luz > 0 ? C.tinta : "#5c4537"; ctx.fillRect(x - 2.5 * s, y - h - 12 * s, 5 * s, 12 * s);
-    // flama: oscila suave con seno (sin azar), crece al encenderse
-    if (luz > 0) {
-      var osc = Math.sin(t * 5.1 + semilla * 1.7) * 0.06 + Math.sin(t * 8.3 + semilla) * 0.03;
-      var fh = 46 * s * luz * (1 + osc), fw = 17 * s * luz;
-      var by = y - h - 10 * s;
-      ctx.save(); ctx.translate(x, by); ctx.rotate(osc * 0.8);
-      ctx.fillStyle = C.amarillo; ctx.strokeStyle = C.tinta; ctx.lineWidth = 4 * s;
-      ctx.beginPath(); ctx.moveTo(0, -fh);
-      ctx.bezierCurveTo(fw * 1.3, -fh * 0.45, fw, 0, 0, 0);
-      ctx.bezierCurveTo(-fw, 0, -fw * 1.3, -fh * 0.45, 0, -fh);
-      ctx.fill(); ctx.stroke();
-      ctx.fillStyle = C.naranja; ctx.beginPath(); ctx.ellipse(0, -fh * 0.28, fw * 0.42, fh * 0.24, 0, 0, Math.PI * 2); ctx.fill();
+  function papelPicado(t, baja) {
+    var y0 = 34 - 320 * (1 - baja), paso = W / 7.4, sag = 34;
+    var yEn = function (x) { return y0 + sag * Math.sin(Math.PI * x / W); };
+    ctx.strokeStyle = TINTA; ctx.lineWidth = 3; ctx.beginPath();
+    for (var x = -20; x <= W + 20; x += 20) ctx.lineTo(x, yEn(x));
+    ctx.stroke();
+    for (var i = 0; i < 8; i++) {
+      var cx = paso * (i + 0.2);
+      ctx.save(); ctx.translate(cx, yEn(cx) - 4); ctx.rotate(0.05 * Math.sin(t * 1.3 + i * 0.9));
+      sombra(ctx, function () { ctx.drawImage(tira[i], -70, 0); });
       ctx.restore();
     }
   }
 
-  // ---------- ofrenda: N veladoras en repisas ----------
-  function ofrenda(t, encendidas, actual, aparece) {
-    var g = L.cuadricula(n), top = 1200, alto = 440, filaH = alto / g.filas;
-    var s = Math.min(1.15, filaH / 170, ((W - 2 * MARGEN) / g.columnas) / 120);
-    alfa(aparece, function () {
-      for (var f = 0; f < g.filas; f++) {
-        var yBase = top + filaH * (f + 1) - 10;
-        ctx.fillStyle = C.crema; ctx.globalAlpha *= 0.9;
-        ctx.fillRect(MARGEN - 20, yBase, W - 2 * MARGEN + 40, 8);
-        ctx.globalAlpha /= 0.9;
-        var enFila = Math.min(g.columnas, n - f * g.columnas);
-        var paso = (W - 2 * MARGEN) / g.columnas;
-        var x0 = W / 2 - (enFila - 1) * paso / 2;
-        for (var c = 0; c < enFila; c++) {
-          var i = f * g.columnas + c;
-          var luz = 0, destello = 0;
-          if (i < encendidas) {
-            var desde = T.INTRO + i * T.TRAMO + T.ENCENDER;
-            var k = L.suave((t - desde) / 0.6);
-            luz = Math.max(0.0001, k);
-            destello = i === actual ? Math.max(0, 1 - (t - desde) / 1.6) : 0;
-          }
-          veladora(x0 + c * paso, yBase, s, luz, t, i + 1, destello);
-        }
+  // ---------- cempasúchil y veladoras ----------
+  function cempasuchil(x, y, r) {
+    [["#FF7A30", 14, 1], ["#FF9F1C", 11, 0.72], ["#FFC23D", 8, 0.46]].forEach(function (c, k) {
+      ctx.fillStyle = c[0];
+      for (var j = 0; j < c[1]; j++) {
+        var a = j * 2 * Math.PI / c[1] + k * 0.4, d = r * c[2] * 0.6;
+        ctx.beginPath(); ctx.ellipse(x + Math.cos(a) * d, y + Math.sin(a) * d, r * c[2] * 0.42, r * c[2] * 0.3, a, 0, 7); ctx.fill();
       }
     });
+    ctx.fillStyle = "#E85D04"; ctx.beginPath(); ctx.arc(x, y, r * 0.16, 0, 7); ctx.fill();
+  }
+
+  // Veladora de vidrio de color con etiqueta de florecita. luz 0 = apagada.
+  function veladora(x, y, s, color, luz, t, semilla, destello) {
+    var w = 62 * s, h = 92 * s;
+    if (luz > 0) {
+      var r = (120 + 90 * (destello || 0)) * s, fy = y - h - 30 * s;
+      var halo = ctx.createRadialGradient(x, fy, 4 * s, x, fy, r);
+      halo.addColorStop(0, "rgba(255,210,63," + (0.55 * luz) + ")"); halo.addColorStop(1, "rgba(255,210,63,0)");
+      ctx.fillStyle = halo; ctx.fillRect(x - r, fy - r, r * 2, r * 2);
+    }
+    alfa(luz > 0 ? 1 : 0.38, function () {
+      sombra(ctx, function () { ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect(x - w / 2, y - h, w, h, 8 * s); ctx.fill(); });
+      ctx.fillStyle = "rgba(255,255,255,0.22)"; ctx.fillRect(x - w / 2 + 7 * s, y - h + 8 * s, 7 * s, h - 16 * s);
+      ctx.fillStyle = CREMA; ctx.beginPath(); ctx.roundRect(x - w / 2 + 8 * s, y - h * 0.68, w - 16 * s, h * 0.42, 5 * s); ctx.fill();
+      ctx.fillStyle = color; flor(ctx, x, y - h * 0.47, 12 * s);
+      ctx.fillStyle = TINTA; ctx.fillRect(x - 2.5 * s, y - h - 10 * s, 5 * s, 10 * s);
+    });
+    if (luz > 0) {
+      var osc = Math.sin(t * 5.1 + semilla * 1.7) * 0.06 + Math.sin(t * 8.3 + semilla) * 0.03;
+      var fh = 44 * s * luz * (1 + osc), fw = 15 * s * luz;
+      ctx.save(); ctx.translate(x, y - h - 8 * s); ctx.rotate(osc * 0.8);
+      ctx.fillStyle = AMARILLO; ctx.beginPath(); ctx.moveTo(0, -fh);
+      ctx.bezierCurveTo(fw * 1.3, -fh * 0.45, fw, 0, 0, 0); ctx.bezierCurveTo(-fw, 0, -fw * 1.3, -fh * 0.45, 0, -fh); ctx.fill();
+      ctx.fillStyle = NARANJA; ctx.beginPath(); ctx.ellipse(0, -fh * 0.3, fw * 0.45, fh * 0.26, 0, 0, 7); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // ---------- ofrenda de tres niveles con mantel de papel picado ----------
+  var NIVELES_Y = [1350, 1505, 1660], NIVELES_ANCHO = [600, 780, 960], MANTEL = [MORADO, ROSA, TURQUESA];
+  var mantel = MANTEL.map(function (c, k) {
+    var w = NIVELES_ANCHO[k], m = lienzoNuevo(w, 56), g = m.getContext("2d");
+    g.fillStyle = c; g.fillRect(0, 0, w, 56);
+    g.globalCompositeOperation = "destination-out"; g.fillStyle = "#000";
+    feston(g, w, 56, 9);
+    for (var x = 18; x < w; x += 36) flor(g, x, 24, 9);
+    return m;
+  });
+  function lugares() {
+    var out = [], base = 3 - niveles.length; // con un solo nivel se usa el de abajo
+    niveles.forEach(function (cuantos, k) {
+      var nivel = base + k, ancho = NIVELES_ANCHO[nivel] - 100, paso = ancho / cuantos;
+      for (var j = 0; j < cuantos; j++) out.push({ x: W / 2 - ancho / 2 + paso * (j + 0.5), y: NIVELES_Y[nivel] });
+    });
+    return out;
+  }
+
+  function ofrenda(t, encendidas, actual, aparece) {
+    alfa(aparece, function () {
+      ctx.translate(0, 60 * (1 - aparece));
+      for (var k = 2; k >= 3 - niveles.length; k--) {
+        var w = NIVELES_ANCHO[k], y = NIVELES_Y[k];
+        sombra(ctx, function () { ctx.fillStyle = "#FFF8EC"; ctx.fillRect(W / 2 - w / 2, y, w, 150); });
+        ctx.drawImage(mantel[k], W / 2 - w / 2, y);
+        cempasuchil(W / 2 - w / 2 + 6, y - 6, 34); cempasuchil(W / 2 + w / 2 - 6, y - 6, 34);
+      }
+      puestos.forEach(function (p, i) {
+        var luz = 0, destello = 0;
+        if (i < encendidas) {
+          var desde = T.INTRO + i * T.TRAMO + T.ENCENDER;
+          luz = Math.max(0.0001, L.suave((t - desde) / 0.6));
+          destello = i === actual ? Math.max(0, 1 - (t - desde) / 1.6) : 0;
+        }
+        veladora(p.x, p.y, 0.95, L.papel(i), luz, t, i + 1, destello);
+      });
+    });
+  }
+
+  // Camino de pétalos (zona segura de abajo: solo decoración). Crece con cada veladora.
+  var camino = (function () {
+    var r = L.aleatorio(77), lista = [];
+    for (var i = 0; i < 140; i++) {
+      var u = i / 140, cx = W / 2 + Math.sin(u * 5) * 120 * (1 - u);
+      lista.push({ x: cx + (r() - 0.5) * 200, y: 1915 - u * 230 + (r() - 0.5) * 30, a: r() * 6.28, t: 7 + r() * 7, c: r() < 0.75 ? NARANJA : AMARILLO });
+    }
+    return lista;
+  })();
+  function caminoDePetalos(avance) {
+    var cuantos = Math.round(camino.length * avance);
+    for (var i = 0; i < cuantos; i++) {
+      var p = camino[i]; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = p.c;
+      ctx.beginPath(); ctx.ellipse(0, 0, p.t, p.t * 0.55, 0, 0, 7); ctx.fill(); ctx.restore();
+    }
+  }
+
+  // ---------- tarjeta de papel por artista (se prepara una vez) ----------
+  var TARJETA = { x: 70, arriba: 300, abajo: 1170, w: 940, pad: 56 };
+  function prepararTarjeta(a, i) {
+    var color = L.papel(i), ancho = TARJETA.w - 2 * TARJETA.pad;
+    var m = lienzoNuevo(10, 10).getContext("2d"), nom = { px: 76, lineas: [a.nombre] };
+    for (var px = 140; px >= 76; px -= 4) {
+      m.font = "400 " + px + "px Anton"; var ls = lineasDe(m, a.nombre, ancho);
+      if (ls.length <= 2 && ls.every(function (l) { return m.measureText(l).width <= ancho; })) { nom = { px: px, lineas: ls }; break; }
+    }
+    m.font = "700 46px 'Space Grotesk'"; var proy = lineasDe(m, a.proyectos.join(" · "), ancho);
+    m.font = "500 40px 'Space Grotesk'"; var linea = lineasDe(m, a.linea, ancho);
+    // mismos incrementos que en tarjeta(): última línea base + 130 px para librar los recortes de abajo
+    var fin = 126 + 40 + nom.px * 0.92 + nom.lineas.length * nom.px * 1.02 + 26 + proy.length * 58 + 14 + (linea.length - 1) * 52;
+    var alto = Math.round(Math.max(520, Math.min(TARJETA.abajo - TARJETA.arriba, fin + 130)));
+    return { texto: L.colorTexto(color), nom: nom, proy: proy, linea: linea, alto: alto, hoja: hoja(color, TARJETA.w, alto) };
   }
 
   // ---------- escenas ----------
   function intro(e, t) {
-    var p = e.local;
-    // primero sale todo lo de la intro (3.0–3.5 s) y después entra la ofrenda (3.5–4.0 s), sin encimarse
-    var sale = 1 - L.suave((p - 3.0) / 0.5);
-    alfa(sale, function () { veladora(W / 2, 1190, 2.2, L.suave((p - 0.6) / 0.8), t, 0, Math.max(0, 1 - Math.abs(p - 1.6))); });
+    var p = e.local, sale = 1 - L.suave((p - 3.0) / 0.5);
+    papelPicado(t, L.suave(p / 1.2));
     alfa(sale, function () {
-      ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
-      alfa(L.suave((p - 0.2) / 0.6), function () {
-        fuente("700", 30, "Space Mono"); ctx.fillStyle = C.naranja;
-        ctx.fillText("COLORES RUIDOSOS", W / 2, 300);
+      ctx.textAlign = "center";
+      alfa(L.suave((p - 0.9) / 0.7), function () {
+        fuente("400", 168, "Anton"); ctx.fillStyle = TINTA;
+        ctx.fillText("In memoriam", W / 2, 560 - 24 * (1 - L.suave((p - 0.9) / 0.7)));
       });
-      alfa(L.suave((p - 1.0) / 0.8), function () {
-        fuente("400", 168, "Anton"); ctx.fillStyle = C.crema;
-        ctx.fillText("In memoriam", W / 2, 520 - 20 * (1 - L.suave((p - 1.0) / 0.8)));
+      alfa(L.suave((p - 1.3) / 0.7), function () {
+        fuente("400", 250, "Anton"); ctx.fillStyle = ROSA;
+        ctx.fillText(L.ANIO, W / 2, 810);
       });
-      alfa(L.suave((p - 1.5) / 0.8), function () {
-        fuente("400", 240, "Anton"); ctx.fillStyle = C.naranja;
-        ctx.fillText(L.ANIO, W / 2, 760);
+      [[-250, 1270, 60], [250, 1270, 60], [-160, 1320, 46], [160, 1320, 46], [-340, 1330, 40], [340, 1330, 40]].forEach(function (f, k) {
+        alfa(L.suave((p - 1.2 - k * 0.12) / 0.5), function () { cempasuchil(W / 2 + f[0], f[1], f[2]); });
       });
+      veladora(W / 2, 1290, 2.1, MORADO, L.suave((p - 1.6) / 0.8), t, 0, Math.max(0, 1 - Math.abs(p - 2.2)));
       alfa(L.suave((p - 2.1) / 0.7), function () {
-        fuente("500", 44, "Space Grotesk"); ctx.fillStyle = C.crema;
-        ctx.fillText("Los que se nos adelantaron este año", W / 2, 1300);
-        fuente("400", 30, "Space Mono"); ctx.globalAlpha *= 0.7;
-        ctx.fillText("México · España · Latinoamérica", W / 2, 1360);
+        fuente("500", 46, "Space Grotesk"); ctx.fillStyle = TINTA;
+        ctx.fillText("Los que se nos adelantaron este año", W / 2, 1450);
+        fuente("700", 30, "Space Mono"); ctx.fillStyle = MORADO;
+        ctx.fillText("MÉXICO · ESPAÑA · LATINOAMÉRICA", W / 2, 1510);
       });
     });
-    // las veladoras pequeñas aparecen mientras sale el título
     ofrenda(t, 0, -1, L.suave((p - 3.5) / 0.5));
   }
 
   function tarjeta(e, t) {
-    var a = artistas[e.indice], p = e.local;
+    var i = e.indice, a = artistas[i], c = tarjetas[i], p = e.local;
+    papelPicado(t, 1);
+    caminoDePetalos(L.encendidas(t, n) / n);
+    ofrenda(t, L.encendidas(t, n), i, 1);
     var entra = L.suave(p / T.ENTRA), sale = 1 - L.suave((p - (T.TRAMO - T.SALE)) / T.SALE);
-    var dy = 40 * (1 - entra);
-    ofrenda(t, L.encendidas(t, n), e.indice, 1);
     alfa(Math.min(entra, sale), function () {
-      ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
-      ctx.translate(0, dy);
-      var ancho = W - 2 * MARGEN;
-      // medir primero para centrar el bloque en la zona libre sobre la ofrenda (250–1150 px)
-      var nom = ajustarNombre(a.nombre, ancho);
-      fuente("700", 46, "Space Grotesk"); var proy = lineas(a.proyectos.join(" · "), ancho);
-      fuente("500", 40, "Space Grotesk"); var texto = lineas(a.linea, ancho);
-      var alto = 130 + nom.lineas.length * nom.px * 1.02 + 30 + proy.length * 58 + 18 + texto.length * 54;
-      var y0 = Math.max(290, 700 - alto / 2 + 30);
-      fuente("700", 30, "Space Mono"); ctx.fillStyle = C.naranja;
-      var num = String(e.indice + 1).padStart(2, "0") + " / " + String(n).padStart(2, "0");
-      ctx.fillText(num, MARGEN, y0);
-      fuente("700", 36, "Space Mono"); ctx.fillStyle = C.crema;
-      ctx.fillText((L.fechaTexto(a.fecha) + " · " + L.paisTexto(a.pais)).toUpperCase(), MARGEN, y0 + 80);
-      ctx.fillStyle = C.naranja; ctx.fillRect(MARGEN, y0 + 110, 120, 8);
-      fuente("400", nom.px, "Anton"); ctx.fillStyle = C.crema;
-      var y = y0 + 130 + nom.px;
-      nom.lineas.forEach(function (l) { ctx.fillText(l, MARGEN, y); y += nom.px * 1.02; });
-      y += 30 - nom.px * 0.02;
-      fuente("700", 46, "Space Grotesk"); ctx.fillStyle = C.amarillo;
-      proy.forEach(function (l) { ctx.fillText(l, MARGEN, y); y += 58; });
-      y += 18;
-      fuente("500", 40, "Space Grotesk"); ctx.fillStyle = C.crema; ctx.globalAlpha *= 0.85;
-      texto.forEach(function (l) { ctx.fillText(l, MARGEN, y); y += 54; });
+      var x = TARJETA.x, y = TARJETA.arriba + (TARJETA.abajo - TARJETA.arriba - c.alto) / 2;
+      // cae como una hoja colgada: baja y se endereza
+      ctx.translate(W / 2, y - 80 * (1 - entra) + 24 * (1 - sale)); ctx.rotate(-0.06 * (1 - entra)); ctx.translate(-W / 2, -y);
+      sombra(ctx, function () { ctx.drawImage(c.hoja, x, y); });
+      var tx = x + TARJETA.pad, yy = y + 96 + 30;
+      ctx.textAlign = "left"; ctx.fillStyle = c.texto;
+      fuente("700", 32, "Space Mono");
+      ctx.fillText(String(i + 1).padStart(2, "0") + " / " + String(n).padStart(2, "0") + "   " + (L.fechaTexto(a.fecha) + " · " + L.paisTexto(a.pais)).toUpperCase(), tx, yy);
+      yy += 40 + c.nom.px * 0.92;
+      fuente("400", c.nom.px, "Anton");
+      c.nom.lineas.forEach(function (l) { ctx.fillText(l, tx, yy); yy += c.nom.px * 1.02; });
+      yy += 26;
+      fuente("700", 46, "Space Grotesk"); c.proy.forEach(function (l) { ctx.fillText(l, tx, yy); yy += 58; });
+      yy += 14;
+      fuente("500", 40, "Space Grotesk"); c.linea.forEach(function (l) { ctx.fillText(l, tx, yy); yy += 52; });
     });
   }
 
   function cierre(e, t) {
     var p = e.local;
+    papelPicado(t, 1);
+    caminoDePetalos(1);
     ofrenda(t, n, -1, 1);
-    ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
-    alfa(L.suave(p / 0.8), function () {
-      fuente("400", 112, "Anton"); ctx.fillStyle = C.crema;
-      ctx.fillText("Gracias por la música", W / 2, 360);
-    });
-    // los nombres en dos columnas, uno tras otro
-    var mitad = Math.ceil(n / 2);
-    fuente("400", 28, "Space Mono");
-    artistas.forEach(function (a, i) {
-      var col = i < mitad ? 0 : 1, fila = col ? i - mitad : i;
-      alfa(L.suave((p - 0.6 - i * 0.08) / 0.5), function () {
-        ctx.fillStyle = C.crema; ctx.textAlign = "left";
-        ctx.fillText(a.nombre.replace(/ “.*”/, ""), col ? W / 2 + 20 : MARGEN, 470 + fila * 50);
+    var ent = L.suave(p / 0.7);
+    alfa(ent, function () {
+      var x = TARJETA.x, y = 300;
+      ctx.translate(0, -60 * (1 - ent));
+      sombra(ctx, function () { ctx.drawImage(hojaCierre, x, y); });
+      ctx.textAlign = "center"; ctx.fillStyle = CREMA;
+      fuente("400", 100, "Anton"); ctx.fillText("Gracias por la música", W / 2, y + 190);
+      var mitad = Math.ceil(n / 2);
+      fuente("400", 28, "Space Mono");
+      artistas.forEach(function (a, i) {
+        var col = i < mitad ? 0 : 1, fila = col ? i - mitad : i;
+        alfa(L.suave((p - 0.5 - i * 0.08) / 0.5), function () {
+          ctx.textAlign = "left"; ctx.fillStyle = CREMA;
+          ctx.fillText(a.nombre.replace(/ “.*”/, ""), col ? W / 2 + 10 : x + 70, y + 270 + fila * 46);
+        });
       });
-    });
-    alfa(L.suave((p - 2.4) / 0.8), function () {
-      ctx.textAlign = "center";
-      fuente("400", 64, "Anton"); ctx.fillStyle = C.naranja;
-      ctx.fillText("Colores Ruidosos", W / 2, 1000);
-      fuente("400", 32, "Space Mono"); ctx.fillStyle = C.crema;
-      ctx.fillText("@coloresruidosos", W / 2, 1052);
+      alfa(L.suave((p - 2.2) / 0.8), function () {
+        ctx.textAlign = "center";
+        fuente("400", 62, "Anton"); ctx.fillStyle = AMARILLO; ctx.fillText("Colores Ruidosos", W / 2, y + 700);
+        fuente("400", 30, "Space Mono"); ctx.fillStyle = CREMA; ctx.fillText("@coloresruidosos", W / 2, y + 746);
+      });
     });
   }
 
   function seek(t) {
     var e = L.escena(t, n);
-    ctx.save(); fondo(t);
+    var calor = e.tipo === "intro" ? 0 : e.tipo === "cierre" ? 1 : L.encendidas(t, n) / n;
+    ctx.save(); fondo(t, calor);
     if (e.tipo === "intro") intro(e, t);
     else if (e.tipo === "artista") tarjeta(e, t);
     else cierre(e, t);
@@ -255,11 +357,13 @@
     document.fonts.load("500 40px 'Space Grotesk'"), document.fonts.load("700 30px 'Space Mono'"),
     document.fonts.load("400 30px 'Space Mono'"),
   ]).then(function (r) {
-    datos = r[0];
     var errores = [];
-    datos.artistas.forEach(function (a) { L.validar(a).forEach(function (x) { errores.push(a.id + ": " + x); }); });
+    r[0].artistas.forEach(function (a) { L.validar(a).forEach(function (x) { errores.push(a.id + ": " + x); }); });
     if (errores.length) throw new Error(errores.join("\n"));
-    artistas = L.ordenar(datos.artistas); n = artistas.length;
+    artistas = L.ordenar(r[0].artistas); n = artistas.length;
+    niveles = L.niveles(n); puestos = lugares();
+    tarjetas = artistas.map(prepararTarjeta);
+    hojaCierre = hoja(MORADO, TARJETA.w, 820);
     window.DURACION = L.duracion(n);
     seek(0);
     return window.DURACION;
@@ -269,10 +373,7 @@
   if (!/[?&]render/.test(location.search)) {
     window.listo.then(function () {
       var inicio = performance.now();
-      (function cuadro(ahora) {
-        seek(((ahora - inicio) / 1000) % window.DURACION);
-        requestAnimationFrame(cuadro);
-      })(inicio);
+      (function cuadro(ahora) { seek(((ahora - inicio) / 1000) % window.DURACION); requestAnimationFrame(cuadro); })(inicio);
     });
   }
 })();

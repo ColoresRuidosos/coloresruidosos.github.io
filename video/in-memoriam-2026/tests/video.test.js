@@ -153,3 +153,48 @@ test("suavizado: 0 al inicio, 1 al final, acotado", () => {
   assert.strictEqual(L.suave(4), 1);
   assert.ok(L.suave(0.5) > 0.4 && L.suave(0.5) < 0.6);
 });
+
+// ---------- Dirección de arte v2: papel picado a color (plan.md, E9–E11) ----------
+
+test("paleta de papel picado: siete colores, con rosa mexicano", () => {
+  assert.strictEqual(L.PALETA.length, 7);
+  assert.ok(L.PALETA.includes("#E4007C"));
+  L.PALETA.forEach((c) => assert.match(c, /^#[0-9A-F]{6}$/));
+});
+
+test("contraste WCAG entre dos colores", () => {
+  assert.ok(Math.abs(L.contraste("#000000", "#FFFFFF") - 21) < 0.01);
+  assert.strictEqual(L.contraste("#777777", "#777777"), 1);
+  assert.strictEqual(L.contraste("#141414", "#F4EFE6"), L.contraste("#F4EFE6", "#141414"));
+});
+
+test("el texto sobre cada papel es legible (AA texto grande, ≥ 3:1)", () => {
+  L.PALETA.forEach((c) => {
+    const texto = L.colorTexto(c);
+    assert.ok([L.TINTA, L.CREMA].includes(texto), c);
+    assert.ok(L.contraste(texto, c) >= 3, c + " con " + texto);
+  });
+  assert.strictEqual(L.colorTexto("#FFD23F"), L.TINTA);
+  assert.strictEqual(L.colorTexto("#6C2A8C"), L.CREMA);
+});
+
+test("cada artista tiene su papel y dos seguidos nunca repiten color", () => {
+  for (let i = 0; i < 30; i++) {
+    assert.ok(L.PALETA.includes(L.papel(i)));
+    assert.notStrictEqual(L.papel(i), L.papel(i + 1));
+  }
+  assert.strictEqual(L.papel(0), L.papel(L.PALETA.length));
+});
+
+test("ofrenda de tres niveles: reparte todas las veladoras, menos arriba y más abajo", () => {
+  assert.deepStrictEqual(L.niveles(15), [4, 5, 6]);
+  assert.deepStrictEqual(L.niveles(16), [4, 5, 7]);
+  assert.deepStrictEqual(L.niveles(4), [4]);
+  [1, 5, 6, 9, 15, 20, 24].forEach((n) => {
+    const v = L.niveles(n);
+    assert.strictEqual(v.reduce((a, b) => a + b, 0), n, "suman " + n);
+    assert.ok(v.length <= 3);
+    for (let k = 1; k < v.length; k++) assert.ok(v[k] >= v[k - 1], "escalonado " + n);
+    v.forEach((c) => assert.ok(c >= 1));
+  });
+});

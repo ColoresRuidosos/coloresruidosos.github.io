@@ -21,6 +21,12 @@
 - ✅ Revisión visual con la hoja de contacto
 - ✅ `pie.md` para la publicación
 
+## Fase 3b: Dirección de arte v2, papel picado a color (E9–E11)
+- ✅ Elegir el prompt base del repo (`x4b47x-034026`) y documentarlo en la spec
+- ✅ 🔴→🟢 Paleta de papel picado y color de texto con contraste ≥ 3:1 (AA, texto grande) (`colorTexto`, `papel`)
+- ✅ Papel picado con recortes propios, cempasúchil, ofrenda de tres niveles a color
+- ✅ Volver a renderizar y revisar la hoja de contacto
+
 ## Fase 4: Publicación
 - ⏳ El equipo revisa la lista y decide B1–B5 (`spec.md`)
 - ⏳ Subir a Instagram/TikTok con música de la plataforma

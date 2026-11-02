@@ -93,6 +93,13 @@
     return { filas: filas, columnas: Math.ceil(n / filas) };
   }
 
+  // Ofrenda escalonada: hasta 5 veladoras en un solo nivel; si hay más, tres niveles con menos arriba.
+  function niveles(n) {
+    if (n <= 5) return [n];
+    var base = Math.floor(n / 3);
+    return [base - 1, base, n - 2 * base + 1];
+  }
+
   // Mulberry32: pseudoaleatorio con semilla, para que cada render sea idéntico.
   function aleatorio(semilla) {
     var s = semilla >>> 0;
@@ -104,6 +111,25 @@
     };
   }
 
+  // Paleta de papel picado (plan.md, E10). Rosa mexicano es color cultural, no el rosa de la marca.
+  var TINTA = "#141414", CREMA = "#F4EFE6";
+  var PALETA = ["#E4007C", "#FF7A30", "#00A3A6", "#FFD23F", "#6C2A8C", "#1FB57A", "#2F5BFF"];
+
+  function luminancia(hex) {
+    var c = [1, 3, 5].map(function (i) {
+      var v = parseInt(hex.substr(i, 2), 16) / 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  }
+  function contraste(a, b) {
+    var la = luminancia(a), lb = luminancia(b);
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+  }
+  // Tinta o crema: la que contraste más con el papel.
+  function colorTexto(fondo) { return contraste(TINTA, fondo) >= contraste(CREMA, fondo) ? TINTA : CREMA; }
+  function papel(i) { return PALETA[((i % PALETA.length) + PALETA.length) % PALETA.length]; }
+
   function suave(x) {
     var v = Math.max(0, Math.min(1, x));
     return v * v * (3 - 2 * v);
@@ -111,8 +137,9 @@
 
   raiz.CRvideo = {
     T: T, ANIO: ANIO, validar: validar, ordenar: ordenar, fechaTexto: fechaTexto, paisTexto: paisTexto,
-    duracion: duracion, escena: escena, encendidas: encendidas, cuadricula: cuadricula,
+    duracion: duracion, escena: escena, encendidas: encendidas, cuadricula: cuadricula, niveles: niveles,
     aleatorio: aleatorio, suave: suave,
+    TINTA: TINTA, CREMA: CREMA, PALETA: PALETA, contraste: contraste, colorTexto: colorTexto, papel: papel,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRvideo;
 })(typeof window !== "undefined" ? window : globalThis);
