@@ -188,45 +188,65 @@ function cabin(g, x, y, w, h, c, lit) {
 function fog(g, y, w, seed) { for (let x = 0; x < w; x += 2) { const k = Math.round(Math.sin(x / 23 + seed) * 3 + Math.sin(x / 7) * 1); rect(g, '#3a3a3a', x, y + k, 2, 2); } }
 const BW_TILES = { top: '#6e6e6e', topHi: '#b0b0b0', body: '#262626', bodyHi: '#3a3a3a', bodyDk: '#141414', semi: '#8c8c8c', semiHi: '#d0d0d0' };
 
-function fiesta() {
-  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 110, 3); moon(g, 252, 40, 14); });
+// v8.1 · La fiesta de disfraces en la casona junto al lago (spec §3.0f G).
+function casonaSilhouette(g, x, base, c, lit) {
+  rect(g, c, x, base - 70, 120, 70); // cuerpo
+  for (let k = 0; k < 30; k += 2) rect(g, c, x - 6 + k, base - 70 - k / 2, 132 - 2 * k, 2); // tejado
+  rect(g, c, x + 90, base - 108, 12, 30); // chimenea
+  windows(g, x + 8, base - 62, 104, 56, x, lit, '#0e0e0e', 0.6);
+}
+function farolillos(g, x0, x1, y) {
+  for (let x = x0; x < x1; x++) rect(g, '#2a2a2a', x, y + Math.round(Math.sin(((x - x0) / (x1 - x0)) * Math.PI) * 8), 1, 1);
+  for (let x = x0 + 8; x < x1 - 6; x += 22) {
+    const yy = y + Math.round(Math.sin(((x - x0) / (x1 - x0)) * Math.PI) * 8) + 1;
+    rect(g, '#e8e8e8', x - 3, yy + 1, 7, 8); rect(g, '#bdbdbd', x - 3, yy + 6, 7, 3); rect(g, '#2a2a2a', x - 1, yy, 3, 1);
+  }
+}
+function jardin() {
+  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 110, 3); moon(g, 260, 38, 14); });
   const far = prerender(640, H, (g) => {
-    // Casas con ventanas encendidas: la fiesta de disfraces.
-    for (let x = 0; x < 640; x += 64) {
-      const h = 70 + Math.floor(hash(x, 1) * 40), y = 190 - h;
-      rect(g, '#1c1c1c', x + 2, y, 58, h); rect(g, '#2a2a2a', x + 2, y, 58, 3);
-      windows(g, x + 8, y + 10, 46, h - 20, x, '#cfcfcf', '#101010', 0.45);
-    }
+    for (let x = 0; x < 640; x += 11) pine(g, x + Math.floor(hash(x, 2) * 6), 170 + Math.floor(hash(x, 3) * 6), 30 + Math.floor(hash(x, 4) * 26), '#101010');
+    casonaSilhouette(g, 250, 178, '#1a1a1a', '#d8d8d8'); // la casona de la fiesta, al fondo
   });
   const mid = prerender(256, H, (g) => {
-    // Banderines en grises y una farola.
-    papelPicado(g, 0, 256, 34, ['#e6e6e6', '#9a9a9a', '#5a5a5a']);
-    rect(g, '#0a0a0a', 180, 70, 3, 122); rect(g, '#0a0a0a', 174, 66, 15, 5);
-    g.fillStyle = 'rgba(255,255,255,0.10)'; g.beginPath(); g.moveTo(181, 72); g.lineTo(150, 192); g.lineTo(212, 192); g.fill();
-    rect(g, '#f0f0f0', 177, 71, 9, 3);
+    farolillos(g, 0, 256, 40);
+    for (let x = 0; x < 256; x += 32) { g.fillStyle = '#141414'; g.beginPath(); g.arc(x + 16, 192, 14 + (x % 3) * 2, Math.PI, 0); g.fill(); } // setos
+    rect(g, '#0a0a0a', 120, 92, 3, 100); rect(g, '#0a0a0a', 114, 88, 15, 5); rect(g, '#f0f0f0', 117, 93, 9, 3); // farola
+    g.fillStyle = 'rgba(255,255,255,0.10)'; g.beginPath(); g.moveTo(121, 96); g.lineTo(96, 192); g.lineTo(146, 192); g.fill();
   });
-  return { sky, far, mid, tiles: BW_TILES, goal: 'EL LAGO', gray: true, piece: 'luna' };
+  return { sky, far, mid, tiles: { ...BW_TILES, water: ['#1e1e1e', '#3a3a3a', '#8a8a8a'] }, goal: 'LA CASONA', gray: true, piece: 'luna' };
 }
 
-function cabanas() {
-  const sky = prerender(W, H, (g) => { bands(g, NIGHT, 0, H); stars(g, W, 90, 7); moon(g, 60, 34, 12); });
+function casona() {
+  // Interior: papel pintado, ventanas con luna, retratos y candelabros apagados (se ha ido la luz).
+  const sky = prerender(W, H, (g) => { bands(g, ['#0a0a0a', '#121212', '#1a1a1a', '#202020'], 0, H); });
   const far = prerender(640, H, (g) => {
-    for (let x = 0; x < 640; x += 11) pine(g, x + Math.floor(hash(x, 2) * 6), 160 + Math.floor(hash(x, 3) * 8), 40 + Math.floor(hash(x, 4) * 30), '#121212');
-    rect(g, '#1d1d1d', 0, 168, 640, 40); // lago
-    for (let x = 0; x < 640; x += 6) if (hash(x, 5) < 0.4) rect(g, '#5a5a5a', x, 172 + Math.floor(hash(x, 6) * 30), 4, 1);
-    fog(g, 160, 640, 1);
+    for (let x = 0; x < 640; x += 8) for (let y = 34; y < 190; y += 8) if ((x / 8 + y / 8) % 2) rect(g, '#1c1c1c', x + 3, y + 3, 2, 2); // papel pintado
+    for (let x = 30; x < 640; x += 160) {
+      rect(g, '#2c2c2c', x, 60, 44, 70); rect(g, '#0c0c0c', x + 4, 64, 36, 62); moon(g, x + 26, 82, 7); rect(g, '#2c2c2c', x + 21, 64, 2, 62); rect(g, '#2c2c2c', x + 4, 94, 36, 2);
+      rect(g, '#3a3a3a', x + 80, 70, 30, 38); rect(g, '#141414', x + 83, 73, 24, 32); g.fillStyle = '#2a2a2a'; g.beginPath(); g.ellipse(x + 95, 86, 6, 8, 0, 0, Math.PI * 2); g.fill(); // retrato
+    }
+    rect(g, '#141414', 0, 176, 640, 16); // zócalo
   });
-  const mid = prerender(256, H, (g) => { cabin(g, 40, 140, 44, 52, '#1a1a1a', true); pine(g, 150, 192, 70, '#0c0c0c'); pine(g, 210, 192, 52, '#0c0c0c'); });
-  return { sky, far, mid, tiles: { ...BW_TILES, body: '#2c2620', bodyDk: '#16120e', top: '#585858' }, goal: 'EL MUELLE', gray: true, piece: 'luna' };
+  const mid = prerender(256, H, (g) => {
+    rect(g, '#0e0e0e', 0, 0, 256, 34);
+    rect(g, '#2a2a2a', 60, 34, 2, 14); rect(g, '#3a3a3a', 48, 48, 26, 3); for (let k = 0; k < 4; k++) rect(g, '#d0d0d0', 50 + k * 7, 44, 2, 4); // candelabro
+    rect(g, '#1a1a1a', 180, 100, 40, 92); rect(g, '#262626', 184, 104, 32, 84); rect(g, '#8a8a8a', 210, 146, 3, 3); // puerta
+  });
+  return { sky, far, mid, tiles: { ...BW_TILES, top: '#5c5248', topHi: '#8c8070', body: '#2a241e', bodyDk: '#16120e' }, goal: 'EL MUELLE', gray: true, piece: 'luna' };
 }
 
-function lago() {
+function muelle() {
   const sky = prerender(W, H, (g) => {
     bands(g, NIGHT, 0, 150); stars(g, W, 100, 11); moon(g, 160, 44, 16);
     rect(g, '#141414', 0, 150, W, H - 150);
     for (let y = 154; y < H; y += 3) rect(g, '#bdbdbd', 160 - 8 + Math.round(Math.sin(y) * 3), y, 16 - (y - 154) / 6, 1); // reflejo de la luna
   });
-  const far = prerender(640, H, (g) => { for (let x = 0; x < 640; x += 9) pine(g, x, 150, 26 + Math.floor(hash(x, 8) * 26), '#0b0b0b'); fog(g, 146, 640, 2); });
+  const far = prerender(640, H, (g) => {
+    for (let x = 0; x < 640; x += 9) pine(g, x, 150, 26 + Math.floor(hash(x, 8) * 26), '#0b0b0b');
+    casonaSilhouette(g, 420, 150, '#121212', '#9a9a9a'); // la casona, al otro lado del lago
+    fog(g, 146, 640, 2);
+  });
   const mid = prerender(256, H, (g) => { for (let x = 8; x < 256; x += 64) { rect(g, '#1e1a16', x, 150, 5, 42); rect(g, '#3a342c', x, 150, 5, 2); } });
   return { sky, far, mid, tiles: { ...BW_TILES, top: '#5c5248', topHi: '#8c8070', body: '#2a241e', bodyDk: '#16120e' }, gray: true, piece: 'luna' };
 }
@@ -243,7 +263,7 @@ function museo() {
   return { sky, far, mid, tiles: { top: '#e6e0d4', topHi: '#ffffff', body: '#8a8094', bodyHi: '#a89eb4', bodyDk: '#5a5068', semi: '#c8963c', semiHi: '#f0c870' } };
 }
 
-export const THEMES = { calle, azoteas, teatro, fiesta, cabanas, lago, museo };
+export const THEMES = { calle, azoteas, teatro, jardin, casona, muelle, museo };
 import { BACKDROPS } from '../data/backdrops-w1.js';
 
 // Si hay fondo panorámico importado (Gemini → scripts/import_backdrop.py), sustituye a las capas por código.

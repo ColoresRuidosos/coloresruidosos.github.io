@@ -142,6 +142,12 @@ function renderTiles(L, T) {
       rect(g, T.semi, x, y + 1, 16, 4); rect(g, T.semiHi, x, y + 1, 16, 1);
       rect(g, '#14060c', x + 7, y + 7, 2, 4);
     } else if (t === '^') bramble(g, x, y);
+    else if (T.water && t === '.' && ty >= L.h - 2 && L.tileAt(tx, ty - 1) === '.' && (L.tileAt(tx - 1, ty) === '#' || L.tileAt(tx + 1, ty) === '#' || ty === L.h - 1)) {
+      // Estanque: agua en el foso, con ondas.
+      const top = ty === L.h - 2;
+      rect(g, T.water[1], x, y + (top ? 6 : 0), 16, top ? 10 : 16);
+      if (top) { rect(g, T.water[2], x + 2 + (tx % 3) * 3, y + 6, 5, 1); rect(g, T.water[0], x, y + 15, 16, 1); }
+    }
   }
   return c;
 }

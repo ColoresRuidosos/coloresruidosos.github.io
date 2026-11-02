@@ -36,13 +36,14 @@ export function stepInvisible(g, e, k, patrol) {
   e.vx = e.facing * spd(e, k);
 }
 
-// Hombre anfibio: escondido en el foso; cuando Pepe pasa cerca, salta en arco y vuelve a esconderse.
+// Hombre anfibio: escondido en el foso; cuando Pepe se acerca, avisa con burbujas, salta en arco y vuelve a esconderse.
 export function stepAnfibio(g, e, k) {
   if (e.unmasked) e.unmaskT = (e.unmaskT ?? 0) + DT;
   const near = Math.abs(g.player.x + g.player.w / 2 - (e.x + e.w / 2)) <= k.sight;
   if (e.state === 'hide') {
-    if ((!e.jumped || e.t >= (e.unmasked ? k.rest2 : k.rest)) && near) {
-      e.jumped = true; e.state = 'jump'; e.t = 0; e.vy = -k.jumpV; e.facing = towardPepe(g, e); g.events.push('dive'); }
+    if ((!e.jumped || e.t >= (e.unmasked ? k.rest2 : k.rest)) && near) { e.jumped = true; e.state = 'warn'; e.t = 0; }
+  } else if (e.state === 'warn') {
+    if (e.t >= k.warn) { e.state = 'jump'; e.t = 0; e.vy = -k.jumpV; e.facing = towardPepe(g, e); g.events.push('dive'); }
   } else {
     e.vy = Math.min(600, e.vy + 1400 * DT);
     e.y += e.vy * DT;

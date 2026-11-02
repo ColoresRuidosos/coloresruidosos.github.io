@@ -449,7 +449,7 @@ La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuent
 | **Fantasma** | `O` | Hoja de ChatGPT | Flota hacia Pepe, atraviesa paredes y solo se ve con luz | — (vencido de un golpe) |
 | **Gigante cosido** | `K` | Código | Lento (20 px/s); su empujón lanza más lejos; hacen falta **2 golpes** para quitarle el disfraz | Persona con un disfraz de cartón roto |
 | **Hombre invisible** | `N` | Código | Camina hacia Pepe. Fuera de la luz solo se ven el sombrero, las gafas y los guantes | Se le caen las vendas: persona sorprendida |
-| **Hombre anfibio** | `U` | Código | Espera en el agua (un foso) y salta en arco cuando Pepe pasa cerca | Persona con traje de buzo de fiesta |
+| **Hombre anfibio** | `U` | Código | Espera en el agua (un foso). Cuando Pepe se acerca, **avisa con burbujas 0,45 s** y salta en arco. Así se puede esperar a que caiga y cruzar después | Persona con traje de buzo de fiesta |
 | **La Llorona** | `Q` | Código | Flota despacio hacia Pepe. Su llanto (a menos de 64 px) lo **frena** 1 s, a mitad de velocidad. No hace daño, solo frena | Muchacha disfrazada que se ríe |
 | **Charro Negro** | `X` | Código | Como el Reportero: se prepara y embiste | Persona con traje de charro de fiesta |
 
