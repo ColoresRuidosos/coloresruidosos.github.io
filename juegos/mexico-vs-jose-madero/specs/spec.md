@@ -1,9 +1,10 @@
-# Spec — «MÉXICO VS. JOSÉ MADERO» (v5)
+# Spec — «MÉXICO VS. JOSÉ MADERO» (v7)
 
 > Spec-Driven Development (Dominicode). Juego de plataformas y acción **16 bits estilo Neo Geo** (referencia: *Spin Master*, Data East, 1993), jugable en la web de Colores Ruidosos, que recorre la carrera solista de José Madero. Cada disco es un mundo con su propia jugabilidad y un jefe. El hub es **el Museo**. El final es un concierto que sirve de **preludio a su show en la Arena Ciudad de México**.
 >
 > **v2:** título tomado de la playera oficial; estética 16 bits; micrófono como arma; un giro de jugabilidad por mundo; enemigos de prensa; jefe final «VS» en concierto.
 > **v5 (2 nov 2026):** Mundo 1 «Carmesí» definido a partir de los conceptos rescatados de Gemini (§3.0d): jefe **Cámara Flash-Bot**, enemigos **Rumor Volador** y **Micrófono Traidor**, tres niveles, juego **más rápido** (combos, puntuación, cronómetro) y **power-ups** con el **Solo de guitarra**. Los Titulares gritan titulares genéricos, no insultos. Logo de Colores Ruidosos: el real.
+> **v7 (2 nov 2026):** el juego pasa a la web de Colores Ruidosos (`juegos/mexico-vs-jose-madero/`): **Opciones** (sin destellos, sin temblor, modo asistido), **guardado**, **Museo** (hub), **Galería de trajes** y **Mundo 2 «Noche»** (§3.0f).
 > Estado: **borrador para definir con el equipo**. Las celdas marcadas con ⚠️ esperan verificación o decisión.
 
 ---
@@ -222,6 +223,125 @@ No se usan: polémicas de la firma de autógrafos ni la acusación de plagio de 
 - Las hojas de trajes traen 4 poses (reposo, correr, saltar, lanzar micro). Faltan aterrizaje, daño, KO, victoria y grito → prompt aparte.
 - **Galería:** cada traje se desbloquea con un reto (p. ej. las 6 piezas de un nivel, vencer al jefe sin daño, terminar el mundo en menos de X min) y se ve en una vitrina con su nombre y el reto.
 
+### 3.0f v7 · Opciones, guardado, Museo, Galería de trajes y Mundo 2 «Noche» (2 nov 2026)
+
+**Por qué:** el juego va a vivir en la web de Colores Ruidosos. Ahí lo va a abrir gente que no conocemos: hay que respetar la fotosensibilidad, dejar jugar a quien no es experto y no perder el progreso al cerrar la pestaña. El Museo y los trajes dan estructura a los 8 mundos. *Noche* es el segundo mundo del piloto recomendado (Carmesí + Noche).
+
+#### A. Opciones (G11, NFR de accesibilidad)
+Se abren desde la portada y desde la pausa. Se guardan.
+
+| Opción | Por defecto | Qué hace |
+|---|---|---|
+| **Destellos** | Sí | «No»: sin el velo del flash del Paparazzi, sin el anillo del Solo, sin el destello de la cinemática y sin parpadeos. El rayo y la carga del jefe se ven fijos, sin parpadear. El parpadeo de invulnerabilidad pasa a semitransparente. **La mecánica no cambia** (el flash sigue congelando), solo el efecto |
+| **Temblor** | Sí | «No»: la cámara no tiembla |
+| **Modo asistido** | No | No se pierden corazones (los golpes empujan igual) y caer a un foso te devuelve al checkpoint sin perder vida. Se marca «ASISTIDO» en el HUD. **No cuenta para los retos «sin daño»** ni para los récords |
+| **Música** | Sí | Igual que la tecla M |
+
+- El **remapeo de teclas** se queda para la fase de publicación (P1b).
+- Navegación: ◀ ▶ o ▲ ▼ para elegir, A para cambiar y B para salir. En el teclado, también Enter y Escape.
+
+#### B. Guardado (G9, tarea E5)
+- Módulo puro `src/engine/save.js` con el almacenamiento inyectado (en el navegador, `localStorage`; en los tests, memoria).
+- Esquema `v: 1`: `options`, `worlds` (por mundo: niveles superados y mejor marca por nivel: tiempo, puntos y piezas), `unlocked` (trajes), `costume` (`auto` o un traje), `record`.
+- Datos dañados, de otra versión o sin almacenamiento disponible: se empieza de cero sin romper el juego.
+- Se lee el récord antiguo (`jmv-record`) para no perderlo.
+- Se guarda al superar un nivel, al desbloquear un traje y al cambiar una opción.
+
+#### C. El Museo (hub; G2, tarea J6)
+- Tras la portada, Pepe aparece en un **pasillo del museo** que se recorre como un nivel: sin enemigos, sin cronómetro y sin daño.
+- Hay **8 puertas**, una por disco, con su color y su año. Encima de cada puerta, una vitrina muestra las piezas recogidas: «12/18».
+- **Puerta abierta**: Carmesí siempre. *Noche* se abre al terminar Carmesí. Las demás dicen «PRÓXIMAMENTE».
+- **Al final del pasillo, la Galería de trajes.**
+- **Entrar:** ponerse delante de una puerta abierta y pulsar B (micrófono). Aparece el aviso «B ENTRAR».
+- Al terminar un mundo, o tras perder todos los corazones y elegir salir, se vuelve al Museo delante de su puerta.
+- Un mundo siempre empieza en su primer nivel; los puntos se reinician al entrar.
+- El récord se guarda por mundo.
+
+#### D. Galería de trajes (H5)
+Es una pantalla con 8 vitrinas. ◀ ▶ elige; A se pone el traje desbloqueado; B sale.
+
+- **AUTOMÁTICO** (por defecto): cada mundo usa su propio traje. El clásico en Carmesí y el de vampiro en *Noche*.
+- Si eliges un traje, se usa en todos los mundos.
+
+| Traje | Cómo se desbloquea (el texto sale en la vitrina) |
+|---|---|
+| Clásico | Desde el principio |
+| Gris con boina | Recoger todos los Carmesís de un nivel del Mundo 1 |
+| Chamarra universitaria | Terminar el Mundo 1 en menos de 4:00 (suma de los 3 cronómetros) |
+| Botarga morada | Vencer al Flash-Bot sin recibir daño (sin modo asistido). **Sin nombre de personaje en pantalla** |
+| Negro con lentes | Recoger todos los Carmesís del Mundo 1. Su origen (Foro GNP) sigue sin fuente ⚠️: en pantalla solo sale «NEGRO CON LENTES» |
+| Vampiro | Terminar el Mundo 2 «Noche» (allí se lleva puesto en modo automático) |
+| Rojo y amarillo | «SE GANA EN EL MUNDO 7» (aún no se puede) |
+| Bandana negra | «SE GANA EN EL MUNDO 8» (aún no se puede) |
+
+**Arte de los trajes:** `art/source/pepe-trajes-1.jpg` y `-2.png` traen 4 poses por traje: reposo, correr, saltar y lanzar. Se recortan con `scripts/slice_costumes.py`, que quita el micrófono dibujado al lanzar, porque el juego pinta su propio cable.
+
+Hasta que lleguen las poses que faltan:
+
+| Pose que falta | Se usa en su lugar |
+|---|---|
+| Aterrizaje y agachado | Reposo |
+| Daño | Salto |
+| KO y victoria | Reposo |
+| Grito (Solo) | Lanzar |
+
+Así nunca se mezclan dos trajes en el mismo personaje.
+
+#### E. Mundo 2 «Noche» (W2) ⏳ textos y jefe pendientes de tu visto bueno
+**Datos que usa** (todos ya verificados en la tabla de fuentes; ⏳ falta que los apruebes para este uso):
+
+| ID | Dato en pantalla | Fuentes |
+|---|---|---|
+| N1 | *Noche* (2017) es el segundo disco de José Madero en solitario | Wikipedia (Noche), Milenio |
+| N2 | «Noche de brujas» fue su primer sencillo: 9 de junio de 2017 | Wikipedia (Noche), Revista Kuadro |
+| N3 | «Noche de brujas» no habla de Halloween: habla de las máscaras sociales | Milenio, Looking Back |
+| N4 | El videoclip de «Noche de brujas» es en blanco y negro, un homenaje al cine de terror clásico | Revista Kuadro, Milenio |
+| N5 | En la gira de *Noche* el escenario se llenó de figuras del terror clásico | ABC Noticias, El Alebrije |
+| N6 | «Fantasmas» sonaba en los conciertos de la gira *Noche* | El Alebrije, Soulwavez |
+| N7 | Madero es fan del cine de terror y de Stephen King | Milenio, Looking Back |
+
+- N5 no nombra a ningún personaje registrado.
+- N1 depende de que *Carmesí* (2016) sea su primer disco solista, dato que ya está verificado.
+
+**Ambientación:** todo en **blanco y negro**. Los sprites de Pepe y de la prensa pasan a escala de grises al cargar el mundo; los fondos y bloques se dibujan por código con luna, cabañas, lago y niebla. El HUD conserva el color.
+
+**Mecánica del mundo: el farol.** Encaja con la regla del memorial: la luciérnaga no es un power-up y en los niveles oscuros se usa un farol.
+- En 2-2 y 2-3 todo está a oscuras salvo un círculo de luz alrededor de Pepe.
+- El farol gasta aceite poco a poco. La luz baja de 96 px a un mínimo de 40 px: **nunca se queda a oscuras del todo**.
+- Las **latas de aceite** `L` lo rellenan.
+- Los Fantasmas solo se ven dentro de la luz.
+
+| Nivel | Capítulo (cartel) | Contenido |
+|---|---|---|
+| 2-1 La Fiesta | **«Noche de brujas»** — «Junio de 2017. Sale "Noche de brujas", el primer sencillo de *Noche*. No habla de Halloween: habla de las máscaras que nos ponemos. La fiesta de disfraces ya empezó.» | Calle de noche con farolas, sin farol. Invitados enmascarados, Murciélagos, Titulares |
+| 2-2 Las Cabañas | **«Fantasmas»** — «En la gira de *Noche*, el escenario se llenó de figuras del terror clásico y sonaba "Fantasmas". Junto al lago, las cabañas están a oscuras.» | A oscuras con farol, latas de aceite, Fantasmas, Murciélagos y ganchos entre cabañas |
+| 2-3 El Lago | **«El Enmascarado»** — «Al fondo del muelle espera alguien con máscara. Quizá, debajo, haya alguien como tú.» | Jefe |
+
+La frase del capítulo 2-3 es **ficción del juego**, no un dato: no lleva fuente.
+
+**Enemigos nuevos** (dibujados por código en blanco y negro hasta tener el arte de Gemini):
+
+| Enemigo | `char` | Comportamiento |
+|---|---|---|
+| **Invitado enmascarado** | `I` | Patrulla y, si te ve, se acerca deprisa. Al primer golpe (pisotón o micrófono) **pierde la máscara**: pasa a ser un invitado normal que ya no hace daño, saluda y se va. Da puntos igual. Es el mensaje de «Noche de brujas»: debajo de la máscara hay una persona |
+| **Murciélago** | `W` | Cuelga del techo. Cuando Pepe pasa cerca, baja en curva y vuelve a subir |
+| **Fantasma** | `O` | Flota hacia Pepe despacio y atraviesa paredes. Solo se ve dentro de la luz del farol (en 2-1, con las farolas). Se vence con el micrófono o pisándolo |
+
+**Jefe: El Enmascarado del Lago** ⏳ (provisional: cambia si lo revisas). Máquina de fases. 5 golpes; la fase 2 llega con 2 o menos.
+
+1. **Acecho**: sus ojos aparecen sobre uno de los muelles durante 0,8 s, como aviso, y salta allí.
+2. **Embestida**: corre hacia Pepe por el muelle. Se salta por encima.
+3. Si choca con la pared, queda **aturdido 1,6 s** (vulnerable: micrófono o pisotón). Si no choca, vuelve al acecho.
+4. **Fase 2**: antes de cada embestida hay un **apagón** de 1 s en el que solo se le ven los ojos. La luz del farol sigue encendida alrededor de Pepe.
+5. **Al vencerlo**:
+   - **Se quita la máscara** y debajo hay una persona normal que saluda.
+   - Cartel: «SOLO ERA UNA MÁSCARA».
+   - Deja la **Máscara de fiesta**, que completa el mundo.
+   - No se dice que *Noche* tuviera disco de oro: no está verificado.
+
+- **Riesgo legal:** nada de máscara de hockey ni de personajes de terror registrados. La máscara es un antifaz de fiesta, de diseño propio.
+- **Museo:** la puerta de *Noche* es negra con marco blanco; el año sale en la puerta.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
@@ -363,7 +483,7 @@ Además de estos hitos, las frases que aparecen al vencer un **Titular** salen s
 - **Bucle de paso fijo a 60 Hz** (determinista: permite repeticiones y grabar reels).
 - **Datos**: niveles como texto (un carácter = un tile), mundos y hitos en JSON/JS.
 - **Audio**: WebAudio con el sintetizador chiptune en tiempo real; un tema por mundo y otro por jefe.
-- **Entrega**: carpeta estática `dist/` (iframe o subruta de la web). Guardado en `localStorage`.
+- **Entrega**: un solo HTML (`dist/`), publicado en la web de CR en `static/juegos/mexico-vs-jose-madero/` (v7). Guardado en `localStorage` mediante `src/engine/save.js` (almacenamiento inyectado).
 
 ## 6. Requisitos no funcionales
 

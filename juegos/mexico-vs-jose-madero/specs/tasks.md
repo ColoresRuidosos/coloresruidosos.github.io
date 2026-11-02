@@ -61,8 +61,26 @@
 - [~] H6 🎨 Escenarios: Gemini entrega escenas completas, no capas → se usan como **fondo panorámico** (`scripts/import_backdrop.py`, `src/render/backdrop.js`): ✅ 1-1 Calle, ✅ 1-2 Azoteas, ⏳ 1-3 Teatro (sigue el fondo por código)
 - [ ] C10 🎨 Arte final sin texto ni sombras (Gemini, un personaje por imagen); logo real de CR (archivo)
 
+## Fase 2c — v7 · Opciones, guardado, Museo, Galería y Noche (§3.0f; 🧪 primero)
+- [ ] O1 🧪 `save.js`: valores por defecto, ida y vuelta, datos dañados, sin almacenamiento, migración de `jmv-record` (= E5)
+- [ ] O2 🧪 Modo asistido: sin perder corazones ni por golpe ni por foso; no cuenta para «sin daño»
+- [ ] O3 🎨 Opciones Destellos y Temblor en el render + pantalla de Opciones (portada y pausa) (= P1)
+- [ ] O4 🧪 `progress.js`: marcas por nivel, puertas del museo, desbloqueos de los 8 trajes, traje automático por mundo
+- [ ] O5 🧪 Museo: pasillo sin enemigos, `doorAt`, puertas abiertas/cerradas según el guardado (= J6)
+- [ ] O6 🧪 Recorte de trajes: 6 trajes × 4 poses, anclas en los pies, alto ≈ 48 px (`slice_costumes.py`)
+- [ ] O7 🎨 Galería: vitrinas, reto, equipar; Pepe con el traje elegido y poses de reserva (= H5)
+- [ ] N1 🧪 Datos N1–N7 con fuente y dibujables; capítulos y tarjetas de los 3 niveles
+- [ ] N2 🧪 Farol: gasta, mínimo 40 px, lata de aceite lo rellena; `inLight`
+- [ ] N3 🧪 Invitado enmascarado (desenmascarar, no hace daño después), Murciélago (picado en curva), Fantasma (atraviesa paredes)
+- [ ] N4 🧪 Jefe Enmascarado: acecho → embestida → aturdido; fase 2 con apagón; 5 golpes; se quita la máscara y deja la Máscara de fiesta
+- [ ] N5 🎨 Niveles 2-1, 2-2, 2-3 + temas B y N por código + sprites en grises
+- [ ] N6 🧪 Repetición: el bot completa 2-1 y 2-2; un bot de jefe vence al Enmascarado
+- [ ] N7 🧪 Navegador: portada → museo → Carmesí; Opciones; Galería; Noche
+- [ ] W1 Publicar en la web: `static/juegos/mexico-vs-jose-madero/` + enlace (se despliega al fusionar en `main`)
+- [ ] F1 ⏳ Ajustes de jugabilidad con el feedback del usuario (`constants.js`)
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
-- [ ] W2 Noche · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
+- [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
 
 ## Fase 4 — Publicación

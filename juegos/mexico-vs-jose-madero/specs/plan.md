@@ -52,3 +52,28 @@ projects/super-pepe/
 - **«En pantalla»** para el Solo de guitarra = a menos de media pantalla (160 px + margen) de Pepe en horizontal, sin depender de la cámara del render.
 - **Fondos por código** por tema (`calle`, `azoteas`, `teatro`) en `src/render/themes.js`, con 2 capas de parallax y bloques propios; la paleta sale de los conceptos rescatados.
 - **Sprites provisionales:** Rumor y Micrófono Traidor se recortan del concepto de Gemini con `slice_sheet.py`; el Flash-Bot, también (vista de tres cuartos, provisional hasta tener la hoja lateral).
+
+## v7 · Opciones, guardado, Museo, Galería y Mundo 2 «Noche» (spec §3.0f)
+- **Nuevos módulos puros (testeados en Node):**
+  - `src/engine/save.js`: `createSave(storage)` → `{ data, commit(), reset() }`; esquema `v: 1`, valores por defecto y migración de `jmv-record`.
+  - `src/game/progress.js`: reglas que no dependen del DOM. `recordLevel(save, world, levelId, stats)`, `checkUnlocks(save, ctx)` (devuelve los trajes nuevos), `costumeFor(save, worldId)` y `doorState(save, worldId)`.
+  - `src/game/museum.js`: mapa del pasillo como texto (`1`–`8` puertas, `Y` Galería) y `doorAt(hub, player)`.
+  - `src/game/noche.js`: IA de Invitado, Murciélago y Fantasma, farol (`stepLantern`, `lightRadius`, `inLight`) y jefe Enmascarado (`createMask`, `stepMask`, `hitMask`).
+- **`game.js`**:
+  - `createGame(text, carry, opts)` acepta `opts.assist` y `opts.lantern`.
+  - El jefe se crea según su `char`: `B` es el Flash-Bot y `E` el Enmascarado.
+  - `hurt` respeta el modo asistido.
+  - Los golpes al Invitado lo desenmascaran en vez de vencerlo.
+- **Datos:**
+  - `src/data/world2.js`: 3 niveles en texto.
+  - `src/data/noche-story.js`: N1–N7, capítulos y tarjetas, con el mismo formato que `carmesi-story.js`.
+  - `src/data/worlds.js`: los 8 mundos con color, año, niveles y traje automático.
+  - `src/data/costumes-atlas.js`: generado por `scripts/slice_costumes.py`.
+- **Render:**
+  - `draw.js` recibe `opts` (`flashes`, `shake`) y el atlas del traje.
+  - `themes.js` añade los temas `fiesta`, `cabanas`, `lago` y `museo`, todos por código.
+  - La versión en grises de los sprites se calcula **una sola vez** al cargar el mundo (`getImageData` fuera del bucle).
+  - El farol es un degradado radial sobre una capa negra.
+- **main.js:** máquina de pantallas `title → museum ⇄ (gallery | options) → card → play → …`.
+- **Tests de repetición:** el bot completa 2-1 y 2-2, y un bot de jefe vence al Enmascarado.
+- **Publicación:** `npm run build` copia el HTML a `static/juegos/mexico-vs-jose-madero/index.html` del repo de la web (`npm run publish:web`).
