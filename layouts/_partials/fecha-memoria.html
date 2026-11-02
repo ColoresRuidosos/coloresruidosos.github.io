@@ -1,0 +1,12 @@
+{{- /* Fecha AAAA, AAAA-MM o AAAA-MM-DD en español, sin convertir a número
+       (evita que "08" se lea en octal). Ej.: "2014-09-04" → "4 de septiembre de 2014". */ -}}
+{{- $meses := dict "01" "enero" "02" "febrero" "03" "marzo" "04" "abril" "05" "mayo" "06" "junio"
+  "07" "julio" "08" "agosto" "09" "septiembre" "10" "octubre" "11" "noviembre" "12" "diciembre" -}}
+{{- $p := split . "-" -}}
+{{- if eq (len $p) 3 -}}
+{{ strings.TrimLeft "0" (index $p 2) }} de {{ index $meses (index $p 1) }} de {{ index $p 0 }}
+{{- else if eq (len $p) 2 -}}
+{{ index $meses (index $p 1) }} de {{ index $p 0 }}
+{{- else -}}
+{{ index $p 0 }}
+{{- end -}}

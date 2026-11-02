@@ -21,7 +21,7 @@ hugo server --config hugo.toml,demo/hugo.demo.toml
 # Tests
 pip install -r pipeline/requirements.txt
 pytest pipeline/tests -q
-node --test tests-js/ics.test.js
+node --test tests-js/*.test.js
 ```
 
 ## 2. Ponerlo en línea hoy
@@ -77,6 +77,7 @@ Crea un Sheet con dos pestañas. Publica **cada pestaña** como CSV (Archivo →
 | Embeds automáticos en las notas | Apple Music funciona sin configurar nada; YouTube con `YOUTUBE_API_KEY`; Spotify con sus credenciales (requiere Premium). Orden: Spotify, Apple Music, YouTube. |
 | Seguir a una banda | Agregar una línea a `data/seguimiento.yaml` (con `alias:` si los medios escriben su nombre distinto). Sus notas entran primero a la selección y se saltan el filtro de género (no hay página `/bandas/`; es solo prioridad al elegir qué publicar). |
 | Configurar la radio | `data/radio.yaml`: pegar el enlace de "Compartir" de una playlist pública de Spotify, Apple Music o YouTube en la estación de cada curador. La estación «Notas de la semana» es automática. Nada de esos servicios se carga hasta que alguien pulsa el botón; al cambiar de página la música se detiene. |
+| Agregar a alguien a In memoriam | Agregar una entrada a `data/in_memoriam.json` con `estado: propuesta` y al menos una fuente; cuando alguien del equipo la confirme, cambiar a `verificada`. Reglas (fechas parciales, sin causa de muerte) en [`docs/in-memoriam.md`](docs/in-memoriam.md). `node --test tests-js/in-memoriam.test.js` valida el formato. |
 | Ponerle imagen a una nota | Subir un archivo con el slug de la nota como nombre a `assets/notas/` (ver el README de esa carpeta). Solo imágenes propias del equipo. |
 | Agregar un sticker | Subir una imagen (`.png`, `.webp` o `.svg`) a `assets/stickers/` (ver el README de esa carpeta); aparece solo en `/stickers/`. Solo diseños propios del equipo. |
 | Cambiar el tope diario | `tope_diario` en `pipeline.yaml` |

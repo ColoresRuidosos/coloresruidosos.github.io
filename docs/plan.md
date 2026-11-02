@@ -40,6 +40,14 @@
 - **Sin aviso de "versión de prueba" (2026-10-30):** a pedido del equipo se quitó el letrero amarillo. `borrador: true` sigue limitando el juego a las preguntas de fuente sólida mientras los fans revisan; cada pregunta muestra su fuente al responder.
 - **Fecha límite:** el 28 de noviembre de 2026 (Tecate Comuna, Puebla: última fecha anunciada en México) marca el fin de la insignia "El último baile". Al principio era el 25 (Auditorio Nacional), pero el equipo avisó que había fechas posteriores; se corrigió el 2026-10-30.
 
+**D22 In memoriam (2026-11-02):** mismo patrón que la trivia (D21): datos en `data/in_memoriam.json`, lógica pura en `assets/js/in-memoriam/logica.js` probada con `node --test` (`tests-js/in-memoriam.test.js`), y la página la arma Hugo en `layouts/in-memoriam/section.html`. Así se ve sin JavaScript y el JS (`muro.js`) solo agrega el filtro por región.
+- **El orden y "Este año" los calcula Hugo** al compilar (la corrida diaria recompila, así que el bloque cambia solo el 1 de enero). Las fechas se guardan como texto `AAAA`, `AAAA-MM` o `AAAA-MM-DD`; ordenar el texto da el orden cronológico correcto, sin convertir fechas en las plantillas.
+- **Fechas parciales** en lugar de inventar un día cuando las fuentes no coinciden (ver el registro de verificación en `docs/in-memoriam.md`).
+- **`region` explícita** (`mx`/`es`/`latam`) además de `pais` (ISO 3166-1 alfa-2). Es redundante a propósito: Hugo filtra sin tabla de países y la prueba exige que ambas coincidan.
+- **Bloqueo de causas de muerte:** la prueba rechaza semblanzas con palabras como "suicidio", "sobredosis", "cáncer", "accidente", "asesinado" o "VIH". Es un criterio editorial (principio 3), no técnico.
+- **Sin fotos:** tarjetas tipográficas con veladora SVG inline. Paleta tinta/crema con acento naranja (cempasúchil), por respeto y para no competir con las categorías de notas.
+- **Semilla:** 44 nombres buscados el 2026-11-02: 40 `verificada` (8 MX, 17 ES, 15 LatAm) y 4 `propuesta` (A2, A4, A5, A6). La verificación corrigió 5 fechas que se daban por sabidas.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
@@ -50,6 +58,7 @@
 | V5 | Cuotas de Spotify y YouTube con uso diario | Solo Spotify |
 | V6 | Revisión fan de las 47 preguntas de `docs/trivia.md` | Lanzar con las que estén verificadas (mínimo 5 por dificultad) |
 | V7 | Segunda fuente para las 8 preguntas 🟡 | Se quedan fuera del juego |
+| V8 | Revisión del equipo de la semilla de In memoriam y de las decisiones abiertas A1–A5 (`docs/in-memoriam.md`) | Las entradas dudosas siguen en `propuesta` |
 
 ## Riesgos aceptados por publicar sin revisión
 | Riesgo | Mitigación disponible |
@@ -58,3 +67,4 @@
 | Embed de canción distinta del mismo artista | Coincidencia exacta de artista y álbum |
 | Recinto cambia su página | Supervivencia + aviso en resumen |
 | Evento del Sheet con fecha mal escrita | Se descarta con aviso |
+| In memoriam: un artista vivo aparece como fallecido, o una fecha es incorrecta | Fuente obligatoria, revisión humana antes de `verificada` y regresar a `propuesta` para ocultarlo |

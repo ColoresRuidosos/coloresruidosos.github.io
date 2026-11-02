@@ -434,3 +434,49 @@ body.sin-scroll { overflow: hidden; }
 .trivia__aviso-compartir { text-align: center; font-weight: 700; color: var(--accent-green); min-height: 1.2em; }
 .trivia__nota { font-size: .875rem; margin: 1.25rem 0 0; }
 @media (prefers-reduced-motion: reduce) { .trivia__boton:active { transform: none; } }
+
+/* ---------- In memoriam (F16/D22) ----------
+   Luto sobrio: tinta y crema, un solo acento naranja cempasúchil (siempre con texto tinta encima).
+   Sin rosa: está reservado para "Viene a México". */
+.memoria-encabezado { display: flex; align-items: flex-end; gap: clamp(1rem, 3vw, 2rem); }
+.memoria-encabezado .encabezado__titulo { color: var(--text-main); }
+.veladora { flex: none; width: clamp(48px, 10vw, 72px); height: auto; }
+.veladora__flama { transform-origin: 32px 36px; animation: veladora-flama 2.4s ease-in-out infinite alternate; }
+@keyframes veladora-flama {
+  from { transform: rotate(-3deg) scaleY(1); }
+  to { transform: rotate(3deg) scaleY(1.06); }
+}
+
+.memoria-filtro { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin: 0 0 2rem; }
+.memoria-filtro[hidden], .memoria-grupo[hidden], .memoria[hidden] { display: none; }
+.memoria-filtro__titulo { margin: 0; font-family: var(--f-mono); font-weight: 700; text-transform: uppercase; font-size: .875rem; }
+.memoria-filtro__botones { display: flex; flex-wrap: wrap; gap: .5rem; }
+.memoria-filtro__botones button {
+  font: inherit; font-weight: 700; font-size: .9375rem; cursor: pointer;
+  background: var(--bg-cream); color: var(--text-main); border: var(--borde); padding: .35rem .8rem;
+}
+.memoria-filtro__botones button[aria-pressed="true"] { background: var(--text-main); color: var(--bg-cream); }
+.memoria-filtro__botones button:hover { box-shadow: 3px 3px 0 var(--border-dark); }
+.memoria-filtro__contador { margin: 0; font-family: var(--f-mono); font-size: .875rem; }
+
+.memoria-grupo { margin: 0 0 2.5rem; }
+.memoria-grupo__titulo { font-family: var(--f-titulo); font-weight: 400; font-size: clamp(1.75rem, 5vw, 2.5rem); line-height: 1; margin: 0 0 1rem; padding-bottom: .5rem; border-bottom: var(--borde); }
+.memoria-grupo--este-anio { background: var(--text-main); color: var(--bg-cream); padding: clamp(1rem, 3vw, 1.75rem); box-shadow: 6px 6px 0 var(--accent-orange); }
+.memoria-grupo--este-anio .memoria-grupo__titulo { border-bottom-color: var(--accent-orange); }
+
+.memoria-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+.memoria__tarjeta { height: 100%; display: flex; flex-direction: column; background: var(--bg-cream); color: var(--text-main); border: var(--borde); padding: 1rem 1.1rem; }
+.memoria__anios { align-self: flex-start; margin: 0 0 .6rem; font-family: var(--f-mono); font-weight: 700; font-size: .8125rem; background: var(--accent-orange); color: var(--text-main); padding: .1rem .45rem; }
+.memoria__nombre { font-family: var(--f-titulo); font-weight: 400; font-size: 1.6rem; line-height: 1.05; margin: 0; overflow-wrap: anywhere; }
+.memoria__real { margin: .2rem 0 0; font-size: .875rem; font-style: italic; }
+.memoria__meta { margin: .6rem 0 0; font-size: .9375rem; font-weight: 700; }
+.memoria__pais { text-transform: uppercase; font-family: var(--f-mono); font-size: .8125rem; }
+.memoria__semblanza { margin: .6rem 0 1rem; font-size: .9375rem; line-height: 1.5; }
+.memoria__pie { margin: auto 0 0; padding-top: .6rem; border-top: 2px dashed var(--border-dark); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem .75rem; font-family: var(--f-mono); font-size: .8125rem; }
+.memoria__fuentes a { color: var(--accent-blue); }
+.memoria__fuentes a:hover { color: var(--text-main); }
+
+.memoria-nota { max-width: var(--lectura); margin: 3rem 0 0; padding-top: 1rem; border-top: var(--borde); font-size: .9375rem; }
+.memoria-nota p { margin: 0 0 .5rem; }
+
+@media (prefers-reduced-motion: reduce) { .veladora__flama { animation: none; } }

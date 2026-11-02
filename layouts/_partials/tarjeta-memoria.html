@@ -1,0 +1,23 @@
+{{- /* Tarjeta de In memoriam (F16). Recibe una entrada de data/in_memoriam.json. */ -}}
+{{- $paises := dict
+  "MX" "México" "ES" "España" "AR" "Argentina" "BO" "Bolivia" "CL" "Chile" "CO" "Colombia"
+  "CR" "Costa Rica" "CU" "Cuba" "DO" "República Dominicana" "EC" "Ecuador" "GT" "Guatemala"
+  "HN" "Honduras" "NI" "Nicaragua" "PA" "Panamá" "PE" "Perú" "PR" "Puerto Rico" "PY" "Paraguay"
+  "SV" "El Salvador" "UY" "Uruguay" "VE" "Venezuela" -}}
+<li class="memoria" data-region="{{ .region }}">
+  <article class="memoria__tarjeta" aria-labelledby="artista-{{ .id }}">
+    <p class="memoria__anios">{{ with .nacimiento }}{{ substr . 0 4 }} – {{ else }}† {{ end }}{{ substr .fallecimiento 0 4 }}</p>
+    <h3 class="memoria__nombre" id="artista-{{ .id }}">{{ .nombre }}</h3>
+    {{- with .nombre_completo }}<p class="memoria__real">{{ . }}</p>{{ end }}
+    <p class="memoria__meta"><span class="memoria__pais">{{ index $paises .pais | default .pais }}</span> · {{ delimit .proyectos ", " }}</p>
+    <p class="memoria__semblanza">{{ .semblanza }}</p>
+    <p class="memoria__pie">
+      <time datetime="{{ .fallecimiento }}">{{ partial "fecha-memoria.html" .fallecimiento }}</time>
+      <span class="memoria__fuentes">
+        {{- range $i, $url := .fuentes -}}
+        {{ if $i }} · {{ end }}<a href="{{ $url }}" rel="noopener" target="_blank">Fuente{{ if gt (len $.fuentes) 1 }} {{ add $i 1 }}{{ end }}<span class="saltar"> sobre {{ $.nombre }} (abre en otra pestaña)</span></a>
+        {{- end -}}
+      </span>
+    </p>
+  </article>
+</li>
