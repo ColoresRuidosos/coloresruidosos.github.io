@@ -4,6 +4,8 @@ Busca cada canción del banco en la API de búsqueda de iTunes (avance oficial d
 la de Spotify (enlace a la pista, con las credenciales del pipeline). Solo acepta coincidencias exactas:
 mismo título, artista Love of Lesbian y el disco de estudio, para no colar versiones en directo."""
 import re
+import time
+from urllib.parse import quote
 
 import requests
 
@@ -55,17 +57,37 @@ def elegir_cancion_spotify(items, titulo: str, disco: str):
     return None
 
 
-class ResolverAudio:
-    """http_get: función tipo requests.get (inyectable para pruebas). token_spotify: función que da el token, o None."""
+def busqueda_spotify(titulo: str) -> str:
+    """Sin coincidencia exacta (o sin credenciales), el botón lleva a la búsqueda de la canción en Spotify."""
+    return "https://open.spotify.com/search/" + quote(f"{titulo} {ARTISTA}")
 
-    def __init__(self, http_get=requests.get, token_spotify=None):
+
+class ResolverAudio:
+    """http_get: función tipo requests.get (inyectable para pruebas). token_spotify: función que da el token, o None.
+    esperar: función tipo time.sleep. La API de iTunes limita las búsquedas por minuto: se hace una pausa antes de
+    cada una y, si responde 403 o 429, se espera un minuto y se reintenta una vez."""
+
+    def __init__(self, http_get=requests.get, token_spotify=None, esperar=time.sleep, pausa_s=3.2):
         self.http_get = http_get
         self.token_spotify = token_spotify
+        self.esperar = esperar
+        self.pausa_s = pausa_s
 
     def apple(self, titulo: str, disco: str):
-        r = self.http_get(APPLE, params={"term": f"{titulo} {ARTISTA}", "entity": "song", "limit": 25, "country": "MX"}, timeout=TIEMPO)
-        r.raise_for_status()
-        return elegir_cancion_apple(r.json().get("results", []), titulo, disco)
+        params = {"term": f"{titulo} {ARTISTA}", "entity": "song", "limit": 25, "country": "MX"}
+        for intento in range(2):
+            self.esperar(self.pausa_s)
+            try:
+                r = self.http_get(APPLE, params=params, timeout=TIEMPO)
+                r.raise_for_status()
+                return elegir_cancion_apple(r.json().get("results", []), titulo, disco)
+            except Exception as exc:  # noqa: BLE001
+                codigo = getattr(getattr(exc, "response", None), "status_code", None)
+                if intento == 0 and codigo in (403, 429):
+                    self.esperar(60)
+                    continue
+                raise
+        return None
 
     def spotify(self, titulo: str, disco: str):
         if not self.token_spotify:
@@ -96,6 +118,7 @@ class ResolverAudio:
             salida[c["id"]] = {
                 "preview": a["previewUrl"],
                 "apple": a["trackViewUrl"].split("&uo=")[0].split("?uo=")[0],
-                "spotify": f"https://open.spotify.com/track/{s['id']}" if s else None,
+                "spotify": f"https://open.spotify.com/track/{s['id']}" if s else busqueda_spotify(c["titulo"]),
+                "spotify_exacto": bool(s),
             }
         return {"canciones": salida, "faltan": faltan}

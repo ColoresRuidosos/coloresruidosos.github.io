@@ -76,7 +76,7 @@ def test_resolver_arma_el_resultado_y_lista_las_que_faltan():
             return Resp({"results": [APPLE_OK] if "El sur" in params["term"] else []})
         return Resp({"tracks": {"items": [SPOTIFY_OK]}})
 
-    r = ResolverAudio(http_get=http_get, token_spotify=lambda: "t")
+    r = ResolverAudio(http_get=http_get, token_spotify=lambda: "t", esperar=lambda s: None)
     discos = [{"id": "VH", "nombre": "V.E.H.N."}]
     canciones = [{"id": "VH02", "titulo": "El sur", "disco": "VH"}, {"id": "VH03", "titulo": "El mundo", "disco": "VH"}]
     salida = r.resolver(canciones, discos)
@@ -84,18 +84,20 @@ def test_resolver_arma_el_resultado_y_lista_las_que_faltan():
         "preview": APPLE_OK["previewUrl"],
         "apple": "https://music.apple.com/mx/album/el-sur/1540993287?i=1540993300",
         "spotify": "https://open.spotify.com/track/abc123",
+        "spotify_exacto": True,
     }
     assert salida["faltan"] == ["VH03"]
 
 
-def test_resolver_sin_credenciales_de_spotify_deja_el_enlace_vacio():
+def test_resolver_sin_credenciales_de_spotify_enlaza_a_la_busqueda_de_la_cancion():
     def http_get(url, params=None, headers=None, timeout=None):
         assert "spotify" not in url
         return Resp({"results": [APPLE_OK]})
 
-    r = ResolverAudio(http_get=http_get, token_spotify=None)
+    r = ResolverAudio(http_get=http_get, token_spotify=None, esperar=lambda s: None)
     salida = r.resolver([{"id": "VH02", "titulo": "El sur", "disco": "VH"}], [{"id": "VH", "nombre": "V.E.H.N."}])
-    assert salida["canciones"]["VH02"]["spotify"] is None
+    assert salida["canciones"]["VH02"]["spotify"] == "https://open.spotify.com/search/El%20sur%20Love%20of%20Lesbian"
+    assert salida["canciones"]["VH02"]["spotify_exacto"] is False
 
 
 def test_un_error_de_red_en_una_cancion_no_frena_las_demas():
@@ -107,8 +109,31 @@ def test_un_error_de_red_en_una_cancion_no_frena_las_demas():
             raise ConnectionError("caída")
         return Resp({"results": [{**APPLE_OK, "trackName": "Segunda", "collectionName": "1999"}]})
 
-    r = ResolverAudio(http_get=http_get, token_spotify=None)
+    r = ResolverAudio(http_get=http_get, token_spotify=None, esperar=lambda s: None)
     salida = r.resolver([{"id": "A", "titulo": "Primera", "disco": "99"}, {"id": "B", "titulo": "Segunda", "disco": "99"}],
                         [{"id": "99", "nombre": "1999"}])
     assert salida["faltan"] == ["A"]
     assert "B" in salida["canciones"]
+
+
+class Error429(Exception):
+    def __init__(self):
+        self.response = type("R", (), {"status_code": 429})()
+
+
+def test_apple_hace_pausa_entre_busquedas_y_reintenta_si_lo_frenan():
+    pausas, veces = [], {"n": 0}
+
+    def http_get(url, params=None, headers=None, timeout=None):
+        veces["n"] += 1
+        if veces["n"] == 2:
+            raise Error429()
+        return Resp({"results": [{**APPLE_OK, "trackName": params["term"].replace(" Love of Lesbian", ""), "collectionName": "1999"}]})
+
+    r = ResolverAudio(http_get=http_get, token_spotify=None, esperar=pausas.append)
+    salida = r.resolver([{"id": "A", "titulo": "Miau", "disco": "99"}, {"id": "B", "titulo": "Nada", "disco": "99"}],
+                        [{"id": "99", "nombre": "1999"}])
+    assert sorted(salida["canciones"]) == ["A", "B"]
+    assert salida["faltan"] == []
+    assert any(p >= 30 for p in pausas), "espera larga antes de reintentar"
+    assert pausas.count(r.pausa_s) >= 2, "pausa entre búsquedas"

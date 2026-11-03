@@ -22,7 +22,8 @@ concurrency:
 jobs:
   audio:
     # En PR que vienen de un fork no hay credenciales ni permiso de escritura.
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # Tampoco vuelve a correr por su propio commit de data/audio.json.
+    if: github.actor != 'github-actions[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:

@@ -4,7 +4,7 @@ Uso:
     python pipeline/resolver_audio.py
 
 Necesita red hacia itunes.apple.com y api.spotify.com; corre en GitHub Actions (audio-trivia.yml).
-Sin SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET, deja los enlaces de Spotify vacíos.
+Sin SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET, el enlace de Spotify lleva a la búsqueda de la canción.
 """
 import base64
 import json
@@ -48,8 +48,9 @@ def main():
     salida = {"_nota": NOTA, "generado": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
               "canciones": res["canciones"], "faltan": res["faltan"]}
     SALIDA.write_text(json.dumps(salida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    con_spotify = sum(1 for v in res["canciones"].values() if v["spotify"])
-    print(f"{len(res['canciones'])} de {len(jugables)} canciones con avance; {con_spotify} con enlace de Spotify.")
+    exactos = sum(1 for v in res["canciones"].values() if v["spotify_exacto"])
+    print(f"{len(res['canciones'])} de {len(jugables)} canciones con avance; {exactos} con enlace directo de Spotify "
+          "(las demás enlazan a la búsqueda en Spotify).")
     if res["faltan"]:
         print("Sin avance: " + ", ".join(res["faltan"]))
 
