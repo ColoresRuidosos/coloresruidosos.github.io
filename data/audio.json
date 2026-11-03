@@ -1,6 +1,6 @@
 {
   "_nota": "Generado por pipeline/resolver_audio.py (GitHub Actions: audio-trivia.yml). Avance oficial de 30 s de Apple Music y enlace a la pista en Spotify, solo con coincidencia exacta de título, artista y disco de estudio.",
-  "generado": "2026-11-03T15:22:11+00:00",
+  "generado": "2026-11-03T15:27:51+00:00",
   "canciones": {
     "ME01": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/45/60/e7/4560e7d1-9385-c44e-178d-cc2a3580e8b7/mzaf_3757360853988036215.plus.aac.p.m4a",
