@@ -43,7 +43,7 @@
       <p class="trivia__puntaje" data-puntaje></p>
       <p class="trivia__pista" data-pista-siguiente hidden></p>
       <h3 class="trivia__subtitulo" data-nuevas-titulo>Nuevo en tu colección</h3>
-      <ul class="trivia__insignias" data-nuevas></ul>
+      <ul class="trivia__chapas" data-nuevas></ul>
       <div class="trivia__acciones">
         <button type="button" class="trivia__boton trivia__boton--grande" data-compartir>Compartir mi resultado</button>
         <button type="button" class="trivia__boton" data-jugar>Jugar otra vez</button>
@@ -58,13 +58,21 @@
       <h3 class="trivia__subtitulo">Portadas</h3>
       <ul class="trivia__portadas" data-portadas></ul>
       <h3 class="trivia__subtitulo">Insignias</h3>
-      <ul class="trivia__insignias" data-insignias></ul>
+      <ul class="trivia__chapas" data-insignias></ul>
       <div class="trivia__acciones">
         <button type="button" class="trivia__boton trivia__boton--grande" data-jugar>▶ Jugar</button>
         <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
       </div>
     </div>
   </div>
+  <p class="trivia__aviso-insignia" data-aviso-insignia role="status" hidden></p>
+  <dialog class="trivia__detalle" data-detalle aria-labelledby="detalle-nombre">
+    <canvas class="trivia__detalle-img" data-detalle-img width="32" height="32" aria-hidden="true"></canvas>
+    <h3 id="detalle-nombre" data-detalle-nombre></h3>
+    <p data-detalle-como></p>
+    <p class="trivia__detalle-fecha" data-detalle-fecha></p>
+    <button type="button" class="trivia__boton" data-cerrar-detalle>Cerrar</button>
+  </dialog>
   <p class="trivia__nota">Tu récord, insignias y portadas se guardan solo en este navegador. Las escenas son pixel art propio inspirado en las portadas de la banda. Las preguntas y sus fuentes están en <a href="https://github.com/ColoresRuidosos/coloresruidosos.github.io/blob/main/docs/trivia.md">docs/trivia.md</a>; si ves un error, avísanos.</p>
 </section>
 
@@ -72,6 +80,6 @@
 {{ end }}
 
 {{ define "scripts" }}
-{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
+{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/insignias.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}

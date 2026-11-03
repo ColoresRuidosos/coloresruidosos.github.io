@@ -427,6 +427,22 @@ body.sin-scroll { overflow: hidden; }
 .trivia__insignia span { font-size: .875rem; }
 .trivia__insignia.es-ganada, .trivia__insignia.es-nueva { border: 2px solid var(--accent-yellow); color: var(--tinta-clara); }
 .trivia__insignia.es-ganada strong, .trivia__insignia.es-nueva strong { color: var(--accent-yellow); }
+.trivia__chapas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: .75rem; }
+.trivia__chapa-boton { width: 100%; height: 100%; display: grid; justify-items: center; align-content: start; gap: .35rem; text-align: center; background: transparent; border: 2px solid transparent; color: var(--tinta-clara); padding: .5rem .35rem; cursor: pointer; font: inherit; }
+.trivia__chapa-boton:hover, .trivia__chapa-boton:focus-visible { border-color: var(--tinta-clara); outline: none; }
+.trivia__chapa-img { width: 96px; height: 96px; image-rendering: pixelated; }
+.trivia__chapa-boton strong { font-family: var(--pixel); font-size: .5625rem; line-height: 1.6; color: var(--accent-yellow); }
+.trivia__chapa-boton span { font-size: .8125rem; line-height: 1.3; color: #cfc7b6; }
+.trivia__chapa.es-nueva .trivia__chapa-img { animation: trivia-brillo 1.2s steps(4) 2; }
+@keyframes trivia-brillo { 50% { transform: scale(1.12) rotate(-4deg); } }
+.trivia__detalle { background: var(--pantalla); color: var(--tinta-clara); border: 3px solid var(--tinta-clara); box-shadow: var(--sombra); padding: 1.5rem; max-width: min(22rem, 90vw); text-align: center; }
+.trivia__detalle::backdrop { background: rgba(20, 20, 20, .7); }
+.trivia__detalle-img { width: 192px; height: 192px; image-rendering: pixelated; }
+.trivia__detalle h3 { font-family: var(--pixel); font-size: .875rem; line-height: 1.6; color: var(--accent-yellow); margin: .75rem 0 .5rem; }
+.trivia__detalle p { margin: 0 0 .5rem; }
+.trivia__detalle-fecha { font-size: .875rem; color: #cfc7b6; }
+.trivia__aviso-insignia { position: fixed; left: 50%; bottom: 5.5rem; transform: translateX(-50%); z-index: 150; font-family: var(--pixel); font-size: .6875rem; line-height: 1.6; background: var(--accent-yellow); color: var(--text-main); border: 3px solid var(--text-main); box-shadow: var(--sombra); padding: .75rem 1rem; margin: 0; max-width: 90vw; text-align: center; }
+.trivia[data-en="inicio"] .trivia__escena { touch-action: none; cursor: pointer; }
 .trivia__portadas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
 @media (min-width: 600px) { .trivia__portadas { grid-template-columns: repeat(3, 1fr); } }
 .trivia__portada { display: grid; gap: .3rem; font-size: .8125rem; }
@@ -434,4 +450,4 @@ body.sin-scroll { overflow: hidden; }
 .trivia__mini { width: 100%; height: auto; image-rendering: pixelated; border: 2px solid var(--tinta-clara); }
 .trivia__aviso-compartir { text-align: center; font-weight: 700; color: var(--accent-green); min-height: 1.2em; }
 .trivia__nota { font-size: .875rem; margin: 1.25rem 0 0; }
-@media (prefers-reduced-motion: reduce) { .trivia__boton:active { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .trivia__boton:active { transform: none; } .trivia__chapa.es-nueva .trivia__chapa-img { animation: none; } }

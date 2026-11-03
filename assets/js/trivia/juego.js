@@ -1,10 +1,10 @@
 /* Interfaz de la Trivia (F15/D21): conecta la lógica (CRtrivia) con las
    escenas (CRescenas) y el DOM de layouts/trivia/section.html. */
 (function () {
-  var T = window.CRtrivia, E = window.CRescenas;
+  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias;
   var raiz = document.querySelector("[data-trivia]");
   var crudo = document.getElementById("trivia-datos");
-  if (!raiz || !T || !E || !crudo) return;
+  if (!raiz || !T || !E || !I || !crudo) return;
 
   var datos = JSON.parse(crudo.textContent);
   var jugables = T.preguntasJugables(datos);
@@ -101,7 +101,7 @@
   var partida = null;
 
   function empezar() {
-    partida = { preguntas: T.sortear(jugables), i: 0, respuestas: [], puntos: 0 };
+    partida = { preguntas: T.sortear(jugables), i: 0, respuestas: [], puntos: 0, inicio: Date.now(), fin: null, t0: 0 };
     contar("iniciada");
     mostrar("juego");
     pintarPregunta();
@@ -139,13 +139,15 @@
     $("[data-fuentes]").textContent = "";
     $("[data-siguiente]").hidden = true;
     $("[data-pregunta]").focus();
+    partida.t0 = Date.now();
   }
 
   function responder(texto) {
     var q = partida.preguntas[partida.i];
     if (partida.respuestas.length > partida.i) return;
     var acierto = texto === q.correcta;
-    partida.respuestas.push({ id: q.id, etapa: q.etapa, dificultad: q.dificultad, acierto: acierto });
+    partida.fin = Date.now();
+    partida.respuestas.push({ id: q.id, etapa: q.etapa, dificultad: q.dificultad, acierto: acierto, ms: partida.fin - partida.t0 });
     if (acierto) partida.puntos += T.PUNTOS[q.dificultad];
     $$("[data-opcion]").forEach(function (b) {
       b.disabled = true;
@@ -183,7 +185,7 @@
   var ultimoResultado = null;
 
   function terminar() {
-    var r = T.cerrarPartida(estado, partida.respuestas, new Date());
+    var r = T.cerrarPartida(estado, partida.respuestas, new Date(), { duracionMs: partida.fin - partida.inicio });
     estado = r.estado;
     T.guardarEstado(almacen, estado);
     ultimoResultado = r;
@@ -201,15 +203,9 @@
 
     var lista = $("[data-nuevas]");
     lista.textContent = "";
-    r.nuevas.forEach(function (id) {
-      var i = insignia(id);
-      var li = crear("li", "trivia__insignia es-nueva");
-      li.appendChild(crear("strong", "", i.nombre));
-      li.appendChild(crear("span", "", i.oculta ? "¡Insignia secreta!" : i.como));
-      lista.appendChild(li);
-    });
+    r.nuevas.forEach(function (id) { lista.appendChild(chapa(insignia(id), "nueva")); });
     r.portadasNuevas.forEach(function (e) {
-      var li = crear("li", "trivia__insignia es-nueva");
+      var li = crear("li", "trivia__insignia trivia__insignia--portada es-nueva");
       li.appendChild(crear("strong", "", "Portada desbloqueada"));
       li.appendChild(crear("span", "", E.ETAPAS_INFO[e].nombre));
       lista.appendChild(li);
@@ -308,6 +304,104 @@
     });
   }
 
+  // ---------- Chapas (F17) ----------
+  var detalle = $("[data-detalle]");
+
+  function estadoDe(ins) {
+    if (estado.insignias[ins.id]) return "ganada";
+    return ins.oculta ? "secreta" : "bloqueada";
+  }
+
+  function lienzoChapa(ins, est, clase) {
+    var cv = crear("canvas", clase);
+    cv.width = 32; cv.height = 32;
+    I.dibujarChapa(cv.getContext("2d"), ins, est);
+    cv.setAttribute("aria-hidden", "true");
+    return cv;
+  }
+
+  // Una chapa de la lista: botón que abre la vista en grande.
+  function chapa(ins, est) {
+    est = est || estadoDe(ins);
+    var oculta = est === "secreta";
+    var li = crear("li", "trivia__chapa" + (est === "nueva" ? " es-nueva" : ""));
+    var b = crear("button", "trivia__chapa-boton");
+    b.type = "button";
+    b.setAttribute("data-abrir-insignia", ins.id);
+    b.appendChild(lienzoChapa(ins, est, "trivia__chapa-img"));
+    b.appendChild(crear("strong", "", oculta ? "???" : ins.nombre));
+    b.appendChild(crear("span", "", est === "nueva" ? "¡Nueva!" : oculta ? "Pista: " + ins.pista : ins.como));
+    li.appendChild(b);
+    return li;
+  }
+
+  function abrirDetalle(id) {
+    var ins = insignia(id), est = estadoDe(ins);
+    var cv = $("[data-detalle-img]", detalle);
+    I.dibujarChapa(cv.getContext("2d"), ins, est);
+    $("[data-detalle-nombre]", detalle).textContent = est === "secreta" ? "Insignia secreta" : ins.nombre;
+    $("[data-detalle-como]", detalle).textContent = est === "secreta" ? "Pista: " + ins.pista : ins.como;
+    var f = estado.insignias[id];
+    $("[data-detalle-fecha]", detalle).textContent = f
+      ? "La ganaste el " + new Date(f).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })
+      : est === "secreta" ? "Todavía no la descubres." : "Todavía no la ganas.";
+    if (detalle.showModal) detalle.showModal(); else detalle.setAttribute("open", "");
+  }
+
+  function cerrarDetalle() {
+    if (detalle.close) detalle.close(); else detalle.removeAttribute("open");
+  }
+
+  var avisoInsignia = $("[data-aviso-insignia]"), avisoTimer = 0;
+  function anunciarInsignias(ids) {
+    if (!ids.length) return;
+    tonos(SONIDOS.insignia);
+    avisoInsignia.textContent = "¡Nueva insignia: " + ids.map(function (id) { return insignia(id).nombre; }).join(" + ") + "!";
+    avisoInsignia.hidden = false;
+    clearTimeout(avisoTimer);
+    avisoTimer = setTimeout(function () { avisoInsignia.hidden = true; }, 4000);
+  }
+
+  function descubrir(id) {
+    var r = T.registrarSecreto(estado, id, new Date());
+    if (!r.nuevas.length) return;
+    estado = r.estado;
+    T.guardarEstado(almacen, estado);
+    contar("secreto-" + id);
+    anunciarInsignias(r.nuevas);
+  }
+
+  // ---------- Secretos de la pantalla de inicio ----------
+  // Código Konami con teclado (↑↑↓↓←→←→BA) o deslizando sobre la pantallita (↑↑↓↓←→←→ y dos toques);
+  // 7 toques seguidos a la pantallita en menos de 4 s dan "Wio, antenas y pijamas".
+  var KONAMI_TECLADO = "uuddlrlrba", KONAMI_TACTIL = "uuddlrlrtt";
+  var fichas = "", toques = [], inicioToque = null;
+  var FLECHAS = { ArrowUp: "u", ArrowDown: "d", ArrowLeft: "l", ArrowRight: "r", b: "b", B: "b", a: "a", A: "a" };
+
+  function ficha(f, objetivo) {
+    fichas = (fichas + f).slice(-10);
+    if (fichas === objetivo) { fichas = ""; descubrir("contraespionaje"); }
+  }
+
+  lienzo.addEventListener("pointerdown", function (ev) {
+    if (raiz.getAttribute("data-en") !== "inicio") return;
+    inicioToque = { x: ev.clientX, y: ev.clientY };
+  });
+  lienzo.addEventListener("pointerup", function (ev) {
+    if (raiz.getAttribute("data-en") !== "inicio" || !inicioToque) return;
+    var dx = ev.clientX - inicioToque.x, dy = ev.clientY - inicioToque.y;
+    inicioToque = null;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) > 30) {
+      toques = [];
+      ficha(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? "r" : "l") : (dy > 0 ? "d" : "u"), KONAMI_TACTIL);
+      return;
+    }
+    ficha("t", KONAMI_TACTIL);
+    var ahora = Date.now();
+    toques = toques.filter(function (t) { return ahora - t < 4000; }).concat([ahora]);
+    if (toques.length >= 7) { toques = []; descubrir("wio"); }
+  });
+
   // ---------- Colección ----------
   function pintarColeccion() {
     var portadas = $("[data-portadas]");
@@ -329,13 +423,7 @@
     });
     var lista = $("[data-insignias]");
     lista.textContent = "";
-    T.INSIGNIAS.forEach(function (i) {
-      var tiene = !!estado.insignias[i.id];
-      var li = crear("li", "trivia__insignia" + (tiene ? " es-ganada" : ""));
-      li.appendChild(crear("strong", "", tiene || !i.oculta ? i.nombre : "???"));
-      li.appendChild(crear("span", "", tiene ? i.como : (i.oculta ? "Pista: " + i.pista : i.como)));
-      lista.appendChild(li);
-    });
+    T.INSIGNIAS.forEach(function (i) { lista.appendChild(chapa(i)); });
     $("[data-conteo]").textContent = Object.keys(estado.insignias).length + " de " + T.INSIGNIAS.length + " insignias · " +
       estado.portadas.length + " de 6 portadas";
     mostrar("coleccion");
@@ -350,6 +438,8 @@
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
     else if (b.hasAttribute("data-volver")) { pintarInicio(); mostrar("inicio"); }
     else if (b.hasAttribute("data-compartir")) compartir();
+    else if (b.hasAttribute("data-abrir-insignia")) abrirDetalle(b.getAttribute("data-abrir-insignia"));
+    else if (b.hasAttribute("data-cerrar-detalle")) cerrarDetalle();
     else if (b.hasAttribute("data-sonido")) {
       sonidoOn = !sonidoOn;
       try { almacen && almacen.setItem(CLAVE_SONIDO, sonidoOn ? "1" : "0"); } catch (e) { /* sin almacenamiento */ }
@@ -358,7 +448,13 @@
     }
   });
 
+  detalle.addEventListener("click", function (ev) { if (ev.target === detalle) cerrarDetalle(); });
+
   document.addEventListener("keydown", function (ev) {
+    if (raiz.getAttribute("data-en") === "inicio" && FLECHAS[ev.key] && !(detalle.open)) {
+      if (ev.key.indexOf("Arrow") === 0 && document.activeElement === lienzo) ev.preventDefault();
+      ficha(FLECHAS[ev.key], KONAMI_TECLADO);
+    }
     if ($("[data-pantalla='juego']").hidden || ev.altKey || ev.ctrlKey || ev.metaKey) return;
     var n = parseInt(ev.key, 10);
     if (n >= 1 && n <= 4) {

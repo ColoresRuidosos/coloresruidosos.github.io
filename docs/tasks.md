@@ -76,12 +76,12 @@ Orden TDD: primero la prueba en rojo, luego el código.
 
 ## Fase 8 — Chapas e insignias "imposibles" (F17/D23)
 - ✅ Spec y propuesta visual (chapas de concierto, aprobada por el equipo)
-- ⏳ 🔴→🟢 Catálogo: 25 insignias, cada una con familia e ícono; las secretas con pista
-- ⏳ 🔴→🟢 Cada insignia nueva con su caso que la da y su caso que no
-- ⏳ 🔴→🟢 Estado: un estado guardado antes de F17 se lee igual
-- ⏳ 🔴→🟢 Sprites: cada ícono existe y mide 16×16
-- ⏳ Colección con chapas, vista en grande, chapas en el resultado, código Konami y 7 toques
-- ⏳ Compilar y jugar con Playwright
+- ✅ 🔴→🟢 Catálogo: 25 insignias, cada una con familia e ícono; las secretas con pista
+- ✅ 🔴→🟢 Cada insignia nueva con su caso que la da y su caso que no
+- ✅ 🔴→🟢 Estado: un estado guardado antes de F17 se lee igual
+- ✅ 🔴→🟢 Sprites: cada ícono existe y mide 16×16
+- ✅ Colección con chapas, vista en grande, chapas en el resultado, código Konami y 7 toques
+- ✅ Compilar y jugar con Playwright
 
 ## Fase 9 — Ranking (F18/D24)
 - ✅ Spec
