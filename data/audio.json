@@ -1,0 +1,293 @@
+{
+  "_nota": "Generado por pipeline/resolver_audio.py (GitHub Actions: audio-trivia.yml). Avance oficial de 30 s de Apple Music y enlace a la pista en Spotify, solo con coincidencia exacta de título, artista y disco de estudio.",
+  "generado": "2026-11-03T15:12:16+00:00",
+  "canciones": {
+    "ME01": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/45/60/e7/4560e7d1-9385-c44e-178d-cc2a3580e8b7/mzaf_3757360853988036215.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/carta-a-todas-tus-cat%C3%A1strofes/1766606206?i=1766606241",
+      "spotify": null
+    },
+    "ME02": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ba/4c/46/ba4c46d8-e555-19f2-b412-8617341c8b24/mzaf_15796581615683159513.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/domingo-astrom%C3%A1ntico/1766606206?i=1766606247",
+      "spotify": null
+    },
+    "ME03": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/51/10/46/511046ff-7838-a142-0ca7-f32458c1d0b0/mzaf_14885600081247962166.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/mi-personulidad/1766606206?i=1766606248",
+      "spotify": null
+    },
+    "ME04": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3c/e8/53/3ce85327-f136-6f7d-b938-ff2904f9af71/mzaf_10564169436372530754.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/houston-tenemos-un-poema/1766606206?i=1766606249",
+      "spotify": null
+    },
+    "ME05": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a4/6a/14/a46a146f-71f9-76f8-dfff-5b85c8672f53/mzaf_7735464116487638471.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/mi-primera-combusti%C3%B3n/1766606206?i=1766606250",
+      "spotify": null
+    },
+    "ME06": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1d/c8/22/1dc82274-3d75-9f98-c889-f15ad2911f6c/mzaf_3562695951479794502.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/m%C3%BAsica-de-ascensores/1766606206?i=1766606251",
+      "spotify": null
+    },
+    "ME07": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3b/d7/21/3bd721cc-3d47-1454-5f14-cd13aa6c02ee/mzaf_7999872038215027250.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/marlene-la-vecina-del-%C3%A1rtico/1766606206?i=1766606252",
+      "spotify": null
+    },
+    "ME08": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e3/25/d4/e325d4a7-e391-f15b-653d-60e4ea895a9c/mzaf_15525919131469046157.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/los-ni%C3%B1os-del-ma%C3%B1ana/1766606206?i=1766606253",
+      "spotify": null
+    },
+    "ME09": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/34/0d/01340de3-6fe0-c5c1-ed81-1eb7a93f01a1/mzaf_5033588144198767118.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/me-llaman-octubre/1766606206?i=1766606254",
+      "spotify": null
+    },
+    "CC01": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/38/0d/3e380d07-f3be-3304-ae8b-205e98097060/mzaf_11351942357200854731.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/universos-infinitos/1766601472?i=1766601475",
+      "spotify": null
+    },
+    "CC02": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/1c/e9/e71ce94a-6265-21a3-33a3-c71d596c466f/mzaf_7871557250139927508.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/la-ni%C3%B1a-imantada/1766601472?i=1766601478",
+      "spotify": null
+    },
+    "CC03": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/52/43/44/5243445f-1d74-aa5c-cb86-490356a96064/mzaf_16773851628035621107.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/noches-reversibles/1766601472?i=1766601479",
+      "spotify": null
+    },
+    "CC04": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5f/a9/8d/5fa98dd8-22fb-9cfd-6176-65dfe72cfdc2/mzaf_2286704609897970524.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/los-colores-de-una-sombra/1766601472?i=1766601480",
+      "spotify": null
+    },
+    "CC05": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f8/8d/46/f88d4653-b4d6-37a9-8fb3-39eecc6f6c92/mzaf_1097158626596326568.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/un-d%C3%ADa-en-el-parque/1766601472?i=1766601481",
+      "spotify": null
+    },
+    "CC06": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8b/e9/17/8be91722-2d41-3e80-345f-2adbff6d266a/mzaf_7111803983669088020.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/villancico-para-mi-cu%C3%B1ado-fernando/1766601472?i=1766601482",
+      "spotify": null
+    },
+    "9901": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/96/7e/54/967e54ba-2f70-71f2-a3b4-c51198afbb2f/mzaf_11911448600768342433.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/alli-donde-soliamos-gritar/308805048?i=308805061",
+      "spotify": null
+    },
+    "9902": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6e/50/9e/6e509e9f-33c0-3030-c00b-b48fc58474fe/mzaf_17639883333890177843.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/club-de-fans-de-john-boy/308805048?i=308805064",
+      "spotify": null
+    },
+    "9903": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/af/ec/55/afec55ea-2083-7384-be02-1ebd7ac0a593/mzaf_3557754060086428105.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/las-malas-lenguas/308805048?i=308805065",
+      "spotify": null
+    },
+    "9904": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4e/32/e1/4e32e124-a0c6-f9ac-c70a-95643d728c86/mzaf_10469014872856591607.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/algunas-plantas/308805048?i=308805066",
+      "spotify": null
+    },
+    "9905": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9b/26/48/9b26480b-b752-4295-024a-961b03a7136c/mzaf_11075155142171904158.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/cuestiones-de-familia/308805048?i=308805067",
+      "spotify": null
+    },
+    "9906": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/20/68/73/2068737f-0bc4-5f1d-3a96-36f67dca1372/mzaf_1870968886716902420.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-ectoplasta/308805048?i=308805068",
+      "spotify": null
+    },
+    "9907": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/b1/06/b5b106c1-78de-1c1a-2c59-cead01bf9ad9/mzaf_9868165251511244509.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/segundo-asalto/308805048?i=308805069",
+      "spotify": null
+    },
+    "9908": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3d/41/d1/3d41d129-0c0e-6c41-5be0-3d116e0e6689/mzaf_9730479472990369329.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/incendios-de-nieve/308805048?i=308805070",
+      "spotify": null
+    },
+    "9909": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3b/56/2a/3b562a46-3ff7-f785-8114-592afeceed58/mzaf_18205475967574095023.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/te-hiero-mucho-historia-del-amante-guisante/308805048?i=308805072",
+      "spotify": null
+    },
+    "9910": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/16/b8/03/16b803b8-c2c3-521d-6860-712a9e6f818d/mzaf_18195889650156535491.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/cuando-diga-ya/308805048?i=308805073",
+      "spotify": null
+    },
+    "9911": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/09/cb/31/09cb31d9-1e3e-5bb4-76a3-b72da877e8e8/mzaf_12754314744455689304.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/miau/308805048?i=308805074",
+      "spotify": null
+    },
+    "9912": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/de/e0/00/dee00078-008f-4b73-b348-236b4d457539/mzaf_11213038380534967447.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/la-mirada-de-la-gente-que-conspira/308805048?i=308805075",
+      "spotify": null
+    },
+    "NE01": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b9/d3/8a/b9d38a81-21c1-ad5e-8a8d-163fbefbce4e/mzaf_8065226235918816521.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/los-seres-%C3%BAnicos/528636470?i=528636558",
+      "spotify": null
+    },
+    "NE02": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fa/31/41/fa31415a-af36-e0ae-8083-8c122b8176d4/mzaf_14775761882571489133.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/si-t%C3%BA-me-dices-ben-yo-digo-affleck/528636470?i=528636559",
+      "spotify": null
+    },
+    "NE03": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/23/bb/b823bb76-1867-8a53-5660-812dfca3db9a/mzaf_12228280155834423423.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/nada/528636470?i=528636568",
+      "spotify": null
+    },
+    "NE04": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/17/60/a7/1760a73e-4051-640d-c71e-686fe7ff44b0/mzaf_13373188199780874984.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/belice/528636470?i=528636589",
+      "spotify": null
+    },
+    "NE05": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/45/16/f8/4516f8ca-cd83-4d4f-b754-6ee8ea2c9831/mzaf_1491255491635906550.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/pizzigatos/528636470?i=528636590",
+      "spotify": null
+    },
+    "NE06": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e6/c4/8e/e6c48e5d-86e7-68a0-ff88-844099f0f897/mzaf_9797302722031220024.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/667/528636470?i=528636591",
+      "spotify": null
+    },
+    "NE07": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/74/72/4a/74724a6b-e65e-622b-f61f-7e64f7b432c1/mzaf_11839208453546611414.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/c%C3%ADnicamente-muertos/528636470?i=528636592",
+      "spotify": null
+    },
+    "NE08": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/af/66/66af6676-8609-b629-8823-0e803fc0dcd7/mzaf_3207668045488576728.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/orden-de-desahucio-en-mi-menor/528636470?i=528636593",
+      "spotify": null
+    },
+    "NE09": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/53/f3/62/53f3624b-3f20-6bb8-05f1-741f7f75f2a1/mzaf_3093908133998395916.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/oniria-e-insomnia/528636470?i=528636594",
+      "spotify": null
+    },
+    "NE10": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/75/9e/c0/759ec00b-2081-646d-d7e1-59392cdb9e82/mzaf_8441514553646385637.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/nadie-por-las-calles/528636470?i=528636595",
+      "spotify": null
+    },
+    "NE11": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e2/de/e7/e2dee7b2-09d0-70be-2e7c-063f8b5bdc6d/mzaf_7107072381209865239.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-hambre-inv%C3%ADsible/528636470?i=528636596",
+      "spotify": null
+    },
+    "NE12": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/73/a0/8373a010-9435-0792-eb79-35ce6c24a963/mzaf_1463023099756498495.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/wio-antenas-y-pijamas/528636470?i=528636605",
+      "spotify": null
+    },
+    "NE13": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/11/95/6f/11956f46-c80d-340d-7d8a-a5c0fe5be1c8/mzaf_14574835783198724027.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/si-salimos-de-esta/528636470?i=528636606",
+      "spotify": null
+    },
+    "NE16": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/1b/fe/661bfe92-2b8c-af70-e10a-2bbd07adc78b/mzaf_4618718863713651645.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/los-toros-en-la-wii-fant%C3%A1stico/528636470?i=528636610",
+      "spotify": null
+    },
+    "PH01": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/30/8b/f5/308bf511-da07-6857-b81c-30169be20c70/mzaf_16699646546154108342.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/planeador/1070592097?i=1070593514",
+      "spotify": null
+    },
+    "PH02": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/48/56/74/48567490-5c6d-0957-6797-f436df8a3421/mzaf_17701291349369180360.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/bajo-el-volc%C3%A1n/1070592097?i=1070593515",
+      "spotify": null
+    },
+    "PH03": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9f/d4/18/9fd4188d-72b4-b04b-4f65-a16056abdd6a/mzaf_1353122615836269779.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/cuando-no-me-ves/1070592097?i=1070593516",
+      "spotify": null
+    },
+    "PH04": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b6/0c/19/b60c1938-fb91-529b-9585-66ad01d7dc25/mzaf_13455708433410271893.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/los-males-pasajeros/1070592097?i=1070593517",
+      "spotify": null
+    },
+    "PH05": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a2/22/1c/a2221c82-5204-7968-e46d-26f1c53ccc57/mzaf_3551097406664152215.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/i-m-t-incapacidad-moral-transitoria/1070592097?i=1070593518",
+      "spotify": null
+    },
+    "PH06": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/76/3c/ff/763cff5e-433c-3694-e6b4-7568c2b83738/mzaf_348714761600015202.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/en-busca-del-mago/1070592097?i=1070593519",
+      "spotify": null
+    },
+    "PH07": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2f/5e/6d/2f5e6d51-3131-5e40-fa54-93cff54945e2/mzaf_4408179012100783931.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/oc%C3%A9anos-de-sed/1070592097?i=1070593520",
+      "spotify": null
+    },
+    "PH10": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e7/71/7f/e7717fbc-7e28-a8d3-c886-83c89a2e4e56/mzaf_5712712899141478161.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/contraespionaje/1070592097?i=1070593523",
+      "spotify": null
+    },
+    "PH11": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6c/e6/5c/6ce65c61-16e6-1b62-6fad-7b4ec2e6267d/mzaf_17837461005168438756.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-yin-y-el-yen/1070592097?i=1070593524",
+      "spotify": null
+    },
+    "PH12": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b2/8a/32/b28a32f6-26ae-cfb3-c4b8-8fe7658ff36b/mzaf_10319282561507861139.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-ciclo-lunar-de-halley-star/1070592097?i=1070593525",
+      "spotify": null
+    },
+    "ES02": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/ef/50/b8ef50d2-abab-e1cb-119d-3d9da669c81b/mzaf_16813384001800990135.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/qu%C3%A9-vas-a-saber/1770508253?i=1770508271",
+      "spotify": null
+    },
+    "ES04": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7a/86/19/7a8619aa-3637-44a0-ba09-59992ac9d4bb/mzaf_12308013215906419215.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/contradicci%C3%B3n/1770508253?i=1770508523",
+      "spotify": null
+    },
+    "ES07": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/18/de/6818de2c-44f2-364a-b8bf-b7e5d6a72236/mzaf_16955983489549513816.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/la-champions-y-el-mundial-feat-leiva/1770508253?i=1770508546",
+      "spotify": null
+    }
+  },
+  "faltan": [
+    "ME10",
+    "NE14",
+    "NE15",
+    "PH08",
+    "PH09",
+    "VH01",
+    "VH02",
+    "VH03",
+    "ES01",
+    "ES03",
+    "ES05",
+    "ES06",
+    "ES08",
+    "ES09",
+    "ES10"
+  ]
+}
