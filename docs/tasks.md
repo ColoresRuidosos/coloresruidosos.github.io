@@ -139,7 +139,7 @@ Orden TDD: primero la prueba en rojo, luego el código.
 
 ## Fase 16 — Insignia de concierto y cartel con QR (F25/D31)
 - ✅ Spec
-- ⏳ 🔴→🟢 `normalizarCodigo` y `canjearConcierto`: código bueno en fecha, malo, fuera de fecha, ya canjeado; `gran_truco` no la pide
-- ⏳ Cliente: canje por `?codigo=` y por formulario en la colección; avisos; quitar el parámetro de la URL
-- ⏳ Cartel Carta y Doble Carta con QR verificado (se decodifica y abre la URL correcta)
-- ⏳ e2e: QR → insignia nueva en la colección; fuera de fecha → aviso
+- ✅ 🔴→🟢 `normalizarCodigo` y `canjearConcierto`: código bueno en fecha, malo, fuera de fecha, ya canjeado; `gran_truco` no la pide
+- ✅ Cliente: canje por `?codigo=` y por formulario en la colección; avisos; quitar el parámetro de la URL
+- ✅ Cartel Carta y Doble Carta con QR verificado (se decodifica y abre la URL correcta)
+- ✅ e2e: QR → insignia nueva en la colección; fuera de fecha → aviso

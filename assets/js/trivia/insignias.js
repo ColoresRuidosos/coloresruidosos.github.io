@@ -617,6 +617,24 @@
       "..........y..y..",
       ".........yYy...."
     ],
+    "boleto": [
+      "................",
+      "................",
+      "................",
+      ".rrrrrrrrrrrrrr.",
+      ".rwwwwwwwwkwwwr.",
+      ".rwwwwywwwwwwwr.",
+      "..wwwyYywwkwww..",
+      "..wwyYYYywwwww..",
+      "..wwwyYywwkwww..",
+      ".rwwwwywwwwwwwr.",
+      ".rwwwwwwwwkwwwr.",
+      ".rrrrrrrrrrrrrr.",
+      "................",
+      "................",
+      "................",
+      "................"
+    ],
     "sombrero": [
       "................",
       "........y.......",
@@ -637,7 +655,7 @@
     ]
   };
 
-  var AROS = { trivia: "#1FB57A", habilidad: "#FF3E7F", constancia: "#2F5BFF", secreta: "#FFD23F", contrarreloj: "#FF7A30", adivina: "#6ad3d0" };
+  var AROS = { trivia: "#1FB57A", habilidad: "#FF3E7F", constancia: "#2F5BFF", secreta: "#FFD23F", contrarreloj: "#FF7A30", adivina: "#6ad3d0", concierto: "#E0302B" };
   var SIGNO = ["..wwww..", ".ww..ww.", ".....ww.", "....ww..", "...ww...", "...ww...", "........", "...ww..."];
 
   function dentro(a, b, r) { var dx = a - 15.5, dy = b - 15.5; return dx * dx + dy * dy <= r * r; }

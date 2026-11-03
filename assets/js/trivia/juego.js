@@ -821,6 +821,50 @@
     avisoTimer = setTimeout(function () { avisoInsignia.hidden = true; }, 4000);
   }
 
+  // ---------- Insignia de concierto (F25/D31) ----------
+  var concierto = raiz.getAttribute("data-concierto-huella") ? {
+    huella: raiz.getAttribute("data-concierto-huella"),
+    desde: raiz.getAttribute("data-concierto-desde"), hasta: raiz.getAttribute("data-concierto-hasta"),
+  } : null;
+
+  function diasConcierto() {
+    var f = function (iso, opciones) { return new Date(iso).toLocaleDateString("es-MX", Object.assign({ timeZone: "America/Mexico_City" }, opciones)); };
+    return "del " + f(concierto.desde, { day: "numeric" }) + " al " + f(concierto.hasta, { day: "numeric", month: "long" });
+  }
+
+  function huellaDe(codigo) {
+    var datos = new TextEncoder().encode(T.normalizarCodigo(codigo));
+    return crypto.subtle.digest("SHA-256", datos).then(function (b) {
+      return Array.prototype.map.call(new Uint8Array(b), function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+    });
+  }
+
+  function canjear(codigo) {
+    var aviso = $("[data-codigo-aviso]");
+    pintarColeccion();
+    if (!window.crypto || !crypto.subtle) { aviso.textContent = "Tu navegador no puede revisar el código. Prueba con otro."; return Promise.resolve(); }
+    return huellaDe(codigo).then(function (h) {
+      var r = T.canjearConcierto(estado, h, concierto, new Date());
+      if (r.nuevas.length) { estado = r.estado; T.guardarEstado(almacen, estado); contar("concierto-canjeado"); pintarColeccion(); anunciarInsignias(r.nuevas); }
+      else contar("concierto-" + r.error);
+      $("[data-codigo-aviso]").textContent = {
+        "": "¡Desbloqueaste Noches reversibles! Gracias por venir 🎟",
+        codigo: "Ese código no existe. Revisa el que viene en el cartel.",
+        fecha: "Este código solo funciona los días de concierto (" + diasConcierto() + ").",
+        ya: "Ya tienes Noches reversibles. ¡Gracias por venir otra vez!",
+      }[r.error];
+    });
+  }
+
+  if (concierto) {
+    $("[data-codigo-form]").hidden = false;
+    $("[data-codigo-form]").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var campo = $("[data-codigo]");
+      if (campo.value.trim()) canjear(campo.value).then(function () { campo.value = ""; });
+    });
+  }
+
   function descubrir(id) {
     var r = T.registrarSecreto(estado, id, new Date());
     if (!r.nuevas.length) return;
@@ -1071,5 +1115,11 @@
   pintarBotonSonido();
   pintarInicio();
   mostrar("inicio", true);
+  // El QR del cartel abre /trivia/?codigo=…: se canjea solo y se quita el código de la URL.
+  var codigoUrl = new URLSearchParams(location.search).get("codigo");
+  if (codigoUrl && concierto) {
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) { /* sin historial */ }
+    canjear(codigoUrl);
+  }
   raiz.classList.add("esta-lista");
 })();

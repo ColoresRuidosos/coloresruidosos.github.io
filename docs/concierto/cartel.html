@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#fff}canvas{display:block}</style></head><body>
+<canvas id="c"></canvas>
+<script src="../../assets/js/trivia/insignias.js"></script><script src="../../assets/js/trivia/logica.js"></script>
+<script src="cartel-datos.js"></script>
+<script>
+// Cartel de concierto (F25/D31). Medidas en píxeles a 300 dpi, según ?w=&h=.
+const q = new URLSearchParams(location.search), W = +q.get('w') || 2550, H = +q.get('h') || 3300;
+const c = document.getElementById('c'); c.width = W; c.height = H; const x = c.getContext('2d');
+const PX = '"Press Start 2P", monospace', SG = '"Space Grotesk", sans-serif', u = W / 2550;
+const C = { tinta: '#141414', crema: '#F4EFE6', rosa: '#FF3E7F', azul: '#2F5BFF', amarillo: '#FFD23F', verde: '#1FB57A', naranja: '#FF7A30', rojo: '#E0302B' };
+function txt(s, X, Y, size, col, font = PX, peso = '') { x.font = `${peso}${size * u}px ${font}`; x.fillStyle = col; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillText(s, X, Y); }
+function dibujar() {
+  const D = window.CARTEL, INS = CRtrivia.INSIGNIAS.find((i) => i.id === 'noches_reversibles');
+  x.fillStyle = C.tinta; x.fillRect(0, 0, W, H);
+  [C.rosa, C.azul, C.amarillo, C.verde, C.naranja].forEach((k, i) => { x.fillStyle = k; x.fillRect(i * W / 5, 0, W / 5, 60 * u); x.fillRect(i * W / 5, H - 60 * u, W / 5, 60 * u); });
+  // Bloques de arriba abajo; el espacio que sobra se reparte entre ellos (sirve para Carta y Doble Carta).
+  const qrLado = Math.min(W * 0.52, H * 0.36), chapa = Math.round(qrLado * 0.42 / 32) * 32;
+  const bloques = [
+    [230 * u, (y) => { txt('Colores Ruidosos', W / 2, y + 90 * u, 76, C.rosa); txt('Trivia 8 bits de Love of Lesbian', W / 2, y + 190 * u, 48, C.crema); }],
+    [250 * u, (y) => { txt('Escanea y gana una', W / 2, y + 100 * u, 70, C.amarillo); txt('insignia exclusiva', W / 2, y + 210 * u, 70, C.amarillo); }],
+    [chapa + 140 * u, (y) => {
+      const ch = document.createElement('canvas'); ch.width = ch.height = 32; CRinsignias.dibujarChapa(ch.getContext('2d'), INS, 'ganada');
+      x.imageSmoothingEnabled = false; x.drawImage(ch, W / 2 - chapa / 2, y, chapa, chapa);
+      txt('«' + INS.nombre + '»', W / 2, y + chapa + 110 * u, 56, C.crema); }],
+    [qrLado, (y) => {
+      const m = D.qr, n = m.length, borde = 4, lado = qrLado, mod = lado / (n + 2 * borde), X0 = W / 2 - lado / 2;
+      x.fillStyle = '#ffffff'; x.fillRect(X0, y, lado, lado);
+      x.fillStyle = '#000000';
+      m.forEach((fila, j) => fila.forEach((v, i) => { if (v) x.fillRect(Math.floor(X0 + (i + borde) * mod), Math.floor(y + (j + borde) * mod), Math.ceil(mod), Math.ceil(mod)); }));
+      x.strokeStyle = C.rojo; x.lineWidth = 16 * u; x.strokeRect(X0 - 20 * u, y - 20 * u, lado + 40 * u, lado + 40 * u); }],
+    [150 * u, (y) => { txt('Solo ' + D.fechas, W / 2, y + 70 * u, 50, C.crema, SG, '700 '); txt('(hora del centro de México)', W / 2, y + 135 * u, 38, '#bbbbbb', SG, '500 '); }],
+    [300 * u, (y) => {
+      txt('¿No abre el QR? Entra a coloresruidosos.github.io/trivia', W / 2, y + 60 * u, 40, C.crema, SG, '500 ');
+      txt('→ Mi colección y escribe el código:', W / 2, y + 120 * u, 40, C.crema, SG, '500 ');
+      x.fillStyle = C.amarillo; x.font = `${64 * u}px ${PX}`; const w = x.measureText(D.codigo).width + 80 * u;
+      x.fillRect(W / 2 - w / 2, y + 160 * u, w, 120 * u); txt(D.codigo, W / 2, y + 255 * u, 64, C.tinta); }],
+    [190 * u, (y) => {
+      txt('Juega Trivia · Contrarreloj · Adivina la canción', W / 2, y + 60 * u, 40, C.verde, SG, '700 ');
+      txt('@coloresruidosos', W / 2, y + 150 * u, 52, C.rosa); }],
+    [80 * u, (y) => { txt('Hecho por fans: no somos la organización de la banda ni del concierto.', W / 2, y + 50 * u, 32, '#9a9a9a', SG, '500 '); }],
+  ];
+  const usado = bloques.reduce((s, b) => s + b[0], 0), libre = H - 120 * u - usado, hueco = libre / (bloques.length + 1);
+  let y = 60 * u + hueco;
+  bloques.forEach(([alto, f]) => { f(y); y += alto + hueco; });
+}
+window.listo = document.fonts.load('40px "Press Start 2P"').then(() => document.fonts.load('700 40px "Space Grotesk"'))
+  .then(() => document.fonts.load('500 40px "Space Grotesk"')).then(() => { dibujar(); return true; });
+</script></body></html>

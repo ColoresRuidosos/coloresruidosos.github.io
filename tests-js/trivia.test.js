@@ -243,12 +243,12 @@ test("Allí donde solíamos gritar al compartir, una sola vez", () => {
 });
 
 test("cada insignia del catálogo tiene nombre, cómo ganarla, familia e ícono", () => {
-  assert.strictEqual(T.INSIGNIAS.length, 35);
+  assert.strictEqual(T.INSIGNIAS.length, 36);
   T.INSIGNIAS.forEach((i) => {
     assert.ok(i.id && i.nombre && i.como && i.icono, JSON.stringify(i));
-    assert.ok(["trivia", "habilidad", "constancia", "secreta", "contrarreloj", "adivina"].includes(i.familia), i.id);
+    assert.ok(["trivia", "habilidad", "constancia", "secreta", "contrarreloj", "adivina", "concierto"].includes(i.familia), i.id);
   });
-  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 35);
+  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 36);
 });
 
 // ---------- Portadas coleccionables ----------
@@ -393,7 +393,7 @@ test("Contraespionaje y Wio se ganan con registrarSecreto; un id desconocido no 
 test("El gran truco final: todas las demás, sin contar El último baile", () => {
   const estado = T.estadoInicial();
   T.INSIGNIAS.forEach((i) => {
-    if (!["gran_truco", "ultimo_baile", "wio"].includes(i.id) && i.familia !== "contrarreloj" && i.familia !== "adivina") estado.insignias[i.id] = BASE.toISOString();
+    if (!["gran_truco", "ultimo_baile", "wio"].includes(i.id) && !["contrarreloj", "adivina", "concierto"].includes(i.familia)) estado.insignias[i.id] = BASE.toISOString();
   });
   assert.deepStrictEqual(T.registrarSecreto(estado, "wio", BASE).nuevas, ["wio", "gran_truco"]);
   delete estado.insignias.me_amo;

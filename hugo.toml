@@ -15,6 +15,14 @@ enableRobotsTXT = true
   # Vacía = el ranking no aparece en el sitio.
   trivia_ranking_url = "https://script.google.com/macros/s/AKfycbyXT2UuJZfnpcZWH61l0YeI4kfDYNKrQrH-E8-mL4OMuytXB-pqlHohSDkrGrwLGgPl/exec"
 
+  # Insignia de concierto «Noches reversibles» (F25/D31). El código va en el QR del cartel
+  # (docs/concierto/); usa solo letras sin acento y números. Si lo cambias, regenera el cartel.
+  # Sin esta tabla, el formulario del código no aparece.
+  [params.trivia_concierto]
+    codigo = "LOLMEXICO26"
+    desde = "2026-11-24T00:00:00-06:00"
+    hasta = "2026-11-28T23:59:59-06:00"
+
 [permalinks.page]
   posts = "/notas/:slug/"
 [permalinks.section]
