@@ -10,6 +10,7 @@ on:
       - "data/canciones.json"
       - "pipeline/resolver_audio.py"
       - "pipeline/cr/audio_trivia.py"
+      - "pipeline/cr/inicio_audio.py"
       - ".github/workflows/audio-trivia.yml"
 
 permissions:
@@ -38,10 +39,13 @@ jobs:
           cache-dependency-path: pipeline/requirements.txt
 
       - name: Instalar dependencias
-        run: pip install -r pipeline/requirements.txt
+        run: |
+          pip install -r pipeline/requirements.txt
+          # ffmpeg mide dónde empieza a sonar cada avance (F22/D28); viene en la imagen, pero por si acaso.
+          command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
 
       - name: Tests del resolvedor
-        run: pytest pipeline/tests/test_audio_trivia.py -q
+        run: pytest pipeline/tests/test_audio_trivia.py pipeline/tests/test_inicio_audio.py -q
 
       - name: Buscar avances y enlaces
         env:

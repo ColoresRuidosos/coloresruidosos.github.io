@@ -116,4 +116,18 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 Racha con al menos una acertada; práctica al azar
 - ✅ 🔴→🟢 `Code.gs`: modos contrarreloj y adivina; tablas hoy, semana (suma) y racha
 - ✅ Pantallas: ronda, revelación por canción, resumen, práctica, publicar en contrarreloj y Adivina la canción, ranking por modo
-- ⏳ V12: el equipo publica la nueva versión del script
+- ✅ V12: el equipo publica la nueva versión del script (implementación nueva, URL cambiada en `hugo.toml`)
+
+## Fase 13 — Adivina la canción sin silencios e insignias (F22/D28)
+- ✅ Spec
+- ✅ 🔴→🟢 `inicio_audible`: salta fade y silencio inicial; tope 14 s; sin ventana válida, la de más energía
+- ✅ 🔴→🟢 Resolvedor: guarda `inicio`, reutiliza el de la corrida anterior, 0 si la descarga falla
+- ✅ 🔴→🟢 `cerrarAdivina`: las 6 insignias; `gran_truco` no las pide; sprites de 16×16
+- ✅ Cliente: fragmentos desde `inicio`; botón "No la sé · oír N s" / "Me rindo"; insignias nuevas al final de la ronda
+- ⏳ Corrida del workflow en el PR: `data/audio.json` con `inicio` para las 68 canciones
+
+## Fase 14 — Inicio y menú de modos (F23/D29)
+- ✅ Spec
+- ✅ Inicio con solo "▶ Iniciar"; menú con los 3 modos y su explicación; colección, ranking, sonido y récord en el menú
+- ✅ "Volver" de juegos, colección y ranking → menú; "Volver" del menú → inicio
+- ✅ e2e a 390 px: iniciar → elegir cada modo → volver

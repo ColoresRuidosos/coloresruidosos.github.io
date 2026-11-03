@@ -3,7 +3,8 @@
 Uso:
     python pipeline/resolver_audio.py
 
-Necesita red hacia itunes.apple.com y api.spotify.com; corre en GitHub Actions (audio-trivia.yml).
+Necesita red hacia itunes.apple.com, audio-ssl.itunes.apple.com y api.spotify.com, y ffmpeg para medir dónde
+empieza a sonar cada avance (F22/D28); corre en GitHub Actions (audio-trivia.yml).
 Sin SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET, el enlace de Spotify lleva a la búsqueda de la canción.
 """
 import base64
@@ -15,12 +16,14 @@ from pathlib import Path
 import requests
 
 from cr.audio_trivia import TIEMPO, ResolverAudio, mismos_datos
+from cr.inicio_audio import medir_inicio
 
 RAIZ = Path(__file__).resolve().parent.parent
 CANCIONES = RAIZ / "data/canciones.json"
 SALIDA = RAIZ / "data/audio.json"
 NOTA = ("Generado por pipeline/resolver_audio.py (GitHub Actions: audio-trivia.yml). Avance oficial de 30 s de "
-        "Apple Music y enlace a la pista en Spotify, solo con coincidencia exacta de título, artista y disco de estudio.")
+        "Apple Music, segundo del avance donde ya suena (inicio) y enlace a la pista en Spotify, solo con coincidencia exacta "
+        "de título, artista y disco de estudio.")
 
 
 def token_spotify():
@@ -44,14 +47,17 @@ def token_spotify():
 def main():
     datos = json.loads(CANCIONES.read_text(encoding="utf-8"))
     jugables = [c for c in datos["canciones"] if c["fuerza"] == "solida" and (datos.get("borrador") or c["estado"] == "verificada")]
-    res = ResolverAudio(token_spotify=token_spotify()).resolver(jugables, datos["discos"])
+    previo = json.loads(SALIDA.read_text(encoding="utf-8")) if SALIDA.exists() else None
+    res = ResolverAudio(token_spotify=token_spotify(), medir_inicio=medir_inicio,
+                        previos=(previo or {}).get("canciones")).resolver(jugables, datos["discos"])
     salida = {"_nota": NOTA, "generado": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
               "canciones": res["canciones"], "faltan": res["faltan"]}
-    previo = json.loads(SALIDA.read_text(encoding="utf-8")) if SALIDA.exists() else None
     if mismos_datos(previo, salida):
         print("Sin cambios en los avances ni en los enlaces; data/audio.json se queda igual.")
     else:
         SALIDA.write_text(json.dumps(salida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    movidos = sum(1 for v in res["canciones"].values() if v.get("inicio"))
+    print(f"{movidos} avances empiezan después del segundo 0 para saltar silencio o fade inicial.")
     exactos = sum(1 for v in res["canciones"].values() if v["spotify_exacto"])
     print(f"{len(res['canciones'])} de {len(jugables)} canciones con avance; {exactos} con enlace directo de Spotify "
           "(las demás enlazan a la búsqueda en Spotify).")

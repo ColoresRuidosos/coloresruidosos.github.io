@@ -70,13 +70,28 @@ def busqueda_spotify(titulo: str) -> str:
 class ResolverAudio:
     """http_get: función tipo requests.get (inyectable para pruebas). token_spotify: función que da el token, o None.
     esperar: función tipo time.sleep. La API de iTunes limita las búsquedas por minuto: se hace una pausa antes de
-    cada una y, si responde 403 o 429, se espera un minuto y se reintenta una vez."""
+    cada una y, si responde 403 o 429, se espera un minuto y se reintenta una vez.
+    medir_inicio: función url → segundos donde el avance ya suena (F22/D28); None = no se mide. previos: las
+    canciones de la corrida anterior, para reutilizar el inicio de un avance que no cambió."""
 
-    def __init__(self, http_get=requests.get, token_spotify=None, esperar=time.sleep, pausa_s=3.2):
+    def __init__(self, http_get=requests.get, token_spotify=None, esperar=time.sleep, pausa_s=3.2,
+                 medir_inicio=None, previos=None):
         self.http_get = http_get
         self.token_spotify = token_spotify
         self.esperar = esperar
         self.pausa_s = pausa_s
+        self.medir_inicio = medir_inicio
+        self.previos = previos or {}
+
+    def inicio(self, cid: str, preview: str):
+        previo = self.previos.get(cid) or {}
+        if previo.get("preview") == preview and isinstance(previo.get("inicio"), (int, float)):
+            return previo["inicio"]
+        try:
+            return self.medir_inicio(preview)
+        except Exception as exc:  # noqa: BLE001 — sin medición, el fragmento empieza en 0 como antes
+            print(f"{cid}: no se pudo medir dónde empieza a sonar ({type(exc).__name__}); se usa 0")
+            return 0
 
     def apple(self, titulo: str, disco: str):
         params = {"term": f"{titulo} {ARTISTA}", "entity": "song", "limit": 25, "country": "MX"}
@@ -126,4 +141,6 @@ class ResolverAudio:
                 "spotify": f"https://open.spotify.com/track/{s['id']}" if s else busqueda_spotify(c["titulo"]),
                 "spotify_exacto": bool(s),
             }
+            if self.medir_inicio:
+                salida[c["id"]]["inicio"] = self.inicio(c["id"], a["previewUrl"])
         return {"canciones": salida, "faltan": faltan}

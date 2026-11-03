@@ -387,6 +387,21 @@ body.sin-scroll { overflow: hidden; }
 .trivia__pantalla { margin-top: 1rem; }
 .trivia__intro, .trivia__record { font-size: 1rem; margin: 0 0 1rem; }
 .trivia__record:empty { display: none; }
+/* Inicio y menú de modos (F23) */
+.trivia__pantalla--inicio:not([hidden]) { display: flex; justify-content: center; margin: 1.5rem 0 .5rem; }
+.trivia__boton--iniciar { font-size: 1.125rem; padding: 1rem 2.5rem; }
+.trivia[data-en="modos"] .trivia__escena { display: none; }
+.trivia__modos { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 1rem; }
+.trivia__modo { display: block; width: 100%; text-align: left; cursor: pointer; color: var(--text-main); background: var(--accent-orange);
+  border: 3px solid var(--accent-orange); box-shadow: 4px 4px 0 var(--accent-pink); padding: 1rem; font: inherit; }
+.trivia__modo strong { display: block; font-family: var(--pixel); font-size: .875rem; line-height: 1.5; margin-bottom: .5rem; }
+.trivia__modo span { display: block; font-size: 1rem; line-height: 1.4; }
+.trivia__modo--cr { background: var(--accent-blue); border-color: var(--accent-blue); color: var(--tinta-clara); box-shadow: 4px 4px 0 var(--accent-yellow); }
+.trivia__modo--dia { background: var(--accent-yellow); border-color: var(--accent-yellow); box-shadow: 4px 4px 0 var(--accent-blue); }
+.trivia__modo:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--accent-pink); }
+.trivia__modo:active { transform: translate(4px, 4px); box-shadow: none; }
+.trivia__modo:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .trivia__modo:hover, .trivia__modo:active { transform: none; } }
 .trivia__acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0; }
 .trivia__boton { font-family: var(--pixel); font-size: .75rem; line-height: 1.5; color: var(--text-main); background: var(--tinta-clara); border: 3px solid var(--tinta-clara); box-shadow: 4px 4px 0 var(--accent-pink); padding: .8rem 1rem; cursor: pointer; }
 .trivia__boton:hover { background: var(--accent-yellow); }

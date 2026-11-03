@@ -107,6 +107,29 @@
 - **Adivina la canción:** **Hoy** (mejor ronda del día), **Semana** (suma de las rondas de lunes a domingo, una por día) y **Mejor racha** (más días seguidos con al menos una acertada).
 - Para publicar contrarreloj y Adivina la canción, el equipo actualiza el Apps Script **una vez** a una nueva versión de la misma implementación, sin cambiar la URL.
 
+**F22 Adivina la canción sin silencios, botón claro e insignias.**
+- **Ningún fragmento empieza en silencio:** algunos avances de Apple arrancan con un fade o una intro muda, y el fragmento de 1 s sonaba vacío. Cada canción guarda en qué segundo del avance empieza a sonar de verdad, y todos sus fragmentos parten de ahí (igual para todos los jugadores).
+- **El botón de saltar dice lo que hace:** "No la sé · oír 2 s" (luego 4, 7, 11 y 16 s) y, en el último intento, "Me rindo". Queda claro que da más fragmento de la misma canción y no cambia de canción.
+- **Seis insignias propias** (familia Adivina la canción, aro cian), con nombres de canciones del banco:
+
+| Insignia | Cómo se gana | Visible |
+|---|---|---|
+| Música de ascensores | Terminar tu primera ronda (del día o de práctica) | Sí |
+| Mi primera combustión | Adivinar una canción con 1 segundo | Sí |
+| Ya sale el sol | Acertar las 10 canciones de una ronda | Sí |
+| Domingo astromántico | Racha de 7 días seguidos en la ronda del día | Sí |
+| Nada | No acertar ninguna en una ronda | Secreta · pista: "Ni una te sonó conocida" |
+| El día que Starman huyó | 60 de 60: las 10 con 1 segundo | Secreta · pista: "Ni un segundo más" |
+
+  Las rondas de práctica también dan insignias (menos la racha). Las insignias nuevas salen al final de la ronda, como en el contrarreloj, y se suman a la colección. "El gran truco final" no las pide, igual que con las del contrarreloj.
+
+**F23 Inicio con un solo botón y menú de modos.** El inicio solo dice **"▶ Iniciar"** (con la pantallita animada y sus secretos de siempre). Al tocarlo aparece **"Elige tu modo de juego"** con los tres modos y una explicación breve de cada uno:
+- **▶ Trivia:** 15 preguntas en 6 etapas, de la etapa en inglés a la pausa de 2026. Descubre qué tan lesbiano eres.
+- **⏱ Contrarreloj:** 60 segundos. Te damos una canción y eliges de qué disco es; las rachas multiplican tus puntos.
+- **🔊 Adivina la canción:** escucha fragmentos de 1 a 16 segundos. 10 canciones al día, la misma ronda para todos.
+
+Al elegir, entra directo a ese juego. En el menú también están Mi colección, Ranking, el sonido y tu récord. Los botones "Volver" de los juegos, la colección y el ranking regresan a este menú, y el menú tiene su propio "Volver" al inicio.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
