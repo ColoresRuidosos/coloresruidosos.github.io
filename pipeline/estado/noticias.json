@@ -26,28 +26,6 @@
       },
       "vista": "2026-10-30T17:24:15.873502-06:00"
     },
-    "https://consequence.net/2026/10/calvin-harris-2027-north-american-tour-how-to-get-sold-out-tickets": {
-      "c": {
-        "artista": "Calvin Harris",
-        "categoria": "gira",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-10-29T17:43:25.637378-06:00"
-    },
-    "https://consequence.net/2026/10/cheap-trick-break-from-touring-2027": {
-      "c": {
-        "artista": "Cheap Trick",
-        "categoria": "anuncio",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-10-29T17:43:25.637378-06:00"
-    },
     "https://consequence.net/2026/10/coachella-2027-sza-dua-lipa-and-tame-impala-to-headline-per-new-report": {
       "c": {
         "artista": "Tame Impala",
@@ -202,14 +180,6 @@
       },
       "vista": "2026-10-31T12:14:17.604046-06:00"
     },
-    "https://consequence.net/2026/10/patrick-stewart-dead": {
-      "c": null,
-      "vista": "2026-10-29T17:43:25.637378-06:00"
-    },
-    "https://consequence.net/2026/10/patrick-stewart-tributes": {
-      "c": null,
-      "vista": "2026-10-29T17:43:25.637378-06:00"
-    },
     "https://consequence.net/2026/10/queens-of-the-stone-age-perfecth-album-stream": {
       "c": {
         "artista": "Queens of the Stone Age",
@@ -262,24 +232,9 @@
       "c": null,
       "vista": "2026-10-31T12:14:17.604046-06:00"
     },
-    "https://consequence.net/2026/10/wolfgang-van-halen-mammoth-part-ways-drummer-garrett-whitlock": {
-      "c": {
-        "artista": "Wolfgang Van Halen's Mammoth",
-        "categoria": "anuncio",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-10-29T17:43:25.637378-06:00"
-    },
     "https://consequence.net/2026/10/zack-de-la-rocha-turnstile": {
       "c": null,
       "vista": "2026-10-30T12:59:56.086843-06:00"
-    },
-    "https://consequence.net/2026/10/zelda-ocarina-of-time-remake-switch-2-deal": {
-      "c": null,
-      "vista": "2026-10-29T17:43:25.637378-06:00"
     },
     "https://consequence.net/2026/11/2026-kennedy-center-honors-david-mamet-andy-garcia": {
       "c": null,
@@ -462,6 +417,17 @@
       "c": null,
       "vista": "2026-11-02T16:37:00.497186-06:00"
     },
+    "https://consequence.net/2026/11/tove-lo-2027-us-tour-dates": {
+      "c": {
+        "artista": "Tove Lo",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
+    },
     "https://consequence.net/2026/11/trump-ruins-david-s-pumpkins-return-to-snl": {
       "c": {
         "artista": "David S. Pumpkins",
@@ -490,6 +456,24 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-01T17:15:36.681791-06:00"
+    },
+    "https://indierocks.mx/agenda/nothing-se-presentara-en-el-foro-niebla": {
+      "c": {
+        "artista": "Nothing",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "",
+            "fecha": "2027-02-25",
+            "pais": "MX",
+            "recinto": "Foro Niebla"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
     },
     "https://indierocks.mx/agenda/nueva-fecha-u2-se-presentara-en-el-estadio-gnp-seguros": {
       "c": {
@@ -526,6 +510,24 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-02T16:37:00.497186-06:00"
+    },
+    "https://indierocks.mx/agenda/precios-arca-se-presentara-en-la-maravilla-studios": {
+      "c": {
+        "artista": "Arca",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2026-11-28",
+            "pais": "MX",
+            "recinto": "La Maravilla Studios"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
     },
     "https://indierocks.mx/agenda/precios-clubz-dara-un-show-en-el-lunario": {
       "c": {
@@ -581,6 +583,60 @@
       },
       "vista": "2026-11-02T16:37:00.497186-06:00"
     },
+    "https://indierocks.mx/agenda/precios-hesse-kassel-dara-un-show-en-el-lunario": {
+      "c": {
+        "artista": "Hesse Kassel",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-02-10",
+            "pais": "MX",
+            "recinto": "Lunario"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
+    },
+    "https://indierocks.mx/agenda/precios-instincktt-llegara-al-foro-indie-rocks": {
+      "c": {
+        "artista": "Instincktt",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2026-12-01",
+            "pais": "MX",
+            "recinto": "Foro Indie Rocks! Sala A"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
+    },
+    "https://indierocks.mx/agenda/precios-klangkarussell-se-presentara-en-el-foro-indie-rocks": {
+      "c": {
+        "artista": "Klangkarussell",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [
+          {
+            "ciudad": "",
+            "fecha": "2027-01-21",
+            "pais": "MX",
+            "recinto": "Foro Indie Rocks! Sala A"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
+    },
     "https://indierocks.mx/agenda/precios-kygo-se-presentara-en-el-estadio-gnp-seguros": {
       "c": {
         "artista": "Kygo",
@@ -617,6 +673,17 @@
       },
       "vista": "2026-11-02T16:37:00.497186-06:00"
     },
+    "https://indierocks.mx/musica//connan-mockasin-siete-anos-despues-las-cosas-vuelven-a-ponerse-raras": {
+      "c": {
+        "artista": "Connan Mockasin",
+        "categoria": "anuncio",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
+    },
     "https://indierocks.mx/musica/entrevistas/entrevista-con-laurela": {
       "c": {
         "artista": "Laurela",
@@ -639,16 +706,27 @@
       },
       "vista": "2026-10-31T12:14:17.604046-06:00"
     },
-    "https://indierocks.mx/musica/entrevistas/entrevista-con-queens-of-the-stone-age-2": {
+    "https://indierocks.mx/musica/noticias/anamanaguchi-presenta-sucker-punch-su-nuevo-sencillo": {
       "c": {
-        "artista": "Queens of the Stone Age",
+        "artista": "Anamanaguchi",
         "categoria": "lanzamiento",
         "es_indie_rock": true,
         "fechas_evento": [],
         "relevancia": "general",
-        "titulo_lanzamiento": "Perfecth"
+        "titulo_lanzamiento": "Sucker Punch"
       },
-      "vista": "2026-10-29T17:43:25.637378-06:00"
+      "vista": "2026-11-02T19:55:45.211622-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/atlas-sound-regresa-tras-15-anos-con-octoberland": {
+      "c": {
+        "artista": "Atlas Sound",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Octoberland"
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
     },
     "https://indierocks.mx/musica/noticias/glasvegas-explora-sus-defectos-en-deguello": {
       "c": {
@@ -660,6 +738,17 @@
         "titulo_lanzamiento": "Airy Fairy"
       },
       "vista": "2026-10-30T12:59:56.086843-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/graham-hill-presenta-taking-in-stars-su-album-debut": {
+      "c": {
+        "artista": "Graham Hill",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Taking In Stars"
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
     },
     "https://indierocks.mx/musica/noticias/guided-by-voices-anuncia-speculation-and-gossip": {
       "c": {
@@ -693,6 +782,17 @@
         "titulo_lanzamiento": "Pusher"
       },
       "vista": "2026-10-30T12:59:56.086843-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/mei-semones-rinde-tributo-a-su-banda-en-2-hands": {
+      "c": {
+        "artista": "Mei Semones",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Howl"
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
     },
     "https://indierocks.mx/musica/noticias/nuevos-discos-del-24-al-30-de-octubre": {
       "c": {
@@ -1789,11 +1889,23 @@
         "titulo_lanzamiento": "Friends For This"
       },
       "vista": "2026-11-02T16:37:00.497186-06:00"
+    },
+    "https://stereogum.com/2516399/justin-timberlake-prepping-four-part-tell-all-docuseries-featuring-janet-jackson/news": {
+      "c": {
+        "artista": "Justin Timberlake",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-02T19:55:45.211622-06:00"
     }
   },
   "claves_publicadas": {
     "alcala norte|gira": "2026-10-20T17:14:29.421699-06:00",
     "alcala norte|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
+    "anamanaguchi|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "atlas sound|lanzamiento": "2026-10-30T17:24:15.873502-06:00",
     "balkan paradise orchestra|lanzamiento": "2026-10-21T12:25:25.999252-06:00",
     "ben folds five|gira": "2026-10-21T16:55:39.017815-06:00",
@@ -1803,6 +1915,7 @@
     "chats|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
     "chvrches|lanzamiento": "2026-10-28T23:25:45.404979-06:00",
     "clubz|gira": "2026-10-20T17:14:29.421699-06:00",
+    "connan mockasin|anuncio": "2026-11-02T19:55:45.211622-06:00",
     "damien rice|gira": "2026-10-20T17:14:29.421699-06:00",
     "dead man s bones|lanzamiento": "2026-10-28T23:25:45.404979-06:00",
     "diiv|lanzamiento": "2026-10-29T17:43:25.637378-06:00",
@@ -1824,11 +1937,14 @@
     "giant rooks|gira": "2026-11-02T16:37:00.497186-06:00",
     "glasvegas|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
     "glockenwise|gira": "2026-10-28T23:30:45.136900-06:00",
+    "graham hill|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "guided by voices|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
     "haute freddy|lanzamiento": "2026-10-28T23:30:45.136900-06:00",
+    "hesse kassel|gira": "2026-11-02T19:55:45.211622-06:00",
     "hidrogenesse|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
     "hostia pedagogica|anuncio": "2026-10-29T13:26:03.077263-06:00",
     "hot chip|lanzamiento": "2026-10-20T17:14:29.421699-06:00",
+    "instincktt|gira": "2026-11-02T19:55:45.211622-06:00",
     "jandek|anuncio": "2026-10-31T16:57:13.016389-06:00",
     "jim james|anuncio": "2026-10-29T17:43:25.637378-06:00",
     "jungle|anuncio": "2026-10-21T16:55:39.017815-06:00",
@@ -1846,9 +1962,11 @@
     "loved ones|lanzamiento": "2026-10-21T16:55:39.017815-06:00",
     "magdalena abrego|lanzamiento": "2026-10-31T16:57:13.016389-06:00",
     "marcelo criminal|lanzamiento": "2026-11-01T12:45:53.275008-06:00",
+    "mei semones|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "militarie gun|gira": "2026-10-29T13:26:03.077263-06:00",
     "my chemical romance|anuncio": "2026-10-31T12:14:17.604046-06:00",
     "my chemical romance|lanzamiento": "2026-10-31T16:57:13.016389-06:00",
+    "nothing|gira": "2026-11-02T19:55:45.211622-06:00",
     "or best offer|lanzamiento": "2026-10-31T16:57:13.016389-06:00",
     "panda bear|lanzamiento": "2026-11-01T12:45:53.275008-06:00",
     "pes mort|anuncio": "2026-11-01T12:45:53.275008-06:00",
@@ -1906,16 +2024,20 @@
     "https://consequence.net/2026/10/voivod-cancel-us-tour-due-to-family-health-emergency": "2026-10-05T19:03:28.834255-06:00",
     "https://indierocks.mx/agenda/damien-rice-se-presentara-en-el-auditorio-bb": "2026-10-20T17:14:29.421699-06:00",
     "https://indierocks.mx/agenda/garbage-se-presentara-en-el-zocalo-de-la-cdmx": "2026-10-16T11:49:27.320217-06:00",
+    "https://indierocks.mx/agenda/nothing-se-presentara-en-el-foro-niebla": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/agenda/nueva-fecha-fobia-llegara-al-palacio-de-los-deportes": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/agenda/nueva-fecha-haute-freddy-se-presentara-en-el-foro-indie-rocks": "2026-10-09T17:44:27.733041-06:00",
     "https://indierocks.mx/agenda/olas-al-azar-atenea-en-la-luna-yasp-en-house-of-vans": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/agenda/precios-division-minuscula-llegara-al-palacio-de-los-deportes": "2026-11-02T16:37:00.497186-06:00",
     "https://indierocks.mx/agenda/precios-giant-rooks-llegara-al-teatro-metropolitan": "2026-11-02T16:37:00.497186-06:00",
+    "https://indierocks.mx/agenda/precios-hesse-kassel-dara-un-show-en-el-lunario": "2026-11-02T19:55:45.211622-06:00",
+    "https://indierocks.mx/agenda/precios-instincktt-llegara-al-foro-indie-rocks": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/agenda/precios-rubytates-llegara-al-teatro-metropolitan": "2026-11-02T16:37:00.497186-06:00",
     "https://indierocks.mx/agenda/precios-semana-ir-2026-tr-st-se-presentara-en-el-foro-indie-rocks": "2026-10-16T11:49:27.320217-06:00",
     "https://indierocks.mx/agenda/she-past-away-llegara-al-auditorio-bb": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/agenda/sold-out-road-to-hipnosis-awakening-black-country-new-road-en-orbe": "2026-10-09T17:44:27.733041-06:00",
     "https://indierocks.mx/agenda/walter-esau-se-presentara-en-house-of-vans": "2026-10-07T13:45:47.438309-06:00",
+    "https://indierocks.mx/musica//connan-mockasin-siete-anos-despues-las-cosas-vuelven-a-ponerse-raras": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-fat-dog": "2026-10-21T16:55:39.017815-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-kneecap-2": "2026-10-16T16:21:37.269720-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-levitation-room": "2026-10-21T12:25:25.999252-06:00",
@@ -1923,6 +2045,7 @@
     "https://indierocks.mx/musica/entrevistas/entrevista-con-of-monsters-and-men": "2026-10-07T17:57:07.177357-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-rodrigo-y-gabriela-3": "2026-10-07T17:57:07.177357-06:00",
     "https://indierocks.mx/musica/entrevistas/entrevista-con-son-lux": "2026-10-09T17:44:27.733041-06:00",
+    "https://indierocks.mx/musica/noticias/anamanaguchi-presenta-sucker-punch-su-nuevo-sencillo": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/musica/noticias/anttonias-presenta-verlos-morir-antes-de-su-nuevo-album": "2026-10-13T14:06:08.464450-06:00",
     "https://indierocks.mx/musica/noticias/berlin-project-la-nueva-banda-de-paul-banks": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/bjork-anuncia-un-disco-en-vivo": "2026-10-09T17:44:27.733041-06:00",
@@ -1939,6 +2062,7 @@
     "https://indierocks.mx/musica/noticias/everything-but-the-girl-regresa-con-young-and-dumb": "2026-10-29T13:26:03.077263-06:00",
     "https://indierocks.mx/musica/noticias/frank-black-presenta-teenager-of-the-year-live": "2026-10-08T13:41:12.192325-06:00",
     "https://indierocks.mx/musica/noticias/glasvegas-explora-sus-defectos-en-deguello": "2026-10-30T12:59:56.086843-06:00",
+    "https://indierocks.mx/musica/noticias/graham-hill-presenta-taking-in-stars-su-album-debut": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/musica/noticias/grimes-anuncia-disco-y-estrena-accelerando": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/guided-by-voices-anuncia-speculation-and-gossip": "2026-10-30T12:59:56.086843-06:00",
     "https://indierocks.mx/musica/noticias/haute-freddy-explora-el-romance-en-film-noir": "2026-10-28T23:30:45.136900-06:00",
@@ -1950,6 +2074,7 @@
     "https://indierocks.mx/musica/noticias/luz-lo-nuevo-de-daniel-quien": "2026-10-14T12:19:48.283150-06:00",
     "https://indierocks.mx/musica/noticias/matador-records-reeditara-piouhgd-y-humpty-dumpty-lsd-de-butthole-surfers": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/musica/noticias/mei-semones-presenta-howl-su-nuevo-sencillo-y-album": "2026-10-05T15:22:47.000574-06:00",
+    "https://indierocks.mx/musica/noticias/mei-semones-rinde-tributo-a-su-banda-en-2-hands": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/musica/noticias/napoleon-solo-vuelve-tras-11-anos-con-mil-demonios": "2026-10-14T12:19:48.283150-06:00",
     "https://indierocks.mx/musica/noticias/nortec-bostich-fussible-regresa-con-tropics-disco": "2026-10-12T19:44:36.494092-06:00",
     "https://indierocks.mx/musica/noticias/o-tortuga-anuncia-deriva-santa-su-cuarto-disco": "2026-10-07T13:45:47.438309-06:00",
