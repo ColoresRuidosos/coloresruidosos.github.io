@@ -87,6 +87,11 @@
 - **`Code.gs`:** `MODOS` suma `contrarreloj` (máx. 400 puntos, duración 3–90 s) y `adivina` (máx. 60, duración 5 s–1 h, una ronda por nombre y fecha). `doGet?modo=adivina` devuelve `{hoy, semana, racha}`: *hoy* = filas de la fecha de CDMX; *semana* = suma por nombre de la primera ronda de cada día de la semana; *racha* = días seguidos por nombre con puntos > 0 que terminan hoy o ayer. Las funciones son puras y se prueban en Node como las de D24.
 - **El cliente sigue funcionando con el script viejo:** si el servidor rechaza un modo nuevo ("modo"), el juego avisa que el ranking de ese modo aún no está activo.
 
+**D28 Inicio audible e insignias de Adivina la canción (2026-11-03):** F22.
+- **`inicio` por canción en `data/audio.json`:** el resolvedor (GitHub Actions) descarga cada avance, lo decodifica con ffmpeg a mono 8 kHz y mide la energía (RMS) cada 0,1 s. Referencia = percentil 95 del avance. `inicio` = primer segundo *t* (en pasos de 0,1) cuya ventana [t, t+1) tiene RMS medio ≥ 35 % de la referencia y ningún cuarto de segundo por debajo del 10 %. Tope 14 s (para que quepan los 16 s); si ninguna ventana cumple, la de más energía antes de 14 s. Si el avance no cambió desde la corrida anterior, se reutiliza su `inicio` sin descargar. Si la descarga falla, `inicio` = 0 y se avisa en el resumen.
+- **Cliente:** "Escuchar" va a `inicio` (espera `loadedmetadata` si hace falta) y pausa a los 1/2/4/7/11/16 s desde ahí.
+- **Insignias:** `logica.js` suma la familia `adivina` y `cerrarAdivina(estado, {aciertos, puntos, primeros, racha, diaria})`; `primeros` = canciones acertadas con 1 s. `tieneTodas` ignora la familia `adivina`. Chapas de 16×16 en `insignias.js`: nota, cerillo, sol, estrella, silencio y Starman.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
