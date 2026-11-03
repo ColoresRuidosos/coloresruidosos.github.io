@@ -14,7 +14,7 @@ from pathlib import Path
 
 import requests
 
-from cr.audio_trivia import TIEMPO, ResolverAudio
+from cr.audio_trivia import TIEMPO, ResolverAudio, mismos_datos
 
 RAIZ = Path(__file__).resolve().parent.parent
 CANCIONES = RAIZ / "data/canciones.json"
@@ -47,7 +47,11 @@ def main():
     res = ResolverAudio(token_spotify=token_spotify()).resolver(jugables, datos["discos"])
     salida = {"_nota": NOTA, "generado": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
               "canciones": res["canciones"], "faltan": res["faltan"]}
-    SALIDA.write_text(json.dumps(salida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    previo = json.loads(SALIDA.read_text(encoding="utf-8")) if SALIDA.exists() else None
+    if mismos_datos(previo, salida):
+        print("Sin cambios en los avances ni en los enlaces; data/audio.json se queda igual.")
+    else:
+        SALIDA.write_text(json.dumps(salida, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     exactos = sum(1 for v in res["canciones"].values() if v["spotify_exacto"])
     print(f"{len(res['canciones'])} de {len(jugables)} canciones con avance; {exactos} con enlace directo de Spotify "
           "(las demás enlazan a la búsqueda en Spotify).")

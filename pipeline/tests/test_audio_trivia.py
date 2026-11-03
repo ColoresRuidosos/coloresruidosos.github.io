@@ -137,3 +137,11 @@ def test_apple_hace_pausa_entre_busquedas_y_reintenta_si_lo_frenan():
     assert salida["faltan"] == []
     assert any(p >= 30 for p in pausas), "espera larga antes de reintentar"
     assert pausas.count(r.pausa_s) >= 2, "pausa entre búsquedas"
+
+
+def test_solo_se_reescribe_audio_json_si_cambian_los_datos():
+    from cr.audio_trivia import mismos_datos
+    previo = {"generado": "2026-11-03T15:22:11+00:00", "canciones": {"A": {"preview": "x"}}, "faltan": ["B"]}
+    assert mismos_datos(previo, {**previo, "generado": "2026-11-03T16:00:00+00:00"})
+    assert not mismos_datos(previo, {**previo, "faltan": []})
+    assert not mismos_datos(None, previo)

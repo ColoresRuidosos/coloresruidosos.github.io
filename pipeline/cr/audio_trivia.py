@@ -57,6 +57,11 @@ def elegir_cancion_spotify(items, titulo: str, disco: str):
     return None
 
 
+def mismos_datos(previo, nuevo) -> bool:
+    """True si solo cambiaría la fecha de generación: así no se sube un commit en cada corrida."""
+    return bool(previo) and all(previo.get(k) == nuevo.get(k) for k in ("canciones", "faltan"))
+
+
 def busqueda_spotify(titulo: str) -> str:
     """Sin coincidencia exacta (o sin credenciales), el botón lleva a la búsqueda de la canción en Spotify."""
     return "https://open.spotify.com/search/" + quote(f"{titulo} {ARTISTA}")
