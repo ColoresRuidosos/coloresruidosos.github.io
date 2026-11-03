@@ -103,7 +103,7 @@ Orden TDD: primero la prueba en rojo, luego el código.
 ## Fase 11 — LoL del día (F20/D26)
 - ✅ Spec
 - ✅ 🔴→🟢 Coincidencia exacta con Apple Music y Spotify (título, artista, disco de estudio), pausas y reintento, enlace a la búsqueda de Spotify como respaldo
-- ✅ `pipeline/resolver_audio.py` y `.github/workflows/audio-trivia.yml`; primera corrida (V11): 54 de 69 con avance (Apple frenó las últimas 14; corregido)
+- ✅ `pipeline/resolver_audio.py` y `.github/workflows/audio-trivia.yml`; V11: 68 de 69 con avance (falta "Limousinas", que Apple escribe distinto); 0 enlaces exactos de Spotify por falta de credenciales, todos con enlace a la búsqueda
 - ✅ 🔴→🟢 Canción del día igual para todos, sin repetir hasta recorrer el banco; día en hora de CDMX
 - ✅ 🔴→🟢 Intentos y segundos (1, 2, 4, 7, 11, 16), resultado, racha de días y texto para compartir
 - ✅ Pantalla en `/trivia/`, reproducción de fragmentos, buscador de títulos, revelación con Spotify; la partida del día sobrevive a recargar la página
