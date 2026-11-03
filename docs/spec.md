@@ -71,6 +71,15 @@
 
 **Métricas de éxito de F15:** partidas iniciadas vs. terminadas (> 60 % terminan); al menos 1 de cada 5 partidas termina en compartir la tarjeta; jugadores que vuelven a jugar (insignia "Universos infinitos"). *Sin analítica en el sitio hoy: medir requiere decidir una herramienta respetuosa con la privacidad (decisión abierta).*
 
+**F16 Contrarreloj "¿De qué disco es?"** Segundo modo de juego dentro de `/trivia/`. Aparece el título de una canción y cuatro discos de estudio para elegir; hay 60 segundos para acertar todas las que se pueda.
+- **Puntos:** +1 por acierto; con racha de 5 o más vale ×2 y con 10 o más, ×3. Un error corta la racha y resta 3 segundos. No se repiten canciones en una partida; si se acaba el banco, la partida termina.
+- **Resultado:** puntos, aciertos, mejor racha y récord personal, más tarjeta para compartir ("N canciones en 60 segundos").
+- **Insignias nuevas**, con nombre de canción, en la misma colección: **Psiconautas** (primera partida de contrarreloj), **Los seres únicos** (10 aciertos seguidos), **Radio Himalaya** (20 aciertos en una partida) y **Cosmos (Antisistema Solar)** (100 canciones acertadas en total).
+- **Veracidad:** las mismas reglas de F15. Cada canción tiene fuente y pasa por la revisión de un fan; solo se juegan las de fuente sólida (o verificadas, cuando el banco salga de borrador). Solo discos de estudio y sin canciones que se llamen como su disco. Contenido: `docs/canciones.md`.
+- **Objetivo:** que la gente vuelva a jugar en los días de los conciertos de México (24 al 28 de noviembre de 2026).
+
+**Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
+
 ## 4. Flujos
 
 **A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
@@ -82,6 +91,8 @@
 **D. Corregir una nota publicada.** Curador ve error → pestaña Notas: slug + TRUE → siguiente corrida (o corrida manual) la oculta.
 
 **F. Partida de trivia.** Portada del juego → "Jugar" → sorteo de 15 preguntas verificadas (5/5/5) ordenadas por etapa → por cada etapa, escena pixel art y sus preguntas (4 opciones; acierto/error con sonido y animación breves) → resultado: puntaje, categoría con su avatar, insignias nuevas, portadas desbloqueadas → compartir tarjeta o volver a jugar.
+
+**H. Partida de contrarreloj.** Inicio de `/trivia/` → "Contrarreloj" → cuenta regresiva 3-2-1 → canción + cuatro discos, reloj de 60 s → acierto (puntos, racha, siguiente canción) o error (−3 s, racha a cero, se marca el disco correcto 0,6 s) → al llegar a 0 s: resultado, insignias nuevas, compartir o jugar otra vez.
 
 **G. Alta de una pregunta.** Se propone en `docs/trivia.md` con fuentes → un fan abre los enlaces y confirma → pasa a `data/trivia.json` con `estado: verificada` → los tests validan formato y fuentes → la siguiente compilación la incluye.
 
@@ -101,7 +112,8 @@ GitHub Pages ◄─────────────────────�
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
-   /trivia/     juego 8 bits sobre Love of Lesbian (data/trivia.json + canvas, sin backend)
+   /trivia/     juego 8 bits sobre Love of Lesbian: trivia (data/trivia.json) y contrarreloj
+                (data/canciones.json), canvas, sin backend
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
@@ -119,5 +131,7 @@ Estructura, modelo de datos y decisiones: ver `plan.md`.
 **Identidad (SPEC-001):** crema `#F4EFE6`, tinta `#141414`, rosa `#FF3E7F`, azul `#2F5BFF`, amarillo `#FFD23F`, verde `#1FB57A`, naranja `#FF7A30`; Syne y Space Grotesk. Colores primarios vibrantes (no tonos apagados). Reglas de contraste: rosa, amarillo, verde y naranja solo con texto tinta encima (nunca blanco); rosa reservado para el sticker "Viene a México"; verde, naranja, azul y amarillo marcan respectivamente las categorías Lanzamiento, Gira, Anuncio y Crónica.
 
 **Trivia (F15):** juego completo con teclado (1–4 y Enter) y lector de pantalla (las escenas pixel art tienen texto alternativo; las preguntas tipo portada describen la imagen); sin destellos de más de 3 por segundo; `prefers-reduced-motion` quita animaciones; sonido apagado por defecto; funciona a 360 px y sin `localStorage`. Portadas redibujadas en pixel art propio, nunca las originales pixeladas; sin letras ni audio de la banda.
+
+**Contrarreloj (F16):** se juega con teclado (1–4); el reloj se muestra como número y no solo como barra; el lector de pantalla anuncia acierto o error, no cada segundo; con `prefers-reduced-motion` no hay sacudidas ni destellos. La pantalla de inicio avisa que es con tiempo, para quien prefiera la trivia sin reloj.
 
 **Accesibilidad y rendimiento:** foco visible, enlace para saltar al contenido, filtros con `aria-pressed`, responsive a 360 px, iframes con carga diferida, sin librerías JS.

@@ -41,6 +41,14 @@
 - **Pistas de lo secreto (2026-11-03):** los fans preguntaban en redes cómo sacar las insignias "???". En la colección, las secretas muestran una pista críptica en lugar de "???", y el resultado de Viejo lesbiano avisa que hay un nivel más con 30 de 30 (`pistaSiguiente`). El nombre sigue oculto hasta ganarla.
 - **Fecha límite:** el 28 de noviembre de 2026 (Tecate Comuna, Puebla: última fecha anunciada en México) marca el fin de la insignia "El último baile". Al principio era el 25 (Auditorio Nacional), pero el equipo avisó que había fechas posteriores; se corrigió el 2026-10-30.
 
+**D22 Contrarreloj "¿De qué disco es?" (2026-11-03):** F16, segundo modo de `/trivia/`.
+- **Mismo lugar y mismo estado.** Vive en `/trivia/` como otra pantalla, comparte colección, sonido y tarjeta para compartir. El estado del jugador sigue bajo `cr-trivia-v1`; los campos nuevos (`crPartidas`, `crAciertos`, `crRecord`) son opcionales y valen 0 si no existen, así no se pierden insignias guardadas.
+- **Lógica pura y aparte.** `assets/js/trivia/contrarreloj.js` (sorteo de canciones y opciones, puntos con multiplicador, reloj como función de los eventos, insignias) sin DOM, con pruebas en `tests-js/contrarreloj.test.js`. El reloj se calcula a partir de marcas de tiempo inyectadas (no con `setInterval` en la lógica) para poder probarlo.
+- **Opciones del mismo banco.** Las tres opciones incorrectas salen de los otros 9 discos de estudio, al azar y sin repetir; el orden de los cuatro botones también es al azar.
+- **Datos.** `data/canciones.json` se genera desde `docs/canciones.md` con un script como el de la trivia (`docs/generar_canciones_json.py`); empieza en `borrador: true` y solo juega las de fuente sólida.
+- **Insignias.** Las cuatro nuevas se suman al catálogo de `logica.js` (18 en total); "Ejército de salvación" sigue pidiendo solo las 6 portadas de la trivia.
+- **Métricas.** Eventos de GoatCounter `contrarreloj-iniciada`, `contrarreloj-terminada` y `contrarreloj-compartida`.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
@@ -51,6 +59,8 @@
 | V5 | Cuotas de Spotify y YouTube con uso diario | Solo Spotify |
 | V6 | Revisión fan de las 47 preguntas de `docs/trivia.md` | Lanzar con las que estén verificadas (mínimo 5 por dificultad) |
 | V7 | Segunda fuente para las 8 preguntas 🟡 | Se quedan fuera del juego |
+| V8 | Revisión fan de las 95 canciones de `docs/canciones.md` | Lanzar con las 69 sólidas |
+| V9 | Tracklists completos de *V.E.H.N.* y de los tres discos en inglés | Esos discos aparecen solo como opción incorrecta |
 
 ## Riesgos aceptados por publicar sin revisión
 | Riesgo | Mitigación disponible |
