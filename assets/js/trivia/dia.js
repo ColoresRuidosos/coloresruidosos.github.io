@@ -45,13 +45,23 @@
     return r;
   }
 
-  function rondaAlAzar(ids, rng) {
+  function barajar(ids, rng) {
     var a = ids.slice();
     for (var i = a.length - 1; i > 0; i--) {
       var j = Math.floor(rng() * (i + 1));
       var t = a[i]; a[i] = a[j]; a[j] = t;
     }
-    return a.slice(0, POR_RONDA);
+    return a;
+  }
+
+  function rondaAlAzar(ids, rng) { return barajar(ids, rng).slice(0, POR_RONDA); }
+
+  // Las mismas canciones del día en otro orden, para cada sesión (F24/D30).
+  function barajarRonda(ids, rng) { return barajar(ids, rng); }
+
+  // Mismo conjunto de canciones sin importar el orden: así se reconoce la ronda guardada de hoy.
+  function mismasCanciones(a, b) {
+    return a.length === b.length && a.slice().sort().join() === b.slice().sort().join();
   }
 
   function nuevaPartida(correcta) {
@@ -131,7 +141,7 @@
 
   raiz.CRdia = {
     SEGUNDOS: SEGUNDOS, POR_RONDA: POR_RONDA, fechaCDMX: fechaCDMX, numeroDia: numeroDia,
-    rondaDelDia: rondaDelDia, rondaAlAzar: rondaAlAzar, nuevaPartida: nuevaPartida, segundosActuales: segundosActuales,
+    rondaDelDia: rondaDelDia, rondaAlAzar: rondaAlAzar, barajarRonda: barajarRonda, mismasCanciones: mismasCanciones, nuevaPartida: nuevaPartida, segundosActuales: segundosActuales,
     intentar: intentar, puntosCancion: puntosCancion, nuevaRonda: nuevaRonda, avanzarRonda: avanzarRonda,
     puntajeRonda: puntajeRonda, aciertosRonda: aciertosRonda, primerosRonda: primerosRonda, tiempoRonda: tiempoRonda, duracionRonda: duracionRonda, cuadro: cuadro,
     registrarDia: registrarDia, textoCompartir: textoCompartir,

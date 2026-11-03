@@ -94,6 +94,8 @@
 
 **D29 Menú de modos (2026-11-03):** F23. Pantalla nueva `data-pantalla="modos"` con tres botones grandes (título + explicación) que reutilizan `data-jugar`, `data-contrarreloj` y `data-dia`; Adivina la canción sigue oculta si no hay avances. `data-volver` lleva a `modos`, y `data-volver-inicio` al inicio. El código Konami y los toques a la pantallita siguen en `inicio`.
 
+**D30 Orden al azar en la ronda del día (2026-11-03):** F24. `rondaDelDia` sigue eligiendo las mismas 10 canciones para todos; `barajarRonda(ids, rng)` las reordena con `Math.random` al empezar una ronda nueva. La ronda guardada se reconoce con `mismasCanciones` (mismo conjunto, sin importar el orden), así que recargar no la vuelve a barajar. El ranking no cambia: compara puntos de las mismas 10 canciones.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|

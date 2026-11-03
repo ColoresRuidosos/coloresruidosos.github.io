@@ -176,3 +176,27 @@ test("las insignias de Adivina la canción tienen su familia y El gran truco fin
   assert.deepStrictEqual(cat, ids);
   ["nada", "starman"].forEach((id) => assert.ok(T.INSIGNIAS.find((i) => i.id === id).oculta, id));
 });
+
+// ---------- Orden al azar de la ronda del día (F24/D30) ----------
+
+test("barajarRonda deja las mismas 10 canciones del día en otro orden", () => {
+  const dia = D.rondaDelDia(IDS, DIA(4));
+  const a = D.barajarRonda(dia, rngSemilla(1)), b = D.barajarRonda(dia, rngSemilla(2));
+  assert.deepStrictEqual([...a].sort(), [...dia].sort());
+  assert.deepStrictEqual([...b].sort(), [...dia].sort());
+  assert.notDeepStrictEqual(a, b);
+  assert.deepStrictEqual(dia, D.rondaDelDia(IDS, DIA(4)), "no modifica la lista original");
+});
+
+test("en muchas sesiones el orden casi nunca se repite", () => {
+  const dia = D.rondaDelDia(IDS, DIA(4)), rng = rngSemilla(7), vistos = new Set();
+  for (let k = 0; k < 50; k++) vistos.add(D.barajarRonda(dia, rng).join());
+  assert.ok(vistos.size >= 49);
+});
+
+test("mismasCanciones reconoce la ronda guardada aunque esté en otro orden", () => {
+  const dia = D.rondaDelDia(IDS, DIA(4));
+  assert.ok(D.mismasCanciones(D.barajarRonda(dia, rngSemilla(3)), dia));
+  assert.ok(!D.mismasCanciones(D.rondaDelDia(IDS, DIA(5)), dia));
+  assert.ok(!D.mismasCanciones(dia.slice(0, 9), dia));
+});
