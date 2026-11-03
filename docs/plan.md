@@ -83,7 +83,7 @@
 | V7 | Segunda fuente para las 8 preguntas 🟡 | Se quedan fuera del juego |
 | V8 | Revisión fan de las 95 canciones de `docs/canciones.md` | Lanzar con las 69 sólidas |
 | V9 | Tracklists completos de *V.E.H.N.* y de los tres discos en inglés | Esos discos aparecen solo como opción incorrecta |
-| V10 | El equipo publica el Apps Script y comparte la URL | El ranking queda oculto hasta entonces |
+| V10 | ~~El equipo publica el Apps Script y comparte la URL~~ Hecho el 2026-11-03; falta la prueba de punta a punta contra el Sheet real (desde el entorno de desarrollo no se alcanza `script.google.com`) | Si falla, vaciar `trivia_ranking_url` oculta el ranking |
 
 ## Riesgos aceptados por publicar sin revisión
 | Riesgo | Mitigación disponible |

@@ -13,7 +13,7 @@ enableRobotsTXT = true
   firma_sin_curador = "Cartelera"
   # URL de la aplicación web de Apps Script del ranking de la trivia (docs/ranking/README.md).
   # Vacía = el ranking no aparece en el sitio.
-  trivia_ranking_url = ""
+  trivia_ranking_url = "https://script.google.com/macros/s/AKfycbzkCrNMttHITW3w8PDVNtvC9TDEac-jZrprU8G4M_Kl5jmT7eWYzhbKdlEpwb54ZGIr/exec"
 
 [permalinks.page]
   posts = "/notas/:slug/"

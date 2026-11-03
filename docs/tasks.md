@@ -90,7 +90,8 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 Validación del Apps Script (puntos, duración, nombre, límite de envíos) probada en Node
 - ✅ `docs/ranking/Code.gs` y `docs/ranking/README.md` con los pasos para el equipo
 - ✅ Pantalla de ranking y botón "Publicar mi puntaje"; oculto sin URL. Probado de punta a punta contra `Code.gs` corriendo en Node con imitaciones de los servicios de Google
-- ⏳ V10: el equipo publica el Apps Script; probar de punta a punta
+- ✅ V10: el equipo publicó el Apps Script y la URL está en `hugo.toml`
+- ⏳ Probar de punta a punta contra el Sheet real (publicar un puntaje desde el sitio y ver la fila)
 
 ## Fase 10 — Compartir en Instagram (F19/D25)
 - ✅ Spec
