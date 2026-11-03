@@ -214,7 +214,7 @@
       lista.appendChild(li);
     });
     $("[data-nuevas-titulo]").hidden = !lista.children.length;
-    prepararPublicar(r.puntos, partida.fin - partida.inicio);
+    prepararPublicar("trivia", r.puntos, partida.fin - partida.inicio);
     mostrar("resultado");
   }
 
@@ -477,6 +477,7 @@
     r.nuevas.forEach(function (id) { lista.appendChild(chapa(insignia(id), "nueva")); });
     $("[data-cr-nuevas-titulo]").hidden = !lista.children.length;
     $("[data-cr-aviso]").textContent = "";
+    prepararPublicar("contrarreloj", p.puntos, Math.min(Date.now() - p.inicio, 90000));
     mostrar("cr-resultado");
   }
 
@@ -504,32 +505,29 @@
       CC.textoContrarreloj(res), $("[data-cr-aviso]"), function () { contar("contrarreloj-compartida"); trasCompartir(); });
   }
 
-  // ---------- Adivina la canción (F20/D26) ----------
+  // ---------- Adivina la canción: ronda del día y práctica (F20/D26/D27) ----------
   var audioDatos = JSON.parse(document.getElementById("audio-datos").textContent || "{}");
   var conAudio = crJugables.filter(function (c) { return audioDatos.canciones && audioDatos.canciones[c.id]; });
+  var idsConAudio = conAudio.map(function (c) { return c.id; });
   var cancionPorId = {};
   (cancionesDatos.canciones || []).forEach(function (c) { cancionPorId[c.id] = c; });
-  var CLAVE_DIA = "cr-trivia-dia-partida";
+  var CLAVE_DIA = "cr-trivia-dia-ronda";
   var dia = null, diaParar = 0, diaAnim = 0;
   var reproductor = $("[data-dia-audio]");
 
-  function hoy() { var f = new Date(); return { fecha: D.fechaCDMX(f), numero: D.numeroDia(f), id: D.cancionDelDia(conAudio.map(function (c) { return c.id; }), f) }; }
-
-  function cargarPartidaDia(h) {
-    try {
-      var g = JSON.parse(leer(CLAVE_DIA) || "null");
-      if (g && g.fecha === h.fecha && g.partida && g.partida.correcta === h.id) return g.partida;
-    } catch (e) { /* partida guardada ilegible: se empieza de nuevo */ }
-    return D.nuevaPartida(h.id);
+  function guardarRondaDia() {
+    if (dia.tipo === "dia") escribir(CLAVE_DIA, JSON.stringify({ fecha: dia.fecha, ronda: dia.ronda }));
   }
 
-  function guardarPartidaDia() { escribir(CLAVE_DIA, JSON.stringify({ fecha: dia.fecha, partida: dia.partida })); }
+  function rondaGuardada(fecha, ids) {
+    try {
+      var g = JSON.parse(leer(CLAVE_DIA) || "null");
+      if (g && g.fecha === fecha && g.ronda && g.ronda.canciones.join() === ids.join()) return g.ronda;
+    } catch (e) { /* ronda guardada ilegible: se empieza de nuevo */ }
+    return null;
+  }
 
-  function empezarDia() {
-    var h = hoy();
-    dia = { fecha: h.fecha, numero: h.numero, id: h.id, partida: cargarPartidaDia(h) };
-    reproductor.src = audioDatos.canciones[h.id].preview;
-    $("[data-dia-titulo]").textContent = "Adivina la canción #" + h.numero;
+  function prepararPantallaDia() {
     var titulos = $("[data-dia-titulos]");
     if (!titulos.children.length) {
       (cancionesDatos.canciones || []).map(function (c) { return c.titulo; }).sort(function (a, b) { return a.localeCompare(b, "es"); })
@@ -537,65 +535,88 @@
     }
     $("[data-dia-respuesta]").value = "";
     $("[data-dia-aviso]").textContent = "";
-    contar("dia-abierto");
+    $("[data-dia-aviso-compartir]").textContent = "";
+    $("[data-dia-revelacion]").hidden = true;
+  }
+
+  function empezarDia() {
+    var ahora = new Date(), fecha = D.fechaCDMX(ahora), ids = D.rondaDelDia(idsConAudio, ahora);
+    dia = { tipo: "dia", fecha: fecha, numero: D.numeroDia(ahora), ronda: rondaGuardada(fecha, ids) || D.nuevaRonda(ids), t0: 0 };
+    $("[data-dia-titulo]").textContent = "Adivina la canción #" + dia.numero;
+    prepararPantallaDia();
+    if (dia.ronda.terminada) terminarRonda();
+    contar("adivina-abierto");
+    pintarDia();
+    mostrar("dia");
+  }
+
+  function empezarPractica() {
+    detenerAudio();
+    dia = { tipo: "practica", ronda: D.nuevaRonda(D.rondaAlAzar(idsConAudio, Math.random)), t0: 0 };
+    $("[data-dia-titulo]").textContent = "Ronda de práctica";
+    prepararPantallaDia();
+    contar("adivina-practica");
     pintarDia();
     mostrar("dia");
   }
 
   function pintarDia() {
-    var p = dia.partida, seg = D.segundosActuales(p);
+    var r = dia.ronda, p = r.actual;
     var racha = (estado.dia && estado.dia.racha) || 0;
-    $("[data-dia-racha]").textContent = racha ? "Racha " + racha + (racha === 1 ? " día" : " días") : "";
-    $("[data-dia-permitido]").style.width = (p.terminada ? 100 : (seg / 16) * 100) + "%";
-    $("[data-dia-escuchar]").textContent = p.terminada ? "▶ Escuchar el fragmento" : "▶ Escuchar " + seg + " s";
+    $("[data-dia-racha]").textContent = dia.tipo === "dia" && racha ? "Racha " + racha + (racha === 1 ? " día" : " días") : "";
+    $("[data-dia-progreso]").textContent = r.terminada ? "" : "Canción " + (r.i + 1) + "/" + r.canciones.length + " · " + D.puntajeRonda(r) + " pts";
+    $("[data-dia-juego]").hidden = r.terminada || !$("[data-dia-revelacion]").hidden;
+    $("[data-dia-final]").hidden = !r.terminada;
+    $("[data-dia-practica]").hidden = dia.tipo === "dia" && !r.terminada;
+    if (r.terminada) { pintarFinalDia(); return; }
+    if (reproductor.getAttribute("data-id") !== p.correcta) {
+      reproductor.src = audioDatos.canciones[p.correcta].preview;
+      reproductor.setAttribute("data-id", p.correcta);
+    }
+    var seg = D.segundosActuales(p);
+    $("[data-dia-permitido]").style.width = (seg / 16) * 100 + "%";
+    $("[data-dia-escuchar]").textContent = "▶ Escuchar " + seg + " s";
     var lista = $("[data-dia-intentos]");
     lista.textContent = "";
     p.intentos.forEach(function (x, k) {
       var li = crear("li");
       li.setAttribute("data-tipo", x);
-      li.textContent = (k + 1) + ". " + (x === "bien" ? "✔ " + cancionPorId[p.correcta].titulo : x === "salto" ? "Saltado" : "✘ " + (p.respuestas && p.respuestas[k] || "No era"));
+      li.textContent = (k + 1) + ". " + (x === "salto" ? "Saltado" : "✘ " + ((p.respuestas || [])[k] || "No era"));
       lista.appendChild(li);
     });
-    $("[data-dia-form]").hidden = p.terminada;
-    var siguienteSeg = D.SEGUNDOS[Math.min(p.intentos.length + 1, D.SEGUNDOS.length - 1)];
-    $("[data-dia-saltar]").textContent = p.intentos.length >= D.SEGUNDOS.length - 1 ? "Rendirse" : "Saltar (" + siguienteSeg + " s)";
-    $("[data-dia-final]").hidden = !p.terminada;
-    if (p.terminada) pintarFinalDia();
+    var ultimo = p.intentos.length >= D.SEGUNDOS.length - 1;
+    $("[data-dia-saltar]").textContent = ultimo ? "Rendirse" : "Saltar (" + D.SEGUNDOS[p.intentos.length + 1] + " s)";
   }
 
-  function pintarFinalDia() {
-    var p = dia.partida, c = cancionPorId[p.correcta], a = audioDatos.canciones[p.correcta], d = discoPorId[c.disco];
-    $("[data-dia-veredicto]").textContent = p.acierto ? "¡La adivinaste en el intento " + p.intentos.length + "!" : "Hoy no salió. Era:";
-    $("[data-dia-cancion]").textContent = "«" + c.titulo + "»";
-    $("[data-dia-disco]").textContent = d.nombre + " · " + d.anio;
-    $("[data-dia-spotify]").hidden = !a.spotify;
-    if (a.spotify) $("[data-dia-spotify]").href = a.spotify;
-    $("[data-dia-apple]").href = a.apple;
-    $("[data-dia-cuadros]").textContent = D.textoCompartir(dia.numero, p).split("\n")[1];
-    var falta = 24 * 3600 * 1000 - ((Date.now() - 6 * 3600 * 1000) % (24 * 3600 * 1000));
-    $("[data-dia-siguiente]").textContent = "La siguiente canción sale en " + Math.floor(falta / 3600000) + " h " + Math.floor((falta % 3600000) / 60000) + " min.";
+  function detenerAudio() {
+    clearTimeout(diaParar); cancelAnimationFrame(diaAnim);
+    reproductor.pause();
+    $("[data-dia-sonando]").style.width = "0";
   }
 
   function escucharDia() {
-    clearTimeout(diaParar); cancelAnimationFrame(diaAnim);
-    var p = dia.partida, seg = p.terminada ? 30 : D.segundosActuales(p);
-    var barra = $("[data-dia-sonando]"), aviso = $("[data-dia-aviso]");
+    detenerAudio();
+    var p = dia.ronda.actual;
+    if (!p) return;
+    if (!dia.t0) dia.t0 = Date.now();
+    var seg = D.segundosActuales(p), barra = $("[data-dia-sonando]");
     try { reproductor.currentTime = 0; } catch (e) { /* aún sin cargar */ }
-    var inicio = 0;
     reproductor.play().then(function () {
-      inicio = performance.now();
+      var inicio = performance.now();
       (function avanzar() {
         var t = (performance.now() - inicio) / 1000;
         barra.style.width = Math.min(100, (t / 16) * 100) + "%";
         if (t < seg) diaAnim = requestAnimationFrame(avanzar);
       })();
-      diaParar = setTimeout(function () { reproductor.pause(); barra.style.width = "0"; }, seg * 1000);
-    }).catch(function () { aviso.textContent = "No se pudo reproducir el fragmento. Revisa tu conexión o el volumen e intenta de nuevo."; });
+      diaParar = setTimeout(detenerAudio, seg * 1000);
+    }).catch(function () {
+      $("[data-dia-aviso]").textContent = "No se pudo reproducir el fragmento. Revisa tu conexión o el volumen e intenta de nuevo.";
+    });
   }
 
   function intentarDia(respuestaTitulo) {
-    var p = dia.partida;
-    if (p.terminada) return;
+    var r = dia.ronda, p = r.actual;
+    if (!p || p.terminada) return;
     var id = null;
     if (respuestaTitulo !== null) {
       var t = respuestaTitulo.trim().toLowerCase();
@@ -605,50 +626,110 @@
     }
     var n = D.intentar(p, id);
     n.respuestas = (p.respuestas || []).concat([id ? cancionPorId[id].titulo : null]);
-    dia.partida = n;
     $("[data-dia-respuesta]").value = "";
-    $("[data-dia-aviso]").textContent = n.acierto ? "¡Sí!" : id ? "No es esa." : "";
-    tonos(n.acierto ? SONIDOS.acierto : id ? SONIDOS.error : [[330, 0.06]]);
-    if (n.terminada) {
-      estado.dia = D.registrarDia(estado.dia, dia.fecha, { acierto: n.acierto, intentos: n.intentos.length });
-      T.guardarEstado(almacen, estado);
-      contar("dia-terminado-" + (n.acierto ? n.intentos.length : "x"));
-      if (n.acierto) tonos(SONIDOS.final);
+    $("[data-dia-aviso]").textContent = id && !n.acierto ? "No es esa." : "";
+    if (!n.terminada) {
+      r.actual = n;
+      tonos(id ? SONIDOS.error : [[330, 0.06]]);
+      guardarRondaDia();
+      pintarDia();
+      return;
     }
-    guardarPartidaDia();
+    detenerAudio();
+    tonos(n.acierto ? SONIDOS.acierto : SONIDOS.error);
+    dia.ronda = D.avanzarRonda(r, n, dia.t0 ? Date.now() - dia.t0 : 0);
+    dia.t0 = 0;
+    guardarRondaDia();
+    revelar(n);
+  }
+
+  function revelar(p) {
+    var c = cancionPorId[p.correcta], a = audioDatos.canciones[p.correcta], d = discoPorId[c.disco];
+    var pts = D.puntosCancion(p);
+    $("[data-dia-veredicto]").textContent = p.acierto ? "¡Sí! +" + pts + (pts === 1 ? " punto" : " puntos") : "No salió. Era:";
+    $("[data-dia-cancion]").textContent = "«" + c.titulo + "»";
+    $("[data-dia-disco]").textContent = d.nombre + " · " + d.anio;
+    $("[data-dia-spotify]").hidden = !a.spotify;
+    if (a.spotify) $("[data-dia-spotify]").href = a.spotify;
+    $("[data-dia-apple]").href = a.apple;
+    $("[data-dia-siguiente]").textContent = dia.ronda.terminada ? "Ver resultado ▶" : "Siguiente canción ▶";
+    $("[data-dia-revelacion]").hidden = false;
     pintarDia();
+    $("[data-dia-siguiente]").focus();
+  }
+
+  function siguienteCancion() {
+    $("[data-dia-revelacion]").hidden = true;
+    var r = dia.ronda;
+    if (r.terminada) terminarRonda();
+    pintarDia();
+    if (!r.terminada) $("[data-dia-escuchar]").focus();
+  }
+
+  function terminarRonda() {
+    var r = dia.ronda;
+    if (dia.tipo !== "dia" || (estado.dia && estado.dia.resultados && estado.dia.resultados[dia.fecha])) return;
+    estado.dia = D.registrarDia(estado.dia, dia.fecha, { puntos: D.puntajeRonda(r), aciertos: D.aciertosRonda(r) });
+    T.guardarEstado(almacen, estado);
+    contar("adivina-terminada");
+    tonos(SONIDOS.final);
+  }
+
+  function pintarFinalDia() {
+    var r = dia.ronda, total = r.resultados.length * 6;
+    var practica = dia.tipo === "practica";
+    $("[data-dia-final-titulo]").textContent = practica ? "Práctica terminada" : "Tu ronda de hoy";
+    $("[data-dia-total]").textContent = D.puntajeRonda(r) + "/" + total + " · " + D.aciertosRonda(r) + " de " + r.resultados.length;
+    $("[data-dia-cuadros]").textContent = r.resultados.map(D.cuadro).join("");
+    var lista = $("[data-dia-resumen]");
+    lista.textContent = "";
+    r.resultados.forEach(function (x) {
+      var c = cancionPorId[x.id], a = audioDatos.canciones[x.id], li = crear("li");
+      li.appendChild(crear("span", "", D.cuadro(x)));
+      var t = crear("span", "", c.titulo + " ");
+      if (a && a.spotify) { var l = crear("a", "", "Spotify"); l.href = a.spotify; l.target = "_blank"; l.rel = "noopener"; t.appendChild(l); }
+      li.appendChild(t);
+      li.appendChild(crear("b", "", x.puntos + " pts"));
+      lista.appendChild(li);
+    });
+    $("[data-dia-compartir-bloque]").hidden = practica;
+    if (practica) { $("[data-publicar=adivina]").hidden = true; $("[data-dia-siguiente-ronda]").textContent = ""; return; }
+    prepararPublicar("adivina", D.puntajeRonda(r), D.duracionRonda(r));
+    var falta = 24 * 3600 * 1000 - ((Date.now() - 6 * 3600 * 1000) % (24 * 3600 * 1000));
+    $("[data-dia-siguiente-ronda]").textContent = "La siguiente ronda sale en " + Math.floor(falta / 3600000) + " h " + Math.floor((falta % 3600000) / 60000) + " min.";
   }
 
   function crearTarjetaDia(formato) {
-    var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y, p = dia.partida;
+    var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y, r = dia.ronda;
     c.fillStyle = "#FFD23F"; c.font = "36px " + FUENTE_PIXEL;
-    c.fillText("Adivina la canción #" + dia.numero, W / 2, y + 330);
-    var colores = { bien: "#1FB57A", mal: "#FF3E7F", salto: "#5a5a5a" }, lado = 120, hueco = 20, x0 = (W - (6 * lado + 5 * hueco)) / 2;
-    for (var k = 0; k < 6; k++) {
-      c.fillStyle = colores[p.intentos[k]] || "#F4EFE6";
-      c.fillRect(x0 + k * (lado + hueco), y + 430, lado, lado);
-    }
+    c.fillText("Adivina la canción #" + dia.numero, W / 2, y + 310);
+    var colores = { "🟩": "#1FB57A", "🟨": "#FFD23F", "🟧": "#FF7A30", "🟥": "#FF3E7F" }, lado = 80, hueco = 14;
+    var x0 = (W - (5 * lado + 4 * hueco)) / 2;
+    r.resultados.forEach(function (x, k) {
+      c.fillStyle = colores[D.cuadro(x)];
+      c.fillRect(x0 + (k % 5) * (lado + hueco), y + 380 + Math.floor(k / 5) * (lado + hueco), lado, lado);
+    });
     c.fillStyle = "#F4EFE6"; c.font = "60px " + FUENTE_PIXEL;
-    c.fillText((p.acierto ? p.intentos.length : "X") + "/6", W / 2, y + 720);
-    c.font = "26px " + FUENTE_PIXEL; c.fillStyle = "#1FB57A";
+    c.fillText(D.puntajeRonda(r) + "/" + r.resultados.length * 6, W / 2, y + 700);
     var racha = (estado.dia && estado.dia.racha) || 0;
-    if (racha) c.fillText("RACHA " + racha, W / 2, y + 800);
-    pieTarjeta(t, "¿La reconoces tú?");
+    if (racha) { c.font = "26px " + FUENTE_PIXEL; c.fillStyle = "#1FB57A"; c.fillText("RACHA " + racha, W / 2, y + 780); }
+    pieTarjeta(t, "¿Cuántas reconoces tú?");
     return t.lienzo;
   }
 
   function compartirDia(formato) {
     compartirImagen(function () { return crearTarjetaDia(formato); }, "adivina-la-cancion-" + dia.numero + ".png",
-      D.textoCompartir(dia.numero, dia.partida), $("[data-dia-aviso-compartir]"), function () { contar("dia-compartido"); trasCompartir(); });
+      D.textoCompartir(dia.numero, dia.ronda), $("[data-dia-aviso-compartir]"), function () { contar("adivina-compartida"); trasCompartir(); });
   }
 
   function copiarDia() {
-    copiarTexto(D.textoCompartir(dia.numero, dia.partida)).then(function (ok) {
-      $("[data-dia-aviso-compartir]").textContent = ok ? "Resultado copiado. Pégalo donde quieras." : D.textoCompartir(dia.numero, dia.partida);
+    var texto = D.textoCompartir(dia.numero, dia.ronda);
+    copiarTexto(texto).then(function (ok) {
+      $("[data-dia-aviso-compartir]").textContent = ok ? "Resultado copiado. Pégalo donde quieras." : texto;
     });
   }
 
-  if (conAudio.length) $("[data-dia]").hidden = false;
+  if (idsConAudio.length) $("[data-dia]").hidden = false;
   $("[data-dia-form]").addEventListener("submit", function (ev) { ev.preventDefault(); intentarDia($("[data-dia-respuesta]").value); });
 
   // ---------- Chapas (F17) ----------
@@ -759,84 +840,111 @@
   if (urlRanking && !R.nombreValido(miNombre)) { miNombre = R.generarNombre(); escribir("cr-trivia-nombre", miNombre); }
   var miDispositivo = urlRanking ? leer("cr-trivia-dispositivo") : null;
   if (urlRanking && !/^[a-z0-9]{16}$/.test(miDispositivo || "")) { miDispositivo = R.nuevoDispositivo(); escribir("cr-trivia-dispositivo", miDispositivo); }
-  var porPublicar = null, rankingDatos = null, rankingCargado = 0, periodo = "semana";
+  var porPublicar = {}, rankingDatos = {}, rankingCargado = {}, rkModo = "trivia", periodo = "semana";
+  var PERIODOS = {
+    trivia: [["semana", "Esta semana"], ["historico", "Histórico"]],
+    contrarreloj: [["semana", "Esta semana"], ["historico", "Histórico"]],
+    adivina: [["hoy", "Hoy"], ["semana", "Semana"], ["racha", "Mejor racha"]],
+  };
 
-  function prepararPublicar(puntos, duracionMs) {
-    if (!urlRanking) return;
-    porPublicar = { puntos: puntos, duracionMs: duracionMs };
-    $("[data-mi-nombre]").textContent = miNombre;
-    $("[data-publicar-estado]").textContent = "";
-    $("[data-publicar-puntaje]").disabled = false;
-    $("[data-otro-nombre]").disabled = false;
-    $("[data-publicar]").hidden = false;
+  function bloquePublicar(modo) { return $("[data-publicar='" + modo + "']"); }
+
+  function prepararPublicar(modo, puntos, duracionMs) {
+    var b = bloquePublicar(modo);
+    if (!urlRanking || !b) return;
+    porPublicar[modo] = { puntos: puntos, duracionMs: duracionMs };
+    $$("[data-mi-nombre]").forEach(function (x) { x.textContent = miNombre; });
+    $("[data-publicar-estado]", b).textContent = "";
+    $("[data-publicar-puntaje]", b).disabled = false;
+    $("[data-otro-nombre]", b).disabled = false;
+    b.hidden = false;
   }
 
   function otroNombre() {
     miNombre = R.generarNombre(Math.random, miNombre);
     escribir("cr-trivia-nombre", miNombre);
-    $("[data-mi-nombre]").textContent = miNombre;
+    $$("[data-mi-nombre]").forEach(function (x) { x.textContent = miNombre; });
   }
 
   var ERRORES = {
     limite: "Ya publicaste muchas veces en esta hora. Intenta más tarde.",
     duracion: "Esa partida fue demasiado rápida para el ranking.",
+    modo: "El ranking de este modo todavía no está activo: el equipo tiene que actualizar el script.",
   };
 
-  function publicar() {
-    if (!porPublicar) return;
-    var boton = $("[data-publicar-puntaje]"), aviso = $("[data-publicar-estado]");
+  function publicar(modo) {
+    var datos = porPublicar[modo], b = bloquePublicar(modo);
+    if (!datos || !b) return;
+    var boton = $("[data-publicar-puntaje]", b), aviso = $("[data-publicar-estado]", b);
     boton.disabled = true;
     aviso.textContent = "Publicando…";
-    var envio = R.armarEnvio("trivia", miNombre, porPublicar.puntos, porPublicar.duracionMs, miDispositivo);
+    var envio = R.armarEnvio(modo, miNombre, datos.puntos, datos.duracionMs, miDispositivo);
     fetch(urlRanking, { method: "POST", body: JSON.stringify(envio) })
       .then(function (res) { return res.json(); })
       .then(function (r) {
         if (!r.ok) throw new Error(r.error || "error");
-        porPublicar = null;
-        $("[data-otro-nombre]").disabled = true;
+        porPublicar[modo] = null;
+        $("[data-otro-nombre]", b).disabled = true;
         aviso.textContent = "¡Listo! Tu puntaje ya está en el ranking.";
-        contar("ranking-publicado");
-        rankingCargado = 0;
-        verRanking("semana");
+        contar("ranking-publicado-" + modo);
+        rankingCargado[modo] = 0;
+        verRanking(modo, modo === "adivina" ? "hoy" : "semana");
       })
       .catch(function (err) {
-        boton.disabled = false;
+        boton.disabled = err.message === "modo";
         aviso.textContent = ERRORES[err.message] || "No se pudo publicar. Intenta de nuevo en un rato.";
       });
   }
 
   function pintarRanking() {
-    $$("[data-periodo]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-periodo") === periodo)); });
+    $$("[data-rk-modo]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-rk-modo") === rkModo)); });
+    var cont = $("[data-rk-periodos]");
+    cont.textContent = "";
+    PERIODOS[rkModo].forEach(function (pr) {
+      var b = crear("button", "trivia__boton trivia__boton--chico", pr[1]);
+      b.type = "button";
+      b.setAttribute("data-periodo", pr[0]);
+      b.setAttribute("aria-pressed", String(pr[0] === periodo));
+      cont.appendChild(b);
+    });
     var lista = $("[data-ranking-lista]"), aviso = $("[data-ranking-estado]");
     lista.textContent = "";
-    if (!rankingDatos) return;
-    var filas = rankingDatos[periodo] || [];
-    aviso.textContent = filas.length ? "" : (periodo === "semana" ? "Nadie ha publicado esta semana. ¡Sé la primera persona!" : "Todavía no hay puntajes.");
+    var datos = rankingDatos[rkModo];
+    if (!datos) return;
+    var filas = datos[periodo] || [];
+    aviso.textContent = filas.length ? "" : (periodo === "historico" || periodo === "racha" ? "Todavía no hay puntajes." : "Nadie ha publicado todavía. ¡Sé la primera persona!");
     filas.forEach(function (f) {
       var mio = f.nombre === miNombre;
       var li = crear("li", mio ? "es-mio" : "");
       li.appendChild(crear("span", "trivia__ranking-nombre", f.nombre + (mio ? " (tú)" : "")));
-      var p = crear("span", "trivia__ranking-puntos", f.puntos + " pts");
-      p.appendChild(crear("small", "", R.formatoTiempo(f.duracionMs)));
+      var valor = periodo === "racha" ? f.racha + (f.racha === 1 ? " día" : " días") : f.puntos + " pts";
+      var p = crear("span", "trivia__ranking-puntos", valor);
+      if (periodo === "semana" && rkModo === "adivina") p.appendChild(crear("small", "", f.dias + (f.dias === 1 ? " ronda" : " rondas")));
+      else if (typeof f.duracionMs === "number" && rkModo !== "contrarreloj") p.appendChild(crear("small", "", R.formatoTiempo(f.duracionMs)));
       li.appendChild(p);
       lista.appendChild(li);
     });
   }
 
-  function verRanking(cual) {
-    if (cual) periodo = cual;
+  function verRanking(modo, cual) {
+    if (modo) rkModo = modo;
+    var validos = PERIODOS[rkModo].map(function (x) { return x[0]; });
+    periodo = cual && validos.indexOf(cual) >= 0 ? cual : validos.indexOf(periodo) >= 0 ? periodo : validos[0];
     mostrar("ranking");
-    if (rankingDatos && Date.now() - rankingCargado < 60000) { pintarRanking(); return; }
+    if (rankingDatos[rkModo] && Date.now() - (rankingCargado[rkModo] || 0) < 60000) { pintarRanking(); return; }
+    var pedido = rkModo;
+    pintarRanking();
     $("[data-ranking-estado]").textContent = "Cargando…";
-    $("[data-ranking-lista]").textContent = "";
-    fetch(urlRanking + (urlRanking.indexOf("?") < 0 ? "?" : "&") + "modo=trivia")
+    fetch(urlRanking + (urlRanking.indexOf("?") < 0 ? "?" : "&") + "modo=" + pedido)
       .then(function (res) { return res.json(); })
       .then(function (d) {
         if (d.error) throw new Error(d.error);
-        rankingDatos = d; rankingCargado = Date.now();
-        pintarRanking();
+        rankingDatos[pedido] = d; rankingCargado[pedido] = Date.now();
+        if (pedido === rkModo) pintarRanking();
       })
-      .catch(function () { $("[data-ranking-estado]").textContent = "No se pudo cargar el ranking. Intenta de nuevo en un rato."; });
+      .catch(function (err) {
+        if (pedido === rkModo) $("[data-ranking-estado]").textContent = err.message === "modo" ? ERRORES.modo : "No se pudo cargar el ranking. Intenta de nuevo en un rato.";
+      });
   }
 
   if (urlRanking) $("[data-ver-ranking]").hidden = false;
@@ -877,7 +985,7 @@
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
     else if (b.hasAttribute("data-volver")) {
       clearInterval(crReloj); clearTimeout(crCuenta); cr = null;
-      clearTimeout(diaParar); reproductor.pause();
+      detenerAudio();
       pintarInicio(); mostrar("inicio");
     }
     else if (b.hasAttribute("data-compartir")) compartir(b.getAttribute("data-compartir"));
@@ -885,14 +993,17 @@
     else if (b.hasAttribute("data-dia")) empezarDia();
     else if (b.hasAttribute("data-dia-escuchar")) escucharDia();
     else if (b.hasAttribute("data-dia-saltar")) intentarDia(null);
+    else if (b.hasAttribute("data-dia-siguiente")) siguienteCancion();
+    else if (b.hasAttribute("data-dia-practica")) empezarPractica();
     else if (b.hasAttribute("data-dia-compartir")) compartirDia(b.getAttribute("data-dia-compartir"));
     else if (b.hasAttribute("data-dia-copiar")) copiarDia();
     else if (b.hasAttribute("data-cr-opcion")) responderContrarreloj(b.getAttribute("data-cr-opcion"));
     else if (b.hasAttribute("data-compartir-cr")) compartirContrarreloj(b.getAttribute("data-compartir-cr"));
     else if (b.hasAttribute("data-compartir-chapa")) compartirChapa(b.getAttribute("data-compartir-chapa"));
     else if (b.hasAttribute("data-ver-ranking")) verRanking();
+    else if (b.hasAttribute("data-rk-modo")) verRanking(b.getAttribute("data-rk-modo"));
     else if (b.hasAttribute("data-periodo")) { periodo = b.getAttribute("data-periodo"); pintarRanking(); }
-    else if (b.hasAttribute("data-publicar-puntaje")) publicar();
+    else if (b.hasAttribute("data-publicar-puntaje")) publicar(b.closest("[data-publicar]").getAttribute("data-publicar"));
     else if (b.hasAttribute("data-otro-nombre")) otroNombre();
     else if (b.hasAttribute("data-abrir-insignia")) abrirDetalle(b.getAttribute("data-abrir-insignia"));
     else if (b.hasAttribute("data-cerrar-detalle")) cerrarDetalle();

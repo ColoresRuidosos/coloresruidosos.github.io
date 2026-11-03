@@ -47,7 +47,7 @@
       <p class="trivia__pista" data-pista-siguiente hidden></p>
       <h3 class="trivia__subtitulo" data-nuevas-titulo>Nuevo en tu colección</h3>
       <ul class="trivia__chapas" data-nuevas></ul>
-      <div class="trivia__publicar" data-publicar hidden>
+      <div class="trivia__publicar" data-publicar="trivia" hidden>
         <h3 class="trivia__subtitulo">Ranking</h3>
         <p class="trivia__mi-nombre">Tu nombre: <strong data-mi-nombre></strong>
           <button type="button" class="trivia__boton trivia__boton--chico" data-otro-nombre>Otro nombre</button></p>
@@ -93,41 +93,66 @@
         <h2 class="trivia__categoria" data-dia-titulo tabindex="-1" data-foco></h2>
         <span class="trivia__cr-racha" data-dia-racha></span>
       </div>
-      <p class="trivia__intro">Escucha el fragmento y adivina la canción. Cada intento fallido o saltado deja oír más.</p>
-      <div class="trivia__dia-barra" aria-hidden="true"><span data-dia-permitido></span><span class="trivia__dia-sonando" data-dia-sonando></span></div>
-      <div class="trivia__acciones">
-        <button type="button" class="trivia__boton trivia__boton--grande" data-dia-escuchar>▶ Escuchar 1 s</button>
-      </div>
-      <ol class="trivia__dia-intentos" data-dia-intentos></ol>
-      <form class="trivia__dia-adivinar" data-dia-form>
-        <label class="trivia__arroba">¿Qué canción es?
-          <input type="text" data-dia-respuesta list="dia-titulos" autocomplete="off" spellcheck="false" placeholder="Escribe y elige de la lista">
-        </label>
-        <datalist id="dia-titulos" data-dia-titulos></datalist>
+      <p class="trivia__dia-progreso" data-dia-progreso></p>
+
+      <div data-dia-juego>
+        <div class="trivia__dia-barra" aria-hidden="true"><span data-dia-permitido></span><span class="trivia__dia-sonando" data-dia-sonando></span></div>
         <div class="trivia__acciones">
-          <button type="submit" class="trivia__boton trivia__boton--grande">Adivinar</button>
-          <button type="button" class="trivia__boton" data-dia-saltar>Saltar (+ s)</button>
+          <button type="button" class="trivia__boton trivia__boton--grande" data-dia-escuchar>▶ Escuchar 1 s</button>
         </div>
-      </form>
-      <p class="trivia__feedback" data-dia-aviso aria-live="polite"></p>
-      <div class="trivia__dia-final" data-dia-final hidden>
-        <p class="trivia__eres" data-dia-veredicto></p>
+        <ol class="trivia__dia-intentos" data-dia-intentos></ol>
+        <form class="trivia__dia-adivinar" data-dia-form>
+          <label class="trivia__arroba">¿Qué canción es?
+            <input type="text" data-dia-respuesta list="dia-titulos" autocomplete="off" spellcheck="false" placeholder="Escribe y elige de la lista">
+          </label>
+          <datalist id="dia-titulos" data-dia-titulos></datalist>
+          <div class="trivia__acciones">
+            <button type="submit" class="trivia__boton trivia__boton--grande">Adivinar</button>
+            <button type="button" class="trivia__boton" data-dia-saltar>Saltar</button>
+          </div>
+        </form>
+        <p class="trivia__feedback" data-dia-aviso aria-live="polite"></p>
+      </div>
+
+      <div class="trivia__dia-revelacion" data-dia-revelacion hidden>
+        <p class="trivia__eres" data-dia-veredicto aria-live="polite"></p>
         <h3 class="trivia__categoria" data-dia-cancion></h3>
         <p class="trivia__puntaje" data-dia-disco></p>
         <div class="trivia__acciones">
-          <a class="trivia__boton trivia__boton--grande trivia__boton--spotify" data-dia-spotify target="_blank" rel="noopener">Escúchala en Spotify</a>
+          <a class="trivia__boton trivia__boton--spotify" data-dia-spotify target="_blank" rel="noopener">Escúchala en Spotify</a>
           <a class="trivia__boton trivia__boton--chico" data-dia-apple target="_blank" rel="noopener">Apple Music</a>
         </div>
-        <p class="trivia__nota-ranking">El fragmento es el avance oficial de Apple Music.</p>
-        <p class="trivia__dia-cuadros" data-dia-cuadros aria-hidden="true"></p>
         <div class="trivia__acciones">
-          <button type="button" class="trivia__boton trivia__boton--grande" data-dia-compartir="historia">Compartir para historias</button>
-          <button type="button" class="trivia__boton" data-dia-copiar>Copiar resultado</button>
+          <button type="button" class="trivia__boton trivia__boton--grande" data-dia-siguiente>Siguiente canción ▶</button>
         </div>
-        <p class="trivia__aviso-compartir" data-dia-aviso-compartir aria-live="polite"></p>
-        <p class="trivia__puntaje" data-dia-siguiente></p>
       </div>
+
+      <div class="trivia__dia-final" data-dia-final hidden>
+        <p class="trivia__eres" data-dia-final-titulo></p>
+        <h3 class="trivia__categoria" data-dia-total></h3>
+        <p class="trivia__dia-cuadros" data-dia-cuadros aria-hidden="true"></p>
+        <ol class="trivia__dia-resumen" data-dia-resumen></ol>
+        <div data-dia-compartir-bloque>
+          <div class="trivia__acciones">
+            <button type="button" class="trivia__boton trivia__boton--grande" data-dia-compartir="historia">Compartir para historias</button>
+            <button type="button" class="trivia__boton" data-dia-copiar>Copiar resultado</button>
+          </div>
+          <p class="trivia__aviso-compartir" data-dia-aviso-compartir aria-live="polite"></p>
+        </div>
+        <div class="trivia__publicar" data-publicar="adivina" hidden>
+          <h3 class="trivia__subtitulo">Ranking</h3>
+          <p class="trivia__mi-nombre">Tu nombre: <strong data-mi-nombre></strong>
+            <button type="button" class="trivia__boton trivia__boton--chico" data-otro-nombre>Otro nombre</button></p>
+          <p class="trivia__nota-ranking">Se publica solo este nombre, tus puntos, tu tiempo y la fecha.</p>
+          <button type="button" class="trivia__boton" data-publicar-puntaje>Publicar mi ronda</button>
+          <p class="trivia__publicar-estado" data-publicar-estado aria-live="polite"></p>
+        </div>
+        <p class="trivia__puntaje" data-dia-siguiente-ronda></p>
+        <p class="trivia__nota-ranking">Los fragmentos son los avances oficiales de Apple Music.</p>
+      </div>
+
       <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--dia" data-dia-practica>🎧 Ronda de práctica</button>
         <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
       </div>
       <audio data-dia-audio preload="none"></audio>
@@ -140,6 +165,14 @@
       <p class="trivia__pista" data-cr-record hidden>¡Nuevo récord personal!</p>
       <h3 class="trivia__subtitulo" data-cr-nuevas-titulo>Nuevo en tu colección</h3>
       <ul class="trivia__chapas" data-cr-nuevas></ul>
+      <div class="trivia__publicar" data-publicar="contrarreloj" hidden>
+        <h3 class="trivia__subtitulo">Ranking</h3>
+        <p class="trivia__mi-nombre">Tu nombre: <strong data-mi-nombre></strong>
+          <button type="button" class="trivia__boton trivia__boton--chico" data-otro-nombre>Otro nombre</button></p>
+        <p class="trivia__nota-ranking">Se publica solo este nombre, tus puntos, tu tiempo y la fecha.</p>
+        <button type="button" class="trivia__boton" data-publicar-puntaje>Publicar mi puntaje</button>
+        <p class="trivia__publicar-estado" data-publicar-estado aria-live="polite"></p>
+      </div>
       <div class="trivia__compartir">
         <h3 class="trivia__subtitulo">Compártelo</h3>
         <div class="trivia__acciones">
@@ -157,10 +190,12 @@
 
     <div class="trivia__pantalla" data-pantalla="ranking" hidden>
       <h2 class="trivia__categoria" tabindex="-1" data-foco>Ranking</h2>
-      <div class="trivia__pestanas" role="group" aria-label="Periodo">
-        <button type="button" class="trivia__boton trivia__boton--chico" data-periodo="semana" aria-pressed="true">Esta semana</button>
-        <button type="button" class="trivia__boton trivia__boton--chico" data-periodo="historico" aria-pressed="false">Histórico</button>
+      <div class="trivia__pestanas" role="group" aria-label="Modo">
+        <button type="button" class="trivia__boton trivia__boton--chico" data-rk-modo="trivia" aria-pressed="true">Trivia</button>
+        <button type="button" class="trivia__boton trivia__boton--chico" data-rk-modo="contrarreloj" aria-pressed="false">Contrarreloj</button>
+        <button type="button" class="trivia__boton trivia__boton--chico" data-rk-modo="adivina" aria-pressed="false">Adivina la canción</button>
       </div>
+      <div class="trivia__pestanas" role="group" aria-label="Periodo" data-rk-periodos></div>
       <p class="trivia__ranking-estado" data-ranking-estado aria-live="polite"></p>
       <ol class="trivia__ranking" data-ranking-lista></ol>
       <div class="trivia__acciones">

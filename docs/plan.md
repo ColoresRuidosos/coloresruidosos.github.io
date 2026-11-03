@@ -81,6 +81,12 @@
 - **Fragmentos** con `<audio>`: al tocar "Escuchar" se reproduce desde 0 y se pausa a los 1/2/4/7/11/16 s. Nada suena sin que la persona lo pida.
 - **Estado** en `localStorage` bajo `cr-trivia-v1` (campos opcionales `dia`: resultados por fecha y racha).
 
+**D27 Ronda del día y ranking de todos los modos (2026-11-03):** F20 (cambio) y F21.
+- **Ronda:** el orden fijo de D26 se reparte de 10 en 10: el día *n* toma las posiciones (n−1)·10 a (n−1)·10+9, dando la vuelta al final. `dia.js` lleva la ronda: canción actual, intentos de la canción, puntos por canción (7 − intentos si acierta; 0 si no) y milisegundos desde el primer "Escuchar" hasta la respuesta correcta.
+- **Práctica:** 10 canciones al azar con `Math.random`, sin guardar ni publicar.
+- **`Code.gs`:** `MODOS` suma `contrarreloj` (máx. 400 puntos, duración 3–90 s) y `adivina` (máx. 60, duración 5 s–1 h, una ronda por nombre y fecha). `doGet?modo=adivina` devuelve `{hoy, semana, racha}`: *hoy* = filas de la fecha de CDMX; *semana* = suma por nombre de la primera ronda de cada día de la semana; *racha* = días seguidos por nombre con puntos > 0 que terminan hoy o ayer. Las funciones son puras y se prueban en Node como las de D24.
+- **El cliente sigue funcionando con el script viejo:** si el servidor rechaza un modo nuevo ("modo"), el juego avisa que el ranking de ese modo aún no está activo.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
@@ -94,6 +100,7 @@
 | V8 | Revisión fan de las 95 canciones de `docs/canciones.md` | Lanzar con las 69 sólidas |
 | V9 | Tracklists completos de *V.E.H.N.* y de los tres discos en inglés | Esos discos aparecen solo como opción incorrecta |
 | V11 | Cuántas canciones del banco tienen avance en Apple Music y enlace en Spotify (primera corrida de `audio-trivia.yml`) | Jugar solo con las que tengan avance |
+| V12 | El equipo publica la nueva versión de `Code.gs` (Gestionar implementaciones → editar → Nueva versión) | Contrarreloj y Adivina la canción sin ranking hasta entonces |
 | V10 | ~~El equipo publica el Apps Script y comparte la URL~~ Hecho el 2026-11-03; falta la prueba de punta a punta contra el Sheet real (desde el entorno de desarrollo no se alcanza `script.google.com`) | Si falla, vaciar `trivia_ranking_url` oculta el ranking |
 
 ## Riesgos aceptados por publicar sin revisión

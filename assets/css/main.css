@@ -467,6 +467,13 @@ body.sin-scroll { overflow: hidden; }
 .trivia__dia-intentos li[data-tipo="bien"] { border-color: var(--accent-green); color: var(--accent-green); font-weight: 700; }
 .trivia__dia-adivinar input { max-width: none; width: 100%; }
 .trivia__dia-cuadros { font-size: 1.75rem; letter-spacing: .1em; text-align: center; margin: .5rem 0; }
+.trivia__dia-progreso { font-family: var(--pixel); font-size: .6875rem; color: var(--accent-yellow); margin: .25rem 0 0; }
+.trivia__dia-revelacion { border-top: 2px dashed #5a5a5a; margin-top: 1rem; padding-top: .5rem; text-align: center; }
+.trivia__dia-revelacion .trivia__acciones { justify-content: center; }
+.trivia__dia-resumen { list-style: none; margin: 0 0 1rem; padding: 0; text-align: left; display: grid; gap: .3rem; }
+.trivia__dia-resumen li { display: grid; grid-template-columns: 1.6rem 1fr auto; gap: .5rem; align-items: center; border-bottom: 1px solid #333; padding: .3rem 0; font-size: .9375rem; }
+.trivia__dia-resumen a { font-size: .8125rem; }
+.trivia__dia-resumen b { font-family: var(--pixel); font-size: .625rem; color: var(--accent-yellow); white-space: nowrap; }
 .trivia__dia-final { border-top: 2px dashed #5a5a5a; margin-top: 1rem; padding-top: .5rem; text-align: center; }
 .trivia__dia-final .trivia__acciones { justify-content: center; }
 .trivia__boton--cr { background: var(--accent-blue); border-color: var(--accent-blue); color: var(--tinta-clara); box-shadow: 4px 4px 0 var(--accent-yellow); }

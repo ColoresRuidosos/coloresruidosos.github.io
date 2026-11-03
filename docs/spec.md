@@ -91,13 +91,21 @@
 - Conectar la cuenta de Instagram queda **fuera de alcance**: Meta solo permite iniciar sesión a cuentas profesionales y exige app registrada, revisión y servidor propio.
 
 **F20 "Adivina la canción" (por su sonido).** Tercer modo de `/trivia/`, tipo *Heardle*:
-- **Una canción al día, la misma para todos** (el día cambia a medianoche de CDMX). Sale del banco de canciones de F16, sin repetirse hasta recorrerlo entero.
+- **Ronda del día: 10 canciones, las mismas para todos** (el día cambia a medianoche de CDMX). Salen del banco de canciones de F16 en un orden fijo; con ~68 canciones el banco da la vuelta cada semana, en distinto orden. Se juega una vez al día y el progreso sobrevive a recargar la página.
+- **Puntos por canción:** 6 si se adivina con 1 s, 5 con 2 s, 4 con 4 s, 3 con 7 s, 2 con 11 s, 1 con 16 s y 0 si no. La ronda vale hasta 60. Desempate: menos tiempo total entre el primer "Escuchar" de cada canción y la respuesta correcta.
+- **Rondas de práctica** ilimitadas, de 10 canciones al azar, para seguir jugando: no cuentan para la racha ni el ranking.
 - **Seis intentos con fragmentos que crecen:** 1, 2, 4, 7, 11 y 16 segundos desde el inicio del avance. En cada intento se elige un título de la lista (con buscador) o se salta para escuchar más. Mientras menos segundos hagan falta, mejor.
-- **Al terminar:** la canción, su disco y el botón **"Escúchala en Spotify"** (enlace directo a la canción), más el enlace a Apple Music como fuente del fragmento.
-- **Para compartir sin spoilers:** texto tipo *"Adivina la canción de Love of Lesbian #12 · 🔊🟥🟥🟩⬜⬜⬜ · coloresruidosos.github.io/trivia"*, que se copia solo, y una tarjeta para historias.
-- **Constancia:** se guarda en el navegador el resultado de cada día y la racha de días seguidos acertando. Si ya jugaste hoy, ves tu resultado y cuánto falta para la siguiente.
+- **Después de cada canción:** su título, su disco y el botón **"Escúchala en Spotify"**, más el enlace a Apple Music como fuente del fragmento. Al final de la ronda, el resumen de las 10 con sus puntos y enlaces.
+- **Para compartir sin spoilers:** texto tipo *"Adivina la canción de Love of Lesbian #12 · 43/60 · 🟩🟩🟨🟥🟧🟩🟨🟩🟩🟨"* (verde: 1–2 fragmentos; amarillo: 3–4; naranja: 5–6; rojo: no), que se copia solo, y una tarjeta para historias.
+- **Constancia:** se guarda en el navegador el resultado de cada día y la racha de días seguidos con al menos una canción acertada. Si ya jugaste hoy, ves tu resultado y cuánto falta para la siguiente ronda.
 - **El fragmento sale del avance oficial de 30 segundos de Apple Music.** Spotify ya no ofrece avances a apps nuevas desde noviembre de 2024, y su reproductor muestra el título. Nada de letras ni audio alojado por el sitio.
 - **Solo entran canciones con coincidencia exacta** en Apple Music (mismo título, artista Love of Lesbian y el disco de estudio, no una versión en directo). El botón de Spotify lleva a la pista exacta si Spotify la encuentra; si no (o mientras el repo no tenga credenciales de Spotify), lleva a la búsqueda de esa canción en Spotify.
+
+**F21 Ranking de todos los modos.** El botón **Ranking** muestra una tabla por modo, con el mismo sistema de F18 (nombres generados, publicar opcional, Sheet del equipo):
+- **Trivia:** Esta semana / Histórico (como hoy).
+- **Contrarreloj:** Esta semana / Histórico, por puntos; desempate por fecha.
+- **Adivina la canción:** **Hoy** (mejor ronda del día), **Semana** (suma de las rondas de lunes a domingo, una por día) y **Mejor racha** (más días seguidos con al menos una acertada).
+- Para publicar contrarreloj y Adivina la canción, el equipo actualiza el Apps Script **una vez** a una nueva versión de la misma implementación, sin cambiar la URL.
 
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 

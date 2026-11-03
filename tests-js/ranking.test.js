@@ -125,3 +125,46 @@ test("el tiempo se muestra como m:ss", () => {
   assert.strictEqual(R.formatoTiempo(59000), "0:59");
   assert.strictEqual(R.formatoTiempo(600000), "10:00");
 });
+
+// ---------- Modos contrarreloj y adivina (F21/D27) ----------
+
+test("el Apps Script valida los límites de cada modo", () => {
+  const nombre = R.generarNombre(rngSemilla(2));
+  const env = (modo, puntos, duracionMs) => R.armarEnvio(modo, nombre, puntos, duracionMs, "a1b2c3d4e5f6");
+  assert.strictEqual(GS.validarEnvio(env("contrarreloj", 194, 60000)), "");
+  assert.notStrictEqual(GS.validarEnvio(env("contrarreloj", 401, 60000)), "");
+  assert.notStrictEqual(GS.validarEnvio(env("contrarreloj", 20, 2000)), "");
+  assert.notStrictEqual(GS.validarEnvio(env("contrarreloj", 20, 120000)), "");
+  assert.strictEqual(GS.validarEnvio(env("adivina", 43, 95000)), "");
+  assert.notStrictEqual(GS.validarEnvio(env("adivina", 61, 95000)), "");
+  assert.notStrictEqual(GS.validarEnvio(env("adivina", 43, 1000)), "");
+});
+
+test("Adivina la canción: tablas Hoy, Semana (suma, una ronda por día) y Mejor racha", () => {
+  const ahora = new Date("2026-11-11T18:00:00Z"); // miércoles 11 de noviembre en CDMX, semana 46
+  const f = (nombre, puntos, ms, iso) => ({ nombre, puntos, duracionMs: ms, fecha: iso, modo: "adivina" });
+  const filas = [
+    f("Poeta de Halley #1", 40, 90000, "2026-11-09T18:00:00Z"),
+    f("Poeta de Halley #1", 35, 80000, "2026-11-10T18:00:00Z"),
+    f("Poeta de Halley #1", 50, 70000, "2026-11-11T17:00:00Z"),
+    f("Poeta de Halley #1", 60, 10000, "2026-11-11T17:30:00Z"),   // segunda ronda del mismo día: no cuenta
+    f("Cometa de Nieve #2", 55, 60000, "2026-11-11T16:00:00Z"),
+    f("Cometa de Nieve #2", 58, 50000, "2026-11-08T18:00:00Z"),   // domingo: semana anterior
+    f("Antena del Japón #3", 0, 0, "2026-11-11T15:00:00Z"),
+    f("Antena del Japón #3", 20, 99000, "2026-11-10T15:00:00Z"),
+    { ...f("Fan de Sed #4", 30, 1, "2026-11-11T15:00:00Z"), modo: "trivia" },
+  ];
+  const t = GS.topsAdivina(filas, ahora);
+  assert.deepStrictEqual([...t.hoy].map((x) => x.nombre + ":" + x.puntos), ["Cometa de Nieve #2:55", "Poeta de Halley #1:50", "Antena del Japón #3:0"]);
+  assert.deepStrictEqual([...t.semana].map((x) => x.nombre + ":" + x.puntos + ":" + x.dias),
+    ["Poeta de Halley #1:125:3", "Cometa de Nieve #2:55:1", "Antena del Japón #3:20:2"]);
+  assert.deepStrictEqual([...t.racha].map((x) => x.nombre + ":" + x.racha), ["Poeta de Halley #1:3", "Cometa de Nieve #2:1"]);
+});
+
+test("la racha del ranking se rompe si falta un día o si el último día fue hace más de uno", () => {
+  const f = (nombre, puntos, iso) => ({ nombre, puntos, duracionMs: 1000, fecha: iso, modo: "adivina" });
+  const filas = [f("A de Halley #1", 10, "2026-11-07T18:00:00Z"), f("A de Halley #1", 10, "2026-11-09T18:00:00Z"),
+    f("A de Halley #1", 10, "2026-11-10T18:00:00Z"), f("B de Halley #1", 10, "2026-11-08T18:00:00Z")];
+  const t = GS.topsAdivina(filas, new Date("2026-11-11T18:00:00Z"));
+  assert.deepStrictEqual([...t.racha].map((x) => x.nombre + ":" + x.racha), ["A de Halley #1:2"]);
+});

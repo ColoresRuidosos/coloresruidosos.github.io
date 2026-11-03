@@ -54,3 +54,15 @@ Lo que el script ya rechaza solo:
 Después de editar `Code.gs` en el editor: **Implementar → Gestionar implementaciones → editar (lápiz) → Versión: Nueva versión → Implementar**. Así la URL sigue siendo la misma.
 
 Si cambias las listas de palabras de los nombres, cámbialas igual en `assets/js/trivia/ranking.js`. Una prueba revisa que coincidan.
+
+## 6. Modos del ranking (F21/D27)
+
+El mismo script guarda los tres modos en la misma pestaña (columna `modo`):
+
+| Modo | Tablas | Puntos máx. | Duración válida |
+|---|---|---|---|
+| `trivia` | Esta semana · Histórico | 30 | 15 s – 1 h |
+| `contrarreloj` | Esta semana · Histórico | 400 | 3 s – 90 s |
+| `adivina` | Hoy · Semana (suma de rondas) · Mejor racha | 60 | 5 s – 1 h |
+
+En Adivina la canción solo cuenta la primera ronda publicada por nombre y día (hora de CDMX). Si el sitio dice «El ranking de este modo todavía no está activo», falta publicar la versión nueva del script (paso 5).
