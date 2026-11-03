@@ -443,6 +443,12 @@ body.sin-scroll { overflow: hidden; }
 .trivia__detalle-fecha { font-size: .875rem; color: #cfc7b6; }
 .trivia__aviso-insignia { position: fixed; left: 50%; bottom: 5.5rem; transform: translateX(-50%); z-index: 150; font-family: var(--pixel); font-size: .6875rem; line-height: 1.6; background: var(--accent-yellow); color: var(--text-main); border: 3px solid var(--text-main); box-shadow: var(--sombra); padding: .75rem 1rem; margin: 0; max-width: 90vw; text-align: center; }
 .trivia[data-en="inicio"] .trivia__escena { touch-action: none; cursor: pointer; }
+.trivia__compartir { border-top: 2px dashed #5a5a5a; margin-top: 1.5rem; padding-top: .25rem; }
+.trivia__arroba { display: grid; gap: .4rem; font-weight: 700; }
+.trivia__arroba small { font-weight: 400; color: #cfc7b6; }
+.trivia__arroba input { font: 700 1rem var(--f-cuerpo); color: var(--text-main); background: var(--tinta-clara); border: 3px solid var(--tinta-clara); padding: .6rem .75rem; max-width: 20rem; }
+.trivia__arroba input:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 2px; }
+.trivia__arroba-aviso, .trivia__detalle-aviso { min-height: 1em; margin: .4rem 0 0; font-size: .875rem; color: var(--accent-yellow); }
 .trivia__publicar { border-top: 2px dashed #5a5a5a; margin-top: 1.5rem; padding-top: .25rem; }
 .trivia__mi-nombre { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; margin: 0 0 .5rem; }
 .trivia__mi-nombre strong { font-family: var(--pixel); font-size: .75rem; line-height: 1.6; color: var(--accent-yellow); }

@@ -82,6 +82,14 @@
 
 **F18 Ranking semanal e histórico.** Top 20 de la semana y Top 20 histórico de la trivia (y del contrarreloj cuando exista), consultables en `/trivia/`. Publicar un puntaje es opcional y se ofrece al terminar. Los nombres son **generados** con palabras del universo de la banda ("Psiconauta del Ártico #42"); la persona puede volver a tirar la ruleta, pero no escribir el suyo. Se guarda solo nombre generado, puntaje, duración y fecha. Los puntajes viven en un Google Sheet del equipo detrás de un Apps Script: el equipo modera borrando filas. Empate: gana la partida más rápida y después la más antigua. Cada nombre aparece una sola vez, con su mejor puntaje. La semana va de lunes a domingo en hora de CDMX.
 
+**F19 Compartir en Instagram.** Ningún sitio puede publicar directo en Instagram, así que se le facilita a la persona:
+- **Dos formatos** de tarjeta: *historia* (1080×1920) y *feed* (1080×1350), cada uno con su botón.
+- **@ opcional**: la persona puede escribir su usuario de Instagram y aparece **solo en su propia imagen**, nunca en el ranking (que sigue con nombres generados). Se guarda en su navegador para la próxima vez.
+- **Texto listo para pegar**: al compartir se copia un texto con la categoría, la mención a @coloresruidosos y la dirección del juego, porque Instagram no deja precargarlo.
+- **En el celular** se abre el menú de compartir con la imagen (ahí aparece Instagram); **en computadora** se descarga con un aviso de pasarla al celular y etiquetar a @coloresruidosos.
+- **Cada chapa ganada se puede compartir sola** desde su vista en grande ("Conseguí *Contradicción*").
+- Conectar la cuenta de Instagram queda **fuera de alcance**: Meta solo permite iniciar sesión a cuentas profesionales y exige app registrada, revisión y servidor propio.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos

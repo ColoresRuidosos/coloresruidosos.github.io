@@ -118,11 +118,17 @@ function doPost(e) {
 function hoja() {
   var libro = SpreadsheetApp.getActiveSpreadsheet();
   var h = libro.getSheetByName(HOJA);
-  if (!h) {
+  if (h) return h;
+  // Sin pestaña "Puntajes": adopta la primera si está vacía o ya trae los encabezados; si no, crea una.
+  var primera = libro.getSheets()[0];
+  var fila1 = primera.getLastRow() ? primera.getRange(1, 1, 1, ENCABEZADOS.length).getValues()[0].map(String) : [];
+  if (!fila1.length || fila1.join() === ENCABEZADOS.join()) {
+    h = primera.setName(HOJA);
+  } else {
     h = libro.insertSheet(HOJA);
-    h.appendRow(ENCABEZADOS);
-    h.getRange("A:B").setNumberFormat("@"); // fecha y semana como texto
   }
+  if (!h.getLastRow()) h.appendRow(ENCABEZADOS);
+  h.getRange("A:B").setNumberFormat("@"); // fecha y semana como texto
   return h;
 }
 

@@ -1,15 +1,17 @@
 /* Interfaz de la Trivia (F15/D21): conecta la lógica (CRtrivia) con las
    escenas (CRescenas) y el DOM de layouts/trivia/section.html. */
 (function () {
-  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias, R = window.CRranking;
+  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias, R = window.CRranking, CC = window.CRcompartir;
   var raiz = document.querySelector("[data-trivia]");
   var crudo = document.getElementById("trivia-datos");
-  if (!raiz || !T || !E || !I || !crudo) return;
+  if (!raiz || !T || !E || !I || !CC || !crudo) return;
 
   var datos = JSON.parse(crudo.textContent);
   var jugables = T.preguntasJugables(datos);
   var almacen = (function () { try { return window.localStorage; } catch (e) { return null; } })();
   var estado = T.cargarEstado(almacen);
+  function leer(clave) { try { return almacen && almacen.getItem(clave); } catch (e) { return null; } }
+  function escribir(clave, valor) { try { almacen && almacen.setItem(clave, valor); } catch (e) { /* sin almacenamiento */ } }
   var sinMovimiento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var NOMBRE_DIF = { facil: "Fácil", dificil: "Difícil", muy_dificil: "Muy difícil" };
 
@@ -227,46 +229,109 @@
     return lineas;
   }
 
-  function crearTarjeta(r) {
-    var W = 1080, H = 1350, lienzo = document.createElement("canvas");
-    lienzo.width = W; lienzo.height = H;
-    var c = lienzo.getContext("2d");
+  // ---------- Compartir en Instagram (F19/D25) ----------
+  var FUENTE_PIXEL = '"Press Start 2P", "Space Mono", monospace';
+
+  function miArroba() { return CC.limpiarArroba(leer("cr-trivia-ig")); }
+
+  // Lienzo base: fondo, franjas de la marca y título. En historia (9:16) el contenido baja 285 px
+  // para quedar centrado y lejos de los controles de Instagram.
+  function lienzoTarjeta(formato) {
+    var f = CC.FORMATOS[formato], lienzo = document.createElement("canvas");
+    lienzo.width = f.ancho; lienzo.height = f.alto;
+    var c = lienzo.getContext("2d"), W = f.ancho, H = f.alto, y = formato === "historia" ? 285 : 0;
     c.imageSmoothingEnabled = false;
     c.fillStyle = "#141414"; c.fillRect(0, 0, W, H);
     ["#FF3E7F", "#2F5BFF", "#FFD23F", "#1FB57A", "#FF7A30"].forEach(function (col, k) {
       c.fillStyle = col; c.fillRect(k * (W / 5), 0, W / 5, 24); c.fillRect(k * (W / 5), H - 24, W / 5, 24);
     });
-    var fuente = '"Press Start 2P", "Space Mono", monospace';
     c.textAlign = "center";
-    c.fillStyle = "#FF7A30"; c.font = "34px " + fuente;
-    c.fillText("LOVE OF LESBIAN", W / 2, 120);
-    c.fillStyle = "#F4EFE6"; c.font = "26px " + fuente;
-    c.fillText("· LA TRIVIA 8 BITS ·", W / 2, 170);
+    c.fillStyle = "#FF7A30"; c.font = "34px " + FUENTE_PIXEL;
+    c.fillText("LOVE OF LESBIAN", W / 2, y + 120);
+    c.fillStyle = "#F4EFE6"; c.font = "26px " + FUENTE_PIXEL;
+    c.fillText("· LA TRIVIA 8 BITS ·", W / 2, y + 170);
+    return { lienzo: lienzo, c: c, W: W, y: y };
+  }
 
+  function pieTarjeta(t, pregunta) {
+    var c = t.c, arroba = miArroba();
+    c.fillStyle = "#FF3E7F"; c.font = "22px " + FUENTE_PIXEL;
+    c.fillText(pregunta, t.W / 2, t.y + 1185);
+    if (arroba) { c.fillStyle = "#FFD23F"; c.font = "26px " + FUENTE_PIXEL; c.fillText("@" + arroba, t.W / 2, t.y + 1240); }
+    c.fillStyle = "#F4EFE6"; c.font = "20px " + FUENTE_PIXEL;
+    c.fillText(CC.DIRECCION, t.W / 2, t.y + 1290);
+  }
+
+  function crearTarjeta(r, formato) {
+    var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y;
     var av = document.createElement("canvas");
     av.width = 32; av.height = 32;
     E.dibujarAvatar(av.getContext("2d"), r.categoria.nivel);
-    c.drawImage(av, (W - 448) / 2, 220, 448, 448);
-
-    c.fillStyle = "#F4EFE6"; c.font = "30px " + fuente;
-    c.fillText("Soy", W / 2, 740);
-    c.fillStyle = "#FFD23F"; c.font = "52px " + fuente;
-    partirTexto(c, r.categoria.nombre, W - 120).forEach(function (l, k) { c.fillText(l, W / 2, 820 + k * 72); });
-    c.fillStyle = "#F4EFE6"; c.font = "36px " + fuente;
-    c.fillText(r.puntos + "/30 PUNTOS", W / 2, 1040);
+    c.drawImage(av, (W - 448) / 2, y + 220, 448, 448);
+    c.fillStyle = "#F4EFE6"; c.font = "30px " + FUENTE_PIXEL;
+    c.fillText("Soy", W / 2, y + 740);
+    c.fillStyle = "#FFD23F"; c.font = "52px " + FUENTE_PIXEL;
+    partirTexto(c, r.categoria.nombre, W - 120).forEach(function (l, k) { c.fillText(l, W / 2, y + 820 + k * 72); });
+    c.fillStyle = "#F4EFE6"; c.font = "36px " + FUENTE_PIXEL;
+    c.fillText(r.puntos + "/30 PUNTOS", W / 2, y + 1040);
     var total = Object.keys(estado.insignias).length;
-    c.font = "24px " + fuente; c.fillStyle = "#1FB57A";
-    c.fillText(total + (total === 1 ? " INSIGNIA" : " INSIGNIAS") + " · " + estado.portadas.length + "/6 PORTADAS", W / 2, 1110);
-    c.fillStyle = "#FF3E7F"; c.font = "22px " + fuente;
-    c.fillText("¿Y tú qué tan lesbiano eres?", W / 2, 1210);
-    c.fillStyle = "#F4EFE6"; c.font = "20px " + fuente;
-    c.fillText("coloresruidosos.github.io/trivia", W / 2, 1270);
-    return lienzo;
+    c.font = "24px " + FUENTE_PIXEL; c.fillStyle = "#1FB57A";
+    c.fillText(total + (total === 1 ? " INSIGNIA" : " INSIGNIAS") + " · " + estado.portadas.length + "/6 PORTADAS", W / 2, y + 1110);
+    pieTarjeta(t, "¿Y tú qué tan lesbiano eres?");
+    return t.lienzo;
   }
 
-  function anunciar(texto) {
-    var a = $("[data-aviso-compartir]");
-    a.textContent = texto;
+  function crearTarjetaChapa(ins, formato) {
+    var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y;
+    var ch = document.createElement("canvas");
+    ch.width = 32; ch.height = 32;
+    I.dibujarChapa(ch.getContext("2d"), ins, "ganada");
+    c.drawImage(ch, (W - 512) / 2, y + 210, 512, 512);
+    c.fillStyle = "#F4EFE6"; c.font = "30px " + FUENTE_PIXEL;
+    c.fillText("Conseguí", W / 2, y + 800);
+    c.fillStyle = "#FFD23F"; c.font = "46px " + FUENTE_PIXEL;
+    var lineas = partirTexto(c, ins.nombre, W - 120);
+    lineas.forEach(function (l, k) { c.fillText(l, W / 2, y + 875 + k * 64); });
+    c.fillStyle = "#cfc7b6"; c.font = "30px " + '"Space Grotesk", sans-serif';
+    partirTexto(c, ins.como, W - 200).forEach(function (l, k) { c.fillText(l, W / 2, y + 900 + lineas.length * 64 + k * 42); });
+    pieTarjeta(t, "¿Te atreves?");
+    return t.lienzo;
+  }
+
+  function copiarTexto(texto) {
+    try { return navigator.clipboard.writeText(texto).then(function () { return true; }, function () { return false; }); }
+    catch (e) { return Promise.resolve(false); }
+  }
+
+  // Copia el texto, y comparte la imagen (celular) o la descarga (computadora).
+  function compartirImagen(hacerLienzo, archivoNombre, texto, aviso, alCompartir) {
+    var fuentes = (document.fonts && document.fonts.load) ? document.fonts.load('20px "Press Start 2P"') : Promise.resolve();
+    var copiado = copiarTexto(texto);
+    fuentes.catch(function () {}).then(function () {
+      hacerLienzo().toBlob(function (blob) {
+        if (!blob) return;
+        var archivo = new File([blob], archivoNombre, { type: "image/png" });
+        var trasCopiar = function (ok) {
+          return ok ? "El texto ya está copiado: pégalo en tu publicación." : "Copia este texto para tu publicación: " + texto;
+        };
+        if (navigator.canShare && navigator.canShare({ files: [archivo] })) {
+          navigator.share({ files: [archivo] })
+            .then(function () { alCompartir(); return copiado; })
+            .then(function (ok) { aviso.textContent = trasCopiar(ok); })
+            .catch(function () { /* la persona canceló */ });
+        } else {
+          var a = crear("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = archivo.name;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
+          alCompartir();
+          copiado.then(function (ok) {
+            aviso.textContent = "Imagen descargada. Pásala a tu celular y súbela a tus historias; etiquétanos " + CC.CUENTA + ". " + trasCopiar(ok);
+          });
+        }
+      }, "image/png");
+    });
   }
 
   function trasCompartir() {
@@ -274,35 +339,31 @@
     estado = r.estado;
     T.guardarEstado(almacen, estado);
     contar("compartida");
-    if (r.nuevas.length) {
-      tonos(SONIDOS.insignia);
-      anunciar("¡Nueva insignia: " + insignia(r.nuevas[0]).nombre + "!");
-    }
+    anunciarInsignias(r.nuevas);
   }
 
-  function compartir() {
+  function compartir(formato) {
     if (!ultimoResultado) return;
-    var listo = (document.fonts && document.fonts.load) ? document.fonts.load('20px "Press Start 2P"') : Promise.resolve();
-    listo.catch(function () {}).then(function () {
-      crearTarjeta(ultimoResultado).toBlob(function (blob) {
-        if (!blob) return;
-        var archivo = new File([blob], "mi-trivia-love-of-lesbian.png", { type: "image/png" });
-        var texto = "Soy " + ultimoResultado.categoria.nombre + " en la trivia de Love of Lesbian de Colores Ruidosos";
-        if (navigator.canShare && navigator.canShare({ files: [archivo] })) {
-          navigator.share({ files: [archivo], text: texto, url: location.href })
-            .then(trasCompartir)
-            .catch(function () { /* el usuario canceló */ });
-        } else {
-          var a = crear("a");
-          a.href = URL.createObjectURL(blob);
-          a.download = archivo.name;
-          document.body.appendChild(a); a.click(); a.remove();
-          setTimeout(function () { URL.revokeObjectURL(a.href); }, 5000);
-          anunciar("Tarjeta descargada. Súbela a tus historias.");
-          trasCompartir();
-        }
-      }, "image/png");
-    });
+    guardarArroba();
+    var r = ultimoResultado;
+    compartirImagen(function () { return crearTarjeta(r, formato); }, "mi-trivia-love-of-lesbian-" + formato + ".png",
+      CC.textoResultado({ categoria: r.categoria.nombre, puntos: r.puntos }), $("[data-aviso-compartir]"), trasCompartir);
+  }
+
+  function compartirChapa(id) {
+    var ins = insignia(id);
+    if (!estado.insignias[id]) return;
+    compartirImagen(function () { return crearTarjetaChapa(ins, "historia"); }, "insignia-" + id + ".png",
+      CC.textoChapa(ins), $("[data-detalle-aviso]"), function () { contar("chapa-compartida"); trasCompartir(); });
+  }
+
+  function guardarArroba() {
+    var campo = $("[data-arroba]");
+    if (!campo) return;
+    var limpio = CC.limpiarArroba(campo.value);
+    var aviso = $("[data-arroba-aviso]");
+    aviso.textContent = campo.value.trim() && !limpio ? "Ese @ no parece de Instagram; no lo pondremos en la imagen." : "";
+    escribir("cr-trivia-ig", limpio);
   }
 
   // ---------- Chapas (F17) ----------
@@ -343,6 +404,10 @@
     $("[data-detalle-nombre]", detalle).textContent = est === "secreta" ? "Insignia secreta" : ins.nombre;
     $("[data-detalle-como]", detalle).textContent = est === "secreta" ? "Pista: " + ins.pista : ins.como;
     var f = estado.insignias[id];
+    var botonChapa = $("[data-compartir-chapa]", detalle);
+    botonChapa.hidden = !f;
+    botonChapa.setAttribute("data-compartir-chapa", id);
+    $("[data-detalle-aviso]", detalle).textContent = "";
     $("[data-detalle-fecha]", detalle).textContent = f
       ? "La ganaste el " + new Date(f).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })
       : est === "secreta" ? "Todavía no la descubres." : "Todavía no la ganas.";
@@ -405,8 +470,6 @@
 
   // ---------- Ranking (F18/D24) ----------
   var urlRanking = R ? raiz.getAttribute("data-ranking-url") : "";
-  function leer(clave) { try { return almacen && almacen.getItem(clave); } catch (e) { return null; } }
-  function escribir(clave, valor) { try { almacen && almacen.setItem(clave, valor); } catch (e) { /* sin almacenamiento */ } }
   var miNombre = urlRanking ? leer("cr-trivia-nombre") : null;
   if (urlRanking && !R.nombreValido(miNombre)) { miNombre = R.generarNombre(); escribir("cr-trivia-nombre", miNombre); }
   var miDispositivo = urlRanking ? leer("cr-trivia-dispositivo") : null;
@@ -528,7 +591,8 @@
     else if (b.hasAttribute("data-siguiente")) siguiente();
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
     else if (b.hasAttribute("data-volver")) { pintarInicio(); mostrar("inicio"); }
-    else if (b.hasAttribute("data-compartir")) compartir();
+    else if (b.hasAttribute("data-compartir")) compartir(b.getAttribute("data-compartir"));
+    else if (b.hasAttribute("data-compartir-chapa")) compartirChapa(b.getAttribute("data-compartir-chapa"));
     else if (b.hasAttribute("data-ver-ranking")) verRanking();
     else if (b.hasAttribute("data-periodo")) { periodo = b.getAttribute("data-periodo"); pintarRanking(); }
     else if (b.hasAttribute("data-publicar-puntaje")) publicar();
@@ -557,6 +621,10 @@
       if (b && !b.disabled) { ev.preventDefault(); b.click(); }
     }
   });
+
+  var campoArroba = $("[data-arroba]");
+  campoArroba.value = miArroba() ? "@" + miArroba() : "";
+  campoArroba.addEventListener("change", guardarArroba);
 
   pintarBotonSonido();
   pintarInicio();

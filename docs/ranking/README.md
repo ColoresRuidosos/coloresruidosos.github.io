@@ -9,7 +9,7 @@ El ranking guarda los puntajes en un Google Sheet del equipo. Un Apps Script peg
 3. Borra lo que trae el editor y pega todo el contenido de [`Code.gs`](Code.gs).
 4. Guarda (ícono de disquete).
 
-No hace falta crear la pestaña `Puntajes`: el script la crea con sus encabezados al recibir el primer puntaje.
+No hace falta preparar pestañas: si no existe `Puntajes`, el script toma la primera pestaña (si está vacía o ya trae los encabezados) y la renombra; si no, crea una nueva.
 
 ## 2. Publicarlo como aplicación web
 

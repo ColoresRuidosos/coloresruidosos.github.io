@@ -64,6 +64,13 @@
 - **Configuración:** la URL del Apps Script va en `hugo.toml` como `params.trivia_ranking_url`. Mientras esté vacía, el ranking no aparece en el sitio.
 - **POST como `text/plain`** para evitar la petición previa de CORS, que Apps Script no contesta.
 
+**D25 Compartir en Instagram (2026-11-03):** F19.
+- **Parte pura aparte:** `assets/js/trivia/compartir.js` limpia el @ (sin "@" inicial ni espacios; letras, números, punto y guion bajo; máximo 30, como Instagram) y arma el texto para pegar. Pruebas en `tests-js/compartir.test.js`.
+- **Las tarjetas se dibujan en `juego.js`** con un mismo dibujo para los dos tamaños: el de historia agrega aire arriba y abajo para que no lo tapen los controles de Instagram.
+- **El @ va en `localStorage` (`cr-trivia-ig`) y nunca se envía al ranking.**
+- **Copiar al portapapeles** con `navigator.clipboard.writeText`; si falla, el texto se muestra para copiarlo a mano.
+- **@coloresruidosos** es el usuario que el sitio ya usa en su pie de página.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|

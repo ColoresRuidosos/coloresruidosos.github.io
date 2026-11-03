@@ -91,3 +91,9 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ `docs/ranking/Code.gs` y `docs/ranking/README.md` con los pasos para el equipo
 - ✅ Pantalla de ranking y botón "Publicar mi puntaje"; oculto sin URL. Probado de punta a punta contra `Code.gs` corriendo en Node con imitaciones de los servicios de Google
 - ⏳ V10: el equipo publica el Apps Script; probar de punta a punta
+
+## Fase 10 — Compartir en Instagram (F19/D25)
+- ✅ Spec
+- ✅ 🔴→🟢 @ opcional: limpieza y validación; texto para pegar con categoría, @coloresruidosos y dirección
+- ✅ Tarjetas historia y feed, @ en la imagen, compartir chapa, copiar texto, aviso en computadora
+- ✅ Compilar y probar con Playwright
