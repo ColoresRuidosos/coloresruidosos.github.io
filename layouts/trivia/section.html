@@ -8,7 +8,7 @@
 
 <noscript><p class="vacio">La trivia necesita JavaScript para funcionar.</p></noscript>
 
-<section class="trivia" data-trivia data-en="inicio" aria-label="Juego de trivia">
+<section class="trivia" data-trivia data-en="inicio" aria-label="Juego de trivia"{{ with site.Params.trivia_ranking_url }} data-ranking-url="{{ . }}"{{ end }}>
   <div class="trivia__consola">
     <canvas class="trivia__escena" data-escena width="160" height="144" role="img" aria-label="Escena pixel art"></canvas>
 
@@ -17,6 +17,7 @@
       <div class="trivia__acciones">
         <button type="button" class="trivia__boton trivia__boton--grande" data-jugar data-foco>▶ Jugar</button>
         <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
+        <button type="button" class="trivia__boton" data-ver-ranking hidden>Ranking</button>
         <button type="button" class="trivia__boton trivia__boton--chico" data-sonido aria-pressed="false">♪ Sonido: no</button>
       </div>
       <p class="trivia__record" data-record></p>
@@ -41,14 +42,47 @@
       <p class="trivia__eres">Eres</p>
       <h2 class="trivia__categoria" data-categoria tabindex="-1" data-foco></h2>
       <p class="trivia__puntaje" data-puntaje></p>
+      <p class="trivia__pista" data-pista-siguiente hidden></p>
       <h3 class="trivia__subtitulo" data-nuevas-titulo>Nuevo en tu colección</h3>
-      <ul class="trivia__insignias" data-nuevas></ul>
+      <ul class="trivia__chapas" data-nuevas></ul>
+      <div class="trivia__publicar" data-publicar hidden>
+        <h3 class="trivia__subtitulo">Ranking</h3>
+        <p class="trivia__mi-nombre">Tu nombre: <strong data-mi-nombre></strong>
+          <button type="button" class="trivia__boton trivia__boton--chico" data-otro-nombre>Otro nombre</button></p>
+        <p class="trivia__nota-ranking">Se publica solo este nombre, tus puntos, tu tiempo y la fecha.</p>
+        <button type="button" class="trivia__boton" data-publicar-puntaje>Publicar mi puntaje</button>
+        <p class="trivia__publicar-estado" data-publicar-estado aria-live="polite"></p>
+      </div>
+      <div class="trivia__compartir">
+        <h3 class="trivia__subtitulo">Compártelo</h3>
+        <label class="trivia__arroba">Tu @ de Instagram <small>(opcional: solo aparece en tu imagen, nunca en el ranking)</small>
+          <input type="text" data-arroba autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="31" placeholder="@tuusuario">
+        </label>
+        <p class="trivia__arroba-aviso" data-arroba-aviso aria-live="polite"></p>
+        <div class="trivia__acciones">
+          <button type="button" class="trivia__boton trivia__boton--grande" data-compartir="historia">Para historias</button>
+          <button type="button" class="trivia__boton" data-compartir="feed">Para el feed</button>
+        </div>
+        <p class="trivia__aviso-compartir" data-aviso-compartir aria-live="polite"></p>
+      </div>
       <div class="trivia__acciones">
-        <button type="button" class="trivia__boton trivia__boton--grande" data-compartir>Compartir mi resultado</button>
         <button type="button" class="trivia__boton" data-jugar>Jugar otra vez</button>
         <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
       </div>
-      <p class="trivia__aviso-compartir" data-aviso-compartir aria-live="polite"></p>
+    </div>
+
+    <div class="trivia__pantalla" data-pantalla="ranking" hidden>
+      <h2 class="trivia__categoria" tabindex="-1" data-foco>Ranking</h2>
+      <div class="trivia__pestanas" role="group" aria-label="Periodo">
+        <button type="button" class="trivia__boton trivia__boton--chico" data-periodo="semana" aria-pressed="true">Esta semana</button>
+        <button type="button" class="trivia__boton trivia__boton--chico" data-periodo="historico" aria-pressed="false">Histórico</button>
+      </div>
+      <p class="trivia__ranking-estado" data-ranking-estado aria-live="polite"></p>
+      <ol class="trivia__ranking" data-ranking-lista></ol>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--grande" data-jugar>▶ Jugar</button>
+        <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
+      </div>
     </div>
 
     <div class="trivia__pantalla" data-pantalla="coleccion" hidden>
@@ -57,20 +91,30 @@
       <h3 class="trivia__subtitulo">Portadas</h3>
       <ul class="trivia__portadas" data-portadas></ul>
       <h3 class="trivia__subtitulo">Insignias</h3>
-      <ul class="trivia__insignias" data-insignias></ul>
+      <ul class="trivia__chapas" data-insignias></ul>
       <div class="trivia__acciones">
         <button type="button" class="trivia__boton trivia__boton--grande" data-jugar>▶ Jugar</button>
         <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
       </div>
     </div>
   </div>
-  <p class="trivia__nota">Tu récord, insignias y portadas se guardan solo en este navegador. Las escenas son pixel art propio inspirado en las portadas de la banda. Las preguntas y sus fuentes están en <a href="https://github.com/ColoresRuidosos/coloresruidosos.github.io/blob/main/docs/trivia.md">docs/trivia.md</a>; si ves un error, avísanos.</p>
+  <p class="trivia__aviso-insignia" data-aviso-insignia role="status" hidden></p>
+  <dialog class="trivia__detalle" data-detalle aria-labelledby="detalle-nombre">
+    <canvas class="trivia__detalle-img" data-detalle-img width="32" height="32" aria-hidden="true"></canvas>
+    <h3 id="detalle-nombre" data-detalle-nombre></h3>
+    <p data-detalle-como></p>
+    <p class="trivia__detalle-fecha" data-detalle-fecha></p>
+    <button type="button" class="trivia__boton trivia__boton--grande" data-compartir-chapa hidden>Compartir esta chapa</button>
+    <p class="trivia__detalle-aviso" data-detalle-aviso aria-live="polite"></p>
+    <button type="button" class="trivia__boton" data-cerrar-detalle>Cerrar</button>
+  </dialog>
+  <p class="trivia__nota">Tu récord, insignias y portadas se guardan solo en este navegador.{{ with site.Params.trivia_ranking_url }} Si publicas en el ranking, solo se envían tu nombre generado, tus puntos, tu tiempo y la fecha.{{ end }} Las escenas son pixel art propio inspirado en las portadas de la banda. Las preguntas y sus fuentes están en <a href="https://github.com/ColoresRuidosos/coloresruidosos.github.io/blob/main/docs/trivia.md">docs/trivia.md</a>; si ves un error, avísanos.</p>
 </section>
 
 <script type="application/json" id="trivia-datos">{{ site.Data.trivia | jsonify | safeJS }}</script>
 {{ end }}
 
 {{ define "scripts" }}
-{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
+{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/insignias.js") (resources.Get "js/trivia/ranking.js") (resources.Get "js/trivia/compartir.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}

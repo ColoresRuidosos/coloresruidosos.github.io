@@ -71,6 +71,27 @@
 
 **Métricas de éxito de F15:** partidas iniciadas vs. terminadas (> 60 % terminan); al menos 1 de cada 5 partidas termina en compartir la tarjeta; jugadores que vuelven a jugar (insignia "Universos infinitos"). *Sin analítica en el sitio hoy: medir requiere decidir una herramienta respetuosa con la privacidad (decisión abierta).*
 
+**F16 Contrarreloj "¿De qué disco es?"** Segundo modo de juego dentro de `/trivia/`. Aparece el título de una canción y cuatro discos de estudio para elegir; hay 60 segundos para acertar todas las que se pueda.
+- **Puntos:** +1 por acierto; con racha de 5 o más vale ×2 y con 10 o más, ×3. Un error corta la racha y resta 3 segundos. No se repiten canciones en una partida; si se acaba el banco, la partida termina.
+- **Resultado:** puntos, aciertos, mejor racha y récord personal, más tarjeta para compartir ("N canciones en 60 segundos").
+- **Insignias nuevas**, con nombre de canción, en la misma colección: **Psiconautas** (primera partida de contrarreloj), **Los seres únicos** (10 aciertos seguidos), **Radio Himalaya** (20 aciertos en una partida) y **Cosmos (Antisistema Solar)** (100 canciones acertadas en total).
+- **Veracidad:** las mismas reglas de F15. Cada canción tiene fuente y pasa por la revisión de un fan; solo se juegan las de fuente sólida (o verificadas, cuando el banco salga de borrador). Solo discos de estudio y sin canciones que se llamen como su disco. Contenido: `docs/canciones.md`.
+- **Objetivo:** que la gente vuelva a jugar en los días de los conciertos de México (24 al 28 de noviembre de 2026).
+
+**F17 Insignias como chapas y 11 insignias "imposibles".** Las insignias de la trivia pasan a verse como chapas de concierto en pixel art (aro de color por familia, ícono por canción, cuatro estados) y se abren en grande al tocarlas. Se suman 11 insignias secretas difíciles o escondidas (habilidad, constancia y dos secretos: código Konami y tocar la pantallita), con su pista en la colección, y "El gran truco final" para quien las tenga todas. Detalle: `docs/trivia.md` §2.3.
+
+**F18 Ranking semanal e histórico.** Top 20 de la semana y Top 20 histórico de la trivia (y del contrarreloj cuando exista), consultables en `/trivia/`. Publicar un puntaje es opcional y se ofrece al terminar. Los nombres son **generados** con palabras del universo de la banda ("Psiconauta del Ártico #42"); la persona puede volver a tirar la ruleta, pero no escribir el suyo. Se guarda solo nombre generado, puntaje, duración y fecha. Los puntajes viven en un Google Sheet del equipo detrás de un Apps Script: el equipo modera borrando filas. Empate: gana la partida más rápida y después la más antigua. Cada nombre aparece una sola vez, con su mejor puntaje. La semana va de lunes a domingo en hora de CDMX.
+
+**F19 Compartir en Instagram.** Ningún sitio puede publicar directo en Instagram, así que se le facilita a la persona:
+- **Dos formatos** de tarjeta: *historia* (1080×1920) y *feed* (1080×1350), cada uno con su botón.
+- **@ opcional**: la persona puede escribir su usuario de Instagram y aparece **solo en su propia imagen**, nunca en el ranking (que sigue con nombres generados). Se guarda en su navegador para la próxima vez.
+- **Texto listo para pegar**: al compartir se copia un texto con la categoría, la mención a @coloresruidosos y la dirección del juego, porque Instagram no deja precargarlo.
+- **En el celular** se abre el menú de compartir con la imagen (ahí aparece Instagram); **en computadora** se descarga con un aviso de pasarla al celular y etiquetar a @coloresruidosos.
+- **Cada chapa ganada se puede compartir sola** desde su vista en grande ("Conseguí *Contradicción*").
+- Conectar la cuenta de Instagram queda **fuera de alcance**: Meta solo permite iniciar sesión a cuentas profesionales y exige app registrada, revisión y servidor propio.
+
+**Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
+
 ## 4. Flujos
 
 **A. Corrida diaria (8:00 CDMX).** Tests → notas → agenda → despublicaciones → compilar sitio → commit único (solo si hay cambios) → despliegue a GitHub Pages.
@@ -82,6 +103,8 @@
 **D. Corregir una nota publicada.** Curador ve error → pestaña Notas: slug + TRUE → siguiente corrida (o corrida manual) la oculta.
 
 **F. Partida de trivia.** Portada del juego → "Jugar" → sorteo de 15 preguntas verificadas (5/5/5) ordenadas por etapa → por cada etapa, escena pixel art y sus preguntas (4 opciones; acierto/error con sonido y animación breves) → resultado: puntaje, categoría con su avatar, insignias nuevas, portadas desbloqueadas → compartir tarjeta o volver a jugar.
+
+**H. Partida de contrarreloj.** Inicio de `/trivia/` → "Contrarreloj" → cuenta regresiva 3-2-1 → canción + cuatro discos, reloj de 60 s → acierto (puntos, racha, siguiente canción) o error (−3 s, racha a cero, se marca el disco correcto 0,6 s) → al llegar a 0 s: resultado, insignias nuevas, compartir o jugar otra vez.
 
 **G. Alta de una pregunta.** Se propone en `docs/trivia.md` con fuentes → un fan abre los enlaces y confirma → pasa a `data/trivia.json` con `estado: verificada` → los tests validan formato y fuentes → la siguiente compilación la incluye.
 
@@ -101,7 +124,9 @@ GitHub Pages ◄─────────────────────�
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
-   /trivia/     juego 8 bits sobre Love of Lesbian (data/trivia.json + canvas, sin backend)
+   /trivia/     juego 8 bits sobre Love of Lesbian: trivia (data/trivia.json) y contrarreloj
+                (data/canciones.json), canvas; el ranking (F18) lee y escribe en un
+                Apps Script ──► Google Sheet del equipo
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
@@ -119,5 +144,9 @@ Estructura, modelo de datos y decisiones: ver `plan.md`.
 **Identidad (SPEC-001):** crema `#F4EFE6`, tinta `#141414`, rosa `#FF3E7F`, azul `#2F5BFF`, amarillo `#FFD23F`, verde `#1FB57A`, naranja `#FF7A30`; Syne y Space Grotesk. Colores primarios vibrantes (no tonos apagados). Reglas de contraste: rosa, amarillo, verde y naranja solo con texto tinta encima (nunca blanco); rosa reservado para el sticker "Viene a México"; verde, naranja, azul y amarillo marcan respectivamente las categorías Lanzamiento, Gira, Anuncio y Crónica.
 
 **Trivia (F15):** juego completo con teclado (1–4 y Enter) y lector de pantalla (las escenas pixel art tienen texto alternativo; las preguntas tipo portada describen la imagen); sin destellos de más de 3 por segundo; `prefers-reduced-motion` quita animaciones; sonido apagado por defecto; funciona a 360 px y sin `localStorage`. Portadas redibujadas en pixel art propio, nunca las originales pixeladas; sin letras ni audio de la banda.
+
+**Contrarreloj (F16):** se juega con teclado (1–4); el reloj se muestra como número y no solo como barra; el lector de pantalla anuncia acierto o error, no cada segundo; con `prefers-reduced-motion` no hay sacudidas ni destellos. La pantalla de inicio avisa que es con tiempo, para quien prefiera la trivia sin reloj.
+
+**Ranking (F18):** sin datos personales ni cookies; el sitio avisa qué se publica antes de enviarlo. El servidor rechaza puntajes imposibles (fuera de 0–30, partidas de menos de 15 s) y limita los envíos por navegador. Las trampas no se pueden evitar del todo en un juego sin servidor propio: el equipo modera en el Sheet. Si el Apps Script no responde, el juego sigue funcionando y el ranking muestra un aviso.
 
 **Accesibilidad y rendimiento:** foco visible, enlace para saltar al contenido, filtros con `aria-pressed`, responsive a 360 px, iframes con carga diferida, sin librerías JS.

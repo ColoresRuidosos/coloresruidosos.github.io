@@ -38,7 +38,38 @@
 - **Fuente 8 bits** Press Start 2P (Google Fonts), solo en `/trivia/` y sin `text-transform: uppercase`, porque no trae mayúsculas acentuadas (Í, É, Ú).
 - **Sonido** con Web Audio (osciladores de onda cuadrada), sin archivos de audio y apagado por defecto. Música: chiptune original, nunca melodías de la banda (D21 descarta covers 8 bits sin permiso).
 - **Sin aviso de "versión de prueba" (2026-10-30):** a pedido del equipo se quitó el letrero amarillo. `borrador: true` sigue limitando el juego a las preguntas de fuente sólida mientras los fans revisan; cada pregunta muestra su fuente al responder.
+- **Pistas de lo secreto (2026-11-03):** los fans preguntaban en redes cómo sacar las insignias "???". En la colección, las secretas muestran una pista críptica en lugar de "???", y el resultado de Viejo lesbiano avisa que hay un nivel más con 30 de 30 (`pistaSiguiente`). El nombre sigue oculto hasta ganarla.
 - **Fecha límite:** el 28 de noviembre de 2026 (Tecate Comuna, Puebla: última fecha anunciada en México) marca el fin de la insignia "El último baile". Al principio era el 25 (Auditorio Nacional), pero el equipo avisó que había fechas posteriores; se corrigió el 2026-10-30.
+
+**D22 Contrarreloj "¿De qué disco es?" (2026-11-03):** F16, segundo modo de `/trivia/`.
+- **Mismo lugar y mismo estado.** Vive en `/trivia/` como otra pantalla, comparte colección, sonido y tarjeta para compartir. El estado del jugador sigue bajo `cr-trivia-v1`; los campos nuevos (`crPartidas`, `crAciertos`, `crRecord`) son opcionales y valen 0 si no existen, así no se pierden insignias guardadas.
+- **Lógica pura y aparte.** `assets/js/trivia/contrarreloj.js` (sorteo de canciones y opciones, puntos con multiplicador, reloj como función de los eventos, insignias) sin DOM, con pruebas en `tests-js/contrarreloj.test.js`. El reloj se calcula a partir de marcas de tiempo inyectadas (no con `setInterval` en la lógica) para poder probarlo.
+- **Opciones del mismo banco.** Las tres opciones incorrectas salen de los otros 9 discos de estudio, al azar y sin repetir; el orden de los cuatro botones también es al azar.
+- **Datos.** `data/canciones.json` se genera desde `docs/canciones.md` con un script como el de la trivia (`docs/generar_canciones_json.py`); empieza en `borrador: true` y solo juega las de fuente sólida.
+- **Insignias.** Las cuatro nuevas se suman al catálogo de `logica.js` (18 en total); "Ejército de salvación" sigue pidiendo solo las 6 portadas de la trivia.
+- **Métricas.** Eventos de GoatCounter `contrarreloj-iniciada`, `contrarreloj-terminada` y `contrarreloj-compartida`.
+
+**D23 Chapas e insignias "imposibles" (2026-11-03):** F17.
+- **Dibujo aparte.** `assets/js/trivia/insignias.js` guarda cada ícono como un sprite de 16×16 en texto (un carácter por píxel, con paleta) y dibuja la chapa de 32×32 en `<canvas>`. Una prueba revisa que cada insignia del catálogo tenga su ícono y que cada sprite mida 16×16.
+- **Catálogo con familia e ícono.** Cada insignia en `logica.js` lleva `familia` (trivia, habilidad, constancia, secreta, contrarreloj) e `icono`; las secretas, su `pista`.
+- **Datos nuevos de la partida.** `juego.js` mide cuánto tarda cada respuesta (`ms`) y la partida completa (`duracionMs`), y los pasa a `cerrarPartida(estado, respuestas, ahora, {duracionMs})`.
+- **Estado nuevo (opcional, con valores por defecto):** `dias` (fechas locales en que se jugó, máximo 60), `ultimaPartida` y `partidasDia` (`{fecha, n}`). Un estado guardado antes de F17 se lee igual.
+- **Secretos fuera de la partida.** `registrarSecreto(estado, id, ahora)` otorga Contraespionaje y Wio; `juego.js` detecta el código Konami (teclado o deslizamientos sobre la pantallita) y los 7 toques seguidos (en menos de 4 s, sin deslizar).
+- **El gran truco final** se revisa después de otorgar cualquier insignia; no pide "El último baile" ni las del contrarreloj, para que se pueda conseguir después del 28 de noviembre y antes de que exista el contrarreloj.
+
+**D24 Ranking con Google Sheet + Apps Script (2026-11-03):** F18.
+- **Servidor:** un Apps Script del equipo publicado como aplicación web (`docs/ranking/Code.gs`, pasos en `docs/ranking/README.md`). `doPost` valida y agrega una fila a la pestaña `Puntajes`; `doGet?modo=trivia` devuelve `{semana: [...20], historico: [...20]}`. Lecturas cacheadas 60 s (`CacheService`), escrituras con `LockService`.
+- **Validación en el servidor:** modo conocido, puntos enteros 0–30, duración entre 15 s y 1 h, nombre que se pueda formar con las listas de palabras (mismas listas que el cliente), máximo 10 envíos por hora por identificador de navegador (un número aleatorio guardado en el navegador, no un dato personal).
+- **Cliente:** `assets/js/trivia/ranking.js` con la parte pura (generar y validar nombres, semana en hora de CDMX, ordenar, armar el envío) probada en `tests-js/ranking.test.js`; las funciones puras de `Code.gs` se prueban en Node cargando el archivo en un `vm` sin servicios de Google.
+- **Configuración:** la URL del Apps Script va en `hugo.toml` como `params.trivia_ranking_url`. Mientras esté vacía, el ranking no aparece en el sitio.
+- **POST como `text/plain`** para evitar la petición previa de CORS, que Apps Script no contesta.
+
+**D25 Compartir en Instagram (2026-11-03):** F19.
+- **Parte pura aparte:** `assets/js/trivia/compartir.js` limpia el @ (sin "@" inicial ni espacios; letras, números, punto y guion bajo; máximo 30, como Instagram) y arma el texto para pegar. Pruebas en `tests-js/compartir.test.js`.
+- **Las tarjetas se dibujan en `juego.js`** con un mismo dibujo para los dos tamaños: el de historia agrega aire arriba y abajo para que no lo tapen los controles de Instagram.
+- **El @ va en `localStorage` (`cr-trivia-ig`) y nunca se envía al ranking.**
+- **Copiar al portapapeles** con `navigator.clipboard.writeText`; si falla, el texto se muestra para copiarlo a mano.
+- **@coloresruidosos** es el usuario que el sitio ya usa en su pie de página.
 
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
@@ -50,6 +81,9 @@
 | V5 | Cuotas de Spotify y YouTube con uso diario | Solo Spotify |
 | V6 | Revisión fan de las 47 preguntas de `docs/trivia.md` | Lanzar con las que estén verificadas (mínimo 5 por dificultad) |
 | V7 | Segunda fuente para las 8 preguntas 🟡 | Se quedan fuera del juego |
+| V8 | Revisión fan de las 95 canciones de `docs/canciones.md` | Lanzar con las 69 sólidas |
+| V9 | Tracklists completos de *V.E.H.N.* y de los tres discos en inglés | Esos discos aparecen solo como opción incorrecta |
+| V10 | ~~El equipo publica el Apps Script y comparte la URL~~ Hecho el 2026-11-03; falta la prueba de punta a punta contra el Sheet real (desde el entorno de desarrollo no se alcanza `script.google.com`) | Si falla, vaciar `trivia_ranking_url` oculta el ranking |
 
 ## Riesgos aceptados por publicar sin revisión
 | Riesgo | Mitigación disponible |

@@ -242,9 +242,13 @@ test("Allí donde solíamos gritar al compartir, una sola vez", () => {
   assert.deepStrictEqual(T.registrarCompartir(r1.estado, DESPUES_DEL_BAILE).nuevas, []);
 });
 
-test("cada insignia del catálogo tiene nombre y descripción", () => {
-  assert.strictEqual(T.INSIGNIAS.length, 14);
-  T.INSIGNIAS.forEach((i) => assert.ok(i.id && i.nombre && i.como, JSON.stringify(i)));
+test("cada insignia del catálogo tiene nombre, cómo ganarla, familia e ícono", () => {
+  assert.strictEqual(T.INSIGNIAS.length, 25);
+  T.INSIGNIAS.forEach((i) => {
+    assert.ok(i.id && i.nombre && i.como && i.icono, JSON.stringify(i));
+    assert.ok(["trivia", "habilidad", "constancia", "secreta", "contrarreloj"].includes(i.familia), i.id);
+  });
+  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 25);
 });
 
 // ---------- Portadas coleccionables ----------
@@ -280,4 +284,143 @@ test("un almacenamiento que lanza error o trae basura no rompe el juego", () => 
   const basura = { getItem: () => "{no es json", setItem: () => {} };
   assert.deepStrictEqual(T.cargarEstado(basura), T.estadoInicial());
   assert.deepStrictEqual(T.cargarEstado(null), T.estadoInicial());
+});
+
+// ---------- Pistas de lo secreto ----------
+
+test("las insignias secretas tienen una pista que no dice el nombre", () => {
+  const ocultas = T.INSIGNIAS.filter((i) => i.oculta);
+  assert.strictEqual(ocultas.length, 13);
+  ocultas.forEach((i) => {
+    assert.ok(i.pista && i.pista !== "???", i.id);
+    assert.ok(!i.pista.toLowerCase().includes(i.nombre.toLowerCase()), "la pista no puede revelar el nombre: " + i.id);
+  });
+});
+
+test("al sacar Viejo lesbiano se avisa que hay un nivel más; en las demás categorías no", () => {
+  assert.match(T.pistaSiguiente(T.categoria(25)), /30 de 30/);
+  assert.strictEqual(T.pistaSiguiente(T.categoria(5)), "");
+  assert.strictEqual(T.pistaSiguiente(T.categoria(15)), "");
+  assert.strictEqual(T.pistaSiguiente(T.categoria(30)), "");
+});
+
+// ---------- Insignias "imposibles" (F17) ----------
+
+const DIA = 24 * 3600 * 1000;
+const BASE = new Date("2026-12-01T18:00:00Z");
+const conMs = (aciertos, ms) => partida(aciertos).map((r, i) => ({ ...r, ms: Array.isArray(ms) ? ms[i] : ms }));
+const gana = (r, id) => r.nuevas.includes(id);
+
+test("Contradicción: fallar las 5 fáciles y acertar las 5 muy difíciles", () => {
+  assert.ok(gana(jugar(NADA.map((_, i) => i >= 10)), "contradiccion"));
+  assert.ok(!gana(jugar(NADA.map((_, i) => i >= 10 || i === 0)), "contradiccion"));
+  assert.ok(!gana(jugar(NADA.map((_, i) => i >= 11)), "contradiccion"));
+});
+
+test("Tercero segunda: quedarse a 1 punto de subir (12, 22 o 29)", () => {
+  const doce = NADA.map((_, i) => i <= 4 || i === 5 || i === 6 || i === 10);
+  const trece = NADA.map((_, i) => i <= 8);
+  assert.strictEqual(T.puntaje(partida(doce)), 12);
+  assert.ok(gana(jugar(doce), "tercero_segunda"));
+  assert.ok(!gana(jugar(trece), "tercero_segunda"));
+  assert.ok(gana(jugar(TODO.map((_, i) => i !== 0)), "tercero_segunda"));
+});
+
+test("El yin y el yen: exactamente 15 de 30", () => {
+  assert.ok(gana(jugar(NADA.map((_, i) => i >= 10)), "yin_yen"));
+  assert.ok(!gana(jugar(NADA.map((_, i) => i >= 10 && i !== 14 || i === 0)), "yin_yen"));
+});
+
+test("Planeador: menos de 90 s con 20 puntos o más", () => {
+  const cerrar = (aciertos, duracionMs) => T.cerrarPartida(T.estadoInicial(), partida(aciertos), BASE, { duracionMs });
+  assert.ok(gana(cerrar(TODO, 80000), "planeador"));
+  assert.ok(!gana(cerrar(TODO, 95000), "planeador"));
+  assert.ok(!gana(cerrar(TODO, undefined), "planeador"));
+  const diecinueve = NADA.map((_, i) => i <= 4 || (i >= 10 && i <= 13) || i === 5);
+  assert.strictEqual(T.puntaje(partida(diecinueve)), 19);
+  assert.ok(!gana(cerrar(diecinueve, 60000), "planeador"));
+});
+
+test("Cuando diga ya: 3 aciertos seguidos, cada uno en menos de 2 s", () => {
+  const ms = Array(15).fill(5000);
+  ms[3] = 1500; ms[4] = 900; ms[5] = 1999;
+  assert.ok(gana(T.cerrarPartida(T.estadoInicial(), conMs(TODO, ms), BASE), "cuando_diga_ya"));
+  ms[4] = 2000;
+  assert.ok(!gana(T.cerrarPartida(T.estadoInicial(), conMs(TODO, ms), BASE), "cuando_diga_ya"));
+  ms[4] = 900;
+  assert.ok(!gana(T.cerrarPartida(T.estadoInicial(), conMs(TODO.map((_, i) => i !== 4), ms), BASE), "cuando_diga_ya"));
+});
+
+test("Océanos de sed: 10 partidas el mismo día, no 9", () => {
+  let estado = T.estadoInicial();
+  for (let n = 1; n <= 10; n++) {
+    const r = T.cerrarPartida(estado, partida(NADA), new Date(BASE.getTime() + n * 60000));
+    assert.strictEqual(gana(r, "oceanos"), n === 10, "partida " + n);
+    estado = r.estado;
+  }
+});
+
+test("Océanos de sed: las partidas de ayer no cuentan", () => {
+  let estado = T.estadoInicial();
+  for (let n = 0; n < 9; n++) estado = T.cerrarPartida(estado, partida(NADA), BASE).estado;
+  assert.ok(!gana(T.cerrarPartida(estado, partida(NADA), new Date(BASE.getTime() + DIA)), "oceanos"));
+});
+
+test("La hermandad: jugar en 5 días distintos", () => {
+  let estado = T.estadoInicial();
+  for (let d = 0; d < 5; d++) {
+    const r = T.cerrarPartida(estado, partida(NADA), new Date(BASE.getTime() + d * DIA));
+    assert.strictEqual(gana(r, "hermandad"), d === 4, "día " + d);
+    estado = r.estado;
+  }
+});
+
+test("Los días no vividos: volver tras 7 días o más sin jugar", () => {
+  const e1 = T.cerrarPartida(T.estadoInicial(), partida(NADA), BASE).estado;
+  assert.ok(gana(T.cerrarPartida(e1, partida(NADA), new Date(BASE.getTime() + 7 * DIA)), "dias_no_vividos"));
+  assert.ok(!gana(T.cerrarPartida(e1, partida(NADA), new Date(BASE.getTime() + 6 * DIA)), "dias_no_vividos"));
+  assert.ok(!gana(T.cerrarPartida(T.estadoInicial(), partida(NADA), BASE), "dias_no_vividos"));
+});
+
+test("Contraespionaje y Wio se ganan con registrarSecreto; un id desconocido no da nada", () => {
+  assert.deepStrictEqual(T.registrarSecreto(T.estadoInicial(), "contraespionaje", BASE).nuevas, ["contraespionaje"]);
+  assert.deepStrictEqual(T.registrarSecreto(T.estadoInicial(), "wio", BASE).nuevas, ["wio"]);
+  assert.deepStrictEqual(T.registrarSecreto(T.estadoInicial(), "maniobras", BASE).nuevas, []);
+  const r = T.registrarSecreto(T.estadoInicial(), "wio", BASE);
+  assert.deepStrictEqual(T.registrarSecreto(r.estado, "wio", BASE).nuevas, []);
+});
+
+test("El gran truco final: todas las demás, sin contar El último baile", () => {
+  const estado = T.estadoInicial();
+  T.INSIGNIAS.forEach((i) => {
+    if (!["gran_truco", "ultimo_baile", "wio"].includes(i.id) && i.familia !== "contrarreloj") estado.insignias[i.id] = BASE.toISOString();
+  });
+  assert.deepStrictEqual(T.registrarSecreto(estado, "wio", BASE).nuevas, ["wio", "gran_truco"]);
+  delete estado.insignias.me_amo;
+  assert.deepStrictEqual(T.registrarSecreto(estado, "wio", BASE).nuevas, ["wio"]);
+});
+
+test("un estado guardado antes de F17 se lee y sigue sumando", () => {
+  const viejo = { v: 1, partidas: 3, aciertos: 20, mejorPuntaje: 18, mejorNivel: 2, insignias: { maniobras: "2026-11-01T00:00:00Z" }, portadas: ["E1"] };
+  const almacen = { getItem: () => JSON.stringify(viejo), setItem: () => {} };
+  const cargado = T.cargarEstado(almacen);
+  assert.strictEqual(cargado.partidas, 3);
+  const r = T.cerrarPartida(cargado, partida(NADA), BASE);
+  assert.strictEqual(r.estado.partidas, 4);
+  assert.deepStrictEqual(r.estado.dias.length, 1);
+  assert.ok(!gana(r, "dias_no_vividos"));
+});
+
+// ---------- Sprites de las chapas ----------
+
+test("cada insignia tiene su ícono y cada sprite mide 16×16 con colores de la paleta", () => {
+  const I = require("../assets/js/trivia/insignias.js");
+  T.INSIGNIAS.forEach((ins) => assert.ok(I.ICONOS[ins.icono], "falta el ícono " + ins.icono));
+  Object.entries(I.ICONOS).forEach(([nombre, filas]) => {
+    assert.strictEqual(filas.length, 16, nombre);
+    filas.forEach((f, k) => {
+      assert.strictEqual(f.length, 16, nombre + " fila " + k);
+      [...f].forEach((ch) => assert.ok(ch in I.PALETA, nombre + ": color desconocido " + ch));
+    });
+  });
 });
