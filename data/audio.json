@@ -1,293 +1,417 @@
 {
   "_nota": "Generado por pipeline/resolver_audio.py (GitHub Actions: audio-trivia.yml). Avance oficial de 30 s de Apple Music y enlace a la pista en Spotify, solo con coincidencia exacta de título, artista y disco de estudio.",
-  "generado": "2026-11-03T15:12:16+00:00",
+  "generado": "2026-11-03T15:22:11+00:00",
   "canciones": {
     "ME01": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/45/60/e7/4560e7d1-9385-c44e-178d-cc2a3580e8b7/mzaf_3757360853988036215.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/carta-a-todas-tus-cat%C3%A1strofes/1766606206?i=1766606241",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Carta%20a%20todas%20tus%20cat%C3%A1strofes%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME02": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/ba/4c/46/ba4c46d8-e555-19f2-b412-8617341c8b24/mzaf_15796581615683159513.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/domingo-astrom%C3%A1ntico/1766606206?i=1766606247",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Domingo%20astrom%C3%A1ntico%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME03": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/51/10/46/511046ff-7838-a142-0ca7-f32458c1d0b0/mzaf_14885600081247962166.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/mi-personulidad/1766606206?i=1766606248",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Mi%20personulidad%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME04": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3c/e8/53/3ce85327-f136-6f7d-b938-ff2904f9af71/mzaf_10564169436372530754.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/houston-tenemos-un-poema/1766606206?i=1766606249",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Houston%2C%20tenemos%20un%20poema%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME05": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a4/6a/14/a46a146f-71f9-76f8-dfff-5b85c8672f53/mzaf_7735464116487638471.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/mi-primera-combusti%C3%B3n/1766606206?i=1766606250",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Mi%20primera%20combusti%C3%B3n%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME06": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1d/c8/22/1dc82274-3d75-9f98-c889-f15ad2911f6c/mzaf_3562695951479794502.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/m%C3%BAsica-de-ascensores/1766606206?i=1766606251",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/M%C3%BAsica%20de%20ascensores%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME07": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/3b/d7/21/3bd721cc-3d47-1454-5f14-cd13aa6c02ee/mzaf_7999872038215027250.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/marlene-la-vecina-del-%C3%A1rtico/1766606206?i=1766606252",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Marlene%2C%20la%20vecina%20del%20%C3%A1rtico%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME08": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e3/25/d4/e325d4a7-e391-f15b-653d-60e4ea895a9c/mzaf_15525919131469046157.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/los-ni%C3%B1os-del-ma%C3%B1ana/1766606206?i=1766606253",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Los%20ni%C3%B1os%20del%20ma%C3%B1ana%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ME09": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/01/34/0d/01340de3-6fe0-c5c1-ed81-1eb7a93f01a1/mzaf_5033588144198767118.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/me-llaman-octubre/1766606206?i=1766606254",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Me%20llaman%20Octubre%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "CC01": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/38/0d/3e380d07-f3be-3304-ae8b-205e98097060/mzaf_11351942357200854731.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/universos-infinitos/1766601472?i=1766601475",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Universos%20infinitos%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "CC02": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/e7/1c/e9/e71ce94a-6265-21a3-33a3-c71d596c466f/mzaf_7871557250139927508.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/la-ni%C3%B1a-imantada/1766601472?i=1766601478",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/La%20ni%C3%B1a%20imantada%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "CC03": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/52/43/44/5243445f-1d74-aa5c-cb86-490356a96064/mzaf_16773851628035621107.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/noches-reversibles/1766601472?i=1766601479",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Noches%20reversibles%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "CC04": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5f/a9/8d/5fa98dd8-22fb-9cfd-6176-65dfe72cfdc2/mzaf_2286704609897970524.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/los-colores-de-una-sombra/1766601472?i=1766601480",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Los%20colores%20de%20una%20sombra%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "CC05": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f8/8d/46/f88d4653-b4d6-37a9-8fb3-39eecc6f6c92/mzaf_1097158626596326568.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/un-d%C3%ADa-en-el-parque/1766601472?i=1766601481",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Un%20d%C3%ADa%20en%20el%20parque%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "CC06": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/8b/e9/17/8be91722-2d41-3e80-345f-2adbff6d266a/mzaf_7111803983669088020.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/villancico-para-mi-cu%C3%B1ado-fernando/1766601472?i=1766601482",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Villancico%20para%20mi%20cu%C3%B1ado%20Fernando%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9901": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/96/7e/54/967e54ba-2f70-71f2-a3b4-c51198afbb2f/mzaf_11911448600768342433.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/alli-donde-soliamos-gritar/308805048?i=308805061",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/All%C3%AD%20donde%20sol%C3%ADamos%20gritar%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9902": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6e/50/9e/6e509e9f-33c0-3030-c00b-b48fc58474fe/mzaf_17639883333890177843.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/club-de-fans-de-john-boy/308805048?i=308805064",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Club%20de%20fans%20de%20John%20Boy%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9903": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/af/ec/55/afec55ea-2083-7384-be02-1ebd7ac0a593/mzaf_3557754060086428105.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/las-malas-lenguas/308805048?i=308805065",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Las%20malas%20lenguas%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9904": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4e/32/e1/4e32e124-a0c6-f9ac-c70a-95643d728c86/mzaf_10469014872856591607.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/algunas-plantas/308805048?i=308805066",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Algunas%20plantas%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9905": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9b/26/48/9b26480b-b752-4295-024a-961b03a7136c/mzaf_11075155142171904158.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/cuestiones-de-familia/308805048?i=308805067",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Cuestiones%20de%20familia%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9906": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/20/68/73/2068737f-0bc4-5f1d-3a96-36f67dca1372/mzaf_1870968886716902420.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/el-ectoplasta/308805048?i=308805068",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/El%20ectoplasta%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9907": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b5/b1/06/b5b106c1-78de-1c1a-2c59-cead01bf9ad9/mzaf_9868165251511244509.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/segundo-asalto/308805048?i=308805069",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Segundo%20asalto%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9908": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3d/41/d1/3d41d129-0c0e-6c41-5be0-3d116e0e6689/mzaf_9730479472990369329.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/incendios-de-nieve/308805048?i=308805070",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Incendios%20de%20nieve%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9909": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3b/56/2a/3b562a46-3ff7-f785-8114-592afeceed58/mzaf_18205475967574095023.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/te-hiero-mucho-historia-del-amante-guisante/308805048?i=308805072",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Te%20hiero%20mucho%20%28Historia%20del%20amante%20guisante%29%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9910": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/16/b8/03/16b803b8-c2c3-521d-6860-712a9e6f818d/mzaf_18195889650156535491.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/cuando-diga-ya/308805048?i=308805073",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Cuando%20diga%20ya%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9911": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/09/cb/31/09cb31d9-1e3e-5bb4-76a3-b72da877e8e8/mzaf_12754314744455689304.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/miau/308805048?i=308805074",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Miau%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "9912": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/de/e0/00/dee00078-008f-4b73-b348-236b4d457539/mzaf_11213038380534967447.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/la-mirada-de-la-gente-que-conspira/308805048?i=308805075",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/La%20mirada%20de%20la%20gente%20que%20conspira%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE01": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b9/d3/8a/b9d38a81-21c1-ad5e-8a8d-163fbefbce4e/mzaf_8065226235918816521.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/los-seres-%C3%BAnicos/528636470?i=528636558",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Los%20seres%20%C3%BAnicos%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE02": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/fa/31/41/fa31415a-af36-e0ae-8083-8c122b8176d4/mzaf_14775761882571489133.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/si-t%C3%BA-me-dices-ben-yo-digo-affleck/528636470?i=528636559",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Si%20t%C3%BA%20me%20dices%20Ben%2C%20yo%20digo%20Affleck%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE03": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/23/bb/b823bb76-1867-8a53-5660-812dfca3db9a/mzaf_12228280155834423423.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/nada/528636470?i=528636568",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Nada%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE04": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/17/60/a7/1760a73e-4051-640d-c71e-686fe7ff44b0/mzaf_13373188199780874984.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/belice/528636470?i=528636589",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Belice%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE05": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/45/16/f8/4516f8ca-cd83-4d4f-b754-6ee8ea2c9831/mzaf_1491255491635906550.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/pizzigatos/528636470?i=528636590",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Pizzigatos%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE06": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e6/c4/8e/e6c48e5d-86e7-68a0-ff88-844099f0f897/mzaf_9797302722031220024.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/667/528636470?i=528636591",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/667%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE07": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/74/72/4a/74724a6b-e65e-622b-f61f-7e64f7b432c1/mzaf_11839208453546611414.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/c%C3%ADnicamente-muertos/528636470?i=528636592",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/C%C3%ADnicamente%20muertos%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE08": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/66/af/66/66af6676-8609-b629-8823-0e803fc0dcd7/mzaf_3207668045488576728.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/orden-de-desahucio-en-mi-menor/528636470?i=528636593",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Orden%20de%20desahucio%20en%20mi%20menor%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE09": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/53/f3/62/53f3624b-3f20-6bb8-05f1-741f7f75f2a1/mzaf_3093908133998395916.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/oniria-e-insomnia/528636470?i=528636594",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Oniria%20e%20insomnia%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE10": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/75/9e/c0/759ec00b-2081-646d-d7e1-59392cdb9e82/mzaf_8441514553646385637.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/nadie-por-las-calles/528636470?i=528636595",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Nadie%20por%20las%20calles%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE11": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e2/de/e7/e2dee7b2-09d0-70be-2e7c-063f8b5bdc6d/mzaf_7107072381209865239.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/el-hambre-inv%C3%ADsible/528636470?i=528636596",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/El%20hambre%20invisible%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE12": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/83/73/a0/8373a010-9435-0792-eb79-35ce6c24a963/mzaf_1463023099756498495.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/wio-antenas-y-pijamas/528636470?i=528636605",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Wio%2C%20antenas%20y%20pijamas%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE13": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/11/95/6f/11956f46-c80d-340d-7d8a-a5c0fe5be1c8/mzaf_14574835783198724027.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/si-salimos-de-esta/528636470?i=528636606",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Si%20salimos%20de%20esta%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "NE14": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/95/04/94/9504944c-9b9f-6448-4f01-b2a4e3e1deab/mzaf_4533983022294523703.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/tercero-segunda/528636470?i=528636607",
+      "spotify": "https://open.spotify.com/search/Tercero%20segunda%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "NE15": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/9a/5c/93/9a5c93e0-3b7a-bfc1-2513-af7963d9c833/mzaf_13521246254067880989.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/radio-himalaya/528636470?i=528636609",
+      "spotify": "https://open.spotify.com/search/Radio%20Himalaya%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "NE16": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/66/1b/fe/661bfe92-2b8c-af70-e10a-2bbd07adc78b/mzaf_4618718863713651645.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/los-toros-en-la-wii-fant%C3%A1stico/528636470?i=528636610",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Los%20toros%20en%20la%20Wii%20%28Fant%C3%A1stico%29%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH01": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/30/8b/f5/308bf511-da07-6857-b81c-30169be20c70/mzaf_16699646546154108342.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/planeador/1070592097?i=1070593514",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Planeador%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH02": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/48/56/74/48567490-5c6d-0957-6797-f436df8a3421/mzaf_17701291349369180360.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/bajo-el-volc%C3%A1n/1070592097?i=1070593515",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Bajo%20el%20volc%C3%A1n%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH03": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9f/d4/18/9fd4188d-72b4-b04b-4f65-a16056abdd6a/mzaf_1353122615836269779.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/cuando-no-me-ves/1070592097?i=1070593516",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Cuando%20no%20me%20ves%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH04": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b6/0c/19/b60c1938-fb91-529b-9585-66ad01d7dc25/mzaf_13455708433410271893.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/los-males-pasajeros/1070592097?i=1070593517",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Los%20males%20pasajeros%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH05": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a2/22/1c/a2221c82-5204-7968-e46d-26f1c53ccc57/mzaf_3551097406664152215.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/i-m-t-incapacidad-moral-transitoria/1070592097?i=1070593518",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/I.M.T.%20%28Incapacidad%20Moral%20Transitoria%29%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH06": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/76/3c/ff/763cff5e-433c-3694-e6b4-7568c2b83738/mzaf_348714761600015202.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/en-busca-del-mago/1070592097?i=1070593519",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/En%20busca%20del%20mago%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH07": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/2f/5e/6d/2f5e6d51-3131-5e40-fa54-93cff54945e2/mzaf_4408179012100783931.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/oc%C3%A9anos-de-sed/1070592097?i=1070593520",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Oc%C3%A9anos%20de%20sed%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "PH08": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ce/72/c9/ce72c94d-1d5b-b6da-d1e8-c3c8dc632202/mzaf_10176126995321213304.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/psiconautas/1070592097?i=1070593521",
+      "spotify": "https://open.spotify.com/search/Psiconautas%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "PH09": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/49/e1/8d/49e18df2-6d8c-2b6c-9c90-7e0626ea8eac/mzaf_14661494587116074115.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/canci%C3%B3n-de-bruma/1070592097?i=1070593522",
+      "spotify": "https://open.spotify.com/search/Canci%C3%B3n%20de%20bruma%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH10": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/e7/71/7f/e7717fbc-7e28-a8d3-c886-83c89a2e4e56/mzaf_5712712899141478161.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/contraespionaje/1070592097?i=1070593523",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Contraespionaje%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH11": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/6c/e6/5c/6ce65c61-16e6-1b62-6fad-7b4ec2e6267d/mzaf_17837461005168438756.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/el-yin-y-el-yen/1070592097?i=1070593524",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/El%20yin%20y%20el%20yen%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "PH12": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b2/8a/32/b28a32f6-26ae-cfb3-c4b8-8fe7658ff36b/mzaf_10319282561507861139.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/el-ciclo-lunar-de-halley-star/1070592097?i=1070593525",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/El%20ciclo%20lunar%20de%20Halley%20Star%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "VH01": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/75/df/6a/75df6a1a-f9e3-f337-bccd-839601f0f3b1/mzaf_17259696913030929284.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/cosmos-antisistema-solar/1540993287?i=1540993514",
+      "spotify": "https://open.spotify.com/search/Cosmos%20%28Antisistema%20Solar%29%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "VH02": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/a1/39/b7/a139b7e5-2cf8-f15d-51cb-222c53dc3791/mzaf_16323524005173077337.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-sur-feat-bunbury/1540993287?i=1540993529",
+      "spotify": "https://open.spotify.com/search/El%20sur%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "VH03": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c9/02/f8/c902f801-84c6-ae3d-40f5-ec167a1bce1d/mzaf_665538582389693173.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-mundo/1540993287?i=1540993530",
+      "spotify": "https://open.spotify.com/search/El%20mundo%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES01": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/4f/fa/35/4ffa3592-dd28-dc53-bc44-980989083cfb/mzaf_13039248514661378090.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/canci%C3%B3n-de-emergencias/1770508253?i=1770508264",
+      "spotify": "https://open.spotify.com/search/Canci%C3%B3n%20de%20emergencias%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ES02": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/b8/ef/50/b8ef50d2-abab-e1cb-119d-3d9da669c81b/mzaf_16813384001800990135.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/qu%C3%A9-vas-a-saber/1770508253?i=1770508271",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/%C2%BFQu%C3%A9%20vas%20a%20saber%3F%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES03": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/90/77/d6/9077d618-74bb-9882-c913-04508ea42a73/mzaf_3330072807138356044.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/la-hermandad/1770508253?i=1770508274",
+      "spotify": "https://open.spotify.com/search/La%20hermandad%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ES04": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7a/86/19/7a8619aa-3637-44a0-ba09-59992ac9d4bb/mzaf_12308013215906419215.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/contradicci%C3%B3n/1770508253?i=1770508523",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/Contradicci%C3%B3n%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES05": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/92/ea/29/92ea29e2-1777-5757-620b-eb44435e6243/mzaf_7820897609868973468.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/tesis/1770508253?i=1770508539",
+      "spotify": "https://open.spotify.com/search/Tesis%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES06": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f6/ae/12/f6ae12b6-18ee-395c-eefe-aac733f4dd35/mzaf_3996795161698548833.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/una-conversaci%C3%B3n-pendiente/1770508253?i=1770508543",
+      "spotify": "https://open.spotify.com/search/Una%20conversaci%C3%B3n%20pendiente%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     },
     "ES07": {
       "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/68/18/de/6818de2c-44f2-364a-b8bf-b7e5d6a72236/mzaf_16955983489549513816.plus.aac.p.m4a",
       "apple": "https://music.apple.com/mx/album/la-champions-y-el-mundial-feat-leiva/1770508253?i=1770508546",
-      "spotify": null
+      "spotify": "https://open.spotify.com/search/La%20Champions%20y%20el%20Mundial%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES08": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/5b/d7/ce/5bd7ce3b-bb3a-34d9-33c9-4b53630dabfa/mzaf_6053947914501153759.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/el-d%C3%ADa-que-starman-huy%C3%B3/1770508253?i=1770508701",
+      "spotify": "https://open.spotify.com/search/El%20d%C3%ADa%20que%20Starman%20huy%C3%B3%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES09": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/9b/ed/a8/9beda83c-4624-a960-c357-25adc5560cbc/mzaf_16905977128675934117.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/la-herida/1770508253?i=1770508706",
+      "spotify": "https://open.spotify.com/search/La%20herida%20Love%20of%20Lesbian",
+      "spotify_exacto": false
+    },
+    "ES10": {
+      "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/10/f2/81/10f281c7-0bf7-8dba-6def-dcdd9c4cf8df/mzaf_9693079375841364627.plus.aac.p.m4a",
+      "apple": "https://music.apple.com/mx/album/ya-sale-el-sol/1770508253?i=1770508709",
+      "spotify": "https://open.spotify.com/search/Ya%20sale%20el%20sol%20Love%20of%20Lesbian",
+      "spotify_exacto": false
     }
   },
   "faltan": [
-    "ME10",
-    "NE14",
-    "NE15",
-    "PH08",
-    "PH09",
-    "VH01",
-    "VH02",
-    "VH03",
-    "ES01",
-    "ES03",
-    "ES05",
-    "ES06",
-    "ES08",
-    "ES09",
-    "ES10"
+    "ME10"
   ]
 }
