@@ -131,7 +131,7 @@
 Al elegir, entra directo a ese juego. En el menú también están Mi colección, Ranking, el sonido y tu récord. Los botones "Volver" de los juegos, la colección y el ranking regresan a este menú, y el menú tiene su propio "Volver" al inicio.
 
 **F25 Insignia exclusiva de concierto y cartel con QR.** Para los conciertos de noviembre de 2026 en México, el equipo lleva un cartel impreso con un QR.
-- **Insignia «Noches reversibles»** (familia Concierto, aro rojo): se gana escaneando el QR del cartel **solo del 24 al 28 de noviembre de 2026**, en hora de CDMX. En la colección está a la vista, con la leyenda "Escanear el QR de Colores Ruidosos en un concierto". Así quien no fue sabe que existe.
+- **Insignia «Noches reversibles»** (familia Concierto, aro rojo): su dibujo es **la banda en el escenario** (cantante con micrófono, guitarra, bajo y batería, en pixel art propio) y lleva la leyenda **"Gracias por existir"** en el juego, el sticker y el cartel. Se gana escaneando el QR del cartel **solo del 24 al 28 de noviembre de 2026**, en hora de CDMX. En la colección está a la vista, con la leyenda "Escanear el QR de Colores Ruidosos en un concierto". Así quien no fue sabe que existe.
 - **Dos formas de canjearla:** el QR abre la trivia con el código y la insignia se desbloquea sola; o en **Mi colección → "¿Tienes un código de concierto?"** se escribe el código que viene impreso en el cartel, sin importar mayúsculas, espacios ni acentos.
 - **Avisos claros:** "¡Desbloqueaste Noches reversibles!", "Ese código no existe" o "Este código solo funciona los días de concierto (24 al 28 de noviembre)". Si ya la tienes, te lo dice.
 - **El gran truco final no la pide**, igual que El último baile: no todos pueden ir a un concierto.

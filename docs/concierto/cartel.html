@@ -20,10 +20,11 @@ function dibujar() {
   const bloques = [
     [230 * u, (y) => { txt('Colores Ruidosos', W / 2, y + 90 * u, 76, C.rosa); txt('Trivia 8 bits de Love of Lesbian', W / 2, y + 190 * u, 48, C.crema); }],
     [250 * u, (y) => { txt('Escanea y gana una', W / 2, y + 100 * u, 70, C.amarillo); txt('insignia exclusiva', W / 2, y + 210 * u, 70, C.amarillo); }],
-    [chapa + 140 * u, (y) => {
+    [chapa + 230 * u, (y) => {
       const ch = document.createElement('canvas'); ch.width = ch.height = 32; CRinsignias.dibujarChapa(ch.getContext('2d'), INS, 'ganada');
       x.imageSmoothingEnabled = false; x.drawImage(ch, W / 2 - chapa / 2, y, chapa, chapa);
-      txt('«' + INS.nombre + '»', W / 2, y + chapa + 110 * u, 56, C.crema); }],
+      txt('«' + INS.nombre + '»', W / 2, y + chapa + 110 * u, 56, C.crema);
+      txt(INS.leyenda, W / 2, y + chapa + 200 * u, 50, C.rosa, SG, '700 '); }],
     [qrLado, (y) => {
       const m = D.qr, n = m.length, borde = 4, lado = qrLado, mod = lado / (n + 2 * borde), X0 = W / 2 - lado / 2;
       x.fillStyle = '#ffffff'; x.fillRect(X0, y, lado, lado);

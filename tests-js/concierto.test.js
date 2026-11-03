@@ -50,6 +50,8 @@ test("sin configuración de concierto no se puede canjear", () => {
 test("la insignia está a la vista, es de la familia concierto y El gran truco final no la pide", () => {
   const i = T.INSIGNIAS.find((x) => x.id === "noches_reversibles");
   assert.ok(i && !i.oculta && i.familia === "concierto");
+  assert.strictEqual(i.leyenda, "Gracias por existir");
+  assert.strictEqual(i.icono, "banda");
   const estado = T.estadoInicial();
   T.INSIGNIAS.forEach((x) => {
     if (!["gran_truco", "ultimo_baile", "wio", "noches_reversibles"].includes(x.id) && !["contrarreloj", "adivina"].includes(x.familia)) estado.insignias[x.id] = "2026-11-01T00:00:00Z";

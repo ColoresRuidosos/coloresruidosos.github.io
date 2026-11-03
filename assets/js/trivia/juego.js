@@ -294,6 +294,7 @@
     var lineas = partirTexto(c, ins.nombre, W - 120);
     lineas.forEach(function (l, k) { c.fillText(l, W / 2, y + 875 + k * 64); });
     c.fillStyle = "#cfc7b6"; c.font = "30px " + '"Space Grotesk", sans-serif';
+    if (ins.leyenda) { c.fillStyle = "#FF3E7F"; c.font = "34px " + FUENTE_PIXEL; c.fillText(ins.leyenda, W / 2, y + 900 + lineas.length * 64); y += 60; c.fillStyle = "#cfc7b6"; c.font = "30px " + '"Space Grotesk", sans-serif'; }
     partirTexto(c, ins.como, W - 200).forEach(function (l, k) { c.fillText(l, W / 2, y + 900 + lineas.length * 64 + k * 42); });
     pieTarjeta(t, "¿Te atreves?");
     return t.lienzo;
@@ -785,7 +786,9 @@
     b.setAttribute("data-abrir-insignia", ins.id);
     b.appendChild(lienzoChapa(ins, est, "trivia__chapa-img"));
     b.appendChild(crear("strong", "", oculta ? "???" : ins.nombre));
-    b.appendChild(crear("span", "", est === "nueva" ? "¡Nueva!" : oculta ? "Pista: " + ins.pista : ins.como));
+    // Una insignia con leyenda (F25) la muestra cuando ya la tienes.
+    var texto = est === "nueva" ? "¡Nueva!" : oculta ? "Pista: " + ins.pista : ins.leyenda && est === "ganada" ? ins.leyenda : ins.como;
+    b.appendChild(crear("span", ins.leyenda && est === "ganada" ? "trivia__leyenda" : "", texto));
     li.appendChild(b);
     return li;
   }
@@ -795,7 +798,8 @@
     var cv = $("[data-detalle-img]", detalle);
     I.dibujarChapa(cv.getContext("2d"), ins, est);
     $("[data-detalle-nombre]", detalle).textContent = est === "secreta" ? "Insignia secreta" : ins.nombre;
-    $("[data-detalle-como]", detalle).textContent = est === "secreta" ? "Pista: " + ins.pista : ins.como;
+    $("[data-detalle-como]", detalle).textContent = est === "secreta" ? "Pista: " + ins.pista
+      : ins.leyenda && est !== "bloqueada" ? "«" + ins.leyenda + "» · " + ins.como : ins.como;
     var f = estado.insignias[id];
     var botonChapa = $("[data-compartir-chapa]", detalle);
     botonChapa.hidden = !f;
@@ -848,7 +852,7 @@
       if (r.nuevas.length) { estado = r.estado; T.guardarEstado(almacen, estado); contar("concierto-canjeado"); pintarColeccion(); anunciarInsignias(r.nuevas); }
       else contar("concierto-" + r.error);
       $("[data-codigo-aviso]").textContent = {
-        "": "¡Desbloqueaste Noches reversibles! Gracias por venir 🎟",
+        "": "¡Desbloqueaste Noches reversibles! Gracias por existir 💛",
         codigo: "Ese código no existe. Revisa el que viene en el cartel.",
         fecha: "Este código solo funciona los días de concierto (" + diasConcierto() + ").",
         ya: "Ya tienes Noches reversibles. ¡Gracias por venir otra vez!",

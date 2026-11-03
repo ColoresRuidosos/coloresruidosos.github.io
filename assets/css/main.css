@@ -447,6 +447,7 @@ body.sin-scroll { overflow: hidden; }
 .trivia__codigo label { display: block; font-family: var(--pixel); font-size: .625rem; line-height: 1.6; margin-bottom: .5rem; color: var(--accent-yellow); }
 .trivia__codigo-fila { display: flex; flex-wrap: wrap; gap: .5rem; }
 .trivia__codigo input { flex: 1 1 10rem; min-width: 0; font-family: var(--pixel); font-size: .75rem; text-transform: none; padding: .6rem; border: 3px solid var(--tinta-clara); background: #000; color: var(--tinta-clara); }
+.trivia__leyenda { color: var(--accent-pink); font-weight: 700; }
 .trivia__codigo-aviso { margin: .5rem 0 0; font-size: 1rem; }
 .trivia__codigo-aviso:empty { display: none; }
 .trivia__chapas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: .75rem; }
