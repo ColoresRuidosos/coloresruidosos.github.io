@@ -125,3 +125,54 @@ test("el texto para compartir lleva puntos y 10 cuadros sin revelar canciones", 
   assert.match(t, /🟩🟩🟨🟨🟧🟧🟥🟩🟩🟩/);
   assert.match(t, /coloresruidosos\.github\.io\/trivia/);
 });
+
+// ---------- Insignias de Adivina la canción (F22/D28) ----------
+
+const T = require("../assets/js/trivia/logica.js");
+const AHORA = new Date("2026-11-05T18:00:00Z");
+const resumen = (o) => ({ aciertos: 5, puntos: 20, primeros: 0, racha: 1, ...o });
+const nuevas = (o, previo) => T.cerrarAdivina(previo || T.estadoInicial(), resumen(o), AHORA).nuevas;
+
+test("primerosRonda cuenta las canciones acertadas con 1 s", () => {
+  const r = { resultados: [{ acierto: true, intentos: 1 }, { acierto: true, intentos: 2 }, { acierto: false, intentos: 6 }, { acierto: true, intentos: 1 }] };
+  assert.strictEqual(D.primerosRonda(r), 2);
+});
+
+test("Música de ascensores con la primera ronda; la segunda no la repite", () => {
+  const r1 = T.cerrarAdivina(T.estadoInicial(), resumen({}), AHORA);
+  assert.ok(r1.nuevas.includes("musica_ascensores"));
+  assert.ok(!T.cerrarAdivina(r1.estado, resumen({}), AHORA).nuevas.includes("musica_ascensores"));
+});
+
+test("Mi primera combustión con una canción adivinada en 1 s", () => {
+  assert.ok(nuevas({ primeros: 1 }).includes("primera_combustion"));
+  assert.ok(!nuevas({ primeros: 0 }).includes("primera_combustion"));
+});
+
+test("Ya sale el sol con las 10 acertadas, no con 9", () => {
+  assert.ok(nuevas({ aciertos: 10, puntos: 40 }).includes("ya_sale_el_sol"));
+  assert.ok(!nuevas({ aciertos: 9, puntos: 40 }).includes("ya_sale_el_sol"));
+});
+
+test("Domingo astromántico con racha de 7 días en la ronda del día; la práctica no cuenta", () => {
+  assert.ok(nuevas({ racha: 7 }).includes("domingo"));
+  assert.ok(!nuevas({ racha: 6 }).includes("domingo"));
+  assert.ok(!nuevas({ racha: 7, practica: true }).includes("domingo"));
+});
+
+test("Nada (secreta) sin ninguna acertada", () => {
+  assert.ok(nuevas({ aciertos: 0, puntos: 0 }).includes("nada"));
+  assert.ok(!nuevas({ aciertos: 1, puntos: 1 }).includes("nada"));
+});
+
+test("El día que Starman huyó (secreta) con 60 de 60, no con 59", () => {
+  assert.ok(nuevas({ aciertos: 10, puntos: 60, primeros: 10 }).includes("starman"));
+  assert.ok(!nuevas({ aciertos: 10, puntos: 59, primeros: 9 }).includes("starman"));
+});
+
+test("las insignias de Adivina la canción tienen su familia y El gran truco final no las pide", () => {
+  const ids = ["musica_ascensores", "primera_combustion", "ya_sale_el_sol", "domingo", "nada", "starman"];
+  const cat = T.INSIGNIAS.filter((i) => i.familia === "adivina").map((i) => i.id);
+  assert.deepStrictEqual(cat, ids);
+  ["nada", "starman"].forEach((id) => assert.ok(T.INSIGNIAS.find((i) => i.id === id).oculta, id));
+});

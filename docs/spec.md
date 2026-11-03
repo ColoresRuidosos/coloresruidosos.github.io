@@ -118,7 +118,7 @@
 | Mi primera combustión | Adivinar una canción con 1 segundo | Sí |
 | Ya sale el sol | Acertar las 10 canciones de una ronda | Sí |
 | Domingo astromántico | Racha de 7 días seguidos en la ronda del día | Sí |
-| Nada | No acertar ninguna en una ronda | Secreta · pista: "Hoy no sonó nada" |
+| Nada | No acertar ninguna en una ronda | Secreta · pista: "Ni una te sonó conocida" |
 | El día que Starman huyó | 60 de 60: las 10 con 1 segundo | Secreta · pista: "Ni un segundo más" |
 
   Las rondas de práctica también dan insignias (menos la racha). Las insignias nuevas salen al final de la ronda, como en el contrarreloj, y se suman a la colección. "El gran truco final" no las pide, igual que con las del contrarreloj.

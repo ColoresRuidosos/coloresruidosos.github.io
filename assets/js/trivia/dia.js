@@ -90,6 +90,11 @@
   function sumar(r, campo) { return r.resultados.reduce(function (s, x) { return s + (campo === "aciertos" ? (x.acierto ? 1 : 0) : x[campo]); }, 0); }
   function puntajeRonda(r) { return sumar(r, "puntos"); }
   function aciertosRonda(r) { return sumar(r, "aciertos"); }
+  // Canciones acertadas con el primer fragmento (1 s): para la insignia Mi primera combustión (F22).
+  function primerosRonda(r) {
+    return r.resultados.filter(function (x) { return x.acierto && x.intentos === 1; }).length;
+  }
+
   function tiempoRonda(r) { return sumar(r, "ms"); }
   function duracionRonda(r) { return sumar(r, "duracion"); }
 
@@ -128,7 +133,7 @@
     SEGUNDOS: SEGUNDOS, POR_RONDA: POR_RONDA, fechaCDMX: fechaCDMX, numeroDia: numeroDia,
     rondaDelDia: rondaDelDia, rondaAlAzar: rondaAlAzar, nuevaPartida: nuevaPartida, segundosActuales: segundosActuales,
     intentar: intentar, puntosCancion: puntosCancion, nuevaRonda: nuevaRonda, avanzarRonda: avanzarRonda,
-    puntajeRonda: puntajeRonda, aciertosRonda: aciertosRonda, tiempoRonda: tiempoRonda, duracionRonda: duracionRonda, cuadro: cuadro,
+    puntajeRonda: puntajeRonda, aciertosRonda: aciertosRonda, primerosRonda: primerosRonda, tiempoRonda: tiempoRonda, duracionRonda: duracionRonda, cuadro: cuadro,
     registrarDia: registrarDia, textoCompartir: textoCompartir,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRdia;

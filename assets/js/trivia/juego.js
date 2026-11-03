@@ -512,7 +512,7 @@
   var cancionPorId = {};
   (cancionesDatos.canciones || []).forEach(function (c) { cancionPorId[c.id] = c; });
   var CLAVE_DIA = "cr-trivia-dia-ronda";
-  var dia = null, diaParar = 0, diaAnim = 0;
+  var dia = null, diaParar = 0, diaAnim = 0, diaArranque = null;
   var reproductor = $("[data-dia-audio]");
 
   function guardarRondaDia() {
@@ -585,12 +585,15 @@
       lista.appendChild(li);
     });
     var ultimo = p.intentos.length >= D.SEGUNDOS.length - 1;
-    $("[data-dia-saltar]").textContent = ultimo ? "Rendirse" : "Saltar (" + D.SEGUNDOS[p.intentos.length + 1] + " s)";
+    // Deja claro que da más fragmento de la misma canción, no otra canción (F22).
+    $("[data-dia-saltar]").textContent = ultimo ? "Me rindo" : "No la sé · oír " + D.SEGUNDOS[p.intentos.length + 1] + " s";
   }
 
   function detenerAudio() {
     clearTimeout(diaParar); cancelAnimationFrame(diaAnim);
+    if (diaArranque) { reproductor.removeEventListener("seeked", diaArranque); diaArranque = null; }
     reproductor.pause();
+    reproductor.muted = false;
     $("[data-dia-sonando]").style.width = "0";
   }
 
@@ -600,8 +603,11 @@
     if (!p) return;
     if (!dia.t0) dia.t0 = Date.now();
     var seg = D.segundosActuales(p), barra = $("[data-dia-sonando]");
-    try { reproductor.currentTime = 0; } catch (e) { /* aún sin cargar */ }
-    reproductor.play().then(function () {
+    // Cada avance empieza donde ya suena (F22/D28): se salta el silencio o el fade inicial.
+    var desde = Number((audioDatos.canciones[p.correcta] || {}).inicio) || 0;
+    var listo = reproductor.readyState >= 1;
+    function arrancar() {
+      reproductor.muted = false;
       var inicio = performance.now();
       (function avanzar() {
         var t = (performance.now() - inicio) / 1000;
@@ -609,7 +615,17 @@
         if (t < seg) diaAnim = requestAnimationFrame(avanzar);
       })();
       diaParar = setTimeout(detenerAudio, seg * 1000);
+    }
+    if (listo) { try { reproductor.currentTime = desde; } catch (e) { /* sin metadatos todavía */ } }
+    else reproductor.muted = true; // primera vez: suena callado hasta llegar a `desde`
+    // play() va dentro del toque (Safari en iPhone lo exige); el salto a `desde` puede venir después.
+    reproductor.play().then(function () {
+      if (listo || !desde) { if (!listo) reproductor.currentTime = 0; arrancar(); return; }
+      diaArranque = function () { diaArranque = null; arrancar(); };
+      reproductor.addEventListener("seeked", diaArranque, { once: true });
+      reproductor.currentTime = desde;
     }).catch(function () {
+      reproductor.muted = false;
       $("[data-dia-aviso]").textContent = "No se pudo reproducir el fragmento. Revisa tu conexión o el volumen e intenta de nuevo.";
     });
   }
@@ -667,11 +683,17 @@
   }
 
   function terminarRonda() {
-    var r = dia.ronda;
-    if (dia.tipo !== "dia" || (estado.dia && estado.dia.resultados && estado.dia.resultados[dia.fecha])) return;
-    estado.dia = D.registrarDia(estado.dia, dia.fecha, { puntos: D.puntajeRonda(r), aciertos: D.aciertosRonda(r) });
+    var r = dia.ronda, practica = dia.tipo !== "dia";
+    // La ronda del día se registra una sola vez (al recargar ya está); la práctica, cada vez que termina.
+    if (dia.cerrada || (!practica && estado.dia && estado.dia.resultados && estado.dia.resultados[dia.fecha])) return;
+    dia.cerrada = true;
+    if (!practica) estado.dia = D.registrarDia(estado.dia, dia.fecha, { puntos: D.puntajeRonda(r), aciertos: D.aciertosRonda(r) });
+    var res = T.cerrarAdivina(estado, { aciertos: D.aciertosRonda(r), puntos: D.puntajeRonda(r), primeros: D.primerosRonda(r),
+      racha: (estado.dia && estado.dia.racha) || 0, practica: practica }, new Date());
+    estado = res.estado;
+    dia.nuevas = res.nuevas;
     T.guardarEstado(almacen, estado);
-    contar("adivina-terminada");
+    contar(practica ? "adivina-practica-terminada" : "adivina-terminada");
     tonos(SONIDOS.final);
   }
 
@@ -681,6 +703,10 @@
     $("[data-dia-final-titulo]").textContent = practica ? "Práctica terminada" : "Tu ronda de hoy";
     $("[data-dia-total]").textContent = D.puntajeRonda(r) + "/" + total + " · " + D.aciertosRonda(r) + " de " + r.resultados.length;
     $("[data-dia-cuadros]").textContent = r.resultados.map(D.cuadro).join("");
+    var nuevas = $("[data-dia-nuevas]");
+    nuevas.textContent = "";
+    (dia.nuevas || []).forEach(function (id) { nuevas.appendChild(chapa(insignia(id), "nueva")); });
+    $("[data-dia-nuevas-titulo]").hidden = !nuevas.children.length;
     var lista = $("[data-dia-resumen]");
     lista.textContent = "";
     r.resultados.forEach(function (x) {

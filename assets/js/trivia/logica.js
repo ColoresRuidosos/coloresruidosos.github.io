@@ -49,10 +49,17 @@
     { id: "seres_unicos", nombre: "Los seres únicos", como: "10 aciertos seguidos en el contrarreloj", familia: "contrarreloj", icono: "huella" },
     { id: "radio_himalaya", nombre: "Radio Himalaya", como: "20 aciertos en un contrarreloj", familia: "contrarreloj", icono: "radio" },
     { id: "cosmos", nombre: "Cosmos (Antisistema Solar)", como: "Acertar 100 canciones en total en el contrarreloj", familia: "contrarreloj", icono: "planeta" },
+    // Adivina la canción (F22/D28).
+    { id: "musica_ascensores", nombre: "Música de ascensores", como: "Terminar tu primera ronda de Adivina la canción", familia: "adivina", icono: "nota" },
+    { id: "primera_combustion", nombre: "Mi primera combustión", como: "Adivinar una canción con 1 segundo", familia: "adivina", icono: "cerillo" },
+    { id: "ya_sale_el_sol", nombre: "Ya sale el sol", como: "Acertar las 10 canciones de una ronda", familia: "adivina", icono: "sol" },
+    { id: "domingo", nombre: "Domingo astromántico", como: "Racha de 7 días en la ronda del día", familia: "adivina", icono: "estrella" },
+    { id: "nada", nombre: "Nada", como: "No acertar ninguna canción en una ronda", familia: "adivina", icono: "silencio", oculta: true, pista: "Ni una te sonó conocida" },
+    { id: "starman", nombre: "El día que Starman huyó", como: "60 de 60: las 10 canciones con 1 segundo", familia: "adivina", icono: "starman", oculta: true, pista: "Ni un segundo más" },
     { id: "gran_truco", nombre: "El gran truco final", como: "Tener todas las demás insignias", familia: "secreta", icono: "sombrero", oculta: true, pista: "Solo para quien lo tiene todo" },
   ];
   var SECRETOS = ["contraespionaje", "wio"];
-  // "El gran truco final" no pide la insignia de fecha límite ni las del contrarreloj (D23).
+  // "El gran truco final" no pide la insignia de fecha límite ni las del contrarreloj (D23) ni las de Adivina la canción (D28).
   var SIN_GRAN_TRUCO = ["gran_truco", "ultimo_baile"];
   var DIA_MS = 24 * 3600 * 1000;
 
@@ -140,7 +147,7 @@
 
   function estadoInicial() {
     return { v: 1, partidas: 0, aciertos: 0, mejorPuntaje: 0, mejorNivel: 0, insignias: {}, portadas: [],
-      dias: [], ultimaPartida: null, partidasDia: { fecha: "", n: 0 }, crPartidas: 0, crAciertos: 0, crRecord: 0 };
+      dias: [], ultimaPartida: null, partidasDia: { fecha: "", n: 0 }, crPartidas: 0, crAciertos: 0, crRecord: 0, adRondas: 0 };
   }
 
   // Copia el estado y completa los campos que no existían antes de F17 (D23).
@@ -149,7 +156,7 @@
     if (!Array.isArray(e.dias)) e.dias = [];
     if (e.ultimaPartida === undefined) e.ultimaPartida = null;
     if (!e.partidasDia) e.partidasDia = { fecha: "", n: 0 };
-    ["crPartidas", "crAciertos", "crRecord"].forEach(function (k) { if (typeof e[k] !== "number") e[k] = 0; });
+    ["crPartidas", "crAciertos", "crRecord", "adRondas"].forEach(function (k) { if (typeof e[k] !== "number") e[k] = 0; });
     return e;
   }
 
@@ -169,7 +176,7 @@
 
   function tieneTodas(estado) {
     return INSIGNIAS.every(function (i) {
-      return SIN_GRAN_TRUCO.indexOf(i.id) >= 0 || i.familia === "contrarreloj" || estado.insignias[i.id];
+      return SIN_GRAN_TRUCO.indexOf(i.id) >= 0 || i.familia === "contrarreloj" || i.familia === "adivina" || estado.insignias[i.id];
     });
   }
 
@@ -273,6 +280,22 @@
     return { estado: estado, nuevas: otorgar(estado, ganadas, ahora), record: record };
   }
 
+  /* Registra una ronda de Adivina la canción. resumen = {aciertos, puntos, primeros (acertadas con 1 s),
+     racha (días seguidos de la ronda del día), practica}. La práctica no cuenta para la racha. */
+  function cerrarAdivina(estadoPrevio, resumen, ahora) {
+    ahora = ahora || new Date();
+    var estado = copiar(estadoPrevio || estadoInicial());
+    estado.adRondas += 1;
+    var ganadas = [];
+    if (estado.adRondas === 1) ganadas.push("musica_ascensores");
+    if (resumen.primeros >= 1) ganadas.push("primera_combustion");
+    if (resumen.aciertos >= 10) ganadas.push("ya_sale_el_sol");
+    if (!resumen.practica && resumen.racha >= 7) ganadas.push("domingo");
+    if (resumen.aciertos === 0) ganadas.push("nada");
+    if (resumen.puntos >= 60) ganadas.push("starman");
+    return { estado: estado, nuevas: otorgar(estado, ganadas, ahora) };
+  }
+
   // Secretos que se descubren fuera de la partida (código Konami, toques a la pantallita).
   function registrarSecreto(estadoPrevio, id, ahora) {
     var estado = copiar(estadoPrevio || estadoInicial());
@@ -305,7 +328,7 @@
     ETAPAS: ETAPAS, DIFICULTADES: DIFICULTADES, PUNTOS: PUNTOS, CATEGORIAS: CATEGORIAS, INSIGNIAS: INSIGNIAS, CLAVE: CLAVE,
     validarPregunta: validarPregunta, preguntasJugables: preguntasJugables, sortear: sortear, opciones: opciones,
     puntaje: puntaje, categoria: categoria, pistaSiguiente: pistaSiguiente, estadoInicial: estadoInicial, cerrarPartida: cerrarPartida,
-    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
+    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cerrarAdivina: cerrarAdivina, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRtrivia;
 })(typeof window !== "undefined" ? window : globalThis);
