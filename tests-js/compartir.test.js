@@ -34,3 +34,11 @@ test("los dos formatos de tarjeta tienen las medidas de Instagram", () => {
   assert.deepStrictEqual(C.FORMATOS.historia, { ancho: 1080, alto: 1920 });
   assert.deepStrictEqual(C.FORMATOS.feed, { ancho: 1080, alto: 1350 });
 });
+
+test("el texto del contrarreloj dice cuántas canciones en 60 segundos", () => {
+  const t = C.textoContrarreloj({ aciertos: 18, puntos: 31 });
+  assert.match(t, /18 canciones en 60 segundos/);
+  assert.match(t, /31 puntos/);
+  assert.match(t, /@coloresruidosos/);
+  assert.match(C.textoContrarreloj({ aciertos: 1, puntos: 1 }), /1 canción en 60 segundos/);
+});

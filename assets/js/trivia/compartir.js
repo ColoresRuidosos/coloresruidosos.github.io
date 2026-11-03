@@ -21,7 +21,12 @@
       "¿Te atreves? " + DIRECCION + " · " + CUENTA;
   }
 
+  function textoContrarreloj(r) {
+    return "Adiviné " + r.aciertos + (r.aciertos === 1 ? " canción" : " canciones") + " en 60 segundos (" + r.puntos +
+      " puntos) en el contrarreloj de Love of Lesbian 🎮 ¿De qué disco es? Juega en " + DIRECCION + " · " + CUENTA;
+  }
+
   raiz.CRcompartir = { CUENTA: CUENTA, DIRECCION: DIRECCION, FORMATOS: FORMATOS,
-    limpiarArroba: limpiarArroba, textoResultado: textoResultado, textoChapa: textoChapa };
+    limpiarArroba: limpiarArroba, textoResultado: textoResultado, textoChapa: textoChapa, textoContrarreloj: textoContrarreloj };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRcompartir;
 })(typeof window !== "undefined" ? window : globalThis);

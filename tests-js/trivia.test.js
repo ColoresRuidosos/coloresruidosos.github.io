@@ -243,12 +243,12 @@ test("Allí donde solíamos gritar al compartir, una sola vez", () => {
 });
 
 test("cada insignia del catálogo tiene nombre, cómo ganarla, familia e ícono", () => {
-  assert.strictEqual(T.INSIGNIAS.length, 25);
+  assert.strictEqual(T.INSIGNIAS.length, 29);
   T.INSIGNIAS.forEach((i) => {
     assert.ok(i.id && i.nombre && i.como && i.icono, JSON.stringify(i));
     assert.ok(["trivia", "habilidad", "constancia", "secreta", "contrarreloj"].includes(i.familia), i.id);
   });
-  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 25);
+  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 29);
 });
 
 // ---------- Portadas coleccionables ----------

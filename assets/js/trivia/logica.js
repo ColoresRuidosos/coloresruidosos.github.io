@@ -44,6 +44,11 @@
     { id: "dias_no_vividos", nombre: "Los días no vividos", como: "Volver después de 7 días sin jugar", familia: "constancia", icono: "calendario", oculta: true, pista: "Regresa cuando creas que ya lo olvidaste" },
     { id: "contraespionaje", nombre: "Contraespionaje", como: "El código Konami en el inicio", familia: "secreta", icono: "control", oculta: true, pista: "Los viejos jugadores conocen el código" },
     { id: "wio", nombre: "Wio, antenas y pijamas", como: "Tocar 7 veces la pantallita del inicio", familia: "secreta", icono: "tele", oculta: true, pista: "Hay algo escondido en la tele" },
+    // Contrarreloj "¿De qué disco es?" (F16/D22).
+    { id: "psiconautas", nombre: "Psiconautas", como: "Jugar tu primer contrarreloj", familia: "contrarreloj", icono: "ojo" },
+    { id: "seres_unicos", nombre: "Los seres únicos", como: "10 aciertos seguidos en el contrarreloj", familia: "contrarreloj", icono: "huella" },
+    { id: "radio_himalaya", nombre: "Radio Himalaya", como: "20 aciertos en un contrarreloj", familia: "contrarreloj", icono: "radio" },
+    { id: "cosmos", nombre: "Cosmos (Antisistema Solar)", como: "Acertar 100 canciones en total en el contrarreloj", familia: "contrarreloj", icono: "planeta" },
     { id: "gran_truco", nombre: "El gran truco final", como: "Tener todas las demás insignias", familia: "secreta", icono: "sombrero", oculta: true, pista: "Solo para quien lo tiene todo" },
   ];
   var SECRETOS = ["contraespionaje", "wio"];
@@ -135,7 +140,7 @@
 
   function estadoInicial() {
     return { v: 1, partidas: 0, aciertos: 0, mejorPuntaje: 0, mejorNivel: 0, insignias: {}, portadas: [],
-      dias: [], ultimaPartida: null, partidasDia: { fecha: "", n: 0 } };
+      dias: [], ultimaPartida: null, partidasDia: { fecha: "", n: 0 }, crPartidas: 0, crAciertos: 0, crRecord: 0 };
   }
 
   // Copia el estado y completa los campos que no existían antes de F17 (D23).
@@ -144,6 +149,7 @@
     if (!Array.isArray(e.dias)) e.dias = [];
     if (e.ultimaPartida === undefined) e.ultimaPartida = null;
     if (!e.partidasDia) e.partidasDia = { fecha: "", n: 0 };
+    ["crPartidas", "crAciertos", "crRecord"].forEach(function (k) { if (typeof e[k] !== "number") e[k] = 0; });
     return e;
   }
 
@@ -251,6 +257,22 @@
     return { estado: estado, nuevas: otorgar(estado, ["alli_donde"], ahora || new Date()) };
   }
 
+  /* Registra un contrarreloj terminado. resumen = {aciertos, mejorRacha, puntos}. */
+  function cerrarContrarreloj(estadoPrevio, resumen, ahora) {
+    ahora = ahora || new Date();
+    var estado = copiar(estadoPrevio || estadoInicial());
+    var record = resumen.puntos > estado.crRecord;
+    estado.crPartidas += 1;
+    estado.crAciertos += resumen.aciertos;
+    estado.crRecord = Math.max(estado.crRecord, resumen.puntos);
+    var ganadas = [];
+    if (estado.crPartidas === 1) ganadas.push("psiconautas");
+    if (resumen.mejorRacha >= 10) ganadas.push("seres_unicos");
+    if (resumen.aciertos >= 20) ganadas.push("radio_himalaya");
+    if (estado.crAciertos >= 100) ganadas.push("cosmos");
+    return { estado: estado, nuevas: otorgar(estado, ganadas, ahora), record: record };
+  }
+
   // Secretos que se descubren fuera de la partida (código Konami, toques a la pantallita).
   function registrarSecreto(estadoPrevio, id, ahora) {
     var estado = copiar(estadoPrevio || estadoInicial());
@@ -283,7 +305,7 @@
     ETAPAS: ETAPAS, DIFICULTADES: DIFICULTADES, PUNTOS: PUNTOS, CATEGORIAS: CATEGORIAS, INSIGNIAS: INSIGNIAS, CLAVE: CLAVE,
     validarPregunta: validarPregunta, preguntasJugables: preguntasJugables, sortear: sortear, opciones: opciones,
     puntaje: puntaje, categoria: categoria, pistaSiguiente: pistaSiguiente, estadoInicial: estadoInicial, cerrarPartida: cerrarPartida,
-    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
+    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRtrivia;
 })(typeof window !== "undefined" ? window : globalThis);

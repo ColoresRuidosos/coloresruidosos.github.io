@@ -120,6 +120,10 @@ Cada insignia es una **chapa redonda en pixel art** de 32×32, escalada sin suav
 | Contraespionaje | Secreta | Control de videojuego |
 | Wio, antenas y pijamas | Secreta | Tele con antenas |
 | El gran truco final | Secreta | Sombrero de mago |
+| Psiconautas | Contrarreloj | Ojo en espiral |
+| Los seres únicos | Contrarreloj | Huella digital |
+| Radio Himalaya | Contrarreloj | Radio |
+| Cosmos (Antisistema Solar) | Contrarreloj | Planeta con anillo |
 
 ### 2.4 Portadas coleccionables
 

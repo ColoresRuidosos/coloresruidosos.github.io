@@ -16,6 +16,7 @@
       <p class="trivia__intro">15 preguntas en 6 etapas, de la etapa en inglés a la pausa de 2026. Fáciles valen 1 punto, difíciles 2 y muy difíciles 3.</p>
       <div class="trivia__acciones">
         <button type="button" class="trivia__boton trivia__boton--grande" data-jugar data-foco>▶ Jugar</button>
+        <button type="button" class="trivia__boton trivia__boton--cr" data-contrarreloj>⏱ Contrarreloj</button>
         <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
         <button type="button" class="trivia__boton" data-ver-ranking hidden>Ranking</button>
         <button type="button" class="trivia__boton trivia__boton--chico" data-sonido aria-pressed="false">♪ Sonido: no</button>
@@ -71,6 +72,43 @@
       </div>
     </div>
 
+    <div class="trivia__pantalla" data-pantalla="contrarreloj" hidden>
+      <div class="trivia__cr-hud">
+        <span class="trivia__cr-reloj" data-cr-reloj role="timer" aria-label="Segundos restantes">60</span>
+        <span class="trivia__cr-puntos" data-cr-puntos>0 pts</span>
+        <span class="trivia__cr-racha" data-cr-racha></span>
+      </div>
+      <p class="trivia__cr-cuenta" data-cr-cuenta aria-live="assertive"></p>
+      <div data-cr-juego hidden>
+        <p class="trivia__dificultad">¿De qué disco es?</p>
+        <h2 class="trivia__pregunta trivia__cr-cancion" data-cr-cancion tabindex="-1"></h2>
+        <ol class="trivia__opciones" data-cr-opciones></ol>
+        <p class="trivia__feedback" data-cr-feedback aria-live="polite"></p>
+      </div>
+    </div>
+
+    <div class="trivia__pantalla" data-pantalla="cr-resultado" hidden>
+      <p class="trivia__eres">Contrarreloj</p>
+      <h2 class="trivia__categoria" data-cr-titulo tabindex="-1" data-foco></h2>
+      <p class="trivia__puntaje" data-cr-resumen></p>
+      <p class="trivia__pista" data-cr-record hidden>¡Nuevo récord personal!</p>
+      <h3 class="trivia__subtitulo" data-cr-nuevas-titulo>Nuevo en tu colección</h3>
+      <ul class="trivia__chapas" data-cr-nuevas></ul>
+      <div class="trivia__compartir">
+        <h3 class="trivia__subtitulo">Compártelo</h3>
+        <div class="trivia__acciones">
+          <button type="button" class="trivia__boton trivia__boton--grande" data-compartir-cr="historia">Para historias</button>
+          <button type="button" class="trivia__boton" data-compartir-cr="feed">Para el feed</button>
+        </div>
+        <p class="trivia__aviso-compartir" data-cr-aviso aria-live="polite"></p>
+      </div>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--grande" data-contrarreloj>⏱ Otra vez</button>
+        <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
+        <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
+      </div>
+    </div>
+
     <div class="trivia__pantalla" data-pantalla="ranking" hidden>
       <h2 class="trivia__categoria" tabindex="-1" data-foco>Ranking</h2>
       <div class="trivia__pestanas" role="group" aria-label="Periodo">
@@ -112,9 +150,10 @@
 </section>
 
 <script type="application/json" id="trivia-datos">{{ site.Data.trivia | jsonify | safeJS }}</script>
+<script type="application/json" id="canciones-datos">{{ site.Data.canciones | jsonify | safeJS }}</script>
 {{ end }}
 
 {{ define "scripts" }}
-{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/insignias.js") (resources.Get "js/trivia/ranking.js") (resources.Get "js/trivia/compartir.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
+{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/insignias.js") (resources.Get "js/trivia/ranking.js") (resources.Get "js/trivia/compartir.js") (resources.Get "js/trivia/contrarreloj.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}

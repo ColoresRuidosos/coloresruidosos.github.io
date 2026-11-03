@@ -64,15 +64,16 @@ Orden TDD: primero la prueba en rojo, luego el código.
 Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Spec, plan y banco de canciones con fuentes (`docs/canciones.md`)
 - ⏳ Revisión fan de las canciones (V8) y tracklists que faltan (V9)
-- ⏳ 🔴→🟢 Contrato de `data/canciones.json`: disco entre los 10 de estudio, fuentes, fuerza, estado; sin títulos iguales al del disco; sin canciones repetidas
-- ⏳ 🔴→🟢 Sorteo: sin repetir canción en una partida; 4 opciones con el disco correcto una sola vez y 3 discos distintos
-- ⏳ 🔴→🟢 Puntos: +1, ×2 desde racha 5, ×3 desde racha 10; un error corta la racha
-- ⏳ 🔴→🟢 Reloj: 60 s, −3 s por error, nunca menos de 0; fin al llegar a 0 o al agotar el banco
-- ⏳ 🔴→🟢 Insignias Psiconautas, Los seres únicos, Radio Himalaya y Cosmos, cada una con su caso que la da y su caso que no
-- ⏳ 🔴→🟢 Estado: los campos nuevos se leen como 0 en un estado guardado antes de F16
-- ⏳ Pantalla de contrarreloj en `/trivia/`: botón en el inicio, cuenta regresiva, reloj, racha, resultado, tarjeta para compartir
-- ⏳ Accesibilidad: teclado, anuncios de acierto y error, movimiento reducido
-- ⏳ Compilar con Hugo 0.166 y jugar partidas completas con Playwright a 360 px y en escritorio
+- ✅ 🔴→🟢 Contrato de `data/canciones.json`: disco entre los 10 de estudio, fuentes, fuerza, estado; sin títulos iguales al del disco; sin canciones repetidas
+- ✅ 🔴→🟢 Sorteo: sin repetir canción en una partida; 4 opciones con el disco correcto una sola vez y 3 discos distintos
+- ✅ 🔴→🟢 Puntos: +1, ×2 desde racha 5, ×3 desde racha 10; un error corta la racha
+- ✅ 🔴→🟢 Reloj: 60 s, −3 s por error, nunca menos de 0; fin al llegar a 0 o al agotar el banco
+- ✅ 🔴→🟢 Insignias Psiconautas, Los seres únicos, Radio Himalaya y Cosmos, cada una con su caso que la da y su caso que no
+- ✅ 🔴→🟢 Estado: los campos nuevos se leen como 0 en un estado guardado antes de F16
+- ✅ Pantalla de contrarreloj en `/trivia/`: botón en el inicio, cuenta regresiva, reloj, racha, resultado, tarjeta para compartir
+- ✅ Accesibilidad: teclado, anuncios de acierto y error, movimiento reducido
+- ✅ Compilar con Hugo 0.166 y jugar partidas completas con Playwright a 380 px y en escritorio (fin por tiempo con reloj simulado y fin por banco agotado)
+- ⏳ Ranking del contrarreloj: agregar `contrarreloj` a `MODOS` en `Code.gs` (con su máximo de puntos) y que el equipo publique una nueva versión del script
 
 ## Fase 8 — Chapas e insignias "imposibles" (F17/D23)
 - ✅ Spec y propuesta visual (chapas de concierto, aprobada por el equipo)
