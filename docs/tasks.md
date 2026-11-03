@@ -99,3 +99,12 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 @ opcional: limpieza y validación; texto para pegar con categoría, @coloresruidosos y dirección
 - ✅ Tarjetas historia y feed, @ en la imagen, compartir chapa, copiar texto, aviso en computadora
 - ✅ Compilar y probar con Playwright
+
+## Fase 11 — LoL del día (F20/D26)
+- ✅ Spec
+- ⏳ 🔴→🟢 Coincidencia exacta con Apple Music y Spotify (título, artista, disco de estudio)
+- ⏳ `pipeline/resolver_audio.py` y `.github/workflows/audio-trivia.yml`; primera corrida (V11)
+- ⏳ 🔴→🟢 Canción del día igual para todos, sin repetir hasta recorrer el banco; día en hora de CDMX
+- ⏳ 🔴→🟢 Intentos y segundos (1, 2, 4, 7, 11, 16), resultado, racha de días y texto para compartir
+- ⏳ Pantalla en `/trivia/`, reproducción de fragmentos, buscador de títulos, revelación con Spotify
+- ⏳ Compilar y probar con Playwright
