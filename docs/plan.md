@@ -96,6 +96,12 @@
 
 **D30 Orden al azar en la ronda del día (2026-11-03):** F24. `rondaDelDia` sigue eligiendo las mismas 10 canciones para todos; `barajarRonda(ids, rng)` las reordena con `Math.random` al empezar una ronda nueva. La ronda guardada se reconoce con `mismasCanciones` (mismo conjunto, sin importar el orden), así que recargar no la vuelve a barajar. El ranking no cambia: compara puntos de las mismas 10 canciones.
 
+**D31 Insignia de concierto y cartel (2026-11-03):** F25.
+- `hugo.toml` → `[params.trivia_concierto]` con `codigo`, `desde` y `hasta` (RFC 3339 con zona de CDMX). La plantilla publica `sha256` del código normalizado y las fechas en `data-concierto-*`; el código en claro no va en la página.
+- `logica.js`: `normalizarCodigo` (mayúsculas, sin espacios, guiones ni acentos) y `canjearConcierto(estado, huella, config, ahora)`, que devuelve `{estado, nuevas, error}` con error `"codigo"`, `"fecha"` o `"ya"`. Es pura: la huella la calcula `juego.js` con `crypto.subtle`. Familia `concierto` fuera de `tieneTodas`.
+- `juego.js`: al cargar con `?codigo=` canjea, muestra el aviso en la colección y quita el parámetro de la URL con `history.replaceState`. En la colección hay un formulario para escribir el código.
+- Cartel: HTML a 300 dpi → PDF (Carta y Doble Carta), QR de nivel de corrección M a `https://coloresruidosos.github.io/trivia/?codigo=<código>`, generado con `segno`. Se guarda en `docs/concierto/` junto con su script, para regenerarlo si cambia el código.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|

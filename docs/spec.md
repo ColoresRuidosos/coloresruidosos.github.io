@@ -130,6 +130,14 @@
 
 Al elegir, entra directo a ese juego. En el menú también están Mi colección, Ranking, el sonido y tu récord. Los botones "Volver" de los juegos, la colección y el ranking regresan a este menú, y el menú tiene su propio "Volver" al inicio.
 
+**F25 Insignia exclusiva de concierto y cartel con QR.** Para los conciertos de noviembre de 2026 en México, el equipo lleva un cartel impreso con un QR.
+- **Insignia «Noches reversibles»** (familia Concierto, aro rojo): se gana escaneando el QR del cartel **solo del 24 al 28 de noviembre de 2026**, en hora de CDMX. En la colección está a la vista, con la leyenda "Escanear el QR de Colores Ruidosos en un concierto". Así quien no fue sabe que existe.
+- **Dos formas de canjearla:** el QR abre la trivia con el código y la insignia se desbloquea sola; o en **Mi colección → "¿Tienes un código de concierto?"** se escribe el código que viene impreso en el cartel, sin importar mayúsculas, espacios ni acentos.
+- **Avisos claros:** "¡Desbloqueaste Noches reversibles!", "Ese código no existe" o "Este código solo funciona los días de concierto (24 al 28 de noviembre)". Si ya la tienes, te lo dice.
+- **El gran truco final no la pide**, igual que El último baile: no todos pueden ir a un concierto.
+- **El código y las fechas viven en `hugo.toml`**, así el equipo puede cambiarlos (si el código se filtra, se cambia y se reimprime el cartel). El repo es público: el código no es secreto ante quien lea el repositorio, y la ventana de fechas es lo que limita el abuso. La página solo trae la huella SHA-256 del código.
+- **Cartel imprimible** (Carta y Doble Carta): "Trivia 8 bits de Love of Lesbian", el QR grande, la chapa de la insignia, el código escrito por si el QR falla, las fechas, @coloresruidosos y la aclaración "Hecho por fans; no somos la organización de la banda ni del concierto".
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
