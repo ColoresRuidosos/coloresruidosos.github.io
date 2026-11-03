@@ -1,7 +1,7 @@
 /* Interfaz de la Trivia (F15/D21): conecta la lógica (CRtrivia) con las
    escenas (CRescenas) y el DOM de layouts/trivia/section.html. */
 (function () {
-  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias;
+  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias, R = window.CRranking;
   var raiz = document.querySelector("[data-trivia]");
   var crudo = document.getElementById("trivia-datos");
   if (!raiz || !T || !E || !I || !crudo) return;
@@ -211,6 +211,7 @@
       lista.appendChild(li);
     });
     $("[data-nuevas-titulo]").hidden = !lista.children.length;
+    prepararPublicar(r.puntos, partida.fin - partida.inicio);
     mostrar("resultado");
   }
 
@@ -402,6 +403,96 @@
     if (toques.length >= 7) { toques = []; descubrir("wio"); }
   });
 
+  // ---------- Ranking (F18/D24) ----------
+  var urlRanking = R ? raiz.getAttribute("data-ranking-url") : "";
+  function leer(clave) { try { return almacen && almacen.getItem(clave); } catch (e) { return null; } }
+  function escribir(clave, valor) { try { almacen && almacen.setItem(clave, valor); } catch (e) { /* sin almacenamiento */ } }
+  var miNombre = urlRanking ? leer("cr-trivia-nombre") : null;
+  if (urlRanking && !R.nombreValido(miNombre)) { miNombre = R.generarNombre(); escribir("cr-trivia-nombre", miNombre); }
+  var miDispositivo = urlRanking ? leer("cr-trivia-dispositivo") : null;
+  if (urlRanking && !/^[a-z0-9]{16}$/.test(miDispositivo || "")) { miDispositivo = R.nuevoDispositivo(); escribir("cr-trivia-dispositivo", miDispositivo); }
+  var porPublicar = null, rankingDatos = null, rankingCargado = 0, periodo = "semana";
+
+  function prepararPublicar(puntos, duracionMs) {
+    if (!urlRanking) return;
+    porPublicar = { puntos: puntos, duracionMs: duracionMs };
+    $("[data-mi-nombre]").textContent = miNombre;
+    $("[data-publicar-estado]").textContent = "";
+    $("[data-publicar-puntaje]").disabled = false;
+    $("[data-otro-nombre]").disabled = false;
+    $("[data-publicar]").hidden = false;
+  }
+
+  function otroNombre() {
+    miNombre = R.generarNombre(Math.random, miNombre);
+    escribir("cr-trivia-nombre", miNombre);
+    $("[data-mi-nombre]").textContent = miNombre;
+  }
+
+  var ERRORES = {
+    limite: "Ya publicaste muchas veces en esta hora. Intenta más tarde.",
+    duracion: "Esa partida fue demasiado rápida para el ranking.",
+  };
+
+  function publicar() {
+    if (!porPublicar) return;
+    var boton = $("[data-publicar-puntaje]"), aviso = $("[data-publicar-estado]");
+    boton.disabled = true;
+    aviso.textContent = "Publicando…";
+    var envio = R.armarEnvio("trivia", miNombre, porPublicar.puntos, porPublicar.duracionMs, miDispositivo);
+    fetch(urlRanking, { method: "POST", body: JSON.stringify(envio) })
+      .then(function (res) { return res.json(); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.error || "error");
+        porPublicar = null;
+        $("[data-otro-nombre]").disabled = true;
+        aviso.textContent = "¡Listo! Tu puntaje ya está en el ranking.";
+        contar("ranking-publicado");
+        rankingCargado = 0;
+        verRanking("semana");
+      })
+      .catch(function (err) {
+        boton.disabled = false;
+        aviso.textContent = ERRORES[err.message] || "No se pudo publicar. Intenta de nuevo en un rato.";
+      });
+  }
+
+  function pintarRanking() {
+    $$("[data-periodo]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-periodo") === periodo)); });
+    var lista = $("[data-ranking-lista]"), aviso = $("[data-ranking-estado]");
+    lista.textContent = "";
+    if (!rankingDatos) return;
+    var filas = rankingDatos[periodo] || [];
+    aviso.textContent = filas.length ? "" : (periodo === "semana" ? "Nadie ha publicado esta semana. ¡Sé la primera persona!" : "Todavía no hay puntajes.");
+    filas.forEach(function (f) {
+      var mio = f.nombre === miNombre;
+      var li = crear("li", mio ? "es-mio" : "");
+      li.appendChild(crear("span", "trivia__ranking-nombre", f.nombre + (mio ? " (tú)" : "")));
+      var p = crear("span", "trivia__ranking-puntos", f.puntos + " pts");
+      p.appendChild(crear("small", "", R.formatoTiempo(f.duracionMs)));
+      li.appendChild(p);
+      lista.appendChild(li);
+    });
+  }
+
+  function verRanking(cual) {
+    if (cual) periodo = cual;
+    mostrar("ranking");
+    if (rankingDatos && Date.now() - rankingCargado < 60000) { pintarRanking(); return; }
+    $("[data-ranking-estado]").textContent = "Cargando…";
+    $("[data-ranking-lista]").textContent = "";
+    fetch(urlRanking + (urlRanking.indexOf("?") < 0 ? "?" : "&") + "modo=trivia")
+      .then(function (res) { return res.json(); })
+      .then(function (d) {
+        if (d.error) throw new Error(d.error);
+        rankingDatos = d; rankingCargado = Date.now();
+        pintarRanking();
+      })
+      .catch(function () { $("[data-ranking-estado]").textContent = "No se pudo cargar el ranking. Intenta de nuevo en un rato."; });
+  }
+
+  if (urlRanking) $("[data-ver-ranking]").hidden = false;
+
   // ---------- Colección ----------
   function pintarColeccion() {
     var portadas = $("[data-portadas]");
@@ -438,6 +529,10 @@
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
     else if (b.hasAttribute("data-volver")) { pintarInicio(); mostrar("inicio"); }
     else if (b.hasAttribute("data-compartir")) compartir();
+    else if (b.hasAttribute("data-ver-ranking")) verRanking();
+    else if (b.hasAttribute("data-periodo")) { periodo = b.getAttribute("data-periodo"); pintarRanking(); }
+    else if (b.hasAttribute("data-publicar-puntaje")) publicar();
+    else if (b.hasAttribute("data-otro-nombre")) otroNombre();
     else if (b.hasAttribute("data-abrir-insignia")) abrirDetalle(b.getAttribute("data-abrir-insignia"));
     else if (b.hasAttribute("data-cerrar-detalle")) cerrarDetalle();
     else if (b.hasAttribute("data-sonido")) {

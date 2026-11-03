@@ -11,6 +11,9 @@ enableRobotsTXT = true
   descripcion = "Fanzine digital de la escena indie y rock, hecho por un grupo de amigos en México."
   curadores = ["Pardy", "Tanelly", "Dany", "Pratz"]
   firma_sin_curador = "Cartelera"
+  # URL de la aplicación web de Apps Script del ranking de la trivia (docs/ranking/README.md).
+  # Vacía = el ranking no aparece en el sitio.
+  trivia_ranking_url = ""
 
 [permalinks.page]
   posts = "/notas/:slug/"

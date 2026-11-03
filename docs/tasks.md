@@ -85,9 +85,9 @@ Orden TDD: primero la prueba en rojo, luego el código.
 
 ## Fase 9 — Ranking (F18/D24)
 - ✅ Spec
-- ⏳ 🔴→🟢 Nombres generados: formato, validación, sin repetirse en la misma tirada
-- ⏳ 🔴→🟢 Semana en hora de CDMX; orden por puntos, duración y fecha; un nombre una vez
-- ⏳ 🔴→🟢 Validación del Apps Script (puntos, duración, nombre, límite de envíos) probada en Node
-- ⏳ `docs/ranking/Code.gs` y `docs/ranking/README.md` con los pasos para el equipo
-- ⏳ Pantalla de ranking y botón "Publicar mi puntaje"; oculto sin URL
+- ✅ 🔴→🟢 Nombres generados: formato, validación, sin repetirse en la misma tirada
+- ✅ 🔴→🟢 Semana en hora de CDMX; orden por puntos, duración y fecha; un nombre una vez
+- ✅ 🔴→🟢 Validación del Apps Script (puntos, duración, nombre, límite de envíos) probada en Node
+- ✅ `docs/ranking/Code.gs` y `docs/ranking/README.md` con los pasos para el equipo
+- ✅ Pantalla de ranking y botón "Publicar mi puntaje"; oculto sin URL. Probado de punta a punta contra `Code.gs` corriendo en Node con imitaciones de los servicios de Google
 - ⏳ V10: el equipo publica el Apps Script; probar de punta a punta
