@@ -90,6 +90,15 @@
 - **Cada chapa ganada se puede compartir sola** desde su vista en grande ("Conseguí *Contradicción*").
 - Conectar la cuenta de Instagram queda **fuera de alcance**: Meta solo permite iniciar sesión a cuentas profesionales y exige app registrada, revisión y servidor propio.
 
+**F20 "Adivina la canción" (por su sonido).** Tercer modo de `/trivia/`, tipo *Heardle*:
+- **Una canción al día, la misma para todos** (el día cambia a medianoche de CDMX). Sale del banco de canciones de F16, sin repetirse hasta recorrerlo entero.
+- **Seis intentos con fragmentos que crecen:** 1, 2, 4, 7, 11 y 16 segundos desde el inicio del avance. En cada intento se elige un título de la lista (con buscador) o se salta para escuchar más. Mientras menos segundos hagan falta, mejor.
+- **Al terminar:** la canción, su disco y el botón **"Escúchala en Spotify"** (enlace directo a la canción), más el enlace a Apple Music como fuente del fragmento.
+- **Para compartir sin spoilers:** texto tipo *"Adivina la canción de Love of Lesbian #12 · 🔊🟥🟥🟩⬜⬜⬜ · coloresruidosos.github.io/trivia"*, que se copia solo, y una tarjeta para historias.
+- **Constancia:** se guarda en el navegador el resultado de cada día y la racha de días seguidos acertando. Si ya jugaste hoy, ves tu resultado y cuánto falta para la siguiente.
+- **El fragmento sale del avance oficial de 30 segundos de Apple Music.** Spotify ya no ofrece avances a apps nuevas desde noviembre de 2024, y su reproductor muestra el título. Nada de letras ni audio alojado por el sitio.
+- **Solo entran canciones con coincidencia exacta** en Apple Music (mismo título, artista Love of Lesbian y el disco de estudio, no una versión en directo). El botón de Spotify lleva a la pista exacta si Spotify la encuentra; si no (o mientras el repo no tenga credenciales de Spotify), lleva a la búsqueda de esa canción en Spotify.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
@@ -124,9 +133,10 @@ GitHub Pages ◄─────────────────────�
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
-   /trivia/     juego 8 bits sobre Love of Lesbian: trivia (data/trivia.json) y contrarreloj
-                (data/canciones.json), canvas; el ranking (F18) lee y escribe en un
-                Apps Script ──► Google Sheet del equipo
+   /trivia/     juego 8 bits sobre Love of Lesbian: trivia (data/trivia.json), contrarreloj
+                (data/canciones.json) y Adivina la canción (data/audio.json), canvas; el ranking (F18)
+                lee y escribe en un Apps Script ──► Google Sheet del equipo
+GitHub Actions (audio-trivia.yml) ──► Apple Music (avances) · Spotify (enlaces) ──► data/audio.json
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.

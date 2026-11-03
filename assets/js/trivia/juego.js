@@ -2,10 +2,10 @@
    escenas (CRescenas) y el DOM de layouts/trivia/section.html. */
 (function () {
   var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias, R = window.CRranking, CC = window.CRcompartir,
-    CR = window.CRcontrarreloj;
+    CR = window.CRcontrarreloj, D = window.CRdia;
   var raiz = document.querySelector("[data-trivia]");
   var crudo = document.getElementById("trivia-datos");
-  if (!raiz || !T || !E || !I || !CC || !CR || !crudo) return;
+  if (!raiz || !T || !E || !I || !CC || !CR || !D || !crudo) return;
 
   var datos = JSON.parse(crudo.textContent);
   var jugables = T.preguntasJugables(datos);
@@ -504,6 +504,153 @@
       CC.textoContrarreloj(res), $("[data-cr-aviso]"), function () { contar("contrarreloj-compartida"); trasCompartir(); });
   }
 
+  // ---------- Adivina la canción (F20/D26) ----------
+  var audioDatos = JSON.parse(document.getElementById("audio-datos").textContent || "{}");
+  var conAudio = crJugables.filter(function (c) { return audioDatos.canciones && audioDatos.canciones[c.id]; });
+  var cancionPorId = {};
+  (cancionesDatos.canciones || []).forEach(function (c) { cancionPorId[c.id] = c; });
+  var CLAVE_DIA = "cr-trivia-dia-partida";
+  var dia = null, diaParar = 0, diaAnim = 0;
+  var reproductor = $("[data-dia-audio]");
+
+  function hoy() { var f = new Date(); return { fecha: D.fechaCDMX(f), numero: D.numeroDia(f), id: D.cancionDelDia(conAudio.map(function (c) { return c.id; }), f) }; }
+
+  function cargarPartidaDia(h) {
+    try {
+      var g = JSON.parse(leer(CLAVE_DIA) || "null");
+      if (g && g.fecha === h.fecha && g.partida && g.partida.correcta === h.id) return g.partida;
+    } catch (e) { /* partida guardada ilegible: se empieza de nuevo */ }
+    return D.nuevaPartida(h.id);
+  }
+
+  function guardarPartidaDia() { escribir(CLAVE_DIA, JSON.stringify({ fecha: dia.fecha, partida: dia.partida })); }
+
+  function empezarDia() {
+    var h = hoy();
+    dia = { fecha: h.fecha, numero: h.numero, id: h.id, partida: cargarPartidaDia(h) };
+    reproductor.src = audioDatos.canciones[h.id].preview;
+    $("[data-dia-titulo]").textContent = "Adivina la canción #" + h.numero;
+    var titulos = $("[data-dia-titulos]");
+    if (!titulos.children.length) {
+      (cancionesDatos.canciones || []).map(function (c) { return c.titulo; }).sort(function (a, b) { return a.localeCompare(b, "es"); })
+        .forEach(function (t) { var o = crear("option"); o.value = t; titulos.appendChild(o); });
+    }
+    $("[data-dia-respuesta]").value = "";
+    $("[data-dia-aviso]").textContent = "";
+    contar("dia-abierto");
+    pintarDia();
+    mostrar("dia");
+  }
+
+  function pintarDia() {
+    var p = dia.partida, seg = D.segundosActuales(p);
+    var racha = (estado.dia && estado.dia.racha) || 0;
+    $("[data-dia-racha]").textContent = racha ? "Racha " + racha + (racha === 1 ? " día" : " días") : "";
+    $("[data-dia-permitido]").style.width = (p.terminada ? 100 : (seg / 16) * 100) + "%";
+    $("[data-dia-escuchar]").textContent = p.terminada ? "▶ Escuchar el fragmento" : "▶ Escuchar " + seg + " s";
+    var lista = $("[data-dia-intentos]");
+    lista.textContent = "";
+    p.intentos.forEach(function (x, k) {
+      var li = crear("li");
+      li.setAttribute("data-tipo", x);
+      li.textContent = (k + 1) + ". " + (x === "bien" ? "✔ " + cancionPorId[p.correcta].titulo : x === "salto" ? "Saltado" : "✘ " + (p.respuestas && p.respuestas[k] || "No era"));
+      lista.appendChild(li);
+    });
+    $("[data-dia-form]").hidden = p.terminada;
+    var siguienteSeg = D.SEGUNDOS[Math.min(p.intentos.length + 1, D.SEGUNDOS.length - 1)];
+    $("[data-dia-saltar]").textContent = p.intentos.length >= D.SEGUNDOS.length - 1 ? "Rendirse" : "Saltar (" + siguienteSeg + " s)";
+    $("[data-dia-final]").hidden = !p.terminada;
+    if (p.terminada) pintarFinalDia();
+  }
+
+  function pintarFinalDia() {
+    var p = dia.partida, c = cancionPorId[p.correcta], a = audioDatos.canciones[p.correcta], d = discoPorId[c.disco];
+    $("[data-dia-veredicto]").textContent = p.acierto ? "¡La adivinaste en el intento " + p.intentos.length + "!" : "Hoy no salió. Era:";
+    $("[data-dia-cancion]").textContent = "«" + c.titulo + "»";
+    $("[data-dia-disco]").textContent = d.nombre + " · " + d.anio;
+    $("[data-dia-spotify]").hidden = !a.spotify;
+    if (a.spotify) $("[data-dia-spotify]").href = a.spotify;
+    $("[data-dia-apple]").href = a.apple;
+    $("[data-dia-cuadros]").textContent = D.textoCompartir(dia.numero, p).split("\n")[1];
+    var falta = 24 * 3600 * 1000 - ((Date.now() - 6 * 3600 * 1000) % (24 * 3600 * 1000));
+    $("[data-dia-siguiente]").textContent = "La siguiente canción sale en " + Math.floor(falta / 3600000) + " h " + Math.floor((falta % 3600000) / 60000) + " min.";
+  }
+
+  function escucharDia() {
+    clearTimeout(diaParar); cancelAnimationFrame(diaAnim);
+    var p = dia.partida, seg = p.terminada ? 30 : D.segundosActuales(p);
+    var barra = $("[data-dia-sonando]"), aviso = $("[data-dia-aviso]");
+    try { reproductor.currentTime = 0; } catch (e) { /* aún sin cargar */ }
+    var inicio = 0;
+    reproductor.play().then(function () {
+      inicio = performance.now();
+      (function avanzar() {
+        var t = (performance.now() - inicio) / 1000;
+        barra.style.width = Math.min(100, (t / 16) * 100) + "%";
+        if (t < seg) diaAnim = requestAnimationFrame(avanzar);
+      })();
+      diaParar = setTimeout(function () { reproductor.pause(); barra.style.width = "0"; }, seg * 1000);
+    }).catch(function () { aviso.textContent = "No se pudo reproducir el fragmento. Revisa tu conexión o el volumen e intenta de nuevo."; });
+  }
+
+  function intentarDia(respuestaTitulo) {
+    var p = dia.partida;
+    if (p.terminada) return;
+    var id = null;
+    if (respuestaTitulo !== null) {
+      var t = respuestaTitulo.trim().toLowerCase();
+      var hallada = (cancionesDatos.canciones || []).filter(function (c) { return c.titulo.toLowerCase() === t; })[0];
+      if (!hallada) { $("[data-dia-aviso]").textContent = "Elige un título de la lista."; return; }
+      id = hallada.id;
+    }
+    var n = D.intentar(p, id);
+    n.respuestas = (p.respuestas || []).concat([id ? cancionPorId[id].titulo : null]);
+    dia.partida = n;
+    $("[data-dia-respuesta]").value = "";
+    $("[data-dia-aviso]").textContent = n.acierto ? "¡Sí!" : id ? "No es esa." : "";
+    tonos(n.acierto ? SONIDOS.acierto : id ? SONIDOS.error : [[330, 0.06]]);
+    if (n.terminada) {
+      estado.dia = D.registrarDia(estado.dia, dia.fecha, { acierto: n.acierto, intentos: n.intentos.length });
+      T.guardarEstado(almacen, estado);
+      contar("dia-terminado-" + (n.acierto ? n.intentos.length : "x"));
+      if (n.acierto) tonos(SONIDOS.final);
+    }
+    guardarPartidaDia();
+    pintarDia();
+  }
+
+  function crearTarjetaDia(formato) {
+    var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y, p = dia.partida;
+    c.fillStyle = "#FFD23F"; c.font = "36px " + FUENTE_PIXEL;
+    c.fillText("Adivina la canción #" + dia.numero, W / 2, y + 330);
+    var colores = { bien: "#1FB57A", mal: "#FF3E7F", salto: "#5a5a5a" }, lado = 120, hueco = 20, x0 = (W - (6 * lado + 5 * hueco)) / 2;
+    for (var k = 0; k < 6; k++) {
+      c.fillStyle = colores[p.intentos[k]] || "#F4EFE6";
+      c.fillRect(x0 + k * (lado + hueco), y + 430, lado, lado);
+    }
+    c.fillStyle = "#F4EFE6"; c.font = "60px " + FUENTE_PIXEL;
+    c.fillText((p.acierto ? p.intentos.length : "X") + "/6", W / 2, y + 720);
+    c.font = "26px " + FUENTE_PIXEL; c.fillStyle = "#1FB57A";
+    var racha = (estado.dia && estado.dia.racha) || 0;
+    if (racha) c.fillText("RACHA " + racha, W / 2, y + 800);
+    pieTarjeta(t, "¿La reconoces tú?");
+    return t.lienzo;
+  }
+
+  function compartirDia(formato) {
+    compartirImagen(function () { return crearTarjetaDia(formato); }, "adivina-la-cancion-" + dia.numero + ".png",
+      D.textoCompartir(dia.numero, dia.partida), $("[data-dia-aviso-compartir]"), function () { contar("dia-compartido"); trasCompartir(); });
+  }
+
+  function copiarDia() {
+    copiarTexto(D.textoCompartir(dia.numero, dia.partida)).then(function (ok) {
+      $("[data-dia-aviso-compartir]").textContent = ok ? "Resultado copiado. Pégalo donde quieras." : D.textoCompartir(dia.numero, dia.partida);
+    });
+  }
+
+  if (conAudio.length) $("[data-dia]").hidden = false;
+  $("[data-dia-form]").addEventListener("submit", function (ev) { ev.preventDefault(); intentarDia($("[data-dia-respuesta]").value); });
+
   // ---------- Chapas (F17) ----------
   var detalle = $("[data-detalle]");
 
@@ -728,9 +875,18 @@
     if (b.hasAttribute("data-jugar")) empezar();
     else if (b.hasAttribute("data-siguiente")) siguiente();
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
-    else if (b.hasAttribute("data-volver")) { clearInterval(crReloj); clearTimeout(crCuenta); cr = null; pintarInicio(); mostrar("inicio"); }
+    else if (b.hasAttribute("data-volver")) {
+      clearInterval(crReloj); clearTimeout(crCuenta); cr = null;
+      clearTimeout(diaParar); reproductor.pause();
+      pintarInicio(); mostrar("inicio");
+    }
     else if (b.hasAttribute("data-compartir")) compartir(b.getAttribute("data-compartir"));
     else if (b.hasAttribute("data-contrarreloj")) empezarContrarreloj();
+    else if (b.hasAttribute("data-dia")) empezarDia();
+    else if (b.hasAttribute("data-dia-escuchar")) escucharDia();
+    else if (b.hasAttribute("data-dia-saltar")) intentarDia(null);
+    else if (b.hasAttribute("data-dia-compartir")) compartirDia(b.getAttribute("data-dia-compartir"));
+    else if (b.hasAttribute("data-dia-copiar")) copiarDia();
     else if (b.hasAttribute("data-cr-opcion")) responderContrarreloj(b.getAttribute("data-cr-opcion"));
     else if (b.hasAttribute("data-compartir-cr")) compartirContrarreloj(b.getAttribute("data-compartir-cr"));
     else if (b.hasAttribute("data-compartir-chapa")) compartirChapa(b.getAttribute("data-compartir-chapa"));

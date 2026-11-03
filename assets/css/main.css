@@ -450,6 +450,25 @@ body.sin-scroll { overflow: hidden; }
 .trivia__arroba input { font: 700 1rem var(--f-cuerpo); color: var(--text-main); background: var(--tinta-clara); border: 3px solid var(--tinta-clara); padding: .6rem .75rem; max-width: 20rem; }
 .trivia__arroba input:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 2px; }
 .trivia__arroba-aviso, .trivia__detalle-aviso { min-height: 1em; margin: .4rem 0 0; font-size: .875rem; color: var(--accent-yellow); }
+.trivia__boton--dia { background: var(--accent-yellow); border-color: var(--accent-yellow); box-shadow: 4px 4px 0 var(--accent-blue); }
+.trivia__boton--spotify { background: #1FB57A; border-color: #1FB57A; text-decoration: none; display: inline-block; }
+.trivia__consola a.trivia__boton { color: var(--text-main); text-decoration: none; display: inline-block; }
+.trivia[data-en="dia"] .trivia__escena { display: none; }
+.trivia__dia-cabecera { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.trivia__dia-cabecera .trivia__categoria { text-align: left; margin: 0; }
+.trivia__dia-barra { position: relative; height: 18px; border: 3px solid var(--tinta-clara); margin: 1rem 0; background:
+  linear-gradient(90deg, transparent calc(6.25% - 2px), #5a5a5a 0 6.25%, transparent 0 calc(12.5% - 2px), #5a5a5a 0 12.5%, transparent 0 calc(25% - 2px), #5a5a5a 0 25%, transparent 0 calc(43.75% - 2px), #5a5a5a 0 43.75%, transparent 0 calc(68.75% - 2px), #5a5a5a 0 68.75%, transparent 0); }
+.trivia__dia-barra span { position: absolute; left: 0; top: 0; bottom: 0; }
+.trivia__dia-barra [data-dia-permitido] { background: rgba(255, 210, 63, .35); }
+.trivia__dia-sonando { background: var(--accent-yellow); width: 0; }
+.trivia__dia-intentos { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: .35rem; }
+.trivia__dia-intentos li { border: 2px solid #5a5a5a; padding: .4rem .6rem; font-size: .9375rem; }
+.trivia__dia-intentos li[data-tipo="mal"] { border-color: var(--accent-pink); }
+.trivia__dia-intentos li[data-tipo="bien"] { border-color: var(--accent-green); color: var(--accent-green); font-weight: 700; }
+.trivia__dia-adivinar input { max-width: none; width: 100%; }
+.trivia__dia-cuadros { font-size: 1.75rem; letter-spacing: .1em; text-align: center; margin: .5rem 0; }
+.trivia__dia-final { border-top: 2px dashed #5a5a5a; margin-top: 1rem; padding-top: .5rem; text-align: center; }
+.trivia__dia-final .trivia__acciones { justify-content: center; }
 .trivia__boton--cr { background: var(--accent-blue); border-color: var(--accent-blue); color: var(--tinta-clara); box-shadow: 4px 4px 0 var(--accent-yellow); }
 .trivia__boton--cr:hover { color: var(--text-main); }
 .trivia__cr-hud { display: flex; align-items: center; justify-content: space-between; gap: .75rem; font-family: var(--pixel); }

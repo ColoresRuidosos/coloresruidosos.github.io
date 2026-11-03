@@ -99,3 +99,13 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 @ opcional: limpieza y validación; texto para pegar con categoría, @coloresruidosos y dirección
 - ✅ Tarjetas historia y feed, @ en la imagen, compartir chapa, copiar texto, aviso en computadora
 - ✅ Compilar y probar con Playwright
+
+## Fase 11 — LoL del día (F20/D26)
+- ✅ Spec
+- ✅ 🔴→🟢 Coincidencia exacta con Apple Music y Spotify (título, artista, disco de estudio), pausas y reintento, enlace a la búsqueda de Spotify como respaldo
+- ✅ `pipeline/resolver_audio.py` y `.github/workflows/audio-trivia.yml`; V11: 68 de 69 con avance (falta "Limousinas", que Apple escribe distinto); 0 enlaces exactos de Spotify por falta de credenciales, todos con enlace a la búsqueda
+- ✅ 🔴→🟢 Canción del día igual para todos, sin repetir hasta recorrer el banco; día en hora de CDMX
+- ✅ 🔴→🟢 Intentos y segundos (1, 2, 4, 7, 11, 16), resultado, racha de días y texto para compartir
+- ✅ Pantalla en `/trivia/`, reproducción de fragmentos, buscador de títulos, revelación con Spotify; la partida del día sobrevive a recargar la página
+- ✅ Compilar y probar con Playwright (avance sustituido por un tono local)
+- ⏳ Configurar `SPOTIFY_CLIENT_ID` y `SPOTIFY_CLIENT_SECRET` en el repo para enlaces directos a la pista

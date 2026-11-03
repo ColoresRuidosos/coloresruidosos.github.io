@@ -17,6 +17,7 @@
       <div class="trivia__acciones">
         <button type="button" class="trivia__boton trivia__boton--grande" data-jugar data-foco>▶ Jugar</button>
         <button type="button" class="trivia__boton trivia__boton--cr" data-contrarreloj>⏱ Contrarreloj</button>
+        <button type="button" class="trivia__boton trivia__boton--dia" data-dia hidden>🔊 Adivina la canción</button>
         <button type="button" class="trivia__boton" data-ver-coleccion>Mi colección</button>
         <button type="button" class="trivia__boton" data-ver-ranking hidden>Ranking</button>
         <button type="button" class="trivia__boton trivia__boton--chico" data-sonido aria-pressed="false">♪ Sonido: no</button>
@@ -87,6 +88,51 @@
       </div>
     </div>
 
+    <div class="trivia__pantalla" data-pantalla="dia" hidden>
+      <div class="trivia__dia-cabecera">
+        <h2 class="trivia__categoria" data-dia-titulo tabindex="-1" data-foco></h2>
+        <span class="trivia__cr-racha" data-dia-racha></span>
+      </div>
+      <p class="trivia__intro">Escucha el fragmento y adivina la canción. Cada intento fallido o saltado deja oír más.</p>
+      <div class="trivia__dia-barra" aria-hidden="true"><span data-dia-permitido></span><span class="trivia__dia-sonando" data-dia-sonando></span></div>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton trivia__boton--grande" data-dia-escuchar>▶ Escuchar 1 s</button>
+      </div>
+      <ol class="trivia__dia-intentos" data-dia-intentos></ol>
+      <form class="trivia__dia-adivinar" data-dia-form>
+        <label class="trivia__arroba">¿Qué canción es?
+          <input type="text" data-dia-respuesta list="dia-titulos" autocomplete="off" spellcheck="false" placeholder="Escribe y elige de la lista">
+        </label>
+        <datalist id="dia-titulos" data-dia-titulos></datalist>
+        <div class="trivia__acciones">
+          <button type="submit" class="trivia__boton trivia__boton--grande">Adivinar</button>
+          <button type="button" class="trivia__boton" data-dia-saltar>Saltar (+ s)</button>
+        </div>
+      </form>
+      <p class="trivia__feedback" data-dia-aviso aria-live="polite"></p>
+      <div class="trivia__dia-final" data-dia-final hidden>
+        <p class="trivia__eres" data-dia-veredicto></p>
+        <h3 class="trivia__categoria" data-dia-cancion></h3>
+        <p class="trivia__puntaje" data-dia-disco></p>
+        <div class="trivia__acciones">
+          <a class="trivia__boton trivia__boton--grande trivia__boton--spotify" data-dia-spotify target="_blank" rel="noopener">Escúchala en Spotify</a>
+          <a class="trivia__boton trivia__boton--chico" data-dia-apple target="_blank" rel="noopener">Apple Music</a>
+        </div>
+        <p class="trivia__nota-ranking">El fragmento es el avance oficial de Apple Music.</p>
+        <p class="trivia__dia-cuadros" data-dia-cuadros aria-hidden="true"></p>
+        <div class="trivia__acciones">
+          <button type="button" class="trivia__boton trivia__boton--grande" data-dia-compartir="historia">Compartir para historias</button>
+          <button type="button" class="trivia__boton" data-dia-copiar>Copiar resultado</button>
+        </div>
+        <p class="trivia__aviso-compartir" data-dia-aviso-compartir aria-live="polite"></p>
+        <p class="trivia__puntaje" data-dia-siguiente></p>
+      </div>
+      <div class="trivia__acciones">
+        <button type="button" class="trivia__boton" data-volver>Volver al inicio</button>
+      </div>
+      <audio data-dia-audio preload="none"></audio>
+    </div>
+
     <div class="trivia__pantalla" data-pantalla="cr-resultado" hidden>
       <p class="trivia__eres">Contrarreloj</p>
       <h2 class="trivia__categoria" data-cr-titulo tabindex="-1" data-foco></h2>
@@ -151,9 +197,10 @@
 
 <script type="application/json" id="trivia-datos">{{ site.Data.trivia | jsonify | safeJS }}</script>
 <script type="application/json" id="canciones-datos">{{ site.Data.canciones | jsonify | safeJS }}</script>
+<script type="application/json" id="audio-datos">{{ with site.Data.audio }}{{ . | jsonify | safeJS }}{{ else }}{}{{ end }}</script>
 {{ end }}
 
 {{ define "scripts" }}
-{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/insignias.js") (resources.Get "js/trivia/ranking.js") (resources.Get "js/trivia/compartir.js") (resources.Get "js/trivia/contrarreloj.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
+{{ $js := slice (resources.Get "js/trivia/logica.js") (resources.Get "js/trivia/escenas.js") (resources.Get "js/trivia/insignias.js") (resources.Get "js/trivia/ranking.js") (resources.Get "js/trivia/compartir.js") (resources.Get "js/trivia/contrarreloj.js") (resources.Get "js/trivia/dia.js") (resources.Get "js/trivia/juego.js") | resources.Concat "js/trivia.bundle.js" | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}

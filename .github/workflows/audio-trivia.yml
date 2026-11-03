@@ -1,0 +1,64 @@
+name: Audio de LoL del día
+
+# Busca los avances de Apple Music y los enlaces de Spotify de las canciones de la trivia (F20/D26)
+# y sube data/audio.json a la misma rama. Corre en los PR que cambian el banco de canciones o el
+# resolvedor, y a mano. Sus commits no disparan otros workflows (usan GITHUB_TOKEN).
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "data/canciones.json"
+      - "pipeline/resolver_audio.py"
+      - "pipeline/cr/audio_trivia.py"
+      - ".github/workflows/audio-trivia.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audio-trivia-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  audio:
+    # En PR que vienen de un fork no hay credenciales ni permiso de escritura.
+    # Tampoco vuelve a correr por su propio commit de data/audio.json.
+    if: github.actor != 'github-actions[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pipeline/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Tests del resolvedor
+        run: pytest pipeline/tests/test_audio_trivia.py -q
+
+      - name: Buscar avances y enlaces
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+        run: python pipeline/resolver_audio.py | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Subir data/audio.json
+        run: |
+          git config user.name "colores-ruidosos-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/audio.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en data/audio.json"
+          else
+            git commit -m "LoL del día: actualizar data/audio.json"
+            # Por si alguien subió algo a la rama mientras corría la búsqueda.
+            git pull --rebase origin "$(git rev-parse --abbrev-ref HEAD)"
+            git push
+          fi
