@@ -522,7 +522,7 @@
   function rondaGuardada(fecha, ids) {
     try {
       var g = JSON.parse(leer(CLAVE_DIA) || "null");
-      if (g && g.fecha === fecha && g.ronda && g.ronda.canciones.join() === ids.join()) return g.ronda;
+      if (g && g.fecha === fecha && g.ronda && D.mismasCanciones(g.ronda.canciones, ids)) return g.ronda;
     } catch (e) { /* ronda guardada ilegible: se empieza de nuevo */ }
     return null;
   }
@@ -541,7 +541,8 @@
 
   function empezarDia() {
     var ahora = new Date(), fecha = D.fechaCDMX(ahora), ids = D.rondaDelDia(idsConAudio, ahora);
-    dia = { tipo: "dia", fecha: fecha, numero: D.numeroDia(ahora), ronda: rondaGuardada(fecha, ids) || D.nuevaRonda(ids), t0: 0 };
+    // Mismas 10 canciones para todos, en un orden al azar por sesión (F24); al recargar se sigue con el orden guardado.
+    dia = { tipo: "dia", fecha: fecha, numero: D.numeroDia(ahora), ronda: rondaGuardada(fecha, ids) || D.nuevaRonda(D.barajarRonda(ids, Math.random)), t0: 0 };
     $("[data-dia-titulo]").textContent = "Adivina la canción #" + dia.numero;
     prepararPantallaDia();
     if (dia.ronda.terminada) terminarRonda();
