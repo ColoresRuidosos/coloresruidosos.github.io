@@ -1,10 +1,11 @@
 /* Interfaz de la Trivia (F15/D21): conecta la lógica (CRtrivia) con las
    escenas (CRescenas) y el DOM de layouts/trivia/section.html. */
 (function () {
-  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias, R = window.CRranking, CC = window.CRcompartir;
+  var T = window.CRtrivia, E = window.CRescenas, I = window.CRinsignias, R = window.CRranking, CC = window.CRcompartir,
+    CR = window.CRcontrarreloj;
   var raiz = document.querySelector("[data-trivia]");
   var crudo = document.getElementById("trivia-datos");
-  if (!raiz || !T || !E || !I || !CC || !crudo) return;
+  if (!raiz || !T || !E || !I || !CC || !CR || !crudo) return;
 
   var datos = JSON.parse(crudo.textContent);
   var jugables = T.preguntasJugables(datos);
@@ -366,6 +367,143 @@
     escribir("cr-trivia-ig", limpio);
   }
 
+  // ---------- Contrarreloj "¿De qué disco es?" (F16/D22) ----------
+  var cancionesDatos = JSON.parse(document.getElementById("canciones-datos").textContent);
+  var discos = cancionesDatos.discos || [];
+  var discoPorId = {};
+  discos.forEach(function (d) { discoPorId[d.id] = d; });
+  var crJugables = CR.jugables(cancionesDatos);
+  var cr = null, crReloj = 0, crBloqueado = false, crCuenta = 0, crResultado = null;
+
+  function empezarContrarreloj() {
+    clearInterval(crReloj); clearTimeout(crCuenta);
+    cr = null; crBloqueado = true;
+    contar("contrarreloj-iniciada");
+    $("[data-cr-juego]").hidden = true;
+    $("[data-cr-reloj]").textContent = "60";
+    $("[data-cr-reloj]").classList.remove("es-poco");
+    $("[data-cr-puntos]").textContent = "0 pts";
+    $("[data-cr-racha]").textContent = "";
+    mostrar("contrarreloj", true);
+    var n = 3;
+    (function paso() {
+      if (n > 0) {
+        $("[data-cr-cuenta]").textContent = String(n);
+        tonos([[440, 0.08]]);
+        n--;
+        crCuenta = setTimeout(paso, 700);
+        return;
+      }
+      $("[data-cr-cuenta]").textContent = "";
+      tonos([[880, 0.15]]);
+      cr = CR.nuevaPartida(crJugables, Math.random, Date.now());
+      crBloqueado = false;
+      $("[data-cr-juego]").hidden = false;
+      pintarCancion();
+      crReloj = setInterval(tictac, 100);
+    })();
+  }
+
+  function tictac() {
+    var ms = CR.restanteMs(cr, Date.now());
+    var reloj = $("[data-cr-reloj]");
+    reloj.textContent = String(Math.ceil(ms / 1000));
+    reloj.classList.toggle("es-poco", ms <= 10000);
+    if (!crBloqueado && CR.terminada(cr, Date.now())) terminarContrarreloj();
+  }
+
+  function pintarCancion() {
+    var c = cr.orden[cr.i];
+    $("[data-cr-cancion]").textContent = "«" + c.titulo + "»";
+    $("[data-cr-cancion]").focus();
+    $("[data-cr-feedback]").textContent = "";
+    var lista = $("[data-cr-opciones]");
+    lista.textContent = "";
+    CR.opciones(c, discos, Math.random).forEach(function (id, k) {
+      var d = discoPorId[id], li = crear("li"), b = crear("button", "trivia__opcion");
+      b.type = "button";
+      b.setAttribute("data-cr-opcion", id);
+      b.appendChild(crear("span", "trivia__tecla", String(k + 1)));
+      var t = crear("span", "", d.nombre);
+      t.appendChild(crear("small", "", String(d.anio)));
+      b.appendChild(t);
+      li.appendChild(b);
+      lista.appendChild(li);
+    });
+  }
+
+  function responderContrarreloj(id) {
+    if (crBloqueado || !cr) return;
+    var r = CR.responder(cr, id, Date.now());
+    if (!r.correcto) { terminarContrarreloj(); return; }
+    cr = r.partida;
+    crBloqueado = true;
+    $$("[data-cr-opcion]").forEach(function (b) {
+      b.disabled = true;
+      var v = b.getAttribute("data-cr-opcion");
+      if (v === r.correcto) b.classList.add("es-correcta");
+      else if (v === id) b.classList.add("es-incorrecta");
+    });
+    var mult = CR.multiplicador(cr.racha);
+    $("[data-cr-feedback]").textContent = r.acierto ? "+" + r.ganados + (mult > 1 ? " (×" + mult + ")" : "") : "−3 s · Era " + discoPorId[r.correcto].nombre;
+    $("[data-cr-feedback]").setAttribute("data-acierto", String(r.acierto));
+    $("[data-cr-puntos]").textContent = cr.puntos + " pts";
+    $("[data-cr-racha]").textContent = cr.racha >= 2 ? "Racha " + cr.racha + (mult > 1 ? " · ×" + mult : "") : "";
+    tonos(r.acierto ? SONIDOS.acierto : SONIDOS.error);
+    tictac();
+    setTimeout(function () {
+      crBloqueado = false;
+      if (CR.terminada(cr, Date.now())) terminarContrarreloj();
+      else pintarCancion();
+    }, r.acierto ? 250 : 700);
+  }
+
+  function terminarContrarreloj() {
+    if (!cr) return;
+    clearInterval(crReloj);
+    var p = cr;
+    cr = null; crBloqueado = true;
+    var r = T.cerrarContrarreloj(estado, { aciertos: p.aciertos, mejorRacha: p.mejorRacha, puntos: p.puntos }, new Date());
+    estado = r.estado;
+    T.guardarEstado(almacen, estado);
+    crResultado = { aciertos: p.aciertos, puntos: p.puntos, mejorRacha: p.mejorRacha };
+    contar("contrarreloj-terminada");
+    tonos(SONIDOS.final);
+    $("[data-cr-titulo]").textContent = p.aciertos + (p.aciertos === 1 ? " canción" : " canciones");
+    $("[data-cr-resumen]").textContent = p.puntos + " puntos · mejor racha " + p.mejorRacha + " · récord " + estado.crRecord;
+    $("[data-cr-record]").hidden = !r.record || p.puntos === 0;
+    var lista = $("[data-cr-nuevas]");
+    lista.textContent = "";
+    r.nuevas.forEach(function (id) { lista.appendChild(chapa(insignia(id), "nueva")); });
+    $("[data-cr-nuevas-titulo]").hidden = !lista.children.length;
+    $("[data-cr-aviso]").textContent = "";
+    mostrar("cr-resultado");
+  }
+
+  function crearTarjetaContrarreloj(res, formato) {
+    var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y;
+    c.fillStyle = "#2F5BFF"; c.font = "30px " + FUENTE_PIXEL;
+    c.fillText("CONTRARRELOJ", W / 2, y + 290);
+    c.fillStyle = "#F4EFE6"; c.font = "26px " + FUENTE_PIXEL;
+    c.fillText("¿De qué disco es?", W / 2, y + 345);
+    c.fillStyle = "#FFD23F"; c.font = "200px " + FUENTE_PIXEL;
+    c.fillText(String(res.aciertos), W / 2, y + 640);
+    c.fillStyle = "#F4EFE6"; c.font = "34px " + FUENTE_PIXEL;
+    c.fillText(res.aciertos === 1 ? "canción" : "canciones", W / 2, y + 740);
+    c.fillText("en 60 segundos", W / 2, y + 800);
+    c.fillStyle = "#1FB57A"; c.font = "28px " + FUENTE_PIXEL;
+    c.fillText(res.puntos + " PUNTOS · RACHA " + res.mejorRacha, W / 2, y + 920);
+    pieTarjeta(t, "¿Cuántas sacas tú?");
+    return t.lienzo;
+  }
+
+  function compartirContrarreloj(formato) {
+    if (!crResultado) return;
+    var res = crResultado;
+    compartirImagen(function () { return crearTarjetaContrarreloj(res, formato); }, "contrarreloj-love-of-lesbian-" + formato + ".png",
+      CC.textoContrarreloj(res), $("[data-cr-aviso]"), function () { contar("contrarreloj-compartida"); trasCompartir(); });
+  }
+
   // ---------- Chapas (F17) ----------
   var detalle = $("[data-detalle]");
 
@@ -590,8 +728,11 @@
     if (b.hasAttribute("data-jugar")) empezar();
     else if (b.hasAttribute("data-siguiente")) siguiente();
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
-    else if (b.hasAttribute("data-volver")) { pintarInicio(); mostrar("inicio"); }
+    else if (b.hasAttribute("data-volver")) { clearInterval(crReloj); clearTimeout(crCuenta); cr = null; pintarInicio(); mostrar("inicio"); }
     else if (b.hasAttribute("data-compartir")) compartir(b.getAttribute("data-compartir"));
+    else if (b.hasAttribute("data-contrarreloj")) empezarContrarreloj();
+    else if (b.hasAttribute("data-cr-opcion")) responderContrarreloj(b.getAttribute("data-cr-opcion"));
+    else if (b.hasAttribute("data-compartir-cr")) compartirContrarreloj(b.getAttribute("data-compartir-cr"));
     else if (b.hasAttribute("data-compartir-chapa")) compartirChapa(b.getAttribute("data-compartir-chapa"));
     else if (b.hasAttribute("data-ver-ranking")) verRanking();
     else if (b.hasAttribute("data-periodo")) { periodo = b.getAttribute("data-periodo"); pintarRanking(); }
@@ -613,6 +754,11 @@
     if (raiz.getAttribute("data-en") === "inicio" && FLECHAS[ev.key] && !(detalle.open)) {
       if (ev.key.indexOf("Arrow") === 0 && document.activeElement === lienzo) ev.preventDefault();
       ficha(FLECHAS[ev.key], KONAMI_TECLADO);
+    }
+    if (raiz.getAttribute("data-en") === "contrarreloj" && !ev.altKey && !ev.ctrlKey && !ev.metaKey) {
+      var m = parseInt(ev.key, 10), op = $$("[data-cr-opcion]")[m - 1];
+      if (m >= 1 && m <= 4 && op && !op.disabled) { ev.preventDefault(); op.click(); }
+      return;
     }
     if ($("[data-pantalla='juego']").hidden || ev.altKey || ev.ctrlKey || ev.metaKey) return;
     var n = parseInt(ev.key, 10);

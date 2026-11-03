@@ -45,7 +45,9 @@
 - **Mismo lugar y mismo estado.** Vive en `/trivia/` como otra pantalla, comparte colección, sonido y tarjeta para compartir. El estado del jugador sigue bajo `cr-trivia-v1`; los campos nuevos (`crPartidas`, `crAciertos`, `crRecord`) son opcionales y valen 0 si no existen, así no se pierden insignias guardadas.
 - **Lógica pura y aparte.** `assets/js/trivia/contrarreloj.js` (sorteo de canciones y opciones, puntos con multiplicador, reloj como función de los eventos, insignias) sin DOM, con pruebas en `tests-js/contrarreloj.test.js`. El reloj se calcula a partir de marcas de tiempo inyectadas (no con `setInterval` en la lógica) para poder probarlo.
 - **Opciones del mismo banco.** Las tres opciones incorrectas salen de los otros 9 discos de estudio, al azar y sin repetir; el orden de los cuatro botones también es al azar.
-- **Datos.** `data/canciones.json` se genera desde `docs/canciones.md` con un script como el de la trivia (`docs/generar_canciones_json.py`); empieza en `borrador: true` y solo juega las de fuente sólida.
+- **Datos.** `data/canciones.json` se genera desde `docs/canciones.md` con `docs/generar_canciones_json.py` (las canciones heredan las fuentes de su disco salvo que traigan las suyas); empieza en `borrador: true` y solo juega las de fuente sólida.
+- **Sin escena durante el contrarreloj:** la escena pixel art de la etapa delataría el disco, así que se oculta en estas pantallas.
+- **Ranking del contrarreloj, después:** necesita sumar el modo en `Code.gs` y una nueva versión del script publicado.
 - **Insignias.** Las cuatro nuevas se suman al catálogo de `logica.js` (18 en total); "Ejército de salvación" sigue pidiendo solo las 6 portadas de la trivia.
 - **Métricas.** Eventos de GoatCounter `contrarreloj-iniciada`, `contrarreloj-terminada` y `contrarreloj-compartida`.
 

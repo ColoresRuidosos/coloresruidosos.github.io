@@ -1,0 +1,1168 @@
+{
+  "borrador": true,
+  "_nota": "Generado desde docs/canciones.md con docs/generar_canciones_json.py. Una canción pasa a \"verificada\" cuando un fan abre sus fuentes y la confirma. Con borrador=true el contrarreloj usa las de fuente sólida aunque falte la revisión.",
+  "discos": [
+    {
+      "id": "MM",
+      "nombre": "Microscopic Movies",
+      "anio": 1999,
+      "etapa": "E1",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    },
+    {
+      "id": "IF",
+      "nombre": "Is It Fiction?",
+      "anio": 2002,
+      "etapa": "E1",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "UG",
+      "nombre": "Ungravity",
+      "anio": 2003,
+      "etapa": "E1",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/3645"
+      ]
+    },
+    {
+      "id": "ME",
+      "nombre": "Maniobras de escapismo",
+      "anio": 2005,
+      "etapa": "E2",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "CC",
+      "nombre": "Cuentos chinos para niños del Japón",
+      "anio": 2007,
+      "etapa": "E2",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "99",
+      "nombre": "1999",
+      "anio": 2009,
+      "etapa": "E3",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "NE",
+      "nombre": "La noche eterna. Los días no vividos",
+      "anio": 2012,
+      "etapa": "E3",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "PH",
+      "nombre": "El poeta Halley",
+      "anio": 2016,
+      "etapa": "E4",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "VH",
+      "nombre": "V.E.H.N.",
+      "anio": 2021,
+      "etapa": "E5",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/"
+      ]
+    },
+    {
+      "id": "ES",
+      "nombre": "Ejército de salvación",
+      "anio": 2024,
+      "etapa": "E6",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    }
+  ],
+  "canciones": [
+    {
+      "id": "ME01",
+      "titulo": "Carta a todas tus catástrofes",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME02",
+      "titulo": "Domingo astromántico",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME03",
+      "titulo": "Mi personulidad",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME04",
+      "titulo": "Houston, tenemos un poema",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME05",
+      "titulo": "Mi primera combustión",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME06",
+      "titulo": "Música de ascensores",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME07",
+      "titulo": "Marlene, la vecina del ártico",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME08",
+      "titulo": "Los niños del mañana",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME09",
+      "titulo": "Me llaman Octubre",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "ME10",
+      "titulo": "Limousinas",
+      "disco": "ME",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.discogs.com/release/2985888-Love-Of-Lesbian-Maniobras-De-Escapismo",
+        "https://www.todomusica.org/love_of_lesbian/disco_maniobras_de_escapismo.shtml",
+        "https://www.elcorteingles.es/musica/A58540018-maniobras-de-escapismo-cd/"
+      ]
+    },
+    {
+      "id": "CC01",
+      "titulo": "Universos infinitos",
+      "disco": "CC",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC02",
+      "titulo": "La niña imantada",
+      "disco": "CC",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC03",
+      "titulo": "Noches reversibles",
+      "disco": "CC",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC04",
+      "titulo": "Los colores de una sombra",
+      "disco": "CC",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC05",
+      "titulo": "Un día en el parque",
+      "disco": "CC",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC06",
+      "titulo": "Villancico para mi cuñado Fernando",
+      "disco": "CC",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC07",
+      "titulo": "Me amo",
+      "disco": "CC",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC08",
+      "titulo": "Shiwa",
+      "disco": "CC",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC09",
+      "titulo": "Historia de una hache que no quería ser muda",
+      "disco": "CC",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC10",
+      "titulo": "La parábola del tonto",
+      "disco": "CC",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "CC11",
+      "titulo": "Dios por Dios es cuatro",
+      "disco": "CC",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3",
+        "https://www.musica.com/love-of-lesbian/cuentos-chinos-para-ninos-del-japon/canciones-del-disco"
+      ]
+    },
+    {
+      "id": "9901",
+      "titulo": "Allí donde solíamos gritar",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9902",
+      "titulo": "Club de fans de John Boy",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9903",
+      "titulo": "Las malas lenguas",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9904",
+      "titulo": "Algunas plantas",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9905",
+      "titulo": "Cuestiones de familia",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9906",
+      "titulo": "El ectoplasta",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9907",
+      "titulo": "Segundo asalto",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9908",
+      "titulo": "Incendios de nieve",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9909",
+      "titulo": "Te hiero mucho (Historia del amante guisante)",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9910",
+      "titulo": "Cuando diga ya",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9911",
+      "titulo": "Miau",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "9912",
+      "titulo": "La mirada de la gente que conspira",
+      "disco": "99",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A54700374-1999-o-como-generar-incendios-lp-vinilo",
+        "https://www.deezer.com/en/album/298527"
+      ]
+    },
+    {
+      "id": "NE01",
+      "titulo": "Los seres únicos",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE02",
+      "titulo": "Si tú me dices Ben, yo digo Affleck",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE03",
+      "titulo": "Nada",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE04",
+      "titulo": "Belice",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE05",
+      "titulo": "Pizzigatos",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE06",
+      "titulo": "667",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE07",
+      "titulo": "Cínicamente muertos",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE08",
+      "titulo": "Orden de desahucio en mi menor",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE09",
+      "titulo": "Oniria e insomnia",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE10",
+      "titulo": "Nadie por las calles",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE11",
+      "titulo": "El hambre invisible",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE12",
+      "titulo": "Wio, antenas y pijamas",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE13",
+      "titulo": "Si salimos de esta",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE14",
+      "titulo": "Tercero segunda",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE15",
+      "titulo": "Radio Himalaya",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "NE16",
+      "titulo": "Los toros en la Wii (Fantástico)",
+      "disco": "NE",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/4700/",
+        "https://buenamusica.com/love-of-lesbian/album/la-noche-eterna-los-dias-no-vividos",
+        "https://www.deezer.com/album/2844041"
+      ]
+    },
+    {
+      "id": "PH01",
+      "titulo": "Planeador",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH02",
+      "titulo": "Bajo el volcán",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH03",
+      "titulo": "Cuando no me ves",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH04",
+      "titulo": "Los males pasajeros",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH05",
+      "titulo": "I.M.T. (Incapacidad Moral Transitoria)",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH06",
+      "titulo": "En busca del mago",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH07",
+      "titulo": "Océanos de sed",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH08",
+      "titulo": "Psiconautas",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH09",
+      "titulo": "Canción de bruma",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH10",
+      "titulo": "Contraespionaje",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH11",
+      "titulo": "El yin y el yen",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "PH12",
+      "titulo": "El ciclo lunar de Halley Star",
+      "disco": "PH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://buenamusica.com/love-of-lesbian/album/el-poeta-halley",
+        "https://www.elcorteingles.es/musica/A23043152-el-poeta-halley-cd/"
+      ]
+    },
+    {
+      "id": "VH01",
+      "titulo": "Cosmos (Antisistema Solar)",
+      "disco": "VH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.que.es/2020/11/25/love-of-lesbian-cosmos-antisistema-solar/",
+        "https://estrellasenla.com/2021/09/29/el-grupo-espanol-love-of-lesbian-nominado-a-3-premios-grammy-latino-2021/"
+      ]
+    },
+    {
+      "id": "VH02",
+      "titulo": "El sur",
+      "disco": "VH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/tema/24773/",
+        "https://www.que.es/2021/03/09/love-of-lesbian-bunbury-el-sur/"
+      ]
+    },
+    {
+      "id": "VH03",
+      "titulo": "El mundo",
+      "disco": "VH",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.que.es/2021/01/28/el-mundo-love-of-lesbian/",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/"
+      ]
+    },
+    {
+      "id": "VH04",
+      "titulo": "Catalunya bondage",
+      "disco": "VH",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://rocksesion.com/2021/04/22/love-of-lesbian-v-e-h-n-viaje-epico-hacia-la-nada/",
+        "https://www.popelera.net/love-of-lesbian-disco-v-e-h-n/"
+      ]
+    },
+    {
+      "id": "VH05",
+      "titulo": "El paso",
+      "disco": "VH",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/"
+      ]
+    },
+    {
+      "id": "VH06",
+      "titulo": "Viento de oeste",
+      "disco": "VH",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/10974/"
+      ]
+    },
+    {
+      "id": "ES01",
+      "titulo": "Canción de emergencias",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES02",
+      "titulo": "¿Qué vas a saber?",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES03",
+      "titulo": "La hermandad",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES04",
+      "titulo": "Contradicción",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES05",
+      "titulo": "Tesis",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES06",
+      "titulo": "Una conversación pendiente",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES07",
+      "titulo": "La Champions y el Mundial",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES08",
+      "titulo": "El día que Starman huyó",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES09",
+      "titulo": "La herida",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "ES10",
+      "titulo": "Ya sale el sol",
+      "disco": "ES",
+      "fuerza": "solida",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.elcorteingles.es/musica/A51520522-ejercito-de-salvacion-lp-vinilo/",
+        "https://firstcityrecordstore.com/products/love-of-lesbian-ejercito-de-salvacion-spa-lp",
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/13478/"
+      ]
+    },
+    {
+      "id": "IF01",
+      "titulo": "All These Days",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF02",
+      "titulo": "Evasive",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF03",
+      "titulo": "A Day in the Park",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF04",
+      "titulo": "Lou Reed in My City",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF05",
+      "titulo": "Stupid at All",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF06",
+      "titulo": "Move On",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF07",
+      "titulo": "Wasted Days",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF08",
+      "titulo": "Transexual Soul",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "IF09",
+      "titulo": "Make Up",
+      "disco": "IF",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.chartsinfrance.net/Love-of-Lesbian/albums-singles.html,p3"
+      ]
+    },
+    {
+      "id": "UG01",
+      "titulo": "Hi to the Next Times",
+      "disco": "UG",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/3645"
+      ]
+    },
+    {
+      "id": "UG02",
+      "titulo": "Satellites",
+      "disco": "UG",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/3645"
+      ]
+    },
+    {
+      "id": "UG03",
+      "titulo": "Macba Girl",
+      "disco": "UG",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.lahiguera.net/musicalia/artistas/love_of_lesbian/disco/3645"
+      ]
+    },
+    {
+      "id": "MM01",
+      "titulo": "Unreal",
+      "disco": "MM",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    },
+    {
+      "id": "MM02",
+      "titulo": "Fame Junkie",
+      "disco": "MM",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    },
+    {
+      "id": "MM03",
+      "titulo": "Marry Monday",
+      "disco": "MM",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    },
+    {
+      "id": "MM04",
+      "titulo": "Beth",
+      "disco": "MM",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    },
+    {
+      "id": "MM05",
+      "titulo": "Circle Moon",
+      "disco": "MM",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    },
+    {
+      "id": "MM06",
+      "titulo": "Freakie Goes to Hollywood",
+      "disco": "MM",
+      "fuerza": "una_fuente",
+      "estado": "propuesta",
+      "fuentes": [
+        "https://www.youtube.com/watch?v=v4QhQywwYJE"
+      ]
+    }
+  ]
+}
