@@ -67,6 +67,60 @@ Todas llevan el nombre de una canción o disco de la banda. Se guardan en `local
 | **Ejército de salvación** | Desbloquear las 6 portadas coleccionables (ver 2.4) | Completar la discografía |
 | **El último baile** *(edición limitada)* | Jugar cualquier partida antes del 28 de noviembre de 2026 a las 23:59 (CDMX) | Su última fecha anunciada en México antes de la pausa (Tecate Comuna, Puebla) |
 
+#### Insignias "imposibles" (F17)
+
+Las 11 son secretas: en la colección salen como "?" con su pista hasta ganarlas.
+
+| Insignia | Familia | Cómo se gana | Pista |
+|---|---|---|---|
+| **Contradicción** | Habilidad | Fallar las 5 fáciles y acertar las 5 muy difíciles en la misma partida | *"Lo fácil se te da fatal"* |
+| **Tercero segunda** | Habilidad | Quedarse a 1 punto de subir de categoría (12, 22 o 29) | *"Tan cerca que duele"* |
+| **El yin y el yen** | Habilidad | Sacar exactamente 15 de 30 | *"Justo a la mitad"* |
+| **Planeador** | Habilidad | Terminar la trivia en menos de 90 s con 20 puntos o más | *"Hay quien vuela sobre las preguntas"* |
+| **Cuando diga ya** | Habilidad | 3 aciertos seguidos, cada uno en menos de 2 s | *"Antes de que termines de leer"* |
+| **Océanos de sed** | Constancia | 10 partidas en un mismo día | *"Tienes sed de más"* |
+| **La hermandad** | Constancia | Jugar en 5 días distintos | *"Vuelve cinco veces con tu gente"* |
+| **Los días no vividos** | Constancia | Volver a jugar después de 7 días sin jugar | *"Regresa cuando creas que ya lo olvidaste"* |
+| **Contraespionaje** | Secreta | Código Konami en el inicio: ↑↑↓↓←→←→BA con teclado, o en el celular deslizar sobre la pantallita ↑↑↓↓←→←→ y tocarla dos veces | *"Los viejos jugadores conocen el código"* |
+| **Wio, antenas y pijamas** | Secreta | Tocar 7 veces seguidas la pantallita del inicio | *"Hay algo escondido en la tele"* |
+| **El gran truco final** | Secreta | Tener todas las demás insignias, salvo "El último baile" (que ya no se puede ganar después del 28 de noviembre) | *"Solo para quien lo tiene todo"* |
+
+#### Cómo se ven: chapas de concierto (F17)
+
+Cada insignia es una **chapa redonda en pixel art** de 32×32, escalada sin suavizar.
+- **El aro dice la familia:** verde Trivia, rosa Habilidad, azul Constancia, amarillo Secreta, naranja Contrarreloj.
+- **El ícono del centro alude a la canción** (luna, lupa con luna, volcán, yin-yang, avión de papel, tele con antenas, control, sombrero de mago…). Las secretas llevan el centro azul noche.
+- **Cuatro estados:** *bloqueada* (silueta gris y cómo ganarla), *secreta* (solo un "?" dorado y la pista), *ganada* (a color con brillo en el aro) y *nueva* (destellos y un sonido 8 bits).
+- **Tocar una chapa la abre en grande**, con nombre, cómo se gana (o la pista) y la fecha en que se ganó.
+
+| Insignia | Familia | Ícono |
+|---|---|---|
+| Maniobras de escapismo | Trivia | Equilibrista en la cuerda |
+| Universos infinitos | Constancia | Espiral de estrellas |
+| Incendios de nieve | Habilidad | Copo con llama |
+| Bajo el volcán | Habilidad | Volcán |
+| Ungravity | Habilidad | Nube flotando |
+| Segundo asalto | Habilidad | Guante de box |
+| La noche eterna | Secreta | Luna |
+| Viaje épico hacia la nada | Trivia | Trampolín |
+| Me amo | Trivia | Corazón |
+| Club de fans de John Boy | Secreta | Corona |
+| 1999 | Constancia | Lupa enfocando la luna |
+| Allí donde solíamos gritar | Trivia | Megáfono |
+| Ejército de salvación | Trivia | Bandera |
+| El último baile | Trivia | Bola de disco |
+| Contradicción | Habilidad | Flechas encontradas |
+| Tercero segunda | Habilidad | Puerta |
+| El yin y el yen | Habilidad | Yin-yang |
+| Planeador | Habilidad | Avión de papel |
+| Cuando diga ya | Habilidad | Cronómetro |
+| Océanos de sed | Constancia | Vaso con ola |
+| La hermandad | Constancia | Dos figuras |
+| Los días no vividos | Constancia | Calendario |
+| Contraespionaje | Secreta | Control de videojuego |
+| Wio, antenas y pijamas | Secreta | Tele con antenas |
+| El gran truco final | Secreta | Sombrero de mago |
+
 ### 2.4 Portadas coleccionables
 
 Acertar **todas** las preguntas de una etapa en una partida desbloquea su escena pixel art en la galería "Mi discografía". Las 6 escenas desbloqueadas dan la insignia **Ejército de salvación**.

@@ -78,6 +78,10 @@
 - **Veracidad:** las mismas reglas de F15. Cada canción tiene fuente y pasa por la revisión de un fan; solo se juegan las de fuente sólida (o verificadas, cuando el banco salga de borrador). Solo discos de estudio y sin canciones que se llamen como su disco. Contenido: `docs/canciones.md`.
 - **Objetivo:** que la gente vuelva a jugar en los días de los conciertos de México (24 al 28 de noviembre de 2026).
 
+**F17 Insignias como chapas y 11 insignias "imposibles".** Las insignias de la trivia pasan a verse como chapas de concierto en pixel art (aro de color por familia, ícono por canción, cuatro estados) y se abren en grande al tocarlas. Se suman 11 insignias secretas difíciles o escondidas (habilidad, constancia y dos secretos: código Konami y tocar la pantallita), con su pista en la colección, y "El gran truco final" para quien las tenga todas. Detalle: `docs/trivia.md` §2.3.
+
+**F18 Ranking semanal e histórico.** Top 20 de la semana y Top 20 histórico de la trivia (y del contrarreloj cuando exista), consultables en `/trivia/`. Publicar un puntaje es opcional y se ofrece al terminar. Los nombres son **generados** con palabras del universo de la banda ("Psiconauta del Ártico #42"); la persona puede volver a tirar la ruleta, pero no escribir el suyo. Se guarda solo nombre generado, puntaje, duración y fecha. Los puntajes viven en un Google Sheet del equipo detrás de un Apps Script: el equipo modera borrando filas. Empate: gana la partida más rápida y después la más antigua. Cada nombre aparece una sola vez, con su mejor puntaje. La semana va de lunes a domingo en hora de CDMX.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
@@ -113,7 +117,8 @@ GitHub Pages ◄─────────────────────�
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
    /trivia/     juego 8 bits sobre Love of Lesbian: trivia (data/trivia.json) y contrarreloj
-                (data/canciones.json), canvas, sin backend
+                (data/canciones.json), canvas; el ranking (F18) lee y escribe en un
+                Apps Script ──► Google Sheet del equipo
 ```
 
 Estructura, modelo de datos y decisiones: ver `plan.md`.
@@ -133,5 +138,7 @@ Estructura, modelo de datos y decisiones: ver `plan.md`.
 **Trivia (F15):** juego completo con teclado (1–4 y Enter) y lector de pantalla (las escenas pixel art tienen texto alternativo; las preguntas tipo portada describen la imagen); sin destellos de más de 3 por segundo; `prefers-reduced-motion` quita animaciones; sonido apagado por defecto; funciona a 360 px y sin `localStorage`. Portadas redibujadas en pixel art propio, nunca las originales pixeladas; sin letras ni audio de la banda.
 
 **Contrarreloj (F16):** se juega con teclado (1–4); el reloj se muestra como número y no solo como barra; el lector de pantalla anuncia acierto o error, no cada segundo; con `prefers-reduced-motion` no hay sacudidas ni destellos. La pantalla de inicio avisa que es con tiempo, para quien prefiera la trivia sin reloj.
+
+**Ranking (F18):** sin datos personales ni cookies; el sitio avisa qué se publica antes de enviarlo. El servidor rechaza puntajes imposibles (fuera de 0–30, partidas de menos de 15 s) y limita los envíos por navegador. Las trampas no se pueden evitar del todo en un juego sin servidor propio: el equipo modera en el Sheet. Si el Apps Script no responde, el juego sigue funcionando y el ranking muestra un aviso.
 
 **Accesibilidad y rendimiento:** foco visible, enlace para saltar al contenido, filtros con `aria-pressed`, responsive a 360 px, iframes con carga diferida, sin librerías JS.

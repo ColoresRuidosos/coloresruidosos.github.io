@@ -49,6 +49,21 @@
 - **Insignias.** Las cuatro nuevas se suman al catálogo de `logica.js` (18 en total); "Ejército de salvación" sigue pidiendo solo las 6 portadas de la trivia.
 - **Métricas.** Eventos de GoatCounter `contrarreloj-iniciada`, `contrarreloj-terminada` y `contrarreloj-compartida`.
 
+**D23 Chapas e insignias "imposibles" (2026-11-03):** F17.
+- **Dibujo aparte.** `assets/js/trivia/insignias.js` guarda cada ícono como un sprite de 16×16 en texto (un carácter por píxel, con paleta) y dibuja la chapa de 32×32 en `<canvas>`. Una prueba revisa que cada insignia del catálogo tenga su ícono y que cada sprite mida 16×16.
+- **Catálogo con familia e ícono.** Cada insignia en `logica.js` lleva `familia` (trivia, habilidad, constancia, secreta, contrarreloj) e `icono`; las secretas, su `pista`.
+- **Datos nuevos de la partida.** `juego.js` mide cuánto tarda cada respuesta (`ms`) y la partida completa (`duracionMs`), y los pasa a `cerrarPartida(estado, respuestas, ahora, {duracionMs})`.
+- **Estado nuevo (opcional, con valores por defecto):** `dias` (fechas locales en que se jugó, máximo 60), `ultimaPartida` y `partidasDia` (`{fecha, n}`). Un estado guardado antes de F17 se lee igual.
+- **Secretos fuera de la partida.** `registrarSecreto(estado, id, ahora)` otorga Contraespionaje y Wio; `juego.js` detecta el código Konami (teclado o deslizamientos sobre la pantallita) y los 7 toques seguidos (en menos de 4 s, sin deslizar).
+- **El gran truco final** se revisa después de otorgar cualquier insignia; no pide "El último baile" ni las del contrarreloj, para que se pueda conseguir después del 28 de noviembre y antes de que exista el contrarreloj.
+
+**D24 Ranking con Google Sheet + Apps Script (2026-11-03):** F18.
+- **Servidor:** un Apps Script del equipo publicado como aplicación web (`docs/ranking/Code.gs`, pasos en `docs/ranking/README.md`). `doPost` valida y agrega una fila a la pestaña `Puntajes`; `doGet?modo=trivia` devuelve `{semana: [...20], historico: [...20]}`. Lecturas cacheadas 60 s (`CacheService`), escrituras con `LockService`.
+- **Validación en el servidor:** modo conocido, puntos enteros 0–30, duración entre 15 s y 1 h, nombre que se pueda formar con las listas de palabras (mismas listas que el cliente), máximo 10 envíos por hora por identificador de navegador (un número aleatorio guardado en el navegador, no un dato personal).
+- **Cliente:** `assets/js/trivia/ranking.js` con la parte pura (generar y validar nombres, semana en hora de CDMX, ordenar, armar el envío) probada en `tests-js/ranking.test.js`; las funciones puras de `Code.gs` se prueban en Node cargando el archivo en un `vm` sin servicios de Google.
+- **Configuración:** la URL del Apps Script va en `hugo.toml` como `params.trivia_ranking_url`. Mientras esté vacía, el ranking no aparece en el sitio.
+- **POST como `text/plain`** para evitar la petición previa de CORS, que Apps Script no contesta.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
@@ -61,6 +76,7 @@
 | V7 | Segunda fuente para las 8 preguntas 🟡 | Se quedan fuera del juego |
 | V8 | Revisión fan de las 95 canciones de `docs/canciones.md` | Lanzar con las 69 sólidas |
 | V9 | Tracklists completos de *V.E.H.N.* y de los tres discos en inglés | Esos discos aparecen solo como opción incorrecta |
+| V10 | El equipo publica el Apps Script y comparte la URL | El ranking queda oculto hasta entonces |
 
 ## Riesgos aceptados por publicar sin revisión
 | Riesgo | Mitigación disponible |

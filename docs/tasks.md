@@ -73,3 +73,21 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ⏳ Pantalla de contrarreloj en `/trivia/`: botón en el inicio, cuenta regresiva, reloj, racha, resultado, tarjeta para compartir
 - ⏳ Accesibilidad: teclado, anuncios de acierto y error, movimiento reducido
 - ⏳ Compilar con Hugo 0.166 y jugar partidas completas con Playwright a 360 px y en escritorio
+
+## Fase 8 — Chapas e insignias "imposibles" (F17/D23)
+- ✅ Spec y propuesta visual (chapas de concierto, aprobada por el equipo)
+- ⏳ 🔴→🟢 Catálogo: 25 insignias, cada una con familia e ícono; las secretas con pista
+- ⏳ 🔴→🟢 Cada insignia nueva con su caso que la da y su caso que no
+- ⏳ 🔴→🟢 Estado: un estado guardado antes de F17 se lee igual
+- ⏳ 🔴→🟢 Sprites: cada ícono existe y mide 16×16
+- ⏳ Colección con chapas, vista en grande, chapas en el resultado, código Konami y 7 toques
+- ⏳ Compilar y jugar con Playwright
+
+## Fase 9 — Ranking (F18/D24)
+- ✅ Spec
+- ⏳ 🔴→🟢 Nombres generados: formato, validación, sin repetirse en la misma tirada
+- ⏳ 🔴→🟢 Semana en hora de CDMX; orden por puntos, duración y fecha; un nombre una vez
+- ⏳ 🔴→🟢 Validación del Apps Script (puntos, duración, nombre, límite de envíos) probada en Node
+- ⏳ `docs/ranking/Code.gs` y `docs/ranking/README.md` con los pasos para el equipo
+- ⏳ Pantalla de ranking y botón "Publicar mi puntaje"; oculto sin URL
+- ⏳ V10: el equipo publica el Apps Script; probar de punta a punta
