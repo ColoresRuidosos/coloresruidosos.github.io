@@ -12,11 +12,14 @@
 
 var HOJA = "Puntajes";
 var ENCABEZADOS = ["fecha", "semana", "modo", "nombre", "puntos", "duracionMs", "dispositivo"];
-var MODOS = { trivia: { max: 30 } };
+// Límites por modo: puntos máximos y duración válida de la partida (ms).
+var MODOS = {
+  trivia: { max: 30, min_ms: 15000, max_ms: 3600000 },
+  contrarreloj: { max: 400, min_ms: 3000, max_ms: 90000 },
+  adivina: { max: 60, min_ms: 5000, max_ms: 3600000 },
+};
 var TOP = 20;
 var LIMITE_POR_HORA = 10;
-var DURACION_MIN_MS = 15000;
-var DURACION_MAX_MS = 3600000;
 var OFFSET_CDMX_MS = 6 * 3600 * 1000;
 
 var SUSTANTIVOS = ["Psiconauta", "Poeta", "Cometa", "Satélite", "Planeador", "Equilibrista",
@@ -50,7 +53,7 @@ function validarEnvio(d) {
   var modo = MODOS[d.modo];
   if (!modo) return "modo";
   if (typeof d.puntos !== "number" || Math.floor(d.puntos) !== d.puntos || d.puntos < 0 || d.puntos > modo.max) return "puntos";
-  if (typeof d.duracionMs !== "number" || d.duracionMs < DURACION_MIN_MS || d.duracionMs > DURACION_MAX_MS) return "duracion";
+  if (typeof d.duracionMs !== "number" || d.duracionMs < modo.min_ms || d.duracionMs > modo.max_ms) return "duracion";
   if (!nombreValido(d.nombre)) return "nombre";
   if (typeof d.dispositivo !== "string" || !/^[a-z0-9]{8,32}$/.test(d.dispositivo)) return "dispositivo";
   return "";
@@ -78,6 +81,56 @@ function tops(filas, modo, ahora) {
   };
 }
 
+// ---------- Adivina la canción: Hoy, Semana y Mejor racha (F21/D27) ----------
+
+function fechaCDMX(fecha) {
+  return new Date(fecha.getTime() - OFFSET_CDMX_MS).toISOString().slice(0, 10);
+}
+
+function diaAntes(fecha) {
+  return new Date(new Date(fecha + "T00:00:00Z").getTime() - 24 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
+// Solo cuenta la primera ronda de cada nombre en cada día.
+function primeraDelDia(filas) {
+  var vistas = {};
+  return filas.slice().sort(function (a, b) { return new Date(a.fecha) - new Date(b.fecha); }).filter(function (f) {
+    var clave = f.nombre + "|" + fechaCDMX(new Date(f.fecha));
+    if (vistas[clave]) return false;
+    vistas[clave] = true;
+    return true;
+  });
+}
+
+function topsAdivina(filas, ahora) {
+  var rondas = primeraDelDia(filas.filter(function (f) { return f.modo === "adivina"; }));
+  var hoy = fechaCDMX(ahora), semana = semanaCDMX(ahora);
+  var publica = function (f) { return { nombre: f.nombre, puntos: f.puntos, duracionMs: f.duracionMs }; };
+
+  var deHoy = ordenar(rondas.filter(function (f) { return fechaCDMX(new Date(f.fecha)) === hoy; }), TOP).map(publica);
+
+  var suma = {};
+  rondas.filter(function (f) { return semanaCDMX(new Date(f.fecha)) === semana; }).forEach(function (f) {
+    var s = suma[f.nombre] || (suma[f.nombre] = { nombre: f.nombre, puntos: 0, dias: 0 });
+    s.puntos += f.puntos;
+    s.dias += 1;
+  });
+  var deSemana = Object.keys(suma).map(function (k) { return suma[k]; })
+    .sort(function (a, b) { return (b.puntos - a.puntos) || (b.dias - a.dias) || (a.nombre < b.nombre ? -1 : 1); }).slice(0, TOP);
+
+  // Racha: días seguidos con puntos > 0 que terminan hoy (o ayer, si hoy aún no juega). Jugar hoy con 0 la rompe.
+  var porNombre = {};
+  rondas.forEach(function (f) { (porNombre[f.nombre] = porNombre[f.nombre] || {})[fechaCDMX(new Date(f.fecha))] = f.puntos; });
+  var rachas = Object.keys(porNombre).map(function (nombre) {
+    var dias = porNombre[nombre], d = dias[hoy] !== undefined ? hoy : diaAntes(hoy), n = 0;
+    while (dias[d] > 0) { n += 1; d = diaAntes(d); }
+    return { nombre: nombre, racha: n };
+  }).filter(function (x) { return x.racha > 0; })
+    .sort(function (a, b) { return (b.racha - a.racha) || (a.nombre < b.nombre ? -1 : 1); }).slice(0, TOP);
+
+  return { hoy: deHoy, semana: deSemana, racha: rachas };
+}
+
 // ---------- Aplicación web ----------
 
 function doGet(e) {
@@ -86,7 +139,7 @@ function doGet(e) {
   var cache = CacheService.getScriptCache();
   var guardado = cache.get("top-" + modo);
   if (guardado) return texto(guardado);
-  var res = tops(leerFilas(), modo, new Date());
+  var res = modo === "adivina" ? topsAdivina(leerFilas(), new Date()) : tops(leerFilas(), modo, new Date());
   res.semanaActual = semanaCDMX(new Date());
   var json = JSON.stringify(res);
   cache.put("top-" + modo, json, 60);

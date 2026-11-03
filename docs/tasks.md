@@ -112,8 +112,8 @@ Orden TDD: primero la prueba en rojo, luego el código.
 
 ## Fase 12 — Ronda del día y ranking de todos los modos (F20/F21/D27)
 - ✅ Spec
-- ⏳ 🔴→🟢 Ronda del día: 10 canciones iguales para todos, sin repetir dentro de la ronda; puntos 6…1/0; tiempo; texto con 10 cuadros
-- ⏳ 🔴→🟢 Racha con al menos una acertada; práctica al azar
-- ⏳ 🔴→🟢 `Code.gs`: modos contrarreloj y adivina; tablas hoy, semana (suma) y racha
-- ⏳ Pantallas: ronda, revelación por canción, resumen, práctica, publicar en contrarreloj y Adivina la canción, ranking por modo
+- ✅ 🔴→🟢 Ronda del día: 10 canciones iguales para todos, sin repetir dentro de la ronda; puntos 6…1/0; tiempo; texto con 10 cuadros
+- ✅ 🔴→🟢 Racha con al menos una acertada; práctica al azar
+- ✅ 🔴→🟢 `Code.gs`: modos contrarreloj y adivina; tablas hoy, semana (suma) y racha
+- ✅ Pantallas: ronda, revelación por canción, resumen, práctica, publicar en contrarreloj y Adivina la canción, ranking por modo
 - ⏳ V12: el equipo publica la nueva versión del script
