@@ -6,12 +6,13 @@ const IDS = ["ME01", "ME02", "9901", "NE04", "PH01", "VH02", "ES04"];
 
 // ---------- Día y canción del día ----------
 
-test("el día cambia a medianoche de CDMX y el #1 es el 4 de noviembre de 2026", () => {
+test("el día cambia a medianoche de CDMX y el #1 es el 3 de noviembre de 2026", () => {
   assert.strictEqual(D.fechaCDMX(new Date("2026-11-05T05:59:00Z")), "2026-11-04");
   assert.strictEqual(D.fechaCDMX(new Date("2026-11-05T06:00:00Z")), "2026-11-05");
-  assert.strictEqual(D.numeroDia(new Date("2026-11-04T18:00:00Z")), 1);
-  assert.strictEqual(D.numeroDia(new Date("2026-11-05T06:00:00Z")), 2);
-  assert.strictEqual(D.numeroDia(new Date("2026-12-04T18:00:00Z")), 31);
+  assert.strictEqual(D.numeroDia(new Date("2026-11-03T18:00:00Z")), 1);
+  assert.strictEqual(D.numeroDia(new Date("2026-11-04T05:59:00Z")), 1);
+  assert.strictEqual(D.numeroDia(new Date("2026-11-04T06:00:00Z")), 2);
+  assert.strictEqual(D.numeroDia(new Date("2026-12-03T18:00:00Z")), 31);
 });
 
 test("todos ven la misma canción el mismo día, sin importar el orden en que lleguen los ids", () => {

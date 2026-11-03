@@ -3,7 +3,7 @@
    spoilers. Pruebas en tests-js/dia.test.js. */
 (function (raiz) {
   var SEGUNDOS = [1, 2, 4, 7, 11, 16];
-  var INICIO_UTC = Date.UTC(2026, 10, 4); // día #1: 4 de noviembre de 2026
+  var INICIO_UTC = Date.UTC(2026, 10, 3); // día #1: 3 de noviembre de 2026
   var OFFSET_CDMX_MS = 6 * 3600 * 1000;
   var DIA_MS = 24 * 3600 * 1000;
   var SEMILLA = 20261104;

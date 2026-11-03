@@ -97,7 +97,7 @@
 - **Para compartir sin spoilers:** texto tipo *"LoL del día #12 · 🔊🟥🟥🟩⬜⬜⬜ · coloresruidosos.github.io/trivia"*, que se copia solo, y una tarjeta para historias.
 - **Constancia:** se guarda en el navegador el resultado de cada día y la racha de días seguidos acertando. Si ya jugaste hoy, ves tu resultado y cuánto falta para la siguiente.
 - **El fragmento sale del avance oficial de 30 segundos de Apple Music.** Spotify ya no ofrece avances a apps nuevas desde noviembre de 2024, y su reproductor muestra el título. Nada de letras ni audio alojado por el sitio.
-- **Solo entran canciones con coincidencia exacta** en Apple Music (mismo título, artista Love of Lesbian y el disco de estudio, no una versión en directo). El enlace de Spotify se agrega si también coincide exacto.
+- **Solo entran canciones con coincidencia exacta** en Apple Music (mismo título, artista Love of Lesbian y el disco de estudio, no una versión en directo). El botón de Spotify lleva a la pista exacta si Spotify la encuentra; si no (o mientras el repo no tenga credenciales de Spotify), lleva a la búsqueda de esa canción en Spotify.
 
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
