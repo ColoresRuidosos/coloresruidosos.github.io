@@ -1,4 +1,4 @@
-/* "LoL del día" (F20/D26): lógica pura. Una canción al día, la misma para todos (medianoche de CDMX),
+/* "Adivina la canción" (F20/D26): lógica pura. Una canción al día, la misma para todos (medianoche de CDMX),
    seis intentos con fragmentos de 1, 2, 4, 7, 11 y 16 s, racha de días y texto para compartir sin
    spoilers. Pruebas en tests-js/dia.test.js. */
 (function (raiz) {
@@ -82,7 +82,7 @@
   function textoCompartir(numero, p) {
     var cuadros = p.intentos.map(function (x) { return x === "bien" ? "🟩" : x === "salto" ? "⬛" : "🟥"; }).join("");
     for (var k = p.intentos.length; k < SEGUNDOS.length; k++) cuadros += "⬜";
-    return "LoL del día #" + numero + " · " + (p.acierto ? p.intentos.length : "X") + "/6\n🔊" + cuadros +
+    return "Adivina la canción de Love of Lesbian #" + numero + " · " + (p.acierto ? p.intentos.length : "X") + "/6\n🔊" + cuadros +
       "\n¿La reconoces tú? coloresruidosos.github.io/trivia · @coloresruidosos";
   }
 

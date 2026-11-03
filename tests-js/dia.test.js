@@ -78,7 +78,7 @@ test("la racha suma días seguidos acertando y se corta con un fallo o un día s
 
 test("el texto para compartir no revela la canción", () => {
   const t = D.textoCompartir(12, { intentos: ["mal", "salto", "bien"], acierto: true });
-  assert.match(t, /LoL del día #12/);
+  assert.match(t, /Adivina la canción de Love of Lesbian #12/);
   assert.match(t, /🔊🟥⬛🟩⬜⬜⬜/);
   assert.match(t, /3\/6/);
   assert.match(t, /coloresruidosos\.github\.io\/trivia/);

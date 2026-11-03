@@ -504,7 +504,7 @@
       CC.textoContrarreloj(res), $("[data-cr-aviso]"), function () { contar("contrarreloj-compartida"); trasCompartir(); });
   }
 
-  // ---------- LoL del día (F20/D26) ----------
+  // ---------- Adivina la canción (F20/D26) ----------
   var audioDatos = JSON.parse(document.getElementById("audio-datos").textContent || "{}");
   var conAudio = crJugables.filter(function (c) { return audioDatos.canciones && audioDatos.canciones[c.id]; });
   var cancionPorId = {};
@@ -529,7 +529,7 @@
     var h = hoy();
     dia = { fecha: h.fecha, numero: h.numero, id: h.id, partida: cargarPartidaDia(h) };
     reproductor.src = audioDatos.canciones[h.id].preview;
-    $("[data-dia-titulo]").textContent = "LoL del día #" + h.numero;
+    $("[data-dia-titulo]").textContent = "Adivina la canción #" + h.numero;
     var titulos = $("[data-dia-titulos]");
     if (!titulos.children.length) {
       (cancionesDatos.canciones || []).map(function (c) { return c.titulo; }).sort(function (a, b) { return a.localeCompare(b, "es"); })
@@ -621,8 +621,8 @@
 
   function crearTarjetaDia(formato) {
     var t = lienzoTarjeta(formato), c = t.c, W = t.W, y = t.y, p = dia.partida;
-    c.fillStyle = "#FFD23F"; c.font = "44px " + FUENTE_PIXEL;
-    c.fillText("LoL del día #" + dia.numero, W / 2, y + 330);
+    c.fillStyle = "#FFD23F"; c.font = "36px " + FUENTE_PIXEL;
+    c.fillText("Adivina la canción #" + dia.numero, W / 2, y + 330);
     var colores = { bien: "#1FB57A", mal: "#FF3E7F", salto: "#5a5a5a" }, lado = 120, hueco = 20, x0 = (W - (6 * lado + 5 * hueco)) / 2;
     for (var k = 0; k < 6; k++) {
       c.fillStyle = colores[p.intentos[k]] || "#F4EFE6";
@@ -638,7 +638,7 @@
   }
 
   function compartirDia(formato) {
-    compartirImagen(function () { return crearTarjetaDia(formato); }, "lol-del-dia-" + dia.numero + ".png",
+    compartirImagen(function () { return crearTarjetaDia(formato); }, "adivina-la-cancion-" + dia.numero + ".png",
       D.textoCompartir(dia.numero, dia.partida), $("[data-dia-aviso-compartir]"), function () { contar("dia-compartido"); trasCompartir(); });
   }
 
