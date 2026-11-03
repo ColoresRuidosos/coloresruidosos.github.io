@@ -123,6 +123,13 @@
 
   Las rondas de práctica también dan insignias (menos la racha). Las insignias nuevas salen al final de la ronda, como en el contrarreloj, y se suman a la colección. "El gran truco final" no las pide, igual que con las del contrarreloj.
 
+**F23 Inicio con un solo botón y menú de modos.** El inicio solo dice **"▶ Iniciar"** (con la pantallita animada y sus secretos de siempre). Al tocarlo aparece **"Elige tu modo de juego"** con los tres modos y una explicación breve de cada uno:
+- **▶ Trivia:** 15 preguntas en 6 etapas, de la etapa en inglés a la pausa de 2026. Descubre qué tan lesbiano eres.
+- **⏱ Contrarreloj:** 60 segundos. Te damos una canción y eliges de qué disco es; las rachas multiplican tus puntos.
+- **🔊 Adivina la canción:** escucha fragmentos de 1 a 16 segundos. 10 canciones al día, la misma ronda para todos.
+
+Al elegir, entra directo a ese juego. En el menú también están Mi colección, Ranking, el sonido y tu récord. Los botones "Volver" de los juegos, la colección y el ranking regresan a este menú, y el menú tiene su propio "Volver" al inicio.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos

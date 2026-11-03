@@ -125,3 +125,9 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 `cerrarAdivina`: las 6 insignias; `gran_truco` no las pide; sprites de 16×16
 - ✅ Cliente: fragmentos desde `inicio`; botón "No la sé · oír N s" / "Me rindo"; insignias nuevas al final de la ronda
 - ⏳ Corrida del workflow en el PR: `data/audio.json` con `inicio` para las 68 canciones
+
+## Fase 14 — Inicio y menú de modos (F23/D29)
+- ✅ Spec
+- ✅ Inicio con solo "▶ Iniciar"; menú con los 3 modos y su explicación; colección, ranking, sonido y récord en el menú
+- ✅ "Volver" de juegos, colección y ranking → menú; "Volver" del menú → inicio
+- ✅ e2e a 390 px: iniciar → elegir cada modo → volver

@@ -755,7 +755,7 @@
     });
   }
 
-  if (idsConAudio.length) $("[data-dia]").hidden = false;
+  if (idsConAudio.length) $("[data-dia-modo]").hidden = false;
   $("[data-dia-form]").addEventListener("submit", function (ev) { ev.preventDefault(); intentarDia($("[data-dia-respuesta]").value); });
 
   // ---------- Chapas (F17) ----------
@@ -1006,13 +1006,15 @@
   raiz.addEventListener("click", function (ev) {
     var b = ev.target.closest("button");
     if (!b) return;
-    if (b.hasAttribute("data-jugar")) empezar();
+    if (b.hasAttribute("data-iniciar")) { pintarInicio(); mostrar("modos"); contar("menu-modos"); }
+    else if (b.hasAttribute("data-volver-inicio")) mostrar("inicio");
+    else if (b.hasAttribute("data-jugar")) empezar();
     else if (b.hasAttribute("data-siguiente")) siguiente();
     else if (b.hasAttribute("data-ver-coleccion")) pintarColeccion();
     else if (b.hasAttribute("data-volver")) {
       clearInterval(crReloj); clearTimeout(crCuenta); cr = null;
       detenerAudio();
-      pintarInicio(); mostrar("inicio");
+      pintarInicio(); mostrar("modos");
     }
     else if (b.hasAttribute("data-compartir")) compartir(b.getAttribute("data-compartir"));
     else if (b.hasAttribute("data-contrarreloj")) empezarContrarreloj();

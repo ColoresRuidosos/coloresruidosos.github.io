@@ -92,6 +92,8 @@
 - **Cliente:** "Escuchar" va a `inicio` (espera `loadedmetadata` si hace falta) y pausa a los 1/2/4/7/11/16 s desde ahí.
 - **Insignias:** `logica.js` suma la familia `adivina` y `cerrarAdivina(estado, {aciertos, puntos, primeros, racha, diaria})`; `primeros` = canciones acertadas con 1 s. `tieneTodas` ignora la familia `adivina`. Chapas de 16×16 en `insignias.js`: nota, cerillo, sol, estrella, silencio y Starman.
 
+**D29 Menú de modos (2026-11-03):** F23. Pantalla nueva `data-pantalla="modos"` con tres botones grandes (título + explicación) que reutilizan `data-jugar`, `data-contrarreloj` y `data-dia`; Adivina la canción sigue oculta si no hay avances. `data-volver` lleva a `modos`, y `data-volver-inicio` al inicio. El código Konami y los toques a la pantallita siguen en `inicio`.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
