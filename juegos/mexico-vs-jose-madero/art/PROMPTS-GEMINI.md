@@ -307,6 +307,31 @@ FORMATO: imagen horizontal 3:2, panorámica. SIN personajes en primer plano, SIN
 
 ---
 
+## 0f. ⭐ PRIORIDAD v9 · Escenarios que faltan: El Teatro (1-3) y El Museo (3 nov 2026)
+
+Escenas completas para el **fondo panorámico** (Gemini/ChatGPT no separan capas). Los escenarios de Noche están en §0e. Encima de cada fondo el juego pinta:
+- arriba, la barra de puntos;
+- abajo, el suelo;
+- en el Teatro, los candelabros (ganchos del micro);
+- en el Museo, las 8 puertas, las vitrinas con contador y el retrato.
+
+Por eso los fondos van **sin nada de eso**.
+
+### Bloque común (pégalo al principio)
+```
+ESTILO: fondo de un videojuego de plataformas 2D en pixel art de 16 bits de los años 90, estilo Neo Geo: píxeles grandes y nítidos, contorno oscuro, sombreado plano de 3 tonos, paleta corta y con mucho contraste. Vista lateral, frontal, sin perspectiva de tres cuartos.
+FORMATO: imagen horizontal 3:2, panorámica, que se pueda recorrer de izquierda a derecha. SIN personajes, SIN texto ni letras, sin logotipos, sin marcos. El 15 % de arriba con poco detalle (ahí va la barra de puntos) y el 15 % de abajo oscuro y liso (ahí va el suelo del juego).
+```
+
+| Archivo | Adjuntar | Prompt (después del bloque común) |
+|---|---|---|
+| `w1-teatro.png` | `art/source/carmesi/concepto-teatro.jpg` (diseño) | Interior de un gran teatro clásico en penumbra, visto desde el escenario hacia el patio: tres pisos de palcos con barandillas doradas art déco y siluetas oscuras de público, un gran telón de terciopelo rojo recogido a los lados, columnas y luz cálida de candilejas desde abajo. Paleta de rojos vino, carmesí y dorados. **Sin candelabros ni lámparas en el centro de la parte de arriba** (ahí los pone el juego) |
+| `museo.png` | (opcional) una foto del museo real como referencia de ambiente | Pasillo largo de un museo moderno montado dentro de una gran carpa, en penumbra: techo de lona con estructura metálica y focos pequeños, pared del fondo lisa de color morado oscuro con un zócalo de madera y una línea dorada, cuadros con marcos dorados **vacíos** y vitrinas de cristal iluminadas pero **vacías**. La **mitad de abajo de la pared, despejada y uniforme** (ahí el juego dibuja las puertas). Sin puertas, sin carteles con texto |
+
+**Cómo se importan** (lo hago yo): se escalan a 224 px de alto, con paleta de 64 colores, y van al fondo de su nivel (el Museo, al pasillo). Si falta alguno, se sigue viendo el de código.
+
+---
+
 ## 1. BLOQUE DE ESTILO (pégalo al inicio de cada prompt)
 
 ```

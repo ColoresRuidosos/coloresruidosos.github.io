@@ -116,6 +116,7 @@
 
 ## Fase 2h — v9 · Ilustraciones de escenas y escenarios de Noche (⏳ el usuario genera las imágenes con ChatGPT)
 - [x] IL1 Prompts (PROMPTS §0e): 5 del prólogo, 8 de mundos y 3 escenarios de Noche
+- [x] IL1b Prompts §0f: El Teatro (1-3) y El Museo
 - [ ] IL2 🧪 Importador de escenas (320×150, paleta reducida; las de Noche en gris) con respaldo por código si falta alguna
 - [ ] IL3 🧪 Importador de escenarios de Noche (en gris) sin pisar los de Carmesí
 - [ ] IL4 ⏳ Decidir el tamaño: el HTML pasaría de ~0,9 a ~1,4 MB
