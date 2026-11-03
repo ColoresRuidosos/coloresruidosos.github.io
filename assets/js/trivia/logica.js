@@ -25,10 +25,10 @@
     { id: "volcan", nombre: "Bajo el volcán", como: "Acertar las 5 muy difíciles de una partida" },
     { id: "ungravity", nombre: "Ungravity", como: "Acertar toda la etapa en inglés" },
     { id: "segundo_asalto", nombre: "Segundo asalto", como: "Superar tu mejor categoría" },
-    { id: "noche_eterna", nombre: "La noche eterna", como: "???", oculta: true },
+    { id: "noche_eterna", nombre: "La noche eterna", como: "Jugar entre las 00:00 y las 04:59", oculta: true, pista: "Juega cuando la noche no se acaba" },
     { id: "viaje", nombre: "Viaje épico hacia la nada", como: "Terminar con 0 puntos" },
     { id: "me_amo", nombre: "Me amo", como: "Llegar a Viejo lesbiano" },
-    { id: "john_boy", nombre: "Club de fans de John Boy", como: "???", oculta: true },
+    { id: "john_boy", nombre: "Club de fans de John Boy", como: "30 de 30", oculta: true, pista: "Solo para quien no falla ni una" },
     { id: "1999", nombre: "1999", como: "Acumular 99 aciertos" },
     { id: "alli_donde", nombre: "Allí donde solíamos gritar", como: "Compartir tu resultado" },
     { id: "ejercito", nombre: "Ejército de salvación", como: "Desbloquear las 6 portadas" },
@@ -110,6 +110,11 @@
     var c = CATEGORIAS[0];
     CATEGORIAS.forEach(function (x) { if (puntos >= x.desde) c = x; });
     return c;
+  }
+
+  /* Texto para quien llega a Viejo lesbiano: le avisa que existe la categoría secreta sin nombrarla. */
+  function pistaSiguiente(cat) {
+    return cat && cat.id === "viejo" ? "Existe un nivel más alto. Solo se llega con 30 de 30." : "";
   }
 
   function estadoInicial() {
@@ -206,7 +211,7 @@
   raiz.CRtrivia = {
     ETAPAS: ETAPAS, DIFICULTADES: DIFICULTADES, PUNTOS: PUNTOS, CATEGORIAS: CATEGORIAS, INSIGNIAS: INSIGNIAS, CLAVE: CLAVE,
     validarPregunta: validarPregunta, preguntasJugables: preguntasJugables, sortear: sortear, opciones: opciones,
-    puntaje: puntaje, categoria: categoria, estadoInicial: estadoInicial, cerrarPartida: cerrarPartida,
+    puntaje: puntaje, categoria: categoria, pistaSiguiente: pistaSiguiente, estadoInicial: estadoInicial, cerrarPartida: cerrarPartida,
     registrarCompartir: registrarCompartir, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRtrivia;

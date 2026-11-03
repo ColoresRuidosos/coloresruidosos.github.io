@@ -195,6 +195,9 @@
     $("[data-categoria]").textContent = r.categoria.nombre;
     var aciertos = partida.respuestas.filter(function (x) { return x.acierto; }).length;
     $("[data-puntaje]").textContent = r.puntos + " de 30 puntos · " + aciertos + " de 15 aciertos";
+    var pista = T.pistaSiguiente(r.categoria);
+    $("[data-pista-siguiente]").textContent = pista;
+    $("[data-pista-siguiente]").hidden = !pista;
 
     var lista = $("[data-nuevas]");
     lista.textContent = "";
@@ -330,7 +333,7 @@
       var tiene = !!estado.insignias[i.id];
       var li = crear("li", "trivia__insignia" + (tiene ? " es-ganada" : ""));
       li.appendChild(crear("strong", "", tiene || !i.oculta ? i.nombre : "???"));
-      li.appendChild(crear("span", "", tiene ? (i.oculta ? "Secreta" : i.como) : i.como));
+      li.appendChild(crear("span", "", tiene ? i.como : (i.oculta ? "Pista: " + i.pista : i.como)));
       lista.appendChild(li);
     });
     $("[data-conteo]").textContent = Object.keys(estado.insignias).length + " de " + T.INSIGNIAS.length + " insignias · " +

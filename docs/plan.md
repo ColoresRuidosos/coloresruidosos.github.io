@@ -38,6 +38,7 @@
 - **Fuente 8 bits** Press Start 2P (Google Fonts), solo en `/trivia/` y sin `text-transform: uppercase`, porque no trae mayúsculas acentuadas (Í, É, Ú).
 - **Sonido** con Web Audio (osciladores de onda cuadrada), sin archivos de audio y apagado por defecto. Música: chiptune original, nunca melodías de la banda (D21 descarta covers 8 bits sin permiso).
 - **Sin aviso de "versión de prueba" (2026-10-30):** a pedido del equipo se quitó el letrero amarillo. `borrador: true` sigue limitando el juego a las preguntas de fuente sólida mientras los fans revisan; cada pregunta muestra su fuente al responder.
+- **Pistas de lo secreto (2026-11-03):** los fans preguntaban en redes cómo sacar las insignias "???". En la colección, las secretas muestran una pista críptica en lugar de "???", y el resultado de Viejo lesbiano avisa que hay un nivel más con 30 de 30 (`pistaSiguiente`). El nombre sigue oculto hasta ganarla.
 - **Fecha límite:** el 28 de noviembre de 2026 (Tecate Comuna, Puebla: última fecha anunciada en México) marca el fin de la insignia "El último baile". Al principio era el 25 (Auditorio Nacional), pero el equipo avisó que había fechas posteriores; se corrigió el 2026-10-30.
 
 ## Verificaciones pendientes

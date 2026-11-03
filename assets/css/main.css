@@ -418,6 +418,7 @@ body.sin-scroll { overflow: hidden; }
 .trivia__categoria { text-align: center; font-family: var(--pixel); font-size: clamp(1rem, 4.5vw, 1.5rem); line-height: 1.4; color: var(--accent-yellow); margin: .75rem 0; }
 .trivia__categoria:focus { outline: none; }
 .trivia__puntaje { text-align: center; margin: 0 0 1rem; }
+.trivia__pista { text-align: center; font-family: var(--pixel); font-size: .6875rem; line-height: 1.7; color: var(--accent-pink); border: 2px dashed var(--accent-pink); padding: .6rem .75rem; margin: 0 0 1rem; }
 .trivia__subtitulo { font-family: var(--pixel); font-size: .75rem; color: var(--accent-orange); margin: 1.5rem 0 .75rem; }
 .trivia__insignias { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
 @media (min-width: 600px) { .trivia__insignias { grid-template-columns: 1fr 1fr; } }

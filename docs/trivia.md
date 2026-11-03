@@ -44,7 +44,7 @@ Partida de **15 preguntas**: 5 fáciles (1 pt), 5 difíciles (2 pts), 5 muy dif�
 | 0–12 | **Pequeño lesbiano** | Máscara pequeña, colores pastel |
 | 13–22 | **Lesbianito** | Máscara mediana con flecos |
 | 23–29 | **Viejo lesbiano** | Máscara alta con plumas |
-| 30 | **Club de fans de John Boy** *(secreta)* | Máscara dorada. No se anuncia en ningún lado: se descubre |
+| 30 | **Club de fans de John Boy** *(secreta)* | Máscara dorada. No se nombra en ningún lado, pero quien llega a Viejo lesbiano ve el aviso *"Existe un nivel más alto. Solo se llega con 30 de 30."* |
 
 ### 2.3 Insignias (logros persistentes en el navegador)
 
@@ -58,10 +58,10 @@ Todas llevan el nombre de una canción o disco de la banda. Se guardan en `local
 | **Bajo el volcán** | Acertar las 5 muy difíciles de una partida | Presión máxima |
 | **Ungravity** | Acertar todas las preguntas de la etapa en inglés en una partida | Dominar la etapa menos conocida |
 | **Segundo asalto** | Superar tu mejor categoría anterior | Revancha |
-| **La noche eterna** | Jugar entre las 00:00 y las 05:00 (hora local) | Insignia oculta, se descubre jugando |
+| **La noche eterna** | Jugar entre las 00:00 y las 05:00 (hora local) | Insignia oculta. En la colección se ve como "???" con la pista *"Juega cuando la noche no se acaba"* |
 | **Viaje épico hacia la nada** | Terminar una partida con 0 puntos | Insignia de consolación con humor |
 | **Me amo** | Llegar a Viejo lesbiano | Orgullo fan |
-| **Club de fans de John Boy** | 30/30 | Acompaña a la categoría secreta |
+| **Club de fans de John Boy** | 30/30 | Acompaña a la categoría secreta. Pista en la colección: *"Solo para quien no falla ni una"* |
 | **1999** | Acumular 99 aciertos entre todas las partidas | Coleccionista paciente |
 | **Allí donde solíamos gritar** | Compartir tu tarjeta de resultado | Llevar el juego a otros |
 | **Ejército de salvación** | Desbloquear las 6 portadas coleccionables (ver 2.4) | Completar la discografía |

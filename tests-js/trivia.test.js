@@ -281,3 +281,21 @@ test("un almacenamiento que lanza error o trae basura no rompe el juego", () => 
   assert.deepStrictEqual(T.cargarEstado(basura), T.estadoInicial());
   assert.deepStrictEqual(T.cargarEstado(null), T.estadoInicial());
 });
+
+// ---------- Pistas de lo secreto ----------
+
+test("las insignias secretas tienen una pista que no dice el nombre", () => {
+  const ocultas = T.INSIGNIAS.filter((i) => i.oculta);
+  assert.strictEqual(ocultas.length, 2);
+  ocultas.forEach((i) => {
+    assert.ok(i.pista && i.pista !== "???", i.id);
+    assert.ok(!i.pista.toLowerCase().includes(i.nombre.toLowerCase()), "la pista no puede revelar el nombre: " + i.id);
+  });
+});
+
+test("al sacar Viejo lesbiano se avisa que hay un nivel más; en las demás categorías no", () => {
+  assert.match(T.pistaSiguiente(T.categoria(25)), /30 de 30/);
+  assert.strictEqual(T.pistaSiguiente(T.categoria(5)), "");
+  assert.strictEqual(T.pistaSiguiente(T.categoria(15)), "");
+  assert.strictEqual(T.pistaSiguiente(T.categoria(30)), "");
+});
