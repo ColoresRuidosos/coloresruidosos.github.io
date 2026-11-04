@@ -125,6 +125,11 @@
 - [x] MU1 🧪 `museumExhibits(save)`: 3 cuadros y 3 vitrinas según los mundos terminados (la partitura siempre)
 - [x] MU2 🎨 Importar el fondo del Museo sin pisar los de Carmesí; dibujar la exposición en los marcos del fondo
 
+## Fase 2j — v9.1 · Guía de objetos y ganchos (🧪 primero)
+- [x] GU1 🧪 Guía: datos de los 8 objetos (caben y se dibujan); explicación la primera vez que se recoge cada uno (se guarda)
+- [x] GU2 🎨 Pantalla de la guía (Opciones y pausa ▶)
+- [x] HK1 🧪 `aimHook`: gancho al que iría el micro ahora; «B» sobre él; ganchos quietos sin destellos y visibles en la oscuridad
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

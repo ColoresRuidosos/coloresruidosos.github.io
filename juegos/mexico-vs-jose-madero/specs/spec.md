@@ -560,6 +560,23 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 - ✅ Hechas: p2 (la Arena), p3 (titulares) y p5 (puertas). ⏳ Faltan p1 y p4, y las 8 de los mundos.
 - ⚠️ **p2, riesgo aceptado por el usuario (4 nov 2026):** la imagen va **tal cual**, con un cartel que lleva la cara realista del artista (no el Pepe de CR), su nombre, el de la gira y el logotipo de la Arena CDMX. Es una excepción a las reglas de §1 («nada de logotipos de terceros»), igual que la botarga morada. Revisarla antes de una publicación oficial y si el equipo de Madero da su visto bueno. La fecha va también en el texto de la viñeta, con sus fuentes.
 
+#### L. v9.1 · Guía de objetos y ganchos más claros (pedido del usuario, 4 nov 2026)
+**Revisión de los ganchos** (8 en los 6 niveles):
+- Todos se alcanzan y, una vez enganchado, Pepe cruza siempre el foso (378 de 378 intentos simulados por gancho).
+- **Lo que fallaba no era la física, sino cómo se ven:**
+  - 🐞 parpadeaban siempre (4 Hz), también con «Destellos: no»;
+  - en El Salón (2-2) quedaban a oscuras;
+  - nada indicaba cuándo estaban a tiro.
+- **Arreglo:**
+  - quietos sin destellos;
+  - se pintan por encima de la oscuridad del farol;
+  - cuando el micro llegaría al gancho si se lanza ahora (misma regla de puntería que el juego, `aimHook`), aparece una «B» sobre él.
+
+**Guía de objetos:** pantalla con cada objeto (su dibujo, su nombre y para qué sirve).
+- **Cómo se abre:** desde Opciones («GUÍA DE OBJETOS») y desde la pausa (▶).
+- **Qué incluye:** Carta de fan, Amplificador, Púa de guitarra, Antifaz, Aceite, Solo de guitarra (Ovación), piezas (Carmesís y lunas) y ganchos.
+- **Primera vez:** al recoger un objeto por primera vez, sale abajo su explicación de una línea durante 3 s. Queda guardado (`seenItems`) para no repetirlo.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

@@ -1,6 +1,8 @@
 // v7 · Museo (puertas y vitrinas), Galería de trajes, Opciones y pausa (spec §3.0f A, C y D).
 import { W, H } from '../game/constants.js';
-import { text, drawCostume, drawCarmesi } from './draw.js';
+import { text, drawCostume, drawCarmesi, drawItem, drawPua, drawHook } from './draw.js';
+import { GUIDE } from '../data/guia.js';
+import { drawAceite, drawLunaPiece } from './draw-noche.js';
 import { drawPortrait } from './draw-historia.js';
 import { antifaz } from './draw-noche.js';
 import { COSTUMES } from '../game/progress.js';
@@ -101,6 +103,7 @@ export const OPTION_ITEMS = [
   { key: 'shake', name: 'TEMBLOR DE PANTALLA', help: 'NO: LA CÁMARA NO TIEMBLA' },
   { key: 'assist', name: 'MODO ASISTIDO', help: 'SÍ: NO SE PIERDEN CORAZONES (NO CUENTA PARA RÉCORDS NI RETOS «SIN DAÑO»)' },
   { key: 'music', name: 'MÚSICA Y SONIDO', help: 'TAMBIÉN CON LA TECLA M' },
+  { key: 'guia', name: 'GUÍA DE OBJETOS', help: 'PARA QUÉ SIRVE CADA COSA' },
   { key: 'back', name: 'VOLVER', help: '' },
 ];
 export function drawOptions(g, options, sel, t) {
@@ -110,7 +113,7 @@ export function drawOptions(g, options, sel, t) {
     const y = 46 + i * 22, on = i === sel;
     if (on) R(g, '#3a2050', 24, y - 4, W - 48, 16);
     text(g, (on ? '▶ ' : '  ') + it.name, 32, y, { color: on ? '#ffffff' : '#b9a8d6' });
-    if (it.key !== 'back') text(g, options[it.key] ? 'SÍ' : 'NO', W - 32, y, { align: 'right', color: options[it.key] ? '#7ad07a' : '#ff9a5a' });
+    if (it.key !== 'back' && it.key !== 'guia') text(g, options[it.key] ? 'SÍ' : 'NO', W - 32, y, { align: 'right', color: options[it.key] ? '#7ad07a' : '#ff9a5a' });
   });
   const help = OPTION_ITEMS[sel].help;
   if (help) {
@@ -128,6 +131,7 @@ export function drawPause(g, t) {
   text(g, 'A: SEGUIR', W / 2, 110, { align: 'center' });
   text(g, 'B: OPCIONES', W / 2, 122, { align: 'center' });
   text(g, '◀: SALIR AL MUSEO', W / 2, 134, { align: 'center', color: '#b9a8d6' });
+  text(g, '▶: GUÍA DE OBJETOS', W / 2, 146, { align: 'center', color: '#b9a8d6' });
 }
 
 // ── v9 · La exposición del Museo (spec §3.0f J), en los marcos y vitrinas del fondo de ChatGPT ──
@@ -165,4 +169,31 @@ export function drawMuseumExhibits(g, ox, exhibits, t) {
       if (ex.slot.startsWith('vitrina')) { g.save(); g.globalAlpha = 0.18; R(g, '#fff2c0', r.x, r.y, r.w, r.h); g.restore(); } // reflejo del cristal
     } else text(g, '?', r.x + r.w / 2, r.y + r.h / 2 - (ex.slot.startsWith('vitrina') ? 0 : 4), { align: 'center', color: '#6c6577', shadow: null });
   }
+}
+
+// ── v9.1 · Guía de objetos (spec §3.0f L): ◀ ▶ para pasar, B para volver ──
+function guideIcon(g, kind, x, y, t, s = 1) {
+  g.save(); g.translate(x, y); g.scale(s, s);
+  if (kind === 'carta' || kind === 'amp' || kind === 'antifaz') drawItem(g, { kind, x: 0, y: 0 }, 0);
+  else if (kind === 'pua') drawPua(g, 0, 0, 1.2);
+  else if (kind === 'aceite') drawAceite(g, { x: 0, y: 0 }, 0);
+  else if (kind === 'piezas') { drawCarmesi(g, -7, 0, t, 6); drawLunaPiece(g, 7, 0, t, 6); }
+  else if (kind === 'gancho') drawHook(g, { x: 0, y: 6 }, 0, false);
+  else if (kind === 'solo') text(g, '★', 0, -4, { align: 'center', color: '#ffcf7a' });
+  g.restore();
+}
+export function drawGuide(g, sel, t) {
+  R(g, '#1b1226', 0, 0, W, H);
+  text(g, 'GUÍA DE OBJETOS', W / 2, 10, { scale: 2, align: 'center', color: '#ffcf7a' });
+  const it = GUIDE[sel];
+  R(g, '#2a1e36', 60, 36, 200, 78); R(g, '#c8963c', 60, 36, 200, 2);
+  guideIcon(g, it.kind, W / 2, 72, t, 3);
+  text(g, it.name, W / 2, 124, { scale: 2, align: 'center', color: '#ffffff' });
+  it.lines.forEach((l, i) => text(g, l, W / 2, 146 + i * 11, { align: 'center', color: '#efe8d4' }));
+  GUIDE.forEach((o, i) => {
+    const x = 26 + i * 38, y = 186;
+    R(g, i === sel ? '#ffcf7a' : '#3a2848', x - 14, y - 12, 28, 24); R(g, '#241830', x - 13, y - 11, 26, 22);
+    guideIcon(g, o.kind, x, y, t, 1);
+  });
+  text(g, '◀ ▶ PASAR · B VOLVER', W / 2, H - 10, { align: 'center', color: '#8a7a9a' });
 }

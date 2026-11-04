@@ -48,6 +48,16 @@ export const micTip = (g) => {
   return { x: h.x + g.mic.ax * g.mic.len, y: h.y + g.mic.ay * g.mic.len };
 };
 
+// Gancho al que iría el micro si se lanzara ahora (delante, a tiro y a una altura razonable), o null.
+// Lo usa la puntería del micro y el aviso «B» sobre el gancho (spec §3.0f L).
+export function aimHook(g) {
+  const p = g.player, dir = p.facing, range = micRange(g);
+  const hand = { x: p.x + p.w / 2 + dir * MIC.handX, y: p.y + p.h - MIC.handY };
+  return g.level.hooks
+    .filter((h) => (h.x - hand.x) * dir > 0 && Math.abs(h.y - hand.y) <= MIC.aimY && Math.hypot(h.x - hand.x, h.y - hand.y) <= range)
+    .sort((a, b) => Math.abs(a.x - hand.x) - Math.abs(b.x - hand.x))[0] ?? null;
+}
+
 export function hurt(g, fromX) {
   if (g.invuln > 0 || g.star > 0) return; // con el Antifaz, nada hace daño
   g.hurts++;
@@ -127,10 +137,7 @@ function stepMic(g, pressed) {
     if (pressed) {
       m.phase = 'out'; m.dir = p.facing; m.len = 0; m.ax = m.dir; m.ay = 0; m.target = null;
       // Asistencia de puntería: si hay un gancho delante a tiro, el micro sale hacia él.
-      const hand = micHand(g);
-      const target = g.level.hooks
-        .filter((h) => (h.x - hand.x) * m.dir > 0 && Math.abs(h.y - hand.y) <= MIC.aimY && Math.hypot(h.x - hand.x, h.y - hand.y) <= range)
-        .sort((a, b) => Math.abs(a.x - hand.x) - Math.abs(b.x - hand.x))[0];
+      const target = aimHook(g);
       if (target) m.target = target;
       g.events.push('mic');
     }
@@ -283,6 +290,7 @@ export function stepGame(g, btn) {
   for (const it of g.items) {
     if (it.taken || !near(it)) continue;
     it.taken = true;
+    g.events.push(`item:${it.kind}`); // para explicarlo la primera vez (guía de objetos)
     if (it.kind === 'amp') { g.amp = AMP.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'MICRO X2', t: 1.2 }); }
     else if (it.kind === 'pua') { g.pua = PUA.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'PÚA', t: 1.2 }); }
     else if (it.kind === 'antifaz') { g.star = STAR.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: '¡INVENCIBLE!', t: 1.2 }); }

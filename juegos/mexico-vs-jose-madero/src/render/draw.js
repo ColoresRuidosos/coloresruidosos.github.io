@@ -1,6 +1,6 @@
 import { W, H, TILE, OVATION, BOSS, MASK, INTRO, GAME_TITLE } from '../game/constants.js';
 import { GLYPHS, ADVANCE, ACCENT, textWidth } from './font.js';
-import { micHand, micTip } from '../game/game.js';
+import { micHand, micTip, aimHook } from '../game/game.js';
 import { beamRect } from '../game/boss.js';
 import { PEPE_META, PEPE_PNG } from '../data/pepe-atlas.js';
 import { ENEMIES_META, ENEMIES_PNG } from '../data/enemies-atlas.js';
@@ -182,12 +182,12 @@ function drawDisc(ctx, x, y, t, gold = '#e8b33c', hi = '#fff2b0', r = 6) {
   rect(ctx, '#1b1226', x - 1, y - 1, 2, 2);
 }
 // v8.2: Púa de guitarra (triángulo redondeado con brillo) y Antifaz de la fiesta (con destello suave).
-function drawPua(ctx, x, y, s = 1) {
+export function drawPua(ctx, x, y, s = 1) {
   ctx.fillStyle = '#1b1226'; ctx.beginPath(); ctx.moveTo(x - 5 * s, y - 5 * s); ctx.lineTo(x + 5 * s, y - 5 * s); ctx.lineTo(x, y + 6 * s); ctx.fill();
   ctx.fillStyle = '#ffcf7a'; ctx.beginPath(); ctx.moveTo(x - 4 * s, y - 4 * s); ctx.lineTo(x + 4 * s, y - 4 * s); ctx.lineTo(x, y + 4.5 * s); ctx.fill();
   rect(ctx, '#fff2c0', x - 2 * s, y - 3 * s, 2 * s, 1);
 }
-function drawItem(ctx, it, t) {
+export function drawItem(ctx, it, t) {
   if (it.kind === 'pua') { drawPua(ctx, it.x, it.y + Math.round(Math.sin(t * 3 + it.x) * 2), 1.2); return; }
   if (it.kind === 'antifaz') {
     const y = it.y + Math.round(Math.sin(t * 3 + it.x) * 2);
@@ -211,21 +211,22 @@ function drawItem(ctx, it, t) {
     text(ctx, '♥', it.x - 2, y - 2, { color: '#d8312b', shadow: null });
   }
 }
-function drawChandelier(ctx, h, t) {
+function drawChandelier(ctx, h, t, flashes = true) {
   // Candelabro del teatro: el gancho es su aro central.
   rect(ctx, '#3a2a1a', h.x - 1, 0, 2, h.y - 12);
   rect(ctx, '#c8963c', h.x - 22, h.y - 12, 44, 3);
   for (let i = -20; i <= 20; i += 8) {
     rect(ctx, '#c8963c', h.x + i, h.y - 18, 2, 6);
-    rect(ctx, Math.floor(t * 8 + i) % 3 ? '#ffcf7a' : '#ff9a3a', h.x + i, h.y - 21, 2, 3);
+    rect(ctx, flashes && Math.floor(t * 8 + i) % 3 === 0 ? '#ff9a3a' : '#ffcf7a', h.x + i, h.y - 21, 2, 3);
     rect(ctx, '#ff5a4f', h.x + i, h.y - 9, 2, 4);
   }
   ctx.strokeStyle = '#1b1226'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(h.x, h.y, 6, 0, Math.PI * 2); ctx.stroke();
   ctx.strokeStyle = '#f0c870'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(h.x, h.y, 6, 0, Math.PI * 2); ctx.stroke();
 }
-function drawHook(ctx, h, t) {
+export function drawHook(ctx, h, t, flashes = true) {
   ctx.strokeStyle = '#1b1226'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(h.x, h.y, 6, 0, Math.PI * 2); ctx.stroke();
-  ctx.strokeStyle = Math.floor(t * 4) % 2 ? '#f7c86a' : '#b9bec6'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(h.x, h.y, 6, 0, Math.PI * 2); ctx.stroke();
+  // 🐞 v9.1: antes parpadeaba siempre; ahora, quieto si los destellos están apagados.
+  ctx.strokeStyle = flashes && Math.floor(t * 4) % 2 ? '#b9bec6' : '#f7c86a'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(h.x, h.y, 6, 0, Math.PI * 2); ctx.stroke();
   rect(ctx, '#5b6068', h.x - 1, h.y - 24, 2, 18);
 }
 
@@ -272,7 +273,8 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
 
   ctx.drawImage(art.tiles, 0, 0);
   opts.decor?.(ctx);
-  for (const h of g.level.hooks) th.chandelier ? drawChandelier(ctx, h, t) : drawHook(ctx, h, t);
+  const drawHooks = () => { for (const h of g.level.hooks) th.chandelier ? drawChandelier(ctx, h, t, flashes) : drawHook(ctx, h, t, flashes); };
+  drawHooks();
   for (const c of g.level.checkpoints) {
     const on = g.checkpoint.x >= c.x;
     rect(ctx, '#1b1226', c.x - 1, c.y - 34, 3, 34);
@@ -342,7 +344,13 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     ctx.filter = 'none'; ctx.globalAlpha = 1;
   }
   // Noche: oscuridad con el farol de Pepe (y los ojos del Enmascarado, que se ven siempre).
-  if (g.lantern) drawDarkness(ctx, g, camX, art);
+  if (g.lantern) { drawDarkness(ctx, g, camX, art); drawHooks(); } // los ganchos se ven también a oscuras
+  // «B» sobre el gancho al que iría el micro si lo lanzas ahora.
+  const aim = !p.hooked && g.mic.phase === 'idle' && g.status === 'play' ? aimHook(g) : null;
+  if (aim) {
+    rect(ctx, '#1b1226', aim.x - 6, aim.y - 40, 12, 12); rect(ctx, '#ffcf7a', aim.x - 5, aim.y - 39, 10, 10);
+    text(ctx, 'B', aim.x, aim.y - 37, { align: 'center', color: '#1b1226', shadow: null });
+  }
   // El Enmascarado se ve aunque esté fuera del farol (si no, sus ataques serían injustos);
   // al acechar y en el apagón, solo sus ojos.
   if (g.boss?.kind === 'mask') { drawMaskBoss(ctx, g, art, t); drawMaskEyes(ctx, g, t); }
@@ -529,6 +537,14 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
   }
   // Pensamiento de Pepe al tocar un checkpoint (ficción).
   drawThought(ctx, g.thought);
+  // Primera vez que se recoge un objeto: su explicación (guía de objetos).
+  if (g.hint) {
+    ctx.globalAlpha = Math.min(1, g.hint.t * 3);
+    const w = Math.min(W - 12, g.hint.text.length * 6 + 16), y0 = H - 46;
+    rect(ctx, '#1b1226', W / 2 - w / 2 - 1, y0 - 1, w + 2, 15); rect(ctx, '#ffcf7a', W / 2 - w / 2, y0, w, 13);
+    text(ctx, g.hint.text, W / 2, y0 + 3, { align: 'center', color: '#1b1226', shadow: null });
+    ctx.globalAlpha = 1;
+  }
   // Frase verificada al vencer a un Titular (cartel pequeño abajo).
   const pop = g.popups.at(-1);
   if (pop) {

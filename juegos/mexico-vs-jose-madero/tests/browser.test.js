@@ -136,10 +136,10 @@ test('móvil: los botones no se seleccionan ni se quedan pegados (iOS)', async (
 // ── v7 (spec §3.0f; tarea N7) ──────────────────────────
 test('v7: Opciones desde la pausa; «Destellos: no» se guarda y sobrevive a recargar', async () => {
   await page.evaluate(() => window.__jmv.goto(0, 'carmesi'));
-  await page.keyboard.press('KeyP'); await page.waitForTimeout(80);
-  await page.keyboard.press('KeyX'); await page.waitForTimeout(80);
+  await page.keyboard.press('KeyP'); await page.waitForTimeout(200);
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(200);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'options');
-  await page.keyboard.press('KeyZ'); await page.waitForTimeout(80); // primera opción: Destellos
+  await page.keyboard.press('KeyZ'); await page.waitForTimeout(200); // primera opción: Destellos
   await page.screenshot({ path: 'out/06-opciones.png' });
   assert.equal(await page.evaluate(() => window.__jmv.save.data.options.flashes), false);
   await page.reload(); await page.waitForTimeout(400);
@@ -200,5 +200,24 @@ test('v8.3: al vencer al jefe, pose de festejo; A la salta y salen las tarjetas'
   await page.waitForTimeout(500);
   await page.keyboard.press('Enter'); await page.waitForTimeout(150);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'card');
+  assert.deepEqual(errors, []);
+});
+
+// ── v9.1 (spec §3.0f L) ─────────────────────────────────
+test('v9.1: la guía de objetos se abre desde las Opciones de la portada y desde la pausa', async () => {
+  await page.reload(); await page.waitForTimeout(400);
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(200); // portada → Opciones
+  for (let i = 0; i < 4; i++) { await page.keyboard.press('ArrowDown'); await page.waitForTimeout(120); } // hasta «GUÍA DE OBJETOS» (5.ª opción)
+  await page.keyboard.press('KeyZ'); await page.waitForTimeout(120);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'guide');
+  await page.screenshot({ path: 'out/10-guia.png' });
+  await page.keyboard.press('Escape'); await page.waitForTimeout(200);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'options');
+  await page.evaluate(() => window.__jmv.goto(0, 'carmesi'));
+  await page.keyboard.press('KeyP'); await page.waitForTimeout(200);
+  await page.keyboard.press('ArrowRight'); await page.waitForTimeout(200);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'guide');
+  await page.keyboard.press('KeyX'); await page.waitForTimeout(200);
+  assert.equal(await page.evaluate(() => window.__jmv.screen), 'play');
   assert.deepEqual(errors, []);
 });

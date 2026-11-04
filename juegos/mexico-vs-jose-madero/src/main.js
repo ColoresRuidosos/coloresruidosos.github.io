@@ -14,7 +14,7 @@ import { worldById, WORLDS } from './data/worlds.js';
 import { ERA_FACTS_W1, CHAPTERS_W1, LEVEL_CARDS_W1 } from './data/carmesi-story.js';
 import { ERA_FACTS_W2, CHAPTERS_W2, LEVEL_CARDS_W2 } from './data/noche-story.js';
 import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard, drawIntro } from './render/draw.js';
-import { drawMuseumExhibits, drawMuseumDoors, drawMuseumHud, drawGallery, drawOptions, drawPause, OPTION_ITEMS } from './render/draw-menus.js';
+import { drawGuide, drawMuseumExhibits, drawMuseumDoors, drawMuseumHud, drawGallery, drawOptions, drawPause, OPTION_ITEMS } from './render/draw-menus.js';
 import { createAudio } from './audio/audio.js';
 
 const cv = document.getElementById('game');
@@ -54,6 +54,8 @@ function museumInfo() {
 const hub = createHub();
 let screen = 'title', back = 'title', camX = 0, cam = null, t = 0, paused = false, card = null, screenT = 0;
 let game, art, run = null, museumDoor = null, toast = null, toastT = 0, endInfo = {};
+import { guideOf } from './data/guia.js';
+let guideSel = 0, guideBack = 'options';
 let optSel = 0, galSel = 0, prologueIdx = 0, cut = null, cutArt = null;
 // Escenas de cada mundo (spec §3.0f I): A avanza, B las salta. Se dibujan siempre a color (con el arte del Museo).
 function playCutscene(panels, then) { cut = { panels, idx: 0, then }; screen = 'cutscene'; screenT = 0; }
@@ -123,7 +125,7 @@ function finishLevel() {
 // ── Entrada: teclado, táctil y mando → mismos 5 botones ──
 const held = { left: false, right: false, jump: false, mic: false, special: false };
 const KEYS = { ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right', KeyZ: 'jump', Space: 'jump', ArrowUp: 'jump', KeyW: 'jump', KeyX: 'mic', KeyJ: 'mic', KeyK: 'mic', KeyC: 'special', KeyL: 'special' };
-const MENUS = ['options', 'gallery'];
+const MENUS = ['options', 'gallery', 'guide'];
 let menuMove = 0, escPressed = false;
 // Pulsaciones «enganchadas»: una tecla que se pulsa y se suelta entre dos pasos del bucle no se pierde.
 const latch = { left: false, right: false, jump: false, mic: false };
@@ -142,7 +144,9 @@ addEventListener('keyup', (e) => { if (KEYS[e.code]) held[KEYS[e.code]] = false;
 // y el botón se queda pegado: se bloquean esos gestos y cualquier interrupción suelta los botones.
 const touching = new Map(); // pointerId → botón
 const release = (k) => { held[k] = false; document.querySelector(`[data-btn="${k}"]`)?.classList.remove('on'); };
-const releaseAll = () => { touching.clear(); for (const b of document.querySelectorAll('[data-btn]')) release(b.dataset.btn); };
+// 🐞 v9.1: al soltar todo por una interrupción también se borran las pulsaciones pendientes (si no, una ▶ «enganchada»
+// abría la guía desde la pausa sin querer).
+const releaseAll = () => { touching.clear(); for (const b of document.querySelectorAll('[data-btn]')) release(b.dataset.btn); for (const k in latch) latch[k] = false; };
 for (const btn of document.querySelectorAll('[data-btn]')) {
   const k = btn.dataset.btn;
   const on = (e) => { e.preventDefault(); touching.set(e.pointerId, k); held[k] = true; if (k in latch) latch[k] = true; btn.classList.add('on'); audio.unlock(); };
@@ -174,6 +178,20 @@ function pad() {
 
 // ── Menús ───────────────────────────────────────────────
 function openOptions(from) { back = from; optSel = 0; screen = 'options'; screenT = 0; }
+// Guía de objetos (spec §3.0f L): la primera vez que se recoge cada cosa (o se llena la Ovación, o se usa un gancho),
+// su explicación abajo durante 3 s. Queda guardado para no repetirla.
+const ITEM_GUIDE = { carta: 'carta', amp: 'amp', pua: 'pua', antifaz: 'antifaz', aceite: 'aceite' };
+function explainFirstTime() {
+  let kind = null;
+  for (const e of game.events) if (e.startsWith('item:')) kind = ITEM_GUIDE[e.slice(5)] ?? kind;
+  if (game.events.includes('piece')) kind ??= 'piezas';
+  if (game.events.includes('hook')) kind ??= 'gancho';
+  if (game.ovacion >= 100) kind ??= 'solo';
+  if (!kind || save.data.seenItems.includes(kind)) { if (game.hint && (game.hint.t -= DT) <= 0) game.hint = null; return; }
+  save.data.seenItems.push(kind); save.commit();
+  game.hint = { text: guideOf(kind).first, t: 3 };
+}
+
 function stepOptions(pr) {
   const n = OPTION_ITEMS.length;
   if (pr.right || menuMove > 0) optSel = (optSel + 1) % n;
@@ -181,6 +199,7 @@ function stepOptions(pr) {
   const it = OPTION_ITEMS[optSel];
   if (pr.jump) {
     if (it.key === 'back') pr.mic = true;
+    else if (it.key === 'guia') { guideSel = 0; guideBack = 'options'; screen = 'guide'; screenT = 0; return; }
     else if (it.key === 'music') setMusic(!opt.music);
     else { opt[it.key] = !opt[it.key]; if (it.key === 'assist' && game && run) { game.assist = opt.assist; if (opt.assist) run.assistUsed = true; } }
     save.commit();
@@ -238,6 +257,11 @@ function frame(now) {
       }
     } else if (screen === 'victory') {
       if (screenT >= VICTORY.time || (pr.jump && screenT > VICTORY.skip)) finishLevel();
+    } else if (screen === 'guide') {
+      const n = 8;
+      if (pr.right || menuMove > 0) guideSel = (guideSel + 1) % n;
+      if (pr.left || menuMove < 0) guideSel = (guideSel + n - 1) % n;
+      if (pr.mic || escPressed) { screen = guideBack; screenT = 0; }
     } else if (screen === 'options') stepOptions(pr);
     else if (screen === 'gallery') stepGallery(pr);
     else if (screen === 'museum') stepMuseum(btn, pr);
@@ -246,9 +270,11 @@ function frame(now) {
         if (pr.jump) paused = false;
         else if (pr.mic) openOptions('play');
         else if (pr.left) enterMuseum(run.world);
+        else if (pr.right) { guideSel = 0; guideBack = 'play'; screen = 'guide'; screenT = 0; }
       } else {
         stepGame(game, btn);
         audio.play(game.events);
+        explainFirstTime();
         // Jefe vencido: pose de festejo (3 s, A la salta a los 0,5 s) antes de las tarjetas.
         if (game.status === 'won') { if (game.boss) { screen = 'victory'; screenT = 0; } else finishLevel(); }
         else if (game.status === 'gameover') { screen = 'end'; screenT = 0; }
@@ -268,7 +294,8 @@ function frame(now) {
   const target = duel ? (p.x + p.w / 2 + game.boss.x + game.boss.w / 2) / 2 + W * 0.08 : p.x + p.w / 2;
   camX = stepCamera(cam, target, game.level.w * 16, duel ? 0 : p.facing);
   const vis = { flashes: opt.flashes, shake: opt.shake };
-  if (screen === 'prologue') drawPrologue(ctx, PROLOGO[prologueIdx], prologueIdx, screenT, art, opt.flashes);
+  if (screen === 'guide') drawGuide(ctx, guideSel, t); // la guía ocupa toda la pantalla
+  else if (screen === 'prologue') drawPrologue(ctx, PROLOGO[prologueIdx], prologueIdx, screenT, art, opt.flashes);
   else if (screen === 'cutscene') {
     cutArt ??= createArt(createGame(HUB).level, 'museo');
     drawPrologue(ctx, cut.panels[cut.idx], cut.idx, screenT, cutArt, opt.flashes, cut.panels.length);
@@ -298,8 +325,7 @@ function frame(now) {
 
 // Acceso para pruebas automáticas (no afecta al juego).
 window.__jmv = {
-  get held() { return held; },
-  get game() { return game; }, get screen() { return screen; }, get save() { return save; },
+  get game() { return game; }, get screen() { return screen; }, get paused() { return paused; }, get held() { return held; }, get save() { return save; },
   get level() { return run ? WORLD_DATA[run.world].levels[run.idx].id : 'museo'; },
   get door() { return museumDoor?.id ?? null; },
   start() { tapStart = true; },

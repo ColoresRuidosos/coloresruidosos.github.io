@@ -11,6 +11,7 @@ export const defaults = () => ({
   costume: 'auto',
   record: 0,
   seenPrologue: false, // v8: el prólogo solo se ve la primera vez
+  seenItems: [], // v9.1: objetos ya explicados la primera vez que se recogen
 });
 
 const safe = (fn, fallback) => { try { return fn(); } catch { return fallback; } };
@@ -30,6 +31,7 @@ function load(storage) {
     costume: typeof d.costume === 'string' ? d.costume : 'auto',
     record: Math.max(Number(d.record) || 0, old),
     seenPrologue: !!d.seenPrologue,
+    seenItems: Array.isArray(d.seenItems) ? d.seenItems : [],
   };
 }
 
