@@ -22,3 +22,13 @@ test('al terminar Carmesí: su cuadro (la rosa) y el Disco de Oro; al terminar N
   s.data.worlds.noche = { cleared: ['2-1', '2-2', '2-3'], best: {} };
   assert.deepEqual(shown(s).sort(), ['antifaz', 'disco', 'mascara', 'partitura', 'rosa']);
 });
+
+// v9 · Fondos de ChatGPT importados (spec §3.0f J, prompts §0f).
+import { BACKDROPS } from '../src/data/backdrops-w1.js';
+test('fondos panorámicos: Calle, Azoteas, Teatro y Museo, de 224 px de alto y más anchos que la pantalla', () => {
+  for (const k of ['calle', 'azoteas', 'teatro', 'museo']) {
+    assert.ok(BACKDROPS[k], k);
+    assert.equal(BACKDROPS[k].h, 224);
+    assert.ok(BACKDROPS[k].w > 320, `${k}: ${BACKDROPS[k].w}`);
+  }
+});
