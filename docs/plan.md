@@ -96,6 +96,8 @@
 
 **D30 Orden al azar en la ronda del día (2026-11-03):** F24. `rondaDelDia` sigue eligiendo las mismas 10 canciones para todos; `barajarRonda(ids, rng)` las reordena con `Math.random` al empezar una ronda nueva. La ronda guardada se reconoce con `mismasCanciones` (mismo conjunto, sin importar el orden), así que recargar no la vuelve a barajar. El ranking no cambia: compara puntos de las mismas 10 canciones.
 
+**D31 Sección Games (2026-11-04):** F25. Los juegos se listan en `data/games.json` (`id`, `nombre`, `descripcion`, `url` relativa sin barra inicial, `desde` en RFC 3339 con zona). `layouts/games/section.html` muestra solo los que cumplen `desde` ≤ hora de compilación, así que la tarjeta aparece sola en la corrida diaria de las 8:00. La trivia se queda en `/trivia/` (cambiarla rompería las tarjetas compartidas y el ranking); solo cambia la etiqueta del menú, que queda activa en las secciones `games` y `trivia`. El juego de José Madero es un HTML de un solo archivo (~1,6 MB) compilado en `juegos/mexico-vs-jose-madero/` y copiado con `npm run publish:web` a `static/games/mexico-vs-jose-madero/index.html`; Hugo lo sirve tal cual. No va en un iframe, porque los controles táctiles necesitan la pantalla entera. `tests-js/games.test.js` valida el contrato de datos, que el archivo del juego exista y el menú.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
