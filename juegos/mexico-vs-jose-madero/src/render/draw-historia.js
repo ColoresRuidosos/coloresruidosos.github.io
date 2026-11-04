@@ -1,6 +1,16 @@
 // v8 · La historia en pantalla (spec §1.1b): prólogo, retrato de identidad, recuerdos y pensamientos.
 import { W, H } from '../game/constants.js';
-import { text, sprite } from './draw.js';
+import { text, sprite, drawBadge } from './draw.js';
+import { SCENE_ART } from '../data/scenes-art.js';
+
+// v9: ilustraciones de ChatGPT por viñeta (si no hay, se dibuja la escena por código).
+const ART_IMG = new Map();
+function sceneImage(id) {
+  if (!SCENE_ART[id] || typeof Image === 'undefined') return null;
+  if (!ART_IMG.has(id)) ART_IMG.set(id, Object.assign(new Image(), { src: SCENE_ART[id].png }));
+  const img = ART_IMG.get(id);
+  return img.complete && img.naturalWidth ? img : null;
+}
 import { WORLDS } from '../data/worlds.js';
 import { hash } from './themes.js';
 
@@ -145,7 +155,13 @@ function sceneBaile(g, t, art, flashes) {
 const SCENES = { estadio: sceneEstadio, arena: sceneArena, titulares: sceneTitulares, museo: sceneMuseo, puertas: scenePuertas, puerta: scenePuerta, calle: sceneCalle, disco: sceneDisco, pepe: scenePepe, invitacion: sceneInvitacion, baile: sceneBaile };
 
 export function drawPrologue(g, panel, i, t, art, flashes = true, total = 5) {
-  SCENES[panel.scene](g, t, art, flashes, panel);
+  const img = panel.id && sceneImage(panel.id);
+  if (img) {
+    g.drawImage(img, 0, 0);
+    // La Arena: sobre la pantalla tapada, el sello JMV (en vez de la cara, el nombre y el logotipo del cartel).
+    const b = SCENE_ART[panel.id].badge;
+    if (b) drawBadge(g, b[0], b[1] - 12);
+  } else SCENES[panel.scene](g, t, art, flashes, panel);
   R(g, '#0c0812', 0, 150, W, H - 150); R(g, '#3a2050', 0, 150, W, 1);
   panel.lines.forEach((l, k) => text(g, l, W / 2, 158 + k * 11, { align: 'center', color: '#efe8d4' }));
   if (panel.kind === 'dato') text(g, `FUENTE: ${panel.source}`, W / 2, 158 + panel.lines.length * 11 + 2, { align: 'center', color: '#b9a8d6' });

@@ -26,13 +26,24 @@ describe('prólogo (S1)', () => {
     assert.match(PROLOGO[3].lines.join(' '), /NO RECUERDA/);
   });
 
-  test('los datos llevan fuente y la ficción va marcada; sin «el más grande de México» ni fecha de la Arena', () => {
+  test('los datos llevan fuente y la ficción va marcada; sin «el más grande de México» (sin verificar)', () => {
     for (const p of PROLOGO) {
       assert.ok(['dato', 'ficcion'].includes(p.kind));
       if (p.kind === 'dato') assert.ok(p.source?.length > 3, p.lines[0]);
     }
     const all = PROLOGO.flatMap((p) => p.lines).join(' ');
-    assert.doesNotMatch(all, /MÁS GRANDE|FORO GNP|MAYO DE 2027/);
+    assert.doesNotMatch(all, /MÁS GRANDE|FORO GNP/);
+  });
+
+  test('viñeta 2: la fecha de la Arena, verificada (21 y 22 de mayo de 2027; LOS40 y Grupo Animal)', () => {
+    const p2 = PROLOGO.find((p) => p.scene === 'arena');
+    assert.equal(p2.kind, 'dato');
+    assert.match(p2.lines.join(' '), /21 Y 22 DE MAYO DE 2027/);
+    assert.match(p2.source, /LOS40.*GRUPO ANIMAL/);
+  });
+
+  test('cada viñeta tiene su id (p1–p5) para su ilustración', () => {
+    assert.deepEqual(PROLOGO.map((p) => p.id), ['p1', 'p2', 'p3', 'p4', 'p5']);
   });
 
   test('se ve solo la primera vez (queda guardado)', () => {

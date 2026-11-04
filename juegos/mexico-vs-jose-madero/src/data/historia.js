@@ -1,14 +1,14 @@
 // La historia contada en el juego (spec §1.1b, ✅ aprobada). `kind`: 'dato' (con fuente) o 'ficcion' (cuento del juego).
-// Nada de «el más grande de México» (sin verificar) ni fecha del concierto en la Arena (sin dos fuentes).
+// Nada de «el más grande de México» (sin verificar). La fecha de la Arena está verificada (LOS40 y Grupo Animal, oct. 2026).
 
 // Prólogo: 5 viñetas al empezar la primera partida (saltable).
 export const PROLOGO = [
-  { scene: 'estadio', kind: 'dato', source: 'CHILANGO · EXCÉLSIOR', lines: ['24 DE ENERO DE 2026.', 'ESTADIO GNP SEGUROS.', '«ÉRASE UNA BESTIA»: SU PRIMER ESTADIO.'] },
-  { scene: 'arena', kind: 'ficcion', lines: ['LO SIGUIENTE:', 'LA ARENA CIUDAD DE MÉXICO.'] },
+  { id: 'p1', scene: 'estadio', kind: 'dato', source: 'CHILANGO · EXCÉLSIOR', lines: ['24 DE ENERO DE 2026.', 'ESTADIO GNP SEGUROS.', '«ÉRASE UNA BESTIA»: SU PRIMER ESTADIO.'] },
+  { id: 'p2', scene: 'arena', kind: 'dato', source: 'LOS40 · GRUPO ANIMAL', lines: ['LO SIGUIENTE: LA ARENA CIUDAD DE MÉXICO,', '21 Y 22 DE MAYO DE 2027.'] },
   // Esa noche en el Estadio GNP, Pepe lleva el traje negro con lentes oscuros (decisión del usuario).
-  { scene: 'titulares', costume: 'lentes', kind: 'ficcion', lines: ['ESA NOCHE, ENTRE FLASHES Y TITULARES,', 'ALGO SE LE PERDIÓ.'] },
-  { scene: 'museo', costume: 'lentes', kind: 'ficcion', lines: ['PEPE DESPIERTA EN EL MUSEO DE LA CARPA.', 'NO RECUERDA QUIÉN ES.'] },
-  { scene: 'puertas', kind: 'ficcion', lines: ['CADA DISCO GUARDA UNA PARTE DE ÉL.', 'HAY QUE RECUPERARLAS UNA A UNA', 'ANTES DEL CONCIERTO.'] },
+  { id: 'p3', scene: 'titulares', costume: 'lentes', kind: 'ficcion', lines: ['ESA NOCHE, ENTRE FLASHES Y TITULARES,', 'ALGO SE LE PERDIÓ.'] },
+  { id: 'p4', scene: 'museo', costume: 'lentes', kind: 'ficcion', lines: ['PEPE DESPIERTA EN EL MUSEO DE LA CARPA.', 'NO RECUERDA QUIÉN ES.'] },
+  { id: 'p5', scene: 'puertas', kind: 'ficcion', lines: ['CADA DISCO GUARDA UNA PARTE DE ÉL.', 'HAY QUE RECUPERARLAS UNA A UNA', 'ANTES DEL CONCIERTO.'] },
 ];
 
 // Al vencer al jefe de cada mundo: lo que Pepe recuerda (ficción, en primera persona).

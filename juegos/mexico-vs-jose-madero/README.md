@@ -14,7 +14,7 @@ Homenaje **no oficial** hecho por fans (Colores Ruidosos). Spec en [`specs/`](sp
 | Pausa (y Opciones) · Música | P / Esc · M | botón ❚❚ PAUSA | — |
 
 ```bash
-npm test      # 205 tests: motor, guardado, progreso y trajes, Museo, Noche, bots que completan niveles, navegador
+npm test      # 209 tests: motor, guardado, progreso y trajes, Museo, Noche, bots que completan niveles, navegador
 npm run dev   # http://localhost:5174
 npm run build # dist/mexico-vs-jose-madero.html
 npm run publish:web  # ⏸ no usar aún: build + copia a ../../static/juegos/mexico-vs-jose-madero/index.html

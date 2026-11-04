@@ -39,7 +39,7 @@ José Madero tiene que **recordar quién es** antes de su concierto en la **Aren
 | 24 ene 2026, Estadio GNP Seguros, «Érase una Bestia», su primer estadio, con museo en una carpa | Dato | ✅ Chilango, Excélsior |
 | «El más grande de México» | Dato | ⚠️ Sin verificar: no sale en pantalla hasta tener fuente |
 | «Foro GNP» como nombre | — | ✅ El usuario confirma (con fotos, 2 nov) que se refiere al **Estadio GNP Seguros**, al que también se le llama así. En pantalla se usa el nombre de las fuentes: «ESTADIO GNP SEGUROS». La viñeta 1 lo muestra en vista aérea: planta cuadrada y techo cobrizo, sin el lema publicitario del techo ni marcas |
-| Fecha del concierto en la Arena CDMX | Dato | ⚠️ Sin fuente pública: no se pone fecha |
+| Fecha del concierto en la Arena CDMX | Dato | ✅ **21 y 22 de mayo de 2027**, «Querido José Tour» (LOS40, 14 oct 2026; Grupo Animal). Sale en la viñeta 2 con su fuente |
 | Que olvide quién es y lo recupere | **Ficción del juego** | Se presenta como cuento, nunca como dato |
 
 **1. Prólogo** (al pulsar START la primera vez; saltable; unos 30 s; viñetas con texto, estilo intro de arcade):
@@ -554,6 +554,11 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 
 - Lo que aún no se ha ganado se ve vacío, con un «?».
 - Sin texto en las vitrinas, así que no se afirma nada en pantalla.
+
+#### K. v9 · Ilustraciones de las escenas (ChatGPT)
+- Se importan con `scripts/import_scene.py id=imagen@y0`, que recorta la franja de la viñeta (320×150, 64 colores) y las guarda en `src/data/scenes-art.js`. Las viñetas sin ilustración se siguen dibujando por código.
+- ✅ Hechas: p2 (la Arena), p3 (titulares) y p5 (puertas). ⏳ Faltan p1 y p4, y las 8 de los mundos.
+- ⚠️ **p2:** la imagen traía un cartel con la cara realista del artista, su nombre, el nombre de la gira y el logotipo del recinto, que no cumple las reglas legales. El importador tapa el cartel con una pantalla genérica y el juego pinta encima el sello JMV. La fecha va en el texto de la viñeta, con sus fuentes.
 
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:

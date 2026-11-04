@@ -38,7 +38,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ### ⭐ Dónde vive ahora (v0.7)
 - **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
-- En la carpeta: `npm ci` → `npm test` (**205 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
+- En la carpeta: `npm ci` → `npm test` (**209 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
 - ⏸ **No se sube a la web** (lo decidió el usuario el 2 nov): no hay copia en `static/` ni enlace en el menú. Al usuario se le entrega el HTML. `npm run publish:web` queda listo para cuando lo decida.
 - **Novedades de la v0.7** (spec §3.0f):
   - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
@@ -96,7 +96,8 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - vitrinas: Disco de Oro, partitura (siempre) y Máscara de fiesta.
 - ✅ Teatro (1-3) y los tres de Noche (ChatGPT): `art/source/carmesi/w1-teatro.png`, `art/source/noche/w2-{afuera,salon,pista}.png` (los de Noche, en gris y con 32 colores).
 - Penumbra del farol por escenario (`dark` del tema): Salón 0,78, Pista 0,6 y el resto 0,9.
-- ⏳ Faltan las ilustraciones de las escenas (prompts §0e).
+- Escenas (ChatGPT, `scripts/import_scene.py`): ✅ p2, p3 y p5. ⏳ Faltan p1, p4 y las 8 de los mundos. En p2 se tapó el cartel (cara realista, nombre y logotipo) con una pantalla y el sello JMV.
+- ✅ **Fecha de la Arena verificada:** 21 y 22 de mayo de 2027, «Querido José Tour» (LOS40 y Grupo Animal).
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.
@@ -164,7 +165,7 @@ Noche: El Enmascarado del Lago (al vencerlo se quita la máscara) · Alba: La No
 4. **Trajes:** pedir a Gemini las poses que faltan (aterrizaje, daño, KO, victoria, grito) → implementar trajes por mundo + **Galería del Museo** con desbloqueos y guardado (tarea H5).
 5. **Archivo original del logo** de Colores Ruidosos.
 6. Revisión de jefes 2–8 y momento final de *Aurora*.
-7. **Equipo de Madero:** visto bueno al juego, licencia de letras y música, consentimiento de la familia para el memorial. Fecha del concierto en la Arena CDMX (sin fuente pública).
+7. **Equipo de Madero:** visto bueno al juego, licencia de letras y música, consentimiento de la familia para el memorial. Fecha del concierto en la Arena CDMX: ✅ 21 y 22 de mayo de 2027 (LOS40, Grupo Animal).
 8. Alcance: piloto Carmesí + Noche (recomendado) o los 8. ¿Panda/PXNDX como mundo 0?
 9. Publicación oficial en la web de CR (usa el nombre de un artista real: decide el usuario). Al tener los 8 mundos, cargar los fondos aparte (el HTML único pasaría de 1 MB).
 
