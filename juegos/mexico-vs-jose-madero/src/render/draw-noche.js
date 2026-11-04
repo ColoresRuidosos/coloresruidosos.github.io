@@ -134,13 +134,14 @@ export function drawMaskEyes(g, game, t) {
 
 // Oscuridad con el círculo de luz del farol (y, en el apagón, casi negro del todo).
 let DARK = null;
-export function drawDarkness(g, game, camX) {
+export function drawDarkness(g, game, camX, art = null) {
   if (typeof document === 'undefined') return;
   DARK ??= Object.assign(document.createElement('canvas'), { width: W, height: H });
   const d = DARK.getContext('2d'), p = game.player;
   d.globalCompositeOperation = 'source-over';
   d.clearRect(0, 0, W, H);
-  d.fillStyle = game.blackout ? 'rgba(0,0,0,0.97)' : 'rgba(0,0,0,0.9)';
+  // Penumbra fuera del farol: cada escenario dice cuánta (el salón sin luz, más oscuro; la pista con candelabros, menos).
+  d.fillStyle = game.blackout ? 'rgba(0,0,0,0.97)' : `rgba(0,0,0,${art?.theme?.dark ?? 0.9})`;
   d.fillRect(0, 0, W, H);
   d.globalCompositeOperation = 'destination-out';
   const r = game.blackout ? Math.min(lightRadius(game), 44) : lightRadius(game);

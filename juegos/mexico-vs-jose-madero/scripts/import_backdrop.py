@@ -23,7 +23,7 @@ for arg in args:
     w = round(im.width * H / im.height)
     small = im.resize((w, H), Image.LANCZOS)
     # Paleta de 64 colores sin tramado: aspecto 16 bits y PNG ligero.
-    small = small.quantize(colors=64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
+    small = small.quantize(colors=32 if gray else 64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
     buf = io.BytesIO(); small.save(buf, 'PNG', optimize=True)
     out[name] = {'w': w, 'h': H, 'png': 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()}
     os.makedirs('art/out', exist_ok=True)

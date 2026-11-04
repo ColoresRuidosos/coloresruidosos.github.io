@@ -539,7 +539,7 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 3. A los 0,5 s, A lo salta.
 
 #### J. v9 · El Museo con fondo de ChatGPT y exposición que se llena (4 nov 2026)
-**Fondos:** `art/source/museo/museo.png` y `art/source/carmesi/w1-teatro.png` (ChatGPT, prompt §0f). El Teatro sustituye al fondo por código del nivel 1-3 ✅: pasillo bajo una carpa, con cuadros dorados y vitrinas vacías. Se importa con `scripts/import_backdrop.py`, que ahora **añade** el fondo al archivo sin borrar los de Carmesí.
+**Fondos:** `art/source/museo/museo.png` y `art/source/carmesi/w1-teatro.png` (ChatGPT, prompt §0f). El Teatro sustituye al fondo por código del nivel 1-3 ✅. Noche: `art/source/noche/w2-afuera.png`, `w2-salon.png` y `w2-pista.png`, importados en gris ✅. Para que se vean, la penumbra fuera del farol depende del escenario: El Salón (sin luz) 0,78 y La Pista (candelabros encendidos) 0,6. La mecánica no cambia: los fantasmas solo se ven dentro de la luz: pasillo bajo una carpa, con cuadros dorados y vitrinas vacías. Se importa con `scripts/import_backdrop.py`, que ahora **añade** el fondo al archivo sin borrar los de Carmesí.
 
 **La exposición** (dibujada por código encima del fondo, en sus marcos):
 

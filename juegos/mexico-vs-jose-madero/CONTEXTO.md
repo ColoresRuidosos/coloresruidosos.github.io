@@ -94,7 +94,9 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 - **Exposición** (`museumExhibits`), que se llena al terminar cada mundo:
   - cuadros: rosa (Carmesí), antifaz (Noche) y sol (Alba);
   - vitrinas: Disco de Oro, partitura (siempre) y Máscara de fiesta.
-- ✅ Teatro (1-3): `art/source/carmesi/w1-teatro.png` (ChatGPT). ⏳ Faltan los tres fondos de Noche (prompts §0e): importarlos con `--gris`.
+- ✅ Teatro (1-3) y los tres de Noche (ChatGPT): `art/source/carmesi/w1-teatro.png`, `art/source/noche/w2-{afuera,salon,pista}.png` (los de Noche, en gris y con 32 colores).
+- Penumbra del farol por escenario (`dark` del tema): Salón 0,78, Pista 0,6 y el resto 0,9.
+- ⏳ Faltan las ilustraciones de las escenas (prompts §0e).
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.

@@ -118,7 +118,7 @@
 - [x] IL1 Prompts (PROMPTS §0e): 5 del prólogo, 8 de mundos y 3 escenarios de Noche
 - [x] IL1b Prompts §0f: El Teatro (1-3) y El Museo
 - [ ] IL2 🧪 Importador de escenas (320×150, paleta reducida; las de Noche en gris) con respaldo por código si falta alguna
-- [ ] IL3 🧪 Importador de escenarios de Noche (en gris) sin pisar los de Carmesí
+- [x] IL3 🧪 Importador de escenarios de Noche (en gris) sin pisar los de Carmesí · fondos de Teatro, Museo y Noche importados
 - [ ] IL4 ⏳ Decidir el tamaño: el HTML pasaría de ~0,9 a ~1,4 MB
 
 ## Fase 2i — v9 · Museo con fondo de ChatGPT y exposición (🧪 primero)

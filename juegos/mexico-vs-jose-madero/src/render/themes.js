@@ -256,7 +256,7 @@ function salon() {
     for (const k of [0, 1, 2]) { rect(g, '#e8e8e8', 124 + k * 14, 156, 2, 8); }
     for (const [bx, by] of [[180, 120], [192, 112], [204, 124]]) { g.fillStyle = '#b0b0b0'; g.beginPath(); g.ellipse(bx, by, 6, 8, 0, 0, Math.PI * 2); g.fill(); rect(g, '#5a5a5a', bx, by + 8, 1, 44); }
   });
-  return { sky, far, mid, tiles: { ...BW_TILES, checker: true }, goal: 'LA PISTA', gray: true, piece: 'luna' };
+  return { sky, far, mid, tiles: { ...BW_TILES, checker: true }, goal: 'LA PISTA', gray: true, piece: 'luna', dark: 0.78 };
 }
 
 function pista() {
@@ -277,7 +277,7 @@ function pista() {
     chandelierBW(g, 64, 40, true); chandelierBW(g, 192, 46, true);
     for (const x of [8, 136]) { rect(g, '#262626', x, 26, 10, 166); rect(g, '#3a3a3a', x, 26, 2, 166); } // columnas
   });
-  return { sky, far, mid, tiles: { ...BW_TILES, checker: true, semi: '#6a6a6a', semiHi: '#bdbdbd' }, gray: true, piece: 'luna' };
+  return { sky, far, mid, tiles: { ...BW_TILES, checker: true, semi: '#6a6a6a', semiHi: '#bdbdbd' }, gray: true, piece: 'luna', dark: 0.6 };
 }
 
 // ── v7 · El Museo (hub): pasillo con cuadros y vitrinas (spec §3.0f C) ──
