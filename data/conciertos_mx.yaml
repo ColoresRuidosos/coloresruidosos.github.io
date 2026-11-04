@@ -56,6 +56,9 @@ no_cuentan:
   - "Registro duplicado de Tecate Comuna 2022"
 sin_confirmar:
   - {fecha: 2023-04-28, recinto: "Cine Curto", ciudad: "Mexicali", nota: "Se anunció, pero no hay registro de que se haya hecho"}
+# Datos curiosos por edición del fanzine (página 4). Solo con información de esta lista.
+curiosidades:
+  auditorio: "En 2018 también tocaron en la gala de las Lunas del Auditorio: solo 2 canciones, por eso no cuenta entre los 47."
 proximos:
   - {fecha: 2026-11-24, recinto: "Teatro Metropólitan", ciudad: "CDMX", edicion: metropolitan}
   - {fecha: 2026-11-25, recinto: "Auditorio Nacional", ciudad: "CDMX", edicion: auditorio}

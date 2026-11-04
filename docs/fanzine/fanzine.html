@@ -52,14 +52,20 @@ const PAGINAS = {
   4() { // La sede
     fondo(C.tinta); franjas(0, 26);
     px('La sede', W / 2, 110, 34, C.amarillo);
-    lineas(ED.recinto, W / 2, 190, 40, ED.color, 760, 52, PX, '');
-    const y0 = ED.recinto.length > 16 ? 300 : 250;
+    const y0 = 198 + 52 * lineas(ED.recinto, W / 2, 190, 40, ED.color, 760, 52, PX, '');
     px(String(ED.vezNumero), W / 2, y0 + 150, 120, C.crema);
     lineas('Es la ' + ED.vez + ' ' + ED.vezTexto, W / 2, y0 + 230, 34, C.crema, 700, 44, SG, '700 ');
     let y = y0 + 340;
     ED.antes.forEach((a) => { txt(a.fecha, 90, y, 30, C.amarillo, SG, '700 ', 'left'); const n = lineas(a.texto, 300, y, 28, C.crema, 470, 36, SG, '500 ', 'left'); y += 36 * n + 22; });
     y += 20; x.fillStyle = ED.color; x.fillRect(80, y, W - 160, 6); y += 70;
     ED.extra.forEach((t) => { const n = lineas(t, W / 2, y, 28, C.crema, 680, 38); y += 38 * n + 18; });
+    if (ED.curiosidad) { // recuadro "Dato curioso"
+      y += 20; x.font = '500 27px ' + SG;
+      const alto = 70 + 36 * lineas(ED.curiosidad, -9999, -9999, 27, C.crema, 620, 36);
+      x.strokeStyle = ED.color; x.lineWidth = 5; x.strokeRect(70, y, W - 140, alto + 20);
+      px('Dato curioso', W / 2, y + 50, 22, ED.color);
+      lineas(ED.curiosidad, W / 2, y + 95, 27, C.crema, 620, 36);
+    }
     folio(4);
   },
   5() { // Colorear por números

@@ -90,7 +90,7 @@ def datos():
             "fechaCorta": fecha_texto(prox["fecha"]),
             "vez": ordinal(len(antes) + 1), "vezNumero": len(antes) + 1, "vezTexto": "vez de Love of Lesbian " + e["donde"],
             "antes": [{"fecha": fecha_texto(k["fecha"]), "texto": k["recinto"] + (" · " + k["nota"] if k.get("nota") else "")} for k in antes],
-            "extra": extra, "leyendaLista": e["leyenda"],
+            "extra": extra, "leyendaLista": e["leyenda"], "curiosidad": (zm.get("curiosidades") or {}).get(clave, ""),
         }
     return {"conciertos": [{"fecha": k["fecha"].isoformat(), "recinto": k["recinto"], "ciudad": k["ciudad"]} for k in conciertos],
             "preguntas": preguntas, "qr": matriz, "url": url, "ediciones": ediciones}
