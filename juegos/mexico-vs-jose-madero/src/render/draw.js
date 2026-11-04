@@ -244,6 +244,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     // Fondo panorámico de Gemini: recorre la imagen de un borde al otro a lo largo del nivel.
     const ox = panOffset(camX, g.level.w * TILE, th.backdropW);
     ctx.drawImage(th.backdrop, -ox, 0);
+    opts.backdropDecor?.(ctx, ox); // lo que va pegado al fondo (exposición del Museo)
     if (art.themeName === 'azoteas') {
       // Cartel en blanco de la imagen → Colores Ruidosos (lo pone el código, no la IA).
       text(ctx, 'COLORES', 270 - ox, 137, { color: '#c02a38', align: 'center', shadow: null });

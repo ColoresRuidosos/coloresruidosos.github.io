@@ -538,6 +538,23 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 2. Pepe hace su pose de victoria (la animación `win` de la hoja oficial; con traje, salto y reposo), con un foco, confeti y el cartel «¡JEFE VENCIDO!».
 3. A los 0,5 s, A lo salta.
 
+#### J. v9 · El Museo con fondo de ChatGPT y exposición que se llena (4 nov 2026)
+**Fondo:** `art/source/museo/museo.png` (ChatGPT, prompt §0f): pasillo bajo una carpa, con cuadros dorados y vitrinas vacías. Se importa con `scripts/import_backdrop.py`, que ahora **añade** el fondo al archivo sin borrar los de Carmesí.
+
+**La exposición** (dibujada por código encima del fondo, en sus marcos):
+
+| Lugar | Contenido | Cuándo se ve |
+|---|---|---|
+| Cuadro 1 | Carmesí: una rosa roja sobre fondo oscuro (evoca la portada, no la copia) | Al terminar Carmesí |
+| Cuadro 2 | Noche: un antifaz blanco sobre negro | Al terminar Noche |
+| Cuadro 3 | Alba: un sol que amanece sobre blanco | Al terminar Alba (aún no existe) |
+| Vitrina 1 | Disco de Oro | Al terminar Carmesí (*Carmesí* fue Disco de Oro en 2016, dato verificado) |
+| Vitrina 2 | Partitura | Siempre. Pieza real del museo: la partitura original de «Plural siendo singular» (MVS Noticias, El Horizonte, Info7) |
+| Vitrina 3 | Máscara de fiesta | Al terminar Noche (recompensa del jefe) |
+
+- Lo que aún no se ha ganado se ve vacío, con un «?».
+- Sin texto en las vitrinas, así que no se afirma nada en pantalla.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

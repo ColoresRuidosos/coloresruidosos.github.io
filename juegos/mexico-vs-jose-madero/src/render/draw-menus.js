@@ -2,6 +2,7 @@
 import { W, H } from '../game/constants.js';
 import { text, drawCostume, drawCarmesi } from './draw.js';
 import { drawPortrait } from './draw-historia.js';
+import { antifaz } from './draw-noche.js';
 import { COSTUMES } from '../game/progress.js';
 import { worldById } from '../data/worlds.js';
 
@@ -127,4 +128,41 @@ export function drawPause(g, t) {
   text(g, 'A: SEGUIR', W / 2, 110, { align: 'center' });
   text(g, 'B: OPCIONES', W / 2, 122, { align: 'center' });
   text(g, '◀: SALIR AL MUSEO', W / 2, 134, { align: 'center', color: '#b9a8d6' });
+}
+
+// ── v9 · La exposición del Museo (spec §3.0f J), en los marcos y vitrinas del fondo de ChatGPT ──
+// Coordenadas medidas en el fondo escalado (336×224): interior de cada cuadro y cristal de cada vitrina.
+const SLOTS = {
+  cuadro1: { x: 2, y: 76, w: 32, h: 33 }, cuadro2: { x: 118, y: 76, w: 47, h: 33 }, cuadro3: { x: 247, y: 78, w: 32, h: 30 },
+  vitrina1: { x: 63, y: 88, w: 30, h: 42 }, vitrina2: { x: 192, y: 88, w: 30, h: 42 }, vitrina3: { x: 314, y: 88, w: 22, h: 42 },
+};
+function rose(g, cx, cy) {
+  R(g, '#2a6a2a', cx, cy + 2, 1, 10); R(g, '#2a6a2a', cx - 3, cy + 6, 3, 1);
+  for (const [dx, dy, c] of [[-3, -1, '#8e1426'], [3, -1, '#8e1426'], [0, -3, '#c02a38'], [-2, 1, '#c02a38'], [2, 1, '#c02a38'], [0, -1, '#e85a5a']]) { g.fillStyle = c; g.beginPath(); g.arc(cx + dx, cy + dy, 3, 0, Math.PI * 2); g.fill(); }
+  R(g, '#ffb3b3', cx - 1, cy - 3, 1, 1);
+}
+function exhibitArt(g, kind, r, t) {
+  const cx = Math.round(r.x + r.w / 2), cy = Math.round(r.y + r.h / 2);
+  if (kind === 'rosa') { R(g, '#1a050c', r.x, r.y, r.w, r.h); rose(g, cx, cy - 2); }
+  else if (kind === 'antifaz') { R(g, '#0a0a0a', r.x, r.y, r.w, r.h); antifaz(g, cx, cy - 3, false, 2); }
+  else if (kind === 'sol') { R(g, '#efe8d4', r.x, r.y, r.w, r.h); g.fillStyle = '#e8a23c'; g.beginPath(); g.arc(cx, r.y + r.h - 4, 9, Math.PI, 0); g.fill(); for (let k = 0; k < 5; k++) R(g, '#e8a23c', cx - 12 + k * 6, r.y + 4, 2, 6); }
+  else if (kind === 'disco') {
+    g.fillStyle = '#1b1226'; g.beginPath(); g.arc(cx, r.y + r.h - 16, 10, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#ffd34a'; g.beginPath(); g.arc(cx, r.y + r.h - 16, 9, 0, Math.PI * 2); g.fill();
+    g.fillStyle = '#fffbe0'; g.beginPath(); g.arc(cx - 3, r.y + r.h - 19, 3, 0, Math.PI * 2); g.fill(); R(g, '#c8963c', cx - 1, r.y + r.h - 17, 2, 2);
+  } else if (kind === 'partitura') {
+    const x = cx - 9, y = r.y + r.h - 30;
+    R(g, '#1b1226', x - 1, y - 1, 20, 26); R(g, '#efe8d4', x, y, 18, 24);
+    for (let k = 0; k < 2; k++) for (let l = 0; l < 4; l++) R(g, '#8a7a6a', x + 2, y + 4 + k * 10 + l * 2, 14, 1);
+    for (const [nx, ny] of [[4, 5], [8, 7], [12, 4], [5, 15], [10, 17]]) R(g, '#1b1226', x + nx, y + ny, 2, 2);
+  } else if (kind === 'mascara') antifaz(g, cx, r.y + r.h - 18, false, 2);
+}
+export function drawMuseumExhibits(g, ox, exhibits, t) {
+  for (const ex of exhibits) {
+    const s = SLOTS[ex.slot], r = { ...s, x: s.x - ox };
+    if (ex.unlocked) {
+      exhibitArt(g, ex.kind, r, t);
+      if (ex.slot.startsWith('vitrina')) { g.save(); g.globalAlpha = 0.18; R(g, '#fff2c0', r.x, r.y, r.w, r.h); g.restore(); } // reflejo del cristal
+    } else text(g, '?', r.x + r.w / 2, r.y + r.h / 2 - (ex.slot.startsWith('vitrina') ? 0 : 4), { align: 'center', color: '#6c6577', shadow: null });
+  }
 }

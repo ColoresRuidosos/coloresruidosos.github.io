@@ -2,7 +2,7 @@ import { W, H, DT } from './game/constants.js';
 import { createGame, stepGame } from './game/game.js';
 import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
-import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
+import { museumExhibits, recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
 import { PROLOGO, RECUERDOS, PENSAMIENTOS, VUELTA_AL_MUSEO } from './data/historia.js';
 import { drawPrologue, drawVictory } from './render/draw-historia.js';
 import { WORLD_SCENES } from './data/cinematicas.js';
@@ -14,7 +14,7 @@ import { worldById, WORLDS } from './data/worlds.js';
 import { ERA_FACTS_W1, CHAPTERS_W1, LEVEL_CARDS_W1 } from './data/carmesi-story.js';
 import { ERA_FACTS_W2, CHAPTERS_W2, LEVEL_CARDS_W2 } from './data/noche-story.js';
 import { createArt, drawWorld, drawHud, drawTitle, drawEnd, drawCard, drawIntro } from './render/draw.js';
-import { drawMuseumDoors, drawMuseumHud, drawGallery, drawOptions, drawPause, OPTION_ITEMS } from './render/draw-menus.js';
+import { drawMuseumExhibits, drawMuseumDoors, drawMuseumHud, drawGallery, drawOptions, drawPause, OPTION_ITEMS } from './render/draw-menus.js';
 import { createAudio } from './audio/audio.js';
 
 const cv = document.getElementById('game');
@@ -278,7 +278,8 @@ function frame(now) {
     if (screen === 'options') drawOptions(ctx, opt, optSel, t);
   } else if (screen === 'museum' || screen === 'gallery' || (screen === 'options' && back === 'museum')) {
     const info = museumInfo();
-    drawWorld(ctx, game, art, camX, t, 'museo', { ...vis, decor: (g) => drawMuseumDoors(g, hub, info, t, art, worldsDone()) });
+    const exhibits = museumExhibits(save);
+    drawWorld(ctx, game, art, camX, t, 'museo', { ...vis, decor: (g) => drawMuseumDoors(g, hub, info, t, art, worldsDone()), backdropDecor: (g, ox) => drawMuseumExhibits(g, ox, exhibits, t) });
     drawMuseumHud(ctx, museumDoor, info, save.data.record, toast, t);
     if (screen === 'gallery') drawGallery(ctx, art, save, galSel, t);
   } else {

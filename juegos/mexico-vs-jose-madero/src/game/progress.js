@@ -62,6 +62,19 @@ export function startLevelIndex(save, world, levels) {
   return i < 0 ? 0 : i;
 }
 
+// La exposición del Museo (spec §3.0f J): se llena al terminar cada mundo. La partitura está siempre.
+export function museumExhibits(save) {
+  const done = (w) => worldCleared(save, w);
+  return [
+    { slot: 'cuadro1', kind: 'rosa', unlocked: done('carmesi') },
+    { slot: 'cuadro2', kind: 'antifaz', unlocked: done('noche') },
+    { slot: 'cuadro3', kind: 'sol', unlocked: done('alba') },
+    { slot: 'vitrina1', kind: 'disco', unlocked: done('carmesi') },
+    { slot: 'vitrina2', kind: 'partitura', unlocked: true },
+    { slot: 'vitrina3', kind: 'mascara', unlocked: done('noche') },
+  ];
+}
+
 // IDENTIDAD n/8 (spec §1.1b): cuántos discos ha recuperado Pepe.
 export const identity = (save) => WORLDS.filter((w) => worldCleared(save, w.id)).length;
 

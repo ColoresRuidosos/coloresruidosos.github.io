@@ -121,6 +121,10 @@
 - [ ] IL3 🧪 Importador de escenarios de Noche (en gris) sin pisar los de Carmesí
 - [ ] IL4 ⏳ Decidir el tamaño: el HTML pasaría de ~0,9 a ~1,4 MB
 
+## Fase 2i — v9 · Museo con fondo de ChatGPT y exposición (🧪 primero)
+- [x] MU1 🧪 `museumExhibits(save)`: 3 cuadros y 3 vitrinas según los mundos terminados (la partitura siempre)
+- [x] MU2 🎨 Importar el fondo del Museo sin pisar los de Carmesí; dibujar la exposición en los marcos del fondo
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

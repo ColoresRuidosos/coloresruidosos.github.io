@@ -38,7 +38,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 
 ### ⭐ Dónde vive ahora (v0.7)
 - **Repo:** `ColoresRuidosos/coloresruidosos.github.io`, rama `ccr-6e2a6525-41gp9s`, carpeta **`juegos/mexico-vs-jose-madero/`**.
-- En la carpeta: `npm ci` → `npm test` (**202 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
+- En la carpeta: `npm ci` → `npm test` (**204 tests**) → `npm run build` (genera `dist/mexico-vs-jose-madero.html`, ≈ 650 KB).
 - ⏸ **No se sube a la web** (lo decidió el usuario el 2 nov): no hay copia en `static/` ni enlace en el menú. Al usuario se le entrega el HTML. `npm run publish:web` queda listo para cuando lo decida.
 - **Novedades de la v0.7** (spec §3.0f):
   - **Opciones:** destellos, temblor, modo asistido y música; se abren desde la portada (B) y desde la pausa.
@@ -88,6 +88,13 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
 - **Pepe a todo color.** La identidad perdida solo se ve en el retrato del Museo y en el prólogo.
 - **Portada** solo con el nombre (`GAME_TITLE` en `constants.js`). ⏳ El usuario decide el nombre definitivo.
 - **Escenas de entrada y salida** de cada mundo (`src/data/cinematicas.js`), y **pose de festejo** al vencer a cada jefe.
+
+### v0.11: el Museo con fondo de ChatGPT
+- Fondo en `art/source/museo/museo.png`, importado con `scripts/import_backdrop.py museo=…`. El importador ahora añade fondos sin borrar los demás; con `--gris`, para Noche.
+- **Exposición** (`museumExhibits`), que se llena al terminar cada mundo:
+  - cuadros: rosa (Carmesí), antifaz (Noche) y sol (Alba);
+  - vitrinas: Disco de Oro, partitura (siempre) y Máscara de fiesta.
+- ⏳ Faltan los fondos del Teatro y de Noche (prompts §0e y §0f).
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
 - Copia la carpeta **`projects/super-pepe/`** completa (incluye `art/source/`, `specs/`, `scripts/`, `tests/`, `dist/`) y este archivo. No necesita nada más del repo actual.
