@@ -60,11 +60,11 @@ const PAGINAS = {
     y += 20; x.fillStyle = ED.color; x.fillRect(80, y, W - 160, 6); y += 70;
     ED.extra.forEach((t) => { const n = lineas(t, W / 2, y, 28, C.crema, 680, 38); y += 38 * n + 18; });
     if (ED.curiosidad) { // recuadro "Dato curioso"
-      y += 20; x.font = '500 27px ' + SG;
-      const alto = 70 + 36 * lineas(ED.curiosidad, -9999, -9999, 27, C.crema, 620, 36);
-      x.strokeStyle = ED.color; x.lineWidth = 5; x.strokeRect(70, y, W - 140, alto + 20);
-      px('Dato curioso', W / 2, y + 50, 22, ED.color);
-      lineas(ED.curiosidad, W / 2, y + 95, 27, C.crema, 620, 36);
+      y += 6;
+      const alto = 64 + 33 * lineas(ED.curiosidad, -9999, -9999, 25, C.crema, 640, 33);
+      x.strokeStyle = ED.color; x.lineWidth = 5; x.strokeRect(60, y, W - 120, alto + 12);
+      px('Dato curioso', W / 2, y + 44, 22, ED.color);
+      lineas(ED.curiosidad, W / 2, y + 86, 25, C.crema, 640, 33);
     }
     folio(4);
   },
