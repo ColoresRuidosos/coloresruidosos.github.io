@@ -1,5 +1,5 @@
 import { W, H, DT } from './game/constants.js';
-import { createGame, stepGame } from './game/game.js';
+import { createGame, stepGame, hookAhead } from './game/game.js';
 import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
 import { museumExhibits, recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
@@ -185,11 +185,11 @@ function explainFirstTime() {
   let kind = null;
   for (const e of game.events) if (e.startsWith('item:')) kind = ITEM_GUIDE[e.slice(5)] ?? kind;
   if (game.events.includes('piece')) kind ??= 'piezas';
-  if (game.events.includes('hook')) kind ??= 'gancho';
+  if (game.events.includes('hook') || hookAhead(game)) kind ??= 'gancho';  // v9.2: al verlo, no después
   if (game.ovacion >= 100) kind ??= 'solo';
   if (!kind || save.data.seenItems.includes(kind)) { if (game.hint && (game.hint.t -= DT) <= 0) game.hint = null; return; }
   save.data.seenItems.push(kind); save.commit();
-  game.hint = { text: guideOf(kind).first, t: 3 };
+  game.hint = { text: guideOf(kind).first, t: kind === 'gancho' ? 5 : 3 };
 }
 
 function stepOptions(pr) {

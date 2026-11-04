@@ -269,6 +269,14 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     text(ctx, 'X / B  MICRÓFONO', 60, 96, { color: '#d8312b', shadow: null });
     text(ctx, 'C / ★  SOLO', 60, 108, { color: '#7a3b8f', shadow: null });
     rect(ctx, '#1b1226', 116, 124, 4, 68);
+    // v9.2: cartel del gancho, poco antes del primero (tile 90, sobre el hueco).
+    rect(ctx, '#1b1226', 1276, 74, 132, 58); rect(ctx, '#efe8d4', 1278, 76, 128, 54);
+    drawHook(ctx, { x: 1294, y: 102 }, 0, false);
+    text(ctx, '¡GANCHO!', 1308, 80, { color: '#d8312b', shadow: null });
+    text(ctx, 'SALTA Y PULSA', 1308, 92, { color: '#1b1226', shadow: null });
+    text(ctx, 'X / B CERCA:', 1308, 104, { color: '#d8312b', shadow: null });
+    text(ctx, 'TE CUELGAS ▶', 1308, 116, { color: '#1b1226', shadow: null });
+    rect(ctx, '#1b1226', 1340, 132, 4, 60);
   }
 
   ctx.drawImage(art.tiles, 0, 0);
@@ -546,7 +554,7 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
     ctx.globalAlpha = 1;
   }
   // Frase verificada al vencer a un Titular (cartel pequeño abajo).
-  const pop = g.popups.at(-1);
+  const pop = g.popups[0];
   if (pop) {
     const lines = wrap(pop.text, 50);
     const h = lines.length * 9 + 14, y0 = H - h - (b && b.alive ? 26 : 6);

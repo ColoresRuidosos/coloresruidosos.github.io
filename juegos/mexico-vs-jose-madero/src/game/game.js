@@ -58,6 +58,12 @@ export function aimHook(g) {
     .sort((a, b) => Math.abs(a.x - hand.x) - Math.abs(b.x - hand.x))[0] ?? null;
 }
 
+// v9.2: gancho delante a menos de 140 px (para avisar la primera vez que se ve uno), o null.
+export function hookAhead(g) {
+  const p = g.player, cx = p.x + p.w / 2;
+  return g.level.hooks.find((h) => { const d = (h.x - cx) * p.facing; return d > 0 && d < 140 && Math.abs(h.y - p.y) < 120; }) ?? null;
+}
+
 export function hurt(g, fromX) {
   if (g.invuln > 0 || g.star > 0) return; // con el Antifaz, nada hace daño
   g.hurts++;
@@ -112,7 +118,8 @@ export function defeat(g, e, force = false) {
   // Cada dato sale una sola vez (v7.3): cuando se acaban, el Titular solo grita su titular.
   if (e.kind === 'titular' && g.quoteIdx < g.facts.length) {
     const q = g.facts[g.quoteIdx++];
-    g.popups.push({ text: q.text, source: q.source, t: 3 });
+    // v9.2: dura según su largo y hace cola tras el anterior (spec §3.0f M).
+    g.popups.push({ text: q.text, source: q.source, t: 3 + q.text.length / 20 });
   }
 }
 
@@ -328,8 +335,7 @@ export function stepGame(g, btn) {
     g.status = 'won'; g.events.push('won');
   }
 
-  for (const pop of g.popups) pop.t -= DT;
-  g.popups = g.popups.filter((pop) => pop.t > 0);
+  if (g.popups.length && (g.popups[0].t -= DT) <= 0) g.popups.shift();
   for (const f of g.floats) { f.t -= DT; f.y -= 20 * DT; }
   g.floats = g.floats.filter((f) => f.t > 0);
   return g;

@@ -130,6 +130,11 @@
 - [x] GU2 🎨 Pantalla de la guía (Opciones y pausa ▶)
 - [x] HK1 🧪 `aimHook`: gancho al que iría el micro ahora; «B» sobre él; ganchos quietos sin destellos y visibles en la oscuridad
 
+## Fase 2k — v9.2 · Ganchos y datos de Carmesí (🧪 primero)
+- [x] HK2 🧪 `hookAhead` y aviso la primera vez que se ve un gancho; cartel del gancho en 1-1
+- [x] DC1 🧪 Datos de Carmesí: capítulos con `uses`, cada dato una vez, un Titular por dato (se ven todos)
+- [x] DC2 🧪 Datos en pantalla: duración según el largo y en cola
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

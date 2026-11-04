@@ -577,6 +577,22 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 - **Qué incluye:** Carta de fan, Amplificador, Púa de guitarra, Antifaz, Aceite, Solo de guitarra (Ovación), piezas (Carmesís y lunas) y ganchos.
 - **Primera vez:** al recoger un objeto por primera vez, sale abajo su explicación de una línea durante 3 s. Queda guardado (`seenItems`) para no repetirlo.
 
+#### M. v9.2 · Enseñar los ganchos y revisar los datos de Carmesí (pedido del usuario, 4 nov 2026)
+**Ganchos: que el jugador sepa que se puede colgar.**
+- **Cartel en 1-1**, como el de los controles, poco antes del primer gancho, con el dibujo de un gancho: «¡GANCHO! SALTA Y PULSA X / B CERCA DE ÉL: TE CUELGAS Y SALES DISPARADO».
+- **Aviso la primera vez que se ve un gancho:** antes se explicaba después de usarlo. Ahora salta cuando hay un gancho delante a menos de 140 px (`hookAhead`), y solo una vez.
+- **La «B» sobre el gancho** cuando está a tiro (v9.1) se mantiene.
+
+**Datos de Carmesí durante la partida (revisión):**
+
+| Problema | Arreglo |
+|---|---|
+| 13 datos para 7 Titulares: 6 no salían nunca | Los datos que usan los capítulos salen de la lista. Dos enemigos pasan a ser Titulares (uno en 1-1 y otro en 1-2), así que hay un Titular por dato y se ven todos |
+| Repetidos: los capítulos contaban lo mismo que los Titulares y las tarjetas; «Lunes 28» salía dos veces (dos D2) | Misma regla que en Noche: cada dato sale **una sola vez** por mundo. Cada capítulo cuenta la historia y declara como mucho un dato (`uses`): 1-1 → D2 («Lunes 28»), 1-2 → D4 (primer sencillo) y 1-3 → D9 (Metropólitan). La segunda frase de D2 se quita |
+| Duraban 3 s aunque tuvieran 3 líneas, y uno tapaba al anterior | Duran **3 s + 1 s por cada 20 caracteres**, y si llegan dos seguidos **hacen cola**: se ven uno detrás de otro |
+
+Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico; no se añade ninguno.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

@@ -48,8 +48,7 @@ describe('datos sin repetir (H7)', () => {
         ...Object.values(cards).flatMap((c) => c.facts.map((f) => f.id)),
       ];
       const dup = ids.filter((id, i) => ids.indexOf(id) !== i);
-      // D2 de Carmesí son dos frases distintas del mismo dato aprobado (adelanto + canción que abre el disco).
-      assert.deepEqual(dup.filter((d) => d !== 'D2'), [], `repetidos: ${dup}`);
+      assert.deepEqual(dup, [], `repetidos: ${dup}`);
     });
   }
 
