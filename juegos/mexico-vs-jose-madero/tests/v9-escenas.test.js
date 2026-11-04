@@ -19,6 +19,6 @@ test('cada ilustración es de una viñeta que existe y mide 320×150 (la franja 
   }
 });
 
-test('la Arena: el cartel con la cara, el nombre y el logotipo va tapado por una pantalla propia con el sello JMV', () => {
-  assert.ok(SCENE_ART.p2.badge, 'el sello va encima de la pantalla tapada');
+test('la Arena: la imagen va tal cual, sin tapar el cartel (decisión del usuario, riesgo aceptado)', () => {
+  assert.equal(SCENE_ART.p2.badge, undefined);
 });

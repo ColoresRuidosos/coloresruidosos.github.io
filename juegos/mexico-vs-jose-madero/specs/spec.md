@@ -558,7 +558,7 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 #### K. v9 · Ilustraciones de las escenas (ChatGPT)
 - Se importan con `scripts/import_scene.py id=imagen@y0`, que recorta la franja de la viñeta (320×150, 64 colores) y las guarda en `src/data/scenes-art.js`. Las viñetas sin ilustración se siguen dibujando por código.
 - ✅ Hechas: p2 (la Arena), p3 (titulares) y p5 (puertas). ⏳ Faltan p1 y p4, y las 8 de los mundos.
-- ⚠️ **p2:** la imagen traía un cartel con la cara realista del artista, su nombre, el nombre de la gira y el logotipo del recinto, que no cumple las reglas legales. El importador tapa el cartel con una pantalla genérica y el juego pinta encima el sello JMV. La fecha va en el texto de la viñeta, con sus fuentes.
+- ⚠️ **p2, riesgo aceptado por el usuario (4 nov 2026):** la imagen va **tal cual**, con un cartel que lleva la cara realista del artista (no el Pepe de CR), su nombre, el de la gira y el logotipo de la Arena CDMX. Es una excepción a las reglas de §1 («nada de logotipos de terceros»), igual que la botarga morada. Revisarla antes de una publicación oficial y si el equipo de Madero da su visto bueno. La fecha va también en el texto de la viñeta, con sus fuentes.
 
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:

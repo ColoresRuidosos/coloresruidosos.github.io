@@ -2,8 +2,8 @@
 """Importa ilustraciones de escenas (ChatGPT) a la franja de la viñeta: 320×150 px, paleta de 64 colores.
 Uso: python3 scripts/import_scene.py <id>=<imagen>[@y0] [...]   →  src/data/scenes-art.js (añade sin borrar)
   y0: primera fila del recorte en la imagen original (por defecto, centrado).
-Tapado (spec §3.0f K): en p2 (la Arena) el cartel trae la cara realista del artista, su nombre y el logotipo del
-recinto; se tapa con una pantalla genérica y el juego pinta encima el sello JMV (propio).
+Tapado (opcional): TAPAR guarda polígonos a cubrir con una pantalla genérica y el sello JMV encima.
+p2 (la Arena) va SIN tapar por decisión del usuario (spec §3.0f K, riesgo aceptado).
 """
 import base64, io, json, os, re, sys
 from PIL import Image, ImageDraw
@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw
 W, H = 320, 150
 OUT = 'src/data/scenes-art.js'
 # Polígonos a tapar, en coordenadas de la imagen original 1536×1024 (medidos a mano).
-TAPAR = {'p2': [(226, 262), (885, 204), (1298, 262), (1298, 668), (885, 642), (226, 668)]}
+TAPAR = {}  # p.ej. {'p2': [(226, 262), (885, 204), (1298, 262), (1298, 668), (885, 642), (226, 668)]}
 
 out = {}
 if os.path.exists(OUT):

@@ -96,7 +96,7 @@ Specs en `specs/`, `specs/reel/`, `specs/noche/` y `specs/cabanas/`. El MP4 sale
   - vitrinas: Disco de Oro, partitura (siempre) y Máscara de fiesta.
 - ✅ Teatro (1-3) y los tres de Noche (ChatGPT): `art/source/carmesi/w1-teatro.png`, `art/source/noche/w2-{afuera,salon,pista}.png` (los de Noche, en gris y con 32 colores).
 - Penumbra del farol por escenario (`dark` del tema): Salón 0,78, Pista 0,6 y el resto 0,9.
-- Escenas (ChatGPT, `scripts/import_scene.py`): ✅ p2, p3 y p5. ⏳ Faltan p1, p4 y las 8 de los mundos. En p2 se tapó el cartel (cara realista, nombre y logotipo) con una pantalla y el sello JMV.
+- Escenas (ChatGPT, `scripts/import_scene.py`): ✅ p2, p3 y p5. ⏳ Faltan p1, p4 y las 8 de los mundos. p2 va tal cual, con el cartel (cara realista, nombre y logotipo): riesgo aceptado por el usuario.
 - ✅ **Fecha de la Arena verificada:** 21 y 22 de mayo de 2027, «Querido José Tour» (LOS40 y Grupo Animal).
 
 ### Cómo seguir en otro repo (histórico: así se trajo desde awesome-opus5-5-videos)
