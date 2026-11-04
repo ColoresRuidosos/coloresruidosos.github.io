@@ -143,3 +143,10 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Cliente: canje por `?codigo=` y por formulario en la colección; avisos; quitar el parámetro de la URL
 - ✅ Cartel Carta y Doble Carta con QR verificado (se decodifica y abre la URL correcta)
 - ✅ e2e: QR → insignia nueva en la colección; fuera de fecha → aviso
+
+## Fase 17 — Fanzine de concierto (F26/D32)
+- ✅ Spec
+- ⏳ 🔴→🟢 `data/conciertos_mx.yaml`: 47 conciertos válidos y en orden; conteos por año y por sede
+- ⏳ Páginas 1–8 de la edición Auditorio; revisión con el equipo
+- ⏳ Imposición en Carta + guía de doblado; prueba física de doblez
+- ⏳ Ediciones Metropolitan y Puebla

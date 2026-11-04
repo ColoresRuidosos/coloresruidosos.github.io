@@ -138,6 +138,12 @@ Al elegir, entra directo a ese juego. En el menú también están Mi colección,
 - **El código y las fechas viven en `hugo.toml`**, así el equipo puede cambiarlos (si el código se filtra, se cambia y se reimprime el cartel). El repo es público: el código no es secreto ante quien lea el repositorio, y la ventana de fechas es lo que limita el abuso. La página solo trae la huella SHA-256 del código.
 - **Cartel imprimible** (Carta y Doble Carta): "Trivia 8 bits de Love of Lesbian", el QR grande, la chapa de la insignia, el código escrito por si el QR falla, las fechas, @coloresruidosos y la aclaración "Hecho por fans; no somos la organización de la banda ni del concierto".
 
+**F26 Fanzine de concierto (impreso).** Un mini-fanzine gratuito de 8 páginas que se regala en cada concierto de noviembre de 2026, con una edición especial por recinto: **Teatro Metropólitan (24 nov), Auditorio Nacional (25 nov) y Tecate Comuna, Puebla (28 nov)**.
+- **Formato:** una hoja Carta horizontal, impresa por un lado, con un corte al centro y dobleces (el "one-sheet zine"). Quedan 8 páginas de 7 × 10,8 cm. Sin grapas, se dobla a mano.
+- **Páginas:** 1 portada de la edición (color propio por recinto) · 2–3 **los 47 conciertos en México (2013–2026)** año por año · 4 **la historia de la banda en esa sede** y cuántas veces han tocado ahí · 5 **pixel art para colorear por números** (la banda en el escenario) · 6 **mini trivia** de 3 preguntas del banco verificado, con respuestas de cabeza, y QR a la trivia y a la insignia de concierto · 7 **"Escribe aquí tu setlist"** · 8 contraportada con @coloresruidosos, créditos y "Hecho por fans: no somos la organización de la banda ni del concierto".
+- **Datos:** la lista de conciertos es la investigación del equipo, guardada en `data/conciertos_mx.yaml` (fecha, recinto, ciudad, notas). Ahí también quedan los cancelados, los que no cuentan y los sin confirmar, que no se imprimen en la lista. El fanzine solo usa lo que está en ese archivo.
+- **Salida:** un PDF por edición, ya impuesto para imprimir, más una guía de doblado y una versión con las páginas en orden para revisarla en pantalla.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
