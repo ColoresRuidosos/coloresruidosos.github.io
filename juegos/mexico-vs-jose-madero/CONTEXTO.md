@@ -57,7 +57,8 @@
 - **Versión jugable compartida:** https://claude.ai/artifact/APwgHNVC6q7ajF9JwtmU3r (artifact del usuario, abierto a «cualquiera con el enlace»).
   - Se actualiza publicando `dist/…html` con esa URL como `url`.
   - Está en la v0.13.
-- ⏸ **No se publica en la web de CR** (decisión del usuario): no hay copia en `static/` ni enlace en el menú. `npm run publish:web` queda listo para cuando se decida.
+- ✅ **Se publica en la web de CR** (decisión del usuario, 4 nov 2026): el menú «Trivia» pasa a **Games** (F25/D31 en `docs/`); el juego vive en `/games/mexico-vs-jose-madero/` (`npm run publish:web` lo copia a `static/games/…`) y su tarjeta aparece sola el **viernes 6 nov 2026 a las 8:00 CDMX** (`data/games.json`). Rama `ccr-af671956-9kq01g`, sin PR: se despliega al fusionar en `main`.
+- 🎬 **Tráiler** (reel 9:16, 36 s, estilo 16-bit Pixel RPG con juego real grabado por bots): `edgaralrohe/awesome-opus5-5-videos`, `projects/trailer-jmv/` (rama `ccr-af671956-9kq01g`); `sh build.sh` lo regenera.
 
 ### Historia (spec §1.1b, aprobada)
 1. **Prólogo** (5 viñetas, saltable, solo la primera vez):
@@ -199,7 +200,7 @@
 10. **Equipo de Madero:**
     - visto bueno al juego, licencia de letras y música y consentimiento para el memorial;
     - revisar los riesgos aceptados (botarga y cartel de la Arena).
-11. **Publicación en la web de CR:** solo cuando lo decida el usuario.
+11. **Publicación en la web de CR:** decidida; falta fusionar la rama en `main` antes del viernes 6 nov.
 
 ## 5. Datos verificados (con fuente) — José Madero
 | Dato | Fuente |
