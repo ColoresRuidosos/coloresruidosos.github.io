@@ -3,7 +3,7 @@ import { createGame, stepGame, hookAhead } from './game/game.js';
 import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
 import { museumExhibits, recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
-import { PROLOGO, RECUERDOS, PENSAMIENTOS, VUELTA_AL_MUSEO } from './data/historia.js';
+import { PROLOGO, PENSAMIENTOS, VUELTA_AL_MUSEO, recuerdoCard } from './data/historia.js';
 import { drawPrologue, drawVictory } from './render/draw-historia.js';
 import { WORLD_SCENES } from './data/cinematicas.js';
 import { VICTORY } from './game/constants.js';
@@ -115,9 +115,8 @@ function finishLevel() {
     const w = worldById(run.world);
     endInfo = { title: `¡MUNDO ${wd.n} COMPLETADO!`, lines: [...nuevos, run.world === 'carmesi' ? 'SE ABRIÓ LA PUERTA DE NOCHE EN EL MUSEO' : `${w.name} YA ESTÁ EN TU MUSEO`] };
     // Al terminar el mundo: «¿Sabías que…?» → «RECUERDO RECUPERADO» (con el retrato ya con su pieza) → final.
-    const rec = RECUERDOS[run.world];
     const toEnd = () => { screen = 'end'; screenT = 0; };
-    const recuerdo = { kind: 'recuerdo', ...rec, worldsDone: worldsDone(), then: () => (WORLD_SCENES[run.world] ? playCutscene(WORLD_SCENES[run.world].outro, toEnd) : toEnd()) };
+    const recuerdo = { ...recuerdoCard(run.world, worldsDone()), then: () => (WORLD_SCENES[run.world] ? playCutscene(WORLD_SCENES[run.world].outro, toEnd) : toEnd()) };
     showCard({ ...fact, then: () => showCard(recuerdo) });
   }
 }

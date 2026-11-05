@@ -17,6 +17,9 @@ export const RECUERDOS = {
   noche: { kind: 'ficcion', year: 2017, title: 'DEBAJO DE LA MÁSCARA', lines: ['NOCHE, 2017.', 'ME ACUERDO: DEBAJO DE CADA MÁSCARA', 'HAY ALGUIEN COMO YO.'] },
 };
 
+// Tarjeta «RECUERDO RECUPERADO» de un mundo. El kind va al final: RECUERDOS trae kind 'ficcion' (v9.3).
+export const recuerdoCard = (world, worldsDone) => ({ ...RECUERDOS[world], kind: 'recuerdo', worldsDone });
+
 // Pensamientos de Pepe al tocar cada checkpoint (ficción), en orden a lo largo del mundo.
 export const PENSAMIENTOS = {
   carmesi: [
