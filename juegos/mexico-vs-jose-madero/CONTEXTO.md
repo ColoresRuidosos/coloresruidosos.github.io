@@ -21,7 +21,7 @@
   - Memorial (feminicidio): sin violencia ni puntos, y sin nombres de víctimas sin el consentimiento de su familia.
 - **Riesgos aceptados por el usuario** (anotados en la spec; revisar antes de una publicación oficial):
   - la botarga morada (recuerda a Tinky Winky), que sale sin nombre;
-  - la viñeta 2 del prólogo (la Arena), que va tal cual: un cartel con la cara realista de José Madero, «MADERO», «Querido José Tour», el logotipo de la Arena CDMX y las fechas.
+  - la viñeta 2 del prólogo (la Arena), que va tal cual: un cartel con la cara realista de José Madero, «MADERO», «Querido José Tour», el logotipo de la Arena CDMX y las fechas. **Desde el 5 nov 2026 también abre el tráiler** (decisión del usuario).
 
 ## 2. Repositorios y entorno
 | Repo | Qué hay | Rama |
@@ -58,7 +58,7 @@
   - Se actualiza publicando `dist/…html` con esa URL como `url`.
   - Está en la v0.13.
 - ✅ **Se publica en la web de CR** (decisión del usuario, 4 nov 2026): el menú «Trivia» pasa a **Games** (F25/D31 en `docs/`); el juego vive en `/games/mexico-vs-jose-madero/` (`npm run publish:web` lo copia a `static/games/…`) y su tarjeta aparece sola el **viernes 6 nov 2026 a las 8:00 CDMX** (`data/games.json`). Rama `ccr-af671956-9kq01g`, sin PR: se despliega al fusionar en `main`.
-- 🎬 **Tráiler** (reel 9:16, 36 s, estilo 16-bit Pixel RPG con juego real grabado por bots): `edgaralrohe/awesome-opus5-5-videos`, `projects/trailer-jmv/` (rama `ccr-af671956-9kq01g`); `sh build.sh` lo regenera.
+- 🎬 **Tráiler** (reel 9:16, 50 s, estilo 16-bit Pixel RPG con juego real grabado por bots; abre con la Arena, explica cómo se juega, los 2 mundos y «un disco cada 2 semanas»): `edgaralrohe/awesome-opus5-5-videos`, `projects/trailer-jmv/` (rama `ccr-af671956-9kq01g`); `sh build.sh` lo regenera.
 
 ### Historia (spec §1.1b, aprobada)
 1. **Prólogo** (5 viñetas, saltable, solo la primera vez):
