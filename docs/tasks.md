@@ -137,14 +137,23 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 `barajarRonda`: mismas 10 canciones, otro orden; `mismasCanciones` ignora el orden
 - ✅ Cliente: barajar al empezar una ronda nueva; al recargar se conserva el orden guardado
 
-## Fase 16 — Insignia de concierto y cartel con QR (F25/D31)
+## Fase 16 — Sección Games con México vs. José Madero (F25/D31)
+- ✅ Spec
+- ✅ 🔴→🟢 `tests-js/games.test.js`: contrato de `data/games.json`, archivo del juego en `static/`, menú con "Games"
+- ✅ `data/games.json`, `content/games/_index.md`, `layouts/games/section.html` y estilos de las tarjetas
+- ✅ Menú: "Trivia" → "Games"; "◀ Games" en la trivia
+- ✅ Compilar el juego (221 tests) y probarlo a 390 px con los controles táctiles; copiado a `static/games/mexico-vs-jose-madero/`
+- ✅ Agregar el test al workflow de publicación
+- ⏳ Compilar con Hugo y probar a 390 px (no se pudo instalar Hugo en esta sesión: queda para la revisión del PR)
+
+## Fase 17 — Insignia de concierto y cartel con QR (F26/D32)
 - ✅ Spec
 - ✅ 🔴→🟢 `normalizarCodigo` y `canjearConcierto`: código bueno en fecha, malo, fuera de fecha, ya canjeado; `gran_truco` no la pide
 - ✅ Cliente: canje por `?codigo=` y por formulario en la colección; avisos; quitar el parámetro de la URL
 - ✅ Cartel Carta y Doble Carta con QR verificado (se decodifica y abre la URL correcta)
 - ✅ e2e: QR → insignia nueva en la colección; fuera de fecha → aviso
 
-## Fase 17 — Fanzine de concierto (F26/D32)
+## Fase 18 — Fanzine de concierto (F27/D33)
 - ✅ Spec
 - ✅ 🔴→🟢 `data/conciertos_mx.yaml`: 47 conciertos válidos y en orden; conteos por año y por sede
 - ✅ Páginas 1–8 de la edición Auditorio · ⏳ revisión con el equipo

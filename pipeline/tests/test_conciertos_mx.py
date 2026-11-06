@@ -1,4 +1,4 @@
-"""F26/D32: la lista de conciertos que usa el fanzine."""
+"""F27/D33: la lista de conciertos que usa el fanzine."""
 from collections import Counter
 from datetime import date
 from pathlib import Path

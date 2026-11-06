@@ -1,4 +1,4 @@
-"""Cartel de concierto con QR (F25/D31): genera cartel-carta.pdf y cartel-doble-carta.pdf.
+"""Cartel de concierto con QR (F26/D32): genera cartel-carta.pdf y cartel-doble-carta.pdf.
 
 Uso (desde la raíz del repo):
     pip install segno img2pdf

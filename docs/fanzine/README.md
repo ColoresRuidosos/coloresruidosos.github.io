@@ -1,4 +1,4 @@
-# Fanzine de concierto (F26/D32)
+# Fanzine de concierto (F27/D33)
 
 Mini-fanzine de 8 páginas hecho con **una hoja Carta**, una edición por concierto de noviembre de 2026.
 

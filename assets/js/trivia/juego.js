@@ -786,7 +786,7 @@
     b.setAttribute("data-abrir-insignia", ins.id);
     b.appendChild(lienzoChapa(ins, est, "trivia__chapa-img"));
     b.appendChild(crear("strong", "", oculta ? "???" : ins.nombre));
-    // Una insignia con leyenda (F25) la muestra cuando ya la tienes.
+    // Una insignia con leyenda (F26) la muestra cuando ya la tienes.
     var texto = est === "nueva" ? "¡Nueva!" : oculta ? "Pista: " + ins.pista : ins.leyenda && est === "ganada" ? ins.leyenda : ins.como;
     b.appendChild(crear("span", ins.leyenda && est === "ganada" ? "trivia__leyenda" : "", texto));
     li.appendChild(b);
@@ -825,7 +825,7 @@
     avisoTimer = setTimeout(function () { avisoInsignia.hidden = true; }, 4000);
   }
 
-  // ---------- Insignia de concierto (F25/D31) ----------
+  // ---------- Insignia de concierto (F26/D32) ----------
   var concierto = raiz.getAttribute("data-concierto-huella") ? {
     huella: raiz.getAttribute("data-concierto-huella"),
     desde: raiz.getAttribute("data-concierto-desde"), hasta: raiz.getAttribute("data-concierto-hasta"),

@@ -1,4 +1,4 @@
-"""Fanzine de concierto (F26/D32): un PDF por edición, ya impuesto en Carta, más una vista en orden.
+"""Fanzine de concierto (F27/D33): un PDF por edición, ya impuesto en Carta, más una vista en orden.
 
 Uso (desde la raíz del repo):
     pip install segno img2pdf pyyaml

@@ -1,4 +1,4 @@
-# Cartel de concierto con QR (F25/D31)
+# Cartel de concierto con QR (F26/D32)
 
 El cartel invita a escanear un QR que abre la trivia y desbloquea la insignia exclusiva **«Noches reversibles»**.
 Solo funciona en las fechas de `[params.trivia_concierto]` de `hugo.toml` (hoy: del 24 al 28 de noviembre de 2026, hora de CDMX).

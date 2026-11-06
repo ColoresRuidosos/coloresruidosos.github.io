@@ -96,16 +96,18 @@
 
 **D30 Orden al azar en la ronda del día (2026-11-03):** F24. `rondaDelDia` sigue eligiendo las mismas 10 canciones para todos; `barajarRonda(ids, rng)` las reordena con `Math.random` al empezar una ronda nueva. La ronda guardada se reconoce con `mismasCanciones` (mismo conjunto, sin importar el orden), así que recargar no la vuelve a barajar. El ranking no cambia: compara puntos de las mismas 10 canciones.
 
-**D31 Insignia de concierto y cartel (2026-11-03):** F25.
+**D31 Sección Games (2026-11-04):** F25. Los juegos se listan en `data/games.json` (`id`, `nombre`, `descripcion`, `url` relativa sin barra inicial, `desde` en RFC 3339 con zona). `layouts/games/section.html` muestra solo los que cumplen `desde` ≤ hora de compilación, así que la tarjeta aparece sola en la corrida diaria de las 8:00. La trivia se queda en `/trivia/` (cambiarla rompería las tarjetas compartidas y el ranking); solo cambia la etiqueta del menú, que queda activa en las secciones `games` y `trivia`. El juego de José Madero es un HTML de un solo archivo (~1,6 MB) compilado en `juegos/mexico-vs-jose-madero/` y copiado con `npm run publish:web` a `static/games/mexico-vs-jose-madero/index.html`; Hugo lo sirve tal cual. No va en un iframe, porque los controles táctiles necesitan la pantalla entera. `tests-js/games.test.js` valida el contrato de datos, que el archivo del juego exista y el menú.
+
+**D32 Insignia de concierto y cartel (2026-11-03):** F26.
 - `hugo.toml` → `[params.trivia_concierto]` con `codigo`, `desde` y `hasta` (RFC 3339 con zona de CDMX). La plantilla publica `sha256` del código normalizado y las fechas en `data-concierto-*`; el código en claro no va en la página.
 - `logica.js`: `normalizarCodigo` (mayúsculas, sin espacios, guiones ni acentos) y `canjearConcierto(estado, huella, config, ahora)`, que devuelve `{estado, nuevas, error}` con error `"codigo"`, `"fecha"` o `"ya"`. Es pura: la huella la calcula `juego.js` con `crypto.subtle`. Familia `concierto` fuera de `tieneTodas`.
 - `juego.js`: al cargar con `?codigo=` canjea, muestra el aviso en la colección y quita el parámetro de la URL con `history.replaceState`. En la colección hay un formulario para escribir el código.
 - Cartel: HTML a 300 dpi → PDF (Carta y Doble Carta), QR de nivel de corrección M a `https://coloresruidosos.github.io/trivia/?codigo=<código>`, generado con `segno`. Se guarda en `docs/concierto/` junto con su script, para regenerarlo si cambia el código.
 
-**D32 Fanzine de concierto (2026-11-04):** F26.
+**D33 Fanzine de concierto (2026-11-04):** F27.
 - `data/conciertos_mx.yaml`: lista ordenada con `fecha` (ISO), `recinto`, `ciudad`, `nota` y `marca` (la † del equipo, por definir). Secciones `cancelados`, `no_cuentan`, `sin_confirmar` y `proximos`. Una prueba revisa que haya 47 conciertos, fechas válidas y en orden.
 - `docs/fanzine/`: la página 5 usa `dibujo-colorear.png` (dibujo del equipo, limpiado a línea negra sobre blanco). `fanzine.html` dibuja cada página a 300 dpi (825 × 1275 px) en canvas con las fuentes del sitio y los sprites del juego. `render.js` la abre por página y edición, y `generar_fanzine.py` impone las 8 páginas en Carta horizontal (fila de arriba de cabeza: 5 4 3 2; fila de abajo: 6 7 8 1) y arma los PDF con `img2pdf`.
-- Las preguntas de la página 6 salen de `data/trivia.json` (solo `fuerza: solida`). Los QR (trivia y `?codigo=` de F25) se generan con `segno` y se verifican decodificándolos.
+- Las preguntas de la página 6 salen de `data/trivia.json` (solo `fuerza: solida`). Los QR (trivia y `?codigo=` de F26) se generan con `segno` y se verifican decodificándolos.
 
 ## Verificaciones pendientes
 | ID | Qué | Plan B |

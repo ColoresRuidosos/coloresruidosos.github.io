@@ -5,7 +5,7 @@
 <script src="../../assets/js/trivia/insignias.js"></script>
 <script src="fanzine-datos.js"></script>
 <script>
-// Fanzine de concierto (F26/D32): una página de 7 × 10,8 cm a 300 dpi (825 × 1275 px). ?ed=auditorio&p=1
+// Fanzine de concierto (F27/D33): una página de 7 × 10,8 cm a 300 dpi (825 × 1275 px). ?ed=auditorio&p=1
 const W = 825, H = 1275, q = new URLSearchParams(location.search);
 const Z = window.FANZINE, ED = Z.ediciones[q.get('ed') || 'auditorio'], PAG = +q.get('p') || 1;
 const c = document.getElementById('c'), x = c.getContext('2d');
@@ -68,7 +68,7 @@ const PAGINAS = {
     }
     folio(4);
   },
-  5() { // Dibujo para colorear, hecho por el equipo (F26)
+  5() { // Dibujo para colorear, hecho por el equipo (F27)
     fondo('#ffffff');
     px('Colorea', W / 2, 110, 40, C.tinta);
     txt('a la banda como quieras', W / 2, 165, 28, '#666', SG, '700 ');

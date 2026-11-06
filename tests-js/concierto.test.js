@@ -1,4 +1,4 @@
-// F25/D31: insignia exclusiva de concierto, canjeada con el código del cartel.
+// F26/D32: insignia exclusiva de concierto, canjeada con el código del cartel.
 const test = require("node:test");
 const assert = require("node:assert");
 const crypto = require("node:crypto");

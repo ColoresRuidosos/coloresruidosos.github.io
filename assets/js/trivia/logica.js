@@ -56,7 +56,7 @@
     { id: "domingo", nombre: "Domingo astromántico", como: "Racha de 7 días en la ronda del día", familia: "adivina", icono: "estrella" },
     { id: "nada", nombre: "Nada", como: "No acertar ninguna canción en una ronda", familia: "adivina", icono: "silencio", oculta: true, pista: "Ni una te sonó conocida" },
     { id: "starman", nombre: "El día que Starman huyó", como: "60 de 60: las 10 canciones con 1 segundo", familia: "adivina", icono: "starman", oculta: true, pista: "Ni un segundo más" },
-    // Concierto (F25/D31): solo con el código del cartel, del 24 al 28 de noviembre de 2026.
+    // Concierto (F26/D32): solo con el código del cartel, del 24 al 28 de noviembre de 2026.
     { id: "noches_reversibles", nombre: "Noches reversibles", como: "Escanear el QR de Colores Ruidosos en un concierto", familia: "concierto", icono: "banda", leyenda: "Gracias por existir" },
     { id: "gran_truco", nombre: "El gran truco final", como: "Tener todas las demás insignias", familia: "secreta", icono: "sombrero", oculta: true, pista: "Solo para quien lo tiene todo" },
   ];
@@ -299,7 +299,7 @@
     return { estado: estado, nuevas: otorgar(estado, ganadas, ahora) };
   }
 
-  // Código del cartel de concierto (F25): mayúsculas, sin espacios, guiones ni acentos.
+  // Código del cartel de concierto (F26): mayúsculas, sin espacios, guiones ni acentos.
   function normalizarCodigo(codigo) {
     return String(codigo || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
   }

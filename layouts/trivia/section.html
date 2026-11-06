@@ -1,6 +1,8 @@
 {{ define "main" }}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
 
+<p class="migas"><a href="{{ "games/" | relURL }}">◀ Games</a></p>
+
 <header class="encabezado">
   <h1 class="encabezado__titulo">{{ .Title }}</h1>
   {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}

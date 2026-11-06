@@ -1,0 +1,19 @@
+[
+  {
+    "id": "mexico-vs-jose-madero",
+    "nombre": "México vs. José Madero",
+    "descripcion": "Homenaje no oficial de 16 bits. Pepe perdió su identidad y la recupera disco a disco: Carmesí y Noche, rumbo a la Arena Ciudad de México (21 y 22 de mayo de 2027).",
+    "url": "games/mexico-vs-jose-madero/",
+    "boton": "▶ Jugar",
+    "etiqueta": "Nuevo",
+    "desde": "2026-11-06T08:00:00-06:00"
+  },
+  {
+    "id": "trivia",
+    "nombre": "Trivia Love of Lesbian",
+    "descripcion": "Trivia 8 bits solo para fans: 15 preguntas por etapas, contrarreloj y Adivina la canción del día.",
+    "url": "trivia/",
+    "boton": "▶ Jugar",
+    "desde": "2026-09-01T00:00:00-06:00"
+  }
+]
