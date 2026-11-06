@@ -5,7 +5,7 @@ export const SCHEMA = 1;
 
 export const defaults = () => ({
   v: SCHEMA,
-  options: { flashes: true, shake: true, assist: false, music: true },
+  options: { flashes: true, shake: true, assist: false, music: true, notas: true }, // v9.4: notas = datos, pensamientos y avisos en pantalla
   worlds: {}, // { [mundo]: { cleared: [ids], best: { [nivel]: { time, score, piezas, total } } } }
   unlocked: ['clasico'],
   costume: 'auto',

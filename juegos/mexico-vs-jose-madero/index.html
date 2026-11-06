@@ -15,14 +15,15 @@
   canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; max-width: 100%; box-shadow: 0 8px 32px #0006; }
   .bar { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 12px; max-width: 100%; flex-wrap: wrap; justify-content: center; }
   .bar button { background: var(--btn); color: var(--fg); border: 0; border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer; }
-  .pad { display: none; width: min(100%, 520px); justify-content: space-between; align-items: center; }
+  .pad { display: none; width: min(100%, 520px); justify-content: space-between; align-items: center; margin-top: 14px; }
   @media (pointer: coarse) { .pad { display: flex; } .keys { display: none; } }
-  .pad .dir, .pad .act { display: flex; gap: 12px; align-items: center; }
+  .pad .dir, .pad .act { display: flex; gap: clamp(6px, 2.5vw, 12px); align-items: center; }
   .pad, .pad * { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
-  .pad button { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--fg); background: var(--btn); color: var(--fg); font: 800 22px system-ui, sans-serif; touch-action: none; }
+  /* v9.4: los botones se encogen en celulares estrechos (el navegador de Instagram dejaba la A fuera) */
+  .pad button { width: clamp(50px, 17vw, 72px); height: clamp(50px, 17vw, 72px); border-radius: 50%; border: 3px solid var(--fg); background: var(--btn); color: var(--fg); font: 800 clamp(18px, 5vw, 22px) system-ui, sans-serif; touch-action: none; flex: none; }
   .pad button.on { background: var(--btn-on); color: #fff; }
   .pad .act button:last-child { transform: translateY(-18px); }
-  .pad .act button.star { width: 54px; height: 54px; font-size: 20px; transform: translateY(26px); }
+  .pad .act button.star { width: clamp(44px, 13vw, 54px); height: clamp(44px, 13vw, 54px); font-size: clamp(16px, 4.5vw, 20px); transform: translateY(26px); }
 </style>
 </head>
 <body>
@@ -32,9 +33,10 @@
   <div class="act"><button class="star" data-btn="special" aria-label="Solo de guitarra">★</button><button data-btn="mic" aria-label="Micrófono">B</button><button data-btn="jump" aria-label="Saltar">A</button></div>
 </div>
 <div class="bar">
-  <span class="keys">← → mover · Z saltar · X micrófono (y entrar) · C solo de guitarra · P pausa · M música</span>
+  <span class="keys">← → mover · Z saltar · X micrófono (y entrar) · C solo de guitarra · P pausa · M música · N notas</span>
   <button id="pause" type="button" aria-label="Pausa y opciones">❚❚ PAUSA</button>
   <button id="music" type="button">♪ ON</button>
+  <button id="notes" type="button" aria-label="Notas en pantalla (tecla N)">💬 NOTAS: SÍ</button>
   <span>Homenaje no oficial · <a href="../../" style="color:inherit">Colores Ruidosos</a></span>
 </div>
 <script type="module" src="src/main.js"></script>
