@@ -22,6 +22,14 @@
   /* v9.4: los botones se encogen en celulares estrechos (el navegador de Instagram dejaba la A fuera) */
   .pad button { width: clamp(50px, 17vw, 72px); height: clamp(50px, 17vw, 72px); border-radius: 50%; border: 3px solid var(--fg); background: var(--btn); color: var(--fg); font: 800 clamp(18px, 5vw, 22px) system-ui, sans-serif; touch-action: none; flex: none; }
   .pad button.on { background: var(--btn-on); color: #fff; }
+  .listen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px; background: #0009; z-index: 10; }
+  .listen[hidden] { display: none; }
+  .listen__box { width: min(100%, 360px); background: var(--bg); color: var(--fg); border: 3px solid var(--fg); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .listen__title { margin: 0; font: 800 18px system-ui, sans-serif; }
+  .listen__note { margin: 0; color: var(--muted); }
+  .listen__links { display: flex; flex-direction: column; gap: 8px; }
+  .listen__links a, .listen__close { display: block; text-align: center; padding: 12px; border-radius: 8px; font: 700 15px system-ui, sans-serif; text-decoration: none; background: var(--btn); color: var(--fg); border: 0; cursor: pointer; }
+  .listen__links a { background: var(--accent); color: #fff; }
   .pad .act button:last-child { transform: translateY(-18px); }
   .pad .act button.star { width: clamp(44px, 13vw, 54px); height: clamp(44px, 13vw, 54px); font-size: clamp(16px, 4.5vw, 20px); transform: translateY(26px); }
 </style>
@@ -38,8 +46,18 @@
   <button id="music" type="button">♪ ON</button>
   <button id="notes" type="button" aria-label="Notas en pantalla (tecla N)">💬 NOTAS: SÍ</button>
   <button id="skip" type="button" hidden aria-label="Saltar la nota (tecla S)">⏭ SALTAR NOTA</button>
+  <button id="listen" type="button" hidden>🎧 ESCUCHAR</button>
   <span>Homenaje no oficial · Colores Ruidosos</span><!-- v9.5: sin enlace; un toque sin querer sacaba del juego -->
 </div>
 <script type="module" src="src/main.js"></script>
+<!-- v9.7: escuchar el disco en las plataformas oficiales (otra pestaña; el juego no reproduce su música) -->
+<div id="listen-panel" class="listen" hidden role="dialog" aria-modal="true" aria-labelledby="listen-title">
+  <div class="listen__box">
+    <p id="listen-title" class="listen__title">🎧 Escuchar</p>
+    <p class="listen__note">Se abre en otra pestaña; tu partida sigue aquí, en pausa.</p>
+    <div class="listen__links"></div>
+    <button type="button" class="listen__close">◀ Volver al juego</button>
+  </div>
+</div>
 </body>
 </html>
