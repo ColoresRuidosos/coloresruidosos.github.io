@@ -149,6 +149,11 @@
 - [x] SK2 🧪 `drawHud` devuelve dónde dibujó cada nota (con ✕); tocar dentro la salta y no hace saltar a Pepe
 - [x] SK3 🎨 Botón ⏭ SALTAR NOTA (solo con nota en pantalla) y tecla S; navegador
 
+## Fase 2o — v9.7 · Escuchar el disco (🧪 primero)
+- [x] ES1 🧪 `src/data/escuchar.js`: un disco por mundo jugable; enlaces https a la búsqueda oficial (Spotify, Apple Music y YouTube Music) con artista y disco
+- [x] ES2 🧪 `albumFor(screen, run, door)`: el disco del mundo o de la puerta abierta; ninguno en portada ni en puertas cerradas
+- [x] ES3 🎨 Botón 🎧 y panel (pausa, 3 plataformas en otra pestaña, Volver al juego); navegador
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
