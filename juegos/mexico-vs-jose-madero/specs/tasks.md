@@ -141,6 +141,9 @@
 - [x] NT3 🎨 Tecla N y botón 💬 NOTAS; navegador: alternar y que sobreviva a recargar
 - [x] MV1 🧪 Mando táctil en celulares estrechos (navegador de Instagram): a 320, 360, 390 y 412 px se ven ◀ ▶ ★ B y A completos (antes la A quedaba fuera)
 
+## Fase 2m — v9.5 · Sin enlaces junto al mando (🧪 primero)
+- [x] LK1 🧪 La página del juego no tiene enlaces (un toque sin querer sacaba del juego); el crédito sigue como texto
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

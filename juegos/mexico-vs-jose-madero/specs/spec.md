@@ -593,6 +593,10 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 
 Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico; no se añade ninguno.
 
+#### Ñ. v9.5 · Sin enlaces junto al mando (pedido del equipo, 6 nov 2026)
+- **Problema:** el enlace «Colores Ruidosos» de la barra bajo el juego quedaba pegado al mando táctil. Al tocarlo sin querer, el navegador salía del juego y se perdía la partida.
+- **Cambio:** en la página del juego no hay enlaces. El crédito «Homenaje no oficial · Colores Ruidosos» se queda como texto. Para volver a la web se usa el botón «atrás» del navegador.
+
 #### N. v9.4 · Quitar las notas de la pantalla (pedido del equipo, 6 nov 2026)
 - **Problema:** durante el juego, el dato verificado de abajo, el pensamiento de Pepe de arriba y el aviso del objeto nuevo tapan mucho la acción, sobre todo en el celular.
 - **Opción nueva «NOTAS EN PANTALLA» (SÍ/NO)** en Opciones (desde la portada y desde la pausa). Por defecto SÍ y se guarda en `options.notas`. Las partidas guardadas antes la toman como SÍ.

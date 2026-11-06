@@ -261,3 +261,13 @@ for (const width of [320, 360, 390, 412]) {
     await ctx.close();
   });
 }
+
+// ── v9.5 (spec §3.0f Ñ): ningún enlace junto al mando (un toque sin querer sacaba del juego) ──
+test('v9.5: la página del juego no tiene enlaces; el crédito de homenaje sigue como texto', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 760 }, hasTouch: true, isMobile: true });
+  const p = await ctx.newPage();
+  await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+  assert.equal(await p.evaluate(() => document.querySelectorAll('a[href]').length), 0);
+  assert.match(await p.textContent('.bar'), /Homenaje no oficial · Colores Ruidosos/);
+  await ctx.close();
+});
