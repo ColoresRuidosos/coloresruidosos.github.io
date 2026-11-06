@@ -189,8 +189,10 @@ export function drawThought(g, thought) {
   const w = Math.min(W - 16, thought.text.length * 6 + 20);
   // Debajo del HUD y de los contadores de ayudas.
   R(g, '#1b1226', W / 2 - w / 2 - 1, 45, w + 2, 15); R(g, '#efe8d4', W / 2 - w / 2, 46, w, 13);
-  text(g, thought.text, W / 2, 49, { align: 'center', color: '#1b1226', shadow: null });
+  text(g, thought.text, W / 2 - 4, 49, { align: 'center', color: '#1b1226', shadow: null });
+  text(g, '✕', W / 2 + w / 2 - 8, 49, { color: '#8a3a4a', shadow: null });   // v9.6: tocar la nota la salta
   g.restore();
+  return { x: W / 2 - w / 2 - 1, y: 45, w: w + 2, h: 15 };
 }
 
 // ── Tarjeta «RECUERDO RECUPERADO» al terminar un mundo ──

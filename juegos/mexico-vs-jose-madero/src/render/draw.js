@@ -550,28 +550,34 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null, opts = {}) {
     for (let i = 0; i < maxHp; i++) rect(ctx, i < b.hp ? (b.phase === 2 ? '#ff5a4f' : '#d8312b') : '#3a2050', W / 2 - 60 + i * seg, H - 10, seg - 1, 6);
   }
   // Pensamiento de Pepe al tocar un checkpoint (ficción).
-  drawThought(ctx, notes.thought);
+  const zones = {};   // v9.6: dónde quedó cada nota, para saltarla con un toque
+  if (notes.thought) zones.thought = drawThought(ctx, notes.thought);
   // Primera vez que se recoge un objeto: su explicación (guía de objetos).
   const hint = notes.hint;
   if (hint) {
     ctx.globalAlpha = Math.min(1, hint.t * 3);
     const w = Math.min(W - 12, hint.text.length * 6 + 16), y0 = H - 46;
     rect(ctx, '#1b1226', W / 2 - w / 2 - 1, y0 - 1, w + 2, 15); rect(ctx, '#ffcf7a', W / 2 - w / 2, y0, w, 13);
-    text(ctx, hint.text, W / 2, y0 + 3, { align: 'center', color: '#1b1226', shadow: null });
+    text(ctx, hint.text, W / 2 - 4, y0 + 3, { align: 'center', color: '#1b1226', shadow: null });
+    text(ctx, '✕', W / 2 + w / 2 - 8, y0 + 3, { color: '#8a3a4a', shadow: null });
     ctx.globalAlpha = 1;
+    zones.hint = { x: W / 2 - w / 2 - 1, y: y0 - 1, w: w + 2, h: 15 };
   }
   // Frase verificada al vencer a un Titular (cartel pequeño abajo).
   const pop = notes.pop;
   if (pop) {
-    const lines = wrap(pop.text, 50);
+    const lines = wrap(pop.text, 46);   // v9.6: deja sitio a la ✕ de la derecha
     const h = lines.length * 9 + 14, y0 = H - h - (b && b.alive ? 26 : 6);
     ctx.globalAlpha = Math.min(1, pop.t * 2);
     rect(ctx, '#1b1226', 8, y0, W - 16, h);
     rect(ctx, '#efe8d4', 9, y0 + 1, W - 18, h - 2);
     lines.forEach((l, i) => text(ctx, l, W / 2, y0 + 4 + i * 9, { color: '#1b1226', align: 'center', shadow: null }));
     text(ctx, `— ${pop.source}`, W / 2, y0 + 4 + lines.length * 9, { color: '#d8312b', align: 'center', shadow: null });
+    text(ctx, '✕', W - 18, y0 + 4, { color: '#8a3a4a', shadow: null });
     ctx.globalAlpha = 1;
+    zones.pop = { x: 8, y: y0, w: W - 16, h };
   }
+  return zones;
 }
 
 const CHROME = ['#ffffff', '#e6e9f0', '#b9c0d0', '#8a93a8', '#c9cfdc', '#f0f2f7', '#9aa2b5'];
