@@ -27,6 +27,7 @@ RAIZ = AQUI.parent.parent
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 DIAS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 PREGUNTAS = ["D12", "F05", "D03"]  # del banco verificado (fuerza sólida)
+CREDITO_DIBUJO = "Dibujo: Colores Ruidosos"  # página 5 (docs/fanzine/dibujo-colorear.png)
 EDICIONES = {
     "metropolitan": {"nombre": "Edición Metropólitan", "recinto": "Teatro Metropólitan", "color": "#2F5BFF", "texto": "#F4EFE6",
                      "sede": lambda k: k["recinto"] == "Teatro Metropólitan", "donde": "en el Teatro Metropólitan",
@@ -93,7 +94,7 @@ def datos():
             "extra": extra, "leyendaLista": e["leyenda"], "curiosidad": (zm.get("curiosidades") or {}).get(clave, ""),
         }
     return {"conciertos": [{"fecha": k["fecha"].isoformat(), "recinto": k["recinto"], "ciudad": k["ciudad"]} for k in conciertos],
-            "preguntas": preguntas, "qr": matriz, "url": url, "ediciones": ediciones}
+            "preguntas": preguntas, "qr": matriz, "url": url, "ediciones": ediciones, "creditoDibujo": CREDITO_DIBUJO}
 
 
 def pdf(imagenes, ancho_in, alto_in, destino):

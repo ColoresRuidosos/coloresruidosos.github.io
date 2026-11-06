@@ -68,26 +68,14 @@ const PAGINAS = {
     }
     folio(4);
   },
-  5() { // Colorear por números
+  5() { // Dibujo para colorear, hecho por el equipo (F26)
     fondo('#ffffff');
-    px('Colorea', W / 2, 90, 34, C.tinta); px('por números', W / 2, 140, 26, C.tinta);
-    const filas = CRinsignias.ICONOS.banda, P = CRinsignias.PALETA;
-    const usados = []; filas.forEach((f) => [...f].forEach((ch) => { if (P[ch] && usados.indexOf(ch) < 0) usados.push(ch); }));
-    const NOMBRES = { k: 'negro', s: 'piel', o: 'naranja', r: 'rojo', G: 'gris', Y: 'amarillo claro', y: 'amarillo', m: 'café', w: 'blanco', L: 'gris claro', p: 'rosa', W: 'blanco' };
-    const cel = 46, X0 = (W - 16 * cel) / 2, Y0 = 190;
-    // Solo las filas con dibujo (recorta las vacías de arriba y abajo).
-    const conDibujo = filas.map((f) => [...f].some((ch) => P[ch])); const j0 = conDibujo.indexOf(true), j1 = conDibujo.lastIndexOf(true);
-    x.strokeStyle = '#bdbdbd'; x.lineWidth = 2;
-    for (let j = j0; j <= j1; j++) for (let i = 0; i < 16; i++) {
-      const X = X0 + i * cel, Y = Y0 + (j - j0) * cel, ch = filas[j][i];
-      x.strokeRect(X, Y, cel, cel);
-      if (P[ch]) txt(String(usados.indexOf(ch) + 1), X + cel / 2, Y + cel / 2 + 8, 22, '#666', SG, '700 ');
-    }
-    let y = Y0 + (j1 - j0 + 1) * cel + 70;
-    usados.forEach((ch, k) => { const col = k % 2, fila = Math.floor(k / 2), X = 110 + col * 320, Y = y + fila * 56;
-      x.strokeStyle = '#141414'; x.lineWidth = 3; x.strokeRect(X, Y - 32, 40, 40);
-      txt((k + 1) + '  ' + NOMBRES[ch], X + 60, Y, 30, C.tinta, SG, '700 ', 'left'); });
-    txt('La banda en el escenario, en 8 bits', W / 2, H - 80, 26, '#666');
+    px('Colorea', W / 2, 110, 40, C.tinta);
+    txt('a la banda como quieras', W / 2, 165, 28, '#666', SG, '700 ');
+    const img = window.DIBUJO, ancho = W - 70, alto = ancho * img.naturalHeight / img.naturalWidth;
+    x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+    x.drawImage(img, (W - ancho) / 2, 200 + Math.max(0, (H - 330 - alto) / 2), ancho, alto);
+    txt(Z.creditoDibujo, W / 2, H - 80, 24, '#666', SG, '700 ');
     folio(5, '#666');
   },
   6() { // Mini trivia + QR
@@ -163,5 +151,7 @@ const COINCIDE = {
 };
 ED.coincide = COINCIDE[q.get('ed') || 'auditorio'];
 window.listo = document.fonts.load('40px "Press Start 2P"').then(() => document.fonts.load('700 40px "Space Grotesk"'))
-  .then(() => document.fonts.load('500 40px "Space Grotesk"')).then(() => { PAGINAS[PAG](); return true; });
+  .then(() => document.fonts.load('500 40px "Space Grotesk"'))
+  .then(() => new Promise((ok, mal) => { const im = new Image(); im.onload = () => { window.DIBUJO = im; ok(); }; im.onerror = mal; im.src = 'dibujo-colorear.png'; }))
+  .then(() => { PAGINAS[PAG](); return true; });
 </script></body></html>
