@@ -150,6 +150,15 @@ Al elegir, entra directo a ese juego. En el menú también están Mi colección,
 - **Datos:** la lista de conciertos es la investigación del equipo, guardada en `data/conciertos_mx.yaml` (fecha, recinto, ciudad, notas). Ahí también quedan los cancelados, los que no cuentan y los sin confirmar, que no se imprimen en la lista. El fanzine solo usa lo que está en ese archivo.
 - **Salida:** un PDF por edición, ya impuesto para imprimir, más una guía de doblado y una versión con las páginas en orden para revisarla en pantalla.
 
+**F28 Halley Flip (juego en Games).** Juego de reflejos de un solo toque, en pixel art 8 bits, inspirado en *El poeta Halley*: guías al **cometa Halley** a través de una gira por las 6 etapas de la banda.
+- **Cómo se juega:** la gravedad jala al cometa hacia abajo y **cada toque** (pantalla, clic o barra espaciadora) le da un impulso hacia arriba. Avanza solo. Hay que pasar entre **torres de bocinas** que salen de arriba y de abajo, sin chocar con ellas, con el piso ni con el techo.
+- **Puntos:** +1 por cada par de torres que pasas. Entre las torres a veces flota una **nota musical**: recogerla suma a tu contador de notas, que se muestra al final.
+- **Etapas:** cada 10 puntos cambias de etapa y de fondo, con las 6 escenas pixel art de la trivia (de *Microscopic Movies* a *Ejército de salvación*). El ritmo sube un poco en cada etapa: más velocidad y huecos más angostos, con un tope para que siga siendo justo.
+- **Al chocar:** pantalla de resultado con puntos, etapa alcanzada, notas y tu récord. Botones "Otra vez" y "Compartir", que copia un texto sin spoilers ("Halley Flip · 23 puntos · etapa 3 · 7 notas · coloresruidosos.github.io/games/halley-flip/").
+- **Justo y accesible:** la física avanza a paso fijo, igual en cualquier celular. Hay pausa (P o el botón) y un "Listo… ¡toca para empezar!" antes de que empiece a caer. El sonido está apagado de inicio. Con `prefers-reduced-motion` no hay sacudidas ni destellos. Aviso: "Juego de reflejos".
+- **Vive en Games:** tarjeta propia en `/games/` y página en `/games/halley-flip/`. El récord se guarda solo en el navegador. Ranking e insignias quedan para una segunda fase: el ranking requiere actualizar el Apps Script.
+- **Original:** nombre, personaje, obstáculos, fondos y música propios. No usa nombres, sprites ni el aspecto de otros juegos.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos

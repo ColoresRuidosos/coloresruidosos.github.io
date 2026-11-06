@@ -109,6 +109,12 @@
 - `docs/fanzine/`: la página 5 usa `dibujo-colorear.png` (dibujo del equipo, limpiado a línea negra sobre blanco). `fanzine.html` dibuja cada página a 300 dpi (825 × 1275 px) en canvas con las fuentes del sitio y los sprites del juego. `render.js` la abre por página y edición, y `generar_fanzine.py` impone las 8 páginas en Carta horizontal (fila de arriba de cabeza: 5 4 3 2; fila de abajo: 6 7 8 1) y arma los PDF con `img2pdf`.
 - Las preguntas de la página 6 salen de `data/trivia.json` (solo `fuerza: solida`). Los QR (trivia y `?codigo=` de F26) se generan con `segno` y se verifican decodificándolos.
 
+**D34 Halley Flip (2026-11-06):** F28.
+- **Lógica pura** en `assets/js/halley/flip.js` (UMD, probada con `node --test tests-js/halley.test.js`). El mundo mide 160 × 144 px, igual que las escenas, y avanza a paso fijo de 1/60 s; el render interpola. Estado: `{y, vy, x0, torres[], notas[], puntos, notasTomadas, vivo, rng}`. `paso(estado, toque)` aplica la gravedad (0,16 px/paso²), el impulso (−2,7 px/paso), una caída máxima de 3,6 px/paso y el avance de las torres. Las torres salen con una semilla (mulberry32), así una partida es reproducible en las pruebas. Velocidad y hueco dependen de la etapa: velocidad 1,0 → 1,5 y hueco 50 → 38 px, con tope. Choque círculo-rectángulo (radio 4).
+- **Pantalla** en `assets/js/halley/juego.js`: canvas 160 × 144 escalado con `image-rendering: pixelated`, `requestAnimationFrame` con acumulador de tiempo. Fondos de `escenas.js` (6 etapas), y el cometa, las torres y las notas como sprites de texto (estilo de `insignias.js`). Entrada: `pointerdown` en el canvas y la barra espaciadora.
+- **Página:** `content/games/halley-flip.md` con `layout: halley-flip` y `layouts/games/halley-flip.html`. Los scripts se empaquetan con `resources.Concat` y `minify` como la trivia. Entrada nueva en `data/games.json`, con `desde` el día que se fusione.
+- **Récord** en `localStorage` (`cr-halley-v1`), protegido con try/catch.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
