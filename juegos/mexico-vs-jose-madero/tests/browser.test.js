@@ -207,7 +207,7 @@ test('v8.3: al vencer al jefe, pose de festejo; A la salta y salen las tarjetas'
 test('v9.1: la guía de objetos se abre desde las Opciones de la portada y desde la pausa', async () => {
   await page.reload(); await page.waitForTimeout(400);
   await page.keyboard.press('KeyX'); await page.waitForTimeout(200); // portada → Opciones
-  for (let i = 0; i < 4; i++) { await page.keyboard.press('ArrowDown'); await page.waitForTimeout(120); } // hasta «GUÍA DE OBJETOS» (5.ª opción)
+  for (let i = 0; i < 5; i++) { await page.keyboard.press('ArrowDown'); await page.waitForTimeout(120); } // hasta «GUÍA DE OBJETOS» (6.ª opción desde v9.4)
   await page.keyboard.press('KeyZ'); await page.waitForTimeout(120);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'guide');
   await page.screenshot({ path: 'out/10-guia.png' });
@@ -221,3 +221,43 @@ test('v9.1: la guía de objetos se abre desde las Opciones de la portada y desde
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'play');
   assert.deepEqual(errors, []);
 });
+
+// ── v9.4 (spec §3.0f N): quitar las notas ──────────────
+test('v9.4: la tecla N y el botón 💬 quitan y ponen las notas; se guarda al recargar', async () => {
+  await page.reload(); await page.waitForTimeout(400);
+  await page.evaluate(() => window.__jmv.goto(0, 'carmesi'));
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), true);
+  await page.keyboard.press('KeyN'); await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), false);
+  assert.equal(await page.textContent('#notes'), '💬 NOTAS: NO');
+  // Un dato en cola no se dibuja sin notas: comparamos la franja de abajo con y sin el cartel.
+  const strip = () => page.evaluate(() => { const c = document.getElementById('game'); return c.getContext('2d').getImageData(8, 170, 304, 40).data.reduce((a, v) => a + v, 0); });
+  await page.evaluate(() => { const g = window.__jmv.game; g.popups.length = 0; g.popups.push({ text: 'DATO DE PRUEBA PARA LAS NOTAS', source: 'PRUEBA', t: 30 }); });
+  await page.waitForTimeout(250); const off = await strip();
+  await page.click('#notes'); await page.waitForTimeout(250);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), true);
+  const on = await strip();
+  assert.ok(on > off * 1.2, `el cartel claro del dato debería aclarar la franja (con ${on}, sin ${off})`);
+  await page.keyboard.press('KeyN'); await page.waitForTimeout(150);
+  await page.reload(); await page.waitForTimeout(400);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), false);
+  assert.equal(await page.textContent('#notes'), '💬 NOTAS: NO');
+  assert.deepEqual(errors, []);
+});
+
+// ── v9.4: en celulares estrechos (navegador de Instagram, 320–412 px) caben los 5 botones del mando ──
+for (const width of [320, 360, 390, 412]) {
+  test(`v9.4: a ${width} px de ancho se ven completos ◀ ▶ ★ B y A`, async () => {
+    const ctx = await browser.newContext({ viewport: { width, height: 760 }, hasTouch: true, isMobile: true, deviceScaleFactor: 1 });
+    const p = await ctx.newPage();
+    await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+    const r = await p.evaluate(() => [...document.querySelectorAll('.pad button')].map((b) => { const q = b.getBoundingClientRect(); return { k: b.dataset.btn, l: q.left, r: q.right, w: q.width }; }));
+    const W = await p.evaluate(() => innerWidth);
+    assert.equal(r.length, 5);
+    for (const b of r) {
+      assert.ok(b.l >= 0 && b.r <= W, `${b.k}: de ${b.l.toFixed(0)} a ${b.r.toFixed(0)} px, la pantalla mide ${W}`);
+      assert.ok(b.w >= 44, `${b.k}: ${b.w.toFixed(0)} px, menos que el mínimo táctil de 44`);
+    }
+    await ctx.close();
+  });
+}

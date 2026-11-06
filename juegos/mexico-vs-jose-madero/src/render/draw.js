@@ -510,7 +510,13 @@ export function drawCostume(ctx, art, id, pose, x, y, flip = false) {
 const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
 const BOSS_NAME = { flash: 'CÁMARA FLASH-BOT', mask: 'EL ENMASCARADO' };
-export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
+// v9.4: las «notas» (dato del Titular, pensamiento y aviso de objeto) se pueden quitar desde Opciones.
+export function hudNotes(g, opts = {}) {
+  if (opts.notas === false) return { pop: null, thought: null, hint: null };
+  return { pop: g.popups?.[0] ?? null, thought: g.thought ?? null, hint: g.hint ?? null };
+}
+export function drawHud(ctx, g, levelName = '', t = 0, art = null, opts = {}) {
+  const notes = hudNotes(g, opts);
   // Barra superior.
   ctx.globalAlpha = 0.55; rect(ctx, '#12040a', 0, 0, W, 30); ctx.globalAlpha = 1;
   for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });
@@ -544,17 +550,18 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null) {
     for (let i = 0; i < maxHp; i++) rect(ctx, i < b.hp ? (b.phase === 2 ? '#ff5a4f' : '#d8312b') : '#3a2050', W / 2 - 60 + i * seg, H - 10, seg - 1, 6);
   }
   // Pensamiento de Pepe al tocar un checkpoint (ficción).
-  drawThought(ctx, g.thought);
+  drawThought(ctx, notes.thought);
   // Primera vez que se recoge un objeto: su explicación (guía de objetos).
-  if (g.hint) {
-    ctx.globalAlpha = Math.min(1, g.hint.t * 3);
-    const w = Math.min(W - 12, g.hint.text.length * 6 + 16), y0 = H - 46;
+  const hint = notes.hint;
+  if (hint) {
+    ctx.globalAlpha = Math.min(1, hint.t * 3);
+    const w = Math.min(W - 12, hint.text.length * 6 + 16), y0 = H - 46;
     rect(ctx, '#1b1226', W / 2 - w / 2 - 1, y0 - 1, w + 2, 15); rect(ctx, '#ffcf7a', W / 2 - w / 2, y0, w, 13);
-    text(ctx, g.hint.text, W / 2, y0 + 3, { align: 'center', color: '#1b1226', shadow: null });
+    text(ctx, hint.text, W / 2, y0 + 3, { align: 'center', color: '#1b1226', shadow: null });
     ctx.globalAlpha = 1;
   }
   // Frase verificada al vencer a un Titular (cartel pequeño abajo).
-  const pop = g.popups[0];
+  const pop = notes.pop;
   if (pop) {
     const lines = wrap(pop.text, 50);
     const h = lines.length * 9 + 14, y0 = H - h - (b && b.alive ? 26 : 6);

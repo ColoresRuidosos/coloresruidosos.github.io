@@ -135,6 +135,12 @@
 - [x] DC1 🧪 Datos de Carmesí: capítulos con `uses`, cada dato una vez, un Titular por dato (se ven todos)
 - [x] DC2 🧪 Datos en pantalla: duración según el largo y en cola
 
+## Fase 2l — v9.4 · Quitar las notas (🧪 primero)
+- [x] NT1 🧪 `options.notas` (por defecto SÍ, también en partidas viejas) y la opción en el menú
+- [x] NT2 🧪 `hudNotes`: con NO, sin dato, pensamiento ni aviso; el aviso no se da por visto
+- [x] NT3 🎨 Tecla N y botón 💬 NOTAS; navegador: alternar y que sobreviva a recargar
+- [x] MV1 🧪 Mando táctil en celulares estrechos (navegador de Instagram): a 320, 360, 390 y 412 px se ven ◀ ▶ ★ B y A completos (antes la A quedaba fuera)
+
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
 - [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)

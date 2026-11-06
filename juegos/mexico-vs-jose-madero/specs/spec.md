@@ -593,6 +593,14 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 
 Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico; no se añade ninguno.
 
+#### N. v9.4 · Quitar las notas de la pantalla (pedido del equipo, 6 nov 2026)
+- **Problema:** durante el juego, el dato verificado de abajo, el pensamiento de Pepe de arriba y el aviso del objeto nuevo tapan mucho la acción, sobre todo en el celular.
+- **Opción nueva «NOTAS EN PANTALLA» (SÍ/NO)** en Opciones (desde la portada y desde la pausa). Por defecto SÍ y se guarda en `options.notas`. Las partidas guardadas antes la toman como SÍ.
+- **Con NO**, durante el juego no salen: el dato del Titular, el pensamiento del checkpoint ni el aviso de objeto nuevo (que tampoco se da por visto, para que salga cuando se vuelvan a activar las notas).
+- **Se mantiene:** el marcador, la barra de Ovación, la vida del jefe y la tarjeta «¿Sabías que…?» al terminar cada nivel. Los datos verificados no se pierden.
+- **Atajos:** la tecla **N** y un botón **💬 NOTAS** en la barra bajo el juego, junto a PAUSA y ♪ (útil en el celular).
+- **Mando táctil en celulares estrechos (mismo día):** en el navegador de Instagram la **A** quedaba fuera de la pantalla, porque los 5 botones medían siempre 72 px. Ahora se encogen con el ancho (entre 50 y 72 px, y la ★ entre 44 y 54) y caben de 320 px en adelante, sin bajar del mínimo táctil de 44 px.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
