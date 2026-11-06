@@ -271,3 +271,34 @@ test('v9.5: la página del juego no tiene enlaces; el crédito de homenaje sigue
   assert.match(await p.textContent('.bar'), /Homenaje no oficial · Colores Ruidosos/);
   await ctx.close();
 });
+
+// ── v9.6 (spec §3.0f O): saltar la nota en pantalla ──
+test('v9.6: tocar la nota la salta sin hacer saltar a Pepe; botón ⏭ solo con nota; tecla S', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 760 }, hasTouch: true, isMobile: true });
+  const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', (e) => errs.push(String(e)));
+  await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+  await p.evaluate(() => { const s = window.__jmv.save; s.data.options.notas = true; window.__jmv.goto(0, 'carmesi'); });
+  await p.waitForTimeout(2500);   // que pase la intro del nivel
+  await p.evaluate(() => { const g = window.__jmv.game; g.thought = null; g.hint = null; g.popups.length = 0; });
+  await p.waitForTimeout(150);
+  assert.equal(await p.isVisible('#skip'), false, 'sin nota no hay botón');
+  await p.evaluate(() => { const g = window.__jmv.game; g.popups.push({ text: 'DATO UNO PARA SALTAR', source: 'PRUEBA', t: 30 }, { text: 'DATO DOS', source: 'PRUEBA', t: 30 }); });
+  await p.waitForTimeout(200);
+  assert.equal(await p.isVisible('#skip'), true, 'con nota aparece ⏭');
+  // Toque sobre el dato (franja de abajo del lienzo): se salta el primero y Pepe no despega del suelo.
+  const box = await p.locator('#game').boundingBox();
+  const y0 = await p.evaluate(() => window.__jmv.game.player.y);
+  await p.touchscreen.tap(box.x + box.width / 2, box.y + box.height * 0.88);
+  await p.waitForTimeout(120);
+  assert.deepEqual(await p.evaluate(() => window.__jmv.game.popups.map((q) => q.text)), ['DATO DOS']);
+  assert.ok(Math.abs((await p.evaluate(() => window.__jmv.game.player.y)) - y0) < 2, 'tocar la nota no es un salto');
+  await p.click('#skip'); await p.waitForTimeout(150);
+  assert.equal(await p.evaluate(() => window.__jmv.game.popups.length), 0);
+  assert.equal(await p.isVisible('#skip'), false);
+  await p.evaluate(() => { window.__jmv.game.thought = { text: 'PENSAMIENTO', t: 30 }; });
+  await p.keyboard.press('KeyS'); await p.waitForTimeout(100);
+  assert.equal(await p.evaluate(() => window.__jmv.game.thought), null);
+  assert.deepEqual(errs, []);
+  await ctx.close();
+});

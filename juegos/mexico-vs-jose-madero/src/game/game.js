@@ -237,6 +237,17 @@ function stepPicks(g) {
 }
 
 // Un paso de 1/60 s. `btn` = botones mantenidos {left,right,jump,mic,special}.
+// v9.6: notas en pantalla (dato del Titular, pensamiento y aviso de objeto) y saltarlas.
+export function hasNotes(g, opts = {}) {
+  if (opts.notas === false) return false;
+  return !!(g.popups?.length || g.thought || g.hint);
+}
+export function skipNotes(g) {
+  g.popups?.shift();   // el siguiente dato de la cola (si hay) sale enseguida
+  g.thought = null;
+  g.hint = null;
+}
+
 export function stepGame(g, btn) {
   g.events = [];
   if (g.status !== 'play') return g;
