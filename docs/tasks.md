@@ -162,9 +162,9 @@ Orden TDD: primero la prueba en rojo, luego el código.
 
 ## Fase 19 — Halley Flip (F28/D34)
 - ✅ Spec
-- ⏳ 🔴→🟢 Física: gravedad, impulso, caída máxima; paso fijo reproducible con semilla
-- ⏳ 🔴→🟢 Torres: generación con hueco dentro de la pantalla; puntos al pasar; choque con torres, piso y techo
-- ⏳ 🔴→🟢 Etapas cada 10 puntos; velocidad y hueco con tope; notas recogibles; récord y texto para compartir
-- ⏳ Pantalla: canvas pixelado, inicio, pausa, resultado, compartir, sonido, movimiento reducido
-- ⏳ Página en Games y tarjeta; e2e en móvil (390 px) y escritorio
+- ✅ 🔴→🟢 Física: gravedad, impulso, caída máxima; paso fijo reproducible con semilla
+- ✅ 🔴→🟢 Torres: generación con hueco dentro de la pantalla; puntos al pasar; choque con torres, piso y techo
+- ✅ 🔴→🟢 Etapas cada 10 puntos; velocidad y hueco con tope; notas recogibles; récord y texto para compartir
+- ✅ Pantalla: canvas pixelado, inicio, pausa, resultado, compartir, sonido, movimiento reducido
+- ✅ Página en Games y tarjeta; e2e en móvil (390 px) y escritorio
 - ⏳ Afinación con el equipo (que se sienta justo)

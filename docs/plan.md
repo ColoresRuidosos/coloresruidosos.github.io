@@ -114,6 +114,8 @@
 - **Pantalla** en `assets/js/halley/juego.js`: canvas 160 × 144 escalado con `image-rendering: pixelated`, `requestAnimationFrame` con acumulador de tiempo. Fondos de `escenas.js` (6 etapas), y el cometa, las torres y las notas como sprites de texto (estilo de `insignias.js`). Entrada: `pointerdown` en el canvas y la barra espaciadora.
 - **Página:** `content/games/halley-flip.md` con `layout: halley-flip` y `layouts/games/halley-flip.html`. Los scripts se empaquetan con `resources.Concat` y `minify` como la trivia. Entrada nueva en `data/games.json`, con `desde` el día que se fusione.
 - **Récord** en `localStorage` (`cr-halley-v1`), protegido con try/catch.
+- **Justicia (afinación inicial):** cada toque sube ~19 px, un tercio del hueco, y dos huecos seguidos quedan a lo más 34 px de altura (`MAX_SALTO`). Un piloto automático simple pasa de 50 puntos en la mayoría de las semillas, así que todas las etapas son alcanzables.
+- `tests-js/games.test.js` ahora acepta juegos servidos como página de Hugo (`content/games/<id>.md` con `layout`) además de HTML en `static/`.
 
 ## Verificaciones pendientes
 | ID | Qué | Plan B |

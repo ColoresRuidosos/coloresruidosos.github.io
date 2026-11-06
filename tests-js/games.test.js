@@ -32,11 +32,13 @@ test("la trivia sigue en /trivia/ y el juego de José Madero sale el viernes 6 n
   assert.match(jmv.nombre + jmv.descripcion, /no oficial/i);
 });
 
-test("cada juego fuera de /trivia/ tiene su archivo en static/", () => {
+test("cada juego fuera de /trivia/ tiene su archivo en static/ o su página de Hugo (F28: Halley Flip)", () => {
   for (const g of games.filter((g) => g.id !== "trivia")) {
     const f = path.join(raiz, "static", g.url, "index.html");
-    assert.ok(fs.existsSync(f), `falta ${f}`);
-    assert.match(fs.readFileSync(f, "utf8").slice(0, 8000), /<canvas id="game"/);
+    const pagina = path.join(raiz, "content", g.url.replace(/\/$/, "") + ".md");
+    assert.ok(fs.existsSync(f) || fs.existsSync(pagina), `falta ${f} o ${pagina}`);
+    if (fs.existsSync(f)) assert.match(fs.readFileSync(f, "utf8").slice(0, 8000), /<canvas id="game"/);
+    else assert.match(fs.readFileSync(pagina, "utf8"), /^layout: /m);
   }
 });
 

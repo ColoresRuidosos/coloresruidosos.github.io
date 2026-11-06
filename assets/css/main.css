@@ -541,3 +541,35 @@ body.sin-scroll { overflow: hidden; }
 .trivia__aviso-compartir { text-align: center; font-weight: 700; color: var(--accent-green); min-height: 1.2em; }
 .trivia__nota { font-size: .875rem; margin: 1.25rem 0 0; }
 @media (prefers-reduced-motion: reduce) { .trivia__boton:active { transform: none; } .trivia__chapa.es-nueva .trivia__chapa-img { animation: none; } }
+
+/* ---------- Halley Flip (F28) ---------- */
+.halley { --pixel: "Press Start 2P", var(--f-mono); --pantalla: #141414; --tinta-clara: #F4EFE6; max-width: 40rem; margin: 0 auto; }
+.halley__volver { margin: 0 0 .5rem; font-weight: 700; }
+.halley__consola { background: var(--pantalla); color: var(--tinta-clara); border: var(--borde); box-shadow: var(--sombra); padding: clamp(.5rem, 2.5vw, 1rem); }
+.halley__hud { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; font-family: var(--pixel); font-size: .625rem; line-height: 1.6; color: var(--accent-yellow); margin-bottom: .5rem; }
+.halley__hud b { color: var(--tinta-clara); font-weight: 400; }
+.halley__marco { position: relative; }
+.halley__lienzo { display: block; width: 100%; height: auto; aspect-ratio: 160 / 144; image-rendering: pixelated; border: 3px solid var(--tinta-clara); background: #000; touch-action: manipulation; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.halley__capa { position: absolute; inset: 3px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; padding: 1rem; text-align: center; background: rgba(20, 20, 20, .86); }
+.halley__capa[hidden] { display: none; }
+.halley__capa--transparente { background: transparent; pointer-events: none; justify-content: flex-start; padding-top: 18%; }
+.halley__titulo { font-family: var(--pixel); font-size: clamp(1rem, 5vw, 1.75rem); color: var(--accent-orange); margin: 0; line-height: 1.4; text-shadow: 3px 3px 0 #000; }
+.halley__titulo--chico { font-size: clamp(.875rem, 4vw, 1.25rem); color: var(--accent-yellow); }
+.halley__puntos { font-family: var(--pixel); font-size: clamp(2rem, 10vw, 3.5rem); color: var(--tinta-clara); margin: 0; }
+.halley__texto { margin: 0; max-width: 26rem; font-size: 1rem; text-shadow: 2px 2px 0 #000; }
+.halley__nota, .halley__aviso { margin: 0; font-size: .875rem; color: #bbb; }
+.halley__record { margin: 0; font-family: var(--pixel); font-size: .625rem; line-height: 1.6; color: var(--accent-green); }
+.halley__record:empty, .halley__aviso:empty { display: none; }
+.halley__aviso-etapa { position: absolute; left: 50%; bottom: 12%; transform: translateX(-50%); margin: 0; padding: .4rem .6rem; font-family: var(--pixel); font-size: .5625rem; line-height: 1.6; color: var(--text-main); background: var(--accent-yellow); white-space: nowrap; pointer-events: none; }
+.halley__aviso-etapa:empty { display: none; }
+.halley__acciones, .halley__controles { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; }
+.halley__controles { margin-top: .75rem; justify-content: space-between; }
+.halley__boton { font-family: var(--pixel); font-size: .75rem; line-height: 1.5; color: var(--text-main); background: var(--tinta-clara); border: 3px solid var(--tinta-clara); box-shadow: 4px 4px 0 var(--accent-pink); padding: .8rem 1rem; cursor: pointer; }
+.halley__boton:hover { background: var(--accent-yellow); }
+.halley__boton:active { transform: translate(4px, 4px); box-shadow: none; }
+.halley__boton--grande { background: var(--accent-orange); border-color: var(--accent-orange); font-size: .875rem; }
+.halley__boton--chico { font-size: .625rem; box-shadow: 4px 4px 0 var(--accent-blue); padding: .6rem .8rem; }
+.halley__boton[aria-pressed="true"] { background: var(--accent-green); border-color: var(--accent-green); }
+.halley__boton:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 3px; }
+.halley__pie { font-size: .875rem; margin: 1rem 0 0; }
+@media (prefers-reduced-motion: reduce) { .halley__boton:active { transform: none; } }

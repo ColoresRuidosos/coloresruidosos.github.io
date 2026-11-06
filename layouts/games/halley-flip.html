@@ -1,0 +1,65 @@
+{{ define "main" }}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+<header class="encabezado">
+  <p class="halley__volver"><a href="{{ "games/" | relURL }}">◀ Games</a></p>
+  <h1 class="encabezado__titulo">{{ .Title }}</h1>
+  {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
+</header>
+
+<noscript><p class="vacio">Halley Flip necesita JavaScript para funcionar.</p></noscript>
+
+{{/* F28/D34: juego de un toque. Lógica en assets/js/halley/flip.js; pantalla en assets/js/halley/juego.js. */}}
+<section class="halley" data-halley data-en="inicio" aria-label="Juego Halley Flip">
+  <div class="halley__consola">
+    <div class="halley__hud" aria-live="off">
+      <span>Puntos <b data-hud-puntos>0</b></span>
+      <span>Etapa <b data-hud-etapa>1</b></span>
+      <span>♪ <b data-hud-notas>0</b></span>
+      <span>Récord <b data-hud-record>0</b></span>
+    </div>
+    <div class="halley__marco">
+      <canvas class="halley__lienzo" data-lienzo width="160" height="144" role="img" aria-label="Halley Flip: el cometa Halley entre torres de bocinas"></canvas>
+      <p class="halley__aviso-etapa" data-aviso-etapa aria-live="polite"></p>
+
+      <div class="halley__capa" data-pantalla="inicio">
+        <p class="halley__titulo">Halley Flip</p>
+        <p class="halley__texto">Toca la pantalla (o la barra espaciadora) para impulsar al cometa. Pasa entre las torres de bocinas y recoge notas ♪.</p>
+        <p class="halley__nota">Juego de reflejos · cada 10 puntos cambias de etapa</p>
+        <button type="button" class="halley__boton halley__boton--grande" data-jugar data-foco>▶ Jugar</button>
+      </div>
+
+      <div class="halley__capa halley__capa--transparente" data-pantalla="listo" hidden>
+        <p class="halley__titulo halley__titulo--chico">¡Listo!</p>
+        <p class="halley__texto">Toca para despegar</p>
+      </div>
+
+      <div class="halley__capa" data-pantalla="pausa" hidden>
+        <p class="halley__titulo">Pausa</p>
+        <button type="button" class="halley__boton halley__boton--grande" data-seguir data-foco>▶ Seguir</button>
+      </div>
+
+      <div class="halley__capa" data-pantalla="resultado" hidden>
+        <p class="halley__titulo halley__titulo--chico" data-res-titulo>¡Choque!</p>
+        <p class="halley__puntos" data-res-puntos>0</p>
+        <p class="halley__texto" data-res-detalle></p>
+        <p class="halley__record" data-res-record></p>
+        <div class="halley__acciones">
+          <button type="button" class="halley__boton halley__boton--grande" data-jugar data-foco>↻ Otra vez</button>
+          <button type="button" class="halley__boton" data-compartir>Compartir</button>
+        </div>
+        <p class="halley__aviso" data-aviso-compartir aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="halley__controles">
+      <button type="button" class="halley__boton halley__boton--chico" data-pausa>❚❚ Pausa</button>
+      <button type="button" class="halley__boton halley__boton--chico" data-sonido aria-pressed="false">♪ Sonido: no</button>
+    </div>
+  </div>
+  <p class="halley__pie">Pixel art y música propios de Colores Ruidosos, inspirados en <i>El poeta Halley</i> y las etapas de Love of Lesbian. Hecho por fans. Tu récord se guarda solo en este navegador.</p>
+</section>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := slice (resources.Get "js/trivia/escenas.js") (resources.Get "js/halley/flip.js") (resources.Get "js/halley/juego.js") | resources.Concat "js/halley.bundle.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}
