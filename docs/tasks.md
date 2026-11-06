@@ -136,3 +136,12 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Spec
 - ✅ 🔴→🟢 `barajarRonda`: mismas 10 canciones, otro orden; `mismasCanciones` ignora el orden
 - ✅ Cliente: barajar al empezar una ronda nueva; al recargar se conserva el orden guardado
+
+## Fase 16 — Sección Games con México vs. José Madero (F25/D31)
+- ✅ Spec
+- ✅ 🔴→🟢 `tests-js/games.test.js`: contrato de `data/games.json`, archivo del juego en `static/`, menú con "Games"
+- ✅ `data/games.json`, `content/games/_index.md`, `layouts/games/section.html` y estilos de las tarjetas
+- ✅ Menú: "Trivia" → "Games"; "◀ Games" en la trivia
+- ✅ Compilar el juego (221 tests) y probarlo a 390 px con los controles táctiles; copiado a `static/games/mexico-vs-jose-madero/`
+- ✅ Agregar el test al workflow de publicación
+- ⏳ Compilar con Hugo y probar a 390 px (no se pudo instalar Hugo en esta sesión: queda para la revisión del PR)

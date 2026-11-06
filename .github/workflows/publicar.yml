@@ -53,7 +53,7 @@ jobs:
       - name: Tests
         run: |
           pytest pipeline/tests -q
-          node --test tests-js/ics.test.js tests-js/trivia.test.js tests-js/ranking.test.js tests-js/compartir.test.js tests-js/contrarreloj.test.js tests-js/dia.test.js
+          node --test tests-js/ics.test.js tests-js/trivia.test.js tests-js/ranking.test.js tests-js/compartir.test.js tests-js/contrarreloj.test.js tests-js/dia.test.js tests-js/games.test.js
 
       - name: Noticias
         id: noticias

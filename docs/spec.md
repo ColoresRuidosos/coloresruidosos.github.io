@@ -130,6 +130,12 @@
 
 Al elegir, entra directo a ese juego. En el menú también están Mi colección, Ranking, el sonido y tu récord. Los botones "Volver" de los juegos, la colección y el ranking regresan a este menú, y el menú tiene su propio "Volver" al inicio.
 
+**F25 Sección Games.** En el menú, "Trivia" pasa a llamarse **Games**. `/games/` muestra una tarjeta por juego, con nombre, una línea de qué es y el botón para jugar:
+- **Trivia Love of Lesbian:** el mismo juego de siempre, en su misma dirección `/trivia/`, para que no se rompan los enlaces compartidos ni las tarjetas de resultado. Arriba lleva "◀ Games" para volver.
+- **México vs. José Madero:** homenaje no oficial de 16 bits a José Madero, con sus dos primeros discos (*Carmesí* y *Noche*), rumbo a sus conciertos en la Arena Ciudad de México (21 y 22 de mayo de 2027). Se juega en `/games/mexico-vs-jose-madero/`, a pantalla completa y con controles táctiles en el celular.
+- **Lanzamiento con fecha:** cada juego tiene una fecha `desde`. Antes de esa fecha la tarjeta no aparece. El de José Madero sale el **viernes 6 de noviembre de 2026 a las 8:00 (CDMX)** con la compilación diaria, aunque el cambio se fusione antes. La página del juego sí existe antes, pero no está enlazada.
+- El menú marca "Games" como activo en `/games/` y en `/trivia/`.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
@@ -164,6 +170,8 @@ GitHub Pages ◄─────────────────────�
    /notas/      listado y páginas por nota con Open Graph
    /agenda/     filtros + descarga .ics
    /stickers/   galería de stickers propios del equipo, con visor 3D
+   /games/      lista de juegos (data/games.json, con fecha de salida)
+   /games/mexico-vs-jose-madero/  juego de 16 bits (static/, compilado desde juegos/mexico-vs-jose-madero/)
    /trivia/     juego 8 bits sobre Love of Lesbian: trivia (data/trivia.json), contrarreloj
                 (data/canciones.json) y Adivina la canción (data/audio.json), canvas; el ranking (F18)
                 lee y escribe en un Apps Script ──► Google Sheet del equipo

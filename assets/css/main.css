@@ -287,6 +287,16 @@ body.sin-scroll { overflow: hidden; }
 .encabezado__desc { max-width: 40rem; margin: 1rem 0 0; font-size: 1.125rem; }
 .encabezado__nota { margin: .5rem 0 0; color: var(--accent-blue); font-size: .9375rem; }
 
+/* Games (F25) */
+.migas { margin: 1.25rem 0 0; font-family: var(--f-mono); font-weight: 700; }
+.games-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+.games-tarjeta { position: relative; display: flex; flex-direction: column; gap: .75rem; align-items: flex-start; background: var(--bg-cream); border: var(--borde); box-shadow: var(--sombra); padding: 1.25rem; }
+.games-tarjeta__etiqueta { font-family: var(--f-mono); font-weight: 700; font-size: .8125rem; text-transform: uppercase; letter-spacing: .04em; background: var(--accent-green); color: var(--text-main); border: 2px solid var(--border-dark); padding: .1rem .5rem; }
+.games-tarjeta__nombre { font-family: var(--f-titulo); font-weight: 400; font-size: clamp(1.75rem, 5vw, 2.25rem); line-height: 1; margin: 0; }
+.games-tarjeta__nombre a { color: inherit; text-decoration: none; }
+.games-tarjeta__desc { margin: 0; flex: 1; }
+.games-tarjeta__boton { text-decoration: none; border-color: var(--border-dark); }
+
 /* Artículo */
 .articulo { max-width: var(--lectura); margin: clamp(2rem, 5vw, 3.5rem) auto 0; }
 .articulo__titulo { font-family: var(--f-titulo); font-weight: 400; font-size: clamp(2.25rem, 6vw, 3.75rem); line-height: 1; letter-spacing: -.025em; margin: .9rem 0 1rem; }
