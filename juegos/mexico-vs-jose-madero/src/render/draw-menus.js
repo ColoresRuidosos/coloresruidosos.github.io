@@ -103,6 +103,7 @@ export const OPTION_ITEMS = [
   { key: 'shake', name: 'TEMBLOR DE PANTALLA', help: 'NO: LA CÁMARA NO TIEMBLA' },
   { key: 'assist', name: 'MODO ASISTIDO', help: 'SÍ: NO SE PIERDEN CORAZONES (NO CUENTA PARA RÉCORDS NI RETOS «SIN DAÑO»)' },
   { key: 'music', name: 'MÚSICA Y SONIDO', help: 'TAMBIÉN CON LA TECLA M' },
+  { key: 'notas', name: 'NOTAS EN PANTALLA', help: 'NO: SIN DATOS, PENSAMIENTOS NI AVISOS MIENTRAS JUEGAS. LOS DATOS SIGUEN EN «¿SABÍAS QUE…?» AL ACABAR CADA NIVEL. TAMBIÉN CON LA TECLA N' },
   { key: 'guia', name: 'GUÍA DE OBJETOS', help: 'PARA QUÉ SIRVE CADA COSA' },
   { key: 'back', name: 'VOLVER', help: '' },
 ];
@@ -110,7 +111,7 @@ export function drawOptions(g, options, sel, t) {
   g.fillStyle = 'rgba(18,4,10,0.94)'; g.fillRect(0, 0, W, H);
   text(g, 'OPCIONES', W / 2, 14, { scale: 2, align: 'center', color: '#ffcf7a' });
   OPTION_ITEMS.forEach((it, i) => {
-    const y = 46 + i * 22, on = i === sel;
+    const y = 42 + i * 18, on = i === sel;
     if (on) R(g, '#3a2050', 24, y - 4, W - 48, 16);
     text(g, (on ? '▶ ' : '  ') + it.name, 32, y, { color: on ? '#ffffff' : '#b9a8d6' });
     if (it.key !== 'back' && it.key !== 'guia') text(g, options[it.key] ? 'SÍ' : 'NO', W - 32, y, { align: 'right', color: options[it.key] ? '#7ad07a' : '#ff9a5a' });
@@ -120,7 +121,7 @@ export function drawOptions(g, options, sel, t) {
     const words = help.split(' '); const lines = []; let l = '';
     for (const w of words) { if ((l + ' ' + w).trim().length > 46) { lines.push(l); l = w; } else l = (l + ' ' + w).trim(); }
     lines.push(l);
-    lines.forEach((s, i) => text(g, s, W / 2, 162 + i * 10, { align: 'center', color: '#efe8d4' }));
+    lines.forEach((s, i) => text(g, s, W / 2, 172 + i * 10, { align: 'center', color: '#efe8d4' }));
   }
   text(g, '◀ ▶ ELEGIR · A CAMBIAR · B VOLVER', W / 2, H - 12, { align: 'center', color: '#8a7a9a' });
 }

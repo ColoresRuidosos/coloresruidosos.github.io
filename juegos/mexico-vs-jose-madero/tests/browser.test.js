@@ -207,7 +207,7 @@ test('v8.3: al vencer al jefe, pose de festejo; A la salta y salen las tarjetas'
 test('v9.1: la guía de objetos se abre desde las Opciones de la portada y desde la pausa', async () => {
   await page.reload(); await page.waitForTimeout(400);
   await page.keyboard.press('KeyX'); await page.waitForTimeout(200); // portada → Opciones
-  for (let i = 0; i < 4; i++) { await page.keyboard.press('ArrowDown'); await page.waitForTimeout(120); } // hasta «GUÍA DE OBJETOS» (5.ª opción)
+  for (let i = 0; i < 5; i++) { await page.keyboard.press('ArrowDown'); await page.waitForTimeout(120); } // hasta «GUÍA DE OBJETOS» (6.ª opción desde v9.4)
   await page.keyboard.press('KeyZ'); await page.waitForTimeout(120);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'guide');
   await page.screenshot({ path: 'out/10-guia.png' });
@@ -220,4 +220,85 @@ test('v9.1: la guía de objetos se abre desde las Opciones de la portada y desde
   await page.keyboard.press('KeyX'); await page.waitForTimeout(200);
   assert.equal(await page.evaluate(() => window.__jmv.screen), 'play');
   assert.deepEqual(errors, []);
+});
+
+// ── v9.4 (spec §3.0f N): quitar las notas ──────────────
+test('v9.4: la tecla N y el botón 💬 quitan y ponen las notas; se guarda al recargar', async () => {
+  await page.reload(); await page.waitForTimeout(400);
+  await page.evaluate(() => window.__jmv.goto(0, 'carmesi'));
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), true);
+  await page.keyboard.press('KeyN'); await page.waitForTimeout(150);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), false);
+  assert.equal(await page.textContent('#notes'), '💬 NOTAS: NO');
+  // Un dato en cola no se dibuja sin notas: comparamos la franja de abajo con y sin el cartel.
+  const strip = () => page.evaluate(() => { const c = document.getElementById('game'); return c.getContext('2d').getImageData(8, 170, 304, 40).data.reduce((a, v) => a + v, 0); });
+  await page.evaluate(() => { const g = window.__jmv.game; g.popups.length = 0; g.popups.push({ text: 'DATO DE PRUEBA PARA LAS NOTAS', source: 'PRUEBA', t: 30 }); });
+  await page.waitForTimeout(250); const off = await strip();
+  await page.click('#notes'); await page.waitForTimeout(250);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), true);
+  const on = await strip();
+  assert.ok(on > off * 1.2, `el cartel claro del dato debería aclarar la franja (con ${on}, sin ${off})`);
+  await page.keyboard.press('KeyN'); await page.waitForTimeout(150);
+  await page.reload(); await page.waitForTimeout(400);
+  assert.equal(await page.evaluate(() => window.__jmv.save.data.options.notas), false);
+  assert.equal(await page.textContent('#notes'), '💬 NOTAS: NO');
+  assert.deepEqual(errors, []);
+});
+
+// ── v9.4: en celulares estrechos (navegador de Instagram, 320–412 px) caben los 5 botones del mando ──
+for (const width of [320, 360, 390, 412]) {
+  test(`v9.4: a ${width} px de ancho se ven completos ◀ ▶ ★ B y A`, async () => {
+    const ctx = await browser.newContext({ viewport: { width, height: 760 }, hasTouch: true, isMobile: true, deviceScaleFactor: 1 });
+    const p = await ctx.newPage();
+    await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+    const r = await p.evaluate(() => [...document.querySelectorAll('.pad button')].map((b) => { const q = b.getBoundingClientRect(); return { k: b.dataset.btn, l: q.left, r: q.right, w: q.width }; }));
+    const W = await p.evaluate(() => innerWidth);
+    assert.equal(r.length, 5);
+    for (const b of r) {
+      assert.ok(b.l >= 0 && b.r <= W, `${b.k}: de ${b.l.toFixed(0)} a ${b.r.toFixed(0)} px, la pantalla mide ${W}`);
+      assert.ok(b.w >= 44, `${b.k}: ${b.w.toFixed(0)} px, menos que el mínimo táctil de 44`);
+    }
+    await ctx.close();
+  });
+}
+
+// ── v9.5 (spec §3.0f Ñ): ningún enlace junto al mando (un toque sin querer sacaba del juego) ──
+test('v9.5: la página del juego no tiene enlaces; el crédito de homenaje sigue como texto', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 760 }, hasTouch: true, isMobile: true });
+  const p = await ctx.newPage();
+  await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+  assert.equal(await p.evaluate(() => document.querySelectorAll('a[href]').length), 0);
+  assert.match(await p.textContent('.bar'), /Homenaje no oficial · Colores Ruidosos/);
+  await ctx.close();
+});
+
+// ── v9.6 (spec §3.0f O): saltar la nota en pantalla ──
+test('v9.6: tocar la nota la salta sin hacer saltar a Pepe; botón ⏭ solo con nota; tecla S', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 760 }, hasTouch: true, isMobile: true });
+  const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', (e) => errs.push(String(e)));
+  await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+  await p.evaluate(() => { const s = window.__jmv.save; s.data.options.notas = true; window.__jmv.goto(0, 'carmesi'); });
+  await p.waitForTimeout(2500);   // que pase la intro del nivel
+  await p.evaluate(() => { const g = window.__jmv.game; g.thought = null; g.hint = null; g.popups.length = 0; });
+  await p.waitForTimeout(150);
+  assert.equal(await p.isVisible('#skip'), false, 'sin nota no hay botón');
+  await p.evaluate(() => { const g = window.__jmv.game; g.popups.push({ text: 'DATO UNO PARA SALTAR', source: 'PRUEBA', t: 30 }, { text: 'DATO DOS', source: 'PRUEBA', t: 30 }); });
+  await p.waitForTimeout(200);
+  assert.equal(await p.isVisible('#skip'), true, 'con nota aparece ⏭');
+  // Toque sobre el dato (franja de abajo del lienzo): se salta el primero y Pepe no despega del suelo.
+  const box = await p.locator('#game').boundingBox();
+  const y0 = await p.evaluate(() => window.__jmv.game.player.y);
+  await p.touchscreen.tap(box.x + box.width / 2, box.y + box.height * 0.88);
+  await p.waitForTimeout(120);
+  assert.deepEqual(await p.evaluate(() => window.__jmv.game.popups.map((q) => q.text)), ['DATO DOS']);
+  assert.ok(Math.abs((await p.evaluate(() => window.__jmv.game.player.y)) - y0) < 2, 'tocar la nota no es un salto');
+  await p.click('#skip'); await p.waitForTimeout(150);
+  assert.equal(await p.evaluate(() => window.__jmv.game.popups.length), 0);
+  assert.equal(await p.isVisible('#skip'), false);
+  await p.evaluate(() => { window.__jmv.game.thought = { text: 'PENSAMIENTO', t: 30 }; });
+  await p.keyboard.press('KeyS'); await p.waitForTimeout(100);
+  assert.equal(await p.evaluate(() => window.__jmv.game.thought), null);
+  assert.deepEqual(errs, []);
+  await ctx.close();
 });

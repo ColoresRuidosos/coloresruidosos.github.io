@@ -1,5 +1,5 @@
 import { W, H, DT } from './game/constants.js';
-import { createGame, stepGame, hookAhead } from './game/game.js';
+import { createGame, stepGame, hookAhead, hasNotes, skipNotes } from './game/game.js';
 import { createCamera, stepCamera } from './engine/camera.js';
 import { createSave } from './engine/save.js';
 import { museumExhibits, recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, identity, worldCleared, startLevelIndex } from './game/progress.js';
@@ -34,6 +34,15 @@ function setMusic(on) {
   opt.music = on; musicBtn.textContent = on ? '♪ ON' : '♪ OFF';
 }
 setMusic(opt.music);
+// v9.4: notas en pantalla (dato, pensamiento y aviso), con la tecla N o el botón 💬.
+const notesBtn = document.getElementById('notes');
+function setNotes(on) { opt.notas = on; if (notesBtn) notesBtn.textContent = on ? '💬 NOTAS: SÍ' : '💬 NOTAS: NO'; }
+setNotes(opt.notas !== false);
+// v9.6: saltar la nota que está en pantalla (toque sobre la nota, botón ⏭ o tecla S).
+const skipBtn = document.getElementById('skip');
+let noteZones = {};
+const canSkip = () => screen === 'play' && !paused && game && hasNotes(game, opt);
+function skipNote() { if (canSkip()) { skipNotes(game); noteZones = {}; } }
 
 // ── Mundos jugables ─────────────────────────────────────
 const WORLD_DATA = {
@@ -136,6 +145,8 @@ addEventListener('keydown', (e) => {
   if (e.code === 'Escape' && MENUS.includes(screen)) { escPressed = true; return; }
   if ((e.code === 'KeyP' || e.code === 'Escape') && screen === 'play') paused = !paused;
   if (e.code === 'KeyM') { setMusic(!opt.music); save.commit(); }
+  if (e.code === 'KeyN') { setNotes(!opt.notas); save.commit(); }
+  if (e.code === 'KeyS') skipNote();
 });
 addEventListener('keyup', (e) => { if (KEYS[e.code]) held[KEYS[e.code]] = false; if (e.code === 'Enter') held.jump = false; });
 
@@ -164,9 +175,19 @@ addEventListener('pointerup', (e) => { const k = touching.get(e.pointerId); if (
 addEventListener('blur', releaseAll);
 document.addEventListener('visibilitychange', () => { if (document.hidden) { releaseAll(); if (screen === 'play') paused = true; } });
 musicBtn.addEventListener('click', () => { setMusic(!opt.music); save.commit(); });
+notesBtn?.addEventListener('click', () => { setNotes(!opt.notas); save.commit(); });
 document.getElementById('pause')?.addEventListener('click', () => { if (screen === 'play') paused = !paused; });
 let tapStart = false;
-cv.addEventListener('pointerdown', () => { tapStart = true; audio.unlock(); });
+cv.addEventListener('pointerdown', (e) => {
+  audio.unlock();
+  // v9.6: un toque sobre una nota la salta (y no hace saltar a Pepe).
+  if (canSkip()) {
+    const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
+    if (Object.values(noteZones).some((z) => x >= z.x - 6 && x <= z.x + z.w + 6 && y >= z.y - 6 && y <= z.y + z.h + 6)) { e.preventDefault(); skipNote(); return; }
+  }
+  tapStart = true;
+});
+skipBtn?.addEventListener('click', skipNote);
 
 function pad() {
   const gp = navigator.getGamepads?.()[0];
@@ -186,6 +207,7 @@ function explainFirstTime() {
   if (game.events.includes('piece')) kind ??= 'piezas';
   if (game.events.includes('hook') || hookAhead(game)) kind ??= 'gancho';  // v9.2: al verlo, no después
   if (game.ovacion >= 100) kind ??= 'solo';
+  if (opt.notas === false) { game.hint = null; return; }   // v9.4: sin notas, el aviso espera (no se da por visto)
   if (!kind || save.data.seenItems.includes(kind)) { if (game.hint && (game.hint.t -= DT) <= 0) game.hint = null; return; }
   save.data.seenItems.push(kind); save.commit();
   game.hint = { text: guideOf(kind).first, t: kind === 'gancho' ? 5 : 3 };
@@ -200,6 +222,7 @@ function stepOptions(pr) {
     if (it.key === 'back') pr.mic = true;
     else if (it.key === 'guia') { guideSel = 0; guideBack = 'options'; screen = 'guide'; screenT = 0; return; }
     else if (it.key === 'music') setMusic(!opt.music);
+    else if (it.key === 'notas') setNotes(!opt.notas);
     else { opt[it.key] = !opt[it.key]; if (it.key === 'assist' && game && run) { game.assist = opt.assist; if (opt.assist) run.assistUsed = true; } }
     save.commit();
   }
@@ -312,11 +335,12 @@ function frame(now) {
     const L = WORLD_DATA[run.world].levels[run.idx];
     drawWorld(ctx, game, art, camX, t, L.id, vis);
     if (game.intro) drawIntro(ctx, game, camX, t, vis);
-    else drawHud(ctx, game, `${L.id} ${L.name}`, t, art);
+    else noteZones = drawHud(ctx, game, `${L.id} ${L.name}`, t, art, { notas: opt.notas }) || {};
     if (screen === 'victory') drawVictory(ctx, game, camX, screenT, opt.flashes);
     if (screen === 'card') drawCard(ctx, card, art, t);
     if (screen === 'end') drawEnd(ctx, game, save.data.record, art, t, endInfo);
     if (paused && screen === 'play') drawPause(ctx, t);
+    if (skipBtn) { const show = canSkip(); if (skipBtn.hidden === show) skipBtn.hidden = !show; }
     if (screen === 'options') drawOptions(ctx, opt, optSel, t);
   }
   requestAnimationFrame(frame);

@@ -16,7 +16,7 @@ describe('guardado (O1 / E5)', () => {
     const s = createSave(memory());
     assert.deepEqual(s.data, defaults());
     assert.equal(s.data.v, 1);
-    assert.deepEqual(s.data.options, { flashes: true, shake: true, assist: false, music: true });
+    assert.deepEqual(s.data.options, { flashes: true, shake: true, assist: false, music: true, notas: true });
     assert.equal(s.data.costume, 'auto');
     assert.deepEqual(s.data.unlocked, ['clasico']);
   });
@@ -39,7 +39,7 @@ describe('guardado (O1 / E5)', () => {
 
   test('faltan campos: se completan con los valores por defecto', () => {
     const s = createSave(memory({ [SAVE_KEY]: JSON.stringify({ v: 1, options: { flashes: false } }) }));
-    assert.deepEqual(s.data.options, { flashes: false, shake: true, assist: false, music: true });
+    assert.deepEqual(s.data.options, { flashes: false, shake: true, assist: false, music: true, notas: true });
     assert.deepEqual(s.data.worlds, {});
   });
 
