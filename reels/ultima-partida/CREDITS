@@ -1,0 +1,9 @@
+¿Qué tan fan eres? · Love of Lesbian — reel de Colores Ruidosos
+
+Imagen: dibujada en código (framebuffer indexado 180×320). Personaje, escenas, máscaras y UI originales.
+Paleta: ENDESGA-32 (paleta pública de Endesga, publicada en Lospec) + colores de marca de Colores Ruidosos.
+Fuente pixel: original, sin terceros.
+Música: chiptune original, sintetizada en numpy (sin samples).
+Efectos de sonido: sintetizados en código (sin samples).
+Herramientas: Chromium headless (Playwright), FFmpeg, numpy/scipy.
+Datos: ver FACTS.md. Love of Lesbian se menciona como tema; no aparece su música, letras, portadas ni logos.
