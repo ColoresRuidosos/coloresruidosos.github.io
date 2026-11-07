@@ -294,6 +294,7 @@
     var lineas = partirTexto(c, ins.nombre, W - 120);
     lineas.forEach(function (l, k) { c.fillText(l, W / 2, y + 875 + k * 64); });
     c.fillStyle = "#cfc7b6"; c.font = "30px " + '"Space Grotesk", sans-serif';
+    if (ins.leyenda) { c.fillStyle = "#FF3E7F"; c.font = "34px " + FUENTE_PIXEL; c.fillText(ins.leyenda, W / 2, y + 900 + lineas.length * 64); y += 60; c.fillStyle = "#cfc7b6"; c.font = "30px " + '"Space Grotesk", sans-serif'; }
     partirTexto(c, ins.como, W - 200).forEach(function (l, k) { c.fillText(l, W / 2, y + 900 + lineas.length * 64 + k * 42); });
     pieTarjeta(t, "¿Te atreves?");
     return t.lienzo;
@@ -785,7 +786,9 @@
     b.setAttribute("data-abrir-insignia", ins.id);
     b.appendChild(lienzoChapa(ins, est, "trivia__chapa-img"));
     b.appendChild(crear("strong", "", oculta ? "???" : ins.nombre));
-    b.appendChild(crear("span", "", est === "nueva" ? "¡Nueva!" : oculta ? "Pista: " + ins.pista : ins.como));
+    // Una insignia con leyenda (F26) la muestra cuando ya la tienes.
+    var texto = est === "nueva" ? "¡Nueva!" : oculta ? "Pista: " + ins.pista : ins.leyenda && est === "ganada" ? ins.leyenda : ins.como;
+    b.appendChild(crear("span", ins.leyenda && est === "ganada" ? "trivia__leyenda" : "", texto));
     li.appendChild(b);
     return li;
   }
@@ -795,7 +798,8 @@
     var cv = $("[data-detalle-img]", detalle);
     I.dibujarChapa(cv.getContext("2d"), ins, est);
     $("[data-detalle-nombre]", detalle).textContent = est === "secreta" ? "Insignia secreta" : ins.nombre;
-    $("[data-detalle-como]", detalle).textContent = est === "secreta" ? "Pista: " + ins.pista : ins.como;
+    $("[data-detalle-como]", detalle).textContent = est === "secreta" ? "Pista: " + ins.pista
+      : ins.leyenda && est !== "bloqueada" ? "«" + ins.leyenda + "» · " + ins.como : ins.como;
     var f = estado.insignias[id];
     var botonChapa = $("[data-compartir-chapa]", detalle);
     botonChapa.hidden = !f;
@@ -819,6 +823,50 @@
     avisoInsignia.hidden = false;
     clearTimeout(avisoTimer);
     avisoTimer = setTimeout(function () { avisoInsignia.hidden = true; }, 4000);
+  }
+
+  // ---------- Insignia de concierto (F26/D32) ----------
+  var concierto = raiz.getAttribute("data-concierto-huella") ? {
+    huella: raiz.getAttribute("data-concierto-huella"),
+    desde: raiz.getAttribute("data-concierto-desde"), hasta: raiz.getAttribute("data-concierto-hasta"),
+  } : null;
+
+  function diasConcierto() {
+    var f = function (iso, opciones) { return new Date(iso).toLocaleDateString("es-MX", Object.assign({ timeZone: "America/Mexico_City" }, opciones)); };
+    return "del " + f(concierto.desde, { day: "numeric" }) + " al " + f(concierto.hasta, { day: "numeric", month: "long" });
+  }
+
+  function huellaDe(codigo) {
+    var datos = new TextEncoder().encode(T.normalizarCodigo(codigo));
+    return crypto.subtle.digest("SHA-256", datos).then(function (b) {
+      return Array.prototype.map.call(new Uint8Array(b), function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+    });
+  }
+
+  function canjear(codigo) {
+    var aviso = $("[data-codigo-aviso]");
+    pintarColeccion();
+    if (!window.crypto || !crypto.subtle) { aviso.textContent = "Tu navegador no puede revisar el código. Prueba con otro."; return Promise.resolve(); }
+    return huellaDe(codigo).then(function (h) {
+      var r = T.canjearConcierto(estado, h, concierto, new Date());
+      if (r.nuevas.length) { estado = r.estado; T.guardarEstado(almacen, estado); contar("concierto-canjeado"); pintarColeccion(); anunciarInsignias(r.nuevas); }
+      else contar("concierto-" + r.error);
+      $("[data-codigo-aviso]").textContent = {
+        "": "¡Desbloqueaste Noches reversibles! Gracias por existir 💛",
+        codigo: "Ese código no existe. Revisa el que viene en el cartel.",
+        fecha: "Este código solo funciona los días de concierto (" + diasConcierto() + ").",
+        ya: "Ya tienes Noches reversibles. ¡Gracias por venir otra vez!",
+      }[r.error];
+    });
+  }
+
+  if (concierto) {
+    $("[data-codigo-form]").hidden = false;
+    $("[data-codigo-form]").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var campo = $("[data-codigo]");
+      if (campo.value.trim()) canjear(campo.value).then(function () { campo.value = ""; });
+    });
   }
 
   function descubrir(id) {
@@ -1071,5 +1119,11 @@
   pintarBotonSonido();
   pintarInicio();
   mostrar("inicio", true);
+  // El QR del cartel abre /trivia/?codigo=…: se canjea solo y se quita el código de la URL.
+  var codigoUrl = new URLSearchParams(location.search).get("codigo");
+  if (codigoUrl && concierto) {
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) { /* sin historial */ }
+    canjear(codigoUrl);
+  }
   raiz.classList.add("esta-lista");
 })();

@@ -1,0 +1,157 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>html,body{margin:0;background:#fff}canvas{display:block}</style></head><body>
+<canvas id="c" width="825" height="1275"></canvas>
+<script src="../../assets/js/trivia/insignias.js"></script>
+<script src="fanzine-datos.js"></script>
+<script>
+// Fanzine de concierto (F27/D33): una página de 7 × 10,8 cm a 300 dpi (825 × 1275 px). ?ed=auditorio&p=1
+const W = 825, H = 1275, q = new URLSearchParams(location.search);
+const Z = window.FANZINE, ED = Z.ediciones[q.get('ed') || 'auditorio'], PAG = +q.get('p') || 1;
+const c = document.getElementById('c'), x = c.getContext('2d');
+const PX = '"Press Start 2P", monospace', SG = '"Space Grotesk", sans-serif';
+const C = { tinta: '#141414', crema: '#F4EFE6', rosa: '#FF3E7F', azul: '#2F5BFF', amarillo: '#FFD23F', verde: '#1FB57A', naranja: '#FF7A30', gris: '#9a9a9a' };
+const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+function txt(s, X, Y, size, col, font = SG, peso = '500 ', align = 'center') { x.font = `${peso}${size}px ${font}`; x.fillStyle = col; x.textAlign = align; x.textBaseline = 'alphabetic'; x.fillText(s, X, Y); }
+function px(s, X, Y, size, col, align = 'center') { txt(s, X, Y, size, col, PX, '', align); }
+function lineas(s, X, Y, size, col, ancho, salto, font = SG, peso = '500 ', align = 'center') {
+  x.font = `${peso}${size}px ${font}`; let l = [], a = '';
+  s.split(' ').forEach((w) => { const p = a ? a + ' ' + w : w; if (x.measureText(p).width > ancho && a) { l.push(a); a = w; } else a = p; }); l.push(a);
+  l.forEach((t, i) => txt(t, X, Y + i * salto, size, col, font, peso, align)); return l.length;
+}
+function fondo(col) { x.fillStyle = col; x.fillRect(0, 0, W, H); }
+function franjas(y, alto) { [C.rosa, C.azul, C.amarillo, C.verde, C.naranja].forEach((k, i) => { x.fillStyle = k; x.fillRect(i * W / 5, y, W / 5 + 1, alto); }); }
+function folio(n, col) { txt(String(n), W / 2, H - 28, 24, col || C.gris); }
+function fechaCorta(iso) { const [a, m, d] = iso.split('-').map(Number); return d + ' ' + MESES[m - 1]; }
+function sprite(nombre, X, Y, esc) {
+  const filas = CRinsignias.ICONOS[nombre], P = CRinsignias.PALETA;
+  filas.forEach((f, j) => [...f].forEach((ch, i) => { if (P[ch]) { x.fillStyle = P[ch]; x.fillRect(X + i * esc, Y + j * esc, esc, esc); } }));
+}
+function qr(m, X, Y, lado) {
+  const n = m.length, b = 4, mod = lado / (n + 2 * b);
+  x.fillStyle = '#fff'; x.fillRect(X, Y, lado, lado); x.fillStyle = '#000';
+  m.forEach((f, j) => f.forEach((v, i) => { if (v) x.fillRect(Math.floor(X + (i + b) * mod), Math.floor(Y + (j + b) * mod), Math.ceil(mod), Math.ceil(mod)); }));
+}
+
+const PAGINAS = {
+  1() { // Portada
+    fondo(C.tinta); franjas(0, 26);
+    px('Colores Ruidosos', W / 2, 92, 30, C.rosa);
+    txt('fanzine #1 · noviembre 2026', W / 2, 140, 28, C.gris);
+    px('Love of', W / 2, 250, 56, C.crema); px('Lesbian', W / 2, 330, 56, C.crema);
+    px('en México', W / 2, 400, 38, C.amarillo);
+    x.fillStyle = C.crema; x.fillRect(W / 2 - 250, 450, 500, 420); sprite('banda', W / 2 - 240, 440, 30);
+    x.fillStyle = ED.color; x.fillRect(0, 900, W, H - 900 - 26);
+    px('Edición especial', W / 2, 965, 26, ED.texto);
+    const nr = lineas(ED.recinto, W / 2, 1040, 44, ED.texto, 760, 56, PX, '');
+    lineas(ED.fechaLarga, W / 2, 1040 + nr * 56 + 40, 32, ED.texto, 740, 40, SG, '700 ');
+    franjas(H - 26, 26);
+  },
+  2() { listaConciertos(0); },
+  3() { listaConciertos(1); },
+  4() { // La sede
+    fondo(C.tinta); franjas(0, 26);
+    px('La sede', W / 2, 110, 34, C.amarillo);
+    const y0 = 198 + 52 * lineas(ED.recinto, W / 2, 190, 40, ED.color, 760, 52, PX, '');
+    px(String(ED.vezNumero), W / 2, y0 + 150, 120, C.crema);
+    lineas('Es la ' + ED.vez + ' ' + ED.vezTexto, W / 2, y0 + 230, 34, C.crema, 700, 44, SG, '700 ');
+    let y = y0 + 340;
+    ED.antes.forEach((a) => { txt(a.fecha, 90, y, 30, C.amarillo, SG, '700 ', 'left'); const n = lineas(a.texto, 300, y, 28, C.crema, 470, 36, SG, '500 ', 'left'); y += 36 * n + 22; });
+    y += 20; x.fillStyle = ED.color; x.fillRect(80, y, W - 160, 6); y += 70;
+    ED.extra.forEach((t) => { const n = lineas(t, W / 2, y, 28, C.crema, 680, 38); y += 38 * n + 18; });
+    if (ED.curiosidad) { // recuadro "Dato curioso"
+      y += 6;
+      const alto = 64 + 33 * lineas(ED.curiosidad, -9999, -9999, 25, C.crema, 640, 33);
+      x.strokeStyle = ED.color; x.lineWidth = 5; x.strokeRect(60, y, W - 120, alto + 12);
+      px('Dato curioso', W / 2, y + 44, 22, ED.color);
+      lineas(ED.curiosidad, W / 2, y + 86, 25, C.crema, 640, 33);
+    }
+    folio(4);
+  },
+  5() { // Dibujo para colorear, hecho por el equipo (F27)
+    fondo('#ffffff');
+    px('Colorea', W / 2, 110, 40, C.tinta);
+    txt('a la banda como quieras', W / 2, 165, 28, '#666', SG, '700 ');
+    const img = window.DIBUJO, ancho = W - 70, alto = ancho * img.naturalHeight / img.naturalWidth;
+    x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+    x.drawImage(img, (W - ancho) / 2, 200 + Math.max(0, (H - 330 - alto) / 2), ancho, alto);
+    txt(Z.creditoDibujo, W / 2, H - 80, 24, '#666', SG, '700 ');
+    folio(5, '#666');
+  },
+  6() { // Mini trivia + QR
+    fondo(C.tinta); franjas(0, 26);
+    px('Mini trivia', W / 2, 100, 34, C.amarillo);
+    let y = 170;
+    Z.preguntas.forEach((p, k) => {
+      const n = lineas((k + 1) + '. ' + p.pregunta, 70, y, 28, C.crema, 690, 35, SG, '700 ', 'left'); y += 35 * n + 4;
+      p.opciones.forEach((o, i) => { txt('ABCD'[i] + ') ' + o, 100, y, 25, '#cfc7b6', SG, '500 ', 'left'); y += 32; });
+      y += 16;
+    });
+    // Respuestas de cabeza
+    x.save(); x.translate(W / 2, y + 20); x.rotate(Math.PI);
+    txt('Respuestas: ' + Z.preguntas.map((p, k) => (k + 1) + ') ' + 'ABCD'[p.correcta]).join('  '), 0, 0, 24, C.gris); x.restore();
+    const lado = 250, Y = H - lado - 70;
+    qr(Z.qr, 70, Y, lado);
+    lineas('Escanea y juega la trivia completa. Del 24 al 28 de noviembre te da la insignia de concierto «Noches reversibles».', 350, Y + 40, 25, C.crema, 420, 33, SG, '700 ', 'left');
+    folio(6);
+  },
+  7() { // Setlist
+    fondo('#ffffff');
+    px('Mi setlist', W / 2, 100, 34, C.tinta);
+    txt(ED.recinto + ' · ' + ED.fechaCorta, W / 2, 150, 26, '#666', SG, '700 ');
+    x.strokeStyle = '#c9c9c9'; x.lineWidth = 2;
+    for (let i = 0; i < 18; i++) { const y = 230 + i * 48; txt(String(i + 1), 80, y, 24, '#888', SG, '700 ', 'right'); x.beginPath(); x.moveTo(100, y + 4); x.lineTo(W - 70, y + 4); x.stroke(); }
+    let y = 230 + 18 * 48 + 40;
+    ['Mi favorita de hoy:', 'Fui con:'].forEach((t) => { txt(t, 70, y, 28, C.tinta, SG, '700 ', 'left'); x.beginPath(); x.moveTo(330, y + 4); x.lineTo(W - 70, y + 4); x.stroke(); y += 60; });
+    folio(7, '#666');
+  },
+  8() { // Contraportada
+    fondo(C.tinta); franjas(0, 26);
+    px('Gracias', W / 2, 200, 52, C.rosa); px('por existir', W / 2, 270, 40, C.rosa);
+    x.fillStyle = C.crema; x.fillRect(W / 2 - 150, 320, 300, 250); sprite('banda', W / 2 - 128, 300, 16);
+    txt('Colores Ruidosos', W / 2, 640, 40, C.crema, SG, '700 ');
+    lineas('Un grupo de amigos haciendo dibujos para nuestros artistas favoritos.', W / 2, 700, 28, '#cfc7b6', 660, 38);
+    px('@coloresruidosos', W / 2, 860, 30, C.amarillo);
+    txt('coloresruidosos.github.io', W / 2, 920, 30, C.crema, SG, '700 ');
+    lineas('Conteo de conciertos: investigación de Colores Ruidosos. ¿Falta alguno o hay un error? Escríbenos.', W / 2, 1010, 24, C.gris, 660, 32);
+    lineas('Hecho por fans: no somos la organización de la banda ni del concierto.', W / 2, 1120, 24, C.gris, 660, 32);
+    txt('Fanzine #1 · ' + ED.nombre + ' · gratis', W / 2, 1210, 24, ED.color, SG, '700 ');
+    franjas(H - 26, 26);
+  },
+};
+
+function listaConciertos(parte) {
+  fondo(C.tinta);
+  const anios = [...new Set(Z.conciertos.map((k) => k.fecha.slice(0, 4)))];
+  const corte = anios.indexOf('2022'), mios = parte === 0 ? anios.slice(0, corte) : anios.slice(corte);
+  let y;
+  if (parte === 0) { franjas(0, 26); px(String(Z.conciertos.length), W / 2, 170, 110, C.amarillo); px('conciertos', W / 2, 225, 30, C.crema); txt('en México, 2013–2026', W / 2, 270, 28, C.gris, SG, '700 '); y = 345; }
+  else y = 70;
+  const salto = parte === 0 ? 37 : 34, tam = parte === 0 ? 25 : 24;
+  mios.forEach((a) => {
+    const del = Z.conciertos.filter((k) => k.fecha.startsWith(a));
+    txt(a, 60, y, tam + 4, C.amarillo, PX, '', 'left'); txt('· ' + del.length, 210, y, tam + 2, C.amarillo, SG, '700 ', 'left'); y += salto + 4;
+    del.forEach((k) => {
+      const aqui = ED.coincide(k);
+      txt(fechaCorta(k.fecha), 60, y, tam, aqui ? ED.color : C.crema, SG, '700 ', 'left');
+      txt(k.recinto + ' · ' + k.ciudad, 175, y, tam, aqui ? ED.color : '#cfc7b6', SG, aqui ? '700 ' : '500 ', 'left');
+      y += salto;
+    });
+    y += 8;
+  });
+  if (parte === 1) { y += 10; x.fillStyle = ED.color; x.fillRect(60, y - 26, 8, 30); txt('= ' + ED.leyendaLista, 80, y, 22, C.gris, SG, '700 ', 'left'); }
+  folio(2 + parte);
+}
+
+// Reglas por edición que no caben en JSON.
+const COINCIDE = {
+  auditorio: (k) => k.recinto === 'Auditorio Nacional' || k.recinto === 'Lunario del Auditorio Nacional',
+  metropolitan: (k) => k.recinto === 'Teatro Metropólitan',
+  puebla: (k) => k.ciudad === 'Puebla' || k.ciudad === 'San Andrés Cholula',
+};
+ED.coincide = COINCIDE[q.get('ed') || 'auditorio'];
+window.listo = document.fonts.load('40px "Press Start 2P"').then(() => document.fonts.load('700 40px "Space Grotesk"'))
+  .then(() => document.fonts.load('500 40px "Space Grotesk"'))
+  .then(() => new Promise((ok, mal) => { const im = new Image(); im.onload = () => { window.DIBUJO = im; ok(); }; im.onerror = mal; im.src = 'dibujo-colorear.png'; }))
+  .then(() => { PAGINAS[PAG](); return true; });
+</script></body></html>

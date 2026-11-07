@@ -98,6 +98,25 @@
 
 **D31 Sección Games (2026-11-04):** F25. Los juegos se listan en `data/games.json` (`id`, `nombre`, `descripcion`, `url` relativa sin barra inicial, `desde` en RFC 3339 con zona). `layouts/games/section.html` muestra solo los que cumplen `desde` ≤ hora de compilación, así que la tarjeta aparece sola en la corrida diaria de las 8:00. La trivia se queda en `/trivia/` (cambiarla rompería las tarjetas compartidas y el ranking); solo cambia la etiqueta del menú, que queda activa en las secciones `games` y `trivia`. El juego de José Madero es un HTML de un solo archivo (~1,6 MB) compilado en `juegos/mexico-vs-jose-madero/` y copiado con `npm run publish:web` a `static/games/mexico-vs-jose-madero/index.html`; Hugo lo sirve tal cual. No va en un iframe, porque los controles táctiles necesitan la pantalla entera. `tests-js/games.test.js` valida el contrato de datos, que el archivo del juego exista y el menú.
 
+**D32 Insignia de concierto y cartel (2026-11-03):** F26.
+- `hugo.toml` → `[params.trivia_concierto]` con `codigo`, `desde` y `hasta` (RFC 3339 con zona de CDMX). La plantilla publica `sha256` del código normalizado y las fechas en `data-concierto-*`; el código en claro no va en la página.
+- `logica.js`: `normalizarCodigo` (mayúsculas, sin espacios, guiones ni acentos) y `canjearConcierto(estado, huella, config, ahora)`, que devuelve `{estado, nuevas, error}` con error `"codigo"`, `"fecha"` o `"ya"`. Es pura: la huella la calcula `juego.js` con `crypto.subtle`. Familia `concierto` fuera de `tieneTodas`.
+- `juego.js`: al cargar con `?codigo=` canjea, muestra el aviso en la colección y quita el parámetro de la URL con `history.replaceState`. En la colección hay un formulario para escribir el código.
+- Cartel: HTML a 300 dpi → PDF (Carta y Doble Carta), QR de nivel de corrección M a `https://coloresruidosos.github.io/trivia/?codigo=<código>`, generado con `segno`. Se guarda en `docs/concierto/` junto con su script, para regenerarlo si cambia el código.
+
+**D33 Fanzine de concierto (2026-11-04):** F27.
+- `data/conciertos_mx.yaml`: lista ordenada con `fecha` (ISO), `recinto`, `ciudad`, `nota` y `marca` (la † del equipo, por definir). Secciones `cancelados`, `no_cuentan`, `sin_confirmar` y `proximos`. Una prueba revisa que haya 47 conciertos, fechas válidas y en orden.
+- `docs/fanzine/`: la página 5 usa `dibujo-colorear.png` (dibujo del equipo, limpiado a línea negra sobre blanco). `fanzine.html` dibuja cada página a 300 dpi (825 × 1275 px) en canvas con las fuentes del sitio y los sprites del juego. `render.js` la abre por página y edición, y `generar_fanzine.py` impone las 8 páginas en Carta horizontal (fila de arriba de cabeza: 5 4 3 2; fila de abajo: 6 7 8 1) y arma los PDF con `img2pdf`.
+- Las preguntas de la página 6 salen de `data/trivia.json` (solo `fuerza: solida`). Los QR (trivia y `?codigo=` de F26) se generan con `segno` y se verifican decodificándolos.
+
+**D34 Halley Flip (2026-11-06):** F28.
+- **Lógica pura** en `assets/js/halley/flip.js` (UMD, probada con `node --test tests-js/halley.test.js`). El mundo mide 160 × 144 px, igual que las escenas, y avanza a paso fijo de 1/60 s; el render interpola. Estado: `{y, vy, x0, torres[], notas[], puntos, notasTomadas, vivo, rng}`. `paso(estado, toque)` aplica la gravedad (0,16 px/paso²), el impulso (−2,7 px/paso), una caída máxima de 3,6 px/paso y el avance de las torres. Las torres salen con una semilla (mulberry32), así una partida es reproducible en las pruebas. Velocidad y hueco dependen de la etapa: velocidad 1,0 → 1,5 y hueco 50 → 38 px, con tope. Choque círculo-rectángulo (radio 4).
+- **Pantalla** en `assets/js/halley/juego.js`: canvas 160 × 144 escalado con `image-rendering: pixelated`, `requestAnimationFrame` con acumulador de tiempo. Fondos de `escenas.js` (6 etapas), y el cometa, las torres y las notas como sprites de texto (estilo de `insignias.js`). Entrada: `pointerdown` en el canvas y la barra espaciadora.
+- **Página:** `content/games/halley-flip.md` con `layout: halley-flip` y `layouts/games/halley-flip.html`. Los scripts se empaquetan con `resources.Concat` y `minify` como la trivia. Entrada nueva en `data/games.json`, con `desde` el día que se fusione.
+- **Récord** en `localStorage` (`cr-halley-v1`), protegido con try/catch.
+- **Justicia (afinación inicial):** cada toque sube ~19 px, un tercio del hueco, y dos huecos seguidos quedan a lo más 34 px de altura (`MAX_SALTO`). Un piloto automático simple pasa de 50 puntos en la mayoría de las semillas, así que todas las etapas son alcanzables.
+- `tests-js/games.test.js` ahora acepta juegos servidos como página de Hugo (`content/games/<id>.md` con `layout`) además de HTML en `static/`.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|

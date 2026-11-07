@@ -1,0 +1,65 @@
+# Conciertos de Love of Lesbian en México (F27/D33). Investigación del equipo de Colores Ruidosos.
+# `marca: true` = la † de la lista original del equipo (significado por confirmar; no se imprime).
+# Para agregar o corregir un concierto, edita este archivo: el fanzine y sus pruebas lo leen de aquí.
+conciertos:
+  - {fecha: 2013-03-14, recinto: "Caradura", ciudad: "CDMX"}
+  - {fecha: 2013-03-15, recinto: "Vive Latino · Foro Sol", ciudad: "CDMX"}
+  - {fecha: 2013-03-19, recinto: "Centro Cultural de España", ciudad: "CDMX"}
+  - {fecha: 2013-09-26, recinto: "Lunario del Auditorio Nacional", ciudad: "CDMX"}
+  - {fecha: 2013-09-27, recinto: "Lunario del Auditorio Nacional", ciudad: "CDMX"}
+  - {fecha: 2014-03-28, recinto: "Vive Latino · Foro Sol", ciudad: "CDMX"}
+  - {fecha: 2014-11-26, recinto: "Teatro Estudio Cavaret", ciudad: "Zapopan", marca: true}
+  - {fecha: 2014-11-28, recinto: "Teatro Metropólitan", ciudad: "CDMX"}
+  - {fecha: 2014-11-29, recinto: "Foro Indie Rocks", ciudad: "CDMX"}
+  - {fecha: 2016-04-07, recinto: "El Plaza Condesa", ciudad: "CDMX", marca: true}
+  - {fecha: 2016-11-05, recinto: "Auditorio Citibanamex", ciudad: "Monterrey"}
+  - {fecha: 2016-11-10, recinto: "Teatro Diana", ciudad: "Guadalajara"}
+  - {fecha: 2016-11-11, recinto: "Teatro Metropólitan", ciudad: "CDMX"}
+  - {fecha: 2016-11-12, recinto: "Teatro Metropólitan", ciudad: "CDMX"}
+  - {fecha: 2017-06-18, recinto: "Machaca Fest · Parque Fundidora", ciudad: "Monterrey", marca: true}
+  - {fecha: 2017-12-09, recinto: "Festival Catrina", ciudad: "San Andrés Cholula", marca: true}
+  - {fecha: 2018-03-17, recinto: "Vive Latino · Foro Sol", ciudad: "CDMX"}
+  - {fecha: 2018-10-18, recinto: "Auditorio Nacional", ciudad: "CDMX", nota: "Cierre de la gira de 20 años"}
+  - {fecha: 2018-10-20, recinto: "Festival Coordenada", ciudad: "Guadalajara", marca: true}
+  - {fecha: 2022-03-18, recinto: "Teatro Diana", ciudad: "Guadalajara", marca: true}
+  - {fecha: 2022-03-20, recinto: "Vive Latino · Foro Sol", ciudad: "CDMX"}
+  - {fecha: 2022-04-02, recinto: "Tecate Pa'l Norte", ciudad: "Monterrey"}
+  - {fecha: 2022-10-07, recinto: "Tecate Coordenada", ciudad: "Guadalajara"}
+  - {fecha: 2022-10-08, recinto: "Teatro Morelos", ciudad: "Toluca"}
+  - {fecha: 2022-10-14, recinto: "Auditorio Nacional", ciudad: "CDMX"}
+  - {fecha: 2022-10-15, recinto: "Teatro Metropolitano", ciudad: "Querétaro"}
+  - {fecha: 2022-10-16, recinto: "Foro del Lago", ciudad: "León"}
+  - {fecha: 2022-10-18, recinto: "Teatro Metropólitan", ciudad: "CDMX"}
+  - {fecha: 2022-10-21, recinto: "Auditorio Pabellón M", ciudad: "Monterrey", marca: true}
+  - {fecha: 2022-10-22, recinto: "Tecate Comuna", ciudad: "San Andrés Cholula", marca: true}
+  - {fecha: 2023-04-26, recinto: "Complejo Cultural Universitario", ciudad: "Puebla", nota: "La prensa anunció el 29"}
+  - {fecha: 2023-04-29, recinto: "Black Box", ciudad: "Tijuana", marca: true}
+  - {fecha: 2023-05-01, recinto: "Feria Nacional de San Marcos", ciudad: "Aguascalientes", marca: true}
+  - {fecha: 2023-05-03, recinto: "Centro Cultural Bicentenario", ciudad: "San Luis Potosí"}
+  - {fecha: 2023-05-04, recinto: "Auditorio Explanada", ciudad: "Pachuca"}
+  - {fecha: 2023-05-06, recinto: "Teatro Metropolitano", ciudad: "Querétaro", marca: true}
+  - {fecha: 2024-11-01, recinto: "Fiestas de Octubre · Auditorio Benito Juárez", ciudad: "Zapopan"}
+  - {fecha: 2024-11-09, recinto: "Palacio de los Deportes", ciudad: "CDMX"}
+  - {fecha: 2024-11-11, recinto: "Lunario del Auditorio Nacional", ciudad: "CDMX"}
+  - {fecha: 2025-11-29, recinto: "FIL Guadalajara · Foro FIL", ciudad: "Guadalajara", nota: "Gratuito"}
+  - {fecha: 2026-03-14, recinto: "Vive Latino · Estadio GNP", ciudad: "CDMX"}
+  - {fecha: 2026-03-18, recinto: "Teatro Metropolitano", ciudad: "Querétaro"}
+  - {fecha: 2026-03-21, recinto: "Teatro de la Paz", ciudad: "San Luis Potosí"}
+  - {fecha: 2026-03-25, recinto: "Foro del Lago", ciudad: "León"}
+  - {fecha: 2026-03-26, recinto: "Auditorio Telmex", ciudad: "Zapopan"}
+  - {fecha: 2026-03-28, recinto: "Tecate Pa'l Norte", ciudad: "Monterrey", nota: "Set acústico"}
+  - {fecha: 2026-03-29, recinto: "Tecate Pa'l Norte", ciudad: "Monterrey"}
+cancelados:
+  - {anio: 2024, ciudades: ["Oaxaca", "Veracruz", "Mérida", "Cancún", "Ciudad Juárez", "Chihuahua"]}
+no_cuentan:
+  - "Gala Lunas del Auditorio 2018, en el escenario del Auditorio Nacional (tocaron 2 canciones)"
+  - "Registro duplicado de Tecate Comuna 2022"
+sin_confirmar:
+  - {fecha: 2023-04-28, recinto: "Cine Curto", ciudad: "Mexicali", nota: "Se anunció, pero no hay registro de que se haya hecho"}
+# Datos curiosos por edición del fanzine (página 4). Solo con información de esta lista.
+curiosidades:
+  auditorio: "En 2018 también pisaron este mismo escenario, el del Auditorio Nacional, en la gala de las Lunas del Auditorio: tocaron solo 2 canciones, por eso no cuenta entre los 47."
+proximos:
+  - {fecha: 2026-11-24, recinto: "Teatro Metropólitan", ciudad: "CDMX", edicion: metropolitan}
+  - {fecha: 2026-11-25, recinto: "Auditorio Nacional", ciudad: "CDMX", edicion: auditorio}
+  - {fecha: 2026-11-28, recinto: "Tecate Comuna", ciudad: "San Andrés Cholula", edicion: puebla}

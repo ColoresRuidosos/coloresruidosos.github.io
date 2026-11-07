@@ -136,6 +136,29 @@ Al elegir, entra directo a ese juego. En el menú también están Mi colección,
 - **Lanzamiento con fecha:** cada juego tiene una fecha `desde`. Antes de esa fecha la tarjeta no aparece. El de José Madero sale el **viernes 6 de noviembre de 2026 a las 8:00 (CDMX)** con la compilación diaria, aunque el cambio se fusione antes. La página del juego sí existe antes, pero no está enlazada.
 - El menú marca "Games" como activo en `/games/` y en `/trivia/`.
 
+**F26 Insignia exclusiva de concierto y cartel con QR.** Para los conciertos de noviembre de 2026 en México, el equipo lleva un cartel impreso con un QR.
+- **Insignia «Noches reversibles»** (familia Concierto, aro rojo): su dibujo es **la banda en el escenario** (cantante con micrófono, guitarra, bajo y batería, en pixel art propio) y lleva la leyenda **"Gracias por existir"** en el juego, el sticker y el cartel. Se gana escaneando el QR del cartel **solo del 24 al 28 de noviembre de 2026**, en hora de CDMX. En la colección está a la vista, con la leyenda "Escanear el QR de Colores Ruidosos en un concierto". Así quien no fue sabe que existe.
+- **Dos formas de canjearla:** el QR abre la trivia con el código y la insignia se desbloquea sola; o en **Mi colección → "¿Tienes un código de concierto?"** se escribe el código que viene impreso en el cartel, sin importar mayúsculas, espacios ni acentos.
+- **Avisos claros:** "¡Desbloqueaste Noches reversibles!", "Ese código no existe" o "Este código solo funciona los días de concierto (24 al 28 de noviembre)". Si ya la tienes, te lo dice.
+- **El gran truco final no la pide**, igual que El último baile: no todos pueden ir a un concierto.
+- **El código y las fechas viven en `hugo.toml`**, así el equipo puede cambiarlos (si el código se filtra, se cambia y se reimprime el cartel). El repo es público: el código no es secreto ante quien lea el repositorio, y la ventana de fechas es lo que limita el abuso. La página solo trae la huella SHA-256 del código.
+- **Cartel imprimible** (Carta y Doble Carta): "Trivia 8 bits de Love of Lesbian", el QR grande, la chapa de la insignia, el código escrito por si el QR falla, las fechas, @coloresruidosos y la aclaración "Hecho por fans; no somos la organización de la banda ni del concierto".
+
+**F27 Fanzine de concierto (impreso).** Un mini-fanzine gratuito de 8 páginas que se regala en cada concierto de noviembre de 2026, con una edición especial por recinto: **Teatro Metropólitan (24 nov), Auditorio Nacional (25 nov) y Tecate Comuna, Puebla (28 nov)**.
+- **Formato:** una hoja Carta horizontal, impresa por un lado, con un corte al centro y dobleces (el "one-sheet zine"). Quedan 8 páginas de 7 × 10,8 cm. Sin grapas, se dobla a mano.
+- **Páginas:** 1 portada de la edición (color propio por recinto) · 2–3 **los 47 conciertos en México (2013–2026)** año por año · 4 **la historia de la banda en esa sede** y cuántas veces han tocado ahí · 5 **dibujo para colorear hecho por el equipo** (la banda) · 6 **mini trivia** de 3 preguntas del banco verificado, con respuestas de cabeza, y QR a la trivia y a la insignia de concierto · 7 **"Escribe aquí tu setlist"** · 8 contraportada con @coloresruidosos, créditos y "Hecho por fans: no somos la organización de la banda ni del concierto".
+- **Datos:** la lista de conciertos es la investigación del equipo, guardada en `data/conciertos_mx.yaml` (fecha, recinto, ciudad, notas). Ahí también quedan los cancelados, los que no cuentan y los sin confirmar, que no se imprimen en la lista. El fanzine solo usa lo que está en ese archivo.
+- **Salida:** un PDF por edición, ya impuesto para imprimir, más una guía de doblado y una versión con las páginas en orden para revisarla en pantalla.
+
+**F28 Halley Flip (juego en Games).** Juego de reflejos de un solo toque, en pixel art 8 bits, inspirado en *El poeta Halley*: guías al **cometa Halley** a través de una gira por las 6 etapas de la banda.
+- **Cómo se juega:** la gravedad jala al cometa hacia abajo y **cada toque** (pantalla, clic o barra espaciadora) le da un impulso hacia arriba. Avanza solo. Hay que pasar entre **torres de bocinas** que salen de arriba y de abajo, sin chocar con ellas, con el piso ni con el techo.
+- **Puntos:** +1 por cada par de torres que pasas. Entre las torres a veces flota una **nota musical**: recogerla suma a tu contador de notas, que se muestra al final.
+- **Etapas:** cada 10 puntos cambias de etapa y de fondo, con las 6 escenas pixel art de la trivia (de *Microscopic Movies* a *Ejército de salvación*). El ritmo sube un poco en cada etapa: más velocidad y huecos más angostos, con un tope para que siga siendo justo.
+- **Al chocar:** pantalla de resultado con puntos, etapa alcanzada, notas y tu récord. Botones "Otra vez" y "Compartir", que copia un texto sin spoilers ("Halley Flip · 23 puntos · etapa 3 · 7 notas · coloresruidosos.github.io/games/halley-flip/").
+- **Justo y accesible:** la física avanza a paso fijo, igual en cualquier celular. Hay pausa (P o el botón) y un "Listo… ¡toca para empezar!" antes de que empiece a caer. El sonido está apagado de inicio. Con `prefers-reduced-motion` no hay sacudidas ni destellos. Aviso: "Juego de reflejos".
+- **Vive en Games:** tarjeta propia en `/games/` y página en `/games/halley-flip/`. El récord se guarda solo en el navegador. Ranking e insignias quedan para una segunda fase: el ranking requiere actualizar el Apps Script.
+- **Original:** nombre, personaje, obstáculos, fondos y música propios. No usa nombres, sprites ni el aspecto de otros juegos.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos

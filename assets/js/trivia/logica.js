@@ -56,6 +56,8 @@
     { id: "domingo", nombre: "Domingo astromántico", como: "Racha de 7 días en la ronda del día", familia: "adivina", icono: "estrella" },
     { id: "nada", nombre: "Nada", como: "No acertar ninguna canción en una ronda", familia: "adivina", icono: "silencio", oculta: true, pista: "Ni una te sonó conocida" },
     { id: "starman", nombre: "El día que Starman huyó", como: "60 de 60: las 10 canciones con 1 segundo", familia: "adivina", icono: "starman", oculta: true, pista: "Ni un segundo más" },
+    // Concierto (F26/D32): solo con el código del cartel, del 24 al 28 de noviembre de 2026.
+    { id: "noches_reversibles", nombre: "Noches reversibles", como: "Escanear el QR de Colores Ruidosos en un concierto", familia: "concierto", icono: "banda", leyenda: "Gracias por existir" },
     { id: "gran_truco", nombre: "El gran truco final", como: "Tener todas las demás insignias", familia: "secreta", icono: "sombrero", oculta: true, pista: "Solo para quien lo tiene todo" },
   ];
   var SECRETOS = ["contraespionaje", "wio"];
@@ -176,7 +178,8 @@
 
   function tieneTodas(estado) {
     return INSIGNIAS.every(function (i) {
-      return SIN_GRAN_TRUCO.indexOf(i.id) >= 0 || i.familia === "contrarreloj" || i.familia === "adivina" || estado.insignias[i.id];
+      return SIN_GRAN_TRUCO.indexOf(i.id) >= 0 || i.familia === "contrarreloj" || i.familia === "adivina" ||
+        i.familia === "concierto" || estado.insignias[i.id];
     });
   }
 
@@ -296,6 +299,24 @@
     return { estado: estado, nuevas: otorgar(estado, ganadas, ahora) };
   }
 
+  // Código del cartel de concierto (F26): mayúsculas, sin espacios, guiones ni acentos.
+  function normalizarCodigo(codigo) {
+    return String(codigo || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+  }
+
+  /* Canjea la insignia de concierto. huella = SHA-256 (hex) del código normalizado, calculada fuera;
+     config = {huella, desde, hasta} de hugo.toml. error: "" | "codigo" | "fecha" | "ya". */
+  function canjearConcierto(estadoPrevio, huella, config, ahora) {
+    ahora = ahora || new Date();
+    var estado = copiar(estadoPrevio || estadoInicial());
+    var nada = function (error) { return { estado: estado, nuevas: [], error: error }; };
+    if (!config || !config.huella || huella !== config.huella) return nada("codigo");
+    var t = ahora.getTime();
+    if (t < new Date(config.desde).getTime() || t > new Date(config.hasta).getTime()) return nada("fecha");
+    if (estado.insignias.noches_reversibles) return nada("ya");
+    return { estado: estado, nuevas: otorgar(estado, ["noches_reversibles"], ahora), error: "" };
+  }
+
   // Secretos que se descubren fuera de la partida (código Konami, toques a la pantallita).
   function registrarSecreto(estadoPrevio, id, ahora) {
     var estado = copiar(estadoPrevio || estadoInicial());
@@ -328,7 +349,7 @@
     ETAPAS: ETAPAS, DIFICULTADES: DIFICULTADES, PUNTOS: PUNTOS, CATEGORIAS: CATEGORIAS, INSIGNIAS: INSIGNIAS, CLAVE: CLAVE,
     validarPregunta: validarPregunta, preguntasJugables: preguntasJugables, sortear: sortear, opciones: opciones,
     puntaje: puntaje, categoria: categoria, pistaSiguiente: pistaSiguiente, estadoInicial: estadoInicial, cerrarPartida: cerrarPartida,
-    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cerrarAdivina: cerrarAdivina, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
+    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cerrarAdivina: cerrarAdivina, normalizarCodigo: normalizarCodigo, canjearConcierto: canjearConcierto, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRtrivia;
 })(typeof window !== "undefined" ? window : globalThis);

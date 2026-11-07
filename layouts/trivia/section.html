@@ -10,7 +10,7 @@
 
 <noscript><p class="vacio">La trivia necesita JavaScript para funcionar.</p></noscript>
 
-<section class="trivia" data-trivia data-en="inicio" aria-label="Juego de trivia"{{ with site.Params.trivia_ranking_url }} data-ranking-url="{{ . }}"{{ end }}>
+<section class="trivia" data-trivia data-en="inicio" aria-label="Juego de trivia"{{ with site.Params.trivia_ranking_url }} data-ranking-url="{{ . }}"{{ end }}{{ with site.Params.trivia_concierto }}{{ $c := .codigo | upper | replaceRE "[^A-Z0-9]" "" }} data-concierto-huella="{{ sha256 $c }}" data-concierto-desde="{{ .desde }}" data-concierto-hasta="{{ .hasta }}"{{ end }}>
   <div class="trivia__consola">
     <canvas class="trivia__escena" data-escena width="160" height="144" role="img" aria-label="Escena pixel art"></canvas>
 
@@ -227,6 +227,14 @@
     <div class="trivia__pantalla" data-pantalla="coleccion" hidden>
       <h2 class="trivia__categoria" tabindex="-1" data-foco>Mi colección</h2>
       <p class="trivia__puntaje" data-conteo></p>
+      <form class="trivia__codigo" data-codigo-form hidden>
+        <label for="codigo-concierto">¿Tienes un código de concierto?</label>
+        <div class="trivia__codigo-fila">
+          <input id="codigo-concierto" data-codigo autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40">
+          <button type="submit" class="trivia__boton trivia__boton--chico">Canjear</button>
+        </div>
+        <p class="trivia__codigo-aviso" data-codigo-aviso role="status" aria-live="polite"></p>
+      </form>
       <h3 class="trivia__subtitulo">Portadas</h3>
       <ul class="trivia__portadas" data-portadas></ul>
       <h3 class="trivia__subtitulo">Insignias</h3>
