@@ -145,3 +145,12 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Compilar el juego (221 tests) y probarlo a 390 px con los controles táctiles; copiado a `static/games/mexico-vs-jose-madero/`
 - ✅ Agregar el test al workflow de publicación
 - ⏳ Compilar con Hugo y probar a 390 px (no se pudo instalar Hugo en esta sesión: queda para la revisión del PR)
+
+## Fase 17 — Trivia José Madero: Carmesí y Noche (F26/D32)
+- ✅ Spec y plan
+- ✅ Banco `docs/trivia-madero.md`: 23 preguntas con 2 fuentes o más, listas de canciones de los 2 discos, descartadas y 🟡
+- ⏳ Revisión fan (V13): marcar `verificada`; buscar segunda fuente para las 🟡 (V14)
+- ⏳ 🔴→🟢 Generador y contrato de `data/trivia-madero.json`
+- ⏳ Motor por juego, `/games/trivia-madero/`, contrarreloj y Adivina la canción
+- ⏳ Tarjeta en `data/games.json` cuando haya 5 verificadas por dificultad
+
