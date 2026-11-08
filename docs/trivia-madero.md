@@ -41,6 +41,16 @@
 | C13 | muy difícil | La edición deluxe de *Carmesí* incluye una versión de «Sólo un momento», de… | Vicentico | Andrés Calamaro · Fito Páez · Gustavo Cerati | https://www.discogs.com/release/12544655-Jos%C3%A9-Madero-Carmes%C3%AD-Deluxe · https://zetatijuana.com/2016/11/con-la-inquietud-de-sonar-diferente/ | propuesta | Sin fecha de la deluxe: Qobuz y Zeta no coinciden |
 | C14 | muy difícil | La deluxe también versiona «El pájaro vio el cielo y se voló», de… | Los Auténticos Decadentes | Enanitos Verdes · Los Fabulosos Cadillacs · Soda Stereo | https://www.discogs.com/release/12544655-Jos%C3%A9-Madero-Carmes%C3%AD-Deluxe · https://zetatijuana.com/2016/11/con-la-inquietud-de-sonar-diferente/ | propuesta | |
 
+### E1 · *Carmesí (Deluxe)*, la edición ampliada en CD + DVD
+Esta es la edición a la que el equipo llama «Carmesí premium»; no existe ninguna edición llamada así.
+
+| ID | Dif. | Pregunta | Correcta | Incorrectas | Fuentes | Estado | Notas del revisor |
+|---|---|---|---|---|---|---|---|
+| P01 | difícil | ¿Cuántas canciones extra trae *Carmesí (Deluxe)* frente a la edición estándar? | 5 | 3 · 4 · 6 | https://en.wikipedia.org/wiki/Carmes%C3%AD_(album) · https://www.discogs.com/release/12544655-Jos%C3%A9-Madero-Carmes%C3%AD-Deluxe | propuesta | Las pistas 14 a 18 |
+| P02 | fácil | Además del CD, ¿qué trae *Carmesí (Deluxe)*? | Un DVD | Un vinilo · Un libro de fotos · Un póster firmado | https://www.discogs.com/release/12544655-Jos%C3%A9-Madero-Carmes%C3%AD-Deluxe · https://www.amazon.com.mx/Carmes%C3%AD-Deluxe-Dvd-Jos%C3%A9-Madero/dp/B01M30KWZA · https://udiscover.mx/products/carmesi-deluxe-cd-dvd | propuesta | |
+| P03 | difícil | ¿Qué muestra el DVD de *Carmesí (Deluxe)*? | El proceso de grabación del disco | Un concierto completo en el Teatro Metropólitan · Todos los videoclips del disco · Una entrevista sobre Panda | https://en.wikipedia.org/wiki/Carmes%C3%AD_(album) · https://www.amazon.com.mx/Carmes%C3%AD-Deluxe-Dvd-Jos%C3%A9-Madero/dp/B01M30KWZA | propuesta | Amazon lo llama «Detrás de Carmesí» |
+| P04 | muy difícil | ¿Cuál de estas canciones está en *Carmesí (Deluxe)* pero **no** en la edición estándar? | El camino a pie | Abril · Entre comillas · No como el filme | https://www.discogs.com/release/12544655-Jos%C3%A9-Madero-Carmes%C3%AD-Deluxe · https://www.deezer.com/us/album/12981206 | propuesta | Las incorrectas son de la edición estándar (§3) |
+
 ### E2 · *Noche* (2017)
 | ID | Dif. | Pregunta | Correcta | Incorrectas | Fuentes | Estado | Notas del revisor |
 |---|---|---|---|---|---|---|---|
@@ -54,7 +64,7 @@
 | N08 | fácil | ¿Cuál de estas canciones es de *Noche*? | Fantasmas | Sinmigo · Literatura rusa · Plural siendo singular | https://www.discogs.com/release/12504808-Jos%C3%A9-Madero-Noche · https://www.cifraclub.com/jose-madero/discografia/noche-2017/ | propuesta | |
 | N09 | muy difícil | ¿Cuántas canciones de *Noche* llevan la palabra «noche» en el título? | 5 | 3 · 4 · 7 | https://www.discogs.com/release/12504808-Jos%C3%A9-Madero-Noche · https://www.cifraclub.com/jose-madero/discografia/noche-2017/ | propuesta | Noche de lluvia, Noche de brujas, Noche de baile, ¡Esta noche es la reunión! y Noche de discoteque |
 
-**Recuento de sólidas:** 23 preguntas: 8 fáciles, 9 difíciles y 6 muy difíciles. Es **suficiente para lanzar** si la revisión fan las confirma (mínimo 5 por dificultad).
+**Recuento de sólidas:** 27 preguntas: 9 fáciles, 11 difíciles y 7 muy difíciles. Es **suficiente para lanzar** si la revisión fan las confirma (mínimo 5 por dificultad).
 
 ## 3. Listas de canciones (para el contrarreloj; ✅ 2 fuentes o más cada una)
 **E1 · *Carmesí*, edición estándar** (Deezer 12981206 · Last.fm · Discogs master 1600670):
@@ -95,7 +105,8 @@ En el contrarreloj solo se pregunta por estas 26 canciones. *Alba* y *Psalmos* s
 | ¿«Lunes 28» fue adelanto o primer sencillo? | Wikipedia lo llama adelanto; Time Out México y Las Vegas Magazine, «primer sencillo» | Se pregunta por el **momento** en que apareció (C06), nunca por si fue sencillo |
 | ¿«Plural siendo singular» fue el primer sencillo? | Choca con lo anterior | Se pregunta por su **fecha de estreno** (C05) |
 | Día de la presentación en el Teatro Metropólitan | LOS40 dice 29 en el texto y 30 en el titular | Sin día (C07) |
-| Fecha de la edición deluxe | Zeta Tijuana (fines de 2016) frente a Qobuz (2019) | Sin fecha (C13, C14) |
+| Fecha de la edición deluxe | Wikipedia EN y Zeta Tijuana (noviembre de 2016) frente a Qobuz (2019, quizá la versión digital) | Sin fecha (C13, C14, P01–P04) |
+| ¿Cuántas canciones inéditas trae la deluxe? | Wikipedia: 2 inéditas y 3 versiones; Amazon MX: «3 temas inéditos» | Se pregunta por el total de canciones extra (5, P01), no por cuántas son inéditas |
 | ¿Quién grabó «Monumental» (deluxe)? | Una lista dice Husky; Zeta Tijuana, «una banda de amigos» | No se pregunta |
 
 ## 5. En espera (🟡 en esta búsqueda solo apareció 1 fuente con enlace)
@@ -111,6 +122,7 @@ Varios de estos datos **salen hoy en el juego**. En su momento se anotaron con f
 | *Noche* representa el negro, como *Carmesí* el rojo | Diario de México | 2.ª fuente |
 | *Noche*, n.º 1 en México o Disco de Oro | Wikipedia (lista de n.º 1 de 2017) | 2.ª fuente |
 | El video de «Sinmigo», con una hoguera | — | 2 enlaces (en el juego: Revista Kuadro y Wikipedia ES) |
+| Reedición de *Carmesí* en vinilo rojo doble (2023) | Discogs | 2.ª fuente |
 | Fan de Stephen King | — | 2 enlaces (en el juego: Milenio y Looking Back) |
 | Podcast «Dos Nombres Comunes» con Andreas Östberg (2015) | — | 2 enlaces (en el juego: Apple Podcasts y Spotify) |
 
