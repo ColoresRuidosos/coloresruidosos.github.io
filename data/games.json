@@ -1,5 +1,14 @@
 [
   {
+    "id": "yo-contra-mi-corazon",
+    "nombre": "Yo contra mi corazón",
+    "descripcion": "Minijuego de ritmo y box, homenaje no oficial: un payaso contra un corazón gigante. Esquiva y batea al ritmo de «Teoremas, etc.». Se juega en el celular.",
+    "url": "games/yo-contra-mi-corazon/",
+    "boton": "▶ Jugar",
+    "etiqueta": "Nuevo",
+    "desde": "2026-11-09T00:00:00-06:00"
+  },
+  {
     "id": "mexico-vs-jose-madero",
     "nombre": "México vs. José Madero",
     "descripcion": "Homenaje no oficial de 16 bits. Pepe perdió su identidad y la recupera disco a disco: Carmesí y Noche, rumbo a la Arena Ciudad de México (21 y 22 de mayo de 2027).",

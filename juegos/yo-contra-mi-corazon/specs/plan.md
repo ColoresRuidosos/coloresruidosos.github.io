@@ -1,4 +1,4 @@
-# PAYASO VS. CORAZÓN — Plan técnico
+# YO CONTRA MI CORAZÓN — Plan técnico
 
 > Deriva de [`spec.md`](spec.md). Cada decisión cita la funcionalidad (F) o el requisito no funcional (NFR) que atiende.
 
@@ -25,7 +25,7 @@
 3. Detecta secciones por la energía RMS en ventanas de 4 s. Esas fronteras se **ajustan a mano** a compases (`SECCIONES` en el script).
 4. Exporta `{ bpm, firstBeat, duration, sections: [{ from, to, kind }] }`.
 
-El script se corre una vez. El MP3 no entra al repo; el mapa sí (son solo números).
+El script se corre una vez. Resultado: **168,00 BPM estable** en las dos mitades de la canción y primer pulso en 0,330 s.
 
 ## 4. El corazón (F4)
 - **Máquina de estados:** `guardia → aviso → golpe → (abierto | recupera) → guardia`, más `aturdido` (Grito), `transicion` (fase) y `ko`.
@@ -53,7 +53,8 @@ El script se corre una vez. El MP3 no entra al repo; el mapa sí (son solo núme
 - el teclado se traduce a las mismas acciones.
 
 ## 7. Render (F9, F11)
-- **Sprites por código**, generados al arrancar en `OffscreenCanvas` y con la misma técnica que la hoja de concepto (contorno + 3 tonos, `scripts/hoja_concepto.py`). Se porta a JS en `render/sprites.js`. Así no hay imágenes que pesen y el estilo queda idéntico.
+- **Sprites por código en Python** (`scripts/sprites_lib.py`, contorno + 3 tonos). `scripts/atlas.py` los empaqueta en `src/data/atlas.js` (un PNG de 29 KB en base64), que es lo mismo que hace el juego principal con sus atlas. Cambio respecto al plan inicial (portar el dibujo a JS): así el juego y la hoja de concepto salen idénticos al píxel y no se duplica código.
+- La fase 3 parte el sprite por código en dos mitades; la que ataca se adelanta.
 - **Animación:**
   - el corazón «late» en cada tiempo (escala vertical de 1 px);
   - el escenario cambia la luz por sección;
@@ -74,7 +75,7 @@ El script se corre una vez. El MP3 no entra al repo; el mapa sí (son solo núme
 ## 10. Publicación
 - `npm run publish:web` copia `dist/` a `static/games/payaso-vs-corazon/`.
 - La tarjeta va en `data/games.json`, con su fecha de salida.
-- **Solo cuando se resuelva la pregunta legal de la canción** (spec §6.1).
+- La canción se guarda una sola vez, en `static/`; el servidor de desarrollo y el build la toman de ahí.
 
 ## 11. Riesgos técnicos
 | Riesgo | Mitigación |

@@ -1,27 +1,8 @@
-# Uso: python3 -I scripts/hoja_concepto.py ../mexico-vs-jose-madero/src/render/font.js art/concepto/hoja-concepto.png
-# Hoja de concepto: «Payaso vs. Corazón» — sprites por código, 1x, contorno + 3 tonos.
+# Sprites de «Yo contra mi corazón»: dibujados por código a 1x, contorno oscuro + 3 tonos.
+# Lo usan scripts/atlas.py (atlas del juego) y scripts/hoja_concepto.py (hoja de concepto).
 import re, sys, math, random
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-FONTJS = sys.argv[1]; OUT = sys.argv[2]
-
-# ---------- fuente bitmap 5x7 del juego ----------
-src = open(FONTJS, encoding='utf8').read()
-GL = {}
-for k, v in re.findall(r"(?:'([^']+)'|(\w)):\s*G\('([01 ]+)'\)", src) and [(a or b, c) for a, b, c in re.findall(r"(?:'([^']+)'|(\w)):\s*G\('([01 ]+)'\)", src)]:
-    GL[k] = v.split(' ')
-def text(img, s, x, y, col=(255,255,255), sh=(20,10,25)):
-    d = ImageDraw.Draw(img)
-    for pass_, c in ((1, sh), (0, col)):
-        cx = x
-        for ch in s.upper():
-            g = GL.get(ch)
-            if g:
-                for r, row in enumerate(g):
-                    for q, b in enumerate(row):
-                        if b == '1': d.point((cx+q+pass_, y+r+pass_), fill=c)
-            cx += 6
-def twidth(s): return 6*len(s)
 
 OL = (26, 10, 22, 255)
 def rgba(c): return tuple(c) + (255,) if len(c) == 3 else c
@@ -75,15 +56,32 @@ def fist(S, cx, cy, r, pal):
     S.part(lambda d: d.ellipse((cx-r, cy-r, cx+r, cy+r), 255), *pal, k=2, kl=2)
     S.draw(lambda d: [d.line((cx-r//2+i*(r//2), cy-r+2, cx-r//2+i*(r//2), cy-r//3), fill=OL) for i in range(3)])
 
+HEART_POSES = ['idle', 'avisoIzq', 'avisoDer', 'golpeIzq', 'golpeDer', 'avisoLatido', 'avisoAorta', 'dano']
+ALIAS = {'aviso': 'avisoDer', 'golpe': 'golpeDer', 'parchado': 'idle', 'roto': 'idle'}
+
+def glow(S, m, n=3, col=YEL):
+    g = m.copy()
+    for _ in range(n): g = g | shift(g,1,0) | shift(g,-1,0) | shift(g,0,1) | shift(g,0,-1)
+    S.a[g & ~m & (S.a[..., 3] == 0)] = rgba(col)
+
 def heart(pose='idle'):
+    """Corazón de 100×108. Las poses «Izq/Der» son del lado de la pantalla por el que viene el golpe."""
+    concept = pose
+    pose = ALIAS.get(pose, pose)
     S = Spr(100, 108); ox = 2
-    pal = RED_HOT if pose == 'aviso' else RED
+    aviso = pose.startswith('aviso')
+    pal = RED_HOT if aviso else RED
+    mx = lambda x: 100 - x
     # piernas y pies
     for lx in (34, 56):
         S.part(lambda d, lx=lx: d.rectangle((lx+ox, 86, lx+ox+8, 98), 255), pal[1], None, pal[0])
         S.part(lambda d, lx=lx: d.ellipse((lx+ox-3, 95, lx+ox+11, 104), 255), (70,14,34), None, (120,30,50))
     # vasos: aorta (rosa), vena (azul), arteria pequeña
-    S.part(lambda d: d.line([(46+ox,34),(44+ox,14),(38+ox,7),(29+ox,8),(26+ox,16)], 255, 9, joint='curve'), *PINK, k=2, kl=2)
+    aorta = lambda d: d.line([(46+ox,34),(44+ox,14),(38+ox,7),(29+ox,8),(26+ox,16)], 255, 9, joint='curve')
+    if pose == 'avisoAorta':
+        glow(S, S.mask(aorta), 3)
+    pk = ((255,150,120), (190,60,70), (255,210,170)) if pose == 'avisoAorta' else PINK
+    S.part(aorta, *pk, k=2, kl=2)
     S.draw(lambda d: d.ellipse((21+ox,13,31+ox,20), (110,20,46,255), OL))
     S.part(lambda d: d.line([(58+ox,30),(61+ox,9)], 255, 8), *BLUE, k=2, kl=2)
     S.draw(lambda d: d.ellipse((57+ox,5,66+ox,11), (22,30,80,255), OL))
@@ -93,17 +91,16 @@ def heart(pose='idle'):
     def body(d):
         d.ellipse((8+ox,22,54+ox,68), 255); d.ellipse((42+ox,22,88+ox,68), 255)
         d.polygon([(10+ox,52),(86+ox,52),(48+ox,98)], 255)
-    if pose == 'aviso':  # halo amarillo de aviso (telegrafía)
-        m = S.mask(body); g = m.copy()
-        for _ in range(3): g = g | shift(g,1,0) | shift(g,-1,0) | shift(g,0,1) | shift(g,0,-1)
-        S.a[g & ~m] = rgba(YEL)
+    if pose in ('avisoIzq', 'avisoDer', 'avisoLatido'):
+        glow(S, S.mask(body), 3)
     S.part(body, *pal, k=5, kl=3)
     # venas y brillo
     def veins(d):
-        c = (120,24,70,255)
-        d.line([(20+ox,38),(25+ox,48),(22+ox,58)], c); d.line([(25+ox,48),(32+ox,52)], c)
-        d.line([(78+ox,38),(72+ox,48),(76+ox,58)], c); d.line([(72+ox,48),(66+ox,50)], c)
-        d.line([(46+ox,84),(50+ox,90)], c)
+        c = (255,200,90,255) if pose == 'avisoLatido' else (120,24,70,255)
+        w = 2 if pose == 'avisoLatido' else 1
+        d.line([(20+ox,38),(25+ox,48),(22+ox,58)], c, w); d.line([(25+ox,48),(32+ox,52)], c, w)
+        d.line([(78+ox,38),(72+ox,48),(76+ox,58)], c, w); d.line([(72+ox,48),(66+ox,50)], c, w)
+        d.line([(46+ox,84),(50+ox,90)], c, w)
         d.ellipse((15+ox,29,24+ox,36), (255,196,196,255))
         d.point((27+ox,31), (255,230,230,255))
     S.draw(veins)
@@ -114,46 +111,44 @@ def heart(pose='idle'):
             d.polygon([(38+ox,64),(58+ox,64),(55+ox,74),(41+ox,74)], (70,8,24,255), OL)
             d.rectangle((44+ox,64,52+ox,66), (240,240,240,255))
             return
-        pupil = YEL + (255,) if pose == 'aviso' else (20,10,20,255)
+        pupil = YEL + (255,) if aviso else (20,10,20,255)
         d.ellipse((29+ox,45,44+ox,59), (250,250,245,255), OL); d.ellipse((52+ox,45,67+ox,59), (250,250,245,255), OL)
         d.rectangle((38+ox,50,42+ox,56), pupil); d.rectangle((54+ox,50,58+ox,56), pupil)
-        if pose == 'aviso':
+        if aviso:
             d.rectangle((39+ox,51,41+ox,52), (255,255,255,255)); d.rectangle((55+ox,51,57+ox,52), (255,255,255,255))
         d.polygon([(25+ox,40),(47+ox,48),(47+ox,52),(25+ox,45)], OL)
         d.polygon([(71+ox,40),(49+ox,48),(49+ox,52),(71+ox,45)], OL)
+        if pose == 'avisoLatido':  # aprieta los dientes: se infla
+            d.rectangle((38+ox,66,58+ox,72), (250,250,250,255), OL); d.line([(38+ox,69),(58+ox,69)], OL)
+            return
         d.polygon([(36+ox,73),(41+ox,66),(55+ox,66),(60+ox,73),(55+ox,70),(41+ox,70)], (70,8,24,255), OL)
         d.polygon([(41+ox,67),(45+ox,67),(43+ox,72)], (255,255,255,255), OL)
         d.polygon([(51+ox,67),(55+ox,67),(53+ox,72)], (255,255,255,255), OL)
     S.draw(face)
     # brazos y puños
-    if pose in ('idle', 'parchado', 'roto'):
-        S.part(lambda d: d.line([(12+ox,62),(24+ox,78)], 255, 7), pal[1], None, pal[0])
-        S.part(lambda d: d.line([(84+ox,62),(72+ox,78)], 255, 7), pal[1], None, pal[0])
-        fist(S, 24+ox, 80, 8, pal); fist(S, 72+ox, 80, 8, pal)
-    elif pose == 'aviso':
-        S.part(lambda d: d.line([(12+ox,62),(24+ox,78)], 255, 7), pal[1], None, pal[0]); fist(S, 24+ox, 80, 8, pal)
-        S.part(lambda d: d.line([(84+ox,58),(92+ox,40)], 255, 7), pal[1], None, pal[0]); fist(S, 90+ox, 36, 8, pal)
-        S.draw(lambda d: [d.line(l, YEL+(255,), 1) for l in [((80+ox,22),(84+ox,27)),((90+ox,18),(90+ox,24)),((98,24),(95,28))]])
-    elif pose == 'golpe':
-        S.part(lambda d: d.line([(12+ox,62),(24+ox,78)], 255, 7), pal[1], None, pal[0]); fist(S, 24+ox, 80, 8, pal)
-        S.part(lambda d: d.line([(82+ox,60),(60+ox,74)], 255, 9), pal[1], None, pal[0])
-        fist(S, 54+ox, 80, 17, pal)
-        S.draw(lambda d: [d.line(l, (255,255,255,255), 1) for l in [((28,96),(36,90)),((80,100),(72,94)),((54+ox,104),(54+ox,98)),((22,70),(30,72))]])
+    def low(side):
+        if side == 'L':
+            S.part(lambda d: d.line([(12+ox,62),(24+ox,78)], 255, 7), pal[1], None, pal[0]); fist(S, 24+ox, 80, 8, pal)
+        else:
+            S.part(lambda d: d.line([(84+ox,62),(72+ox,78)], 255, 7), pal[1], None, pal[0]); fist(S, 72+ox, 80, 8, pal)
+    def raised(side):
+        f = (lambda x: x) if side == 'R' else mx
+        S.part(lambda d: d.line([(f(84+ox),58),(f(92+ox),40)], 255, 7), pal[1], None, pal[0]); fist(S, f(90+ox), 36, 8, pal)
+        S.draw(lambda d: [d.line((f(p[0][0]), p[0][1], f(p[1][0]), p[1][1]), YEL+(255,), 1) for p in [((80+ox,22),(84+ox,27)),((90+ox,18),(90+ox,24)),((98,24),(95,28))]])
+    def punch(side):
+        f = (lambda x: x) if side == 'R' else mx
+        S.part(lambda d: d.line([(f(82+ox),60),(f(60+ox),74)], 255, 9), pal[1], None, pal[0])
+        fist(S, f(54+ox), 80, 17, pal)
+        S.draw(lambda d: [d.line((f(p[0][0]), p[0][1], f(p[1][0]), p[1][1]), (255,255,255,255), 1) for p in [((28,96),(36,90)),((80,100),(72,94)),((54+ox,104),(54+ox,98)),((22,70),(30,72))]])
+    if pose in ('idle', 'avisoLatido', 'avisoAorta'):
+        low('L'); low('R')
+    elif pose == 'avisoDer': low('L'); raised('R')
+    elif pose == 'avisoIzq': low('R'); raised('L')
+    elif pose == 'golpeDer': low('L'); punch('R')
+    elif pose == 'golpeIzq': low('R'); punch('L')
     elif pose == 'dano':
         S.part(lambda d: d.line([(12+ox,62),(4+ox,48)], 255, 7), pal[1], None, pal[0]); fist(S, 4+ox, 46, 7, pal)
         S.part(lambda d: d.line([(84+ox,62),(94,48)], 255, 7), pal[1], None, pal[0]); fist(S, 93, 46, 7, pal)
-    # extras por fase
-    if pose == 'parchado':
-        def curitas(d):
-            band = (232,196,150,255)
-            d.polygon([(14+ox,36),(18+ox,32),(36+ox,46),(32+ox,50)], band, OL)
-            d.polygon([(14+ox,46),(32+ox,32),(36+ox,36),(18+ox,50)], band, OL)
-            d.rectangle((23+ox,39,27+ox,43), (210,170,130,255))
-            d.line([(64+ox,28),(80+ox,44)], OL, 1)
-            for t in range(5): x0 = 66+ox+t*3; y0 = 30+t*3; d.line([(x0-2,y0+2),(x0+2,y0-2)], OL, 1)
-            d.ellipse((82+ox,48,86+ox,54), (150,200,255,255), OL)  # gota de sudor
-        S.draw(curitas)
-    if pose == 'dano':
         def fx(d):
             rnd = random.Random(3)
             for _ in range(16):
@@ -163,20 +158,34 @@ def heart(pose='idle'):
             for sx, sy in ((14,24),(84,26)):
                 d.polygon([(sx,sy-4),(sx+1,sy-1),(sx+4,sy),(sx+1,sy+1),(sx,sy+4),(sx-1,sy+1),(sx-4,sy),(sx-1,sy-1)], YEL+(255,))
         S.draw(fx)
-    if pose == 'roto':
-        a = S.a.copy(); S.a[:] = 0
-        for y in range(108):
-            zx = 50 + (3 if (y//6) % 2 else -3) if y > 20 else 200
-            if y <= 20: continue
-            L = a[y, :zx]; R = a[y, zx:]
-            S.a[y, 0:zx-3] = L[3:] if zx > 3 else S.a[y, 0:0]
-            S.a[y, zx+3:] = R[:100-zx-3]
-        S.a[:21] = np.maximum(S.a[:21], a[:21])
-        # bordes de la grieta
-        al = S.a[..., 3] > 0
-        edge = al & ~(shift(al,1,0) & shift(al,-1,0))
-        S.a[edge & (np.arange(100)[None, :] > 40) & (np.arange(100)[None, :] < 60) & (np.arange(108)[:, None] > 22)] = OL
-    return S.img()
+    im = S.img()
+    if concept == 'parchado': im.alpha_composite(curitas())
+    if concept == 'roto': im = split(im)
+    return im
+
+def curitas():
+    """Capa de la fase 2: curitas en X, costura y gota de sudor (va encima de cualquier pose)."""
+    S = Spr(100, 108); ox = 2
+    def f(d):
+        band = (232,196,150,255)
+        d.polygon([(14+ox,36),(18+ox,32),(36+ox,46),(32+ox,50)], band, OL)
+        d.polygon([(14+ox,46),(32+ox,32),(36+ox,36),(18+ox,50)], band, OL)
+        d.rectangle((23+ox,39,27+ox,43), (210,170,130,255))
+        d.line([(64+ox,28),(80+ox,44)], OL, 1)
+        for t in range(5): x0 = 66+ox+t*3; y0 = 30+t*3; d.line([(x0-2,y0+2),(x0+2,y0-2)], OL, 1)
+        d.ellipse((82+ox,48,86+ox,54), (150,200,255,255), OL)
+    S.draw(f); return S.img()
+
+def split(im, gap=3):
+    """Fase 3 (solo para la hoja; en el juego se parte por código)."""
+    a = np.array(im); o = np.zeros_like(a)
+    for y in range(a.shape[0]):
+        if y <= 20: o[y] = a[y]; continue
+        zx = 50 + (3 if (y//6) % 2 else -3)
+        o[y, 0:zx-gap] = a[y, gap:zx]; o[y, zx+gap:] = a[y, zx:100-gap]
+        o[y, zx-gap-1] = OL if o[y, zx-gap-1, 3] else o[y, zx-gap-1]
+        o[y, zx+gap] = OL if o[y, zx+gap, 3] else o[y, zx+gap]
+    return Image.fromarray(o, 'RGBA')
 
 # ---------- PAYASO (de espaldas, vista del jugador) ----------
 WHITE = ((238,234,226), (168,164,172), (255,255,255))
@@ -186,9 +195,25 @@ HAIR = ((50,34,32), (26,16,18), (104,74,64))
 WOOD = ((190,130,74), (128,82,44), (228,178,114))
 NAIL = (196,202,214,255)
 
+CLOWN_POSES = ['listo', 'esquivaIzq', 'esquivaDer', 'agachado', 'batazo', 'grito', 'golpeado']
+
 def clown(pose='idle'):
-    S = Spr(84, 126); S.Y = 20; ox = {'esquiva': 0}.get(pose, 8)
-    lean = {'idle': 0, 'esquiva': -7, 'batazo': 3, 'grito': 0}[pose]
+    """Payaso de espaldas, 100×126 (la cabeza queda en x≈48)."""
+    pose = {'idle': 'listo', 'esquiva': 'esquivaIzq'}.get(pose, pose)
+    if pose == 'agachado':
+        a = np.array(clown('listo')); o = np.zeros_like(a)
+        o[10:96] = a[0:86]; o[96:] = a[96:]   # quita 10 filas de piernas
+        return Image.fromarray(o, 'RGBA')
+    if pose == 'golpeado':
+        im = clown('listo'); a = np.array(im).astype(np.int16)
+        m = a[..., 3] > 0
+        a[m, 0] = np.minimum(255, a[m, 0] + 90); a[m, 1] = a[m, 1] * 0.6; a[m, 2] = a[m, 2] * 0.6
+        im = Image.fromarray(a.astype(np.uint8), 'RGBA'); d = ImageDraw.Draw(im)
+        for sx, sy in ((30, 12), (48, 6), (66, 12)):
+            d.polygon([(sx,sy-4),(sx+1,sy-1),(sx+4,sy),(sx+1,sy+1),(sx,sy+4),(sx-1,sy+1),(sx-4,sy),(sx-1,sy-1)], YEL+(255,), OL)
+        return im
+    S = Spr(100, 126); S.Y = 20; ox = {'esquivaIzq': 6, 'esquivaDer': 22}.get(pose, 16)
+    lean = {'listo': 0, 'esquivaIzq': -7, 'esquivaDer': 7, 'batazo': 3, 'grito': 0}[pose]
     hx = ox + lean; tx = ox + lean // 2
     late = []
     stripes = lambda xx, yy: (yy // 3) % 2 == 0
@@ -232,7 +257,7 @@ def clown(pose='idle'):
         S.draw(lambda d: d.line([(x, y), (x-2, y-9 if up else y+9)], (20,20,24,255), 3))
         cy = y-11 if up else y+11
         S.part(lambda d: d.ellipse((x-6, cy-3, x+1, cy+4), 255), (150,150,160), (90,90,100), (210,210,220), k=1, kl=1)
-    if pose in ('idle', 'esquiva'):
+    if pose in ('listo', 'esquivaIzq', 'esquivaDer'):
         arm([(16+tx,38),(8+tx,52),(12+tx,60)]); hand(12+tx, 62); mic(12+tx, 60)
         bat(56+tx, 58, 68+tx, 8)
         arm([(48+tx,38),(56+tx,50),(54+tx,58)]); hand(55+tx, 59)
@@ -264,8 +289,10 @@ def clown(pose='idle'):
     S.part(lambda d: d.ellipse((20+hx,2,44+hx,30), 255), *HAIR, k=4)
     S.draw(lambda d: [d.line([(26+hx+i*4,6),(25+hx+i*4,22)], (110,80,70,255)) for i in range(4)])
     for f in late: f()
-    if pose == 'esquiva':
-        S.draw(lambda d: [d.line([(66,30+i*14),(78,30+i*14)], (255,255,255,255)) for i in range(4)])
+    if pose == 'esquivaIzq':
+        S.draw(lambda d: [d.line([(80,30+i*14),(92,30+i*14)], (255,255,255,255)) for i in range(4)])
+    if pose == 'esquivaDer':
+        S.draw(lambda d: [d.line([(4,30+i*14),(16,30+i*14)], (255,255,255,255)) for i in range(4)])
     return S.img()
 
 def clown_face():
@@ -326,67 +353,11 @@ def stage():
     for x in range(0, W, 8): d.polygon([(x,10),(x+8,10),(x+4,14)], (104,16,36,255))
     return im
 
-def mockup(hpose='aviso', cpose='idle'):
-    im = stage()
-    im.alpha_composite(heart(hpose), (40, 66))
-    # público (siluetas al frente)
-    d = ImageDraw.Draw(im); rnd = random.Random(2)
-    for x in range(-6, 186, 13):
-        h = rnd.randrange(0, 6); d.ellipse((x, 296-h, x+12, 310-h), (8,6,14,255)); d.rectangle((x-2, 304-h, x+14, 320), (8,6,14,255))
-        if rnd.random() < .45: d.line([(x+10, 300-h), (x+14, 280-h)], (8,6,14,255), 3)
-    im.alpha_composite(clown(cpose), (50, 186))
-    # HUD
-    d.rectangle((0,0,180,34), (10,8,18,230))
-    im.alpha_composite(clown_face(), (2, 2)); im.alpha_composite(heart_icon(), (148, 2))
-    def bar(x, y, w, frac, col, rev=False):
-        d.rectangle((x, y, x+w, y+5), (40,30,50,255), OL)
-        fw = int((w-2) * frac)
-        if rev: d.rectangle((x+w-1-fw, y+1, x+w-1, y+4), col)
-        else: d.rectangle((x+1, y+1, x+1+fw, y+4), col)
-    text(im, 'PAYASO', 34, 4); bar(34, 13, 52, .8, (120,230,120,255))
-    text(im, 'CORAZÓN', 146 - twidth('CORAZÓN'), 4); bar(94, 13, 52, .45, (240,60,80,255), rev=True)
-    text(im, 'PÚBLICO', 34, 22, (255,226,92))
-    for i in range(5):
-        x = 80 + i*9; c = (255,226,92,255) if i < 3 else (60,50,70,255)
-        d.polygon([(x+3,22),(x+4,25),(x+7,25),(x+5,27),(x+6,30),(x+3,28),(x,30),(x+1,27),(x-1,25),(x+2,25)], c)
-    text(im, '2:41', 145 - twidth('2:41') + 30, 24)
-    # indicador de ritmo
-    for i in range(4):
-        cx = 72 + i*12; r = 4 if i == 0 else 2
-        d.ellipse((cx-r, 44-r, cx+r, 44+r), (255,226,92,255) if i == 0 else (120,110,150,255))
-    d.ellipse((66, 38, 78, 50), None, (255,226,92,255))
-    # botón de micrófono
-    d.ellipse((150, 254, 174, 278), (40,20,60,230), YEL+(255,))
-    d.rectangle((160,259,164,267), (200,200,210,255), OL); d.line([(162,268),(162,272)], (200,200,210,255)); d.line([(158,272),(166,272)], (200,200,210,255))
-    text(im, '◀ DESLIZA ▶', 90 - twidth('◀ DESLIZA ▶')//2, 302)
-    text(im, 'TOCA: BATAZO', 90 - twidth('TOCA: BATAZO')//2, 312, (255,226,92))
-    return im
 
-# ---------- HOJA ----------
-SC = 3
-def up(im, s=SC): return im.resize((im.width*s, im.height*s), Image.NEAREST)
-F = lambda sz, b=True: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf' if b else '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', sz)
-sheet = Image.new('RGBA', (1980, 1330), (52,50,58,255)); sd = ImageDraw.Draw(sheet)
-sd.text((40, 26), 'PAYASO VS. CORAZÓN — hoja de concepto', font=F(40), fill=(255,255,255))
-sd.text((40, 78), 'Pixel art 16 bits (misma línea que México vs. José Madero): contorno oscuro, 3 tonos por color, sprites a 1x mostrados a 3x', font=F(20, False), fill=(200,196,210))
-mk = up(mockup()); sheet.alpha_composite(mk, (40, 130))
-sd.text((40, 130+mk.height+8), 'Pantalla del celular (180×320 px, vertical)', font=F(18), fill=(230,226,240))
-X0 = 640
-sd.text((X0, 130), 'EL CORAZÓN — diseño propio (corazón anatómico, no un personaje existente)', font=F(22), fill=(255,140,150))
-hp = [('idle', 'En guardia'), ('aviso', 'Aviso (brilla)'), ('golpe', 'Golpe'), ('dano', 'Le pegaste'), ('parchado', 'Fase 2: parchado'), ('roto', 'Fase 3: roto')]
-for i, (p, lab) in enumerate(hp):
-    x = X0 + (i % 3) * 430; y = 170 + (i // 3) * 360
-    sheet.alpha_composite(up(heart(p)), (x, y))
-    sd.text((x, y + 108*SC + 2), lab, font=F(20), fill=(240,236,246))
-Y1 = 940
-sd.text((X0, Y1 - 40 + 10), 'EL PAYASO — de espaldas (vista del jugador)', font=F(22), fill=(255,226,120))
-cp = [('idle', 'Listo'), ('esquiva', 'Esquiva'), ('batazo', 'Batazo'), ('grito', 'Grito (micrófono)')]
-for i, (p, lab) in enumerate(cp):
-    x = X0 + i * 240
-    sheet.alpha_composite(up(clown(p), 2), (x, Y1 + 10))
-    sd.text((x, Y1 + 270), lab, font=F(20), fill=(240,236,246))
-sheet.alpha_composite(up(clown_face(), 5), (X0 + 990, Y1 + 40))
-sheet.alpha_composite(up(heart_icon(), 5), (X0 + 1150, Y1 + 40))
-sd.text((X0 + 990, Y1 + 200), 'Retratos del HUD', font=F(20), fill=(240,236,246))
-sheet.convert('RGB').save(OUT)
-print('ok', OUT)
+def crowd(seed=2):
+    """Siluetas del público al frente (180×44, va en y=276)."""
+    im = Image.new('RGBA', (180, 44)); d = ImageDraw.Draw(im); rnd = random.Random(seed); Y = -276
+    for x in range(-6, 186, 13):
+        h = rnd.randrange(0, 6); d.ellipse((x, 296-h+Y, x+12, 310-h+Y), (8,6,14,255)); d.rectangle((x-2, 304-h+Y, x+14, 320+Y), (8,6,14,255))
+        if rnd.random() < .45: d.line([(x+10, 300-h+Y), (x+14, 280-h+Y)], (8,6,14,255), 3)
+    return im

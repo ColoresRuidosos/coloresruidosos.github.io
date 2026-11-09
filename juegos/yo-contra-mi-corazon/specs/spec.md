@@ -1,7 +1,8 @@
-# PAYASO VS. CORAZÓN — Especificación (SDD)
+# YO CONTRA MI CORAZÓN — Especificación (SDD)
 
-> Minijuego de Colores Ruidosos. Estado: **borrador para aprobar** (9 nov 2026).
-> Método: Spec-Driven Development (Dominicode). No se programa hasta que el usuario apruebe esta spec.
+> Minijuego de Colores Ruidosos. Estado: **aprobada y en la v0.1** (9 nov 2026).
+> Método: Spec-Driven Development (Dominicode).
+> Decisiones del usuario (9 nov 2026): el nombre es «Yo contra mi corazón» y la canción original entra como excepción (§6.1, opción C).
 > Hoja de concepto: [`../art/concepto/hoja-concepto.png`](../art/concepto/hoja-concepto.png).
 
 ---
@@ -70,7 +71,7 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 - **Fuera:** cualquier otra cosa.
 - Se aplica a las esquivas y a los batazos.
 
-**F4 Ataques del corazón.** Todos se avisan 1 tiempo antes (≈357 ms a 168 BPM, o 2 tiempos en la fase 1).
+**F4 Ataques del corazón.** Un «tiempo» es un pulso de 168 BPM (≈357 ms). Todos se avisan antes: 4 tiempos (≈1,4 s) en la fase 1 y en el tutorial, y 2 tiempos (≈0,7 s) en las fases 2 y 3. El golpe siempre cae en un tiempo par. Los puños: si sube el puño de la izquierda, se esquiva a la derecha, y al revés.
 
 | Ataque | Aviso | Cómo se evita | Fase |
 |---|---|---|---|
@@ -82,19 +83,20 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 | **Mitades** | Cada mitad avisa por su lado | Alternar la esquiva | 3 |
 
 **F5 Contraataque.**
-- Una esquiva Perfecta o Bien deja al corazón **abierto** 2 tiempos.
-- Cada batazo en el tiempo durante esa ventana hace daño completo; fuera de tiempo hace la mitad.
-- Fuera de la ventana el batazo rebota: no hace daño y rompe la racha.
+- Una esquiva Perfecta o Bien deja al corazón **abierto** 4 tiempos (3 en la fase 3). También la esquiva **temprana** (hasta 450 ms antes): salva y abre, pero no cuenta para la racha.
+- Se puede batear una vez por tiempo. En el tiempo hace daño completo; fuera de tiempo, la mitad.
+- Fuera de la ventana, o dos veces en el mismo tiempo, el batazo rebota: no hace daño y rompe la racha.
 
 **F6 Público y Grito.**
-- Las 5 estrellas del público se llenan con los Perfectos y la racha.
-- Llenas, se habilita el Grito: aturde al corazón 4 tiempos y cada batazo hace el triple de daño.
+- Cada 4 Perfectos seguidos (esquivas o batazos) suma una estrella; cada golpe recibido quita una.
+- Con las 5 estrellas se habilita el Grito: gasta las estrellas, aturde al corazón 8 tiempos y cada batazo hace el triple de daño.
 
 **F7 Vida y final.**
-- El payaso tiene 100 puntos de vida y cada golpe recibido le quita 15. Si llega a 0: «SE ACABÓ EL SHOW» y Reintentar.
-- El corazón tiene una barra por fase.
+- El payaso tiene 100 puntos de vida y cada golpe recibido le quita 12. Al cambiar de fase recupera 40. Si llega a 0: «SE ACABÓ EL SHOW» y Reintentar.
+- El corazón tiene una barra por fase (560, 640 y 900). Vaciar la barra adelanta la fase; si no, la canción la cambia sola (1:12 y 2:12).
 - **K.O.:** vaciar la barra de la fase 3 antes de que termine la canción.
-- Si termina la canción sin K.O., gana por **decisión del público** si el público está a 3 estrellas o más.
+- Si termina la canción sin K.O., gana por **decisión** si le quitó al corazón el 40 % o más de la vida total.
+- Ajuste comprobado con bots (`npm test`, `scripts/tune.mjs`): el perfecto gana por K.O. hacia la 2:50, el bueno gana, el promedio queda en el filo y el flojo pierde.
 
 **F8 Puntuación y rango.**
 - Puntos por Perfecto, Bien, daño, racha y K.O.
@@ -201,13 +203,12 @@ juegos/payaso-vs-corazon/
 
 | Tema | Riesgo | Propuesta |
 |---|---|---|
-| **Canción original** | **Contradice la regla del proyecto** («ni música ni letras sin licencia», `CONTEXTO.md` §1). Publicar el MP3 en un sitio público es distribuir la grabación | El MP3 **no se sube al repo** (`.gitignore`). Para publicar en la web hay 3 opciones: **A)** pedir permiso al equipo de Madero; **B)** un chiptune original al mismo tempo y con la misma estructura, de modo que el mapa de ataques sirva igual; **C)** riesgo aceptado por el usuario y anotado aquí. ⏳ **Decide el usuario** |
+| **Canción original** | **Contradice la regla del proyecto** («ni música ni letras sin licencia», `CONTEXTO.md` §1). Publicar el MP3 en un sitio público es distribuir la grabación | ✅ **Opción C: riesgo aceptado por el usuario como excepción «por ahora»** (9 nov 2026). El MP3 (128 kbps, sin metadatos) vive en `static/games/yo-contra-mi-corazon/cancion.mp3`. Si llega una queja o se pide licencia, la salida es la opción B: un chiptune original de 168 BPM con la misma estructura, que usa el mismo mapa |
 | Imagen de José Madero | Pepe de payaso es una caricatura, como en el juego principal | Rótulo de homenaje no oficial y sin su nombre en el título del minijuego |
 | Corazón | La referencia recuerda a un personaje de dibujos animados con derechos | Diseño propio: corazón anatómico con aorta y venas. No es una botarga peluda |
 | Bate con clavos | Violencia | Sin sangre: confeti y brillos. ⏳ Que el usuario confirme si quiere los clavos o un bate liso |
 
 ## 7. Preguntas abiertas
-1. **Canción en la web pública:** ¿opción A, B o C (§6.1)?
-2. **Duración:** ¿canción completa (3:46) como modo principal, o el modo reel de 60 s como principal y la canción completa como «Concierto completo»?
-3. **Bate:** ¿con clavos o liso?
-4. **Nombre:** «Payaso vs. Corazón» (provisional). Otras opciones: «Teoremas a batazos» o «El show del corazón».
+1. ✅ Canción: opción C. ✅ Nombre: «Yo contra mi corazón».
+2. **Duración:** la v0.1 usa la canción completa (3:46). ¿Añadimos el modo reel de 60 s?
+3. **Bate:** la v0.1 lleva los clavos de la referencia, sin sangre. ¿Lo dejamos así o lo cambiamos por uno liso?
