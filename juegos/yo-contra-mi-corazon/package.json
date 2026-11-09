@@ -1,0 +1,17 @@
+{
+  "name": "yo-contra-mi-corazon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Minijuego de ritmo y box — homenaje no oficial (Colores Ruidosos)",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\"",
+    "dev": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "publish:web": "node scripts/build.mjs && node scripts/publish-web.mjs",
+    "reel": "node scripts/reel.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.1"
+  }
+}

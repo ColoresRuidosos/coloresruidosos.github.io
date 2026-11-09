@@ -1,5 +1,6 @@
 /**
- * Ranking de la Trivia Love of Lesbian (F18/D24) — Apps Script del equipo de Colores Ruidosos.
+ * Ranking de la Trivia Love of Lesbian (F18/D24) y de «Yo contra mi corazón» (modo corazon)
+ * — Apps Script del equipo de Colores Ruidosos.
  *
  * Se pega en el editor de Apps Script de un Google Sheet y se publica como aplicación web.
  * Pasos: docs/ranking/README.md. Las funciones puras (sin servicios de Google) se prueban en
@@ -17,6 +18,8 @@ var MODOS = {
   trivia: { max: 30, min_ms: 15000, max_ms: 3600000 },
   contrarreloj: { max: 400, min_ms: 3000, max_ms: 90000 },
   adivina: { max: 60, min_ms: 5000, max_ms: 3600000 },
+  // «Yo contra mi corazón»: una canción de 3:46; solo la semana del 9 al 15 nov 2026 (hasta 23:59 CDMX).
+  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-16T05:59:59Z" },
 };
 var TOP = 20;
 var LIMITE_POR_HORA = 10;
@@ -29,13 +32,31 @@ var COMPLEMENTOS = ["del Ártico", "de Halley", "del Volcán", "de Nieve", "de B
 
 // ---------- Funciones puras ----------
 
-function nombreValido(nombre) {
+// Palabras de la ruleta por modo (si un modo no está aquí, usa las de la trivia).
+// Deben ser iguales a las de juegos/yo-contra-mi-corazon/src/ranking/ranking.js.
+var NOMBRES = {
+  corazon: {
+    sustantivos: ["Payaso", "Payasa", "Mimo", "Juglar", "Arlequín", "Pierrot",
+      "Acróbata", "Domador", "Faquir", "Bufón", "Zancudo", "Mago"],
+    complementos: ["del Latido", "de la Aorta", "del Bate", "de la Carpa", "del Confeti", "del Telón",
+      "Sin Pulso", "de la Feria", "del Circo", "de Medianoche", "del Arrítmico", "de la Pista"],
+  },
+};
+
+function nombreValido(nombre, modo) {
   if (typeof nombre !== "string") return false;
   var m = /^(.+) #([1-9][0-9]?)$/.exec(nombre);
   if (!m) return false;
-  return SUSTANTIVOS.some(function (s) {
-    return COMPLEMENTOS.some(function (c) { return m[1] === s + " " + c; });
+  var lista = NOMBRES[modo] || { sustantivos: SUSTANTIVOS, complementos: COMPLEMENTOS };
+  return lista.sustantivos.some(function (s) {
+    return lista.complementos.some(function (c) { return m[1] === s + " " + c; });
   });
+}
+
+// Un modo con fecha "hasta" deja de aceptar puntajes después de esa fecha.
+function vigente(modo, ahora) {
+  var m = MODOS[modo];
+  return !!m && (!m.hasta || ahora.getTime() <= new Date(m.hasta).getTime());
 }
 
 function semanaCDMX(fecha) {
@@ -54,7 +75,7 @@ function validarEnvio(d) {
   if (!modo) return "modo";
   if (typeof d.puntos !== "number" || Math.floor(d.puntos) !== d.puntos || d.puntos < 0 || d.puntos > modo.max) return "puntos";
   if (typeof d.duracionMs !== "number" || d.duracionMs < modo.min_ms || d.duracionMs > modo.max_ms) return "duracion";
-  if (!nombreValido(d.nombre)) return "nombre";
+  if (!nombreValido(d.nombre, d.modo)) return "nombre";
   if (typeof d.dispositivo !== "string" || !/^[a-z0-9]{8,32}$/.test(d.dispositivo)) return "dispositivo";
   return "";
 }
@@ -151,6 +172,7 @@ function doPost(e) {
   try { datos = JSON.parse(e.postData.contents); } catch (err) { return responder({ ok: false, error: "formato" }); }
   var error = validarEnvio(datos);
   if (error) return responder({ ok: false, error: error });
+  if (!vigente(datos.modo, new Date())) return responder({ ok: false, error: "cerrado" });
   var cache = CacheService.getScriptCache();
   var clave = "envios-" + datos.dispositivo;
   var enviados = Number(cache.get(clave) || 0);
