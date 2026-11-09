@@ -1,0 +1,4 @@
+# La canción no se sube al repo (spec §6.1)
+*.mp3
+node_modules/
+dist/
