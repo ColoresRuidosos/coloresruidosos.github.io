@@ -78,3 +78,11 @@
 | T7.4 | `bot.test.js`: el bot «normal» gana (antes perdía 3 de 5) | `constants.js` (avisos de 3 tiempos, esquiva temprana de 0,6 s, golpe de 10, meta del 35 %) | ✅ |
 | T7.5 | Referencias nuevas del usuario: manga a cuadros en el brazo del bate, y picos rojos y colmillos en el retrato | `sprites_lib.py` | ✅ |
 | T7.6 | `browser.test.js` falla de vez en cuando con la máquina muy cargada (el reloj simulado ×10 se adelanta); pasa solo | — | ⬜ hacerlo determinista |
+
+## Fase 8 · Reel promocional (`reel/spec.md`)
+| ID | Tarea | Estado |
+|---|---|---|
+| T8.1 | Spec del reel: estilo arcade 16 bits, cortes en el tiempo, texto «¿QUIÉN SERÁ EL MÁS MIGAJERO DE ESTA SEMANA? ¡DESCÚBRELO!» | ✅ |
+| T8.2 | `reel/reel.js`: 5 escenas con el código del juego y momentos reales de una pelea del bot | ✅ |
+| T8.3 | `npm run reel`: 4 variantes × 2 audios, 1080×1920, 30 fps, 23,9 s, normalizado para Instagram | ✅ |
+| T8.4 | El equipo publica: «principal» el lunes 9, «quedan-5» el miércoles 11, «quedan-3» el viernes 13 y «ultimo-dia» el domingo 15 | ⏳ el equipo |
