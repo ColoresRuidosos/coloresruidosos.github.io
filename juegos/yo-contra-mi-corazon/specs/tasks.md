@@ -86,3 +86,11 @@
 | T8.2 | `reel/reel.js`: 5 escenas con el código del juego y momentos reales de una pelea del bot | ✅ |
 | T8.3 | `npm run reel`: 4 variantes × 2 audios, 1080×1920, 30 fps, 23,9 s, normalizado para Instagram | ✅ |
 | T8.4 | El equipo publica: «principal» el lunes 9, «quedan-5» el miércoles 11, «quedan-3» el viernes 13 y «ultimo-dia» el domingo 15 | ⏳ el equipo |
+
+## Fase 9 · Nombres de la carrera de Pepe y reel «Pepe Madero vs. mi corazón» (v0.4)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T9.1 | `ranking.test.js`: palabras de discos y canciones verificados, sin «Luciérnaga», 3 opciones distintas y «otras opciones» sin repetir; listas iguales a `Code.gs` | `ranking/ranking.js` y `docs/ranking/Code.gs` | ✅ |
+| T9.2 | `browser.test.js`: elegir la 3.ª opción y publicarla | pantalla «Publicar» | ✅ |
+| T9.3 | `npm run reel -- pepe`: gancho «PEPE MADERO VS MI CORAZÓN», 4 variantes × 2 audios | `reel/reel.js` | ✅ |
+| T9.4 | El usuario pega el `Code.gs` nuevo y publica una versión nueva; **después** se fusiona en `main` | — | ⏳ el usuario |

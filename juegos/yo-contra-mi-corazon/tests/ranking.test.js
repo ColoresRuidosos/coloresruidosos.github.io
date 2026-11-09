@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
-import { SUSTANTIVOS, COMPLEMENTOS, generarNombre, nombreValido, armarEnvio, ordenar, createRanking, createDemoRanking, MODO } from '../src/ranking/ranking.js';
+import { SUSTANTIVOS, COMPLEMENTOS, generarNombre, generarOpciones, nombreValido, armarEnvio, ordenar, createRanking, createDemoRanking, MODO } from '../src/ranking/ranking.js';
 import { temporada, CIERRE } from '../src/ranking/temporada.js';
 import { createRng } from '../src/core/rng.js';
 import { RANKING_URL } from '../src/data/config.js';
@@ -29,8 +29,8 @@ test('nombres generados: forma «Sustantivo complemento #n», válidos en los do
 });
 
 test('el envío pasa la validación del Apps Script; uno imposible no', () => {
-  const ok = armarEnvio('Juglar del Latido #42', 41234, 171234.4, 'abcdefgh12345678');
-  assert.deepEqual(ok, { modo: 'corazon', nombre: 'Juglar del Latido #42', puntos: 41234, duracionMs: 171234, dispositivo: 'abcdefgh12345678' });
+  const ok = armarEnvio('Migajero de Carmesí #28', 41234, 171234.4, 'abcdefgh12345678');
+  assert.deepEqual(ok, { modo: 'corazon', nombre: 'Migajero de Carmesí #28', puntos: 41234, duracionMs: 171234, dispositivo: 'abcdefgh12345678' });
   assert.equal(GS.validarEnvio(ok), '');
   assert.equal(GS.validarEnvio({ ...ok, puntos: 999999 }), 'puntos');
   assert.equal(GS.validarEnvio({ ...ok, duracionMs: 5000 }), 'duracion');
@@ -67,10 +67,10 @@ test('ranking de prueba: guarda en el navegador, ordena y se marca como prueba',
   const d = {}; const st = { getItem: (k) => d[k] ?? null, setItem: (k, v) => { d[k] = v; } };
   const r = createDemoRanking(st, () => new Date('2026-11-10T00:00:00Z'));
   assert.equal(r.prueba, true);
-  await r.publicar(armarEnvio('Mimo de la Carpa #7', 500, 60000, 'abcdefgh12345678'));
-  await r.publicar(armarEnvio('Mimo de la Carpa #7', 900, 60000, 'abcdefgh12345678'));
+  await r.publicar(armarEnvio('Pierrot de Querido #7', 500, 60000, 'abcdefgh12345678'));
+  await r.publicar(armarEnvio('Pierrot de Querido #7', 900, 60000, 'abcdefgh12345678'));
   const top = await r.top();
-  const mio = top.lista.filter((x) => x.nombre === 'Mimo de la Carpa #7');
+  const mio = top.lista.filter((x) => x.nombre === 'Pierrot de Querido #7');
   assert.equal(mio.length, 1); assert.equal(mio[0].puntos, 900, 'una vez, con su mejor puntaje');
   assert.deepEqual(top.lista.map((x) => x.puntos), [...top.lista.map((x) => x.puntos)].sort((a, b) => b - a));
   assert.ok(top.lista.length >= 2, 'trae nombres de ejemplo para que no se vea vacío');
@@ -89,4 +89,16 @@ test('F13 temporada: abierta del 9 al 15 de nov (CDMX), cuenta los días y cierr
 test('la URL del ranking es la misma que usa el sitio (hugo.toml)', () => {
   const toml = readFileSync(new URL('../../../hugo.toml', import.meta.url), 'utf8');
   assert.equal(RANKING_URL, /trivia_ranking_url = "([^"]+)"/.exec(toml)[1]);
+});
+
+test('F14 v0.4: nombres de la carrera de José Madero, sin «Luciérnaga», y 3 opciones distintas para elegir', () => {
+  const todo = [...SUSTANTIVOS, ...COMPLEMENTOS].join(' ');
+  for (const w of ['Migajero', 'Pierrot', 'Carmesí', 'Noche', 'Psalmos', 'Giallo', 'Sarajevo', 'Querido', 'Lunes 28']) assert.ok(todo.includes(w), w);
+  assert.ok(!/Luci[ée]rnaga/i.test(todo), 'el memorial no se usa como apodo');
+  const rng = createRng(11);
+  const ops = generarOpciones(rng, 3);
+  assert.equal(ops.length, 3); assert.equal(new Set(ops).size, 3);
+  for (const n of ops) { assert.ok(nombreValido(n), n); assert.ok(GS.nombreValido(n, 'corazon'), n); }
+  const otras = generarOpciones(rng, 3, ops);
+  assert.ok(otras.every((n) => !ops.includes(n)), 'OTRAS OPCIONES no repite las de antes');
 });

@@ -10,7 +10,7 @@ import { loadSprites } from './render/sprites.js';
 import { drawScene, createFx, feedFx, stepFx, W, H, MIC_BTN, PAUSE_BTN } from './render/view.js';
 import * as S from './render/screens.js';
 import { shareCard } from './share/card.js';
-import { createRanking, createDemoRanking, generarNombre, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
+import { createRanking, createDemoRanking, generarOpciones, nombreValido, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
 import { temporada } from './ranking/temporada.js';
 import { tipFor } from './game/tips.js';
 import { RANKING_URL } from './data/config.js';
@@ -156,9 +156,12 @@ async function onButton(id) {
     case 'rkNext': app.rk.page++; break;
     case 'rkVolver': app.screen = app.rk.from; break;
     case 'publicar':
-      if (!app.save.rankName) { app.save.rankName = generarNombre(); writeSave(store, app.save); }
+      // F14 v0.4: 3 nombres de la carrera de Pepe para elegir (si ya tenía uno válido, va primero)
+      app.opciones = nombreValido(app.save.rankName) ? [app.save.rankName, ...generarOpciones(Math.random, 2, [app.save.rankName])] : generarOpciones();
+      app.save.rankName = app.opciones[0]; writeSave(store, app.save);
       app.pub = { status: 'listo', error: null }; app.screen = 'publicar'; break;
-    case 'otroNombre': app.save.rankName = generarNombre(Math.random, app.save.rankName); writeSave(store, app.save); break;
+    case 'opcion0': case 'opcion1': case 'opcion2': app.save.rankName = app.opciones[Number(id.slice(-1))]; writeSave(store, app.save); break;
+    case 'otrasOpciones': app.opciones = generarOpciones(Math.random, 3, app.opciones); app.save.rankName = app.opciones[0]; writeSave(store, app.save); break;
     case 'cancelarPub': app.screen = 'resultado'; break;
     case 'enviar': {
       if (app.pub.status === 'enviando') break;
@@ -191,7 +194,7 @@ function frame(now) {
   if (Math.floor(now / 1000) !== Math.floor((now - dt * 1000) / 1000)) app.temp = temporada();
   if (sc === 'titulo') app.buttons = S.drawTitle(ctx, now / 1000, app.save, app.temp);
   else if (sc === 'ranking') app.buttons = S.drawRanking(ctx, app.rk, { miNombre: app.save.rankName, prueba: !!app.ranking?.prueba, temp: app.temp });
-  else if (sc === 'publicar') app.buttons = S.drawPublish(ctx, app.match, app.save.rankName, app.pub, !!app.ranking?.prueba);
+  else if (sc === 'publicar') app.buttons = S.drawPublish(ctx, app.match, app.opciones || [], app.save.rankName, app.pub, !!app.ranking?.prueba);
   else if (sc === 'como') app.buttons = S.drawHowTo(ctx);
   else if (sc === 'opciones') app.buttons = S.drawOptions(ctx, app.save.opts);
   else if (sc === 'juego' || sc === 'pausa' || sc === 'cuenta' || sc === 'resultado') {

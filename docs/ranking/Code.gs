@@ -36,10 +36,9 @@ var COMPLEMENTOS = ["del Ártico", "de Halley", "del Volcán", "de Nieve", "de B
 // Deben ser iguales a las de juegos/yo-contra-mi-corazon/src/ranking/ranking.js.
 var NOMBRES = {
   corazon: {
-    sustantivos: ["Payaso", "Payasa", "Mimo", "Juglar", "Arlequín", "Pierrot",
-      "Acróbata", "Domador", "Faquir", "Bufón", "Zancudo", "Mago"],
-    complementos: ["del Latido", "de la Aorta", "del Bate", "de la Carpa", "del Confeti", "del Telón",
-      "Sin Pulso", "de la Feria", "del Circo", "de Medianoche", "del Arrítmico", "de la Pista"],
+    // Carrera de José Madero (discos y canciones verificados). Nunca «Luciérnaga» (memorial).
+    sustantivos: ["Migajero", "Migajera", "Payaso", "Payasa", "Pierrot", "Fantasma", "Rey", "Reina", "Plural", "Teorema", "Brujo", "Bruja"],
+    complementos: ["de Carmesí", "de Noche", "del Alba", "de Psalmos", "de Giallo", "de Aurora", "de Sarajevo", "del Lunes 28", "de la Rueda", "de la Bestia", "de Querido", "Singular"],
   },
 };
 

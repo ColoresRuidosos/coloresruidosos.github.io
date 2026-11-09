@@ -170,20 +170,26 @@ const ERRORES = {
 };
 const errorTexto = (e) => ERRORES[e] || 'NO SE PUDO PUBLICAR. INTENTA DE NUEVO.';
 
-export function drawPublish(ctx, m, nombre, pub, prueba) {
+export function drawPublish(ctx, m, opciones, elegido, pub, prueba) {
   backdrop(ctx, 0.88);
-  drawText(ctx, 'PUBLICAR', W / 2, 20, { scale: 2, align: 'center', color: YEL });
-  drawText(ctx, `${m.score} PUNTOS`, W / 2, 46, { align: 'center' });
-  drawText(ctx, 'TU NOMBRE EN EL RANKING:', W / 2, 66, { align: 'center', color: '#cfc8e0' });
-  ctx.fillStyle = '#2c2238'; ctx.fillRect(6, 78, W - 12, 17);
-  drawText(ctx, nombre, W / 2, 83, { align: 'center', color: YEL });
-  const b = [button(ctx, 'otroNombre', 'OTRO NOMBRE', 100, { w: 100 })];
-  wrap('EL NOMBRE SALE DE UNA RULETA. SOLO SE ENVÍAN NOMBRE, PUNTOS, TIEMPO Y FECHA.', 166)
-    .forEach((l, i) => drawText(ctx, l, W / 2, 128 + i * 10, { align: 'center', color: '#a89cc0' }));
-  if (prueba) drawText(ctx, 'PRUEBA: SOLO SE GUARDA AQUÍ', W / 2, 166, { align: 'center', color: '#ff9ac8' });
-  if (pub.status === 'enviando') drawText(ctx, 'ENVIANDO…', W / 2, 196, { align: 'center', color: YEL });
+  drawText(ctx, 'PUBLICAR', W / 2, 16, { scale: 2, align: 'center', color: YEL });
+  drawText(ctx, `${m.score} PUNTOS`, W / 2, 38, { align: 'center' });
+  drawText(ctx, 'ELIGE TU NOMBRE:', W / 2, 54, { align: 'center', color: '#cfc8e0' });
+  const b = [];
+  opciones.forEach((n, i) => {
+    const y = 66 + i * 21, sel = n === elegido;
+    ctx.fillStyle = sel ? YEL : '#1a0a16'; ctx.fillRect(5, y - 1, W - 10, 19);
+    ctx.fillStyle = sel ? '#3a2c10' : '#2c2238'; ctx.fillRect(6, y, W - 12, 17);
+    drawText(ctx, (sel ? '▶ ' : '') + n, W / 2, y + 5, { align: 'center', color: sel ? YEL : '#fff' });
+    b.push({ id: 'opcion' + i, x: 5, y: y - 1, w: W - 10, h: 19 });
+  });
+  b.push(button(ctx, 'otrasOpciones', 'OTRAS OPCIONES', 132, { w: 110 }));
+  wrap('SOLO SE ENVÍAN NOMBRE, PUNTOS, TIEMPO Y FECHA.', 166)
+    .forEach((l, i) => drawText(ctx, l, W / 2, 158 + i * 10, { align: 'center', color: '#a89cc0' }));
+  if (prueba) drawText(ctx, 'PRUEBA: SOLO SE GUARDA AQUÍ', W / 2, 182, { align: 'center', color: '#ff9ac8' });
+  if (pub.status === 'enviando') drawText(ctx, 'ENVIANDO…', W / 2, 198, { align: 'center', color: YEL });
   else {
-    if (pub.error) wrap(errorTexto(pub.error), 166).forEach((l, i) => drawText(ctx, l, W / 2, 186 + i * 10, { align: 'center', color: '#ff7080' }));
+    if (pub.error) wrap(errorTexto(pub.error), 166).forEach((l, i) => drawText(ctx, l, W / 2, 190 + i * 10, { align: 'center', color: '#ff7080' }));
     b.push(button(ctx, 'enviar', 'PUBLICAR', 214, { primary: true }));
   }
   b.push(button(ctx, 'cancelarPub', 'CANCELAR', 238));

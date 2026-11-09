@@ -156,7 +156,14 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **F14 Ranking.** Top 20 de la semana de todos los que jueguen, con el mismo sistema que la trivia (F18 y F21 del sitio):
 - Publicar es opcional y se ofrece al terminar una partida.
-- Los nombres son **generados**, con palabras de circo y de corazón («Juglar del Latido #42»). Se puede volver a tirar la ruleta, pero no escribir el nombre propio. El nombre se recuerda en el navegador.
+- **Nombres de la carrera de José Madero** (v0.4, petición del usuario). Se arman como «Migajero de Carmesí #28», «Plural Singular #7» o «Pierrot de Querido #3».
+  - Solo se usan palabras de datos verificados (`juegos/mexico-vs-jose-madero/CONTEXTO.md` §5):
+    - discos: *Carmesí*, *Noche*, *Alba*, *Psalmos*, *Giallo*, *Aurora*, *Sarajevo* y *Querido…*;
+    - canciones: «Lunes 28», «Plural siendo singular», «Maldita Rueda», «Rey Ahogado», «Noche de brujas», «Fantasmas» y «Teoremas, etc.»;
+    - el show «Érase una Bestia» y los pierrots de la portada de *Querido…*.
+  - Se agrega «Migajero» y «Migajera», por el reel.
+  - **Nunca se usa «Luciérnaga»**: es el memorial, y no se convierte en apodo de ranking.
+- **Opciones:** al publicar salen **3 nombres para elegir**, más «OTRAS OPCIONES» para sacar otros 3. No se puede escribir un nombre propio. El elegido se recuerda en el navegador.
 - Solo se envían el nombre generado, los puntos, la duración de la partida y la fecha.
 - **Orden:** más puntos primero. En empate gana la partida más corta (un K.O. más rápido) y después la más antigua. Cada nombre aparece una sola vez, con su mejor puntaje.
 - **Dónde se ve:** botón «RANKING» en la portada y en el resultado. Son 2 páginas de 10, y tu nombre sale resaltado.
