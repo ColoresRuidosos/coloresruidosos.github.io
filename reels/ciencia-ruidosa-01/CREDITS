@@ -1,0 +1,7 @@
+Ciencia Ruidosa #1 — Colores Ruidosos
+
+Imagen: dibujada en código (Canvas 2D). Cuerpo, órganos y animación originales.
+Tipografías: Syne y Space Grotesk — SIL Open Font License 1.1 (vía Fontsource; licencias en fonts/).
+Música y efectos: originales, sintetizados en numpy/scipy (sin samples).
+Herramientas: Chromium headless (Playwright), FFmpeg.
+Datos: ver FACTS.md (Bernardi et al. 2006, Heart; Salimpoor et al. 2011, Nature Neuroscience).
