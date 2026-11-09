@@ -66,3 +66,18 @@ El mismo script guarda los tres modos en la misma pestaña (columna `modo`):
 | `adivina` | Hoy · Semana (suma de rondas) · Mejor racha | 60 | 5 s – 1 h |
 
 En Adivina la canción solo cuenta la primera ronda publicada por nombre y día (hora de CDMX). Si el sitio dice «El ranking de este modo todavía no está activo», falta publicar la versión nueva del script (paso 5).
+
+## 6. «Yo contra mi corazón» (modo `corazon`, 9–15 nov 2026)
+
+El minijuego usa el **mismo Sheet y la misma URL**: sus puntajes se guardan con `modo = corazon`. Para activarlo hay que publicar una versión nueva del script:
+
+1. Abre el Apps Script del Sheet y reemplaza todo con el [`Code.gs`](Code.gs) actual.
+2. **Implementar → Gestionar implementaciones → editar (lápiz) → Versión: Nueva versión → Implementar.** La URL no cambia.
+
+Mientras no se haga, el juego funciona igual, pero en el ranking dice «EL RANKING AÚN NO ESTÁ DISPONIBLE».
+
+**Qué rechaza el script solo en este modo:**
+- puntos por encima de 80 000 o con decimales;
+- partidas de menos de 20 segundos o de más de 4 minutos;
+- nombres que no salen de su ruleta (Payaso, Pierrot, Faquir… del Latido, de la Aorta, del Bate…);
+- cualquier envío después del **domingo 15 de noviembre a las 23:59 (CDMX)**. Ahí el ranking queda congelado como ranking final.

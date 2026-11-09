@@ -17,11 +17,11 @@ test('iPhone: título → cómo se juega → la pelea completa con el bot → re
   try {
     const page = await browser.newPage({ ...pw.devices['iPhone 13'] });
     const errors = []; page.on('pageerror', (e) => errors.push(e.message)); page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
-    await page.goto(`http://localhost:${port}/?sim=10&bot&seed=1`);
+    await page.goto(`http://localhost:${port}/?sim=10&bot&seed=1&rankingPrueba`);
     await page.waitForFunction(() => window.__ycmc?.screen === 'titulo');
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/1-titulo.png` });
     const tapAt = async (x, y) => { const b = await page.locator('#game').boundingBox(); await page.mouse.click(b.x + (x / 180) * b.width, b.y + (y / 320) * b.height); };
-    await tapAt(90, 230);                                         // ▶ JUGAR
+    await tapAt(90, 216);                                         // ▶ JUGAR
     await page.waitForFunction(() => window.__ycmc.screen === 'como');
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/2-como.png` });
     await tapAt(90, 294);                                         // ¡A ESCENA!
@@ -32,6 +32,14 @@ test('iPhone: título → cómo se juega → la pelea completa con el bot → re
     }
     await page.waitForFunction(() => window.__ycmc.screen === 'resultado', null, { timeout: 40000 });
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/7-resultado.png` });
+    await tapAt(90, 183);                                         // ★ PUBLICAR EN EL RANKING
+    await page.waitForFunction(() => window.__ycmc.screen === 'publicar');
+    if (SHOTS) await page.screenshot({ path: `${SHOTS}/8-publicar.png` });
+    await tapAt(90, 222);                                         // PUBLICAR
+    await page.waitForFunction(() => window.__ycmc.screen === 'ranking' && window.__ycmc.rk.status === 'listo');
+    if (SHOTS) await page.screenshot({ path: `${SHOTS}/9-ranking.png` });
+    const rk = await page.evaluate(() => ({ lista: window.__ycmc.rk.lista, yo: window.__ycmc.save.rankName }));
+    assert.ok(rk.lista.some((f) => f.nombre === rk.yo), 'mi nombre sale en el ranking');
     const r = await page.evaluate(() => ({ over: window.__ycmc.match.over, score: window.__ycmc.match.score, saved: localStorage.getItem('ycmc-save') }));
     assert.ok(['ko', 'decision'].includes(r.over), r.over);
     assert.match(r.saved, /"best":\{"score":\d+/);

@@ -2,7 +2,7 @@
 
 > Regla: **test en rojo → código → verde → refactor.**
 > Cada tarea cita su F o NFR. Leyenda: ⬜ pendiente · 🟨 en curso · ✅ hecha · ⏳ espera al usuario.
-> Estado al 9 nov 2026: **v0.1 jugable**; `npm test` pasa 37 tests.
+> Estado al 9 nov 2026: **v0.2** (temporada limitada y ranking); `npm test` pasa 46 tests.
 
 ## Fase 0 · Decisiones y preparación
 | ID | Tarea | Estado |
@@ -57,3 +57,14 @@
 | T5.2 | `publish:web`, tarjeta en `data/games.json` (desde el 9 nov 2026) y F25 en `docs/spec.md` | ✅ (sale al fusionar en `main`) |
 | T5.3 | P1: calibración por toques, y traje «Payaso» en *México vs. José Madero* | ⬜ |
 | T5.4 | P2: modo reel de 60 s sin HUD | ⏳ |
+
+## Fase 6 · Solo esta semana y ranking (v0.2)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T6.1 | `ranking.test.js` (temporada): abierta del 9 al 15 nov, días que quedan, cierre | `ranking/temporada.js` y portada | ✅ |
+| T6.2 | `ranking.test.js`: listas iguales al Apps Script, nombres que caben, envío válido, orden, errores del servidor y ranking de prueba | `ranking/ranking.js` | ✅ |
+| T6.3 | `tests-js/ranking.test.js` del sitio sigue en verde; `vigente()` cierra el modo `corazon` | `docs/ranking/Code.gs` | ✅ |
+| T6.4 | `browser.test.js`: publicar y ver tu nombre en el ranking | pantallas «Publicar» y «Ranking» | ✅ |
+| T6.5 | `tests-js/games.test.js`: tarjeta «Solo esta semana» con `hasta` | `data/games.json` y `layouts/games/section.html` | ✅ |
+| T6.6 | El equipo publica la versión nueva del Apps Script (`docs/ranking/README.md` §6) | — | ⏳ el equipo |
+| T6.7 | Versión de prueba en un solo HTML (canción incrustada y ranking local) | `scripts/build.mjs` | ✅ |

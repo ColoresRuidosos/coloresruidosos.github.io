@@ -55,3 +55,14 @@ test("la trivia tiene «◀ Games» y la sección Games tiene su plantilla con f
   assert.match(sec, /now\.Unix/);
   assert.ok(fs.existsSync(path.join(raiz, "content/games/_index.md")));
 });
+
+test("Yo contra mi corazón: solo esta semana (hasta el domingo 15 nov 2026, 23:59 CDMX) y la plantilla respeta «hasta»", () => {
+  const g = games.find((x) => x.id === "yo-contra-mi-corazon");
+  assert.equal(g.url, "games/yo-contra-mi-corazon/");
+  assert.equal(Date.parse(g.hasta), Date.parse("2026-11-15T23:59:59-06:00"));
+  assert.ok(Date.parse(g.hasta) > Date.parse(g.desde));
+  assert.match(g.etiqueta + g.descripcion, /solo esta semana/i);
+  assert.match(g.descripcion, /no oficial/i);
+  for (const x of games.filter((x) => x.hasta)) assert.match(x.hasta, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2}|Z)$/);
+  assert.match(leer("layouts/games/section.html"), /\.hasta/);
+});

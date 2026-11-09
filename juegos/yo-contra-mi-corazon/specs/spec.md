@@ -120,6 +120,27 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **F12 Pausa automática** al cambiar de app (`visibilitychange`). Al volver, cuenta regresiva de 3 tiempos.
 
+**F13 Solo esta semana (temporada limitada).** El juego está disponible del **lunes 9 al domingo 15 de noviembre de 2026** (hasta las 23:59 CDMX). Decisión del usuario (9 nov 2026).
+- La portada lo anuncia: «¡SOLO ESTA SEMANA!», la fecha de cierre y cuántos días quedan («ÚLTIMO DÍA» el domingo).
+- El resultado y el ranking recuerdan que el ranking cierra el domingo 15.
+- Después del cierre, la portada dice «ESTE JUEGO YA TERMINÓ», desaparece «▶ JUGAR» y solo queda ver el **ranking final**.
+- La tarjeta de Games lleva la etiqueta «Solo esta semana» y desaparece sola después del cierre (campo `hasta` en `data/games.json`, que la plantilla respeta igual que `desde`).
+
+**F14 Ranking.** Top 20 de la semana de todos los que jueguen, con el mismo sistema que la trivia (F18 y F21 del sitio):
+- Publicar es opcional y se ofrece al terminar una partida.
+- Los nombres son **generados**, con palabras de circo y de corazón («Juglar del Latido #42»). Se puede volver a tirar la ruleta, pero no escribir el nombre propio. El nombre se recuerda en el navegador.
+- Solo se envían el nombre generado, los puntos, la duración de la partida y la fecha.
+- **Orden:** más puntos primero. En empate gana la partida más corta (un K.O. más rápido) y después la más antigua. Cada nombre aparece una sola vez, con su mejor puntaje.
+- **Dónde se ve:** botón «RANKING» en la portada y en el resultado. Son 2 páginas de 10, y tu nombre sale resaltado.
+- **Servidor:** el Apps Script del sitio (`docs/ranking/Code.gs`), con el modo nuevo `corazon`. Rechaza:
+  - puntos imposibles (más de 80 000 o con decimales);
+  - duraciones fuera de 20 s a 4 min;
+  - nombres que no salen de la ruleta;
+  - más de 10 envíos por hora desde el mismo navegador;
+  - envíos después del cierre.
+- **El equipo debe volver a implementar el Apps Script** (nueva versión, misma URL) para que el modo `corazon` funcione. Mientras tanto, el juego avisa «EL RANKING AÚN NO ESTÁ DISPONIBLE» y todo lo demás sigue igual.
+- **Versión de prueba (un solo HTML con la canción incrustada):** usa un **ranking de prueba que se guarda solo en ese navegador**, para no ensuciar el ranking real. Lo dice en pantalla.
+
 ### 3.2 Funcionalidades P1 y P2
 - **P1 · Calibración:** tocar en 8 tiempos para medir la latencia del celular.
 - **P1 · Récord local** y mejor rango.
@@ -128,7 +149,7 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 - **P2 · Modo difícil:** avisos de medio tiempo.
 
 ### 3.3 Fuera de alcance
-Multijugador, tabla de récords en línea, otras canciones y monetización.
+Multijugador, otras canciones y monetización.
 
 ## 4. Flujos
 

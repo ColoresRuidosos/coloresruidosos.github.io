@@ -2,11 +2,12 @@
   {
     "id": "yo-contra-mi-corazon",
     "nombre": "Yo contra mi corazón",
-    "descripcion": "Minijuego de ritmo y box, homenaje no oficial: un payaso contra un corazón gigante. Esquiva y batea al ritmo de «Teoremas, etc.». Se juega en el celular.",
+    "descripcion": "¡Solo esta semana, hasta el domingo 15 de noviembre! Minijuego de ritmo y box, homenaje no oficial: esquiva y batea a un corazón gigante al ritmo de «Teoremas, etc.». Con ranking.",
     "url": "games/yo-contra-mi-corazon/",
     "boton": "▶ Jugar",
-    "etiqueta": "Nuevo",
-    "desde": "2026-11-09T00:00:00-06:00"
+    "etiqueta": "Solo esta semana",
+    "desde": "2026-11-09T00:00:00-06:00",
+    "hasta": "2026-11-15T23:59:59-06:00"
   },
   {
     "id": "mexico-vs-jose-madero",

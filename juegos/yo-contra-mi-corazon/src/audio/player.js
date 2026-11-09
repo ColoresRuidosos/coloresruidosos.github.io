@@ -9,6 +9,11 @@ export function createPlayer({ ctx } = {}) {
   const p = {
     ctx, master, startAt: 0, playing: false,
     async load(url, onProgress = () => {}, fetchFn = globalThis.fetch?.bind(globalThis)) {
+      if (url.startsWith('data:')) {   // versión de prueba: la canción viene incrustada en base64
+        const bin = atob(url.slice(url.indexOf(',') + 1)); const u8 = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+        onProgress(1); buffer = await ctx.decodeAudioData(u8.buffer); return buffer;
+      }
       const res = await fetchFn(url);
       if (!res.ok) throw new Error('No se pudo cargar la canción');
       const total = Number(res.headers.get('content-length')) || 0;

@@ -10,9 +10,14 @@ import { loadSprites } from './render/sprites.js';
 import { drawScene, createFx, feedFx, stepFx, W, H, MIC_BTN, PAUSE_BTN } from './render/view.js';
 import * as S from './render/screens.js';
 import { shareCard } from './share/card.js';
+import { createRanking, createDemoRanking, generarNombre, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
+import { temporada } from './ranking/temporada.js';
+import { RANKING_URL } from './data/config.js';
 
-const SONG_URL = 'cancion.mp3';
 const params = new URLSearchParams(location.search);
+// Versión de prueba (un solo HTML): trae la canción incrustada y usa un ranking que vive en el navegador.
+const PRUEBA = globalThis.YCMC_PRUEBA || null;
+const SONG_URL = PRUEBA?.song || 'cancion.mp3';
 const SIM = Number(params.get('sim')) || 0;          // ?sim=8: reloj simulado sin audio (pruebas)
 const BOT = params.has('bot');                        // ?bot: juega solo (demo y pruebas)
 
@@ -26,7 +31,11 @@ const app = {
   screen: 'carga', prev: null, buttons: [], save: loadSave(store), loadFrac: 0, loadError: null,
   player: null, sfx: () => {}, match: null, fx: createFx(), queue: [], bot: null,
   countdownEnd: 0, overShown: 0, newRecord: false, shareMsg: '', lastT: 0, frameT: performance.now(),
+  temp: temporada(), ranking: null, rk: { status: 'cargando', lista: [], error: null, page: 0, from: 'titulo' },
+  pub: { status: 'listo', error: null }, published: false,
 };
+app.ranking = PRUEBA || params.has('rankingPrueba') ? createDemoRanking(store) : createRanking({ url: RANKING_URL });
+if (!app.save.dispositivo) { app.save.dispositivo = nuevoDispositivo(); writeSave(store, app.save); }
 window.__ycmc = app;
 
 // ---------- tamaño: vertical, escalado sin suavizado ----------
@@ -63,6 +72,7 @@ function startGame() {
   const seed = Number(params.get('seed')) || ((Math.random() * 1e9) >>> 0);
   app.match = createMatch({ beatmap: BEATMAP, seed, assist: app.save.opts.asistido });
   app.fx = createFx(); app.queue = []; app.overShown = 0; app.newRecord = false; app.shareMsg = ''; app.lastT = -1;
+  app.published = false; app.pub = { status: 'listo', error: null };
   app.bot = BOT ? createBot({ seed }) : null;
   app.player.start(0);
   app.screen = 'juego';
@@ -115,6 +125,7 @@ async function onButton(id) {
   const o = app.save.opts;
   switch (id) {
     case 'jugar':
+      if (!app.temp.abierta) break;
       app.player.unlock();
       if (!app.save.seenHowTo) { app.screen = 'como'; app.prev = 'jugar'; } else startGame();
       break;
@@ -139,8 +150,34 @@ async function onButton(id) {
       break;
     }
     case 'reintentarCarga': loadSong(); break;
+    case 'ranking': openRanking(app.screen); break;
+    case 'rkPrev': app.rk.page = Math.max(0, app.rk.page - 1); break;
+    case 'rkNext': app.rk.page++; break;
+    case 'rkVolver': app.screen = app.rk.from; break;
+    case 'publicar':
+      if (!app.save.rankName) { app.save.rankName = generarNombre(); writeSave(store, app.save); }
+      app.pub = { status: 'listo', error: null }; app.screen = 'publicar'; break;
+    case 'otroNombre': app.save.rankName = generarNombre(Math.random, app.save.rankName); writeSave(store, app.save); break;
+    case 'cancelarPub': app.screen = 'resultado'; break;
+    case 'enviar': {
+      if (app.pub.status === 'enviando') break;
+      const m = app.match;
+      app.pub = { status: 'enviando', error: null };
+      const r = await app.ranking.publicar(armarEnvio(app.save.rankName, m.score, Math.min(m.t, BEATMAP.duration) * 1000, app.save.dispositivo));
+      if (r.ok) { app.published = true; openRanking('resultado'); } else app.pub = { status: 'listo', error: r.error };
+      break;
+    }
     default: break;
   }
+}
+
+async function openRanking(from) {
+  app.rk = { status: 'cargando', lista: [], error: null, page: 0, from: from === 'ranking' ? app.rk.from : from };
+  app.screen = 'ranking';
+  if (!app.ranking) { app.rk = { ...app.rk, status: 'listo', error: 'no-listo' }; return; }
+  const r = await app.ranking.top();
+  const mine = r.lista.findIndex((f) => f.nombre === app.save.rankName);
+  app.rk = { ...app.rk, status: 'listo', lista: r.lista, error: r.error || null, page: mine >= 10 ? 1 : 0 };
 }
 
 // ---------- bucle ----------
@@ -150,7 +187,10 @@ function frame(now) {
   if (landscape()) { if (app.screen === 'juego') pause(); S.drawRotate(ctx); requestAnimationFrame(frame); return; }
   const sc = app.screen;
   if (sc === 'carga') app.buttons = S.drawLoading(ctx, app.loadFrac, app.loadError);
-  else if (sc === 'titulo') app.buttons = S.drawTitle(ctx, now / 1000, app.save);
+  if (Math.floor(now / 1000) !== Math.floor((now - dt * 1000) / 1000)) app.temp = temporada();
+  if (sc === 'titulo') app.buttons = S.drawTitle(ctx, now / 1000, app.save, app.temp);
+  else if (sc === 'ranking') app.buttons = S.drawRanking(ctx, app.rk, { miNombre: app.save.rankName, prueba: !!app.ranking?.prueba, temp: app.temp });
+  else if (sc === 'publicar') app.buttons = S.drawPublish(ctx, app.match, app.save.rankName, app.pub, !!app.ranking?.prueba);
   else if (sc === 'como') app.buttons = S.drawHowTo(ctx);
   else if (sc === 'opciones') app.buttons = S.drawOptions(ctx, app.save.opts);
   else if (sc === 'juego' || sc === 'pausa' || sc === 'cuenta' || sc === 'resultado') {
@@ -176,7 +216,7 @@ function frame(now) {
       const left = app.countdownEnd - now;
       if (left <= 0) { app.player.resume(); app.screen = 'juego'; } else S.drawCountdown(ctx, Math.ceil(left / ((60000 / BEATMAP.bpm) * 2)));
     }
-    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, app);
+    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20 });
   }
   requestAnimationFrame(frame);
 }

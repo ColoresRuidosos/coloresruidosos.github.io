@@ -1,6 +1,6 @@
 // F11 / P1: opciones y récord en localStorage («ycmc-save», esquema v1).
 const KEY = 'ycmc-save';
-export const DEFAULTS = Object.freeze({ v: 1, opts: { sinDestellos: false, asistido: false, vibracion: true, desfase: 0 }, seenHowTo: false, best: { score: 0, rank: '' } });
+export const DEFAULTS = Object.freeze({ v: 1, opts: { sinDestellos: false, asistido: false, vibracion: true, desfase: 0 }, seenHowTo: false, best: { score: 0, rank: '' }, rankName: '', dispositivo: '' });
 const clone = () => JSON.parse(JSON.stringify(DEFAULTS));
 
 export function loadSave(storage) {
