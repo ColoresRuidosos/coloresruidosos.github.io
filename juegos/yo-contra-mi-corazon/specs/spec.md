@@ -87,6 +87,34 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 - Se puede batear una vez por tiempo. En el tiempo hace daño completo; fuera de tiempo, la mitad.
 - Fuera de la ventana, o dos veces en el mismo tiempo, el batazo rebota: no hace daño y rompe la racha.
 
+**F5b Contacto visible (v0.3, petición del usuario).** El batazo debe verse como un golpe de verdad:
+- El payaso **se lanza hacia el corazón**: un paso al frente con el bate extendido hasta tocarlo (pose «impacto»). Luego regresa.
+- **En el instante del contacto:**
+  - el corazón se **aplasta** y retrocede (*squash & stretch*);
+  - parpadea en blanco 1 o 2 cuadros, salvo con «sin destellos»;
+  - sale una estrella de impacto con líneas de golpe en el punto de contacto;
+  - el confeti sale de ese punto;
+  - aparece el daño flotando («-6»).
+- Si el bate rebota (fuera de la ventana), choca contra los puños del corazón: chispa «TOC», sin aplastarlo.
+- **Ventana para batear visible:** mientras el corazón está abierto, un aro se cierra sobre él en cada tiempo. Hay que tocar cuando el aro llega al círculo verde.
+
+**F7b Cómo ganar, claro (v0.3).**
+- **En el HUD:** «DAÑO n %», que se pone verde al llegar a la meta de la decisión.
+- **En «Cómo se juega»:** «GANAS SI VACÍAS SUS 3 BARRAS (K.O.) O SI AL FINAL TU DAÑO ESTÁ EN VERDE».
+- **Al perder, el resultado da un consejo según cómo jugaste:**
+  - esquivas al lado equivocado;
+  - esquivas demasiado pronto;
+  - no bateas después de esquivar;
+  - bateas cuando no está abierto;
+  - usa el Grito.
+- Tras 2 derrotas seguidas sugiere el modo asistido.
+- **Más justo:**
+  - el aviso de las fases 2 y 3 dura 3 tiempos (≈1,1 s);
+  - la esquiva temprana vale hasta 0,6 s antes;
+  - cada golpe recibido quita 10;
+  - la meta de la decisión baja al 35 %.
+- **Se ajusta con bots:** un jugador «normal» (±80 ms, falla el 20 %) debe ganar por decisión.
+
 **F6 Público y Grito.**
 - Cada 4 Perfectos seguidos (esquivas o batazos) suma una estrella; cada golpe recibido quita una.
 - Con las 5 estrellas se habilita el Grito: gasta las estrellas, aturde al corazón 8 tiempos y cada batazo hace el triple de daño.

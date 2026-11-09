@@ -27,12 +27,16 @@ test('el payaso: esquiva, batazo y vuelve a «listo»', () => {
   assert.ok(clownPose(m, 1.1).dx < 0);
   assert.equal(clownPose(m, 2).pose, 'clown.listo');
   step(m, 3, [{ type: 'tap', t: 3 }]);
-  assert.equal(clownPose(m, 3.05).pose, 'clown.batazo');
+  assert.equal(clownPose(m, 3.02).pose, 'clown.batazo', 'toma impulso');
+  const hit = clownPose(m, 3.08);
+  assert.equal(hit.pose, 'clown.impacto', 'se lanza y hace contacto');
+  assert.ok(hit.dy < -30, 'avanza hacia el corazón');
+  assert.equal(clownPose(m, 3.4).pose, 'clown.listo');
 });
 
 test('todas las poses posibles existen en el atlas', () => {
   for (const n of ['idle', 'avisoIzq', 'avisoDer', 'golpeIzq', 'golpeDer', 'avisoLatido', 'avisoAorta', 'dano', 'curitas']) assert.ok(FRAMES['heart.' + n], n);
-  for (const n of ['listo', 'esquivaIzq', 'esquivaDer', 'agachado', 'batazo', 'grito', 'golpeado']) assert.ok(FRAMES['clown.' + n], n);
+  for (const n of ['listo', 'esquivaIzq', 'esquivaDer', 'agachado', 'batazo', 'impacto', 'grito', 'golpeado']) assert.ok(FRAMES['clown.' + n], n);
   for (const n of ['stage', 'crowd', 'icon.clown', 'icon.heart']) assert.ok(FRAMES[n], n);
   assert.deepEqual(FRAMES.stage.slice(2), [180, 320]);
 });

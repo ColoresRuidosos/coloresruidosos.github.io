@@ -37,3 +37,10 @@ test('la partida es determinista: misma semilla y mismo bot → mismo resultado'
   const a = play(4, { jitter: 0.07, miss: 0.1 }), b = play(4, { jitter: 0.07, miss: 0.1 });
   assert.equal(a.score, b.score); assert.equal(a.over, b.over);
 });
+
+test('bot normal (±80 ms, falla 20 %): gana por decisión o K.O. (F7b)', () => {
+  for (const seed of [1, 2, 3]) {
+    const m = play(seed, { jitter: 0.08, miss: 0.2, hitProb: 0.8 });
+    assert.ok(['ko', 'decision'].includes(m.over), `semilla ${seed}: ${m.over}`);
+  }
+});

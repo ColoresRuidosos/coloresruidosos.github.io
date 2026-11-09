@@ -1,8 +1,9 @@
 // Dibuja la pelea a 180×320: escenario, corazón, payaso, efectos y HUD.
-import { spr } from './sprites.js';
+import { spr, sprWhite } from './sprites.js';
 import { drawText } from './text.js';
 import { heartPose, clownPose } from '../game/poses.js';
-import { HEART_HP, CLOWN_HP, STARS_MAX } from '../game/constants.js';
+import { HEART_HP, CLOWN_HP, STARS_MAX, SWING, DECISION_RATIO } from '../game/constants.js';
+import { damageRatio } from '../game/match.js';
 
 export const W = 180, H = 320;
 export const HEART_POS = [40, 66], CLOWN_POS = [40, 186];
@@ -11,18 +12,26 @@ export const PAUSE_BTN = { x: 162, y: 36, w: 16, h: 14 };
 const YEL = '#ffe25c';
 
 // ---------- partículas y letreros (se alimentan de m.events) ----------
-export function createFx() { return { parts: [], pops: [], shake: 0, flash: 0, rings: [], banner: null }; }
+export function createFx() { return { parts: [], pops: [], shake: 0, flash: 0, rings: [], banner: null, clock: 0, pending: [], impact: null, spark: null, dmg: [] }; }
+const later = (fx, delay, fn) => fx.pending.push({ at: fx.clock + delay, fn });
 
 export function feedFx(fx, m, opts, sfx) {
   for (const e of m.events.splice(0)) {
     sfx?.(e);
     const [hx, hy] = HEART_POS;
     if (e.type === 'batazo') {
-      confetti(fx, hx + 50, hy + 50, e.grade === 'perfecto' ? 18 : 10);
+      // F5b: el contacto llega cuando el bate alcanza al corazón (tras el impulso)
+      later(fx, SWING.windup, () => {
+        const x = hx + 44 + Math.round(Math.random() * 12), y = hy + 62 + Math.round(Math.random() * 14);
+        fx.impact = { t: 0, x, y, big: e.grade === 'perfecto' || e.dmg > 10 };
+        fx.shake = Math.max(fx.shake, opts.sinDestellos ? 1.5 : e.grade === 'perfecto' ? 4 : 2.5);
+        confetti(fx, x, y, e.grade === 'perfecto' ? 22 : 12);
+        fx.dmg.push({ text: `-${e.dmg}`, x, y, t: 0, color: e.grade === 'perfecto' ? YEL : '#fff' });
+      });
       pop(fx, e.grade === 'perfecto' ? '¡PERFECTO!' : e.grade === 'bien' ? 'BIEN' : 'FUERA DE TIEMPO', e.grade === 'perfecto' ? YEL : '#fff');
     } else if (e.type === 'esquiva') pop(fx, e.grade === 'perfecto' ? '¡ESQUIVA PERFECTA!' : e.grade === 'bien' ? 'ESQUIVA' : 'ESQUIVA TEMPRANA', e.grade === 'perfecto' ? YEL : '#cfe');
     else if (e.type === 'golpe') { fx.shake = opts.sinDestellos ? 3 : 8; if (!opts.sinDestellos) fx.flash = 0.25; pop(fx, '¡AUCH!', '#ff7080'); }
-    else if (e.type === 'rebote') pop(fx, '¡TOC! ESPERA TU TURNO', '#aab');
+    else if (e.type === 'rebote') { later(fx, SWING.windup, () => { fx.spark = { t: 0, x: hx + 50, y: hy + 84 }; }); pop(fx, '¡TOC! PRIMERO ESQUIVA', '#aab'); }
     else if (e.type === 'caiste') pop(fx, '¡CAÍSTE EN LA FINTA!', '#ff9ac8');
     else if (e.type === 'finta') pop(fx, '¡ERA FINTA!', '#cfe');
     else if (e.type === 'estrella') pop(fx, e.stars === STARS_MAX ? '¡EL PÚBLICO PIDE GRITO!' : '¡EL PÚBLICO SE PRENDE!', YEL, 1);
@@ -44,6 +53,13 @@ function confetti(fx, x, y, n) {
 function pop(fx, text, color, row = 0) { fx.pops = fx.pops.filter((p) => p.row !== row); fx.pops.push({ text, color, t: 0, row }); }
 
 export function stepFx(fx, dt) {
+  fx.clock += dt;
+  for (const p of fx.pending.filter((q) => q.at <= fx.clock)) p.fn();
+  fx.pending = fx.pending.filter((q) => q.at > fx.clock);
+  if (fx.impact) { fx.impact.t += dt; if (fx.impact.t > 0.35) fx.impact = null; }
+  if (fx.spark) { fx.spark.t += dt; if (fx.spark.t > 0.2) fx.spark = null; }
+  for (const d of fx.dmg) d.t += dt;
+  fx.dmg = fx.dmg.filter((d) => d.t < 0.7);
   for (const p of fx.parts) { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 160 * dt; p.life -= dt; }
   fx.parts = fx.parts.filter((p) => p.life > 0);
   for (const p of fx.pops) p.t += dt;
@@ -67,12 +83,14 @@ export function drawScene(ctx, m, t, fx, opts) {
   const tint = sec && LIGHT[sec.kind];
   if (tint) { ctx.fillStyle = tint; ctx.fillRect(0, 0, W, H); }
   if (sec?.kind === 'alta' && onBeat && !opts.sinDestellos) { ctx.fillStyle = 'rgba(255,240,200,0.06)'; ctx.fillRect(16, 0, 148, 240); }
-  drawHeart(ctx, m, t, onBeat, opts);
+  drawHeart(ctx, m, t, onBeat, opts, fx);
+  drawOpenRing(ctx, m, t);
   // payaso
   const cp = clownPose(m, t);
-  let [cx, cy] = CLOWN_POS; cx += cp.dx;
+  let [cx, cy] = CLOWN_POS; cx += Math.round(cp.dx); cy += Math.round(cp.dy || 0);
   if (cp.shake) cx += Math.round(Math.sin(t * 90) * 2);
   spr(ctx, cp.pose, cx, cy);
+  drawImpact(ctx, fx, opts);
   // público al frente: brinca con el ritmo (más con más estrellas)
   const bob = onBeat ? (m.stars >= 3 ? 3 : 1) : 0;
   spr(ctx, 'crowd', 0, 276 - bob);
@@ -104,9 +122,65 @@ export function drawScene(ctx, m, t, fx, opts) {
   }
 }
 
-function drawHeart(ctx, m, t, onBeat, opts) {
+// Aro que se cierra sobre el corazón en cada tiempo mientras está abierto: toca cuando llegue al círculo verde.
+function drawOpenRing(ctx, m, t) {
+  const h = m.heart;
+  if (!(h.mode === 'abierto' || h.mode === 'aturdido') || !h.open) return;
+  const c = m.clock;
+  let b = Math.max(h.open[0], c.nearestBeat(t));
+  while (b <= h.open[1] && h.used.has(b)) b++;
+  if (b > h.open[1]) return;
+  const d = c.timeOfBeat(b) - t;
+  if (d < -0.12 || d > c.beat * 1.5) return;
+  const cx = HEART_POS[0] + 50, cy = HEART_POS[1] + 62;
+  ctx.lineWidth = 2; ctx.strokeStyle = '#78e678';
+  ctx.beginPath(); ctx.arc(cx, cy, 16, 0, Math.PI * 2); ctx.stroke();
+  if (d > -0.05) { ctx.lineWidth = 1; ctx.strokeStyle = Math.abs(d) < 0.07 ? '#fff' : YEL; ctx.beginPath(); ctx.arc(cx, cy, 16 + Math.max(0, d) * 70, 0, Math.PI * 2); ctx.stroke(); }
+  drawText(ctx, h.mode === 'aturdido' ? '¡BATEA x3!' : '¡BATEA!', cx + 20, cy - 3, { color: '#78e678' });
+}
+
+// Estrella de impacto, líneas de golpe, daño flotante y chispa del rebote.
+function drawImpact(ctx, fx, opts) {
+  const im = fx.impact;
+  if (im && im.t < 0.14) {
+    const r = (im.big ? 15 : 11) * (0.6 + im.t / 0.14 * 0.6);
+    ctx.fillStyle = im.t < 0.05 && !opts.sinDestellos ? '#fff' : YEL;
+    ctx.beginPath();
+    for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8, rr = i % 2 ? r * 0.45 : r; ctx.lineTo(im.x + Math.cos(a) * rr, im.y + Math.sin(a) * rr * 0.8); }
+    ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1;
+    for (let i = 0; i < 8; i++) {
+      const a = i * Math.PI / 4 + 0.3, r0 = r + 3 + im.t * 60, r1 = r0 + 6;
+      ctx.beginPath(); ctx.moveTo(im.x + Math.cos(a) * r0, im.y + Math.sin(a) * r0); ctx.lineTo(im.x + Math.cos(a) * r1, im.y + Math.sin(a) * r1); ctx.stroke();
+    }
+  }
+  if (fx.spark) {
+    const k = fx.spark.t / 0.2; ctx.strokeStyle = '#dde'; ctx.lineWidth = 1;
+    for (let i = 0; i < 6; i++) { const a = -Math.PI / 2 + (i - 2.5) * 0.45, r0 = 4 + k * 10; ctx.beginPath(); ctx.moveTo(fx.spark.x + Math.cos(a) * r0, fx.spark.y + Math.sin(a) * r0); ctx.lineTo(fx.spark.x + Math.cos(a) * (r0 + 5), fx.spark.y + Math.sin(a) * (r0 + 5)); ctx.stroke(); }
+    drawText(ctx, 'TOC', fx.spark.x, fx.spark.y - 18 - k * 6, { align: 'center', color: '#dde' });
+  }
+  for (const d of fx.dmg) drawText(ctx, d.text, d.x + 8, d.y - 14 - d.t * 30, { color: d.color, scale: 2 });
+}
+
+function drawHeart(ctx, m, t, onBeat, opts, fx) {
   const hp = heartPose(m, t);
   let [x, y] = HEART_POS;
+  // F5b: al recibir el batazo se aplasta, retrocede y destella
+  const im = fx.impact;
+  let sx = 1, sy = 1, flash = 0;
+  if (im) {
+    const k = im.t < 0.05 ? im.t / 0.05 : Math.max(0, 1 - (im.t - 0.05) / 0.25);
+    sx = 1 + (im.big ? 0.16 : 0.1) * k; sy = 1 - (im.big ? 0.14 : 0.09) * k; y -= Math.round(5 * k);
+    flash = !opts.sinDestellos && im.t < 0.045 ? 0.65 : 0;
+  }
+  ctx.save();
+  if (sx !== 1) { ctx.translate(x + 50, y + 100); ctx.scale(sx, sy); ctx.translate(-(x + 50), -(y + 100)); }
+  drawHeartBody(ctx, m, t, onBeat, hp, x, y, flash);
+  ctx.restore();
+  drawHeartFx(ctx, m, t, hp, x, y);
+}
+
+function drawHeartBody(ctx, m, t, onBeat, hp, x, y, flash) {
   y += hp.lunge + (onBeat ? -1 : 0);
   if (hp.fx === 'transicion') x += Math.round(Math.sin(t * 40) * 2);
   if (hp.fx === 'ko') { const k = Math.min(1, (t - m.overAt) / 1.2); y += Math.round(k * k * 60); }
@@ -120,12 +194,18 @@ function drawHeart(ctx, m, t, onBeat, opts) {
     spr(ctx, hp.pose, x + gap + r, y + r, { part: [50, 0, 50, 108] });
     spr(ctx, 'heart.curitas', x - gap - l, y + l, { part: [0, 0, 50, 108] });
     spr(ctx, 'heart.curitas', x + gap + r, y + r, { part: [50, 0, 50, 108] });
+    if (flash) { sprWhite(ctx, hp.pose, x - gap - l, y + l, { part: [0, 0, 50, 108], alpha: flash }); sprWhite(ctx, hp.pose, x + gap + r, y + r, { part: [50, 0, 50, 108], alpha: flash }); }
     ctx.fillStyle = '#1a0a16';
     for (let yy = 26; yy < 98; yy += 3) { ctx.fillRect(x + 50 - gap - l - 1, y + l + yy + ((yy / 3) % 2), 1, 2); ctx.fillRect(x + 50 + gap + r, y + r + yy + ((yy / 3) % 2), 1, 2); }
   } else {
     spr(ctx, hp.pose, x, y, { alpha });
     if (m.phase >= 2) spr(ctx, 'heart.curitas', x, y, { alpha });
+    if (flash) sprWhite(ctx, hp.pose, x, y, { alpha: flash });
   }
+}
+
+function drawHeartFx(ctx, m, t, hp, x, y) {
+  y += hp.lunge;
   // efectos de ataque
   if (hp.fx === 'latido') {
     const T = m.heart.hits[0].T, k = (t - T) / 0.25;
@@ -173,10 +253,12 @@ export function drawHud(ctx, m, t, beatF) {
   drawText(ctx, String(m.score).padStart(6, '0'), 3, 37, { color: '#cfc8e0' });
   // tiempo restante y ritmo
   const left = Math.max(0, m.beatmap.duration - Math.max(0, t));
-  drawText(ctx, `${Math.floor(left / 60)}:${String(Math.floor(left % 60)).padStart(2, '0')}`, W / 2, 37, { align: 'center', color: '#cfc8e0' });
+  drawText(ctx, `${Math.floor(left / 60)}:${String(Math.floor(left % 60)).padStart(2, '0')}`, 62, 37, { align: 'center', color: '#cfc8e0' });
+  const pct = Math.round(damageRatio(m) * 100), meta = Math.round(DECISION_RATIO * 100);
+  drawText(ctx, `DAÑO ${pct}%`, 150, 37, { align: 'right', color: pct >= meta ? '#78e678' : '#ff9aa8' });
   if (t >= 0) {
     const k = Math.floor(beatF / 2) % 4;
-    for (let i = 0; i < 4; i++) { ctx.fillStyle = i === k ? YEL : '#5a5070'; ctx.fillRect(W / 2 - 13 + i * 7, 47, i === k ? 4 : 3, i === k ? 4 : 3); }
+    for (let i = 0; i < 4; i++) { ctx.fillStyle = i === k ? YEL : '#5a5070'; ctx.fillRect(62 - 13 + i * 7, 47, i === k ? 4 : 3, i === k ? 4 : 3); }
   }
   // pausa
   ctx.fillStyle = 'rgba(10,8,18,0.7)'; ctx.fillRect(PAUSE_BTN.x - 8, PAUSE_BTN.y, PAUSE_BTN.w, PAUSE_BTN.h);

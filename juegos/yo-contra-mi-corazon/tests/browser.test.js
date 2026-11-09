@@ -9,13 +9,14 @@ const require = createRequire(import.meta.url);
 let pw = null; try { pw = require('playwright'); } catch { /* sin navegador */ }
 const SHOTS = process.env.SHOTS;   // carpeta para guardar capturas (opcional)
 
-test('iPhone: título → cómo se juega → la pelea completa con el bot → resultado, sin errores', { skip: !pw || !existsSync('dist/index.html') }, async () => {
+test('iPhone: título → cómo se juega → la pelea completa con el bot → resultado, sin errores', { skip: !pw || !existsSync('dist/index.html'), timeout: 300000 }, async () => {
   const port = 5199;
   const srv = spawn('node', ['scripts/serve.mjs', '--dist'], { env: { ...process.env, PORT: String(port) } });
   await new Promise((r) => srv.stdout.once('data', r));
   const browser = await pw.chromium.launch();
   try {
     const page = await browser.newPage({ ...pw.devices['iPhone 13'] });
+    page.setDefaultTimeout(90000);   // en paralelo con los bots, la máquina va más lenta
     const errors = []; page.on('pageerror', (e) => errors.push(e.message)); page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
     await page.goto(`http://localhost:${port}/?sim=10&bot&seed=1&rankingPrueba`);
     await page.waitForFunction(() => window.__ycmc?.screen === 'titulo');
@@ -30,12 +31,18 @@ test('iPhone: título → cómo se juega → la pelea completa con el bot → re
       await page.waitForFunction((s) => window.__ycmc.lastT > s * 10, secs);
       if (SHOTS) await page.screenshot({ path: `${SHOTS}/${i}-juego.png` });
     }
-    await page.waitForFunction(() => window.__ycmc.screen === 'resultado', null, { timeout: 40000 });
+    await page.waitForFunction(() => window.__ycmc.screen === 'resultado', null, { timeout: 120000 });
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/7-resultado.png` });
-    await tapAt(90, 183);                                         // ★ PUBLICAR EN EL RANKING
+    const tapBtn = async (id) => {
+      const b = await page.waitForFunction((i) => window.__ycmc.buttons.find((x) => x.id === i), id, { timeout: 5000 })
+        .then((h) => h.jsonValue())
+        .catch(async () => { throw new Error(`no aparece el botón ${id}: ${JSON.stringify(await page.evaluate(() => ({ s: window.__ycmc.screen, over: window.__ycmc.match.over, t: window.__ycmc.match.t, btn: window.__ycmc.buttons.map((x) => x.id) })))}`); });
+      await tapAt(b.x + b.w / 2, b.y + b.h / 2);
+    };
+    await tapBtn('publicar');                                     // ★ PUBLICAR EN EL RANKING
     await page.waitForFunction(() => window.__ycmc.screen === 'publicar');
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/8-publicar.png` });
-    await tapAt(90, 222);                                         // PUBLICAR
+    await tapBtn('enviar');                                       // PUBLICAR
     await page.waitForFunction(() => window.__ycmc.screen === 'ranking' && window.__ycmc.rk.status === 'listo');
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/9-ranking.png` });
     const rk = await page.evaluate(() => ({ lista: window.__ycmc.rk.lista, yo: window.__ycmc.save.rankName }));

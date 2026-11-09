@@ -195,7 +195,7 @@ HAIR = ((50,34,32), (26,16,18), (104,74,64))
 WOOD = ((190,130,74), (128,82,44), (228,178,114))
 NAIL = (196,202,214,255)
 
-CLOWN_POSES = ['listo', 'esquivaIzq', 'esquivaDer', 'agachado', 'batazo', 'grito', 'golpeado']
+CLOWN_POSES = ['listo', 'esquivaIzq', 'esquivaDer', 'agachado', 'batazo', 'impacto', 'grito', 'golpeado']
 
 def clown(pose='idle'):
     """Payaso de espaldas, 100×126 (la cabeza queda en x≈48)."""
@@ -213,7 +213,7 @@ def clown(pose='idle'):
             d.polygon([(sx,sy-4),(sx+1,sy-1),(sx+4,sy),(sx+1,sy+1),(sx,sy+4),(sx-1,sy+1),(sx-4,sy),(sx-1,sy-1)], YEL+(255,), OL)
         return im
     S = Spr(100, 126); S.Y = 20; ox = {'esquivaIzq': 6, 'esquivaDer': 22}.get(pose, 16)
-    lean = {'listo': 0, 'esquivaIzq': -7, 'esquivaDer': 7, 'batazo': 3, 'grito': 0}[pose]
+    lean = {'listo': 0, 'esquivaIzq': -7, 'esquivaDer': 7, 'batazo': 3, 'impacto': -3, 'grito': 0}[pose]
     hx = ox + lean; tx = ox + lean // 2
     late = []
     stripes = lambda xx, yy: (yy // 3) % 2 == 0
@@ -238,7 +238,9 @@ def clown(pose='idle'):
     S.part(lambda d: d.polygon([(12+tx,60)] + [(12+tx+i*4, 64+(3 if i % 2 else 0)) for i in range(11)] + [(52+tx,60)], 255), *WHITE, k=2)
     # brazos según pose
     def arm(pts, w=8):
-        S.part(lambda d: d.line(pts, 255, w, joint='curve'), *WHITE, k=2, pattern=stripes, pcol=(30,26,34))
+        # como en las referencias: la manga del brazo del bate es a cuadros y la otra a rayas
+        pat = checks if pts[0][0] - tx > 32 else stripes
+        S.part(lambda d: d.line(pts, 255, w, joint='curve'), *WHITE, k=2, pattern=pat, pcol=(30,26,34))
     def hand(x, y):
         S.part(lambda d: d.ellipse((x-4, y-4, x+4, y+4), 255), *SKIN, k=2, kl=2)
     def bat(x0, y0, x1, y1):
@@ -268,6 +270,14 @@ def clown(pose='idle'):
             bat(54+tx, 14, 30+tx, -16)
             S.draw(lambda d: [d.arc((6+tx, -26, 70+tx, 34), a, a+16, (255,255,255,255), 1) for a in (200, 222, 244)])
         late.append(raise_bat)
+    elif pose == 'impacto':
+        # contacto: el bate cruza al frente, de la mano derecha hacia arriba a la izquierda (hacia el corazón)
+        arm([(16+tx,38),(10+tx,50),(14+tx,58)]); hand(14+tx, 60); mic(14+tx, 58)
+        def swing():
+            arm([(48+tx,38),(54+tx,22),(46+tx,10)]); hand(46+tx, 9)
+            bat(46+tx, 10, 16+tx, -17)
+            S.draw(lambda d: [d.line([(54+tx+i*4, -6+i*6), (66+tx+i*4, -12+i*6)], (255,255,255,255), 1) for i in range(3)])
+        late.append(swing)
     elif pose == 'grito':
         bat(56+tx, 58, 68+tx, 8)
         arm([(48+tx,38),(56+tx,50),(54+tx,58)]); hand(55+tx, 59)
@@ -301,12 +311,13 @@ def clown_face():
     S.part(lambda d: (d.ellipse((5,0,25,11), 255), d.polygon([(5,6),(25,6),(15,10)], 255)), *HAIR, k=2)
     def f(d):
         R = (200,24,36,255)
-        d.polygon([(10,9),(12,14),(10,20),(8,14)], R); d.polygon([(20,9),(22,14),(20,20),(18,14)], R)
+        d.polygon([(10,3),(12,13),(10,19),(8,13)], R); d.polygon([(20,3),(22,13),(20,19),(18,13)], R)
         d.rectangle((9,13,11,15), OL); d.rectangle((19,13,21,15), OL)
         d.line([(7,11),(12,13)], OL); d.line([(23,11),(18,13)], OL)
         d.ellipse((12,15,18,21), (230,20,34,255), OL); d.point((14,16), (255,170,170,255))
         d.polygon([(7,21),(15,25),(23,21),(21,25),(15,27),(9,25)], R)
         d.line([(9,23),(21,23)], (255,255,255,255)); d.line([(8,22),(22,22)], OL)
+        d.point((11,24), (255,255,255,255)); d.point((19,24), (255,255,255,255))  # colmillos
     S.draw(f); return S.img()
 
 def heart_icon():

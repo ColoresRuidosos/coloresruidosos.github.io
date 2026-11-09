@@ -75,8 +75,9 @@ const HOWTO = [
   ['icon', 'EL CORAZÓN BRILLA ANTES DE PEGAR. ¡FÍJATE DE QUÉ LADO SUBE EL PUÑO!'],
   ['izq', 'DESLIZA AL LADO CONTRARIO DEL PUÑO PARA ESQUIVAR.'],
   ['abajo', 'SI SE INFLA Y LE BRILLAN LAS VENAS (LATIDO), DESLIZA HACIA ABAJO.'],
-  ['tap', 'SI ESQUIVAS, QUEDA ABIERTO: TOCA LA PANTALLA AL RITMO PARA BATEAR.'],
+  ['tap', 'SI ESQUIVAS, QUEDA ABIERTO: TOCA CUANDO EL ARO LLEGUE AL CÍRCULO VERDE.'],
   ['mic', 'CON 5 ESTRELLAS DEL PÚBLICO, TOCA EL MICRÓFONO: ¡GRITO!'],
+  ['meta', 'GANAS SI VACÍAS SUS 3 BARRAS (K.O.) O SI AL FINAL TU «DAÑO» ESTÁ EN VERDE.'],
 ];
 export function drawHowTo(ctx) {
   backdrop(ctx, 0.82);
@@ -132,7 +133,7 @@ export function drawRotate(ctx) {
 }
 
 const TITLES = { ko: ['¡K.O.!', YEL], decision: ['¡GANAS POR DECISIÓN!', YEL], derrota: ['SE ACABÓ EL SHOW', '#ff7080'], perdio: ['PERDISTE POR DECISIÓN', '#ff7080'] };
-export function drawResult(ctx, m, { newRecord, shareMsg, published, temp, ranking }) {
+export function drawResult(ctx, m, { newRecord, shareMsg, published, temp, ranking, tip }) {
   ctx.fillStyle = 'rgba(10,8,20,0.94)'; ctx.fillRect(0, 0, W, 320);
   const [title, col] = TITLES[m.over] || ['FIN', '#fff'];
   drawText(ctx, title, W / 2, 22, { scale: title.length > 10 ? 1 : 3, align: 'center', color: col });
@@ -141,8 +142,13 @@ export function drawResult(ctx, m, { newRecord, shareMsg, published, temp, ranki
   drawText(ctx, `${m.score} PUNTOS`, W / 2, 72, { scale: 2, align: 'center', color: YEL });
   if (newRecord) drawText(ctx, '¡NUEVO RÉCORD!', W / 2, 92, { align: 'center', color: '#9cff7a' });
   const s = m.stats;
-  const rows = [['PERFECTOS', s.perfecto], ['COMBO MÁXIMO', m.maxCombo], ['GOLPES RECIBIDOS', s.golpes], ['FASE ALCANZADA', m.phase]];
-  rows.forEach(([k, v], i) => { drawText(ctx, k, 26, 106 + i * 10, { color: '#cfc8e0' }); drawText(ctx, String(v), 154, 106 + i * 10, { align: 'right' }); });
+  if (tip) {
+    drawText(ctx, 'CONSEJO:', W / 2, 102, { align: 'center', color: YEL });
+    wrap(tip, 168).slice(0, 4).forEach((l, i) => drawText(ctx, l, W / 2, 112 + i * 9, { align: 'center', color: '#cfc8e0' }));
+  } else {
+    const rows = [['PERFECTOS', s.perfecto], ['COMBO MÁXIMO', m.maxCombo], ['GOLPES RECIBIDOS', s.golpes], ['FASE ALCANZADA', m.phase]];
+    rows.forEach(([k, v], i) => { drawText(ctx, k, 26, 106 + i * 10, { color: '#cfc8e0' }); drawText(ctx, String(v), 154, 106 + i * 10, { align: 'right' }); });
+  }
   const b = [button(ctx, 'reintentar', 'REINTENTAR', 152, { primary: true })];
   if (ranking && temp.abierta && !published && m.score > 0) b.push(button(ctx, 'publicar', '★ PUBLICAR EN EL RANKING', 174, { w: 160 }));
   else if (published) drawText(ctx, '¡PUBLICADO EN EL RANKING!', W / 2, 180, { align: 'center', color: '#9cff7a' });

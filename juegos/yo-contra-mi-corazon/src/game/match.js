@@ -17,7 +17,7 @@ export function createMatch({ beatmap, seed = 1, assist = false, tutorial = true
       hp: [...K.HEART_HP], lastHurt: -9, last: [] },
     clown: { hp: K.CLOWN_HP, pose: 'listo', poseAt: 0, poseUntil: 0 },
     dodges: [], stars: 0, streak: 0, combo: 0, maxCombo: 0, score: 0,
-    stats: { perfecto: 0, bien: 0, temprano: 0, fuera: 0, golpes: 0, batazos: 0, rebotes: 0, caiste: 0, dano: 0 },
+    stats: { perfecto: 0, bien: 0, temprano: 0, fuera: 0, golpes: 0, batazos: 0, rebotes: 0, caiste: 0, dano: 0, abiertos: 0 },
     events: [], hint: null, fase1, cierre, decideAt: beatmap.duration - 4,
   };
 }
@@ -202,6 +202,7 @@ function afterAttack(m) {
   const n = K.OPEN_BEATS[m.phase];
   h.mode = 'abierto'; h.open = [lastBeat + 1, lastBeat + n]; h.used = new Set();
   h.until = c.timeOfBeat(lastBeat + n) + win(m);
+  m.stats.abiertos++;
   ev(m, 'abierto');
 }
 

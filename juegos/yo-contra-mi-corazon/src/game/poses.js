@@ -1,5 +1,5 @@
 // Qué sprite toca en cada momento (lógica pura, la usa render/view.js).
-import { GOLPE_POSE } from './constants.js';
+import { GOLPE_POSE, HOLD, SWING, LUNGE } from './constants.js';
 
 const AVISO = { gIzq: 'avisoIzq', gDer: 'avisoDer', latido: 'avisoLatido', aorta: 'avisoAorta' };
 const sideAviso = (s) => (s === 'izq' ? 'avisoIzq' : 'avisoDer');
@@ -33,7 +33,13 @@ export function clownPose(m, t) {
   const c = m.clown;
   const active = t >= c.poseAt && t < c.poseUntil;
   const pose = active ? c.pose : 'listo';
-  let dx = 0;
+  let dx = 0, dy = 0, p = pose;
   if (DX[pose]) { const k = Math.min(1, (t - c.poseAt) / 0.06) * Math.min(1, (c.poseUntil - t) / 0.1); dx = DX[pose] * k; }
-  return { pose: 'clown.' + pose, dx, shake: pose === 'golpeado' };
+  if (pose === 'batazo') {
+    // F5b: impulso (0–50 ms), se lanza y hace contacto (50–140 ms) y regresa
+    const a = t - c.poseAt;
+    if (a < SWING.windup) { dy = -10 * (a / SWING.windup); }
+    else { p = 'impacto'; const k = a < SWING.contact ? 1 : Math.max(0, 1 - (a - SWING.contact) / (HOLD.batazo - SWING.contact)); dy = -LUNGE * k; dx = -4 * k; }
+  }
+  return { pose: 'clown.' + p, dx, dy, shake: pose === 'golpeado' };
 }

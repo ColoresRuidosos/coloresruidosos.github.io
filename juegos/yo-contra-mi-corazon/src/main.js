@@ -12,6 +12,7 @@ import * as S from './render/screens.js';
 import { shareCard } from './share/card.js';
 import { createRanking, createDemoRanking, generarNombre, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
 import { temporada } from './ranking/temporada.js';
+import { tipFor } from './game/tips.js';
 import { RANKING_URL } from './data/config.js';
 
 const params = new URLSearchParams(location.search);
@@ -205,6 +206,9 @@ function frame(now) {
       if (m.over && !app.overShown) {
         app.overShown = now; app.player.fadeOut(2);
         app.newRecord = recordResult(app.save, m.score, rankOf(m.score)); writeSave(store, app.save);
+        const lost = m.over === 'derrota' || m.over === 'perdio';
+        app.derrotas = lost ? (app.derrotas || 0) + 1 : 0;
+        app.tip = lost ? tipFor(m, { derrotasSeguidas: app.derrotas }) : null;
       }
       if (app.overShown && now - app.overShown > 2600) app.screen = 'resultado';
     }
@@ -216,7 +220,7 @@ function frame(now) {
       const left = app.countdownEnd - now;
       if (left <= 0) { app.player.resume(); app.screen = 'juego'; } else S.drawCountdown(ctx, Math.ceil(left / ((60000 / BEATMAP.bpm) * 2)));
     }
-    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20 });
+    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20, tip: app.tip });
   }
   requestAnimationFrame(frame);
 }

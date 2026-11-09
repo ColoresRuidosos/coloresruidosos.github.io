@@ -2,7 +2,7 @@
 
 > Regla: **test en rojo → código → verde → refactor.**
 > Cada tarea cita su F o NFR. Leyenda: ⬜ pendiente · 🟨 en curso · ✅ hecha · ⏳ espera al usuario.
-> Estado al 9 nov 2026: **v0.2** (temporada limitada y ranking); `npm test` pasa 46 tests.
+> Estado al 9 nov 2026: **v0.3** (contacto del batazo y cómo ganar); `npm test` pasa 52 tests.
 
 ## Fase 0 · Decisiones y preparación
 | ID | Tarea | Estado |
@@ -68,3 +68,13 @@
 | T6.5 | `tests-js/games.test.js`: tarjeta «Solo esta semana» con `hasta` | `data/games.json` y `layouts/games/section.html` | ✅ |
 | T6.6 | El equipo publica la versión nueva del Apps Script (`docs/ranking/README.md` §6) | — | ⏳ el equipo |
 | T6.7 | Versión de prueba en un solo HTML (canción incrustada y ranking local) | `scripts/build.mjs` | ✅ |
+
+## Fase 7 · Contacto y claridad (v0.3)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T7.1 | `poses.test.js`: impulso → «impacto» (se lanza más de 30 px) → listo | pose `impacto` en `sprites_lib.py` y `game/poses.js` | ✅ |
+| T7.2 | Capturas cuadro a cuadro del contacto: aplastado, destello, estrella, «-6» y confeti desde el punto de contacto | `render/view.js` | ✅ |
+| T7.3 | `tips.test.js`: consejo según cómo se perdió; modo asistido tras 2 derrotas | `game/tips.js` | ✅ |
+| T7.4 | `bot.test.js`: el bot «normal» gana (antes perdía 3 de 5) | `constants.js` (avisos de 3 tiempos, esquiva temprana de 0,6 s, golpe de 10, meta del 35 %) | ✅ |
+| T7.5 | Referencias nuevas del usuario: manga a cuadros en el brazo del bate, y picos rojos y colmillos en el retrato | `sprites_lib.py` | ✅ |
+| T7.6 | `browser.test.js` falla de vez en cuando con la máquina muy cargada (el reloj simulado ×10 se adelanta); pasa solo | — | ⬜ hacerlo determinista |
