@@ -94,3 +94,11 @@
 | T9.2 | `browser.test.js`: elegir la 3.ª opción y publicarla | pantalla «Publicar» | ✅ |
 | T9.3 | `npm run reel -- pepe`: gancho «PEPE MADERO VS MI CORAZÓN», 4 variantes × 2 audios | `reel/reel.js` | ✅ |
 | T9.4 | El usuario pega el `Code.gs` nuevo y publica una versión nueva; **después** se fusiona en `main` | — | ⏳ el usuario |
+
+## Fase 10 · Insignias (v0.5)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T10.1 | `badges.test.js`: 10 insignias con ícono y pista corta, cada regla por separado, solo se guardan las nuevas | `game/badges.js` | ✅ |
+| T10.2 | `badges.test.js` con bots: con Grito salen Carmesí y Bestia; sin Grito, Plural y Noche de brujas (cada una pide jugar distinto) | `match.js`: fintas, gritos, racha máxima y fases limpias | ✅ |
+| T10.3 | `browser.test.js`: al terminar se guardan Teoremas y Querido…, y la vitrina se abre desde la portada | pantallas de resultado, ranking e insignias | ✅ |
+| T10.4 | La tarjeta para compartir lleva «INSIGNIAS n/10» | `share/card.js` | ✅ |

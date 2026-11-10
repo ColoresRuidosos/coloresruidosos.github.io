@@ -4,7 +4,7 @@ import { spr } from '../render/sprites.js';
 
 const RESULT = { ko: '¡GANÉ POR K.O.!', decision: '¡GANÉ POR DECISIÓN!', derrota: 'ME NOQUEÓ EL CORAZÓN', perdio: 'PERDÍ POR DECISIÓN' };
 export function cardLines(r) {
-  return ['YO CONTRA', 'MI CORAZÓN', RESULT[r.over] || '', r.rank, `${r.score} PUNTOS`, `${r.stats.perfecto} PERFECTOS · COMBO ${r.maxCombo}`, '¿ME GANAS?', 'HOMENAJE NO OFICIAL', '@COLORESRUIDOSOS'];
+  return ['YO CONTRA', 'MI CORAZÓN', RESULT[r.over] || '', r.rank, `${r.score} PUNTOS`, `${r.stats.perfecto} PERFECTOS · COMBO ${r.maxCombo}`, `INSIGNIAS ${r.insignias ?? 0}/10 · ¿ME GANAS?`, 'HOMENAJE NO OFICIAL', '@COLORESRUIDOSOS'];
 }
 
 export function drawCard(ctx, r) {

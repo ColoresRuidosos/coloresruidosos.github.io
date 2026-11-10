@@ -22,7 +22,7 @@ try {
   await page.goto(`http://localhost:${port}/reel/reel.html`);
   await page.waitForFunction(() => window.reel); await page.evaluate(() => window.reel.ready);
   for (const v of pedidas.length ? pedidas : VARIANTES) {
-    await page.evaluate(([v, g]) => window.reel.setup(v, g), [v, GANCHO]);
+    await page.evaluate(([v, g]) => { window.__g = g; window.reel.setup(v, g); }, [v, GANCHO]);
     const { frames, fps, beat } = await page.evaluate(() => ({ frames: window.reel.frames, fps: window.reel.fps, beat: window.reel.beat }));
     const dur = frames / fps;
     const video = `${OUT}/_${v}.mp4`;
@@ -33,6 +33,12 @@ try {
       if (!ff.stdin.write(Buffer.from(d.slice(d.indexOf(',') + 1), 'base64'))) await new Promise((r) => ff.stdin.once('drain', r));
     }
     ff.stdin.end(); await new Promise((r, j) => ff.on('close', (c) => (c ? j(new Error('ffmpeg ' + c)) : r())));
+    if (v === 'principal') {   // portada: el cartel VS con el título (tiempo 15)
+      await page.evaluate((v) => window.reel.setup(v, window.__g), v);
+      const d = await page.evaluate(() => window.reel.frame(Math.round(15 * window.reel.beat * window.reel.fps)));
+      writeFileSync(`${OUT}/_portada.png`, Buffer.from(d.slice(d.indexOf(',') + 1), 'base64'));
+      execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', `${OUT}/_portada.png`, '-vf', 'scale=1080:1920:flags=neighbor', `${OUT}/${GANCHO === 'pepe' ? 'portada-pepe' : 'portada'}.png`]);
+    }
     const evs = await page.evaluate(() => window.reel.events());
     writeFileSync(`${OUT}/_${v}.json`, JSON.stringify(evs));
     // 1) latidos + efectos (para ponerle la canción desde la biblioteca de Instagram)

@@ -50,6 +50,13 @@ test('iPhone: título → cómo se juega → la pelea completa con el bot → re
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/9-ranking.png` });
     const rk = await page.evaluate(() => ({ lista: window.__ycmc.rk.lista, yo: window.__ycmc.save.rankName }));
     assert.ok(rk.lista.some((f) => f.nombre === rk.yo), 'mi nombre sale en el ranking');
+    const ins = await page.evaluate(() => JSON.parse(localStorage.getItem('ycmc-save')).insignias);
+    for (const id of ['teoremas', 'querido']) assert.ok(ins[id], `insignia ${id} guardada`);
+    await tapBtn('rkVolver'); await tapBtn('inicio');
+    await page.waitForFunction(() => window.__ycmc.screen === 'titulo');
+    await tapBtn('insignias');
+    await page.waitForFunction(() => window.__ycmc.screen === 'insignias');
+    if (SHOTS) await page.screenshot({ path: `${SHOTS}/10-insignias.png` });
     const r = await page.evaluate(() => ({ over: window.__ycmc.match.over, score: window.__ycmc.match.score, saved: localStorage.getItem('ycmc-save') }));
     assert.ok(['ko', 'decision'].includes(r.over), r.over);
     assert.match(r.saved, /"best":\{"score":\d+/);

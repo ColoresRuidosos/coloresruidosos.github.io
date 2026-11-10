@@ -3,6 +3,7 @@ import { drawText, wrap } from './text.js';
 import { spr } from './sprites.js';
 import { rankOf } from '../game/match.js';
 import { CIERRE_TEXTO } from '../ranking/temporada.js';
+import { BADGES, badgeById } from '../game/badges.js';
 
 const W = 180, YEL = '#ffe25c';
 export const hit = (btns, x, y) => btns.find((b) => x >= b.x && x < b.x + b.w && y >= b.y && y < b.y + b.h);
@@ -60,10 +61,12 @@ export function drawTitle(ctx, t, save, temp) {
   if (temp.abierta) {
     b.push(button(ctx, 'jugar', '▶ JUGAR', 208, { primary: true }));
     b.push(button(ctx, 'ranking', 'RANKING', 229));
-    b.push(button(ctx, 'como', 'CÓMO SE JUEGA', 250));
-    b.push(button(ctx, 'opciones', 'OPCIONES', 271));
+    b.push(button(ctx, 'como', 'CÓMO SE JUEGA', 250, { w: 86, x: 4 }));
+    b.push(button(ctx, 'opciones', 'OPCIONES', 250, { w: 86, x: 90 }));
+    b.push(button(ctx, 'insignias', `INSIGNIAS ${Object.keys(save.insignias || {}).length}/10`, 271));
   } else {
     b.push(button(ctx, 'ranking', 'RANKING FINAL', 230, { primary: true }));
+    b.push(button(ctx, 'insignias', `INSIGNIAS ${Object.keys(save.insignias || {}).length}/10`, 254));
   }
   if (save.best.score) drawText(ctx, `TU RÉCORD: ${save.best.score}`, W / 2, 293, { align: 'center', color: '#cfc8e0' });
   drawText(ctx, 'HOMENAJE NO OFICIAL', W / 2, 303, { align: 'center', color: '#a89cc0' });
@@ -133,16 +136,24 @@ export function drawRotate(ctx) {
 }
 
 const TITLES = { ko: ['¡K.O.!', YEL], decision: ['¡GANAS POR DECISIÓN!', YEL], derrota: ['SE ACABÓ EL SHOW', '#ff7080'], perdio: ['PERDISTE POR DECISIÓN', '#ff7080'] };
-export function drawResult(ctx, m, { newRecord, shareMsg, published, temp, ranking, tip }) {
+export function drawResult(ctx, m, { newRecord, shareMsg, published, temp, ranking, tip, nuevas = [] }) {
   ctx.fillStyle = 'rgba(10,8,20,0.94)'; ctx.fillRect(0, 0, W, 320);
   const [title, col] = TITLES[m.over] || ['FIN', '#fff'];
   drawText(ctx, title, W / 2, 22, { scale: title.length > 10 ? 1 : 3, align: 'center', color: col });
   const rank = rankOf(m.score);
   drawText(ctx, rank, W / 2, 52, { scale: rank.length > 14 ? 1 : 2, align: 'center' });
   drawText(ctx, `${m.score} PUNTOS`, W / 2, 72, { scale: 2, align: 'center', color: YEL });
-  if (newRecord) drawText(ctx, '¡NUEVO RÉCORD!', W / 2, 92, { align: 'center', color: '#9cff7a' });
+  if (newRecord) drawText(ctx, '¡NUEVO RÉCORD!', W / 2, 91, { align: 'center', color: '#9cff7a' });
   const s = m.stats;
-  if (tip) {
+  if (nuevas.length) {   // F15: insignias ganadas en esta partida (se ven 2; el total va en el título)
+    drawText(ctx, nuevas.length > 1 ? `¡${nuevas.length} INSIGNIAS NUEVAS!` : '¡INSIGNIA NUEVA!', W / 2, 101, { align: 'center', color: '#9cff7a' });
+    nuevas.slice(0, 2).forEach((id, i) => {
+      const y = 111 + i * 18;
+      ctx.fillStyle = '#2c2238'; ctx.fillRect(14, y - 1, W - 28, 17);
+      spr(ctx, 'badge.' + id, 16, y - 1);
+      drawText(ctx, badgeById(id).nombre, 36, y + 4, { color: YEL });
+    });
+  } else if (tip) {
     drawText(ctx, 'CONSEJO:', W / 2, 102, { align: 'center', color: YEL });
     wrap(tip, 168).slice(0, 4).forEach((l, i) => drawText(ctx, l, W / 2, 112 + i * 9, { align: 'center', color: '#cfc8e0' }));
   } else {
@@ -196,7 +207,7 @@ export function drawPublish(ctx, m, opciones, elegido, pub, prueba) {
   return b;
 }
 
-export function drawRanking(ctx, rk, { miNombre, prueba, temp }) {
+export function drawRanking(ctx, rk, { miNombre, prueba, temp, nueva = null }) {
   backdrop(ctx, 0.9);
   drawText(ctx, 'RANKING', W / 2, 10, { scale: 2, align: 'center', color: YEL });
   drawText(ctx, temp.abierta ? 'TOP 20 DE LA SEMANA' : 'RANKING FINAL', W / 2, 28, { align: 'center' });
@@ -221,7 +232,26 @@ export function drawRanking(ctx, rk, { miNombre, prueba, temp }) {
       if (page < pages - 1) b.push(button(ctx, 'rkNext', '▶', 262, { w: 30, x: 130 }));
     }
   }
-  if (temp.abierta) drawText(ctx, 'CIERRA EL DOMINGO 15 DE NOV', W / 2, 284, { align: 'center', color: '#ff9aa8' });
+  if (nueva) {   // F15: «Querido…» se gana al publicar
+    ctx.fillStyle = '#2c2238'; ctx.fillRect(10, 275, W - 20, 18);
+    spr(ctx, 'badge.' + nueva, 13, 276);
+    drawText(ctx, `¡INSIGNIA! ${badgeById(nueva).nombre}`, 33, 281, { color: '#9cff7a' });
+  } else if (temp.abierta) drawText(ctx, 'CIERRA EL DOMINGO 15 DE NOV', W / 2, 284, { align: 'center', color: '#ff9aa8' });
   b.push(button(ctx, 'rkVolver', 'VOLVER', 296, { primary: true }));
   return b;
+}
+
+// F15: vitrina de insignias
+export function drawBadges(ctx, save) {
+  backdrop(ctx, 0.9);
+  const tiene = save.insignias || {};
+  drawText(ctx, `INSIGNIAS ${Object.keys(tiene).length}/10`, W / 2, 8, { scale: 2, align: 'center', color: YEL });
+  BADGES.forEach((bd, i) => {
+    const y = 28 + i * 26, ok = !!tiene[bd.id];
+    ctx.fillStyle = ok ? 'rgba(255,226,92,0.12)' : 'rgba(255,255,255,0.04)'; ctx.fillRect(3, y - 2, W - 6, 23);
+    spr(ctx, ok ? 'badge.' + bd.id : 'badge.locked', 6, y + 1);
+    drawText(ctx, bd.nombre, 26, y + 1, { color: ok ? YEL : '#8a80a0' });
+    drawText(ctx, bd.pista, 26, y + 11, { color: ok ? '#cfc8e0' : '#6a6080', shadow: null });
+  });
+  return [button(ctx, 'volver', 'VOLVER', 293, { primary: true })];
 }

@@ -55,5 +55,6 @@ Un reel vertical para Instagram de unos 24 s. Anuncia que el juego **solo está 
 ## R4. Reel «Pepe Madero vs. mi corazón» (v2, petición del usuario, 9 nov 2026)
 - **El gancho dice «PEPE MADERO», «VS» y «MI CORAZÓN»**, en lugar de «EL PAYASO», «CONTRA» y «SU CORAZÓN». Abajo lleva «HOMENAJE NO OFICIAL» desde el primer segundo, porque nombra al artista.
 - En el cartel VS, el retrato se rotula «PEPE MADERO».
+- **La franja del título del cartel VS dice «PEPE VS» (con «VS» en amarillo) y «MI CORAZÓN»** (petición del usuario, 10 nov 2026). Ese cuadro también sale como imagen de portada para el reel: `reel/out/portada-pepe.png`, de 1080×1920.
 - **El top de ejemplo del ranking usa los nombres nuevos de la carrera** (F14 v0.4).
 - Se genera con `npm run reel -- pepe`: las mismas 4 variantes del cierre × 2 audios → `reel/out/reel-pepe-*.mp4`.

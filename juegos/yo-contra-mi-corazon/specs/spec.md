@@ -176,6 +176,30 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 - **El equipo debe volver a implementar el Apps Script** (nueva versión, misma URL) para que el modo `corazon` funcione. Mientras tanto, el juego avisa «EL RANKING AÚN NO ESTÁ DISPONIBLE» y todo lo demás sigue igual.
 - **Versión de prueba (un solo HTML con la canción incrustada):** usa un **ranking de prueba que se guarda solo en ese navegador**, para no ensuciar el ranking real. Lo dice en pantalla.
 
+**F15 Insignias (v0.5, aprobadas por el usuario el 10 nov 2026).** Son 10, cada una con el nombre de un disco o una canción verificados de José Madero. «Psalmos» es un guiño libre. Se guardan **solo en el navegador** (`ycmc-save`); no tocan el servidor.
+
+| id | Insignia | Cómo se gana (al terminar la partida, salvo «Querido…») |
+|---|---|---|
+| `carmesi` | CARMESÍ | Vaciar a batazos la barra de la fase 1 |
+| `brujas` | NOCHE DE BRUJAS | Partida con 3 fintas o más sin caer en ninguna |
+| `teoremas` | TEOREMAS, ETC. | Que no te noqueen: llegar al final de la canción o ganar por K.O. |
+| `bestia` | ÉRASE UNA BESTIA | Ganar por K.O. |
+| `plural` | PLURAL SIENDO SINGULAR | Ganar (K.O. o decisión) sin usar el Grito |
+| `rey` | REY AHOGADO | Ganar con 20 de vida o menos |
+| `fantasmas` | FANTASMAS | Terminar una fase sin recibir ningún golpe |
+| `psalmos` | PSALMOS | 16 perfectos seguidos |
+| `rueda` | MALDITA RUEDA | Volver a jugar después de perder 3 veces seguidas |
+| `querido` | QUERIDO… | Publicar tu nombre en el ranking |
+
+- **Comprobado con bots:** sin el Grito no da tiempo de vaciar la 1.ª barra antes de que la canción cambie de fase. Por eso Carmesí y Érase una Bestia piden usar el Grito, y Plural siendo singular solo se gana por decisión. Cada insignia pide jugar distinto.
+- **Íconos:** pixel art de 16×16 en el atlas:
+  - rosa (Carmesí), antifaz (Noche de brujas), nota (Teoremas), bestia con cuernos (Érase una Bestia);
+  - foco solitario (Plural), corona entre olas (Rey ahogado), fantasma (Fantasmas), libro azul (Psalmos);
+  - rueda (Maldita rueda) y sobre con sello (Querido…).
+- **Resultado:** las nuevas salen con «¡INSIGNIA NUEVA!» (máximo 2 a la vista y «+N MÁS»). Toman el lugar de las estadísticas o del consejo.
+- **Vitrina:** botón «INSIGNIAS n/10» en la portada. Muestra la lista con ícono, nombre y pista. Las que faltan salen en gris.
+- **Tarjeta para compartir:** «INSIGNIAS n/10».
+
 ### 3.2 Funcionalidades P1 y P2
 - **P1 · Calibración:** tocar en 8 tiempos para medir la latencia del celular.
 - **P1 · Récord local** y mejor rango.

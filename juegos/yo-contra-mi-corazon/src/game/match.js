@@ -17,7 +17,8 @@ export function createMatch({ beatmap, seed = 1, assist = false, tutorial = true
       hp: [...K.HEART_HP], lastHurt: -9, last: [] },
     clown: { hp: K.CLOWN_HP, pose: 'listo', poseAt: 0, poseUntil: 0 },
     dodges: [], stars: 0, streak: 0, combo: 0, maxCombo: 0, score: 0,
-    stats: { perfecto: 0, bien: 0, temprano: 0, fuera: 0, golpes: 0, batazos: 0, rebotes: 0, caiste: 0, dano: 0, abiertos: 0 },
+    stats: { perfecto: 0, bien: 0, temprano: 0, fuera: 0, golpes: 0, batazos: 0, rebotes: 0, caiste: 0, dano: 0, abiertos: 0, fintas: 0, gritos: 0, maxStreak: 0 },
+    golpesFase: 0, fasesLimpias: 0,   // F15: fases sin recibir golpes (insignia Fantasmas)
     events: [], hint: null, fase1, cierre, decideAt: beatmap.duration - 4,
   };
 }
@@ -70,7 +71,7 @@ function act(m, a) {
   }
   if (a.type === 'mic') {
     if (m.stars < K.STARS_MAX || ['transicion', 'ko', 'final', 'espera'].includes(h.mode)) return;
-    m.stars = 0;
+    m.stars = 0; m.stats.gritos++;
     const b = m.clock.nearestBeat(a.t);
     h.mode = 'aturdido'; h.hits = []; h.open = [b + 1, b + K.GRITO_BEATS]; h.used = new Set();
     h.until = m.clock.timeOfBeat(b + K.GRITO_BEATS) + win(m);
@@ -84,6 +85,7 @@ function pose(m, p, t, hold) { Object.assign(m.clown, { pose: p, poseAt: t, pose
 function grade(m, g, pts) {
   if (g === 'perfecto') {
     m.streak++;
+    m.stats.maxStreak = Math.max(m.stats.maxStreak, m.streak);
     if (m.streak % K.PERFECTS_PER_STAR === 0 && m.stars < K.STARS_MAX) { m.stars++; ev(m, 'estrella', { stars: m.stars }); }
   } else if (g === 'fuera') m.streak = 0;
   if (g === 'fuera') m.combo = 0; else { m.combo++; m.maxCombo = Math.max(m.maxCombo, m.combo); }
@@ -109,6 +111,7 @@ function advance(m, t) {
       if (m.over) break;
       if (h.hits.every((x) => x.done)) afterAttack(m);
     } else if (h.mode === 'transicion') {
+      closePhase(m);
       m.phase++; m.clown.hp = Math.min(K.CLOWN_HP, m.clown.hp + K.PHASE_HEAL);
       ev(m, 'fase', { phase: m.phase });
       plan(m, h.until);
@@ -170,6 +173,7 @@ function resolve(m, hit) {
   const d = cands.at(-1);
   hit.done = true;
   if (hit.fake) {
+    m.stats.fintas++;
     if (d) { d.used = true; m.stats.caiste++; m.streak = 0; m.combo = 0; ev(m, 'caiste'); hit.ok = true; }
     else { hit.ok = true; ev(m, 'finta'); }
     return;
@@ -186,7 +190,7 @@ function resolve(m, hit) {
   }
   if (d) d.used = true;
   hit.ok = false;
-  m.stats.golpes++; m.streak = 0; m.combo = 0;
+  m.stats.golpes++; m.golpesFase++; m.streak = 0; m.combo = 0;
   if (m.stars > 0) m.stars--;
   if (!m.assist) m.clown.hp = Math.max(0, m.clown.hp - K.HIT_DMG);
   pose(m, 'golpeado', hit.T, K.HOLD.golpeado);
@@ -208,9 +212,15 @@ function afterAttack(m) {
 
 function barEmpty(m, t) {
   if (m.phase < 3) return transition(m, t);
+  closePhase(m);
   m.over = 'ko'; m.overAt = t; m.heart.mode = 'ko';
   m.score += K.SCORE.ko + Math.round(Math.max(0, m.beatmap.duration - t) * K.SCORE.koPorSegundo);
   ev(m, 'ko');
+}
+
+function closePhase(m) {
+  if (m.golpesFase === 0) m.fasesLimpias++;
+  m.golpesFase = 0;
 }
 
 function transition(m, t) {
@@ -227,6 +237,7 @@ export function damageRatio(m) {
 
 function decide(m) {
   if (m.over) return;
+  closePhase(m);
   const won = damageRatio(m) >= K.DECISION_RATIO;
   m.over = won ? 'decision' : 'perdio'; m.overAt = m.t; m.heart.mode = won ? 'ko' : 'final';
   if (won) m.score += K.SCORE.decision;
