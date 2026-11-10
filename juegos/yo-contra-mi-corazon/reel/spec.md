@@ -51,3 +51,9 @@ Un reel vertical para Instagram de unos 24 s. Anuncia que el juego **solo está 
 - **Legibilidad:** el texto mínimo es la fuente 5×7 a escala 1, que queda en 30 px reales. Todo el texto está a más de 120 px de los bordes de arriba y de abajo (zona segura de Reels).
 - **Lo que no lleva:** sangre, imágenes de terceros y la cara realista de José.
 - **Ranking de ejemplo:** usa los nombres de prueba del juego; no son jugadores reales.
+
+## R4. Reel «Pepe Madero vs. mi corazón» (v2, petición del usuario, 9 nov 2026)
+- **El gancho dice «PEPE MADERO», «VS» y «MI CORAZÓN»**, en lugar de «EL PAYASO», «CONTRA» y «SU CORAZÓN». Abajo lleva «HOMENAJE NO OFICIAL» desde el primer segundo, porque nombra al artista.
+- En el cartel VS, el retrato se rotula «PEPE MADERO».
+- **El top de ejemplo del ranking usa los nombres nuevos de la carrera** (F14 v0.4).
+- Se genera con `npm run reel -- pepe`: las mismas 4 variantes del cierre × 2 audios → `reel/out/reel-pepe-*.mp4`.

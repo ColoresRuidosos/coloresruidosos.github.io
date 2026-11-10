@@ -6,6 +6,7 @@ import { createBot } from '../src/game/bot.js';
 import { loadSprites, spr } from '../src/render/sprites.js';
 import { drawText } from '../src/render/text.js';
 import { drawScene, createFx, feedFx, stepFx } from '../src/render/view.js';
+import { EJEMPLOS } from '../src/ranking/ranking.js';
 
 const FPS = 30, BEAT = 60 / BEATMAP.bpm, YEL = '#ffe25c', W = 180;
 const canvas = document.getElementById('reel'), ctx = canvas.getContext('2d');
@@ -76,9 +77,11 @@ function gancho(b) {
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, 320);
   const s = 1 + 0.08 * p;
   scaled('heart.idle', 90 - 50 * s, 112 - 54 * s + 40, s, 0.9);
-  if (b >= 1) drawText(ctx, 'EL PAYASO', W / 2, 40, { scale: 2, align: 'center' });
-  if (b >= 3) drawText(ctx, 'CONTRA', W / 2, 62, { scale: 2, align: 'center' });
-  if (b >= 5) drawText(ctx, 'SU CORAZÓN', W / 2, 262, { scale: 2, align: 'center', color: '#ff5a6e' });
+  const [l1, l2, l3] = state.gancho === 'pepe' ? ['PEPE MADERO', 'VS', 'MI CORAZÓN'] : ['EL PAYASO', 'CONTRA', 'SU CORAZÓN'];
+  if (b >= 1) drawText(ctx, l1, W / 2, 40, { scale: 2, align: 'center' });
+  if (b >= 3) drawText(ctx, l2, W / 2, 62, { scale: l2 === 'VS' ? 3 : 2, align: 'center', color: l2 === 'VS' ? YEL : '#fff' });
+  if (b >= 5) drawText(ctx, l3, W / 2, 262, { scale: 2, align: 'center', color: '#ff5a6e' });
+  if (state.gancho === 'pepe') drawText(ctx, 'HOMENAJE NO OFICIAL', W / 2, 292, { align: 'center', color: '#a89cc0' });
 }
 
 function vs(b) {
@@ -88,7 +91,7 @@ function vs(b) {
   const ease = (u) => 1 - Math.pow(1 - Math.min(1, Math.max(0, u)), 3);
   scaled('icon.clown', -100 + 145 * ease(k / 1.5), 40, 3);
   spr(ctx, 'heart.avisoIzq', 180 - 140 * ease((k - 0.5) / 1.5), 186);
-  drawText(ctx, 'PAYASO', 120 - 80 * (1 - ease(k / 1.5)), 26, { align: 'center', color: '#cfc8e0' });
+  drawText(ctx, state.gancho === 'pepe' ? 'PEPE MADERO' : 'PAYASO', 120 - 80 * (1 - ease(k / 1.5)), 26, { align: 'center', color: '#cfc8e0' });
   if (k >= 2 && k < 4) {
     const sh = k < 2.4 ? Math.round(Math.sin(k * 60) * 3) : 0;
     drawText(ctx, 'VS', W / 2 + sh, 140, { scale: 4, align: 'center', color: YEL });
@@ -106,7 +109,7 @@ function label(text) {
   drawText(ctx, text, W / 2, 57, { scale: s, align: 'center', color: YEL });
 }
 
-const TOP = [['PIERROT DE MEDIANOCHE #12', 38210], ['FAQUIR DEL BATE #3', 30120], ['BUFÓN SIN PULSO #77', 21480], ['DOMADOR DE LA AORTA #40', 15900], ['MIMO DEL CONFETI #8', 9300]];
+const TOP = EJEMPLOS.map(([n, p]) => [n.toUpperCase(), p]);   // nombres de la carrera de Pepe (F14 v0.4)
 function ranking(b) {
   const k = b - SCENES.ranking[0];
   spr(ctx, 'stage', 0, 0); bg('rgba(10,8,20,0.82)');
@@ -149,9 +152,9 @@ function cierre(b, variante) {
 
 // ---------- API ----------
 let state = null;
-function setup(variante = 'principal') {
+function setup(variante = 'principal', gancho = 'payaso') {
   const mo = findMoments();
-  state = { variante, mo, cur: cursor(), events: [], clipIdx: -1 };
+  state = { variante, gancho, mo, cur: cursor(), events: [], clipIdx: -1 };
 }
 function frame(i) {
   const b = beatOf(i), t = i / FPS, st = state;

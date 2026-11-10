@@ -42,6 +42,9 @@ test('iPhone: título → cómo se juega → la pelea completa con el bot → re
     await tapBtn('publicar');                                     // ★ PUBLICAR EN EL RANKING
     await page.waitForFunction(() => window.__ycmc.screen === 'publicar');
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/8-publicar.png` });
+    await tapBtn('opcion2');                                      // elige la 3.ª opción
+    const elegido = await page.evaluate(() => window.__ycmc.opciones[2]);
+    assert.equal(await page.evaluate(() => window.__ycmc.save.rankName), elegido);
     await tapBtn('enviar');                                       // PUBLICAR
     await page.waitForFunction(() => window.__ycmc.screen === 'ranking' && window.__ycmc.rk.status === 'listo');
     if (SHOTS) await page.screenshot({ path: `${SHOTS}/9-ranking.png` });
