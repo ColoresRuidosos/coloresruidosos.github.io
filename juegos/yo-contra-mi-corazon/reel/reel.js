@@ -4,7 +4,7 @@ import { BEATMAP } from '../src/data/beatmap.js';
 import { createMatch, step } from '../src/game/match.js';
 import { createBot } from '../src/game/bot.js';
 import { loadSprites, spr } from '../src/render/sprites.js';
-import { drawText } from '../src/render/text.js';
+import { drawText, textWidth } from '../src/render/text.js';
 import { drawScene, createFx, feedFx, stepFx } from '../src/render/view.js';
 import { EJEMPLOS } from '../src/ranking/ranking.js';
 
@@ -98,7 +98,11 @@ function vs(b) {
   }
   if (k >= 4) {
     band(124, 42);
-    drawText(ctx, 'YO CONTRA', W / 2, 128, { scale: 2, align: 'center' });
+    if (state.gancho === 'pepe') {   // R4: en el cartel dice «PEPE VS / MI CORAZÓN»
+      const x0 = W / 2 - textWidth('PEPE VS', 2) / 2;
+      drawText(ctx, 'PEPE', x0, 128, { scale: 2 });
+      drawText(ctx, 'VS', x0 + 5 * 12, 128, { scale: 2, color: YEL });
+    } else drawText(ctx, 'YO CONTRA', W / 2, 128, { scale: 2, align: 'center' });
     drawText(ctx, 'MI CORAZÓN', W / 2, 147, { scale: 2, align: 'center', color: '#ff6a7a' });
   }
 }
