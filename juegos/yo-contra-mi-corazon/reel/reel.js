@@ -7,6 +7,7 @@ import { loadSprites, spr } from '../src/render/sprites.js';
 import { drawText, textWidth } from '../src/render/text.js';
 import { drawScene, createFx, feedFx, stepFx } from '../src/render/view.js';
 import { EJEMPLOS } from '../src/ranking/ranking.js';
+import { BADGES } from '../src/game/badges.js';
 
 const FPS = 30, BEAT = 60 / BEATMAP.bpm, YEL = '#ffe25c', W = 180;
 const canvas = document.getElementById('reel'), ctx = canvas.getContext('2d');
@@ -154,19 +155,61 @@ function cierre(b, variante) {
   }
 }
 
+// R5: vitrina de insignias, una cada 2 tiempos, y «¿CUÁNTAS LLEVAS?»
+function vitrina(y0, alto, visibles, conPista = true) {
+  BADGES.forEach((bd, i) => {
+    const v = visibles(i); if (v === null) return;
+    const { ok, dx = 0 } = v, y = y0 + i * alto;
+    ctx.fillStyle = ok ? 'rgba(255,226,92,0.14)' : 'rgba(255,255,255,0.05)'; ctx.fillRect(3 + dx, y - 2, W - 6, alto - 3);
+    spr(ctx, ok ? 'badge.' + bd.id : 'badge.locked', 6 + dx, y + (conPista ? 1 : -1));
+    drawText(ctx, bd.nombre, 26 + dx, y + (conPista ? 1 : 3), { color: ok ? YEL : '#8a80a0' });
+    if (conPista) drawText(ctx, bd.pista, 26 + dx, y + 11, { color: ok ? '#cfc8e0' : '#6a6080', shadow: null });
+  });
+}
+function insignias(k) {
+  spr(ctx, 'stage', 0, 0); bg('rgba(10,8,20,0.86)');
+  drawText(ctx, '10 INSIGNIAS', W / 2, 22, { scale: 2, align: 'center', color: YEL });
+  vitrina(44, 24, (i) => {
+    const t0 = 1 + i * 2; if (k < t0) return null;
+    const u = Math.min(1, (k - t0) / 0.5);
+    return { ok: true, dx: Math.round(60 * Math.pow(1 - u, 3)) };
+  });
+  if (k >= 21) {
+    bg('rgba(10,8,20,0.55)');
+    band(124, 50, '#c8283c');
+    drawText(ctx, '¿CUÁNTAS', W / 2, 130, { scale: 2, align: 'center' });
+    drawText(ctx, 'LLEVAS?', W / 2, 152, { scale: 2, align: 'center', color: YEL });
+  }
+}
+// R5: imagen para historia (1080×1920 tras escalar ×6)
+function story() {
+  spr(ctx, 'stage', 0, 0); bg('rgba(10,8,20,0.88)');
+  drawText(ctx, '¿CUÁNTAS', W / 2, 26, { scale: 3, align: 'center' });
+  drawText(ctx, 'LLEVAS?', W / 2, 50, { scale: 3, align: 'center', color: YEL });
+  const ganadas = new Set(['carmesi', 'teoremas', 'fantasmas', 'querido']);
+  vitrina(90, 19, (i) => ({ ok: ganadas.has(BADGES[i].id) }), false);
+  drawText(ctx, '10 INSIGNIAS · SOLO HASTA', W / 2, 284, { align: 'center', color: '#ff9aa8' });
+  drawText(ctx, 'EL DOMINGO 15 DE NOV', W / 2, 294, { align: 'center' });
+  drawText(ctx, '@COLORESRUIDOSOS', W / 2, 305, { align: 'center', color: YEL });
+  drawText(ctx, 'HOMENAJE NO OFICIAL', W / 2, 78, { align: 'center', color: '#a89cc0' });
+  return canvas.toDataURL('image/png');
+}
+
 // ---------- API ----------
 let state = null;
-function setup(variante = 'principal', gancho = 'payaso') {
+function setup(variante = 'principal', gancho = 'payaso', modo = 'normal') {
   const mo = findMoments();
-  state = { variante, gancho, mo, cur: cursor(), events: [], clipIdx: -1 };
+  // R5: en el reel de insignias el juego dura 12 tiempos (esquiva, batazo y Grito) y luego va la vitrina
+  const clips = modo === 'insignias' ? mo.clips.filter((c) => ['¡ESQUIVA!', '¡BATEA!', '¡GRITA!'].includes(c.label)) : mo.clips;
+  state = { variante, gancho, modo, mo, clips, juegoFin: modo === 'insignias' ? 28 : SCENES.ranking[0], cur: cursor(), events: [], clipIdx: -1 };
 }
 function frame(i) {
   const b = beatOf(i), t = i / FPS, st = state;
   const rec = (e) => st.events.push({ t, type: e.type, grade: e.grade });
   if (b < SCENES.vs[0]) gancho(b);
   else if (b < SCENES.juego[0]) vs(b);
-  else if (b < SCENES.ranking[0]) {
-    const ci = Math.floor((b - SCENES.juego[0]) / 4), clip = st.mo.clips[Math.min(ci, st.mo.clips.length - 1)];
+  else if (b < st.juegoFin) {
+    const ci = Math.floor((b - SCENES.juego[0]) / 4), clip = st.clips[Math.min(ci, st.clips.length - 1)];
     const u = (b - SCENES.juego[0] - ci * 4) * BEAT;           // segundos dentro del corte
     const gt = clip.from + u * clip.speed;
     if (ci !== st.clipIdx) {                                      // corte nuevo: avanzar la pelea hasta su inicio
@@ -177,7 +220,7 @@ function frame(i) {
     advance(st.cur, gt, (1 / FPS) * clip.speed, rec);
     drawScene(ctx, st.cur.m, gt, st.cur.fx, OPTS);
     label(clip.label);
-  } else if (b < SCENES.cierre[0]) ranking(b);
+  } else if (b < SCENES.cierre[0]) { if (st.modo === 'insignias') insignias(b - st.juegoFin); else ranking(b); }
   else {
     if (st.clipIdx !== 'ko') { advance(st.cur, st.mo.koFrom, 1 / FPS); st.cur.fx = createFx(); st.cur.m.events.length = 0; st.clipIdx = 'ko'; }
     const gt = st.mo.koFrom + (b - SCENES.cierre[0]) * BEAT;
@@ -189,7 +232,7 @@ function frame(i) {
 }
 
 window.reel = {
-  ready: loadSprites(), setup, frame,
+  ready: loadSprites(), setup, frame, story,
   frames: Math.ceil(TOTAL_BEATS * BEAT * FPS), fps: FPS, beat: BEAT, scenes: SCENES,
   events: () => state.events,
 };

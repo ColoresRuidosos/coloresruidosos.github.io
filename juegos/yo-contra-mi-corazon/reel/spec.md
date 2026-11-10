@@ -58,3 +58,21 @@ Un reel vertical para Instagram de unos 24 s. Anuncia que el juego **solo está 
 - **La franja del título del cartel VS dice «PEPE VS» (con «VS» en amarillo) y «MI CORAZÓN»** (petición del usuario, 10 nov 2026). Ese cuadro también sale como imagen de portada para el reel: `reel/out/portada-pepe.png`, de 1080×1920.
 - **El top de ejemplo del ranking usa los nombres nuevos de la carrera** (F14 v0.4).
 - Se genera con `npm run reel -- pepe`: las mismas 4 variantes del cierre × 2 audios → `reel/out/reel-pepe-*.mp4`.
+
+## R5. Reel de las insignias e imagen para historia (petición del usuario, 10 nov 2026)
+- **Reel** con el gancho R4 («PEPE MADERO VS MI CORAZÓN»):
+
+  | Tiempos | Escena |
+  |---|---|
+  | 0–8 | Gancho |
+  | 8–16 | Cartel VS |
+  | 16–28 | 3 cortes de juego: esquiva, batazo y Grito |
+  | 28–52 | **Vitrina:** «10 INSIGNIAS»; cada 2 tiempos entra una con su ícono, nombre y pista; al final, «¿CUÁNTAS LLEVAS?» |
+  | 52–67 | Cierre |
+
+  Se genera con `npm run reel -- pepe insignias principal` → `reel/out/reel-pepe-insignias-principal-*.mp4`.
+- **Imagen para historia** (1080×1920, `reel/out/historia-insignias.png`):
+  - arriba, «¿CUÁNTAS LLEVAS?»;
+  - en medio, la vitrina con 4 insignias ganadas y 6 en gris, como ejemplo;
+  - abajo, «HASTA EL DOMINGO 15 DE NOV» y la cuenta de CR.
+  - Hay espacio para los stickers de encuesta y de enlace.

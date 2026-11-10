@@ -8,7 +8,8 @@ const pw = createRequire(import.meta.url)('playwright');
 const VARIANTES = ['principal', 'quedan-5', 'quedan-3', 'ultimo-dia'];
 const pedidas = process.argv.slice(2).filter((a) => VARIANTES.includes(a));
 const GANCHO = process.argv.includes('pepe') ? 'pepe' : 'payaso';   // R4: «PEPE MADERO VS MI CORAZÓN»
-const PRE = GANCHO === 'pepe' ? 'reel-pepe' : 'reel';
+const MODO = process.argv.includes('insignias') ? 'insignias' : 'normal';   // R5
+const PRE = (GANCHO === 'pepe' ? 'reel-pepe' : 'reel') + (MODO === 'insignias' ? '-insignias' : '');
 const OUT = 'reel/out', SONG = '../../static/games/yo-contra-mi-corazon/cancion.mp3', SONG_FROM = 56.044;
 mkdirSync(OUT, { recursive: true });
 
@@ -22,7 +23,7 @@ try {
   await page.goto(`http://localhost:${port}/reel/reel.html`);
   await page.waitForFunction(() => window.reel); await page.evaluate(() => window.reel.ready);
   for (const v of pedidas.length ? pedidas : VARIANTES) {
-    await page.evaluate(([v, g]) => { window.__g = g; window.reel.setup(v, g); }, [v, GANCHO]);
+    await page.evaluate(([v, g, mo]) => { window.__g = g; window.__mo = mo; window.reel.setup(v, g, mo); }, [v, GANCHO, MODO]);
     const { frames, fps, beat } = await page.evaluate(() => ({ frames: window.reel.frames, fps: window.reel.fps, beat: window.reel.beat }));
     const dur = frames / fps;
     const video = `${OUT}/_${v}.mp4`;
@@ -33,13 +34,19 @@ try {
       if (!ff.stdin.write(Buffer.from(d.slice(d.indexOf(',') + 1), 'base64'))) await new Promise((r) => ff.stdin.once('drain', r));
     }
     ff.stdin.end(); await new Promise((r, j) => ff.on('close', (c) => (c ? j(new Error('ffmpeg ' + c)) : r())));
+    // los eventos (para los efectos de sonido) se leen ANTES de exportar portada o historia, que reinician el reel
+    const evs = await page.evaluate(() => window.reel.events());
     if (v === 'principal') {   // portada: el cartel VS con el título (tiempo 15)
-      await page.evaluate((v) => window.reel.setup(v, window.__g), v);
+      await page.evaluate((v) => window.reel.setup(v, window.__g, window.__mo), v);
       const d = await page.evaluate(() => window.reel.frame(Math.round(15 * window.reel.beat * window.reel.fps)));
       writeFileSync(`${OUT}/_portada.png`, Buffer.from(d.slice(d.indexOf(',') + 1), 'base64'));
       execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', `${OUT}/_portada.png`, '-vf', 'scale=1080:1920:flags=neighbor', `${OUT}/${GANCHO === 'pepe' ? 'portada-pepe' : 'portada'}.png`]);
     }
-    const evs = await page.evaluate(() => window.reel.events());
+    if (MODO === 'insignias' && v === 'principal') {   // R5: imagen para historia
+      const d = await page.evaluate(() => window.reel.story());
+      writeFileSync(`${OUT}/_historia.png`, Buffer.from(d.slice(d.indexOf(',') + 1), 'base64'));
+      execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', `${OUT}/_historia.png`, '-vf', 'scale=1080:1920:flags=neighbor', `${OUT}/historia-insignias.png`]);
+    }
     writeFileSync(`${OUT}/_${v}.json`, JSON.stringify(evs));
     // 1) latidos + efectos (para ponerle la canción desde la biblioteca de Instagram)
     execFileSync('python3', ['-I', 'scripts/reel_audio.py', `${OUT}/_${v}.json`, `${OUT}/_${v}-latidos.wav`, String(dur), String(beat)], { stdio: 'inherit' });
