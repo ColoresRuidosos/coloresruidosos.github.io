@@ -76,3 +76,18 @@ Un reel vertical para Instagram de unos 24 s. Anuncia que el juego **solo está 
   - en medio, la vitrina con 4 insignias ganadas y 6 en gris, como ejemplo;
   - abajo, «HASTA EL DOMINGO 15 DE NOV» y la cuenta de CR.
   - Hay espacio para los stickers de encuesta y de enlace.
+
+## R5b. El reel de insignias presenta antes el juego (petición del usuario, 10 nov 2026)
+Dura unos 31 s:
+
+| Tiempos | Escena |
+|---|---|
+| 8 | Gancho |
+| 8 | Cartel VS |
+| 4 | **«UN JUEGO DE RITMO Y BOX» · «GRATIS · EN TU CELULAR»** |
+| 16 | **Cómo se juega**, 4 cortes con instrucción: «¡ESQUIVA! Desliza lejos del puño», «¡BATEA! Toca al ritmo de la canción», «¡GRITA! Con 5 estrellas: micrófono» y «3 FASES · Vacía sus barras: ¡K.O.!» |
+| 24 | Vitrina de las 10 insignias |
+| 12 | Ranking «¿Quién será el más migajero?» |
+| 15 | Cierre |
+
+Cada reel tiene su propia línea de tiempo, y los acentos de sonido la siguen.

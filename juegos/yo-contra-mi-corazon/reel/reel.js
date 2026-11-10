@@ -108,15 +108,15 @@ function vs(b) {
   }
 }
 
-function label(text) {
+function label(text, sub = null) {
   const s = text.length <= 13 ? 2 : 1;
-  band(54, s === 2 ? 20 : 13);
+  band(54, (s === 2 ? 20 : 13) + (sub ? 10 : 0));
   drawText(ctx, text, W / 2, 57, { scale: s, align: 'center', color: YEL });
+  if (sub) drawText(ctx, sub, W / 2, 57 + (s === 2 ? 17 : 10), { align: 'center' });
 }
 
 const TOP = EJEMPLOS.map(([n, p]) => [n.toUpperCase(), p]);   // nombres de la carrera de Pepe (F14 v0.4)
-function ranking(b) {
-  const k = b - SCENES.ranking[0];
+function ranking(k) {
   spr(ctx, 'stage', 0, 0); bg('rgba(10,8,20,0.82)');
   drawText(ctx, '¿QUIÉN SERÁ', W / 2, 26, { scale: 2, align: 'center' });
   drawText(ctx, 'EL MÁS MIGAJERO', W / 2, 46, { scale: 2, align: 'center', color: YEL });
@@ -134,8 +134,7 @@ function ranking(b) {
   if (k >= 8.5) { band(250, 26, '#c8283c'); drawText(ctx, '¡DESCÚBRELO!', W / 2, 256, { scale: 2, align: 'center' }); }
 }
 
-function cierre(b, variante) {
-  const k = b - SCENES.cierre[0];
+function cierre(k, variante) {
   ctx.fillStyle = 'rgba(10,8,20,0.8)'; ctx.fillRect(0, 182, W, 124);
   if (k >= 1) {
     const [l1, l2] = VARIANTES[variante];
@@ -153,6 +152,17 @@ function cierre(b, variante) {
     drawText(ctx, 'HOMENAJE NO OFICIAL', W / 2, 284, { align: 'center', color: '#a89cc0' });
     drawText(ctx, '@COLORESRUIDOSOS', W / 2, 294, { align: 'center', color: YEL });
   }
+}
+
+// R5b: presenta el juego antes de las insignias
+function presenta(k) {
+  spr(ctx, 'stage', 0, 0); bg('rgba(10,8,20,0.55)');
+  spr(ctx, 'heart.idle', 40, 70 - (Math.floor(k * 2) % 2));
+  spr(ctx, 'clown.listo', 40, 158);
+  band(18, 44);
+  drawText(ctx, 'UN JUEGO DE', W / 2, 22, { scale: 2, align: 'center' });
+  if (k >= 0.5) drawText(ctx, 'RITMO Y BOX', W / 2, 42, { scale: 2, align: 'center', color: YEL });
+  if (k >= 2) { band(270, 20, '#c8283c'); drawText(ctx, 'GRATIS · EN TU CELULAR', W / 2, 277, { align: 'center' }); }
 }
 
 // R5: vitrina de insignias, una cada 2 tiempos, y «¿CUÁNTAS LLEVAS?»
@@ -197,21 +207,48 @@ function story() {
 
 // ---------- API ----------
 let state = null;
+// Línea de tiempo por modo (en tiempos de 168 BPM). R5b: el reel de insignias presenta antes el juego.
+const SUBS = { '¡ESQUIVA!': 'DESLIZA LEJOS DEL PUÑO', '¡BATEA!': 'TOCA AL RITMO DE LA CANCIÓN', '¡GRITA!': 'CON 5 ESTRELLAS: MICRÓFONO', '3 FASES': 'VACÍA SUS BARRAS: ¡K.O.!' };
+function timeline(modo, mo) {
+  if (modo !== 'insignias') return [['gancho', 8], ['vs', 8], ['juego', 24, mo.clips], ['ranking', 12], ['cierre', 15]];
+  const clips = ['¡ESQUIVA!', '¡BATEA!', '¡GRITA!', '3 FASES'].map((l) => mo.clips.find((c) => c.label === l)).filter(Boolean)
+    .map((c) => ({ ...c, sub: SUBS[c.label] }));
+  return [['gancho', 8], ['vs', 8], ['presenta', 4], ['juego', clips.length * 4, clips], ['insignias', 24], ['ranking', 12], ['cierre', 15]];
+}
+// Acentos de sonido de cada escena (los lee scripts/reel_audio.py)
+function accents(tl) {
+  const out = []; let at = 0;
+  const add = (b, type) => out.push({ t: (at + b) * BEAT, type });
+  for (const [name, len] of tl) {
+    if (name === 'vs') { add(2, 'boom'); add(4, 'boom'); }
+    if (name === 'presenta' || name === 'juego') add(0, 'up');
+    if (name === 'insignias') { for (let i = 0; i < 10; i++) add(1 + i * 2, 'blip'); add(21, 'boom'); }
+    if (name === 'ranking') { for (let i = 0; i < 6; i++) add(1.5 + i, 'blip'); add(8.5, 'boom'); }
+    if (name === 'cierre') { add(1, 'boom'); add(3, 'blip'); add(5, 'blip'); }
+    at += len;
+  }
+  return out;
+}
+
 function setup(variante = 'principal', gancho = 'payaso', modo = 'normal') {
   const mo = findMoments();
-  // R5: en el reel de insignias el juego dura 12 tiempos (esquiva, batazo y Grito) y luego va la vitrina
-  const clips = modo === 'insignias' ? mo.clips.filter((c) => ['¡ESQUIVA!', '¡BATEA!', '¡GRITA!'].includes(c.label)) : mo.clips;
-  state = { variante, gancho, modo, mo, clips, juegoFin: modo === 'insignias' ? 28 : SCENES.ranking[0], cur: cursor(), events: [], clipIdx: -1 };
+  const tl = timeline(modo, mo);
+  state = { variante, gancho, modo, mo, tl, total: tl.reduce((a, x) => a + x[1], 0), cur: cursor(), events: accents(tl), clipIdx: -1 };
 }
+
 function frame(i) {
   const b = beatOf(i), t = i / FPS, st = state;
   const rec = (e) => st.events.push({ t, type: e.type, grade: e.grade });
-  if (b < SCENES.vs[0]) gancho(b);
-  else if (b < SCENES.juego[0]) vs(b);
-  else if (b < st.juegoFin) {
-    const ci = Math.floor((b - SCENES.juego[0]) / 4), clip = st.clips[Math.min(ci, st.clips.length - 1)];
-    const u = (b - SCENES.juego[0] - ci * 4) * BEAT;           // segundos dentro del corte
-    const gt = clip.from + u * clip.speed;
+  let at = 0, seg = null;
+  for (const sg of st.tl) { if (b < at + sg[1]) { seg = sg; break; } at += sg[1]; }
+  if (!seg) { seg = st.tl.at(-1); at = st.total - seg[1]; }
+  const [name, , clips] = seg, k = b - at;
+  if (name === 'gancho') gancho(b);
+  else if (name === 'vs') vs(b);
+  else if (name === 'presenta') presenta(k);
+  else if (name === 'juego') {
+    const ci = Math.min(Math.floor(k / 4), clips.length - 1), clip = clips[ci];
+    const gt = clip.from + (k - ci * 4) * BEAT * clip.speed;
     if (ci !== st.clipIdx) {                                      // corte nuevo: avanzar la pelea hasta su inicio
       if (clip.from < st.cur.t) st.cur = cursor();
       advance(st.cur, clip.from, 1 / FPS);
@@ -219,20 +256,21 @@ function frame(i) {
     }
     advance(st.cur, gt, (1 / FPS) * clip.speed, rec);
     drawScene(ctx, st.cur.m, gt, st.cur.fx, OPTS);
-    label(clip.label);
-  } else if (b < SCENES.cierre[0]) { if (st.modo === 'insignias') insignias(b - st.juegoFin); else ranking(b); }
+    label(clip.label, clip.sub || null);
+  } else if (name === 'insignias') insignias(k);
+  else if (name === 'ranking') ranking(k);
   else {
     if (st.clipIdx !== 'ko') { advance(st.cur, st.mo.koFrom, 1 / FPS); st.cur.fx = createFx(); st.cur.m.events.length = 0; st.clipIdx = 'ko'; }
-    const gt = st.mo.koFrom + (b - SCENES.cierre[0]) * BEAT;
+    const gt = st.mo.koFrom + k * BEAT;
     advance(st.cur, gt, 1 / FPS, rec);
     drawScene(ctx, st.cur.m, gt, st.cur.fx, OPTS);
-    cierre(b, st.variante);
+    cierre(k, st.variante);
   }
   return canvas.toDataURL('image/png');
 }
 
 window.reel = {
   ready: loadSprites(), setup, frame, story,
-  frames: Math.ceil(TOTAL_BEATS * BEAT * FPS), fps: FPS, beat: BEAT, scenes: SCENES,
+  get frames() { return Math.ceil((state ? state.total : TOTAL_BEATS) * BEAT * FPS); }, fps: FPS, beat: BEAT, scenes: SCENES,
   events: () => state.events,
 };
