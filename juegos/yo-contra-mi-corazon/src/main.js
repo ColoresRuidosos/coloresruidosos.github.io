@@ -13,6 +13,7 @@ import { shareCard } from './share/card.js';
 import { createRanking, createDemoRanking, generarOpciones, nombreValido, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
 import { temporada } from './ranking/temporada.js';
 import { tipFor } from './game/tips.js';
+import { earnedBadges, awardBadges, badgeCount } from './game/badges.js';
 import { RANKING_URL } from './data/config.js';
 
 const params = new URLSearchParams(location.search);
@@ -136,6 +137,7 @@ async function onButton(id) {
       if (app.prev === 'jugar') { app.player.unlock(); startGame(); } else app.screen = 'titulo';
       break;
     case 'opciones': app.screen = 'opciones'; break;
+    case 'insignias': app.screen = 'insignias'; break;
     case 'sinDestellos': case 'asistido': case 'vibracion': o[id] = !o[id]; writeSave(store, app.save); break;
     case 'desfaseMenos': o.desfase = Math.max(-300, o.desfase - 10); writeSave(store, app.save); break;
     case 'desfaseMas': o.desfase = Math.min(300, o.desfase + 10); writeSave(store, app.save); break;
@@ -146,7 +148,7 @@ async function onButton(id) {
     case 'reintentar': startGame(); break;
     case 'compartir': {
       const m = app.match;
-      const r = await shareCard({ over: m.over, score: m.score, rank: rankOf(m.score), stats: m.stats, maxCombo: m.maxCombo });
+      const r = await shareCard({ over: m.over, score: m.score, rank: rankOf(m.score), stats: m.stats, maxCombo: m.maxCombo, insignias: badgeCount(app.save) });
       app.shareMsg = r === 'descargado' ? 'IMAGEN DESCARGADA' : r === 'compartido' ? '¡GRACIAS POR COMPARTIR!' : '';
       break;
     }
@@ -154,7 +156,7 @@ async function onButton(id) {
     case 'ranking': openRanking(app.screen); break;
     case 'rkPrev': app.rk.page = Math.max(0, app.rk.page - 1); break;
     case 'rkNext': app.rk.page++; break;
-    case 'rkVolver': app.screen = app.rk.from; break;
+    case 'rkVolver': app.screen = app.rk.from; app.nuevasRk = []; break;
     case 'publicar':
       // F14 v0.4: 3 nombres de la carrera de Pepe para elegir (si ya tenía uno válido, va primero)
       app.opciones = nombreValido(app.save.rankName) ? [app.save.rankName, ...generarOpciones(Math.random, 2, [app.save.rankName])] : generarOpciones();
@@ -168,7 +170,7 @@ async function onButton(id) {
       const m = app.match;
       app.pub = { status: 'enviando', error: null };
       const r = await app.ranking.publicar(armarEnvio(app.save.rankName, m.score, Math.min(m.t, BEATMAP.duration) * 1000, app.save.dispositivo));
-      if (r.ok) { app.published = true; openRanking('resultado'); } else app.pub = { status: 'listo', error: r.error };
+      if (r.ok) { app.published = true; app.nuevasRk = awardBadges(app.save, ['querido']); writeSave(store, app.save); openRanking('resultado'); } else app.pub = { status: 'listo', error: r.error };
       break;
     }
     default: break;
@@ -193,10 +195,11 @@ function frame(now) {
   if (sc === 'carga') app.buttons = S.drawLoading(ctx, app.loadFrac, app.loadError);
   if (Math.floor(now / 1000) !== Math.floor((now - dt * 1000) / 1000)) app.temp = temporada();
   if (sc === 'titulo') app.buttons = S.drawTitle(ctx, now / 1000, app.save, app.temp);
-  else if (sc === 'ranking') app.buttons = S.drawRanking(ctx, app.rk, { miNombre: app.save.rankName, prueba: !!app.ranking?.prueba, temp: app.temp });
+  else if (sc === 'ranking') app.buttons = S.drawRanking(ctx, app.rk, { miNombre: app.save.rankName, prueba: !!app.ranking?.prueba, temp: app.temp, nueva: app.nuevasRk?.[0] || null });
   else if (sc === 'publicar') app.buttons = S.drawPublish(ctx, app.match, app.opciones || [], app.save.rankName, app.pub, !!app.ranking?.prueba);
   else if (sc === 'como') app.buttons = S.drawHowTo(ctx);
   else if (sc === 'opciones') app.buttons = S.drawOptions(ctx, app.save.opts);
+  else if (sc === 'insignias') app.buttons = S.drawBadges(ctx, app.save);
   else if (sc === 'juego' || sc === 'pausa' || sc === 'cuenta' || sc === 'resultado') {
     const m = app.match;
     let t = app.lastT;
@@ -210,8 +213,13 @@ function frame(now) {
         app.overShown = now; app.player.fadeOut(2);
         app.newRecord = recordResult(app.save, m.score, rankOf(m.score)); writeSave(store, app.save);
         const lost = m.over === 'derrota' || m.over === 'perdio';
-        app.derrotas = lost ? (app.derrotas || 0) + 1 : 0;
+        // F15: insignias (con las derrotas seguidas de ANTES de esta partida, para «Maldita rueda»)
+        app.nuevas = awardBadges(app.save, earnedBadges(m, { derrotasPrevias: app.save.derrotasSeguidas || 0 }));
+        app.save.derrotasSeguidas = lost ? (app.save.derrotasSeguidas || 0) + 1 : 0;
+        writeSave(store, app.save);
+        app.derrotas = app.save.derrotasSeguidas;
         app.tip = lost ? tipFor(m, { derrotasSeguidas: app.derrotas }) : null;
+        for (const _ of app.nuevas) app.sfx({ type: 'estrella' });
       }
       if (app.overShown && now - app.overShown > 2600) app.screen = 'resultado';
     }
@@ -223,7 +231,7 @@ function frame(now) {
       const left = app.countdownEnd - now;
       if (left <= 0) { app.player.resume(); app.screen = 'juego'; } else S.drawCountdown(ctx, Math.ceil(left / ((60000 / BEATMAP.bpm) * 2)));
     }
-    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20, tip: app.tip });
+    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20, tip: app.tip, nuevas: app.nuevas || [] });
   }
   requestAnimationFrame(frame);
 }

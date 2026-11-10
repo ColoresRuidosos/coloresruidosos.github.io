@@ -32,7 +32,7 @@ test('récord: solo sube; devuelve si es nuevo', () => {
 });
 
 test('T3.6 la tarjeta para compartir lleva título, rango, puntos, resultado y la cuenta de CR', () => {
-  const l = cardLines({ over: 'ko', score: 41234, rank: 'LEYENDA DEL CIRCO', stats: { perfecto: 80 }, maxCombo: 30 });
+  const l = cardLines({ over: 'ko', score: 41234, rank: 'LEYENDA DEL CIRCO', stats: { perfecto: 80 }, maxCombo: 30, insignias: 7 });
   const all = l.join(' | ');
-  for (const s of ['YO CONTRA', 'MI CORAZÓN', 'LEYENDA DEL CIRCO', '41234', 'K.O.', '@COLORESRUIDOSOS']) assert.ok(all.includes(s), s);
+  for (const s of ['YO CONTRA', 'MI CORAZÓN', 'LEYENDA DEL CIRCO', '41234', 'K.O.', 'INSIGNIAS 7/10', '@COLORESRUIDOSOS']) assert.ok(all.includes(s), s);
 });
