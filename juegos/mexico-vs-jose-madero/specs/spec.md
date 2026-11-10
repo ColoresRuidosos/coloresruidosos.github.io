@@ -623,6 +623,86 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - **Atajos:** la tecla **N** y un botón **💬 NOTAS** en la barra bajo el juego, junto a PAUSA y ♪ (útil en el celular).
 - **Mando táctil en celulares estrechos (mismo día):** en el navegador de Instagram la **A** quedaba fuera de la pantalla, porque los 5 botones medían siempre 72 px. Ahora se encogen con el ancho (entre 50 y 72 px, y la ★ entre 44 y 54) y caben de 320 px en adelante, sin bajar del mínimo táctil de 44 px.
 
+#### Q. v10 · Mundo 3 «Alba»: paseo al amanecer (W3; decisiones del usuario, 10 nov 2026) ⏳ falta aprobar textos
+**Decisiones:**
+- es un **paseo con obstáculos suaves**: sin daño ni vidas, y no se puede perder;
+- **3 niveles** con títulos de canciones del disco;
+- **pasajes:** Claude redacta las reflexiones y el usuario las aprueba antes de publicar.
+
+**Datos verificados (2 fuentes o más):**
+
+| Dato | Fuentes |
+|---|---|
+| *Alba* (2018), 3.er disco solista, con el subtítulo *Oda a la nostalgia* | Discogs, Amazon, Wikipedia ES, Letras |
+| 10 canciones: «Willkommen», «Aún hay más», «Los de septiembre», «La célula no explotó», «Caballeros británicos», «Ahora y hoy», «No lo cambio por nada», «Etrusco único», «Maldita rueda» y «Carrusel de adultos» | Discogs, Album of the Year, Letras, Wikipedia ES |
+| Disco experimental centrado en la nostalgia («el disco blanco») | Milenio, Zeta Tijuana (CONTEXTO §5) |
+
+- ⚠️ La fecha exacta varía: 16 mar 2018 (Wikipedia ES) o 17 mar (Amazon y AOTY). En pantalla solo sale «2018».
+- ⚠️ «Lo lanzó sin sencillos» tiene una sola fuente: no sale en pantalla.
+
+**Historia del mundo (ficción del juego):** después de la fiesta de *Noche*, Pepe camina hacia el amanecer por un pueblo blanco donde todo le recuerda algo. La nostalgia lo jala hacia atrás y él aprende a seguir adelante. Es el yin-yang con *Noche*: de la fiesta a oscuras a la luz.
+
+| Nivel | Capítulo | Dónde | Novedad |
+|---|---|---|---|
+| 3-1 | «WILLKOMMEN» | Pueblo blanco antes del amanecer: azul grisáceo que se aclara mientras avanzas | Pasajes, la nostalgia y las primeras polaroids |
+| 3-2 | «CARRUSEL DE ADULTOS» | Feria vacía al alba: carrusel y noria | **La Maldita Rueda** (noria con cabinas que giran) |
+| 3-3 | «AHORA Y HOY» | El cerro donde sale el sol | Momento final **«La Nostalgia»** |
+
+**Mecánicas** (en un paseo no hay daño; los enemigos de §3.2 se vuelven obstáculos suaves):
+- **Amanecer:** el cielo pasa de azul noche a blanco dorado según avanzas por el nivel.
+- **Plataformas de luz (`~`):** solo son sólidas mientras hay luz del alba:
+  - de forma fija, en el tramo ya amanecido;
+  - o durante 10 s al tomar una **Luz del Alba** (`@`, el objeto de §3.4).
+- **La nostalgia:**
+  - si Pepe se queda quieto más de 3 s, una bruma sepia lo arrastra **hacia atrás** a 20 px/s;
+  - nunca lo lleva más atrás del último checkpoint ni lo tira a un foso;
+  - en cuanto camina, se disipa.
+  - Es el mensaje del disco: hay que seguir adelante.
+- **Recuerdo (`I`):** una polaroid flota despacio hacia Pepe (30 px/s).
+  - Si lo toca, la pantalla se pone sepia un instante (sin destello con «sin destellos») y Pepe **regresa 48 px**, nunca antes del checkpoint. Sin daño.
+  - Con el micrófono se disuelve en luz.
+- **Maldita Rueda (`D`):** noria de 4 cabinas que giran (0,6 rad/s). Las cabinas son plataformas semisólidas que te llevan. Si te caes, vuelves a la cabina de abajo.
+- **Fosos:** caer te devuelve al último checkpoint, sin perder nada.
+- **Pasajes (`S`):** 10 atriles con un disco blanco, uno por canción del disco (3-1: 4, 3-2: 3, 3-3: 3).
+  - Al pasar junto a uno sale un panel arriba durante 5 s (se puede saltar) con el **título de la canción** y una **reflexión firmada «— COLORES RUIDOSOS»**. No lleva letras de canciones.
+  - Contador «PASAJES n/10».
+
+**Pasajes: borrador de Claude** (⏳ **el usuario los aprueba o los edita**; son lecturas de CR y no dicen de qué trata cada canción):
+
+| # | Canción | Reflexión (máximo unos 90 caracteres) |
+|---|---|---|
+| 1 | Willkommen | Hay lugares que siguen esperándote aunque tú ya seas otro. |
+| 2 | Aún hay más | Cuando crees que ya lo viste todo, la memoria abre otra caja. |
+| 3 | Los de septiembre | Los amigos de una época se quedan en ella. Recordarlos también es quererlos. |
+| 4 | La célula no explotó | A veces la noticia es esa: sigues aquí. |
+| 5 | Caballeros británicos | De niños jugábamos a ser grandes, con trajes prestados y modales inventados. |
+| 6 | Ahora y hoy | Para nosotros el título lo dice todo: lo que importa es ahora, y es hoy. |
+| 7 | No lo cambio por nada | Hay recuerdos que no se cambian por nada. Por eso se cuidan, no se repiten. |
+| 8 | Etrusco único | Lo que fuimos es una lengua antigua: solo tú la sigues hablando. |
+| 9 | Maldita rueda | La vuelta que siempre vuelve. Para salir de la rueda hay que dar un paso fuera. |
+| 10 | Carrusel de adultos | De grandes también damos vueltas; solo que ya nadie nos sube al caballito. |
+
+**Momento final «La Nostalgia»** (3-3, en lugar de jefe; ✅ §3.3 v4):
+- En la cima, el mundo se vuelve sepia y aparecen siluetas de los niveles anteriores (Carmesí y Noche) **corriendo hacia atrás**.
+- Un viento empuja a Pepe a 40 px/s: solo se avanza **caminando sin parar**.
+- Tras unos 12 s caminando (unos 400 px), sale el sol: todo se vuelve blanco dorado, la bruma se va y Pepe hace la pose de festejo.
+- No se puede perder: si sueltas el control, solo retrocedes un poco.
+- **Recompensa:** «RECUERDO RECUPERADO» y el cuadro 3 del Museo, **un sol que amanece sobre blanco** (§3.0f J).
+
+**Historia** (como en los mundos 1 y 2):
+- escena de entrada de 2 viñetas («Después de la fiesta, el silencio» y «Todo me recuerda algo»);
+- pensamientos de Pepe en los checkpoints, sobre seguir adelante;
+- «¿SABÍAS QUE…?» con los datos verificados de arriba;
+- escena de salida de 2 viñetas («Ya amaneció» y «Ahora y hoy»).
+
+**Ayudas:** como no hay daño, no hay corazones, cartas de fan, Amplificador ni Antifaz. Sí cuentan el cronómetro y las piezas `*` (con récord), para que tenga algo de reto.
+
+**Arte:**
+- **Fondos:** primero por código (`themes.js`), en blanco, crema y dorado. Luego se pueden cambiar por ilustraciones de ChatGPT, con prompts en `art/PROMPTS-GEMINI.md` §0g.
+- **Sprites por código, estilo Neo Geo:** polaroid, noria, atril, Luz del Alba y plataforma de luz.
+- **Pepe:** traje automático del mundo, la **camisa blanca** (sin datos de vestuario reales; es ficción).
+- **Escuchar el disco:** el botón 🎧 abre la búsqueda de *Alba* en las plataformas (§3.0f P).
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
@@ -652,8 +732,8 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Noche | **Invitado enmascarado** | «Noche de brujas» (fiesta de disfraces) | Al pisarlo pierde la máscara y cambia de comportamiento |
 | Noche | **Fantasma** | «Fantasmas» (setlist de la gira *Noche*) | Atraviesa paredes; solo es visible con flash |
 | Noche | **Murciélago** | Terror clásico | Picado en curva |
-| Alba | **Recuerdo** (polaroid) | Concepto nostalgia | Te sigue lento; si te toca, te devuelve a un punto anterior |
-| Alba | **Maldita Rueda** | Canción «Maldita Rueda» | Rueda que rueda por pendientes |
+| Alba | **Recuerdo** (polaroid) | Concepto nostalgia | Obstáculo suave (paseo, §3.0f Q): te sigue lento; si te toca, te devuelve 48 px, sin daño |
+| Alba | **Maldita Rueda** | Canción «Maldita rueda» | Noria con cabinas que giran: plataformas móviles (§3.0f Q) |
 | Psalmos | **Codependientes** | Sencillo «Codependientes» (con Cami) | Pareja unida por una cadena: hay que vencer a los dos |
 | Psalmos | **Chambelán** | «Chambelán (Nunca fui)» | Baila en formación; patrón de vals |
 | Psalmos | **Sombra suelta** | Concepto original: lado oscuro de Peter Pan | Copia tus movimientos con retraso |

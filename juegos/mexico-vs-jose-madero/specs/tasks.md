@@ -155,8 +155,21 @@
 - [x] ES3 🎨 Botón 🎧 y panel (pausa, 3 plataformas en otra pestaña, Volver al juego); navegador
 
 ## Fase 3 — Mundos 2–8 + epílogo (para cada uno: 🧪 enemigos · 🧪 jefe · 🎨 nivel · 🧪 repetición)
-- [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
+- [~] W2 Noche (v7, pendiente de visto bueno de textos y jefe) · W3 Alba (§3.0f Q, Fase 3a) · W4 Psalmos · W5 Giallo · W6 Aurora · W7 Sarajevo · W8 Querido…
 - [ ] W9 Rueda de Prensa (intermedio) · W10 🧪 Final «MÉXICO VS. JOSÉ MADERO» (barra de público, ritmo) · W★ La Bestia (secreto)
+
+## Fase 3a — v10 · Mundo 3 «Alba», paseo al amanecer (§3.0f Q; 🧪 primero)
+- [ ] AL0 ⏳ El usuario aprueba o edita las 10 reflexiones de los pasajes
+- [ ] AL1 🧪 `alba.js`: nostalgia (3 s quieto → retrocede a 20 px/s sin pasar del checkpoint ni caer a un foso)
+- [ ] AL2 🧪 Recuerdo `I`: persigue a 30 px/s; al tocar te devuelve 48 px, sin daño; el micrófono lo disuelve
+- [ ] AL3 🧪 Maldita Rueda `D`: 4 cabinas semisólidas que giran y te llevan
+- [ ] AL4 🧪 Plataformas de luz `~` y Luz del Alba `@` (10 s); sólidas en el tramo ya amanecido
+- [ ] AL5 🧪 Paseo: sin daño ni corazones; caer te devuelve al checkpoint
+- [ ] AL6 🧪 Pasajes `S` (10, uno por canción, sin repetir) y contador
+- [ ] AL7 🧪 Momento final «La Nostalgia»: viento de 40 px/s, unos 400 px caminando → amanecer; no se puede perder
+- [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
+- [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
+- [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»
 
 ## Fase 4 — Publicación
 - [~] P1 Accesibilidad: ✅ destellos y temblor desactivables, modo asistido (v7) · ⏳ P1b remapeo de teclas
