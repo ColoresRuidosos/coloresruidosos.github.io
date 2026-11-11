@@ -4,7 +4,7 @@ import { HEROES, HERO_IDS } from '../sim/moves.js';
 import { SLOT_COLORS } from '../input/slots.js';
 import { drawText } from './text.js';
 import { drawQR } from './qr.js';
-import { getSprite, getPortrait } from './sprites.js';
+import { drawMenuFigure, drawPortrait } from './atlas.js';
 
 const BG = '#0e0b1a';
 
@@ -28,9 +28,8 @@ export function drawTitle(ctx, t) {
   drawText(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, 50, { color: '#fff', align: 'center' });
   // los cuatro músicos
   HERO_IDS.forEach((id, i) => {
-    const s = getSprite(id, 0, 'idle', Math.floor(t / 24) % 2, HEROES[id].h, id);
     const x = i < 2 ? 50 + i * 50 : W - 100 + (i - 2) * 50;
-    ctx.save(); ctx.translate(x, H - 18); if (i >= 2) ctx.scale(-1, 1); ctx.drawImage(s.canvas, -s.ox, -s.oy); ctx.restore();
+    drawMenuFigure(ctx, id, 0, 'idle', Math.floor(t / 24) % 2, x, H - 18, HEROES[id].h, i >= 2 ? -1 : 1);
   });
   if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'PULSA GOLPE O TOCA LA PANTALLA', W / 2, H - 12, { color: '#ffd23f', align: 'center' });
 }
@@ -75,10 +74,9 @@ function cabin(ctx, i, x, y, w, h, s, t) {
   if (s) {
     const def = HEROES[s.hero];
     // retrato grande (×2, píxel nítido)
-    const pt = getPortrait(s.hero, s.palette, def.h);
     ctx.fillStyle = col; ctx.fillRect(ix + iw / 2 - 26, iy + 3, 52, 52);
     ctx.fillStyle = '#120c18'; ctx.fillRect(ix + iw / 2 - 25, iy + 4, 50, 50);
-    ctx.drawImage(pt.canvas, pt.sx, pt.sy, pt.sw, pt.sh, ix + iw / 2 - 24, iy + 5, 48, 48);
+    drawPortrait(ctx, s.hero, s.palette, def.h, ix + iw / 2 - 24, iy + 5, 48);
     if (!s.ready && s.kind !== 'movil' && Math.floor(t / 20) % 2) {
       drawText(ctx, '◀', ix + 1, iy + 24, { color: '#ffd23f' }); drawText(ctx, '▶', ix + iw - 6, iy + 24, { color: '#ffd23f' });
     }
@@ -91,9 +89,8 @@ function cabin(ctx, i, x, y, w, h, s, t) {
       ctx.fillStyle = col; ctx.fillRect(ix + 27, yy + 2, Math.round((iw - 31) * v), 3);
     });
     // cuerpo entero
-    const spr = getSprite(s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(t / 20) % 2, def.h, s.hero);
     ctx.save(); ctx.beginPath(); ctx.rect(ix, iy + 94, iw, ih - 94); ctx.clip();
-    ctx.drawImage(spr.canvas, ix + iw / 2 - spr.ox, iy + ih - 2 - spr.oy);
+    drawMenuFigure(ctx, s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(t / 20) % 2, ix + iw / 2, iy + ih - 2, def.h);
     ctx.restore();
     const status = s.away ? 'SIN SEÑAL' : s.ready ? '¡LISTO!' : s.kind === 'movil' ? 'ELIGIENDO' : '¿LISTO?';   // ≤ 10 letras: cabe en la cabina
     ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(ix, iy + ih - 11, iw, 11);
@@ -129,7 +126,7 @@ export function drawLobby(ctx, { t, qr, code, slots, countdown, netStatus }) {
     drawText(ctx, 'CÓDIGO', 49, 28 + size + 26, { color: '#8a8698', align: 'center' });
     drawText(ctx, code || '····', 49, 28 + size + 36, { color: '#ffd23f', scale: 2, align: 'center' });
   } else {
-    const lines = String(netStatus || 'PREPARANDO LA SALA…').split(':');
+    const lines = String(netStatus || 'PREPARANDO|LA SALA…').split('|');   // líneas cortas: el panel mide 90 px
     lines.forEach((l, k) => drawText(ctx, l.trim(), 49, 40 + k * 10, { color: '#8a8698', align: 'center' }));
     drawText(ctx, 'JUEGA CON', 49, 90, { color: '#fff', align: 'center' });
     drawText(ctx, 'TECLADO,', 49, 100, { color: '#fff', align: 'center' });
@@ -193,8 +190,7 @@ export function drawResults(ctx, { players, final, t }) {
     const x = 10 + i * 93, y = 50;
     ctx.fillStyle = '#1b1630'; ctx.fillRect(x, y, 88, 120);
     ctx.fillStyle = SLOT_COLORS[p.slot]; ctx.fillRect(x, y, 88, 2);
-    const pt = getPortrait(p.type, p.palette, HEROES[p.type].h);
-    ctx.drawImage(pt.canvas, pt.sx, pt.sy, pt.sw, pt.sh, x + 32, y + 6, 24, 24);
+    drawPortrait(ctx, p.type, p.palette, HEROES[p.type].h, x + 32, y + 6, 24);
     drawText(ctx, HEROES[p.type].name, x + 44, y + 34, { color: SLOT_COLORS[p.slot], align: 'center' });
     drawText(ctx, String(p.score).padStart(7, '0'), x + 44, y + 48, { color: '#fff', align: 'center' });
     drawText(ctx, `TUMBADOS ${p.kos}`, x + 6, y + 64, { color: '#cfc9e0' });

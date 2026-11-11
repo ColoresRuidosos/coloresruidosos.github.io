@@ -1,6 +1,7 @@
 // Vista del juego (F11, plan §6): capas, sombras, actores ordenados por profundidad, efectos y HUD.
 import { W, H, FLOOR_TOP } from '../sim/constants.js';
-import { getSprite, getPortrait } from './sprites.js';
+import { getSprite } from './sprites.js';
+import { hasAtlas, heroFrameName, drawFrame, drawPortrait } from './atlas.js';
 import { getBackground } from './backgrounds.js';
 import { drawText } from './text.js';
 import { SLOT_COLORS } from '../input/slots.js';
@@ -138,8 +139,7 @@ export function drawHud(ctx, world, extra = {}) {
       drawText(ctx, extra.code ? `SALA ${extra.code}` : '', x + 20, y + 15, { color: '#8a8698' });
       continue;
     }
-    const pt = getPortrait(p.type, p.palette, p.def.h);
-    ctx.drawImage(pt.canvas, pt.sx, pt.sy, pt.sw, pt.sh, x + 1, y + 3, 22, 22);
+    drawPortrait(ctx, p.type, p.palette, p.def.h, x + 1, y + 3, 22);
     drawText(ctx, HEROES[p.type].name, x + 25, y + 4, { color: SLOT_COLORS[slot] });
     // vida
     ctx.fillStyle = '#120c18'; ctx.fillRect(x + 25, y + 13, 64, 5);
@@ -195,25 +195,30 @@ export function drawWorld(ctx, world, fx, opts = {}) {
     const f = a.f;
     const blink = (f.invul > 0 && f.state !== 'special' && Math.floor(world.tick / 4) % 2 === 0) || (f.state === 'dead' && f.team === 'e' && f.t > 20 && f.t % 4 < 2);
     if (blink) continue;
-    const [st, fr] = spriteState(f);
-    const spr = getSprite(f.type, f.palette || 0, st, fr, f.def.h, f.hero);
     let face = f.face;
     if (f.state === 'special' && f.hero === 'dani') face = Math.floor(f.t / 5) % 2 ? -face : face;   // el «solo» gira
     const x = Math.round(f.x - cam), y = Math.round(f.y - f.z);
-    ctx.save();
-    ctx.translate(x, y);
-    if (face < 0) ctx.scale(-1, 1);
-    if (f.state === 'down' || f.state === 'dead') { ctx.translate(-f.def.h * 0.45, -4); ctx.rotate(-Math.PI / 2); ctx.translate(0, f.def.h * 0.1); }
-    else if (f.state === 'fall' || f.state === 'thrown') ctx.rotate(-0.9);
-    ctx.drawImage(spr.canvas, -spr.ox, -spr.oy);
-    ctx.restore();
+    let drawnH = 0;
+    if (hasAtlas(f.type)) drawnH = drawFrame(ctx, f.type, f.palette || 0, heroFrameName(f), x, y, face);   // sprites finales
+    if (!drawnH) {                                                                                       // provisionales
+      const [st, fr] = spriteState(f);
+      const spr = getSprite(f.type, f.palette || 0, st, fr, f.def.h, f.hero);
+      ctx.save();
+      ctx.translate(x, y);
+      if (face < 0) ctx.scale(-1, 1);
+      if (f.state === 'down' || f.state === 'dead') { ctx.translate(-f.def.h * 0.45, -4); ctx.rotate(-Math.PI / 2); ctx.translate(0, f.def.h * 0.1); }
+      else if (f.state === 'fall' || f.state === 'thrown') ctx.rotate(-0.9);
+      ctx.drawImage(spr.canvas, -spr.ox, -spr.oy);
+      ctx.restore();
+    }
+    const topY = y - Math.max(f.def.h, drawnH && f.state !== 'down' && f.state !== 'dead' ? drawnH : 0);
     if (f.team === 'p' && !f.away) {   // marca del jugador
       ctx.fillStyle = SLOT_COLORS[f.slot];
-      const mx = x - 3, my = y - f.def.h - 12;
+      const mx = x - 3, my = topY - 8;
       ctx.fillRect(mx, my, 7, 2); ctx.fillRect(mx + 2, my + 2, 3, 2);
       if (f.weapon) drawItem(ctx, f.weapon.kind, x + f.face * 10, y - 22);
     }
-    if (f.team === 'p' && f.away) drawText(ctx, '…', x, y - f.def.h - 14, { color: '#ffd23f', align: 'center' });
+    if (f.team === 'p' && f.away) drawText(ctx, '…', x, topY - 10, { color: '#ffd23f', align: 'center' });
   }
   if (fx) for (const p of fx.parts) drawFx(ctx, p, cam, opts);
   ctx.restore();

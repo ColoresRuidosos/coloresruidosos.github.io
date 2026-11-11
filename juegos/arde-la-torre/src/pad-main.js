@@ -6,6 +6,9 @@ import { isCode, normalizeCode } from './net/protocol.js';
 import { createStick } from './pad-ui/joystick.js';
 import { HEROES, HERO_IDS } from './sim/moves.js';
 import { getSprite } from './render/sprites.js';
+import { PNG as RETRATO_ANTONIO } from './data/retrato-antonio.js';
+
+const RETRATOS = { antonio: RETRATO_ANTONIO };   // retratos finales ligeros; el resto, provisional
 import { NEUTRAL } from './input/source.js';
 
 const Q = new URLSearchParams(location.search);
@@ -29,9 +32,9 @@ for (const id of HERO_IDS) {
   const b = document.createElement('button');
   b.className = 'hero'; b.type = 'button'; b.dataset.hero = id;
   const cv = document.createElement('canvas'); cv.width = 32; cv.height = 32;
-  const s = getSprite(id, 0, 'idle', 0, HEROES[id].h, id);
   const c = cv.getContext('2d'); c.imageSmoothingEnabled = false;
-  c.drawImage(s.canvas, s.ox - 16, s.oy - HEROES[id].h - 8, 32, 32, 0, 0, 32, 32);
+  if (RETRATOS[id]) { cv.width = cv.height = 46; const im = new Image(); im.onload = () => c.drawImage(im, 0, 0); im.src = RETRATOS[id]; }
+  else { const s = getSprite(id, 0, 'idle', 0, HEROES[id].h, id); c.drawImage(s.canvas, s.ox - 16, s.oy - HEROES[id].h - 8, 32, 32, 0, 0, 32, 32); }
   b.append(cv, Object.assign(document.createElement('span'), { textContent: HEROES[id].name }), Object.assign(document.createElement('small'), { textContent: HEROES[id].role }));
   b.addEventListener('click', () => { if (client) client.choose(id); vibrate(10); });
   heroBtns.set(id, b); $('heroes').append(b);

@@ -47,7 +47,7 @@ Objetivo: que los 4 músicos, la pantalla de selección, los enemigos y los fond
 
 | Músico | Aspecto (foto de primer plano) |
 |---|---|
-| **Antonio** (voz y guitarra) | En el centro: pelo rizado oscuro, barba de pocos días, alto; polo negro con ribete blanco y cuello en pico; tatuaje de ancla en el brazo |
+| **Antonio** (voz y guitarra) | ✅ Sprites hechos (11 nov 2026) a partir de otra foto de referencia: pelo muy corto, barba corta, americana de ante camel, camisa azul claro y corbata estampada. Las imágenes que falten deben seguir este aspecto |
 | **Pepe** (bajo) | Arriba a la izquierda: pelo oscuro hacia atrás con volumen, barba recortada y bigote, pendiente largo de aro; chaqueta de cuero negra |
 | **Dani** (guitarra) | A la derecha: pelo castaño largo y ondulado hasta los hombros, cara casi afeitada; camisa negra de lunares |
 | **Jota** (batería) | Abajo a la izquierda: pelo oscuro con flequillo corto y recto, bigote fino, pequeño aro; camisa negra |

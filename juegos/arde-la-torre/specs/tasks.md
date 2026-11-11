@@ -62,12 +62,13 @@
 ## Fase 5 · Pantalla, arte y sonido
 | ID | Tarea | Estado |
 |---|---|---|
-| T5.1 | Script de recorte de las hojas de Gemini (alinear pies, 72 px, 16 colores) | ⬜ cuando lleguen las hojas (T0.4) |
+| T5.1 | Script de recorte de las hojas de Gemini: quita fondo y líneas de suelo, separa poses, escala a 66 px de pie, paleta fija, contorno, pies alineados, atlas | ✅ `scripts/slice_sheet.py` · `tests/atlas.test.js` |
 | T5.2 | Render: escalado entero, parallax, orden por profundidad, sombras | ✅ revisado en capturas |
 | T5.3 | HUD de 4 jugadores y barra del jefe | ✅ |
 | T5.4 | Pantallas: título, sala con QR, viñeta, pausa con opciones, superado, final, fin y resultado | ✅ |
 | T5.5 | Secuenciador chiptune (6 temas originales) y efectos | ✅ `tests/misc.test.js` |
-| T5.6 | Arte final de Antonio y Pepe, enemigos, jefes y fondos | ⏳ hojas del usuario |
+| T5.6 | Arte final: **Antonio ✅** (44 poses en el juego, retrato en selección, HUD y mando). Pendientes: Pepe, Dani, Jota, enemigos, jefes y fondos | 🟨 llegan las hojas del amigo del usuario |
+| T5.6b | Antonio: en `lash1`/`lash2` la punta del micro cae en la pose vecina (el cable las une). Arreglar al programar el latigazo (T8.3) o pedir la hoja con más separación | ⬜ |
 | T5.7 | Opciones guardadas | ✅ `tests/misc.test.js` |
 
 ## Fase 6 · En el navegador y en el móvil — `tests/browser.test.js`

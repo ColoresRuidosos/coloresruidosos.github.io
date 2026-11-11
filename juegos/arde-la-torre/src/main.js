@@ -54,7 +54,7 @@ const edges = new Map();                 // clave de fuente → detector de flan
 const edgeOf = (key, inp) => { if (!edges.has(key)) edges.set(key, createEdges()); return edges.get(key)(inp); };
 const fx = createFx();
 
-const app = { screen: 'titulo', t: 0, world: null, countdown: 0, pauseSel: 0, pausedBy: null, banner: null, results: null, net: 'PREPARANDO LA SALA…' };
+const app = { screen: 'titulo', t: 0, world: null, countdown: 0, pauseSel: 0, pausedBy: null, banner: null, results: null, net: 'PREPARANDO|LA SALA…' };
 window.__arde = app;
 app.slots = slots;
 
@@ -68,9 +68,9 @@ function padUrlFor(code) {
   return base.toString();
 }
 async function openRoom() {
-  if (Q.has('nonet')) { app.net = 'SALA DESACTIVADA'; return; }
+  if (Q.has('nonet')) { app.net = 'SALA|DESACTIVADA'; return; }
   // Versión para páginas que bloquean WebRTC (p. ej. el enlace privado de Claude): solo teclado y mandos.
-  if (globalThis.ARDE_SIN_RED) { app.net = 'MÓVILES: SOLO EN LA VERSIÓN WEB'; return; }
+  if (globalThis.ARDE_SIN_RED) { app.net = 'MÓVILES:|SOLO EN LA|VERSIÓN WEB'; return; }
   room = createRoom({ transport, slots, onEvent: onRoomEvent });
   app.room = room;
   try {
@@ -81,7 +81,7 @@ async function openRoom() {
     if (/localhost|127\.0\.0\.1/.test(location.hostname) && Q.get('net') !== 'loop') app.net = 'OJO: USA LA IP DE TU RED';
   } catch (e) {
     console.warn('sala', e);
-    app.net = 'SIN CONEXIÓN: SOLO TECLADO Y MANDO';
+    app.net = 'SIN CONEXIÓN|A INTERNET';
     room = null;
   }
 }

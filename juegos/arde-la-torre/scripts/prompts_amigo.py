@@ -32,7 +32,7 @@ MOV = ("HOJA de exactamente 4 filas, de izquierda a derecha:\n"
        "Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas){extra}.")
 
 MUSICOS = [
-  dict(id="antonio", look="pelo rizado oscuro, barba de pocos días, alto; polo negro con ribete blanco en el cuello y cuello en pico, y un pequeño tatuaje de ancla en el brazo", nombre="Antonio", apodo="El Frontman", papel="voz y guitarra",
+  dict(id="antonio", look="pelo muy corto, barba corta; americana de ante color camel, camisa azul claro y corbata estampada en verde y granate (igual que en sus sprites ya hechos)", nombre="Antonio", apodo="El Frontman", papel="voz y guitarra",
        inst="una guitarra eléctrica roja colgada a la espalda en diagonal y un micrófono plateado con cable en la mano de delante",
        combo=("Fila 1: DIRECTO ×2 (preparación y brazo de delante extendido, con el micro en el puño).\n"
               "Fila 2: GANCHO ×2 (preparación y gancho con el otro brazo).\n"
