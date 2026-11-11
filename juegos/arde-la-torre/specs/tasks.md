@@ -67,7 +67,7 @@
 | T5.3 | HUD de 4 jugadores y barra del jefe | ✅ |
 | T5.4 | Pantallas: título, sala con QR, viñeta, pausa con opciones, superado, final, fin y resultado | ✅ |
 | T5.5 | Secuenciador chiptune (6 temas originales) y efectos | ✅ `tests/misc.test.js` |
-| T5.6 | Arte final: **Antonio ✅** (44 poses en el juego, retrato en selección, HUD y mando). Pendientes: Pepe, Dani, Jota, enemigos, jefes y fondos | 🟨 llegan las hojas del amigo del usuario |
+| T5.6 | Arte final: **Antonio ✅** (44 poses) · **Pepe ✅** (45 poses + retrato; de las 3 versiones de su hoja de daño se usó la que coincide en color de bajo, las otras quedan en `art/source/pepe/descartes-*`). Pendientes: Dani, Jota, enemigos, jefes y fondos | 🟨 llegan las hojas del amigo del usuario |
 | T5.6c | Antonio v2 (11 nov 2026, el usuario: «se ven cortados y no tan coherentes»): el filtro de líneas de suelo borraba franjas del cuerpo; motas sueltas agrandaban el recorte y falseaban la escala; el cable movía el punto de apoyo; pantalón de otro color en la hoja de daño. Corregido en `scripts/slice_sheet.py` | ✅ |
 | T5.6b | Antonio: en `lash1`/`lash2` la punta del micro cae en la pose vecina (el cable las une). Arreglar al programar el latigazo (T8.3) o pedir la hoja con más separación | ⬜ |
 | T5.7 | Opciones guardadas | ✅ `tests/misc.test.js` |

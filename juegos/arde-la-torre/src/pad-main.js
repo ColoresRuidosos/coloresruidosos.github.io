@@ -7,8 +7,9 @@ import { createStick } from './pad-ui/joystick.js';
 import { HEROES, HERO_IDS } from './sim/moves.js';
 import { getSprite } from './render/sprites.js';
 import { PNG as RETRATO_ANTONIO } from './data/retrato-antonio.js';
+import { PNG as RETRATO_PEPE } from './data/retrato-pepe.js';
 
-const RETRATOS = { antonio: RETRATO_ANTONIO };   // retratos finales ligeros; el resto, provisional
+const RETRATOS = { antonio: RETRATO_ANTONIO, pepe: RETRATO_PEPE };   // retratos finales ligeros; el resto, provisional
 import { NEUTRAL } from './input/source.js';
 
 const Q = new URLSearchParams(location.search);

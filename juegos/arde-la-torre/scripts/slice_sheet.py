@@ -31,6 +31,24 @@ SHEETS = {
              names=['lash0', 'lash1', 'lash2', 'hymn0', 'hymn1', 'hymn2', 'hymn3', 'win0', 'win1', 'portrait'],
              ref=['hymn1', 'hymn2', 'hymn3', 'lash0'], loose=[], portrait='portrait'),
     ],
+    # Pepe: Gemini dio 3 poses en la fila de la rodilla y una borrosa de más en la del bajazo (se descarta).
+    # `target`: altura de las poses de referencia según su postura (Pepe en guardia va agachado; la victoria, erguida).
+    'pepe': [
+        dict(file='pepe-2-movimiento.jpg', rows=[2, 4, 4, 2],
+             names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
+             ref=['idle0', 'idle1', 'walk0', 'walk2'], target=64, loose=['jump0', 'jump1']),
+        dict(file='pepe-3-combo.jpg', rows=[2, 3, 4, 5],
+             names=['punch1a', 'punch1b', 'punch2a', 'punch2m', 'punch2b', 'guit0', 'guit1', 'guit2', 'blur',
+                    'air', 'grab', 'knee', 'throw0', 'throw1'],
+             ref=['punch1b', 'punch2b'], target=66, loose=['air'], skip=['blur']),
+        dict(file='pepe-4-dano-especial.jpg', rows=[3, 3, 4],
+             names=['hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
+             ref=['hurt'], target=70, loose=['fall0', 'fall1', 'down']),
+        dict(file='pepe-5-firma-super.jpg', rows=[3, 4, 4],
+             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'win2', 'portrait_small'],
+             ref=['win0', 'win2'], target=74, loose=[], skip=['portrait_small']),
+        dict(portrait_file='pepe-6-retrato.jpg'),
+    ],
 }
 
 
@@ -91,7 +109,13 @@ def split(mask, rows):
     occ_r = mask.sum(axis=1) > 3
     bands = segments(occ_r, gap=10)
     bands = [b for b in bands if b[1] - b[0] > 12]
-    if len(bands) < len(rows): raise SystemExit(f'Se esperaban {len(rows)} filas y salen {len(bands)}')
+    occ_count = mask.sum(axis=1)
+    while len(bands) < len(rows):   # filas que se tocan: se corta la más alta por la línea con menos dibujo
+        i = max(range(len(bands)), key=lambda k: bands[k][1] - bands[k][0])
+        b0, b1 = bands[i]; hh = b1 - b0
+        lo, hi = int(hh * 0.25), int(hh * 0.75)
+        cut = b0 + lo + int(np.argmin(occ_count[b0 + lo:b0 + hi]))
+        bands[i:i + 1] = [[b0, cut], [cut, b1]]
     bands = merge_to(bands, len(rows))
     boxes = []
     for (y0, y1), n in zip(bands, rows):
@@ -212,14 +236,25 @@ def build(hero):
     src = os.path.join(ROOT, 'art', 'source', hero)
     names, frames, anchors_loose, portrait = [], [], [], None
     for sh in SHEETS[hero]:
+        if sh.get('portrait_file'):          # retrato suelto (imagen cuadrada aparte)
+            a = np.asarray(Image.open(os.path.join(src, sh['portrait_file'])).convert('RGB'))
+            m = foreground(a, background(a))
+            ys, xs = np.where(m)
+            c = np.dstack([a, (m * 255).astype(np.uint8)])[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+            side = max(c.shape[:2]); pad = np.zeros((side, side, 4), np.uint8)
+            pad[side - c.shape[0]:, (side - c.shape[1]) // 2:(side - c.shape[1]) // 2 + c.shape[1]] = c
+            portrait = downscale(pad, 46 / side)
+            print(f"{sh['portrait_file']}: retrato")
+            continue
         a = np.asarray(Image.open(os.path.join(src, sh['file'])).convert('RGB'))
         bg = background(a)
         mask = erase_floor_lines(a, foreground(a, bg))
         boxes = split(mask, sh['rows'])
         assert len(boxes) == len(sh['names']), (sh['file'], len(boxes))
         crops = {n: crop_frame(a, mask, b) for n, b in zip(sh['names'], boxes)}
-        scale = STAND_H / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de varias poses de pie
+        scale = sh.get('target', STAND_H) / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de varias poses de referencia
         for n in sh['names']:
+            if n in sh.get('skip', []): continue
             if n == sh.get('portrait'):
                 c = crops[n]; side = max(c.shape[:2])
                 pad = np.zeros((side, side, 4), np.uint8)

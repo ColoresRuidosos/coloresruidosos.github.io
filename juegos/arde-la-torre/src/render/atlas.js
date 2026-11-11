@@ -1,9 +1,12 @@
 // Sprites finales (atlas generados por scripts/slice_sheet.py a partir de las hojas de Gemini).
 // Si un músico aún no tiene atlas, o la imagen no ha cargado, se usa el sprite provisional dibujado por código.
 import * as ANTONIO from '../data/atlas-antonio.js';
+import * as PEPE from '../data/atlas-pepe.js';
 import { getSprite, getPortrait } from './sprites.js';
 
-const SOURCES = { antonio: ANTONIO };
+const SOURCES = { antonio: ANTONIO, pepe: PEPE };
+// Si a un músico le falta una pose, se usa la equivalente (cada hoja de Gemini sale algo distinta).
+const FALLBACK = { hurt: 'sp0', fall2: 'fall1', fall1: 'fall0', punch2m: 'punch2a', idle1: 'idle0' };
 const images = {};
 // Repetidos (2P, 3P…): el mismo sprite con otro tono (donde el navegador admite filtros; si no, igual).
 const TINT = [null, 'hue-rotate(160deg) saturate(0.9)', 'hue-rotate(250deg)', 'hue-rotate(80deg) saturate(0.8)'];
@@ -35,7 +38,7 @@ export function heroFrameName(f) {
     case 'special': return `sp${Math.min(3, Math.floor(t / 7))}`;
     case 'grab': return f.kneeT > 0 ? 'knee' : 'grab';
     case 'throwing': return t < 7 ? 'throw0' : 'throw1';
-    case 'grabbed': case 'hurt': return 'sp0';
+    case 'grabbed': case 'hurt': return 'hurt';
     case 'fall': case 'thrown': return f.vz > 1 ? 'fall0' : f.vz > -1.5 ? 'fall1' : 'fall2';
     case 'down': case 'dead': return 'down';
     case 'rise': return t < 8 ? 'rise0' : 'rise1';
@@ -47,7 +50,10 @@ export function heroFrameName(f) {
 // Dibuja el fotograma con los pies en (x, y). Devuelve el alto dibujado (o 0 si no hay atlas).
 export function drawFrame(ctx, type, palette, name, x, y, face = 1) {
   const im = image(type);
-  const fr = im && (SOURCES[type].FRAMES[name] || SOURCES[type].FRAMES.idle0);
+  const F = im && SOURCES[type].FRAMES;
+  let n = name;
+  while (F && !F[n] && FALLBACK[n]) n = FALLBACK[n];
+  const fr = F && (F[n] || F.idle0);
   if (!fr) return 0;
   const [sx, sy, sw, sh, ox, oy] = fr;
   ctx.save();

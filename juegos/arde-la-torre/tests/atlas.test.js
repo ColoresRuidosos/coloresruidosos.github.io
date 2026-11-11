@@ -25,3 +25,16 @@ test('T5.1 atlas de Antonio: todas las poses, de pie a ~66 px, anclas dentro del
   assert.ok(FRAMES.down[2] > FRAMES.down[3] * 2, 'tumbado es más ancho que alto');
   assert.deepEqual(FRAMES.portrait.slice(2, 4), [46, 46]);
 });
+
+import * as PEPE from '../src/data/atlas-pepe.js';
+import { PNG as RETRATO_PEPE } from '../src/data/retrato-pepe.js';
+
+test('T5.1 atlas de Pepe: poses del juego (con equivalentes), tamaños coherentes y retrato', () => {
+  const F = PEPE.FRAMES;
+  for (const n of ['idle0', 'idle1', 'walk0', 'walk3', 'run0', 'run3', 'jump0', 'jump1', 'punch1a', 'punch1b', 'punch2a', 'punch2b',
+    'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1', 'hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1',
+    'sp0', 'sp1', 'sp2', 'sp3', 'win0', 'win1', 'portrait']) assert.ok(F[n], `falta ${n}`);
+  assert.ok(!F.blur, 'la pose borrosa de Gemini se descarta');
+  for (const n of ['idle0', 'walk0', 'punch1b']) assert.ok(F[n][3] >= 56 && F[n][3] <= 72, `${n} mide ${F[n][3]} px`);
+  assert.ok(RETRATO_PEPE.startsWith('data:image/png;base64,'));
+});
