@@ -66,6 +66,8 @@ function padUrlFor(code) {
 }
 async function openRoom() {
   if (Q.has('nonet')) { app.net = 'SALA DESACTIVADA'; return; }
+  // Versión para páginas que bloquean WebRTC (p. ej. el enlace privado de Claude): solo teclado y mandos.
+  if (globalThis.ARDE_SIN_RED) { app.net = 'MÓVILES: SOLO EN LA VERSIÓN WEB'; return; }
   room = createRoom({ transport, slots, onEvent: onRoomEvent });
   app.room = room;
   try {
