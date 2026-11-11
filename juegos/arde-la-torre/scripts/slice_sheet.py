@@ -14,22 +14,22 @@ STAND_H = 66            # altura en px de un personaje de pie (el juego dibuja a
 COLORS = 32             # colores por músico
 OUTLINE = (18, 12, 24)
 
-# Cada hoja: archivo, poses por fila, nombres en orden, fotograma de referencia (de pie) para la escala,
+# Cada hoja: archivo, poses por fila, nombres en orden, poses de referencia (de pie; se usa la mediana de su altura) para la escala,
 # y fotogramas que no están de pie (se anclan por el centro de la caja, no por los pies).
 SHEETS = {
     'antonio': [
         dict(file='antonio-2-movimiento.jpg', rows=[2, 4, 4, 2],
              names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
-             ref='idle0', loose=['jump0', 'jump1']),
+             ref=['idle0', 'idle1', 'walk0', 'walk2'], loose=['jump0', 'jump1']),
         dict(file='antonio-3-combo.jpg', rows=[4, 3, 5],
              names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
-             ref='punch1a', loose=['air']),
+             ref=['punch1a', 'punch1b'], loose=['air']),
         dict(file='antonio-4-dano-especial.jpg', rows=[3, 3, 4],
              names=['fall0', 'fall1', 'fall2', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
-             ref='sp0', loose=['fall0', 'fall1', 'fall2', 'down']),
+             ref=['sp0', 'sp1'], loose=['fall0', 'fall1', 'fall2', 'down'], recolor='pantalon'),
         dict(file='antonio-5-firma-super.jpg', rows=[3, 4, 3],
              names=['lash0', 'lash1', 'lash2', 'hymn0', 'hymn1', 'hymn2', 'hymn3', 'win0', 'win1', 'portrait'],
-             ref='hymn1', loose=[], portrait='portrait'),
+             ref=['hymn1', 'hymn2', 'hymn3', 'lash0'], loose=[], portrait='portrait'),
     ],
 }
 
@@ -44,26 +44,23 @@ def foreground(a, bg, tol=26):
     return d > tol
 
 
-def erase_floor_lines(a, mask, min_run=140, dark=70):
-    """Borra las líneas de suelo (rayas oscuras largas y finas) que a veces dibuja la IA bajo los pies."""
+def erase_floor_lines(a, mask, min_run=140, dark=70, clear=6):
+    """Borra las líneas de suelo que a veces dibuja la IA bajo los pies: rayas oscuras, largas y FINAS
+    (por encima y por debajo, a `clear` px, no hay dibujo). Así no se confunden con un pantalón o una chaqueta."""
     lum = a.mean(axis=2)
     h, w = mask.shape
-    hits = np.zeros_like(mask)
-    for y in range(h):
+    for y in range(clear, h - clear):
         row = mask[y] & (lum[y] < dark)
+        if row.sum() < min_run: continue
         x = 0
         while x < w:
-            if row[x]:
-                x0 = x
-                while x < w and row[x]: x += 1
-                if x - x0 >= min_run: hits[y, x0:x] = True
-            else:
-                x += 1
-    ys = np.where(hits.any(axis=1))[0]
-    for y in ys:          # la raya y sus bordes antialiasados (±3 filas)
-        cols = hits[y]
-        for dy in range(-3, 4):
-            if 0 <= y + dy < h: mask[y + dy, cols] = False
+            if not row[x]: x += 1; continue
+            x0 = x
+            while x < w and row[x]: x += 1
+            if x - x0 < min_run: continue
+            above = mask[y - clear, x0:x].mean(); below = mask[y + clear, x0:x].mean()
+            if above < 0.25 and below < 0.25:            # es una raya, no un cuerpo
+                mask[y - 3:y + 4, x0:x] = False
     return mask
 
 
@@ -117,13 +114,40 @@ def split(mask, rows):
 
 
 def crop_frame(a, mask, box):
+    """Recorta la pose ignorando motas sueltas y restos lejanos (no deben agrandar la caja ni falsear la escala)."""
     x0, y0, x1, y1 = box
-    m = mask[y0:y1, x0:x1]
-    ys, xs = np.where(m)
-    bx0, bx1, by0, by1 = xs.min(), xs.max() + 1, ys.min(), ys.max() + 1
+    m = mask[y0:y1, x0:x1].copy()
+    def span(occ, gap):
+        segs = segments(occ, gap)
+        w = [m[s:e].sum() if occ is rows else m[:, s:e].sum() for s, e in segs]
+        k = int(np.argmax(w)); s0, e0 = segs[k]
+        # se queda con el tramo principal y los vecinos cercanos con peso apreciable
+        for (s, e), wt in zip(segs, w):
+            if wt > max(w) * 0.03 and (s - e0 <= gap * 3 and s0 - e <= gap * 3): s0, e0 = min(s0, s), max(e0, e)
+        return s0, e0
+    rows = m.sum(axis=1) >= 3
+    by0, by1 = span(rows, 12)
+    m[:by0] = False; m[by1:] = False
+    cols = m.sum(axis=0) >= 2
+    bx0, bx1 = span(cols, 12)
+    m[:, :bx0] = False; m[:, bx1:] = False
     rgb = a[y0 + by0:y0 + by1, x0 + bx0:x0 + bx1]
     alpha = (m[by0:by1, bx0:bx1] * 255).astype(np.uint8)
     return np.dstack([rgb, alpha])
+
+
+def recolor_pants(rgba):
+    """Gemini pintó el pantalón gris azulado en una hoja y marrón oscuro en las demás: lo igualamos.
+    Solo toca azules oscuros y poco saturados (la camisa, azul claro, no cambia)."""
+    rgb = rgba[..., :3].astype(float) / 255
+    mx, mn = rgb.max(axis=2), rgb.min(axis=2)
+    v = mx; sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0)
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    bluish = (b >= r + 0.03) & (b >= g - 0.01) & (v < 0.62) & (sat > 0.08) & (rgba[..., 3] > 0)
+    target = np.array([0.36, 0.24, 0.20])                    # marrón oscuro de las otras hojas
+    out = rgba.copy()
+    out[bluish, :3] = np.clip(target * (v[bluish, None] / 0.40) * 255, 0, 255).astype(np.uint8)
+    return out
 
 
 def downscale(rgba, scale):
@@ -131,7 +155,7 @@ def downscale(rgba, scale):
     nw, nh = max(1, round(w * scale)), max(1, round(h * scale))
     im = Image.fromarray(rgba, 'RGBA').convert('RGBa').resize((nw, nh), Image.BOX).convert('RGBA')
     out = np.asarray(im).copy()
-    out[..., 3] = np.where(out[..., 3] >= 120, 255, 0)
+    out[..., 3] = np.where(out[..., 3] >= 85, 255, 0)     # umbral bajo: conserva mástiles y cables finos
     return out
 
 
@@ -147,13 +171,16 @@ def add_outline(rgba):
 
 
 def anchor(rgba, loose):
-    """(ox, oy): punto del suelo bajo el personaje, en coordenadas del fotograma."""
+    """(ox, oy): punto del suelo bajo el personaje. Mediana ponderada de las piernas (el cable o la guitarra no lo mueven)."""
     a = rgba[..., 3] > 0
     h, w = a.shape
     if loose: return w // 2, h - 1
-    feet = a[int(h * 0.88):]
-    xs = np.where(feet.any(axis=0))[0]
-    return (int(round(xs.mean())) if len(xs) else w // 2), h - 1
+    legs = a[int(h * 0.75):]
+    counts = legs.sum(axis=0).astype(float)
+    counts[counts < 2] = 0
+    if counts.sum() == 0: return w // 2, h - 1
+    c = np.cumsum(counts)
+    return int(np.searchsorted(c, c[-1] / 2)), h - 1
 
 
 def quantize_all(frames, n):
@@ -191,7 +218,7 @@ def build(hero):
         boxes = split(mask, sh['rows'])
         assert len(boxes) == len(sh['names']), (sh['file'], len(boxes))
         crops = {n: crop_frame(a, mask, b) for n, b in zip(sh['names'], boxes)}
-        scale = STAND_H / crops[sh['ref']].shape[0]
+        scale = STAND_H / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de varias poses de pie
         for n in sh['names']:
             if n == sh.get('portrait'):
                 c = crops[n]; side = max(c.shape[:2])
@@ -199,7 +226,9 @@ def build(hero):
                 pad[side - c.shape[0]:, (side - c.shape[1]) // 2:(side - c.shape[1]) // 2 + c.shape[1]] = c
                 portrait = downscale(pad, 46 / side)
                 continue
-            names.append(n); frames.append(downscale(crops[n], scale)); anchors_loose.append(n in sh['loose'])
+            fr = downscale(crops[n], scale)
+            if sh.get('recolor') == 'pantalon': fr = recolor_pants(fr)
+            names.append(n); frames.append(fr); anchors_loose.append(n in sh['loose'])
         print(f"{sh['file']}: {len(boxes)} poses, escala {scale:.3f}")
     frames = quantize_all(frames, COLORS)
     frames = [add_outline(f) for f in frames]
