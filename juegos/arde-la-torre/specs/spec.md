@@ -140,7 +140,7 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 | Teclado | 2 jugadores en un mismo teclado. J1: WASD + F (golpe), G (salto), H (especial). J2: flechas + 1, 2, 3 del teclado numérico (o K, L, Ñ) |
 | Mando físico | Hasta 4 mandos (Gamepad API) por USB o Bluetooth |
 | **Móvil como mando** | F10 |
-| Táctil en la propia pantalla | 1 jugador en tablet o móvil cuando se juega sin pantalla grande (P1) |
+| Táctil en la propia pantalla | 1 jugador en tablet o móvil: joystick y botones encima del juego (adelantado a P0 el 11 nov 2026) |
 
 **F10 Móviles como mandos (QR).** La pieza clave del proyecto:
 1. La pantalla principal muestra un **código QR** y un **código de sala corto** de 4 caracteres, por ejemplo `K7QP`.

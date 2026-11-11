@@ -32,7 +32,7 @@ export function drawTitle(ctx, t) {
     const x = i < 2 ? 50 + i * 50 : W - 100 + (i - 2) * 50;
     ctx.save(); ctx.translate(x, H - 18); if (i >= 2) ctx.scale(-1, 1); ctx.drawImage(s.canvas, -s.ox, -s.oy); ctx.restore();
   });
-  if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'PULSA GOLPE, ENTER O TOCA LA PANTALLA', W / 2, H - 12, { color: '#ffd23f', align: 'center' });
+  if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'PULSA GOLPE O TOCA LA PANTALLA', W / 2, H - 12, { color: '#ffd23f', align: 'center' });
 }
 
 export function drawLobby(ctx, { t, qr, code, url, slots, countdown, netStatus, local }) {
@@ -61,6 +61,7 @@ export function drawLobby(ctx, { t, qr, code, url, slots, countdown, netStatus, 
     ['J1  WASD  ·  F  G  H', '#cfc9e0'],
     ['J2  FLECHAS  ·  K  L  Ñ', '#cfc9e0'],
     ['MANDO  ·  X  A  B', '#cfc9e0'],
+    ['TÁCTIL · BOTONES EN PANTALLA', '#cfc9e0'],
     ['GOLPE: UNIRSE Y LISTO', '#ffd23f'],
     ['◀ ▶: CAMBIAR DE MÚSICO', '#ffd23f'],
     ['SALTO: QUITAR LISTO / SALIR', '#ffd23f'],
@@ -73,7 +74,7 @@ export function drawLobby(ctx, { t, qr, code, url, slots, countdown, netStatus, 
     ctx.fillStyle = SLOT_COLORS[i]; ctx.fillRect(x, y, 88, 2);
     drawText(ctx, `J${i + 1}`, x + 4, y + 6, { color: SLOT_COLORS[i] });
     if (!s) { drawText(ctx, 'LIBRE', x + 44, y + 40, { color: '#4a4560', align: 'center' }); continue; }
-    drawText(ctx, s.kind === 'movil' ? 'MÓVIL' : s.kind === 'mando' ? 'MANDO' : 'TECLADO', x + 84, y + 6, { color: '#8a8698', align: 'right' });
+    drawText(ctx, s.kind === 'movil' ? 'MÓVIL' : s.kind === 'mando' ? 'MANDO' : s.kind === 'tactil' ? 'TÁCTIL' : 'TECLADO', x + 84, y + 6, { color: '#8a8698', align: 'right' });
     const def = HEROES[s.hero];
     const spr = getSprite(s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(t / 20) % 2, def.h, s.hero);
     ctx.save(); ctx.beginPath(); ctx.rect(x, y + 14, 88, 50); ctx.clip();

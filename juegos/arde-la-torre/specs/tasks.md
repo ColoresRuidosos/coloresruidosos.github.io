@@ -2,7 +2,7 @@
 
 > Regla: **test en rojo → código → verde → refactor.**
 > Cada tarea cita su F o NFR. Leyenda: ⬜ pendiente · 🟨 en curso · ✅ hecha · ⏳ espera al usuario.
-> Estado al 11 nov 2026: **v0.1 jugable** con arte provisional. `npm test` pasa **41 tests** (incluye bots que superan los 5 niveles y 2 móviles emulados).
+> Estado al 11 nov 2026: **v0.1 jugable** con arte provisional. `npm test` pasa **42 tests** (incluye bots que superan los 5 niveles y 2 móviles emulados).
 
 ## Fase 0 · Decisiones y preparación
 | ID | Tarea | Estado |
@@ -84,5 +84,5 @@
 |---|---|---|
 | T7.1 | Arte final (sustituir `render/sprites.js` y `render/backgrounds.js` por los atlas) | ⏳ hojas de Gemini |
 | T7.2 | Ataque combinado «acorde» (P1) | ⬜ |
-| T7.3 | Táctil en la propia pantalla para 1 jugador sin mando (P1) | ⬜ |
+| T7.3 | Táctil en la propia pantalla para 1 jugador sin mando (adelantado: el usuario prueba el enlace privado en su móvil) | ✅ `input/touch.js`, probado en un iPhone emulado |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |

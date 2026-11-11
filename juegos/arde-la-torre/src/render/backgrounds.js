@@ -55,7 +55,12 @@ function parking(level) {
   // suelo
   floorTiles(c, width, '#4a4f57', '#3f444b', 48, 6);
   for (let x = 0; x < width; x += 120) { rect(c, '#e6e6e6', x + 20, HORIZON + 10, 3, 30); }
-  for (let i = 0; i < 30; i++) { c.fillStyle = 'rgba(0,0,0,0.25)'; c.beginPath(); c.ellipse(rng.int(0, width), rng.int(HORIZON + 20, H - 6), rng.int(6, 16), rng.int(2, 4), 0, 0, Math.PI * 2); c.fill(); }
+  // manchas de aceite (oscuras, con un brillo irisado para que no parezcan sombras)
+  for (let i = 0; i < 30; i++) {
+    const x = rng.int(0, width), y = rng.int(HORIZON + 20, H - 6), rw = rng.int(6, 14), rh = rng.int(2, 4);
+    c.fillStyle = 'rgba(22,16,30,0.55)'; c.beginPath(); c.ellipse(x, y, rw, rh, 0.2, 0, Math.PI * 2); c.fill();
+    c.fillStyle = 'rgba(120,90,200,0.35)'; c.fillRect(x - 2, y - 1, 3, 1); c.fillStyle = 'rgba(90,200,170,0.3)'; c.fillRect(x + 1, y, 2, 1);
+  }
   return { far, near, tint: null };
 }
 

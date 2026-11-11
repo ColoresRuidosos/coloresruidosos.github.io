@@ -9,6 +9,7 @@ import { LEVELS } from './data/levels.js';
 import { HERO_IDS } from './sim/moves.js';
 import { createKeyboard } from './input/keyboard.js';
 import { createGamepads } from './input/gamepad.js';
+import { createTouch } from './input/touch.js';
 import { createSlots } from './input/slots.js';
 import { createEdges, NEUTRAL } from './input/source.js';
 import { createRoom } from './net/host.js';
@@ -35,7 +36,8 @@ ctx.imageSmoothingEnabled = false;
 // ---- escalado entero (plan §6) ----
 function fit() {
   const k = Math.min(innerWidth / W, innerHeight / H);
-  const s = k >= 1 ? Math.floor(k) : k;
+  // Pantallas grandes: escala entera (nítida). Móviles y ventanas pequeñas: llenar la pantalla aunque no sea entera.
+  const s = k >= 3 ? Math.floor(k) : k;
   canvas.style.width = `${W * s}px`; canvas.style.height = `${H * s}px`;
 }
 addEventListener('resize', fit); fit();
@@ -46,7 +48,8 @@ const audio = createAudio(); audio.setVolume(opts.volume);
 const slots = createSlots(MAX_PLAYERS);
 const kb = createKeyboard(window);
 const pads = createGamepads(navigator);
-const LOCAL = [...kb.sources, ...pads.sources];
+const touch = createTouch(document);
+const LOCAL = [...kb.sources, ...pads.sources, touch.source];
 const edges = new Map();                 // clave de fuente → detector de flancos
 const edgeOf = (key, inp) => { if (!edges.has(key)) edges.set(key, createEdges()); return edges.get(key)(inp); };
 const fx = createFx();
@@ -342,7 +345,7 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
-canvas.addEventListener('pointerdown', () => { audio.unlock(); if (app.screen === 'titulo') app.tapped = true; });
+addEventListener('pointerdown', () => { audio.unlock(); if (app.screen === 'titulo') app.tapped = true; }, { capture: true });
 addEventListener('keydown', () => audio.unlock(), { once: true });
 document.addEventListener('visibilitychange', () => { if (document.hidden && app.screen === 'juego') { app.screen = 'pausa'; app.pauseSel = 0; audio.suspend(); } });
 

@@ -101,3 +101,48 @@ test('pausa con el teclado y opciones guardadas', { skip, timeout: 60000 }, asyn
     srv.kill();
   }
 });
+
+test('móvil sin mando: se juega con los botones táctiles de la propia pantalla (iPhone emulado)', { skip, timeout: 90000 }, async () => {
+  const port = 5196;
+  const srv = await server(port);
+  const browser = await pw.chromium.launch();
+  try {
+    const page = await browser.newPage({ ...pw.devices['iPhone 13 landscape'] });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    page.setDefaultTimeout(30000);
+    await page.goto(`http://localhost:${port}/sin-red.html?seed=4`);
+    const cdp = await page.context().newCDPSession(page);
+    const touch = async (pts, type) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts });
+    const tapEl = async (sel) => {
+      const b = await page.locator(sel).boundingBox();
+      const pt = [{ x: b.x + b.width / 2, y: b.y + b.height / 2, id: 1 }];
+      await touch(pt, 'touchStart'); await page.waitForTimeout(120); await touch([], 'touchEnd'); await page.waitForTimeout(120);
+    };
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
+    await touch([{ x: 400, y: 200, id: 1 }], 'touchStart'); await page.waitForTimeout(80); await touch([], 'touchEnd');
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    assert.ok(await page.locator('#tactil.on').isVisible(), 'aparecen los botones táctiles');
+    await tapEl('#tactil .golpe');                                    // unirse
+    await page.waitForFunction(() => window.__arde.slots.joined().length === 1);
+    assert.equal(await page.evaluate(() => window.__arde.slots.get(0).kind), 'tactil');
+    await tapEl('#tactil .golpe');                                    // listo
+    await page.waitForFunction(() => window.__arde.screen === 'intro', null, { timeout: 15000 });
+    await page.waitForFunction(() => window.__arde.screen === 'juego', null, { timeout: 15000 });
+    const x0 = await page.evaluate(() => window.__arde.world.fighters[0].x);
+    // Joystick: dedo en la mitad izquierda y arrastrar a la derecha; a la vez, GOLPE con otro dedo.
+    await touch([{ x: 150, y: 250, id: 1 }], 'touchStart');
+    for (let i = 1; i <= 6; i++) { await touch([{ x: 150 + i * 12, y: 250, id: 1 }], 'touchMove'); await page.waitForTimeout(30); }
+    await page.waitForTimeout(700);
+    const x1 = await page.evaluate(() => window.__arde.world.fighters[0].x);
+    assert.ok(x1 > x0 + 20, `el joystick mueve al músico (${x0} → ${x1})`);
+    const g = await page.locator('#tactil .golpe').boundingBox();
+    await touch([{ x: 162 + 60, y: 250, id: 1 }, { x: g.x + g.width / 2, y: g.y + g.height / 2, id: 2 }], 'touchStart');
+    await page.waitForFunction(() => ['attack', 'grab'].includes(window.__arde.world.fighters[0].state), null, { timeout: 3000 });
+    await touch([], 'touchEnd');
+    if (SHOTS) await page.screenshot({ path: `${SHOTS}/movil-tactil.png` });
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+    srv.kill();
+  }
+});
