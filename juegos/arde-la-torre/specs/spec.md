@@ -63,17 +63,26 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 
 **Prioridades:** P0 es el MVP, P1 viene después y P2 es deseable.
 
-### 3.1 Personajes jugables
+### 3.1 Personajes jugables (v2, propuesta del 11 nov 2026 · ⏳ pendiente de aprobación)
 
-| Músico | Perfil de combate | Especial (gasta un poco de vida, como en el género) | MVP |
-|---|---|---|---|
-| **Antonio** (voz y guitarra) | Equilibrado | **Grito**: una onda larga delante que tumba a los enemigos | P0 |
-| **Pepe** (bajo) | Lento y fuerte, con los mejores agarres | **Golpe de bajo al suelo**: una onda a los dos lados | P0 |
-| **Dani** (guitarra) | Rápido, con combos y poco daño | **Solo**: un giro con la guitarra que golpea alrededor | P0 (arte final en P1) |
-| **Jota** (batería) | Baquetas con alcance medio | **Redoble**: varios golpes rápidos delante | P0 (arte final en P1) |
+Cada músico se reconoce por **su instrumento como arma**, una **habilidad pasiva** que cambia la forma de jugarlo, un **especial** (cuesta un 8 % de vida, como en el género) y un **SÚPER** que se carga con la barra de VOLUMEN (F14). Los cuatro comparten los controles básicos (combo, salto, patada aérea, carrera, agarre y lanzamiento).
+
+| | **Antonio** | **Pepe** | **Dani** | **Jota** |
+|---|---|---|---|---|
+| Papel en la banda | Voz y guitarra | Bajo | Guitarra | Batería |
+| Apodo en el juego | **El Frontman** | **El Muro** | **El Relámpago** | **El Metrónomo** |
+| Estilo | Equilibrado y de apoyo | Lento, fuerte y difícil de tumbar | Rapidísimo, combos largos | Alcance medio y ritmo |
+| Fuerza · Velocidad · Alcance · Agarres · Vida (1–5) | 3 · 3 · 3 · 3 · 3 | 5 · 1 · 3 · 5 · 5 | 2 · 5 · 2 · 2 · 2 | 3 · 3 · 4 · 2 · 3 |
+| Combo (golpe ×N) | 3: directo, gancho y **guitarrazo** | 3: codazo, rodilla y **bajazo** de arriba abajo | 4: dos golpes rápidos, patada y **barrido con la guitarra** | 3: dos **baquetazos** y un doble golpe con ambas baquetas |
+| **Pasiva** | **Carisma**: los compañeros cerca de él (a menos de 80 px) cargan el VOLUMEN un 25 % más rápido | **Aguante**: el primer golpe que recibe cada 3 s no lo interrumpe (solo pierde vida) | **Doble salto** y su carrera esquiva los proyectiles | **A tempo**: el golpe que cae en el pulso de la música hace +50 % de daño y suelta una nota (se ve un marcador en el HUD) |
+| Golpe de firma (atrás + golpe) | **Latigazo de micro**: lanza el micro por el cable y **atrae** al enemigo hacia él | **Placaje**: carga corta que arrastra a todos los que encuentra | **Deslizamiento** por el suelo que derriba y pasa por debajo de los proyectiles | **Baqueta voladora**: lanza una baqueta que vuelve, como un bumerán |
+| **Especial** (especial, o golpe + salto) | **Grito**: onda larga delante que tumba | **Golpe de bajo al suelo**: onda a los dos lados | **Solo**: giro con la guitarra que golpea alrededor varias veces | **Redoble**: ráfaga de golpes delante |
+| **SÚPER** (especial con la barra llena) | **Himno**: el público corea; aturde a todos los enemigos de la pantalla 2 s y les hace daño | **Terremoto de graves**: tumba a todos los enemigos que estén en el suelo | **Solo eterno**: durante 3 s dispara notas-relámpago por su carril | **Solo de batería**: aparece una batería; cada golpe de bombo lanza una onda a los dos lados durante 3 s |
 
 - Cada músico es una **caricatura reconocible y respetuosa**, sin exagerar rasgos físicos para burlarse.
-- Si dos jugadores eligen al mismo músico, el segundo sale con **otra paleta de colores**.
+- Si dos jugadores eligen al mismo músico, el segundo sale con **otra paleta** (la ropa alternativa de las fotos de prensa, `art/PROMPTS-GEMINI.md` §2).
+- **Acorde** (P1, se mantiene): si dos o más jugadores lanzan su SÚPER con menos de 1 s de diferencia, el daño de todos se multiplica por 1,5 y la pantalla muestra «¡ACORDE!».
+- Los números (alcances, daños y tiempos) viven en `src/sim/moves.js` y se ajustan con los bots (`npm run tune`), como hasta ahora.
 
 ### 3.2 Funcionalidades P0 (MVP)
 
@@ -123,10 +132,23 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 - El número de planta solo sale en pantalla cuando se confirme la cifra (§1.1).
 - Los jefes comparten un mismo motor de comportamiento con 3 ataques (embestir, lanzar y llamar refuerzos) que se combinan por jefe.
 
-**F7 Objetos.**
-- **Comida:** un bocadillo de calamares recupera el 30 % de la vida y un café el 10 %. Salen de cajas o papeleras rotas.
-- **Armas del suelo:** grapadora, extintor y silla de oficina. Se recogen con el golpe y tienen 5 usos.
-- **Púa dorada:** 1 000 puntos.
+**F7 Objetos y potenciadores** (v2, propuesta ⏳). Salen de cajas, papeleras y máquinas de vending rotas, o los suelta un enemigo especial al caer.
+
+| Objeto | Efecto | Duración |
+|---|---|---|
+| **Bocadillo de calamares** | +30 % de vida | — |
+| **Café** | +10 % de vida | — |
+| **Púa dorada** | +1000 puntos | — |
+| **Setlist** | Llena la barra de VOLUMEN | — |
+| **Amplificador portátil** | Golpes con +50 % de daño y chispas más grandes | 15 s |
+| **Pedal de distorsión** | Cada golpe suelta una onda corta (+20 px de alcance) | 12 s |
+| **Púa de la suerte** | Invulnerable (parpadeo dorado lento, sin destellos) | 6 s |
+| **Pase de backstage** | +1 vida (muy raro: uno por nivel) | — |
+
+**Armas del suelo** (5 usos; sustituyen al combo): grapadora, extintor, silla de oficina y **pie de micro** (el de más alcance).
+
+- Solo un potenciador temporal a la vez por jugador; coger otro sustituye al anterior.
+- El HUD muestra el icono del potenciador activo con una barra de tiempo.
 
 **F8 Vidas y reaparición.**
 - Cada jugador empieza con 3 vidas y reaparece cayendo del techo.
@@ -168,6 +190,11 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 - **Sin canciones de Arde Bogotá** salvo permiso de la banda o de su sello (§6.1).
 
 **F13 Opciones.** Volumen, sacudida de pantalla, modo asistido (enemigos con −30 % de daño y vida infinita) y reducción de destellos. Se guardan en `localStorage`.
+
+**F14 Barra de VOLUMEN y SÚPER** (v2, propuesta ⏳). Cada jugador tiene una barra de VOLUMEN en su tarjeta del HUD.
+- **Se carga** golpeando (+1 por golpe que conecta), tumbando (+4) y recibiendo daño (+2), con un máximo de 100. Carisma de Antonio y el Setlist la cargan más rápido.
+- **Llena**, la tarjeta brilla (sin destellos) y el siguiente **ESPECIAL** lanza el **SÚPER**: no cuesta vida, es invulnerable y vacía la barra.
+- En el móvil, el botón ESPECIAL cambia a «SÚPER» y vibra cuando la barra está llena.
 
 ### 3.3 Funcionalidades P1 y P2
 - **P1:**

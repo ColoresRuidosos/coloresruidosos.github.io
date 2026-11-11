@@ -35,7 +35,8 @@ Doble toque adelante: correr. Empujar contra un enemigo: agarrarlo (luego golpe 
 | [`specs/spec.md`](specs/spec.md) | Visión, usuarios, funcionalidades, flujos, arquitectura, NFR y decisiones |
 | [`specs/plan.md`](specs/plan.md) | Decisiones técnicas: motor propio en Canvas, PeerJS para los mandos y el camino del arte con IA |
 | [`specs/tasks.md`](specs/tasks.md) | Tareas en orden TDD y su estado |
-| [`art/PROMPTS-GEMINI.md`](art/PROMPTS-GEMINI.md) | Prompts listos para generar los sprites y los fondos |
+| [`art/PROMPTS-GEMINI.md`](art/PROMPTS-GEMINI.md) | Dirección de arte, quién es quién, estilo base, retratos, enemigos y fondos |
+| [`art/SPRITES-PERSONAJES.md`](art/SPRITES-PERSONAJES.md) | Hojas de sprites completas de cada músico (con su combo, especial, firma y SÚPER) y de los objetos |
 
 ## Estructura
 

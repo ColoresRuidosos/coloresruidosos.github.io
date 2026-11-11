@@ -87,4 +87,8 @@
 | T7.3 | Táctil en la propia pantalla para 1 jugador sin mando (adelantado: el usuario prueba el enlace privado en su móvil) | ✅ `input/touch.js`, probado en un iPhone emulado |
 | T7.5 | Pantalla de selección «cuatro ascensores» con retrato, estadísticas y puertas animadas | ✅ revisada en capturas |
 | T7.6 | Retratos finales de selección (prompts §5 de `art/PROMPTS-GEMINI.md`) | ⏳ el usuario: completar «quién es quién» (§2) y generarlos |
+| T8.1 | Aprobar el diseño de personajes v2 (spec §3.1, F7, F14) | ⏳ el usuario |
+| T8.2 | Hojas de sprites de los 4 músicos y de objetos (`art/SPRITES-PERSONAJES.md`) | ⏳ el usuario (Gemini o ChatGPT) |
+| T8.3 | Tests y código: pasivas, golpes de firma y SÚPER (`moves.js`, `fighter.js`) | ⬜ tras T8.1 |
+| T8.4 | Tests y código: barra de VOLUMEN (F14) y potenciadores temporales (F7) | ⬜ tras T8.1 |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |
