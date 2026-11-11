@@ -2,88 +2,87 @@
 
 > Regla: **test en rojo → código → verde → refactor.**
 > Cada tarea cita su F o NFR. Leyenda: ⬜ pendiente · 🟨 en curso · ✅ hecha · ⏳ espera al usuario.
-> Estado al 10 nov 2026: **especificación en borrador**; aún no hay código.
+> Estado al 11 nov 2026: **v0.1 jugable** con arte provisional. `npm test` pasa **41 tests** (incluye bots que superan los 5 niveles y 2 móviles emulados).
 
 ## Fase 0 · Decisiones y preparación
 | ID | Tarea | Estado |
 |---|---|---|
-| T0.1 | El usuario aprueba la spec y responde las preguntas abiertas (spec §7): nombre, villano, los 2 músicos del MVP y si se contacta a la banda | ⏳ |
-| T0.2 | Andamiaje: `package.json`, esbuild con 2 entradas (juego y mando), `serve.mjs`, `build.mjs` y `publish-web.mjs` (copiados de *Yo contra mi corazón*) | ⬜ |
-| T0.3 | Prompts de arte listos (`art/PROMPTS-GEMINI.md`) | ✅ |
+| T0.1 | Decisiones de la spec §7 | ✅ el 11 nov 2026 (el usuario pidió «definir todo eso») |
+| T0.2 | Andamiaje: `package.json`, esbuild con 2 entradas, `serve.mjs` (empaqueta al vuelo y muestra la IP de la red) y `build.mjs` | ✅ |
+| T0.3 | Prompts de arte (`art/PROMPTS-GEMINI.md`) | ✅ |
 | T0.4 | El usuario genera las **hojas de referencia** de Antonio y Pepe con Gemini | ⏳ |
-| T0.5 | Hoja de concepto: los 2 músicos pixelados, un Becario y una maqueta de pantalla del Parking a 384×216 | ⬜ |
-| T0.6 | **Experimento de la vía B** (3D → sprites) con 1 músico y 3 animaciones; comparar con la vía A | ⬜ |
-| T0.7 | **Experimento de conexión:** página mínima con PeerJS, 1 pantalla y 1 móvil reales, midiendo la latencia de ida y vuelta en la misma wifi y con 4G (NFR latencia) | ⬜ |
+| T0.5 | Hoja de concepto | ✅ sustituida por el arte provisional dibujado por código (sprites y fondos de los 5 niveles) |
+| T0.6 | Experimento de la vía B (3D → sprites) | ⬜ opcional |
+| T0.7 | Prueba de conexión con **móviles reales** por PeerJS (misma wifi y 4G), midiendo la latencia | ⏳ el usuario (en la sesión en la nube no hay móviles) |
 
-## Fase 1 · Núcleo de la simulación
+## Fase 1 · Núcleo de la simulación — `tests/sim.test.js`
 | ID | Test | Código | Estado |
 |---|---|---|---|
-| T1.1 | `rng.test.js`: misma semilla, misma secuencia | `sim/rng.js` | ⬜ |
-| T1.2 | `world.test.js`: paso fijo; mismas entradas y semilla dan el mismo estado después de 600 ticks | `sim/world.js` | ⬜ |
-| T1.3 | `fighter.test.js`: caminar en 8 direcciones, límites del suelo, salto con Z y doble toque para correr (F1) | `sim/fighter.js` | ⬜ |
-| T1.4 | `combat.test.js`: hay contacto con \|Δy\| ≤ 8 y no con 9; cada golpe conecta una vez por objetivo; pausa de impacto (F2) | `sim/combat.js` | ⬜ |
-| T1.5 | `combat.test.js`: combo de 3 con ventana de encadenado; fuera de la ventana el combo se reinicia; el 3.º golpe tumba (F2) | `sim/moves.js` | ⬜ |
-| T1.6 | `combat.test.js`: agarre a un aturdido, rodillazos, lanzamiento y que **el lanzado dañe a otros** (F2) | `sim/combat.js` | ⬜ |
-| T1.7 | `combat.test.js`: especial invulnerable que cuesta un 8 % y nunca deja por debajo de 1 punto de vida (F3) | `sim/fighter.js` | ⬜ |
-| T1.8 | `fighter.test.js`: retroceso, caída, suelo y levantarse con 1 s de invulnerabilidad (F4) | `sim/fighter.js` | ⬜ |
+| T1.1 | Misma semilla, misma secuencia | `sim/rng.js` | ✅ |
+| T1.2 | Mismo estado tras 600 ticks con las mismas entradas | `sim/world.js` | ✅ |
+| T1.3 | 8 direcciones, límites del suelo, salto con Z, doble toque para correr | `sim/fighter.js` | ✅ |
+| T1.4 | \|Δy\| ≤ 8 sí y 9 no; un golpe por objetivo; pausa de impacto | `sim/combat.js` | ✅ |
+| T1.5 | Combo de 3 que encadena solo si conecta; el 3.º tumba | `sim/moves.js` y `sim/fighter.js` | ✅ |
+| T1.6 | Agarre, rodillazos, lanzamiento que daña a otros; los jefes no se agarran | `sim/combat.js` | ✅ |
+| T1.7 | Especial invulnerable, 8 %, nunca por debajo de 1; golpe + salto también lo lanza | `sim/fighter.js` | ✅ |
+| T1.8 | Retroceso, caída, suelo, levantarse con 1 s de invulnerabilidad | `sim/fighter.js` | ✅ |
 
-## Fase 2 · Enemigos, niveles y partida
+## Fase 2 · Enemigos, niveles y partida — `tests/game.test.js`
 | ID | Test | Código | Estado |
 |---|---|---|---|
-| T2.1 | `ai.test.js`: como mucho 2 atacantes por jugador; las fichas se devuelven; los demás rodean (F5) | `sim/ai.js` | ⬜ |
-| T2.2 | `ai.test.js`: Becario, Comercial (embestida) y Guardia (bloquea de frente y no de espaldas) (F5) | `sim/ai.js` | ⬜ |
-| T2.3 | `scaling.test.js`: ×1, ×1,5, ×2 y ×2,5, con 8 enemigos como máximo en pantalla (F5, plan §10) | `sim/scaling.js` | ⬜ |
-| T2.4 | `level.test.js`: la oleada bloquea la cámara; al vaciarla sale «¡ADELANTE!»; el jugador más atrasado limita el avance (F6) | `sim/level.js` | ⬜ |
-| T2.5 | `items.test.js`: la comida cura y la vida no pasa del máximo; las armas tienen 5 usos; romper cajas (F7) | `sim/items.js` | ⬜ |
-| T2.6 | `world.test.js`: vidas, reaparición, continuar durante 10 s y Fin del juego cuando caen todos (F8) | `sim/world.js` | ⬜ |
-| T2.7 | `bosses.test.js`: Jefe de Seguridad (embestida y refuerzos) y Recepcionista (teléfono y tornos) (F6) | `sim/bosses.js` | ⬜ |
-| T2.8 | `bot.test.js`: un bot supera los niveles 1 y 2 solo y en grupo de 4; un bot inactivo pierde; todo es determinista | `sim/bot.js` y `scripts/tune.mjs` | ⬜ |
+| T2.1 | Como mucho 2 atacantes por jugador; las fichas cuadran; los demás rodean | `sim/ai.js` | ✅ |
+| T2.2 | Comercial embiste; Guardia bloquea de frente (guardia rota tras 3); Contable dispara; Ejecutiva agarra y lanza | `sim/ai.js` y `sim/enemies.js` | ✅ |
+| T2.3 | ×1 / ×1,5 / ×2 / ×2,5, el jefe no se duplica, como mucho 8 en pantalla | `sim/level.js` | ✅ |
+| T2.4 | La oleada bloquea la cámara, «¡ADELANTE!», el más atrasado frena | `sim/level.js` | ✅ |
+| T2.5 | Comida sin pasarse del máximo, armas de 5 usos, cajas que sueltan objetos | `sim/fighter.js` y `sim/level.js` | ✅ |
+| T2.6 | Vidas, reaparición, continuar 10 s, Fin del juego; asistido; entrar en caliente, ausencia y salida | `sim/world.js` | ✅ |
+| T2.7 | Jefe de Seguridad (embiste y refuerzos) y Recepcionista (teléfonos) | `sim/enemies.js` y `sim/level.js` | ✅ |
+| T2.8 | Bots que superan los **5 niveles** con 1 y 4 jugadores; un bot inactivo pierde | `sim/bot.js` y `scripts/tune.mjs` | ✅ |
 
-## Fase 3 · Entradas locales
+## Fase 3 · Entradas locales — `tests/input.test.js`
 | ID | Test | Código | Estado |
 |---|---|---|---|
-| T3.1 | `input.test.js`: «pulsado ahora» frente a «mantenido» con la misma interfaz para todas las fuentes (F9) | `input/source.js` | ⬜ |
-| T3.2 | `input.test.js`: 2 configuraciones en un mismo teclado sin que se pisen (F9) | `input/keyboard.js` | ⬜ |
-| T3.3 | `input.test.js`: gamepad simulado con zona muerta y hasta 4 a la vez (F9) | `input/gamepad.js` | ⬜ |
-| T3.4 | `slots.test.js`: J1–J4 por orden de llegada; la 5.ª fuente se rechaza; el mismo músico recibe otra paleta (F9, §3.1) | `input/slots.js` | ⬜ |
+| T3.1 | Flancos y normalización | `input/source.js` | ✅ |
+| T3.2 | 2 jugadores en un teclado | `input/keyboard.js` | ✅ |
+| T3.3 | Mando físico: zona muerta, cruceta y botones | `input/gamepad.js` | ✅ |
+| T3.4 | J1–J4 por llegada; el 5.º fuera; paletas distintas | `input/slots.js` | ✅ |
 
-## Fase 4 · Móviles como mandos (F10)
+## Fase 4 · Móviles como mandos — `tests/net.test.js`, `tests/input.test.js`, `tests/misc.test.js`
 | ID | Test | Código | Estado |
 |---|---|---|---|
-| T4.1 | `protocol.test.js`: codificar y decodificar `in` en 3 bytes más la secuencia; mensajes fuera de orden se descartan | `net/protocol.js` | ⬜ |
-| T4.2 | `net.test.js`: `LoopbackTransport` en memoria con la misma interfaz que `PeerTransport` | `net/transport.js` | ⬜ |
-| T4.3 | `net.test.js`: la sala acepta 4 mandos y rechaza el 5.º con `llena`; el código no lleva caracteres ambiguos | `net/host.js` | ⬜ |
-| T4.4 | `net.test.js`: 1,5 s sin latido → desconectado → pausa invulnerable 20 s → sale de la partida; reconectar con el mismo ID de sesión recupera el hueco (F10.5) | `net/host.js` e `input/slots.js` | ⬜ |
-| T4.5 | `net.test.js`: `remote.js` convierte los mensajes `in` en un `InputSource`; perder paquetes no deja botones pegados | `input/remote.js` | ⬜ |
-| T4.6 | `pad.test.js`: joystick flotante con zona muerta del 20 % y 8 direcciones; multitoque de joystick y botón | `pad-ui/` | ⬜ |
-| T4.7 | Generar el QR (comprobarlo con un decodificador en el test) y pintarlo en la pantalla de sala | `render/qr.js` | ⬜ |
-| T4.8 | `PeerTransport` con PeerJS: probarlo a mano con un móvil real (ver T0.7) | `net/transport.js` | ⬜ |
+| T4.1 | Entradas en 5 bytes, ida y vuelta, fuera de orden | `net/protocol.js` | ✅ |
+| T4.2 | Transporte local con la misma interfaz que PeerJS | `net/transport.js` | ✅ |
+| T4.3 | 4 móviles sí, el 5.º «llena»; códigos sin caracteres ambiguos | `net/host.js` | ✅ |
+| T4.4 | Ausente a los 1,5 s, fuera a los 20 s, reconexión con el mismo hueco | `net/host.js` y `net/pad.js` | ✅ |
+| T4.5 | Sin botones pegados si se corta | `input/remote.js` | ✅ |
+| T4.6 | Joystick flotante con zona muerta del 20 % y 8 direcciones, multitoque | `pad-ui/joystick.js` | ✅ |
+| T4.7 | QR que se decodifica con jsQR | `render/qr.js` | ✅ |
+| T4.8 | `PeerTransport` con móviles reales | `net/transport.js` | ⏳ igual que T0.7 |
 
 ## Fase 5 · Pantalla, arte y sonido
-| ID | Test | Código | Estado |
-|---|---|---|---|
-| T5.1 | `sprites.test.js`: el script de recorte alinea los pies, respeta 72 px de alto y deja 16 colores o menos por músico (pytest o un test de Node sobre el atlas) | `scripts/slice_sheet.py` y `scripts/atlas.py` | ⬜ |
-| T5.2 | Render: escalado entero, parallax, orden por `y` y sombras (revisado en capturas de Playwright) | `render/` | ⬜ |
-| T5.3 | HUD en 4 esquinas legible a 3 m (captura a 1080p) | `render/hud.js` | ⬜ |
-| T5.4 | Pantallas: título, sala con QR, selección, viñeta, pausa, Fin del juego y resultado | `render/screens.js` y `main.js` | ⬜ |
-| T5.5 | `audio.test.js`: el secuenciador genera los eventos correctos para un patrón (sin altavoces) | `audio/` | ⬜ |
-| T5.6 | Arte final de Antonio, Pepe, 3 enemigos, 2 jefes y 2 fondos, integrados en el atlas | `art/` y `data/atlas.js` | ⏳ hojas del usuario (T0.4) |
-| T5.7 | `save.test.js`: las opciones se guardan en `localStorage` (F13) | `core/save.js` | ⬜ |
-
-## Fase 6 · En el navegador y en el móvil
 | ID | Tarea | Estado |
 |---|---|---|
-| T6.1 | `browser.test.js`: pantalla de escritorio y **2 mandos emulados** (iPhone 13) con `?net=loop&bot`; se unen, eligen músico y completan el nivel 1 sin errores | ⬜ |
-| T6.2 | `browser.test.js`: cerrar la pestaña de un mando → «Reconectando…» → volver la recupera | ⬜ |
-| T6.3 | Medir los fps con 4 jugadores y 12 enemigos con la CPU ×4 más lenta (NFR rendimiento) | ⬜ |
-| T6.4 | Medir el peso de `dist/` y `dist/mando/` (NFR peso) | ⬜ |
-| T6.5 | T-UX: 4 personas reales con sus móviles (Android e iPhone) en la misma wifi; ajustar la zona muerta, el tamaño de los botones y la dificultad | ⏳ el usuario |
+| T5.1 | Script de recorte de las hojas de Gemini (alinear pies, 72 px, 16 colores) | ⬜ cuando lleguen las hojas (T0.4) |
+| T5.2 | Render: escalado entero, parallax, orden por profundidad, sombras | ✅ revisado en capturas |
+| T5.3 | HUD de 4 jugadores y barra del jefe | ✅ |
+| T5.4 | Pantallas: título, sala con QR, viñeta, pausa con opciones, superado, final, fin y resultado | ✅ |
+| T5.5 | Secuenciador chiptune (6 temas originales) y efectos | ✅ `tests/misc.test.js` |
+| T5.6 | Arte final de Antonio y Pepe, enemigos, jefes y fondos | ⏳ hojas del usuario |
+| T5.7 | Opciones guardadas | ✅ `tests/misc.test.js` |
 
-## Fase 7 · P1 y publicación
+## Fase 6 · En el navegador y en el móvil — `tests/browser.test.js`
 | ID | Tarea | Estado |
 |---|---|---|
-| T7.1 | Dani y Jota: datos de golpes, especiales y arte | ⬜ |
-| T7.2 | Niveles 3 (ascensor), 4 (oficinas) y 7 (azotea, con el jefe final) | ⬜ |
-| T7.3 | Contable y Ejecutiva | ⬜ |
-| T7.4 | Ataque combinado «acorde» | ⬜ |
-| T7.5 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏳ decisión del usuario (spec §7.6) |
+| T6.1 | Pantalla + 2 iPhone emulados por la sala: se unen, eligen, juegan el nivel 1 sin errores | ✅ |
+| T6.2 | Cerrar un móvil → ausente → vuelve con el mismo sid y recupera su hueco | ✅ |
+| T6.3 | fps con la CPU ×4 más lenta | ✅ 60 fps de media y p95 de 16,8 ms (4 jugadores, 1080p) |
+| T6.4 | Peso | ✅ juego 196 KB y mando 117 KB (límites: 3 MB y 300 KB) |
+| T6.5 | T-UX: 4 personas reales con sus móviles | ⏳ el usuario |
+
+## Fase 7 · Lo que falta
+| ID | Tarea | Estado |
+|---|---|---|
+| T7.1 | Arte final (sustituir `render/sprites.js` y `render/backgrounds.js` por los atlas) | ⏳ hojas de Gemini |
+| T7.2 | Ataque combinado «acorde» (P1) | ⬜ |
+| T7.3 | Táctil en la propia pantalla para 1 jugador sin mando (P1) | ⬜ |
+| T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |

@@ -82,9 +82,9 @@ juegos/arde-la-torre/
 ## 5. Mandos en el móvil (F10)
 
 ### 5.1 Conexión
-1. La pantalla crea un `Peer` con el ID `arde-<código>`, donde el código tiene 4 caracteres sin letras ambiguas (sin O, 0, I ni 1). Si PeerJS responde que ese ID está ocupado, la pantalla genera otro código.
+1. La pantalla crea un `Peer` con el ID `arde-la-torre-<código>`, donde el código tiene 4 caracteres sin letras ambiguas (sin O, 0, I ni 1). Si PeerJS responde que ese ID está ocupado, la pantalla genera otro código.
 2. El QR apunta a `…/games/arde-la-torre/mando/?s=<código>`.
-3. El mando se conecta directamente al ID `arde-<código>`.
+3. El mando se conecta directamente al ID `arde-la-torre-<código>` (prefijo largo para no chocar con otras apps del servidor gratuito).
 4. Canal de datos con `{ordered: false, maxRetransmits: 0}` para las entradas (se envía el estado completo, así que perder un paquete no importa) y un canal fiable para unirse, elegir músico y recibir la vida.
 
 ### 5.2 Protocolo (`protocol.js`)
@@ -98,7 +98,8 @@ juegos/arde-la-torre/
 | `estado` | pantalla → móvil | vida, vidas y «en pausa» (a 4 Hz) |
 | `vibra` | pantalla → móvil | duración (al golpear y al recibir daño) |
 
-- **Latido:** si la pantalla pasa 1,5 s sin recibir nada de un móvil, lo marca como desconectado (F10.5).
+- **Latido:** si la pantalla pasa 1,5 s sin recibir nada de un móvil, lo marca como desconectado (F10.5). La pantalla manda un `pong` por segundo; si el móvil pasa 3,5 s sin noticias, se reconecta solo.
+- **Cambios de pantalla:** al cambiar de pantalla, las teclas o botones que siguen pulsados no cuentan como una pulsación nueva (`primeEdges` en `main.js`), para que la tecla que abre la pausa no la cierre.
 
 ### 5.3 Interfaz del mando (`pad-ui/`)
 - Horizontal, con `touch-action: none`, Pointer Events y **multitoque**: joystick y botón a la vez.
@@ -116,7 +117,8 @@ juegos/arde-la-torre/
 - **Capas por nivel:** fondo lejano (parallax 0,3), fondo (1,0), actores ordenados por `y` y primer plano (1,2; columnas o plantas).
 - **Personajes:** unos 72 px de alto (un tercio de la pantalla, el tamaño típico del género) y enemigos de 64 a 80 px.
 - **Paletas:** cada sprite se guarda con índices de color, y la paleta alternativa (§3.1) se aplica al construir el atlas. Así se generan las versiones 2P de cada músico sin pintar nada más.
-- **HUD:** 4 esquinas con un retrato de 24×24, la vida, las vidas y los puntos.
+- **HUD:** 4 tarjetas en la fila de arriba con un retrato de 22×22, la vida, las vidas y los puntos.
+- **Arte provisional (v0.1):** los personajes son esqueletos de articulaciones con poses por estado, dibujados por código (`render/sprites.js`) con contorno y sombreado plano; los fondos, igual (`render/backgrounds.js`). Se sustituyen por las hojas de Gemini sin tocar la simulación.
 
 ## 7. Arte con presupuesto cero (vía A, con un experimento de la vía B)
 

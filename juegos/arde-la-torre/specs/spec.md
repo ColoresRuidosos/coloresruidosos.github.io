@@ -160,7 +160,7 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 - Sala: QR, jugadores conectados y «Pulsa GOLPE para empezar».
 - Selección de músico.
 - Introducción del nivel en 1 viñeta con texto.
-- HUD: retrato, vida, vidas y puntos de cada jugador en las 4 esquinas.
+- HUD: una tarjeta por jugador en la fila de arriba (retrato, vida, vidas y puntos) y la barra del jefe abajo.
 - Pausa, Fin del juego y resultado: puntos por jugador, más enemigos tumbados y «más bocadillos comidos» como premios divertidos.
 
 **F12 Audio.**
@@ -260,7 +260,7 @@ Pulsar «JUGAR» con el teclado, el mando o la pantalla táctil lleva directamen
 | Peso | Juego ≤ 3 MB y mando ≤ 300 KB, para que cargue rápido en el móvil tras escanear |
 | Coste | **0 €**: GitHub Pages, la nube gratuita de PeerJS y herramientas gratuitas |
 | Compatibilidad | Pantalla: Chrome, Edge, Firefox o Safari recientes en escritorio y tablet. Mando: Safari iOS 16+ y Chrome Android 110+ |
-| Accesibilidad | Destellos < 3 Hz y desactivables; modo asistido; botones táctiles ≥ 56 px; textos legibles a 3 m en la tele (≥ 8 px lógicos = 40 px reales en 1080p) |
+| Accesibilidad | Destellos < 3 Hz y desactivables; modo asistido; botones táctiles ≥ 56 px; textos legibles a 3 m en la tele (fuente de 7 px lógicos = 35 px reales en 1080p) |
 | Pruebas | Toda la `sim/` con tests; bots que superan cada nivel con 1 y con 4 jugadores; Playwright con una pantalla y 2 mandos emulados (`LoopbackTransport`) |
 | Privacidad | Sin analítica, cookies ni cuentas. Los móviles solo se conocen por un ID aleatorio de la sesión |
 
