@@ -43,18 +43,17 @@ Objetivo: que los 4 músicos, la pantalla de selección, los enemigos y los fond
 
 ---
 
-## 2. Quién es quién (⏳ lo rellena el usuario)
+## 2. Quién es quién (✅ 11 nov 2026, según la ubicación que dio el usuario en la foto de primer plano)
 
-Descritos por la foto de cuerpo entero, de izquierda a derecha.
+| Músico | Aspecto (foto de primer plano) |
+|---|---|
+| **Antonio** (voz y guitarra) | En el centro: pelo rizado oscuro, barba de pocos días, alto; polo negro con ribete blanco y cuello en pico; tatuaje de ancla en el brazo |
+| **Pepe** (bajo) | Arriba a la izquierda: pelo oscuro hacia atrás con volumen, barba recortada y bigote, pendiente largo de aro; chaqueta de cuero negra |
+| **Dani** (guitarra) | A la derecha: pelo castaño largo y ondulado hasta los hombros, cara casi afeitada; camisa negra de lunares |
+| **Jota** (batería) | Abajo a la izquierda: pelo oscuro con flequillo corto y recto, bigote fino, pequeño aro; camisa negra |
 
-| Ficha | Pelo y cara | Ropa en la foto | Es… | Instrumento |
-|---|---|---|---|---|
-| **A** | Pelo oscuro corto, con volumen arriba y laterales cortos; barba corta y bigote | Polo de punto **mostaza** con cuello oscuro; pantalón oscuro | ⏳ | ⏳ |
-| **B** | Pelo oscuro corto peinado hacia atrás con volumen; barba completa recortada | **Chaqueta de cuero negra** de motero; camiseta **granate**; cinturón; pantalón gris | ⏳ | ⏳ |
-| **C** | Pelo castaño ondulado por debajo de las orejas; bigote y barba de pocos días | **Americana de ante camel**; **pañuelo estampado** al cuello; camisa blanca; pantalón beige | ⏳ | ⏳ |
-| **D** | Pelo **rizado** oscuro; barba corta; alto y delgado | **Camisa azul petróleo** de manga corta abierta sobre camiseta blanca; pantalón negro; tatuaje de ancla en el antebrazo | ⏳ | ⏳ |
-
-> Otras fotos de la banda muestran variantes que encajan con el estilo: polo negro con ribete blanco, camisa negra de lunares, chaqueta vaquera con corbata estampada, americana de ante con corbata de dibujos geométricos y chaqueta de cuero con camiseta negra. Úsalas como ropa alternativa (la paleta 2P de cada músico, cuando dos jugadores eligen al mismo).
+> ⚠️ La ubicación la sacó el usuario de una respuesta de Gemini; conviene que la confirme alguien de la banda. Claude no identifica a personas por la cara.
+> Los prompts montados y simplificados están en [`PROMPTS-PARA-COPIAR.md`](PROMPTS-PARA-COPIAR.md) (generados por `scripts/prompts_amigo.py`).
 
 ---
 

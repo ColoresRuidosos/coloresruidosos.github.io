@@ -1,46 +1,34 @@
-# Arde la Torre · prompts para copiar y pegar
+# Arde la Torre · imágenes para el juego
 
 > Generado por `scripts/prompts_amigo.py`. No lo edites a mano: cambia el script y vuelve a generarlo.
 
-## Instrucciones
+## Cómo se hace
 
-1. Usa Gemini o ChatGPT (el que genere imágenes). Abre una conversación NUEVA para cada prompt: así no mezcla personajes.
-2. De cada músico, haz primero la «hoja de referencia». En ese prompt hay un hueco ⟪…⟫: bórralo y pega ahí la descripción de ese músico (A, B, C o D, abajo).
-3. En los demás prompts del mismo músico, ADJUNTA su hoja de referencia antes de pegar el texto.
-4. Copia el prompt entero con el botón «Copiar» y pégalo tal cual.
-5. Revisa que salga exactamente el número de poses de cada fila. Si no, contesta: «Repítelo con exactamente N poses en la fila X».
-6. Si sale texto, marcos o sombras, contesta: «Repítelo exactamente igual pero sin ningún texto, sin marcos, sin sombras en el suelo y con fondo gris liso #474747».
-7. Si la IA se niega a dibujar a personas reales, no adjuntes fotos: basta con la descripción.
-8. Guarda cada imagen con el NOMBRE DE ARCHIVO que aparece encima de su prompt y mándalas todas juntas.
-
-## Las 4 descripciones (A, B, C y D)
-
-Sacadas de la foto de cuerpo entero de la banda, de izquierda a derecha. Quien sepa quién es quién, que la pegue en la hoja de referencia de cada músico.
-
-- **A**: pelo oscuro corto, con volumen arriba y laterales cortos; barba corta y bigote; polo de punto color mostaza con cuello oscuro y pantalón oscuro.
-- **B**: pelo oscuro corto peinado hacia atrás con volumen; barba completa recortada; chaqueta de cuero negra de motero, camiseta granate, cinturón y pantalón gris.
-- **C**: pelo castaño ondulado por debajo de las orejas; bigote y barba de pocos días; americana de ante color camel, pañuelo estampado al cuello, camisa blanca y pantalón beige.
-- **D**: pelo rizado oscuro; barba corta; alto y delgado; camisa azul petróleo de manga corta abierta sobre camiseta blanca, pantalón negro y un pequeño tatuaje de ancla en el antebrazo.
+1. Abre Gemini (gemini.google.com) o ChatGPT.
+2. Abre un chat NUEVO para cada imagen.
+3. Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la imagen…», primero sube esa imagen con el botón + o el clip.
+4. Descarga la imagen que salga y guárdala con el nombre que pone el paso (por ejemplo, antonio-1).
+5. Si no te gusta cómo quedó, escribe «Otra vez» en el mismo chat.
 
 ## Antonio · El Frontman (voz y guitarra)
 
-_Empieza por la hoja de referencia y pega en ella la descripción que corresponda. Después, adjunta esa imagen en todas las demás._
+7 imágenes. Hazlas en orden.
 
-### Hoja de referencia (la primera; sin adjuntar nada)
+### Paso 1 · NO subas ninguna imagen. Solo copia y pega
 
-Archivo: `antonio-0-referencia.png`
+Guárdala como: **antonio-1**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
 FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo. Mira a la DERECHA.
 
-PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (voz y guitarra). ⟪PEGA AQUÍ LA DESCRIPCIÓN DE ANTONIO: A, B, C o D⟫. Lleva una guitarra eléctrica roja colgada a la espalda en diagonal y un micrófono plateado con cable en la mano de delante.
+PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (voz y guitarra). Aspecto: pelo rizado oscuro, barba de pocos días, alto; polo negro con ribete blanco en el cuello y cuello en pico, y un pequeño tatuaje de ancla en el brazo. Lleva una guitarra eléctrica roja colgada a la espalda en diagonal y un micrófono plateado con cable en la mano de delante.
 HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.
 ```
 
-### Hoja 1 · Movimiento
+### Paso 2 · Sube la imagen antonio-1 y después pega esto
 
-Archivo: `antonio-1-movimiento.png`
+Guárdala como: **antonio-2**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -56,9 +44,9 @@ Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).
 Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas).
 ```
 
-### Hoja 2 · Combo y agarres
+### Paso 3 · Sube la imagen antonio-1 y después pega esto
 
-Archivo: `antonio-2-combo.png`
+Guárdala como: **antonio-3**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -74,9 +62,9 @@ Fila 3: GUITARRAZO ×3 (descuelga la guitarra, la levanta por el mástil y la ba
 Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1 (sujeta con las dos manos a alguien invisible delante), RODILLAZO ×1 y LANZAMIENTO ×2 (gira y suelta hacia atrás).
 ```
 
-### Hoja 3 · Daño y especial
+### Paso 4 · Sube la imagen antonio-1 y después pega esto
 
-Archivo: `antonio-3-dano-especial.png`
+Guárdala como: **antonio-4**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -92,9 +80,9 @@ Fila 3: ESPECIAL «GRITO» ×4 (coge aire; se acerca el micro; grita con la boca
 Fila 4: vacía, no dibujes nada.
 ```
 
-### Hoja 4 · Golpe de firma, SÚPER, victoria y retrato
+### Paso 5 · Sube la imagen antonio-1 y después pega esto
 
-Archivo: `antonio-4-firma-super.png`
+Guárdala como: **antonio-5**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -110,9 +98,9 @@ Fila 3: VICTORIA ×2 (guitarra en alto con una mano; micro en la otra).
 Fila 4: RETRATO ×1 (solo la cabeza de frente, sonriendo con confianza).
 ```
 
-### Retrato para la pantalla de selección
+### Paso 6 · Sube la imagen antonio-1 y después pega esto
 
-Archivo: `antonio-5-retrato.png`
+Guárdala como: **antonio-6**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -120,9 +108,9 @@ Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado,
 Retrato en pixel art de busto (cabeza y hombros) del personaje de la imagen adjunta, para la pantalla de selección de personaje de un beat 'em up arcade de principios de los 90. Vista de 3/4 mirando a la DERECHA, mirada intensa y segura, media sonrisa de líder. Iluminación dramática: luz cálida de foco desde abajo a la izquierda y contraluz morado, como dentro de la cabina de un ascensor antiguo de madera y latón. Mucho detalle en la cara, el pelo y el cuello de la ropa, contorno oscuro grueso, sombreado de 3 a 4 tonos por color. Formato CUADRADO 1:1, el busto ocupa casi todo el cuadro. Fondo gris completamente liso #474747. Sin texto, sin marcos y sin logos. Arte original: no imites la pantalla de selección de ningún videojuego existente.
 ```
 
-### Retrato «¡listo!» (adjunta el retrato anterior)
+### Paso 7 · Sube la imagen antonio-6 y después pega esto
 
-Archivo: `antonio-6-retrato-listo.png`
+Guárdala como: **antonio-7**
 
 ```
 Usa la imagen adjunta (el retrato) como referencia EXACTA.
@@ -132,23 +120,23 @@ Exactamente el mismo retrato (mismo encuadre, tamaño, luz y fondo), pero con el
 
 ## Pepe · El Muro (bajo)
 
-_Empieza por la hoja de referencia y pega en ella la descripción que corresponda. Después, adjunta esa imagen en todas las demás._
+7 imágenes. Hazlas en orden.
 
-### Hoja de referencia (la primera; sin adjuntar nada)
+### Paso 1 · NO subas ninguna imagen. Solo copia y pega
 
-Archivo: `pepe-0-referencia.png`
+Guárdala como: **pepe-1**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
 FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo. Mira a la DERECHA.
 
-PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (bajo). ⟪PEGA AQUÍ LA DESCRIPCIÓN DE PEPE: A, B, C o D⟫. Lleva un bajo eléctrico largo color sunburst sujeto con las dos manos a la altura de la cadera, como un hacha; es el más ancho y corpulento de los cuatro.
+PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (bajo). Aspecto: pelo oscuro peinado hacia atrás con volumen, barba recortada y bigote, un pendiente largo de aro; chaqueta de cuero negra. Lleva un bajo eléctrico largo color sunburst sujeto con las dos manos a la altura de la cadera, como un hacha; es el más ancho y corpulento de los cuatro.
 HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.
 ```
 
-### Hoja 1 · Movimiento
+### Paso 2 · Sube la imagen pepe-1 y después pega esto
 
-Archivo: `pepe-1-movimiento.png`
+Guárdala como: **pepe-2**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -164,9 +152,9 @@ Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).
 Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas).
 ```
 
-### Hoja 2 · Combo y agarres
+### Paso 3 · Sube la imagen pepe-1 y después pega esto
 
-Archivo: `pepe-2-combo.png`
+Guárdala como: **pepe-3**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -182,9 +170,9 @@ Fila 3: BAJAZO ×3 (levanta el bajo por encima de la cabeza, lo baja con todo su
 Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1 (levanta del cuello de la camisa a alguien invisible), RODILLAZO ×1 y LANZAMIENTO ×2 (lo levanta por encima de la cabeza y lo lanza hacia delante).
 ```
 
-### Hoja 3 · Daño y especial
+### Paso 4 · Sube la imagen pepe-1 y después pega esto
 
-Archivo: `pepe-3-dano-especial.png`
+Guárdala como: **pepe-4**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -200,9 +188,9 @@ Fila 3: ESPECIAL «BAJO AL SUELO» ×4 (levanta el bajo con las dos manos; salta
 Fila 4: vacía, no dibujes nada.
 ```
 
-### Hoja 4 · Golpe de firma, SÚPER, victoria y retrato
+### Paso 5 · Sube la imagen pepe-1 y después pega esto
 
-Archivo: `pepe-4-firma-super.png`
+Guárdala como: **pepe-5**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -218,9 +206,9 @@ Fila 3: VICTORIA ×2 (bajo apoyado en el hombro; puño en alto).
 Fila 4: RETRATO ×1 (cabeza de frente, media sonrisa tranquila).
 ```
 
-### Retrato para la pantalla de selección
+### Paso 6 · Sube la imagen pepe-1 y después pega esto
 
-Archivo: `pepe-5-retrato.png`
+Guárdala como: **pepe-6**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -228,9 +216,9 @@ Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado,
 Retrato en pixel art de busto (cabeza y hombros) del personaje de la imagen adjunta, para la pantalla de selección de personaje de un beat 'em up arcade de principios de los 90. Vista de 3/4 mirando a la DERECHA, mirada tranquila e imponente, como una pared. Iluminación dramática: luz cálida de foco desde abajo a la izquierda y contraluz morado, como dentro de la cabina de un ascensor antiguo de madera y latón. Mucho detalle en la cara, el pelo y el cuello de la ropa, contorno oscuro grueso, sombreado de 3 a 4 tonos por color. Formato CUADRADO 1:1, el busto ocupa casi todo el cuadro. Fondo gris completamente liso #474747. Sin texto, sin marcos y sin logos. Arte original: no imites la pantalla de selección de ningún videojuego existente.
 ```
 
-### Retrato «¡listo!» (adjunta el retrato anterior)
+### Paso 7 · Sube la imagen pepe-6 y después pega esto
 
-Archivo: `pepe-6-retrato-listo.png`
+Guárdala como: **pepe-7**
 
 ```
 Usa la imagen adjunta (el retrato) como referencia EXACTA.
@@ -240,23 +228,23 @@ Exactamente el mismo retrato (mismo encuadre, tamaño, luz y fondo), pero con el
 
 ## Dani · El Relámpago (guitarra)
 
-_Empieza por la hoja de referencia y pega en ella la descripción que corresponda. Después, adjunta esa imagen en todas las demás._
+7 imágenes (8 con la nota). Hazlas en orden.
 
-### Hoja de referencia (la primera; sin adjuntar nada)
+### Paso 1 · NO subas ninguna imagen. Solo copia y pega
 
-Archivo: `dani-0-referencia.png`
+Guárdala como: **dani-1**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
 FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo. Mira a la DERECHA.
 
-PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (guitarra). ⟪PEGA AQUÍ LA DESCRIPCIÓN DE DANI: A, B, C o D⟫. Lleva una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
+PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (guitarra). Aspecto: pelo castaño largo y ondulado hasta los hombros, cara casi afeitada y cejas marcadas; camisa negra con lunares. Lleva una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
 HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.
 ```
 
-### Hoja 1 · Movimiento
+### Paso 2 · Sube la imagen dani-1 y después pega esto
 
-Archivo: `dani-1-movimiento.png`
+Guárdala como: **dani-2**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -272,9 +260,9 @@ Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).
 Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas) y DOBLE SALTO ×2 (voltereta hacia delante en el aire, hecho una bola).
 ```
 
-### Hoja 2 · Combo y agarres
+### Paso 3 · Sube la imagen dani-1 y después pega esto
 
-Archivo: `dani-2-combo.png`
+Guárdala como: **dani-3**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -290,9 +278,9 @@ Fila 3: BARRIDO ×3 (gira sobre sí mismo y barre hacia delante con el cuerpo de
 Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1, RODILLAZO ×1 y LANZAMIENTO ×2.
 ```
 
-### Hoja 3 · Daño y especial
+### Paso 4 · Sube la imagen dani-1 y después pega esto
 
-Archivo: `dani-3-dano-especial.png`
+Guárdala como: **dani-4**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -308,9 +296,9 @@ Fila 3: ESPECIAL «SOLO» ×4 (gira sobre un pie con la guitarra extendida: de f
 Fila 4: vacía, no dibujes nada.
 ```
 
-### Hoja 4 · Golpe de firma, SÚPER, victoria y retrato
+### Paso 5 · Sube la imagen dani-1 y después pega esto
 
-Archivo: `dani-4-firma-super.png`
+Guárdala como: **dani-5**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -326,9 +314,9 @@ Fila 3: VICTORIA ×2 (guitarra a la espalda; señala al frente con dos dedos).
 Fila 4: RETRATO ×1 (cabeza de frente, sonrisa pícara).
 ```
 
-### Retrato para la pantalla de selección
+### Paso 6 · Sube la imagen dani-1 y después pega esto
 
-Archivo: `dani-5-retrato.png`
+Guárdala como: **dani-6**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -336,9 +324,9 @@ Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado,
 Retrato en pixel art de busto (cabeza y hombros) del personaje de la imagen adjunta, para la pantalla de selección de personaje de un beat 'em up arcade de principios de los 90. Vista de 3/4 mirando a la DERECHA, sonrisa pícara y mirada rápida. Iluminación dramática: luz cálida de foco desde abajo a la izquierda y contraluz morado, como dentro de la cabina de un ascensor antiguo de madera y latón. Mucho detalle en la cara, el pelo y el cuello de la ropa, contorno oscuro grueso, sombreado de 3 a 4 tonos por color. Formato CUADRADO 1:1, el busto ocupa casi todo el cuadro. Fondo gris completamente liso #474747. Sin texto, sin marcos y sin logos. Arte original: no imites la pantalla de selección de ningún videojuego existente.
 ```
 
-### Retrato «¡listo!» (adjunta el retrato anterior)
+### Paso 7 · Sube la imagen dani-6 y después pega esto
 
-Archivo: `dani-6-retrato-listo.png`
+Guárdala como: **dani-7**
 
 ```
 Usa la imagen adjunta (el retrato) como referencia EXACTA.
@@ -346,9 +334,9 @@ Usa la imagen adjunta (el retrato) como referencia EXACTA.
 Exactamente el mismo retrato (mismo encuadre, tamaño, luz y fondo), pero con el personaje saltando con la guitarra en alto y un dedo señalando al frente, como si acabara de ser elegido. Fondo gris liso #474747, sin texto.
 ```
 
-### Proyectil del SÚPER
+### Paso 8 · NO subas ninguna imagen. Solo copia y pega
 
-Archivo: `dani-7-nota.png`
+Guárdala como: **dani-8**
 
 ```
 Una nota musical con forma de rayo, amarilla y blanca, en pixel art de arcade de los 90 con contorno oscuro grueso. 3 poses de animación en una fila (brillando un poco más en cada una), separadas entre sí. Fondo gris completamente liso #474747. Sin texto.
@@ -356,23 +344,23 @@ Una nota musical con forma de rayo, amarilla y blanca, en pixel art de arcade de
 
 ## Jota · El Metrónomo (batería)
 
-_Empieza por la hoja de referencia y pega en ella la descripción que corresponda. Después, adjunta esa imagen en todas las demás._
+7 imágenes. Hazlas en orden.
 
-### Hoja de referencia (la primera; sin adjuntar nada)
+### Paso 1 · NO subas ninguna imagen. Solo copia y pega
 
-Archivo: `jota-0-referencia.png`
+Guárdala como: **jota-1**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
 FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo. Mira a la DERECHA.
 
-PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (batería). ⟪PEGA AQUÍ LA DESCRIPCIÓN DE JOTA: A, B, C o D⟫. Lleva una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
+PERSONAJE: caricatura respetuosa de un músico de una banda de rock española (batería). Aspecto: pelo oscuro con flequillo corto y recto, bigote fino y barba de pocos días, un pequeño aro en la oreja; camisa negra. Lleva una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
 HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.
 ```
 
-### Hoja 1 · Movimiento
+### Paso 2 · Sube la imagen jota-1 y después pega esto
 
-Archivo: `jota-1-movimiento.png`
+Guárdala como: **jota-2**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -388,9 +376,9 @@ Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).
 Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas).
 ```
 
-### Hoja 2 · Combo y agarres
+### Paso 3 · Sube la imagen jota-1 y después pega esto
 
-Archivo: `jota-2-combo.png`
+Guárdala como: **jota-3**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -406,9 +394,9 @@ Fila 3: DOBLE GOLPE ×3 (levanta las dos baquetas por encima de la cabeza y golp
 Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1, RODILLAZO ×1 y LANZAMIENTO ×2.
 ```
 
-### Hoja 3 · Daño y especial
+### Paso 4 · Sube la imagen jota-1 y después pega esto
 
-Archivo: `jota-3-dano-especial.png`
+Guárdala como: **jota-4**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -424,9 +412,9 @@ Fila 3: ESPECIAL «REDOBLE» ×4 (golpes alternos muy rápidos hacia delante, br
 Fila 4: vacía, no dibujes nada.
 ```
 
-### Hoja 4 · Golpe de firma, SÚPER, victoria y retrato
+### Paso 5 · Sube la imagen jota-1 y después pega esto
 
-Archivo: `jota-4-firma-super.png`
+Guárdala como: **jota-5**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -442,9 +430,9 @@ Fila 3: VICTORIA ×2 (hace girar una baqueta entre los dedos; la lanza al aire).
 Fila 4: RETRATO ×1 (cabeza de frente, concentrado, con una baqueta detrás de la oreja).
 ```
 
-### Retrato para la pantalla de selección
+### Paso 6 · Sube la imagen jota-1 y después pega esto
 
-Archivo: `jota-5-retrato.png`
+Guárdala como: **jota-6**
 
 ```
 Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento.
@@ -452,9 +440,9 @@ Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado,
 Retrato en pixel art de busto (cabeza y hombros) del personaje de la imagen adjunta, para la pantalla de selección de personaje de un beat 'em up arcade de principios de los 90. Vista de 3/4 mirando a la DERECHA, concentrado, llevando el ritmo con la cabeza. Iluminación dramática: luz cálida de foco desde abajo a la izquierda y contraluz morado, como dentro de la cabina de un ascensor antiguo de madera y latón. Mucho detalle en la cara, el pelo y el cuello de la ropa, contorno oscuro grueso, sombreado de 3 a 4 tonos por color. Formato CUADRADO 1:1, el busto ocupa casi todo el cuadro. Fondo gris completamente liso #474747. Sin texto, sin marcos y sin logos. Arte original: no imites la pantalla de selección de ningún videojuego existente.
 ```
 
-### Retrato «¡listo!» (adjunta el retrato anterior)
+### Paso 7 · Sube la imagen jota-6 y después pega esto
 
-Archivo: `jota-6-retrato-listo.png`
+Guárdala como: **jota-7**
 
 ```
 Usa la imagen adjunta (el retrato) como referencia EXACTA.
@@ -464,11 +452,11 @@ Exactamente el mismo retrato (mismo encuadre, tamaño, luz y fondo), pero con el
 
 ## Enemigos (empleados de Silencio S.A.)
 
-_Sin adjuntar nada. Una conversación nueva por enemigo._
+No subas ninguna imagen. Solo copia y pega.
 
-### Becario
+### Paso 1 · Becario: no subas ninguna imagen
 
-Archivo: `enemigo-becario.png`
+Guárdala como: **enemigo-1**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -481,9 +469,9 @@ Fila 2: BOFETADA ×2 (torpe, preparación y golpe).
 Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Comercial
+### Paso 2 · Comercial: no subas ninguna imagen
 
-Archivo: `enemigo-comercial.png`
+Guárdala como: **enemigo-2**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -496,9 +484,9 @@ Fila 2: EMBESTIDA ×3 (agacha la cabeza, carga con el maletín por delante y fre
 Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Guardia
+### Paso 3 · Guardia: no subas ninguna imagen
 
-Archivo: `enemigo-guardia.png`
+Guárdala como: **enemigo-3**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -511,9 +499,9 @@ Fila 2: BLOQUEAR ×1 (escudo delante, chispa pegada al escudo) y GOLPE CON ESCUD
 Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Contable
+### Paso 4 · Contable: no subas ninguna imagen
 
-Archivo: `enemigo-contable.png`
+Guárdala como: **enemigo-4**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -526,9 +514,9 @@ Fila 2: DISPARAR GRAPAS ×2 (apunta con la grapadora como si fuera una pistola; 
 Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Ejecutiva
+### Paso 5 · Ejecutiva: no subas ninguna imagen
 
-Archivo: `enemigo-ejecutiva.png`
+Guárdala como: **enemigo-5**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -543,11 +531,11 @@ Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 
 ## Jefes
 
-_Sin adjuntar nada. Los jefes son más grandes que los enemigos normales._
+No subas ninguna imagen. Solo copia y pega.
 
-### Jefe 1 · Jefe de Seguridad
+### Paso 1 · Jefe 1 · Jefe de Seguridad: no subas ninguna imagen
 
-Archivo: `jefe-seguridad.png`
+Guárdala como: **jefe-1**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -560,9 +548,9 @@ Fila 2: PUÑETAZO ×2 y EMBESTIDA ×3 (agacha la cabeza y carga como un toro).
 Fila 3: LLAMAR REFUERZOS ×1 (habla por el pinganillo señalando), RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Jefe 2 · Recepcionista
+### Paso 2 · Jefe 2 · Recepcionista: no subas ninguna imagen
 
-Archivo: `jefe-recepcionista.png`
+Guárdala como: **jefe-2**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -575,9 +563,9 @@ Fila 2: LANZAR TELÉFONO ×3 (echa el brazo atrás con el teléfono; lo lanza; e
 Fila 3: LLAMAR REFUERZOS ×1 (descolgando el teléfono), RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Jefe 3 · Técnico de Mantenimiento
+### Paso 3 · Jefe 3 · Técnico de Mantenimiento: no subas ninguna imagen
 
-Archivo: `jefe-tecnico.png`
+Guárdala como: **jefe-3**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -590,9 +578,9 @@ Fila 2: GOLPE CON LA CAJA ×3 (la levanta y la baja de golpe) y EMBESTIDA ×3.
 Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Jefe 4 · Director Comercial
+### Paso 4 · Jefe 4 · Director Comercial: no subas ninguna imagen
 
-Archivo: `jefe-director.png`
+Guárdala como: **jefe-4**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -605,9 +593,9 @@ Fila 2: PUÑETAZO ×2, EMBESTIDA ×2 y AGARRE ×2 (agarra del cuello a alguien i
 Fila 3: LANZAR ×2, RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Jefe final · Presidente de Silencio S.A.
+### Paso 5 · Jefe final · Presidente de Silencio S.A.: no subas ninguna imagen
 
-Archivo: `jefe-presidente.png`
+Guárdala como: **jefe-5**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -622,63 +610,63 @@ Fila 3: AGARRE ×2, RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 
 ## Fondos de los niveles
 
-_Sin adjuntar nada._
+No subas ninguna imagen. Solo copia y pega.
 
-### Nivel 1 · Parking
+### Paso 1 · Nivel 1 · Parking: no subas ninguna imagen
 
-Archivo: `fondo-1-parking.png`
+Guárdala como: **fondo-1**
 
 ```
 Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: aparcamiento subterráneo de un rascacielos de oficinas moderno de Madrid, de noche, con columnas de hormigón marcadas con símbolos abstractos (NO letras ni números legibles), luces fluorescentes verdosas, coches genéricos aparcados (sin marcas ni matrículas legibles), barreras de entrada y manchas de aceite. Ambiente tenso pero colorido.
 ```
 
-### Nivel 2 · Vestíbulo
+### Paso 2 · Nivel 2 · Vestíbulo: no subas ninguna imagen
 
-Archivo: `fondo-2-vestibulo.png`
+Guárdala como: **fondo-2**
 
 ```
 Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: vestíbulo enorme de un rascacielos de oficinas de los años 80, con suelo de mármol pulido, techos muy altos, tornos de acceso de cristal, un mostrador de recepción largo, escaleras mecánicas al fondo, plantas en macetas y grandes cristaleras con la calle de noche detrás.
 ```
 
-### Nivel 3 · Ascensor (formato distinto: 16:9)
+### Paso 3 · Nivel 3 · Ascensor (formato distinto: 16:9): no subas ninguna imagen
 
-Archivo: `fondo-3-ascensor.png`
+Guárdala como: **fondo-3**
 
 ```
 Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: interior de un ascensor de carga grande de un rascacielos, con paredes de acero cepillado, puertas correderas en el centro de la pared del fondo, un indicador de planta con una flecha (SIN números), pasamanos metálico y botonera. IMPORTANTE: este fondo NO es panorámico, es de proporción 16:9.
 ```
 
-### Nivel 4 · Oficinas
+### Paso 4 · Nivel 4 · Oficinas: no subas ninguna imagen
 
-Archivo: `fondo-4-oficinas.png`
+Guárdala como: **fondo-4**
 
 ```
 Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: planta de oficinas diáfana de día, con hileras de mesas con ordenadores antiguos, impresoras, una fuente de agua, plantas y grandes ventanales con la ciudad al fondo; todo muy gris y ordenado.
 ```
 
-### Nivel 5 · Azotea
+### Paso 5 · Nivel 5 · Azotea: no subas ninguna imagen
 
-Archivo: `fondo-5-azotea.png`
+Guárdala como: **fondo-5**
 
 ```
 Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: azotea de un rascacielos de Madrid de noche, con un escenario de concierto montado al final (focos, torres de altavoces y pirotecnia de escenario encendida) y el skyline de Madrid iluminado al fondo, visto desde las alturas. NADA de humo, fuego ni daños en el edificio: el fuego es solo pirotecnia de escenario.
 ```
 
-## Objetos y título
+## Objetos y pantalla de título
 
-_Sin adjuntar nada._
+No subas ninguna imagen. Solo copia y pega.
 
-### Objetos y potenciadores (una hoja)
+### Paso 1 · Objetos y potenciadores (una hoja): no subas ninguna imagen
 
-Archivo: `objetos.png`
+Guárdala como: **objetos**
 
 ```
 Hoja de objetos en pixel art para un beat 'em up arcade de los 90, contorno oscuro grueso, sombreado plano, estilo cálido setentero. Cada objeto pequeño y bien legible, separados entre sí, en una sola fila, de izquierda a derecha: bocadillo de calamares, taza de café para llevar sin logo, púa de guitarra dorada, hoja de setlist escrita con garabatos ilegibles, amplificador pequeño portátil, pedal de efectos de guitarra rojo, púa de guitarra con un trébol, pase de backstage con cordón (sin texto legible), grapadora, extintor, silla de oficina con ruedas y pie de micrófono. Fondo gris completamente liso #474747. Sin texto legible, sin marcas ni logos.
 ```
 
-### Pantalla de título (opcional)
+### Paso 2 · Pantalla de título (opcional): no subas ninguna imagen
 
-Archivo: `titulo-fondo.png`
+Guárdala como: **titulo**
 
 ```
 Ilustración en pixel art para la pantalla de título de un videojuego arcade de los 90: un rascacielos de oficinas blanco de los años 80 con franjas verticales y arcos en la base, de noche, visto desde abajo en contrapicado; en la azotea, un escenario de concierto con focos y pirotecnia de escenario. Cielo de morado a rojo, skyline de Madrid en silueta con ventanas encendidas. Paleta cálida y algo desaturada. Formato PANORÁMICO 16:9. Deja libre la franja superior para el título. NADA de fuego, humo ni daños en el edificio: el fuego es solo pirotecnia del escenario. Sin texto, sin logos y sin personajes.
