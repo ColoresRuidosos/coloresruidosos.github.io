@@ -158,7 +158,7 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 **F11 Pantallas.**
 - Título con «HOMENAJE NO OFICIAL · @COLORESRUIDOSOS».
 - Sala: QR, jugadores conectados y «Pulsa GOLPE para empezar».
-- Selección de músico.
+- **Selección de músico: los cuatro ascensores** (11 nov 2026, pedido del usuario: «estilo de pantalla de selección con cabinas»). Cada hueco es un ascensor con su indicador J1–J4; al unirse un jugador, se abren las puertas con franja de peligro y aparece su músico con retrato grande, estadísticas (fuerza, velocidad y vida) y cuerpo entero. Al marcar listo, el indicador se pone verde. Se toma la idea de las cabinas que se abren, **no** el aspecto de ningún juego concreto.
 - Introducción del nivel en 1 viñeta con texto.
 - HUD: una tarjeta por jugador en la fila de arriba (retrato, vida, vidas y puntos) y la barra del jefe abajo.
 - Pausa, Fin del juego y resultado: puntos por jugador, más enemigos tumbados y «más bocadillos comidos» como premios divertidos.

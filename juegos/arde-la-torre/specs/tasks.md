@@ -85,4 +85,6 @@
 | T7.1 | Arte final (sustituir `render/sprites.js` y `render/backgrounds.js` por los atlas) | ⏳ hojas de Gemini |
 | T7.2 | Ataque combinado «acorde» (P1) | ⬜ |
 | T7.3 | Táctil en la propia pantalla para 1 jugador sin mando (adelantado: el usuario prueba el enlace privado en su móvil) | ✅ `input/touch.js`, probado en un iPhone emulado |
+| T7.5 | Pantalla de selección «cuatro ascensores» con retrato, estadísticas y puertas animadas | ✅ revisada en capturas |
+| T7.6 | Retratos finales de selección (prompts §5 de `art/PROMPTS-GEMINI.md`) | ⏳ el usuario: completar «quién es quién» (§2) y generarlos |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |

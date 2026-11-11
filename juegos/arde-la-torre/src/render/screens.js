@@ -35,61 +35,117 @@ export function drawTitle(ctx, t) {
   if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'PULSA GOLPE O TOCA LA PANTALLA', W / 2, H - 12, { color: '#ffd23f', align: 'center' });
 }
 
-export function drawLobby(ctx, { t, qr, code, url, slots, countdown, netStatus, local }) {
+// ---- Selección de músico: cuatro ascensores de la torre (idea de «cabinas que se abren»; aspecto propio) ----
+const doors = [0, 0, 0, 0];                          // 0 = cerradas, 1 = abiertas (se animan solas)
+const STAT_MAX = (() => {
+  const v = HERO_IDS.map((id) => { const h = HEROES[id]; return [h.combo.reduce((a, m) => a + m.dmg, 0), h.speed, h.hp]; });
+  return [0, 1, 2].map((k) => Math.max(...v.map((x) => x[k])));
+})();
+const statsOf = (id) => { const h = HEROES[id]; return [h.combo.reduce((a, m) => a + m.dmg, 0), h.speed, h.hp].map((v, k) => v / STAT_MAX[k]); };
+
+function hazard(ctx, x, y, w, h, off = 0) {
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip();
+  ctx.fillStyle = '#1b1b1b'; ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = '#e8b81f';
+  for (let i = -h; i < w + h; i += 8) { ctx.beginPath(); ctx.moveTo(x + i + off, y + h); ctx.lineTo(x + i + 4 + off, y + h); ctx.lineTo(x + i + 4 + h + off, y); ctx.lineTo(x + i + h + off, y); ctx.fill(); }
+  ctx.restore();
+}
+
+function cabin(ctx, i, x, y, w, h, s, t) {
+  const target = s ? 1 : 0;
+  doors[i] += (target - doors[i]) * 0.12;
+  if (Math.abs(target - doors[i]) < 0.01) doors[i] = target;
+  const col = SLOT_COLORS[i];
+  // indicador de planta encima de la puerta
+  ctx.fillStyle = '#2a2530'; ctx.fillRect(x, y, w, 14);
+  ctx.fillStyle = '#0c0a10'; ctx.fillRect(x + w / 2 - 16, y + 2, 32, 10);
+  drawText(ctx, `J${i + 1}`, x + w / 2 - 2, y + 4, { color: s ? (s.ready ? '#3fdc7a' : col) : '#4a4560', align: 'center', shadow: null });
+  ctx.fillStyle = s && s.ready ? '#3fdc7a' : '#3a3540';
+  ctx.beginPath(); ctx.moveTo(x + w / 2 + 10, y + 10); ctx.lineTo(x + w / 2 + 13, y + 5); ctx.lineTo(x + w / 2 + 16, y + 10); ctx.fill();
+  // marco de acero
+  const fy = y + 16, fh = h - 16;
+  ctx.fillStyle = '#8f949c'; ctx.fillRect(x, fy, w, fh);
+  ctx.fillStyle = '#b9bec6'; ctx.fillRect(x, fy, 2, fh); ctx.fillStyle = '#5d626a'; ctx.fillRect(x + w - 2, fy, 2, fh);
+  const ix = x + 3, iy = fy + 3, iw = w - 6, ih = fh - 6;
+  // interior: cabina de madera y latón con foco
+  const g = ctx.createLinearGradient(0, iy, 0, iy + ih); g.addColorStop(0, '#3a2418'); g.addColorStop(1, '#1a0f0a');
+  ctx.fillStyle = g; ctx.fillRect(ix, iy, iw, ih);
+  ctx.fillStyle = 'rgba(255,220,150,0.10)'; ctx.beginPath(); ctx.moveTo(ix + iw / 2 - 6, iy); ctx.lineTo(ix + iw / 2 + 6, iy); ctx.lineTo(ix + iw, iy + ih); ctx.lineTo(ix, iy + ih); ctx.fill();
+  ctx.fillStyle = '#b08a3a'; ctx.fillRect(ix, iy + ih - 40, iw, 2);   // pasamanos de latón
+  if (s) {
+    const def = HEROES[s.hero];
+    // retrato grande (×2, píxel nítido)
+    const pt = getPortrait(s.hero, s.palette, def.h);
+    ctx.fillStyle = col; ctx.fillRect(ix + iw / 2 - 26, iy + 3, 52, 52);
+    ctx.fillStyle = '#120c18'; ctx.fillRect(ix + iw / 2 - 25, iy + 4, 50, 50);
+    ctx.drawImage(pt.canvas, pt.sx, pt.sy, pt.sw, pt.sh, ix + iw / 2 - 24, iy + 5, 48, 48);
+    if (!s.ready && s.kind !== 'movil' && Math.floor(t / 20) % 2) {
+      drawText(ctx, '◀', ix + 1, iy + 24, { color: '#ffd23f' }); drawText(ctx, '▶', ix + iw - 6, iy + 24, { color: '#ffd23f' });
+    }
+    drawText(ctx, def.name, ix + iw / 2, iy + 58, { color: '#fff', align: 'center' });
+    // estadísticas
+    ['FUE', 'VEL', 'VIDA'].forEach((lab, k) => {
+      const yy = iy + 68 + k * 8, v = statsOf(s.hero)[k];
+      drawText(ctx, lab, ix + 2, yy, { color: '#cfc9e0', shadow: null });
+      ctx.fillStyle = '#0c0a10'; ctx.fillRect(ix + 26, yy + 1, iw - 29, 5);
+      ctx.fillStyle = col; ctx.fillRect(ix + 27, yy + 2, Math.round((iw - 31) * v), 3);
+    });
+    // cuerpo entero
+    const spr = getSprite(s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(t / 20) % 2, def.h, s.hero);
+    ctx.save(); ctx.beginPath(); ctx.rect(ix, iy + 94, iw, ih - 94); ctx.clip();
+    ctx.drawImage(spr.canvas, ix + iw / 2 - spr.ox, iy + ih - 2 - spr.oy);
+    ctx.restore();
+    const status = s.away ? 'SIN SEÑAL' : s.ready ? '¡LISTO!' : s.kind === 'movil' ? 'ELIGIENDO' : '¿LISTO?';   // ≤ 10 letras: cabe en la cabina
+    ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(ix, iy + ih - 11, iw, 11);
+    drawText(ctx, status, ix + iw / 2, iy + ih - 9, { color: s.ready ? '#3fdc7a' : '#ffd23f', align: 'center', shadow: null });
+  }
+  // puertas correderas con franja de peligro
+  const half = iw / 2, open = doors[i] * (half - 2);
+  for (const side of [-1, 1]) {
+    const dw = half - open, dx = side < 0 ? ix : ix + iw - dw;
+    if (dw <= 0.5) continue;
+    ctx.fillStyle = '#a7acb4'; ctx.fillRect(dx, iy, dw, ih);
+    for (let k = 3; k < dw; k += 4) { ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.fillRect(dx + k, iy, 1, ih); }
+    hazard(ctx, dx, iy + ih * 0.42, dw, 12, side < 0 ? 0 : 3);
+    ctx.fillStyle = '#5d626a'; ctx.fillRect(side < 0 ? dx + dw - 1 : dx, iy, 1, ih);
+  }
+  if (!s && doors[i] < 0.05) {
+    drawText(ctx, `J${i + 1}`, x + w / 2, iy + 22, { color: col, scale: 2, align: 'center' });
+    if (Math.floor(t / 30) % 2) { drawText(ctx, 'PULSA', x + w / 2, iy + ih * 0.42 + 22, { color: '#120c18', align: 'center', shadow: null }); drawText(ctx, 'GOLPE', x + w / 2, iy + ih * 0.42 + 31, { color: '#120c18', align: 'center', shadow: null }); }
+  }
+}
+
+export function drawLobby(ctx, { t, qr, code, slots, countdown, netStatus }) {
   ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
-  drawText(ctx, 'SALA', 10, 8, { color: '#ffd23f', scale: 2 });
-  // QR + código
+  for (let x = 0; x < W; x += 24) { ctx.fillStyle = 'rgba(255,255,255,0.025)'; ctx.fillRect(x, 0, 12, H); }
+  drawText(ctx, 'ELIGE A TU MÚSICO', 6, 5, { color: '#ffd23f', scale: 2, shadow: '#a3242c' });
+  // panel del QR (izquierda)
+  ctx.fillStyle = '#1b1630'; ctx.fillRect(4, 24, 90, 162);
   if (qr) {
     const size = (qr.n + 4) * 2;
-    drawQR(ctx, qr, 10, 28, size);
-    const qx = 10 + size + 8;
-    drawText(ctx, 'ESCANEA', qx, 32, { color: '#fff' });
-    drawText(ctx, 'CON TU MÓVIL', qx, 42, { color: '#fff' });
-    drawText(ctx, 'O ESCRIBE', qx, 58, { color: '#8a8698' });
-    drawText(ctx, 'EL CÓDIGO:', qx, 68, { color: '#8a8698' });
-    drawText(ctx, code || '····', qx, 80, { color: '#ffd23f', scale: 3 });
-    if (url) drawText(ctx, url, 10, 28 + size + 4, { color: '#8a8698' });
+    drawQR(ctx, qr, 4 + Math.round((90 - size) / 2), 28, size);
+    drawText(ctx, 'ESCANEA CON', 49, 28 + size + 4, { color: '#fff', align: 'center' });
+    drawText(ctx, 'TU MÓVIL', 49, 28 + size + 13, { color: '#fff', align: 'center' });
+    drawText(ctx, 'CÓDIGO', 49, 28 + size + 26, { color: '#8a8698', align: 'center' });
+    drawText(ctx, code || '····', 49, 28 + size + 36, { color: '#ffd23f', scale: 2, align: 'center' });
   } else {
-    drawText(ctx, netStatus || 'PREPARANDO LA SALA…', 10, 36, { color: '#8a8698' });
-    drawText(ctx, 'MIENTRAS TANTO:', 10, 48, { color: '#8a8698' });
-    drawText(ctx, 'TECLADO O MANDO', 10, 58, { color: '#8a8698' });
+    const lines = String(netStatus || 'PREPARANDO LA SALA…').split(':');
+    lines.forEach((l, k) => drawText(ctx, l.trim(), 49, 40 + k * 10, { color: '#8a8698', align: 'center' }));
+    drawText(ctx, 'JUEGA CON', 49, 90, { color: '#fff', align: 'center' });
+    drawText(ctx, 'TECLADO,', 49, 100, { color: '#fff', align: 'center' });
+    drawText(ctx, 'MANDO O', 49, 110, { color: '#fff', align: 'center' });
+    drawText(ctx, 'PANTALLA', 49, 120, { color: '#fff', align: 'center' });
+    drawText(ctx, 'TÁCTIL', 49, 130, { color: '#fff', align: 'center' });
   }
-  // controles locales
-  const ly = 128;
-  const lines = [
-    ['SIN MÓVIL:', '#8a8698'],
-    ['J1  WASD  ·  F  G  H', '#cfc9e0'],
-    ['J2  FLECHAS  ·  K  L  Ñ', '#cfc9e0'],
-    ['MANDO  ·  X  A  B', '#cfc9e0'],
-    ['TÁCTIL · BOTONES EN PANTALLA', '#cfc9e0'],
-    ['GOLPE: UNIRSE Y LISTO', '#ffd23f'],
-    ['◀ ▶: CAMBIAR DE MÚSICO', '#ffd23f'],
-    ['SALTO: QUITAR LISTO / SALIR', '#ffd23f'],
-  ];
-  lines.forEach(([txt, col], i) => drawText(ctx, txt, 10, ly + i * 11, { color: col }));
-  // huecos
-  for (let i = 0; i < 4; i++) {
-    const x = 196 + (i % 2) * 94, y = 30 + Math.floor(i / 2) * 92, s = slots[i];
-    ctx.fillStyle = '#1b1630'; ctx.fillRect(x, y, 88, 86);
-    ctx.fillStyle = SLOT_COLORS[i]; ctx.fillRect(x, y, 88, 2);
-    drawText(ctx, `J${i + 1}`, x + 4, y + 6, { color: SLOT_COLORS[i] });
-    if (!s) { drawText(ctx, 'LIBRE', x + 44, y + 40, { color: '#4a4560', align: 'center' }); continue; }
-    drawText(ctx, s.kind === 'movil' ? 'MÓVIL' : s.kind === 'mando' ? 'MANDO' : s.kind === 'tactil' ? 'TÁCTIL' : 'TECLADO', x + 84, y + 6, { color: '#8a8698', align: 'right' });
-    const def = HEROES[s.hero];
-    const spr = getSprite(s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(t / 20) % 2, def.h, s.hero);
-    ctx.save(); ctx.beginPath(); ctx.rect(x, y + 14, 88, 50); ctx.clip();
-    ctx.drawImage(spr.canvas, x + 44 - spr.ox, y + 64 - spr.oy);
-    ctx.restore();
-    ctx.fillStyle = '#120e22'; ctx.fillRect(x, y + 64, 88, 22);
-    drawText(ctx, def.name, x + 44, y + 66, { color: '#fff', align: 'center' });
-    drawText(ctx, s.ready ? 'LISTO' : (s.kind === 'movil' ? 'ELIGE EN EL MÓVIL' : '◀ ELIGE ▶'), x + 44, y + 76, { color: s.ready ? '#3fdc7a' : '#ffd23f', align: 'center' });
-    if (s.away) drawText(ctx, 'RECONECTANDO…', x + 44, y + 16, { color: '#ffd23f', align: 'center' });
-  }
+  // los cuatro ascensores
+  for (let i = 0; i < 4; i++) cabin(ctx, i, 100 + i * 71, 24, 66, 162, slots[i], t);
+  // ayuda de controles
+  drawText(ctx, 'GOLPE: UNIRSE Y LISTO · ◀ ▶: MÚSICO · SALTO: SALIR', W / 2, 192, { color: '#ffd23f', align: 'center' });
+  drawText(ctx, 'J1 F G H · J2 K L Ñ · MANDO X A B · TÁCTIL', W / 2, 203, { color: '#8a8698', align: 'center' });
   if (countdown > 0) {
-    ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(0, H / 2 - 18, W, 36);
-    drawText(ctx, `¡EMPIEZA EN ${Math.ceil(countdown / 60)}!`, W / 2, H / 2 - 7, { color: '#ffd23f', scale: 2, align: 'center' });
+    ctx.fillStyle = 'rgba(0,0,0,0.7)'; ctx.fillRect(0, H / 2 - 18, W, 36);
+    drawText(ctx, `¡SUBIMOS EN ${Math.ceil(countdown / 60)}!`, W / 2, H / 2 - 7, { color: '#ffd23f', scale: 2, align: 'center' });
   }
-  void local;
 }
 
 export function drawIntro(ctx, level, t) {

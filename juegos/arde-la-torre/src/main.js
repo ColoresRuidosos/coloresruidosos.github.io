@@ -319,7 +319,7 @@ function draw() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   switch (app.screen) {
     case 'titulo': drawTitle(ctx, app.t); break;
-    case 'sala': drawLobby(ctx, { t: app.t, qr, code: app.code, url: '', slots: slots.list().map((s) => s && { ...s, away: room && room.isAway(s.slot) }), countdown: app.countdown, netStatus: app.net }); if (qr && app.net.startsWith('OJO')) drawText(ctx, app.net, 10, 116, { color: '#ff4d4d' }); // el QR apuntaría a localhost
+    case 'sala': drawLobby(ctx, { t: app.t, qr, code: app.code, url: '', slots: slots.list().map((s) => s && { ...s, away: room && room.isAway(s.slot) }), countdown: app.countdown, netStatus: app.net }); if (qr && app.net.startsWith('OJO')) drawText(ctx, app.net, W / 2, 182, { color: '#ff4d4d', align: 'center' }); // el QR apuntaría a localhost
       break;
     case 'intro': drawIntro(ctx, app.world.level, app.t); break;
     case 'juego': case 'pausa': case 'superado': case 'final': case 'fin':
