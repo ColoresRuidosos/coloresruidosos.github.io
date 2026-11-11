@@ -1,6 +1,6 @@
 # ARDE LA TORRE (título provisional) — Especificación (SDD)
 
-> Juego de Colores Ruidosos. Estado: **borrador para que lo apruebe el usuario** (10 nov 2026).
+> Juego de Colores Ruidosos. Estado: **aprobada; en desarrollo (v0.1)** (11 nov 2026).
 > Método: Spec-Driven Development (Dominicode, Bezael Pérez).
 >
 > **Decisiones del usuario (10 nov 2026):**
@@ -8,6 +8,13 @@
 > - presupuesto cero;
 > - sprites hechos con Gemini o ChatGPT;
 > - **sin online**: una pantalla compartida y **los móviles como mandos** escaneando un QR, como los juegos de Netflix en la tele.
+>
+> **Decisiones del 11 nov 2026** (el usuario pidió «definir todo eso» y reducir el juego a 4–5 niveles; ver §7):
+> - nombre provisional «Arde la Torre»;
+> - villano: «Silencio S.A.»;
+> - **5 niveles**;
+> - los 4 músicos jugables desde la v0.1, con arte provisional dibujado por código. El arte final llega primero para Antonio y Pepe;
+> - prototipo antes de contactar a la banda, y **sin publicar** en la web de CR hasta tener su respuesta.
 
 ---
 
@@ -60,10 +67,10 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 
 | Músico | Perfil de combate | Especial (gasta un poco de vida, como en el género) | MVP |
 |---|---|---|---|
-| **Antonio** (voz y guitarra) | Equilibrado | **Grito**: una onda corta delante que tumba a los enemigos | P0 |
+| **Antonio** (voz y guitarra) | Equilibrado | **Grito**: una onda larga delante que tumba a los enemigos | P0 |
 | **Pepe** (bajo) | Lento y fuerte, con los mejores agarres | **Golpe de bajo al suelo**: una onda a los dos lados | P0 |
-| **Dani** (guitarra) | Rápido, con combos largos y poco daño | **Solo**: un giro con la guitarra que golpea alrededor | P1 |
-| **Jota** (batería) | Baquetas con alcance medio y golpes múltiples | **Redoble**: varios golpes rápidos delante | P1 |
+| **Dani** (guitarra) | Rápido, con combos y poco daño | **Solo**: un giro con la guitarra que golpea alrededor | P0 (arte final en P1) |
+| **Jota** (batería) | Baquetas con alcance medio | **Redoble**: varios golpes rápidos delante | P0 (arte final en P1) |
 
 - Cada músico es una **caricatura reconocible y respetuosa**, sin exagerar rasgos físicos para burlarse.
 - Si dos jugadores eligen al mismo músico, el segundo sale con **otra paleta de colores**.
@@ -79,7 +86,7 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 - **Golpe:** combo de 3 golpes; el último tumba.
 - **Salto + golpe:** patada aérea.
 - **Correr + golpe:** embestida.
-- **Agarre:** al caminar contra un enemigo aturdido se le agarra. Desde ahí, golpe para darle rodillazos y adelante + golpe para lanzarlo. **El lanzado daña a otros enemigos.**
+- **Agarre:** al caminar contra un enemigo (que no sea jefe) durante un instante se le agarra. Desde ahí, golpe para darle rodillazos y adelante + golpe para lanzarlo. **El lanzado daña a otros enemigos.**
 - **Especial** (F3).
 - Los golpes solo conectan si atacante y objetivo están en el mismo carril, con un margen de ±8 px en Y (regla del género).
 
@@ -96,26 +103,25 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 |---|---|---|
 | **Becario** | Débil; golpe simple | P0 |
 | **Comercial** | Corre hacia ti y te embiste | P0 |
-| **Guardia** | Se cubre de frente; hay que agarrarlo o atacarlo por la espalda | P0 |
-| **Contable** | Lanza grapas desde lejos (proyectil en el carril) | P1 |
-| **Ejecutiva** | Agarra y lanza | P1 |
+| **Guardia** | Se cubre de frente. Hay que agarrarlo, atacarlo por la espalda o en el aire, o romperle la guardia (tras 3 bloqueos seguidos, el siguiente golpe entra) | P0 |
+| **Contable** | Lanza grapas desde lejos (proyectil en el carril) | P0 |
+| **Ejecutiva** | Agarra y lanza | P0 |
 
 - **Turnos de ataque:** como mucho, 2 enemigos atacan a la vez a cada jugador; los demás rodean. Así es justo y se lee bien.
 - **Escalado:** el número y la vida de los enemigos crecen con los jugadores (1 jugador: ×1, 2: ×1,5, 3: ×2, 4: ×2,5).
 
-**F6 Plantas (niveles).** Cada nivel es un tramo de la torre. Tiene un **scroll que se bloquea por oleadas** (aparece «¡ADELANTE! →» al limpiar) y un **jefe** al final.
+**F6 Plantas (niveles).** Hay **5 niveles** (decisión del 11 nov 2026). Cada uno es un tramo de la torre, con **scroll que se bloquea por oleadas** (aparece «¡ADELANTE! →» al limpiar) y un **jefe** al final.
 
-| Nivel | Lugar (ficción) | Jefe | MVP |
-|---|---|---|---|
-| 1 | **Parking subterráneo**: coches, columnas y barreras | **El Jefe de Seguridad** (embiste y llama a refuerzos) | P0 |
-| 2 | **Vestíbulo**: tornos de acceso, mostrador y escaleras mecánicas | **La Recepcionista**: lanza el teléfono, cierra los tornos y deja a alguien fuera unos segundos | P0 |
-| 3 | **Ascensor**: pantalla fija mientras sube y entran enemigos en cada planta | — (prueba de aguante) | P1 |
-| 4 | **Oficinas diáfanas**: mesas, impresoras y fuentes de agua | El Director Comercial | P1 |
-| 5 | **Comedor y cocina** | ⏳ | P2 |
-| 6 | **Planta técnica**: máquinas y conductos | ⏳ | P2 |
-| 7 | **Azotea**: el escenario del concierto con Madrid de noche al fondo | **El Presidente de Silencio S.A.** (jefe final) | P1 |
+| Nivel | Lugar (ficción) | Jefe |
+|---|---|---|
+| 1 | **Parking subterráneo**: coches, columnas y barreras | **El Jefe de Seguridad**: embiste y llama a 2 becarios a los 2/3 y a 1/3 de su vida |
+| 2 | **Vestíbulo**: tornos de acceso, mostrador y escaleras mecánicas | **La Recepcionista**: lanza teléfonos por el carril y llama a comerciales |
+| 3 | **Ascensor**: pantalla fija mientras sube; los enemigos entran en cada parada | **El Técnico de Mantenimiento**: embiste con la caja de herramientas |
+| 4 | **Oficinas diáfanas**: mesas, impresoras y fuentes de agua | **El Director Comercial**: embiste, agarra y lanza, y llama a ejecutivas |
+| 5 | **Azotea**: el escenario del concierto con Madrid de noche al fondo | **El Presidente de Silencio S.A.** (jefe final): mezcla de todo, más rápido |
 
-- El número de planta solo aparece en pantalla cuando se confirme la cifra (§1.1).
+- El número de planta solo sale en pantalla cuando se confirme la cifra (§1.1).
+- Los jefes comparten un mismo motor de comportamiento con 3 ataques (embestir, lanzar y llamar refuerzos) que se combinan por jefe.
 
 **F7 Objetos.**
 - **Comida:** un bocadillo de calamares recupera el 30 % de la vida y un café el 10 %. Salen de cajas o papeleras rotas.
@@ -165,13 +171,10 @@ Los cuatro miembros de **Arde Bogotá** tienen que subir la **Torre Picasso** (M
 
 ### 3.3 Funcionalidades P1 y P2
 - **P1:**
-  - Dani y Jota jugables.
-  - Niveles 3, 4 y 7.
-  - Contable y Ejecutiva.
+  - Arte final de Dani, Jota, los enemigos y los niveles 3–5.
   - Táctil en la propia pantalla.
   - **Ataque combinado**: si dos jugadores lanzan el especial a la vez cerca, sale un «acorde» con más daño.
 - **P2:**
-  - Niveles 5 y 6.
   - Modo grabación sin HUD para los reels.
   - Ranking local de la sesión.
   - Escena final en la azotea al ritmo de un chiptune.
@@ -250,7 +253,7 @@ Pulsar «JUGAR» con el teclado, el mando o la pantalla táctil lleva directamen
 
 | NFR | Meta |
 |---|---|
-| Rendimiento | 60 fps estables con 4 jugadores y 12 enemigos en un portátil de gama media (Intel i5 de 2019) y en un iPad de 9.ª generación |
+| Rendimiento | 60 fps estables con 4 jugadores y 8 enemigos en un portátil de gama media (Intel i5 de 2019) y en un iPad de 9.ª generación |
 | Latencia del mando | Pulsación en el móvil → reacción en pantalla ≤ 80 ms en la misma wifi (meta: 30–50 ms) |
 | Unirse | Del escaneo a «conectado» ≤ 5 s con una wifi o 4G normales |
 | Resolución | 384×216 lógicos con escalado entero: ×5 = 1920×1080 y ×10 = 4K. Se ve nítido en cualquier tele: **es el «HD» del proyecto** |
@@ -273,10 +276,16 @@ Pulsar «JUGAR» con el teclado, el mando o la pantalla táctil lleva directamen
 | **Imágenes generadas con IA de personas reales** | Gemini o ChatGPT pueden negarse, o el resultado puede parecer un retrato real | Caricatura descrita por rasgos (pelo, barba, ropa e instrumento) o fotos que la banda autorice. Nunca hacerlo pasar por material oficial |
 | **Enemigos** | Que se lean como burla a un colectivo | Empleados de una empresa ficticia; sátira de oficina genérica, sin nacionalidades ni grupos reales |
 
-## 7. Preguntas abiertas (⏳ el usuario)
-1. **Nombre del juego.** Propuestas: «Arde la Torre», «Planta 43» (si se confirma la cifra) o «Asalto a la Picasso».
-2. **¿Contactamos ya a la banda** o primero hacemos un prototipo jugable para enseñárselo?
-3. **¿Los 2 músicos del MVP** son Antonio y Pepe, o prefieres otros?
-4. **Villano:** ¿te gusta «Silencio S.A.» (una empresa que quiere apagar el rock) o prefieres otra historia?
-5. **Arte:** ¿empezamos por la vía A (hojas de Gemini, ya probada en el otro juego) y hacemos una prueba de la vía B (3D gratuito con Mixamo y Blender) con un solo músico para comparar?
-6. **¿Se publica en la web de CR** al terminar el MVP o se queda privado hasta tener respuesta de la banda?
+## 7. Decisiones (11 nov 2026)
+
+El usuario pidió definir lo pendiente. Se puede cambiar cualquiera de estas decisiones.
+
+| Pregunta | Decisión |
+|---|---|
+| Nombre | **«Arde la Torre»** (provisional) |
+| ¿Contactar ya a la banda? | **Primero el prototipo**, para enseñarles algo jugable |
+| Músicos | **Los 4 jugables** desde la v0.1 con arte provisional; el arte final de Antonio y Pepe va primero |
+| Villano | **«Silencio S.A.»**, una empresa inventada que quiere apagar el rock |
+| Arte | **Vía A** (hojas de Gemini). La prueba de la vía B queda como tarea opcional (T0.6) |
+| Publicación | ⏸ **No se publica** en la web de CR hasta tener la respuesta de la banda |
+| Niveles | **5** (§F6) |
