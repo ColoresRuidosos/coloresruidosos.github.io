@@ -4,16 +4,16 @@
       "c": null,
       "vista": "2026-11-10T18:20:25.543254-06:00"
     },
-    "https://consequence.net/2026/11/alanis-morissette-reveals-shes-pansexual": {
+    "https://consequence.net/2026/11/alexisonfire-new-album-unleash-push-the-river": {
       "c": {
-        "artista": "Alanis Morissette",
-        "categoria": "otro",
-        "es_indie_rock": false,
+        "artista": "Alexisonfire",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
         "fechas_evento": [],
         "relevancia": "general",
-        "titulo_lanzamiento": ""
+        "titulo_lanzamiento": "Bleed It"
       },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/best-black-friday-airpods-deals-2026": {
       "c": null,
@@ -33,6 +33,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
+    },
+    "https://consequence.net/2026/11/brian-eno-roxy-music-farewell-tour-flying": {
+      "c": {
+        "artista": "Brian Eno",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/brooke-lena-johnson-a-dogs-perfect-christmas": {
       "c": null,
@@ -88,9 +99,13 @@
       "c": null,
       "vista": "2026-11-09T17:17:23.379941-06:00"
     },
-    "https://consequence.net/2026/11/druski-spoofs-you-can-see-everything-snl": {
+    "https://consequence.net/2026/11/domino-venue-brooklyn-williamsburg-waterfront": {
       "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://consequence.net/2026/11/ebenezer-review-johnny-depp-ti-west": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/elf-2-the-edge-u2-screenplay": {
       "c": {
@@ -192,9 +207,16 @@
       },
       "vista": "2026-11-11T19:44:55.260647-06:00"
     },
-    "https://consequence.net/2026/11/james-talarico-snl-cold-open": {
-      "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+    "https://consequence.net/2026/11/jimmy-page-no-more-tours-still-plays-guitar": {
+      "c": {
+        "artista": "Jimmy Page",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/john-tempesta-drumeo-drum-part-rob-zombie-dragula": {
       "c": {
@@ -232,6 +254,10 @@
     "https://consequence.net/2026/11/legend-of-zelda-ocarina-of-time-switch-2-sales-record": {
       "c": null,
       "vista": "2026-11-11T15:05:03.846680-06:00"
+    },
+    "https://consequence.net/2026/11/letterkenny-live-2027-tour-dates": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/mayhem-joey-jordisons-final-recordings": {
       "c": {
@@ -328,6 +354,17 @@
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
     },
+    "https://consequence.net/2026/11/phoebe-bridgers-the-lost-tour-2027-dates": {
+      "c": {
+        "artista": "Phoebe Bridgers",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://consequence.net/2026/11/pink-2027-sphere-residency": {
       "c": {
         "artista": "P!NK",
@@ -374,9 +411,16 @@
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
     },
-    "https://consequence.net/2026/11/rob-schneider-iran-war": {
-      "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+    "https://consequence.net/2026/11/robyn-tiny-desk-concert-watch": {
+      "c": {
+        "artista": "Robyn",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/rush-las-vegas-sphere-residency-five-additional-dates": {
       "c": {
@@ -388,6 +432,21 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-11T19:44:55.260647-06:00"
+    },
+    "https://consequence.net/2026/11/russell-brands-pubic-hair-removed-from-london-museum": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://consequence.net/2026/11/sam-fender-spring-2027-north-american-tour": {
+      "c": {
+        "artista": "Sam Fender",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/shakira-venezuela-return-2027-tour": {
       "c": {
@@ -422,10 +481,6 @@
       },
       "vista": "2026-11-11T15:05:03.846680-06:00"
     },
-    "https://consequence.net/2026/11/snl-elon-musk-impersonation": {
-      "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
     "https://consequence.net/2026/11/sombr-fan-flipping-him-off-concert": {
       "c": {
         "artista": "sombr",
@@ -445,9 +500,31 @@
       "c": null,
       "vista": "2026-11-11T15:05:03.846680-06:00"
     },
+    "https://consequence.net/2026/11/tame-impala-deadbeat-tour-four-shows-mexico": {
+      "c": {
+        "artista": "Tame Impala",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://consequence.net/2026/11/taylor-swift-and-travis-kelces-landscaping-plans-approved-despite-concern-for-animals-sex-lives": {
       "c": null,
       "vista": "2026-11-11T15:05:03.846680-06:00"
+    },
+    "https://consequence.net/2026/11/tesseract-new-ep-single-crucible": {
+      "c": {
+        "artista": "TesseracT",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "ARC_ONE: Obscura"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/the-body-cel-genesis-tour-2027": {
       "c": {
@@ -459,28 +536,6 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
-    },
-    "https://consequence.net/2026/11/the-strokes-join-snl-five-timers-club-with-dazzling-visuals-and-walton-goggins": {
-      "c": {
-        "artista": "The Strokes",
-        "categoria": "anuncio",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://consequence.net/2026/11/the-strokes-lonely-in-the-future-video": {
-      "c": {
-        "artista": "The Strokes",
-        "categoria": "lanzamiento",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": "Lonely in the Future"
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
     },
     "https://consequence.net/2026/11/tinashe-popstar-melatonin-fallon": {
       "c": {
@@ -515,7 +570,7 @@
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
     },
-    "https://consequence.net/2026/11/u2-on-ed-sheeran-macklemore-controversy": {
+    "https://consequence.net/2026/11/u2-praise-fontaines-dc-geese": {
       "c": {
         "artista": "U2",
         "categoria": "anuncio",
@@ -524,7 +579,7 @@
         "relevancia": "general",
         "titulo_lanzamiento": ""
       },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/usher-chris-brown-cancel-tour-dates-feud-rumors": {
       "c": {
@@ -537,6 +592,17 @@
       },
       "vista": "2026-11-11T15:05:03.846680-06:00"
     },
+    "https://consequence.net/2026/11/w-a-s-p-drummer-tony-richards-dead-at-69": {
+      "c": {
+        "artista": "W.A.S.P.",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://consequence.net/2026/11/whitney-2027-light-upon-the-lake-10th-anniversary-tour": {
       "c": {
         "artista": "Whitney",
@@ -547,6 +613,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
+    },
+    "https://consequence.net/2026/11/willie-nelson-covid-battle-memoir-let-me-die": {
+      "c": {
+        "artista": "Willie Nelson",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://consequence.net/2026/11/youve-got-mail-remake-warner-bros": {
       "c": null,
@@ -600,6 +677,24 @@
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
     },
+    "https://indierocks.mx/agenda/los-planetas-se-presentara-en-el-teatro-metropolitan": {
+      "c": {
+        "artista": "Los Planetas",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-02-06",
+            "pais": "MX",
+            "recinto": "Teatro Metropólitan"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://indierocks.mx/agenda/metric-broken-social-scene-stars-en-el-pepsi-center": {
       "c": {
         "artista": "Metric",
@@ -611,9 +706,75 @@
       },
       "vista": "2026-11-10T18:20:25.543254-06:00"
     },
+    "https://indierocks.mx/agenda/phoebe-bridgers-dara-un-show-en-el-palacio-de-los-deportes": {
+      "c": {
+        "artista": "Phoebe Bridgers",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-05-13",
+            "pais": "MX",
+            "recinto": "Palacio de los Deportes"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://indierocks.mx/agenda/precios-brujeria-llegara-al-circo-volador": {
+      "c": {
+        "artista": "Brujeria",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-01-30",
+            "pais": "MX",
+            "recinto": "Circo Volador"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://indierocks.mx/agenda/precios-edc-2027-anuncia-lineup": {
       "c": null,
       "vista": "2026-11-10T14:42:40.094299-06:00"
+    },
+    "https://indierocks.mx/agenda/precios-rels-b-hara-vibrar-el-palacio-de-los-deportes": {
+      "c": {
+        "artista": "Rels B",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-09-07",
+            "pais": "MX",
+            "recinto": "Palacio de los Deportes"
+          },
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-09-08",
+            "pais": "MX",
+            "recinto": "Palacio de los Deportes"
+          },
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-09-10",
+            "pais": "MX",
+            "recinto": "Palacio de los Deportes"
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://indierocks.mx/agenda/rels-b-hara-vibrar-el-palacio-de-los-deportes": {
       "c": {
@@ -648,6 +809,42 @@
     "https://indierocks.mx/agenda/rockstar-games-anuncia-grand-theft-auto-vi-the-festival": {
       "c": null,
       "vista": "2026-11-09T17:17:23.379941-06:00"
+    },
+    "https://indierocks.mx/agenda/tame-impala-llegara-al-palacio-de-los-deportes": {
+      "c": {
+        "artista": "Tame Impala",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Monterrey",
+            "fecha": "2027-02-16",
+            "pais": "MX",
+            "recinto": "Arena Monterrey"
+          },
+          {
+            "ciudad": "Guadalajara",
+            "fecha": "2027-02-23",
+            "pais": "MX",
+            "recinto": "Arena VFG"
+          },
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-02-28",
+            "pais": "MX",
+            "recinto": ""
+          },
+          {
+            "ciudad": "Ciudad de México",
+            "fecha": "2027-03-01",
+            "pais": "MX",
+            "recinto": ""
+          }
+        ],
+        "relevancia": "mx",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://indierocks.mx/agenda/till-lindemann-llegara-al-pepsi-center": {
       "c": {
@@ -733,6 +930,17 @@
       },
       "vista": "2026-11-11T15:05:03.846680-06:00"
     },
+    "https://indierocks.mx/musica/noticias/fear-factory-presenta-detonizer-adelanto-de-roboticist": {
+      "c": {
+        "artista": "Fear Factory",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Roboticist"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://indierocks.mx/musica/noticias/gatta-morta-anuncia-disco-y-estrena-music-for-furbies": {
       "c": {
         "artista": "Gatta Morta",
@@ -766,6 +974,40 @@
       },
       "vista": "2026-11-11T15:05:03.846680-06:00"
     },
+    "https://indierocks.mx/musica/noticias/leon-bridges-y-kamasi-washington-lanzan-tema-para-snoopy": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/los-nasdrovia-presenta-un-mundo-feliz-su-nuevo-album": {
+      "c": {
+        "artista": "Los Nasdrovia",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Un Mundo Feliz"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/luisa-almaguer-anuncia-ep-y-estrena-un-espejo-feat-nick-zinner": {
+      "c": {
+        "artista": "Luisa Almaguer",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Sin Lázaro"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/miniso-en-hipnosis-2026-peluches-psicodelia-y-rock": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/minotauro-llegara-muy-pronto-a-mubi": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://indierocks.mx/musica/noticias/muere-richard-lloyd-guitarrista-de-television": {
       "c": {
         "artista": "Richard Lloyd",
@@ -787,6 +1029,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-11T15:05:03.846680-06:00"
+    },
+    "https://indierocks.mx/musica/noticias/roger-taylor-se-va-de-duran-duran": {
+      "c": {
+        "artista": "Duran Duran",
+        "categoria": "anuncio",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://indierocks.mx/musica/noticias/rosalia-festeja-el-aniversario-de-lux-con-una-playlist": {
       "c": {
@@ -853,43 +1106,6 @@
         "titulo_lanzamiento": "Roberta"
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
-    },
-    "https://jenesaispop.com/2026/11/08/533580/lisa-cobra-critica": {
-      "c": {
-        "artista": "LISA",
-        "categoria": "lanzamiento",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": "Press Play"
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://jenesaispop.com/2026/11/08/533612/mira-2026-max-cooper-underscores": {
-      "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://jenesaispop.com/2026/11/08/533621/muere-richard-lloyd-de-television": {
-      "c": {
-        "artista": "Television",
-        "categoria": "otro",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://jenesaispop.com/2026/11/08/533624/rosalia-loa-lux-substack": {
-      "c": {
-        "artista": "Rosalía",
-        "categoria": "anuncio",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
     },
     "https://jenesaispop.com/2026/11/08/533629/la-roux-old-flames-critica": {
       "c": {
@@ -1075,6 +1291,87 @@
       },
       "vista": "2026-11-11T15:05:03.846680-06:00"
     },
+    "https://jenesaispop.com/2026/11/12/533361/kara-boi-rey-leon-piero-piccioni": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533773/carino-pop-magic-tragedy": {
+      "c": {
+        "artista": "Cariño",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Pop! Magic! Tragedy!"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533794/juanjo-bona-pobre-critica": {
+      "c": {
+        "artista": "Juanjo Bona",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Pobre de mí"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533796/lonely-in-the-future-video": {
+      "c": {
+        "artista": "The Strokes",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Lonely In The Future"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533803/barry-b-vivir-para-siempre": {
+      "c": {
+        "artista": "Barry B",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Vivir para siempre"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533813/agorazein-king-kong": {
+      "c": {
+        "artista": "Agorazein",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "King Kong"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533848/weeknd-hong-kong": {
+      "c": {
+        "artista": "The Weeknd",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Hong Kong"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://jenesaispop.com/2026/11/12/533856/robyn-no-soporta-eurovision-me-siento-sobreestimulada-y-mal": {
+      "c": {
+        "artista": "Robyn",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://mondosonoro.com/blog-musica/agorazein-canciones": {
       "c": {
         "artista": "Agorazein",
@@ -1135,6 +1432,17 @@
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
     },
+    "https://mondosonoro.com/criticas/discos-musica/amooma-eder": {
+      "c": {
+        "artista": "Amooma",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://mondosonoro.com/criticas/discos-musica/bryan-adams-hows-it-goin": {
       "c": {
         "artista": "Bryan Adams",
@@ -1146,9 +1454,16 @@
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
     },
-    "https://mondosonoro.com/criticas/discos-musica/me-acuerdo-de-todo-alli-donde-no-alumbran-las-farolas": {
-      "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+    "https://mondosonoro.com/criticas/discos-musica/mirail-nahiago-bidea": {
+      "c": {
+        "artista": "Mirail",
+        "categoria": "anuncio",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://mondosonoro.com/criticas/discos-musica/the-go-betweens-fountains-of-youth": {
       "c": {
@@ -1176,16 +1491,27 @@
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
     },
-    "https://mondosonoro.com/entrevistas/mar-pujol": {
+    "https://mondosonoro.com/entrevistas/remei-de-ca-la-fresca-entrevista": {
       "c": {
-        "artista": "Mar Pujol",
+        "artista": "Ca la Fresca",
         "categoria": "lanzamiento",
         "es_indie_rock": true,
         "fechas_evento": [],
         "relevancia": "general",
-        "titulo_lanzamiento": "D'aquesta"
+        "titulo_lanzamiento": "Mesures extraordinàries"
       },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://mondosonoro.com/entrevistas/the-flying-rebollos-nada-volvera-a-ser-igual": {
+      "c": {
+        "artista": "Flying Rebollos",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://mondosonoro.com/noticias-actualidad-musical/68-edicion-zinebi": {
       "c": null,
@@ -1236,6 +1562,39 @@
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
     },
+    "https://mondosonoro.com/noticias-actualidad-musical/horarios-14-edicion-rockein": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/ivan-ferreiro-los-delinquentes-xoel-lopez-actual": {
+      "c": {
+        "artista": "Iván Ferreiro",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Logroño",
+            "fecha": "2027-01-02",
+            "pais": "ES",
+            "recinto": ""
+          }
+        ],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/kelly-lee-owens-kneecap": {
+      "c": {
+        "artista": "Kneecap",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "FENIAN"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://mondosonoro.com/noticias-actualidad-musical/palomo-palomo-callarte-por-favor": {
       "c": {
         "artista": "Palomo Palomo",
@@ -1272,6 +1631,52 @@
         "titulo_lanzamiento": "Shades of Night"
       },
       "vista": "2026-11-09T17:17:23.379941-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/the-chords-uk-encabezan-el-avance-de-cartel-de-ebroclub-2027": {
+      "c": {
+        "artista": "The Chords UK",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [
+          {
+            "ciudad": "Miranda de Ebro",
+            "fecha": "2027-04-23",
+            "pais": "ES",
+            "recinto": ""
+          },
+          {
+            "ciudad": "Miranda de Ebro",
+            "fecha": "2027-04-24",
+            "pais": "ES",
+            "recinto": ""
+          }
+        ],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/twin-temple-video-haunt-me": {
+      "c": {
+        "artista": "Twin Temple",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Haunt Me"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://mondosonoro.com/noticias-actualidad-musical/ultraligera-tercer-movistar": {
+      "c": {
+        "artista": "Ultraligera",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://mondosonoro.com/noticias-actualidad-musical/vuelve-t-o-c-mercancia": {
       "c": {
@@ -1372,6 +1777,17 @@
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
     },
+    "https://pitchfork.com/story/deftones-plot-2027-north-american-tour": {
+      "c": {
+        "artista": "Deftones",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://pitchfork.com/story/dirty-projectors-plot-2027-tour-drop-new-song": {
       "c": {
         "artista": "Dirty Projectors",
@@ -1397,17 +1813,6 @@
     "https://pitchfork.com/story/gta-vi-is-putting-on-a-music-festival": {
       "c": null,
       "vista": "2026-11-09T17:17:23.379941-06:00"
-    },
-    "https://pitchfork.com/story/hayley-williams-hangs-in-a-hotel-room-in-new-dream-girl-in-shibuya-video": {
-      "c": {
-        "artista": "Hayley Williams",
-        "categoria": "lanzamiento",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": "Dream Girl in Shibuya"
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
     },
     "https://pitchfork.com/story/jeanne-river-recruits-cameron-winter-for-debut-single": {
       "c": {
@@ -1501,6 +1906,17 @@
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
     },
+    "https://pitchfork.com/story/phoebe-bridgers-extends-tour-into-2027": {
+      "c": {
+        "artista": "Phoebe Bridgers",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
     "https://pitchfork.com/story/phoebe-bridgers-interpol-more-releasing-rough-trade-exclusive-vinyl-records": {
       "c": {
         "artista": "Phoebe Bridgers",
@@ -1534,27 +1950,27 @@
       },
       "vista": "2026-11-10T14:42:40.094299-06:00"
     },
-    "https://pitchfork.com/story/rosalia-celebrates-lux-anniversary-with-1000-song-playlist": {
+    "https://pitchfork.com/story/rockie-rode-unveils-second-album-of-2026": {
       "c": {
-        "artista": "Rosalía",
-        "categoria": "anuncio",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://pitchfork.com/story/watch-the-strokes-play-lonely-in-the-future-and-going-shopping-on-snl": {
-      "c": {
-        "artista": "The Strokes",
-        "categoria": "anuncio",
+        "artista": "Rockie Rode",
+        "categoria": "lanzamiento",
         "es_indie_rock": true,
         "fechas_evento": [],
         "relevancia": "general",
-        "titulo_lanzamiento": ""
+        "titulo_lanzamiento": "Babylon"
       },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://pitchfork.com/story/the-weeknd-broods-sings-karaoke-in-hong-kong-video": {
+      "c": {
+        "artista": "The Weeknd",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Hong Kong"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     },
     "https://pitchfork.com/story/watch-tinashe-bring-popstar-to-the-tonight-show": {
       "c": {
@@ -1585,54 +2001,6 @@
     "https://stereogum.com/2516509/the-40-best-new-artists-of-2026/lists/best-new-artists": {
       "c": null,
       "vista": "2026-11-10T14:42:40.094299-06:00"
-    },
-    "https://stereogum.com/2516969/the-strokes-play-druski-hosted-snl-share-new-video-featuring-spitting-image-puppets/news": {
-      "c": {
-        "artista": "The Strokes",
-        "categoria": "anuncio",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://stereogum.com/2516980/mon-laferte-hit-in-the-face-with-phone-thrown-by-fan-at-las-vegas-show/news": {
-      "c": {
-        "artista": "Mon Laferte",
-        "categoria": "anuncio",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://stereogum.com/2516990/the-knicks-attempt-damage-control-after-tyler-kolek-calls-taylor-swift-a-fake-fan/news": {
-      "c": null,
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://stereogum.com/2516998/kurt-vile-brings-out-ethan-buckler-for-a-king-kong-song-in-louisville/news": {
-      "c": {
-        "artista": "Kurt Vile",
-        "categoria": "anuncio",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
-    },
-    "https://stereogum.com/2517003/the-edge-wrote-an-elf-sequel-that-wasnt-made-for-some-reason/news": {
-      "c": {
-        "artista": "The Edge",
-        "categoria": "otro",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-08T12:40:48.333483-06:00"
     },
     "https://stereogum.com/2517043/king-gizzard-the-lizard-wizard-announce-new-album-entropy-hear-rogue-wave/music": {
       "c": {
@@ -2357,6 +2725,153 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-11T19:44:55.260647-06:00"
+    },
+    "https://stereogum.com/2517714/yella-beezy-gets-life-in-prison-for-hiring-hitman-to-kill-rival-rapper-mo3/news": {
+      "c": {
+        "artista": "Yella Beezy",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517716/bonny-doon-announce-new-album-forever-green-hear-lucky-ones/music": {
+      "c": {
+        "artista": "Bonny Doon",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Forever Green"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517720/flava-in-ya-ear-sample-finally-identified-after-32-years/news": {
+      "c": null,
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517726/johanna-warren-the-current/music": {
+      "c": {
+        "artista": "Johanna Warren",
+        "categoria": "otro",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517731/teenage-halloween-standing-on-the-corner/music": {
+      "c": {
+        "artista": "Teenage Halloween",
+        "categoria": "otro",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517737/weird-nightmare-buzzing-in-my-head/music": {
+      "c": {
+        "artista": "Weird Nightmare",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517738/duran-durans-roger-taylor-announces-retirement/news": {
+      "c": {
+        "artista": "Duran Duran",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517744/mynolia-dragon/music": {
+      "c": {
+        "artista": "Mynolia",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517748/young-jesus-boulevard/music": {
+      "c": {
+        "artista": "Young Jesus",
+        "categoria": "otro",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517751/rosalia-sets-next-acting-role-in-wet-alongside-connor-storrie-odessa-azion/news": {
+      "c": {
+        "artista": "Rosalía",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517755/discus-jml-feat-living-hours-sam-sarty/music": {
+      "c": {
+        "artista": "Discus",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "JML"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517757/mass-text-announce-new-album-perfect-new-knife-hear-pink-slips/music": {
+      "c": {
+        "artista": "Mass Text",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Perfect New Knife"
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517760/michael-rapaport-cosigns-dope-new-group-yeah-yeah-yeahs-karen-o-shares-new-solo-song-soft-machine/news": {
+      "c": {
+        "artista": "Yeah Yeah Yeahs",
+        "categoria": "anuncio",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
+    },
+    "https://stereogum.com/2517784/u2-praise-cameron-winter-lambrini-girls-fontaines-d-c/news": {
+      "c": {
+        "artista": "U2",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-12T15:19:33.465718-06:00"
     }
   },
   "claves_publicadas": {
@@ -2381,22 +2896,23 @@
     "cage the elephant|anuncio": "2026-11-11T15:05:03.846680-06:00",
     "cage the elephant|lanzamiento": "2026-11-05T14:56:48.648504-06:00",
     "camilo septimo|lanzamiento": "2026-11-10T14:42:40.094299-06:00",
+    "carino|lanzamiento": "2026-11-12T15:19:33.465718-06:00",
     "charlotte adigery bolis pupul|lanzamiento": "2026-11-05T14:56:48.648504-06:00",
     "charlotte adigery y bolis pupul|lanzamiento": "2026-11-04T14:40:43.719445-06:00",
     "chats|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
+    "chords uk|gira": "2026-11-12T15:19:33.465718-06:00",
     "christine and the queens|lanzamiento": "2026-11-04T14:40:43.719445-06:00",
-    "chvrches|lanzamiento": "2026-10-28T23:25:45.404979-06:00",
     "cleo reed|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "coheed and cambria|gira": "2026-11-05T18:38:38.911191-06:00",
     "connan mockasin|anuncio": "2026-11-02T19:55:45.211622-06:00",
     "conor oberst|gira": "2026-11-10T18:20:25.543254-06:00",
     "daniel quien|lanzamiento": "2026-11-05T14:56:48.648504-06:00",
-    "dead man s bones|lanzamiento": "2026-10-28T23:25:45.404979-06:00",
     "death angel|lanzamiento": "2026-11-05T18:38:38.911191-06:00",
     "dexter in the newsagent|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "diiv|lanzamiento": "2026-10-29T17:43:25.637378-06:00",
     "division minuscula|gira": "2026-11-02T16:37:00.497186-06:00",
     "dummy|lanzamiento": "2026-11-02T16:37:00.497186-06:00",
+    "duran duran|anuncio": "2026-11-12T15:19:33.465718-06:00",
     "ear|lanzamiento": "2026-11-01T12:45:53.275008-06:00",
     "ecco2k|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "ed maverick|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
@@ -2404,32 +2920,27 @@
     "el nido|gira": "2026-11-04T18:40:44.988850-06:00",
     "el ultimo ciclista|lanzamiento": "2026-10-30T17:24:15.873502-06:00",
     "esmerelda road|lanzamiento": "2026-10-30T17:24:15.873502-06:00",
-    "everything but the girl|lanzamiento": "2026-10-29T13:26:03.077263-06:00",
     "fall out boy|gira": "2026-11-10T14:42:40.094299-06:00",
     "fall out boy|lanzamiento": "2026-11-11T15:05:03.846680-06:00",
     "fanclubwallet|lanzamiento": "2026-10-31T16:57:13.016389-06:00",
     "fiona apple the bolt cutters|lanzamiento": "2026-11-07T12:29:27.946058-06:00",
     "fire toolz|lanzamiento": "2026-10-31T12:14:17.604046-06:00",
-    "flaming lips|lanzamiento": "2026-10-28T23:25:45.404979-06:00",
     "fontaines d c|gira": "2026-10-29T17:43:25.637378-06:00",
     "fontan|gira": "2026-10-30T12:59:56.086843-06:00",
     "gang of youths|lanzamiento": "2026-11-11T15:05:03.846680-06:00",
-    "garbage|anuncio": "2026-10-28T23:30:45.136900-06:00",
     "gatta morta|lanzamiento": "2026-11-11T15:05:03.846680-06:00",
     "giant rooks|gira": "2026-11-02T16:37:00.497186-06:00",
     "glasvegas|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
-    "glockenwise|gira": "2026-10-28T23:30:45.136900-06:00",
     "graham hill|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "grimes|anuncio": "2026-11-09T17:17:23.379941-06:00",
     "guided by voices|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
-    "haute freddy|lanzamiento": "2026-10-28T23:30:45.136900-06:00",
     "hayley williams|lanzamiento": "2026-11-08T12:40:48.333483-06:00",
     "headache|lanzamiento": "2026-11-04T14:40:43.719445-06:00",
     "hesse kassel|gira": "2026-11-02T19:55:45.211622-06:00",
     "hidrogenesse|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
-    "hostia pedagogica|anuncio": "2026-10-29T13:26:03.077263-06:00",
     "hostia pedagogica|lanzamiento": "2026-11-07T12:29:27.946058-06:00",
     "instincktt|gira": "2026-11-02T19:55:45.211622-06:00",
+    "ivan ferreiro|gira": "2026-11-12T15:19:33.465718-06:00",
     "jandek|anuncio": "2026-10-31T16:57:13.016389-06:00",
     "javiera mena|gira": "2026-11-03T14:25:43.598152-06:00",
     "jet|gira": "2026-11-10T14:42:40.094299-06:00",
@@ -2439,9 +2950,7 @@
     "jose y el toro|gira": "2026-11-06T14:16:22.519597-06:00",
     "jungle|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "junior boys|lanzamiento": "2026-10-29T17:43:25.637378-06:00",
-    "justice|gira": "2026-10-28T23:30:45.136900-06:00",
     "kevin morby|lanzamiento": "2026-10-29T17:43:25.637378-06:00",
-    "kevis maykyy|lanzamiento": "2026-10-28T23:30:45.136900-06:00",
     "kim gordon|anuncio": "2026-11-03T18:18:07.864859-06:00",
     "king gizzard the lizard wizard|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "kneecap|anuncio": "2026-10-30T17:24:15.873502-06:00",
@@ -2450,7 +2959,9 @@
     "lewis ofman|lanzamiento": "2026-10-31T12:14:17.604046-06:00",
     "lisasinson|lanzamiento": "2026-11-03T14:25:43.598152-06:00",
     "lola leon|lanzamiento": "2026-11-04T14:40:43.719445-06:00",
-    "los estanques|lanzamiento": "2026-10-28T23:30:45.136900-06:00",
+    "los nasdrovia|lanzamiento": "2026-11-12T15:19:33.465718-06:00",
+    "los planetas|gira": "2026-11-12T15:19:33.465718-06:00",
+    "luisa almaguer|lanzamiento": "2026-11-12T15:19:33.465718-06:00",
     "mac demarco|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "magdalena abrego|lanzamiento": "2026-10-31T16:57:13.016389-06:00",
     "mar pujol|lanzamiento": "2026-11-08T12:40:48.333483-06:00",
@@ -2460,7 +2971,6 @@
     "metric|gira": "2026-11-10T18:20:25.543254-06:00",
     "middle kids|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "midnight generation|gira": "2026-11-06T14:16:22.519597-06:00",
-    "militarie gun|gira": "2026-10-29T13:26:03.077263-06:00",
     "mission|lanzamiento": "2026-11-03T18:18:07.864859-06:00",
     "mj lenderman|anuncio": "2026-11-06T17:53:34.431803-06:00",
     "monday potions|lanzamiento": "2026-11-09T20:28:34.898275-06:00",
@@ -2483,13 +2993,10 @@
     "pearl jam|anuncio": "2026-11-05T18:38:38.911191-06:00",
     "pes mort|anuncio": "2026-11-01T12:45:53.275008-06:00",
     "phoebe bridgers|gira": "2026-11-11T19:44:55.260647-06:00",
-    "phoebe bridgers|lanzamiento": "2026-10-29T13:26:03.077263-06:00",
     "pink floyd|lanzamiento": "2026-11-06T14:16:22.519597-06:00",
     "piss|anuncio": "2026-10-29T17:43:25.637378-06:00",
     "pixies|lanzamiento": "2026-11-03T18:18:07.864859-06:00",
     "porter|anuncio": "2026-11-03T14:25:43.598152-06:00",
-    "queens of the stone age|gira": "2026-10-28T23:25:45.404979-06:00",
-    "queens of the stone age|lanzamiento": "2026-10-29T13:26:03.077263-06:00",
     "racing mount pleasant|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "renaldo i clara|lanzamiento": "2026-10-31T12:14:17.604046-06:00",
     "resurrection fest|gira": "2026-11-05T14:56:48.648504-06:00",
@@ -2497,10 +3004,8 @@
     "roisin murphy|anuncio": "2026-11-09T20:28:34.898275-06:00",
     "rubytates|gira": "2026-11-02T16:37:00.497186-06:00",
     "sanguijuelas del guadiana|gira": "2026-11-05T14:56:48.648504-06:00",
-    "saturna|lanzamiento": "2026-10-28T23:30:45.136900-06:00",
     "sgt papers|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
     "shygirl|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
-    "sienna|lanzamiento": "2026-10-28T23:25:45.404979-06:00",
     "silvia penide|lanzamiento": "2026-11-02T16:37:00.497186-06:00",
     "skakeitan|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "snooper|lanzamiento": "2026-10-31T16:57:13.016389-06:00",
@@ -2515,7 +3020,6 @@
     "strokes|anuncio": "2026-11-07T17:16:46.849171-06:00",
     "strokes|gira": "2026-11-03T18:18:07.864859-06:00",
     "strokes|lanzamiento": "2026-11-08T12:40:48.333483-06:00",
-    "sufjan stevens|anuncio": "2026-10-28T23:25:45.404979-06:00",
     "sufjan stevens|lanzamiento": "2026-11-02T16:37:00.497186-06:00",
     "superchunk|lanzamiento": "2026-11-07T17:16:46.849171-06:00",
     "tame impala|anuncio": "2026-10-31T12:14:17.604046-06:00",
@@ -2525,14 +3029,12 @@
     "this is lorelei|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "toro y moi|lanzamiento": "2026-11-05T18:38:38.911191-06:00",
     "trentemøller|lanzamiento": "2026-10-30T12:59:56.086843-06:00",
-    "tune yards|lanzamiento": "2026-10-29T13:26:03.077263-06:00",
     "turnstile|anuncio": "2026-10-31T12:14:17.604046-06:00",
     "twisted teens|anuncio": "2026-11-10T14:42:40.094299-06:00",
     "twisted teens|lanzamiento": "2026-11-07T17:16:46.849171-06:00",
     "u2|anuncio": "2026-11-08T12:40:48.333483-06:00",
     "umpah pah|lanzamiento": "2026-11-06T14:16:22.519597-06:00",
     "vetusta morla|anuncio": "2026-11-09T17:17:23.379941-06:00",
-    "viva belgrado|anuncio": "2026-10-28T23:25:45.404979-06:00",
     "xiu xiu|lanzamiento": "2026-11-05T14:56:48.648504-06:00",
     "yaeji|lanzamiento": "2026-11-03T14:25:43.598152-06:00",
     "young fresh fellows|gira": "2026-11-01T12:45:53.275008-06:00",
@@ -2577,6 +3079,7 @@
     "https://indierocks.mx/agenda/damien-rice-se-presentara-en-el-auditorio-bb": "2026-10-20T17:14:29.421699-06:00",
     "https://indierocks.mx/agenda/garbage-se-presentara-en-el-zocalo-de-la-cdmx": "2026-10-16T11:49:27.320217-06:00",
     "https://indierocks.mx/agenda/jet-dara-un-show-en-el-foro-puebla": "2026-11-10T14:42:40.094299-06:00",
+    "https://indierocks.mx/agenda/los-planetas-se-presentara-en-el-teatro-metropolitan": "2026-11-12T15:19:33.465718-06:00",
     "https://indierocks.mx/agenda/metric-broken-social-scene-stars-en-el-pepsi-center": "2026-11-10T18:20:25.543254-06:00",
     "https://indierocks.mx/agenda/midnight-generation-dara-un-show-en-el-auditorio-nacional": "2026-11-06T14:16:22.519597-06:00",
     "https://indierocks.mx/agenda/nothing-se-presentara-en-el-foro-niebla": "2026-11-02T19:55:45.211622-06:00",
@@ -2599,7 +3102,6 @@
     "https://indierocks.mx/musica/noticias/1tbsp-estrena-carottes": "2026-11-10T14:42:40.094299-06:00",
     "https://indierocks.mx/musica/noticias/anamanaguchi-presenta-sucker-punch-su-nuevo-sencillo": "2026-11-02T19:55:45.211622-06:00",
     "https://indierocks.mx/musica/noticias/anttonias-presenta-que-tan-romantica-sera-la-muerte": "2026-11-09T17:17:23.379941-06:00",
-    "https://indierocks.mx/musica/noticias/anttonias-presenta-verlos-morir-antes-de-su-nuevo-album": "2026-10-13T14:06:08.464450-06:00",
     "https://indierocks.mx/musica/noticias/belen-ruiz-presenta-reencuentro-su-nuevo-sencillo": "2026-11-06T14:16:22.519597-06:00",
     "https://indierocks.mx/musica/noticias/blondie-anuncia-disco-y-estrena-spectral-eyes": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/musica/noticias/c-tangana-estrena-milko-freestyle": "2026-11-03T18:18:07.864859-06:00",
@@ -2627,6 +3129,8 @@
     "https://indierocks.mx/musica/noticias/kevis-maykyy-fusionan-rap-y-punk-en-hp-hop": "2026-10-28T23:30:45.136900-06:00",
     "https://indierocks.mx/musica/noticias/kim-gordon-ya-tiene-su-propia-fender-jazzmaster-en-edicion-limitada": "2026-11-03T18:18:07.864859-06:00",
     "https://indierocks.mx/musica/noticias/lambrini-girls-estrena-the-basement-y-split": "2026-10-21T12:25:25.999252-06:00",
+    "https://indierocks.mx/musica/noticias/los-nasdrovia-presenta-un-mundo-feliz-su-nuevo-album": "2026-11-12T15:19:33.465718-06:00",
+    "https://indierocks.mx/musica/noticias/luisa-almaguer-anuncia-ep-y-estrena-un-espejo-feat-nick-zinner": "2026-11-12T15:19:33.465718-06:00",
     "https://indierocks.mx/musica/noticias/luz-lo-nuevo-de-daniel-quien": "2026-10-14T12:19:48.283150-06:00",
     "https://indierocks.mx/musica/noticias/matador-records-reeditara-piouhgd-y-humpty-dumpty-lsd-de-butthole-surfers": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/musica/noticias/mei-semones-rinde-tributo-a-su-banda-en-2-hands": "2026-11-02T19:55:45.211622-06:00",
@@ -2637,6 +3141,7 @@
     "https://indierocks.mx/musica/noticias/portugal-the-man-estrena-you-can-count-on-me": "2026-10-21T12:25:25.999252-06:00",
     "https://indierocks.mx/musica/noticias/queens-of-the-stone-age-estrena-run-away-from-the-mob": "2026-10-29T13:26:03.077263-06:00",
     "https://indierocks.mx/musica/noticias/robbie-bennett-estrena-dos-canciones": "2026-11-04T14:40:43.719445-06:00",
+    "https://indierocks.mx/musica/noticias/roger-taylor-se-va-de-duran-duran": "2026-11-12T15:19:33.465718-06:00",
     "https://indierocks.mx/musica/noticias/rosas-adelanta-su-proximo-material-con-quiero-te": "2026-10-15T12:02:06.040885-06:00",
     "https://indierocks.mx/musica/noticias/sgt-papers-presenta-propaganda-su-nuevo-sencillo": "2026-11-09T17:17:23.379941-06:00",
     "https://indierocks.mx/musica/noticias/she-wants-revenge-regresa-con-black-wax-our-love": "2026-10-21T16:55:39.017815-06:00",
@@ -2645,7 +3150,6 @@
     "https://indierocks.mx/musica/noticias/the-flaming-lips-anuncia-su-nuevo-album-the-teardrop-throbs": "2026-10-28T23:25:45.404979-06:00",
     "https://indierocks.mx/musica/noticias/the-mission-anuncia-songs-for-kith-and-kin-su-nuevo-disco": "2026-11-03T18:18:07.864859-06:00",
     "https://indierocks.mx/musica/noticias/the-offspring-presenta-su-version-de-oi-to-the-world": "2026-11-10T14:42:40.094299-06:00",
-    "https://indierocks.mx/musica/noticias/thundercat-celebra-35-anos-de-sonic-con-nuevo-un-nuevo-track": "2026-10-13T14:06:08.464450-06:00",
     "https://indierocks.mx/musica/noticias/trentemoller-presenta-your-love-walks-alone": "2026-10-30T12:59:56.086843-06:00",
     "https://indierocks.mx/musica/noticias/tune-yards-presenta-the-ones-su-nuevo-sencillo": "2026-10-29T13:26:03.077263-06:00",
     "https://indierocks.mx/musica/noticias/winona-fighter-presenta-leech-su-nuevo-sencillo": "2026-10-21T12:25:25.999252-06:00",
@@ -2655,8 +3159,6 @@
     "https://indierocks.mx/musica/noticias/zurdok-anuncia-tour-y-reedicion-de-su-discografia": "2026-11-04T18:40:44.988850-06:00",
     "https://indierocks.mx/musica/resenas/fat-dog-cancel-me-im-tired": "2026-10-16T11:49:27.320217-06:00",
     "https://jenesaispop.com/2026/10/13/531848/bausa-espana-entradas": "2026-10-13T17:32:46.318336-06:00",
-    "https://jenesaispop.com/2026/10/13/532106/troye-shes-the-best-critica": "2026-10-13T14:06:08.464450-06:00",
-    "https://jenesaispop.com/2026/10/13/532139/arde-bogota-bisbal-discos": "2026-10-13T14:06:08.464450-06:00",
     "https://jenesaispop.com/2026/10/14/532149/michael-stipe-disco-solo": "2026-10-14T12:19:48.283150-06:00",
     "https://jenesaispop.com/2026/10/14/532172/remi-wolf-mud": "2026-10-14T16:53:52.646589-06:00",
     "https://jenesaispop.com/2026/10/15/532188/blondie-nuevo-disco": "2026-10-15T12:02:06.040885-06:00",
@@ -2689,12 +3191,12 @@
     "https://jenesaispop.com/2026/11/10/532252/steven-wilson-requiem-entrevista": "2026-11-10T14:42:40.094299-06:00",
     "https://jenesaispop.com/2026/11/10/533759/twisted-teens-the-holy-cross-tigers": "2026-11-10T14:42:40.094299-06:00",
     "https://jenesaispop.com/2026/11/11/533767/coachella-cartel-2027": "2026-11-11T15:05:03.846680-06:00",
+    "https://jenesaispop.com/2026/11/12/533773/carino-pop-magic-tragedy": "2026-11-12T15:19:33.465718-06:00",
     "https://mondosonoro.com/blog-musica/el-nido-discos": "2026-11-04T18:40:44.988850-06:00",
     "https://mondosonoro.com/blog-musica/javiera-mena-discos": "2026-11-03T14:25:43.598152-06:00",
     "https://mondosonoro.com/criticas/conciertos-musica/nacho-vegas-coruna": "2026-11-09T20:28:34.898275-06:00",
     "https://mondosonoro.com/criticas/conciertos-musica/vetusta-morla-coruna": "2026-11-09T17:17:23.379941-06:00",
     "https://mondosonoro.com/criticas/discos-musica/anni-b-sweet-alegria": "2026-10-16T11:49:27.320217-06:00",
-    "https://mondosonoro.com/criticas/discos-musica/blossoms-songs-from-the-wedding-cake": "2026-10-13T14:06:08.464450-06:00",
     "https://mondosonoro.com/criticas/discos-musica/bordell-reedicion": "2026-11-06T14:16:22.519597-06:00",
     "https://mondosonoro.com/criticas/discos-musica/hidrogenesse-variaciones-pombo": "2026-10-30T12:59:56.086843-06:00",
     "https://mondosonoro.com/criticas/discos-musica/imperial-teen-all-over-you": "2026-10-15T12:02:06.040885-06:00",
@@ -2707,18 +3209,17 @@
     "https://mondosonoro.com/entrevistas/marte-lasarte-kea": "2026-11-04T18:40:44.988850-06:00",
     "https://mondosonoro.com/entrevistas/pes-mort": "2026-11-01T12:45:53.275008-06:00",
     "https://mondosonoro.com/entrevistas/sports": "2026-10-30T17:24:15.873502-06:00",
-    "https://mondosonoro.com/noticias-actualidad-musical/107-faunos-nuevo-album": "2026-10-13T14:06:08.464450-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/alcala-norte-fechas-conciertos": "2026-10-20T17:14:29.421699-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/alex-cassen-primer-album": "2026-11-06T14:16:22.519597-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/balkan-paradise-orchestra-yikes-on-bikes": "2026-10-21T12:25:25.999252-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/bestiario-alcala-norte": "2026-10-30T12:59:56.086843-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/daina-hard-rock-rising-barcelona": "2026-10-14T12:19:48.283150-06:00",
-    "https://mondosonoro.com/noticias-actualidad-musical/elliot-murphy-anuncia-una-nueva-gira-en-espana": "2026-10-13T14:06:08.464450-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/exbats-donostia-bilbao": "2026-10-14T12:19:48.283150-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/fall-out-boy-madrid": "2026-11-10T14:42:40.094299-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/fontan-castilla-y-leon": "2026-10-30T12:59:56.086843-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/glockenwise-galicia": "2026-10-28T23:30:45.136900-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/hostia-pedagogica-gira": "2026-10-29T13:26:03.077263-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/ivan-ferreiro-los-delinquentes-xoel-lopez-actual": "2026-11-12T15:19:33.465718-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/jungle-tiny-desk": "2026-11-04T18:40:44.988850-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/lisasinson-cuesta-abajo": "2026-11-03T14:25:43.598152-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/los-estanques-no-queda-nada": "2026-10-28T23:30:45.136900-06:00",
@@ -2733,6 +3234,7 @@
     "https://mondosonoro.com/noticias-actualidad-musical/silvia-penide-los-cuidados": "2026-11-02T16:37:00.497186-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/smashing-pumpkins-juegos-hambre": "2026-10-16T11:49:27.320217-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/standstill-si-de-algo-hay-que-morir": "2026-11-04T14:40:43.719445-06:00",
+    "https://mondosonoro.com/noticias-actualidad-musical/the-chords-uk-encabezan-el-avance-de-cartel-de-ebroclub-2027": "2026-11-12T15:19:33.465718-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/the-loved-ones-latest-hits": "2026-10-21T16:55:39.017815-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/u2-greatest-show-on-earth": "2026-10-16T16:21:37.269720-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/ultimo-ciclista-adelanto": "2026-10-30T17:24:15.873502-06:00",
