@@ -7,7 +7,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 FORMATO = ("FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, "
            "sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. "
-           "El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo. Mira a la DERECHA.")
+           "El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. "
+           "Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.")
 BASE = ("ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje "
         "se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones "
         "heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz "
@@ -19,7 +20,8 @@ BANDA = (" Estética de banda de rock de los años 70: chaquetas de ante y de cu
          "granate, azul petróleo, crema y negro).")
 OFICINA = (" Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), "
            "vestidos en grises fríos y azul corporativo para que contrasten con los héroes.")
-REF = "Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento."
+REF = ("Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. "
+       "MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.")
 
 def banda(txt): return f"{REF}\n\n{BASE}{BANDA}\n{FORMATO}\n\n{txt}"
 def oficina(txt): return f"{BASE}{OFICINA}\n{FORMATO}\n\n{txt}"
@@ -86,11 +88,12 @@ MUSICOS = [
 def musico_prompts(m):
     p = []
     SUBE1 = f"Sube la imagen {m['id']}-1 y después pega esto"
-    p.append((f"{m['id']}-1.png", "NO subas ninguna imagen. Solo copia y pega",
-              f"{BASE}{BANDA}\n{FORMATO}\n\n"
-              f"PERSONAJE: caricatura respetuosa de un músico de una banda de rock española ({m['papel']}). "
-              f"Aspecto: {m['look']}. Lleva {m['inst']}.\n"
-              "HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.",
+    p.append((f"{m['id']}-1.png", f"Sube la FOTO de {m['nombre']} que te pasaron y después pega esto",
+              f"Usa la foto adjunta SOLO como referencia de la cara, el peinado y la ropa de esta persona, y conviértela en un personaje "
+              f"de videojuego (caricatura respetuosa, no un retrato realista).\n\n{BASE}{BANDA}\n{FORMATO}\n\n"
+              f"PERSONAJE: músico de una banda de rock española ({m['papel']}). Aspecto: {m['look']}. Lleva {m['inst']}.\n"
+              "HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, "
+              "(2) de 3/4 mirando a la derecha, (3) de frente.",
               True))
     p.append((f"{m['id']}-2.png", SUBE1,
               banda(f"PERSONAJE: el de la imagen adjunta, con {m['inst']}.\n" + MOV.format(extra=m.get('extra', ''))), False))
@@ -102,21 +105,10 @@ def musico_prompts(m):
                     "Fila 2: EN EL SUELO ×1 (tumbado boca arriba) y LEVANTARSE ×2.\n"
                     f"{m['esp']}\nFila 4: vacía, no dibujes nada."), False))
     p.append((f"{m['id']}-5.png", SUBE1,
-              banda(f"PERSONAJE: el de la imagen adjunta, con {m['inst']}.\nHOJA de exactamente 4 filas:\n{m['sup']}"), False))
-    p.append((f"{m['id']}-6.png", SUBE1,
-              f"{REF}\n\nRetrato en pixel art de busto (cabeza y hombros) del personaje de la imagen adjunta, para la pantalla de selección "
-              "de personaje de un beat 'em up arcade de principios de los 90. Vista de 3/4 mirando a la DERECHA, "
-              f"{m['cara']}. Iluminación dramática: luz cálida de foco desde abajo a la izquierda y contraluz morado, como dentro "
-              "de la cabina de un ascensor antiguo de madera y latón. Mucho detalle en la cara, el pelo y el cuello de la ropa, "
-              "contorno oscuro grueso, sombreado de 3 a 4 tonos por color. Formato CUADRADO 1:1, el busto ocupa casi todo el cuadro. "
-              "Fondo gris completamente liso #474747. Sin texto, sin marcos y sin logos. Arte original: no imites la pantalla de "
-              "selección de ningún videojuego existente.", False))
-    p.append((f"{m['id']}-7.png", f"Sube la imagen {m['id']}-6 y después pega esto",
-              "Usa la imagen adjunta (el retrato) como referencia EXACTA.\n\n"
-              f"Exactamente el mismo retrato (mismo encuadre, tamaño, luz y fondo), pero con el personaje {m['listo']}, como si "
-              "acabara de ser elegido. Fondo gris liso #474747, sin texto.", False))
+              banda(f"PERSONAJE: el de la imagen adjunta, con {m['inst']}.\nHOJA de exactamente 4 filas:\n{m['sup']}\n"
+                    "El RETRATO va en el mismo estilo y con la misma luz que el resto de la hoja (es el que sale en la pantalla de selección)."), False))
     if m['id'] == 'dani':
-        p.append(("dani-8.png", "NO subas ninguna imagen. Solo copia y pega",
+        p.append(("dani-6.png", "NO subas ninguna imagen. Solo copia y pega",
                   "Una nota musical con forma de rayo, amarilla y blanca, en pixel art de arcade de los 90 con contorno oscuro grueso. "
                   "3 poses de animación en una fila (brillando un poco más en cada una), separadas entre sí. Fondo gris completamente "
                   "liso #474747. Sin texto.", False))
@@ -162,11 +154,14 @@ OTROS = [
   ("titulo-fondo.png", "Pantalla de título (opcional)", "Ilustración en pixel art para la pantalla de título de un videojuego arcade de los 90: un rascacielos de oficinas blanco de los años 80 con franjas verticales y arcos en la base, de noche, visto desde abajo en contrapicado; en la azotea, un escenario de concierto con focos y pirotecnia de escenario. Cielo de morado a rojo, skyline de Madrid en silueta con ventanas encendidas. Paleta cálida y algo desaturada. Formato PANORÁMICO 16:9. Deja libre la franja superior para el título. NADA de fuego, humo ni daños en el edificio: el fuego es solo pirotecnia del escenario. Sin texto, sin logos y sin personajes."),
 ]
 
+HECHOS = {'antonio', 'pepe'}   # ya están en el juego
+
 def build():
     secciones = []
     for m in MUSICOS:
+        if m['id'] in HECHOS: continue
         secciones.append(dict(titulo=f"{m['nombre']} · {m['apodo']} ({m['papel']})", id=m['id'],
-                              nota=f"7 imágenes{' (8 con la nota)' if m['id'] == 'dani' else ''}. Hazlas en orden.",
+                              nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
     secciones.append(dict(titulo="Enemigos (empleados de Silencio S.A.)", id="enemigos", nota="No subas ninguna imagen. Solo copia y pega.",
         prompts=[(f"enemigo-{k}.png", f"{n}: no subas ninguna imagen", oficina(f"PERSONAJE: {d}.\nHOJA de exactamente 3 filas:\n{rows}"), False) for k, (i, n, d, rows) in enumerate(ENEMIGOS, 1)]))
@@ -179,10 +174,11 @@ def build():
     return secciones
 
 PASOS = [
+    "Antonio y Pepe ya están en el juego. Faltan Dani y Jota.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
-    "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la imagen…», primero sube esa imagen con el botón + o el clip.",
-    "Descarga la imagen que salga y guárdala con el nombre que pone el paso (por ejemplo, antonio-1).",
+    "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",
+    "Descarga la imagen que salga y guárdala con el nombre que pone el paso (por ejemplo, dani-1).",
     "Si no te gusta cómo quedó, escribe «Otra vez» en el mismo chat.",
 ]
 
