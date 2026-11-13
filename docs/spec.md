@@ -137,6 +137,20 @@ Al elegir, entra directo a ese juego. En el menú también están Mi colección,
 - **Lanzamiento con fecha:** cada juego tiene una fecha `desde`. Antes de esa fecha la tarjeta no aparece. El de José Madero sale el **viernes 6 de noviembre de 2026 a las 8:00 (CDMX)** con la compilación diaria, aunque el cambio se fusione antes. La página del juego sí existe antes, pero no está enlazada.
 - El menú marca "Games" como activo en `/games/` y en `/trivia/`.
 
+**F26 Trivia José Madero: Carmesí y Noche.** Una segunda trivia en Games, con el motor de la de Love of Lesbian, sobre las dos etapas que ya tiene el juego *México vs. José Madero*: **E1 *Carmesí* (2016)** y **E2 *Noche* (2017)**. Crece con el juego: cada vez que se abra un disco nuevo, la trivia suma su etapa.
+- **Modos (decisión del usuario, 7 nov 2026):**
+  - **Trivia por etapas:** fáciles, difíciles y muy difíciles, con categoría final e insignias.
+  - **Contrarreloj:** 60 s; una canción de *Carmesí* o de *Noche* y cuatro discos para elegir. Solo canciones de las listas verificadas; *Alba* y *Psalmos* aparecen como opción incorrecta y nunca como respuesta.
+  - **Adivina la canción:** fragmentos del avance oficial de Apple Music, como en F20 y F22.
+- **Orden (decisión del usuario):** primero el **banco de preguntas** (`docs/trivia-madero.md`) para que un fan de CR lo revise. El juego se construye después y sale cuando haya **al menos 5 preguntas `verificada` por dificultad**.
+- **Veracidad (lo pidió el usuario: «todo confirmado»):** las mismas reglas que `docs/trivia.md` §0.
+  - Cada pregunta lleva **2 fuentes independientes con enlace**.
+  - Si las fuentes se contradicen, la pregunta se descarta.
+  - Con una sola fuente queda en 🟡 y no entra.
+  - Todo nace como `propuesta` y solo entra al juego lo que un fan marque `verificada` tras abrir los enlaces.
+  - Sin letras de canciones (solo títulos, fechas, personas y lugares) y sin polémicas.
+- **Nombre en Games:** «Trivia José Madero: Carmesí y Noche». Homenaje no oficial.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos

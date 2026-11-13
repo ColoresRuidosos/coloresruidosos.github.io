@@ -98,6 +98,15 @@
 
 **D31 Sección Games (2026-11-04):** F25. Los juegos se listan en `data/games.json` (`id`, `nombre`, `descripcion`, `url` relativa sin barra inicial, `desde` en RFC 3339 con zona). `layouts/games/section.html` muestra solo los que cumplen `desde` ≤ hora de compilación, así que la tarjeta aparece sola en la corrida diaria de las 8:00. La trivia se queda en `/trivia/` (cambiarla rompería las tarjetas compartidas y el ranking); solo cambia la etiqueta del menú, que queda activa en las secciones `games` y `trivia`. El juego de José Madero es un HTML de un solo archivo (~1,6 MB) compilado en `juegos/mexico-vs-jose-madero/` y copiado con `npm run publish:web` a `static/games/mexico-vs-jose-madero/index.html`; Hugo lo sirve tal cual. No va en un iframe, porque los controles táctiles necesitan la pantalla entera. `tests-js/games.test.js` valida el contrato de datos, que el archivo del juego exista y el menú.
 
+**D32 Trivia José Madero (2026-11-07):** F26.
+- **Banco:** `docs/trivia-madero.md`, con el mismo formato y las mismas reglas que `docs/trivia.md`.
+- **Generador y datos:** cuando se construya el juego, un generador (adaptado de `generar_trivia_json.py`) pasará el banco a `data/trivia-madero.json`.
+- **Motor:** se parametriza el de `assets/js/trivia/` por «juego» (banco, etapas, categorías, insignias y escenas), sin duplicar la lógica, y se sirve en `/games/trivia-madero/`.
+- **Contrarreloj:** usa las listas de canciones del §3 del banco.
+- **Adivina la canción:** usa `audio-trivia.yml` con el artista y los discos de Madero (coincidencia exacta de título, artista y disco en Apple Music).
+- **Ranking:** el mismo Apps Script, con modos nuevos (`madero-*`).
+- **Publicación:** la trivia sale solo cuando se cumple el mínimo de preguntas verificadas.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
@@ -112,6 +121,8 @@
 | V9 | Tracklists completos de *V.E.H.N.* y de los tres discos en inglés | Esos discos aparecen solo como opción incorrecta |
 | V11 | Cuántas canciones del banco tienen avance en Apple Music y enlace en Spotify (primera corrida de `audio-trivia.yml`) | Jugar solo con las que tengan avance |
 | V12 | El equipo publica la nueva versión de `Code.gs` (Gestionar implementaciones → editar → Nueva versión) | Contrarreloj y Adivina la canción sin ranking hasta entonces |
+| V13 | Revisión fan del banco `docs/trivia-madero.md`: abrir cada enlace y marcar `verificada` | La trivia no sale hasta tener 5 verificadas por dificultad |
+| V14 | Segunda fuente con enlace para los datos 🟡 del banco, varios de los cuales ya salen en el juego (N2–N7, D7, D13) | Se quedan fuera de la trivia; revisar si siguen en el juego |
 | V10 | ~~El equipo publica el Apps Script y comparte la URL~~ Hecho el 2026-11-03; falta la prueba de punta a punta contra el Sheet real (desde el entorno de desarrollo no se alcanza `script.google.com`) | Si falla, vaciar `trivia_ranking_url` oculta el ranking |
 
 ## Riesgos aceptados por publicar sin revisión
