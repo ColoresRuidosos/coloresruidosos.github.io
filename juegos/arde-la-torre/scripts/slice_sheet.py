@@ -45,9 +45,9 @@ SHEETS = {
              names=['hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
              ref=['hurt'], target=70, loose=['fall0', 'fall1', 'down']),
         dict(file='pepe-5-firma-super.jpg', rows=[3, 4, 4],
-             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'win2', 'portrait_small'],
-             ref=['win0', 'win2'], target=74, loose=[], skip=['portrait_small']),
-        dict(portrait_file='pepe-6-retrato.jpg'),
+             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'win2', 'portrait'],
+             ref=['win0', 'win2'], target=74, loose=[], portrait='portrait'),
+        # El retrato grande aparte (pepe-6-retrato.jpg) tiene otro estilo; se usa el de la hoja, igual que con Antonio.
     ],
 }
 
