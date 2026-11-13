@@ -682,6 +682,18 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 | 9 | Maldita rueda | La vuelta que siempre vuelve. Para salir de la rueda hay que dar un paso fuera. |
 | 10 | Carrusel de adultos | De grandes también damos vueltas; solo que ya nadie nos sube al caballito. |
 
+**v10.1 · Letras de *Alba* (13 nov 2026).** El usuario informa que **tienen el permiso** («la bendición») para usar letras del disco.
+- **Constancia (⏳ la completa el usuario):** quién dio el permiso, la fecha y el alcance. ¿Es solo para este juego? ¿Fragmentos o letras completas? ¿Con qué crédito? Hay que guardar el correo o el documento fuera del repo y anotar aquí la referencia. Mientras no esté anotado, el juego no publica las letras en la web, aunque sí se pueden ver en las pruebas.
+- **Quién pone el texto:** el texto exacto lo aporta el equipo de CR desde la fuente oficial. **Claude no transcribe letras**: solo construye el mecanismo y coloca el texto que le pasan, sin tocarlo.
+- **Cómo se ven:**
+  - cada atril muestra **un fragmento corto** de su canción (hasta 4 líneas de 30 caracteres, para que quepa y se lea en el celular);
+  - debajo va la reflexión de CR;
+  - al pie, el crédito: «"Título" — José Madero · *Alba* (2018) · usado con autorización».
+- **Datos:** `src/data/alba-letras.js`, una entrada por canción: `{ cancion, fragmento: [líneas], credito }`.
+  - Una prueba revisa que el fragmento cumpla el tamaño, que lleve crédito y que sea una de las 10 canciones.
+  - Si una canción no tiene fragmento, el atril muestra solo la reflexión.
+- **Excepción a CONTEXTO §1** («ni letras sin licencia»): solo para *Alba* y solo con el permiso anotado. Para los demás discos, la regla sigue igual.
+
 **Momento final «La Nostalgia»** (3-3, en lugar de jefe; ✅ §3.3 v4):
 - En la cima, el mundo se vuelve sepia y aparecen siluetas de los niveles anteriores (Carmesí y Noche) **corriendo hacia atrás**.
 - Un viento empuja a Pepe a 40 px/s: solo se avanza **caminando sin parar**.
