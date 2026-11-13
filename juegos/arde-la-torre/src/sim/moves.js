@@ -21,16 +21,16 @@ export const HEROES = {
   },
   pepe: {
     name: 'PEPE', role: 'BAJO', special: 'BAJO AL SUELO',
-    hp: 115, speed: 1.1, run: 2.3, jump: 4.2, w: 18, h: 60,
+    hp: 115, speed: 1.22, run: 2.5, jump: 4.4, w: 18, h: 60,   // v2 (13 nov, «lo siento un poco lento»): antes 1,1 / 2,3 / 4,2
     combo: combo(
-      { start: 4, active: 3, rec: 9, reach: [4, 32], z: [30, 52], dmg: 7, push: 1.5 },
-      { start: 4, active: 3, rec: 10, reach: [4, 34], z: [28, 50], dmg: 8, push: 1.5 },
-      { start: 7, active: 5, rec: 16, reach: [2, 44], z: [0, 54], dmg: 13, push: 2.5, knock: true },
+      { start: 4, active: 3, rec: 8, reach: [4, 32], z: [30, 52], dmg: 7, push: 1.5 },
+      { start: 4, active: 3, rec: 9, reach: [4, 34], z: [28, 50], dmg: 8, push: 1.5 },
+      { start: 6, active: 5, rec: 13, reach: [2, 44], z: [0, 54], dmg: 13, push: 2.5, knock: true },
     ),
     air: { reach: [0, 32], z: [0, 40], dmg: 11, knock: true, air: true },
     dash: { reach: [0, 36], z: [10, 52], dmg: 12, knock: true, dur: 22 },
     knee: 7, throw: 16,
-    sp: { dur: 36, from: 12, to: 22, reach: [0, 56], z: [0, 40], dmg: 15, knock: true, both: true },
+    sp: { dur: 32, from: 9, to: 19, reach: [0, 56], z: [0, 40], dmg: 15, knock: true, both: true },
   },
   dani: {
     name: 'DANI', role: 'GUITARRA', special: 'SOLO',

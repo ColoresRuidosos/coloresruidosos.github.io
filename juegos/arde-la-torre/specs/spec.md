@@ -72,7 +72,7 @@ Cada músico se reconoce por **su instrumento como arma**, una **habilidad pasiv
 | Papel en la banda | Voz y guitarra | Bajo | Guitarra | Batería |
 | Apodo en el juego | **El Frontman** | **El Muro** | **El Relámpago** | **El Metrónomo** |
 | Estilo | Equilibrado y de apoyo | Lento, fuerte y difícil de tumbar | Rapidísimo, combos largos | Alcance medio y ritmo |
-| Fuerza · Velocidad · Alcance · Agarres · Vida (1–5) | 3 · 3 · 3 · 3 · 3 | 5 · 1 · 3 · 5 · 5 | 2 · 5 · 2 · 2 · 2 | 3 · 3 · 4 · 2 · 3 |
+| Fuerza · Velocidad · Alcance · Agarres · Vida (1–5) | 3 · 3 · 3 · 3 · 3 | 5 · 2 · 3 · 5 · 5 | 2 · 5 · 2 · 2 · 2 | 3 · 3 · 4 · 2 · 3 |
 | Combo (golpe ×N) | 3: directo, gancho y **guitarrazo** | 3: codazo, rodilla y **bajazo** de arriba abajo | 4: dos golpes rápidos, patada y **barrido con la guitarra** | 3: dos **baquetazos** y un doble golpe con ambas baquetas |
 | **Pasiva** | **Carisma**: los compañeros cerca de él (a menos de 80 px) cargan el VOLUMEN un 25 % más rápido | **Aguante**: el primer golpe que recibe cada 3 s no lo interrumpe (solo pierde vida) | **Doble salto** y su carrera esquiva los proyectiles | **A tempo**: el golpe que cae en el pulso de la música hace +50 % de daño y suelta una nota (se ve un marcador en el HUD) |
 | Golpe de firma (atrás + golpe) | **Latigazo de micro**: lanza el micro por el cable y **atrae** al enemigo hacia él | **Placaje**: carga corta que arrastra a todos los que encuentra | **Deslizamiento** por el suelo que derriba y pasa por debajo de los proyectiles | **Baqueta voladora**: lanza una baqueta que vuelve, como un bumerán |
