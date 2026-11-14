@@ -86,26 +86,90 @@
     ctx.fillRect(x - 1, Math.round(abajo), w + 2, 4);
   }
 
-  var NOTA = ["..YYYYY", "..Y...Y", "..Y...Y", "YYY.YYY", "YYY.YYY"];
+  // Notas: corchea doble negra, más grande, con contorno crema para que se vea en los fondos oscuros.
+  var NOTA = [
+    "...kkkkkk",
+    "...kkkkkk",
+    "...k....k",
+    "...k....k",
+    "...k....k",
+    "...k....k",
+    ".kkk..kkk",
+    "kkkk.kkkk",
+    "kkkk.kkkk",
+    ".kk...kk.",
+  ];
+  var NOTA_BORDE = (function () { // píxeles vecinos de la nota que no son nota: su contorno
+    var lleno = function (i, j) { return j >= 0 && j < NOTA.length && i >= 0 && i < NOTA[j].length && NOTA[j][i] === "k"; };
+    var borde = [];
+    for (var j = -1; j <= NOTA.length; j++) for (var i = -1; i <= NOTA[0].length; i++) {
+      if (lleno(i, j)) continue;
+      for (var dj = -1; dj <= 1; dj++) for (var di = -1; di <= 1; di++) if (lleno(i + di, j + dj)) { borde.push([i, j]); di = dj = 2; }
+    }
+    return borde;
+  })();
   function nota(n) {
-    var x0 = Math.round(n.x) - 3, y0 = Math.round(n.y) - 2 + (sinMovimiento ? 0 : Math.round(Math.sin((cuadro + n.x) / 8)));
-    NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "Y") { ctx.fillStyle = "#FFD23F"; ctx.fillRect(x0 + i, y0 + j, 1, 1); } });
+    var x0 = Math.round(n.x) - 4, y0 = Math.round(n.y) - 5 + (sinMovimiento ? 0 : Math.round(Math.sin((cuadro + n.x) / 8)));
+    ctx.fillStyle = "#F4EFE6";
+    NOTA_BORDE.forEach(function (b) { ctx.fillRect(x0 + b[0], y0 + b[1], 1, 1); });
+    ctx.fillStyle = "#141414";
+    NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "k") ctx.fillRect(x0 + i, y0 + j, 1, 1); });
   }
 
-  function cometa() {
-    var cx = H.X_COMETA, cy = Math.round(e.y);
-    // Estela: se inclina con la velocidad.
-    var inclina = Math.max(-2, Math.min(2, e.vy * 0.6));
-    var estela = ["#FF3E7F", "#FF7A30", "#FFD23F", "#fff3b0"];
-    for (var k = 1; k <= 12; k++) {
-      var c = estela[Math.min(3, Math.floor(k / 3))], ancho = k < 4 ? 3 : k < 8 ? 2 : 1;
-      if (!sinMovimiento && (k + cuadro) % 5 === 0) continue;
-      ctx.fillStyle = estela[3 - Math.min(3, Math.floor((12 - k) / 3))] || c;
-      ctx.fillRect(cx - 3 - k, Math.round(cy - ancho / 2 + inclina * k / 6), 1, ancho);
+  // El amante guisante (diseño propio, por «Te hiero mucho (Historia del amante guisante)»): guisante aviador con
+  // casco, gogles, carita y un corazón que flota, jalando un listón rojo que ondea con "GRACIAS". El choque sigue siendo el
+  // círculo de radio 4 en su centro.
+  var GUISANTE = [ // con casco de aviador (orejeras) y gogles sobre la frente
+    "....MMMM....",
+    "..MMmmmmMM..",
+    ".MmmmmmmmmM.",
+    ".MGGGmmGGGM.",
+    "MGWWhGGWWhGM",
+    "MvGGGvvGGGvM",
+    "MvvvkvvvkvvM",
+    "MvvvkvvvkvvM",
+    "MvpvvvvvvpvM",
+    ".Vvvvk.kvvV.",
+    ".VvvvvkvvvV.",
+    "..VVvvvvVV..",
+    "....VVVV....",
+  ];
+  var COLOR_G = { V: "#2e7d32", v: "#6cc04a", h: "#ffffff", k: "#141414", p: "#FF3E7F", M: "#5a3518", m: "#8a5a2b", G: "#4a4a4a", W: "#9fd8f0" };
+  var CORAZON = [".pp.pp.", "ppppppp", "ppppppp", ".ppppp.", "..ppp..", "...p..."];
+  var LETRAS = { G: ["111", "100", "101", "101", "111"], R: ["110", "101", "110", "101", "101"], A: ["010", "101", "111", "101", "101"],
+    C: ["111", "100", "100", "100", "111"], I: ["111", "010", "010", "010", "111"], S: ["111", "100", "111", "001", "111"] };
+  var LISTON = "GRACIAS";
+
+  function guisante() {
+    var cx = H.X_COMETA, cy = Math.round(e.y), t = sinMovimiento ? 0 : cuadro;
+    var inclina = Math.max(-1.5, Math.min(1.5, e.vy * 0.5)); // al subir, el listón queda abajo (y al revés)
+    var x0 = cx - 6, y0 = cy - 7, ancho = LISTON.length * 4 + 4, inicio = x0 - 4;
+    ctx.fillStyle = "#c9c9c9";
+    for (var k = 0; k < 4; k++) ctx.fillRect(x0 - k, Math.round(cy - inclina * k / 4), 1, 1);
+    for (var c = 0; c < ancho; c++) {
+      var xx = inicio - c, yy = Math.round(cy - 4 - inclina * (c + 4) / 4 + Math.sin((c + t * 1.2) / 3) * 1.5);
+      ctx.fillStyle = "#E0302B"; ctx.fillRect(xx, yy, 1, 7);
+      ctx.fillStyle = "#8e1a16"; ctx.fillRect(xx, yy + 7, 1, 1);
+      var col = ancho - 3 - c, li = Math.floor(col / 4), cc = col % 4;
+      if (li >= 0 && li < LISTON.length && cc < 3) {
+        var g = LETRAS[LISTON[li]];
+        ctx.fillStyle = "#F4EFE6";
+        for (var f = 0; f < 5; f++) if (g[f][cc] === "1") ctx.fillRect(xx, yy + 1 + f, 1, 1);
+      }
     }
-    ctx.fillStyle = "#fff3b0"; ctx.fillRect(cx - 3, cy - 2, 7, 5); ctx.fillRect(cx - 2, cy - 3, 5, 7);
-    ctx.fillStyle = "#ffffff"; ctx.fillRect(cx - 1, cy - 1, 3, 3);
-    ctx.fillStyle = "#FFD23F"; ctx.fillRect(cx + 3, cy - 1, 1, 3);
+    GUISANTE.forEach(function (fila, j) {
+      for (var i = 0; i < fila.length; i++) {
+        var color = COLOR_G[fila[i]];
+        if (color) { ctx.fillStyle = color; ctx.fillRect(x0 + i, y0 + j, 1, 1); }
+      }
+    });
+    var fase = (t % 120) / 120; // un corazón sube y se desvanece cada 2 s
+    if (fase < 0.6) {
+      var hx = cx + 6, hy = Math.round(cy - 9 - fase * 14);
+      ctx.globalAlpha = 1 - fase / 0.6; ctx.fillStyle = "#FF3E7F";
+      CORAZON.forEach(function (fila, j) { for (var i = 0; i < fila.length; i++) if (fila[i] === "p") ctx.fillRect(hx + i, hy + j, 1, 1); });
+      ctx.globalAlpha = 1;
+    }
   }
 
   function dibujar() {
@@ -122,7 +186,7 @@
     var corre = sinMovimiento ? 0 : Math.floor((e.pasos * H.velocidad(et)) % 8);
     ctx.fillStyle = "#5a3a22";
     for (var x = -corre; x < H.ANCHO; x += 8) ctx.fillRect(x, H.PISO + 3, 5, 1);
-    cometa();
+    guisante();
     if (destello > 0) { ctx.fillStyle = "rgba(255,62,127," + (destello / 12 * 0.5) + ")"; ctx.fillRect(0, 0, H.ANCHO, H.ALTO); destello--; }
   }
 

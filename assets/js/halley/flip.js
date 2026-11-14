@@ -1,8 +1,8 @@
 /* Halley Flip (F28/D34): lógica pura. Mundo de 160 × 144 px a paso fijo de 1/60 s: la gravedad jala al
-   cometa, cada toque lo impulsa hacia arriba y hay que pasar entre torres de bocinas. Sin DOM: se prueba con
+   amante guisante, cada toque lo impulsa hacia arriba y hay que pasar entre torres de bocinas. Sin DOM: se prueba con
    node --test tests-js/halley.test.js. */
 (function (raiz) {
-  var ANCHO = 160, ALTO = 144, PISO = 136, X_COMETA = 40, RADIO = 4;
+  var ANCHO = 160, ALTO = 144, PISO = 136, X_COMETA = 50, RADIO = 4; // x de Halley: deja ver el listón completo
   var GRAVEDAD = 0.15, IMPULSO = -2.4, CAIDA_MAX = 3.4; // cada toque sube ~19 px: un tercio del hueco
   var ANCHO_TORRE = 16, SEPARACION = 74, MARGEN = 12, PROB_NOTA = 0.45, MAX_SALTO = 34; // entre huecos seguidos
   var CLAVE = "cr-halley-v1";
@@ -89,7 +89,7 @@
     var quedan = [];
     e.notas.forEach(function (n) {
       var dx = n.x - X_COMETA, dy = n.y - e.y;
-      if (dx * dx + dy * dy <= (RADIO + 4) * (RADIO + 4)) e.notasTomadas += 1;
+      if (dx * dx + dy * dy <= (RADIO + 6) * (RADIO + 6)) e.notasTomadas += 1; // a la medida de la nota (9 × 10 px)
       else if (n.x > -8) quedan.push(n);
     });
     e.notas = quedan;
