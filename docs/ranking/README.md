@@ -64,6 +64,7 @@ El mismo script guarda los tres modos en la misma pestaña (columna `modo`):
 | `trivia` | Esta semana · Histórico | 30 | 15 s – 1 h |
 | `contrarreloj` | Esta semana · Histórico | 400 | 3 s – 90 s |
 | `adivina` | Hoy · Semana (suma de rondas) · Mejor racha | 60 | 5 s – 1 h |
+| `halley` (Halley Flip) | Esta semana · Histórico | 999 | 3 s – 1 h, y a lo más 1 punto + 1 cada 0,7 s después de los primeros 2 s ("rapido" si no cuadra) |
 
 En Adivina la canción solo cuenta la primera ronda publicada por nombre y día (hora de CDMX). Si el sitio dice «El ranking de este modo todavía no está activo», falta publicar la versión nueva del script (paso 5).
 
