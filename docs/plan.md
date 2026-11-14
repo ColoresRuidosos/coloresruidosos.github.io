@@ -106,7 +106,7 @@
 
 **D33 Fanzine de concierto (2026-11-04):** F27.
 - `data/conciertos_mx.yaml`: lista ordenada con `fecha` (ISO), `recinto`, `ciudad`, `nota` y `marca` (la † del equipo, por definir). Secciones `cancelados`, `no_cuentan`, `sin_confirmar` y `proximos`. Una prueba revisa que haya 47 conciertos, fechas válidas y en orden.
-- `docs/fanzine/`: la página 5 usa `dibujo-colorear.png` (dibujo del equipo, limpiado a línea negra sobre blanco). `fanzine.html` dibuja cada página a 300 dpi (825 × 1275 px) en canvas con las fuentes del sitio y los sprites del juego. `render.js` la abre por página y edición, y `generar_fanzine.py` impone las 8 páginas en Carta horizontal (fila de arriba de cabeza: 5 4 3 2; fila de abajo: 6 7 8 1) y arma los PDF con `img2pdf`.
+- `docs/fanzine/`: la portada y la contraportada usan `portada-banda.png` (el mismo dibujo a color, foto limpiada: papel aplanado y blanqueado, sin el dedo ni sombras, mezclado con `multiply` sobre el papel); la página 5 usa `dibujo-colorear.png` (dibujo del equipo, limpiado a línea negra sobre blanco). `fanzine.html` dibuja cada página a 300 dpi (825 × 1275 px) en canvas con las fuentes del sitio y los sprites del juego. `render.js` la abre por página y edición, y `generar_fanzine.py` impone las 8 páginas en Carta horizontal (fila de arriba de cabeza: 5 4 3 2; fila de abajo: 6 7 8 1) y arma los PDF con `img2pdf`.
 - Las preguntas de la página 6 salen de `data/trivia.json` (solo `fuerza: solida`). Los QR (trivia y `?codigo=` de F26) se generan con `segno` y se verifican decodificándolos.
 
 **D34 Halley Flip (2026-11-06):** F28.

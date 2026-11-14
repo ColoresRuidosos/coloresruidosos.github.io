@@ -1,32 +1,65 @@
 <!doctype html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Patrick+Hand&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>html,body{margin:0;background:#fff}canvas{display:block}</style></head><body>
 <canvas id="c" width="825" height="1275"></canvas>
 <script src="../../assets/js/trivia/insignias.js"></script>
 <script src="fanzine-datos.js"></script>
 <script>
 // Fanzine de concierto (F27/D33): una página de 7 × 10,8 cm a 300 dpi (825 × 1275 px). ?ed=auditorio&p=1
+// Estilo: papel y lápices de colores (como el dibujo del equipo) con acentos 8 bits (fuente pixel e íconos).
 const W = 825, H = 1275, q = new URLSearchParams(location.search);
-const Z = window.FANZINE, ED = Z.ediciones[q.get('ed') || 'auditorio'], PAG = +q.get('p') || 1;
+const Z = window.FANZINE, CLAVE = q.get('ed') || 'auditorio', ED = Z.ediciones[CLAVE], PAG = +q.get('p') || 1;
 const c = document.getElementById('c'), x = c.getContext('2d');
-const PX = '"Press Start 2P", monospace', SG = '"Space Grotesk", sans-serif';
-const C = { tinta: '#141414', crema: '#F4EFE6', rosa: '#FF3E7F', azul: '#2F5BFF', amarillo: '#FFD23F', verde: '#1FB57A', naranja: '#FF7A30', gris: '#9a9a9a' };
+const PX = '"Press Start 2P", monospace', SG = '"Space Grotesk", sans-serif', MANO = '"Patrick Hand", cursive';
+const C = { papel: '#FBF5E8', tinta: '#2b2522', gris: '#7a6f66', suave: '#e9dfcb', rosa: '#FF3E7F', azul: '#2F5BFF', amarillo: '#FFD23F', verde: '#1FB57A', naranja: '#FF7A30' };
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+
+// Azar con semilla por página: los trazos "a mano" salen siempre iguales.
+let semilla = PAG * 97 + CLAVE.length * 13;
+function azar() { semilla = (semilla * 1664525 + 1013904223) >>> 0; return semilla / 4294967296; }
 function txt(s, X, Y, size, col, font = SG, peso = '500 ', align = 'center') { x.font = `${peso}${size}px ${font}`; x.fillStyle = col; x.textAlign = align; x.textBaseline = 'alphabetic'; x.fillText(s, X, Y); }
+function mano(s, X, Y, size, col, align = 'center') { txt(s, X, Y, size, col, MANO, '', align); }
 function px(s, X, Y, size, col, align = 'center') { txt(s, X, Y, size, col, PX, '', align); }
 function lineas(s, X, Y, size, col, ancho, salto, font = SG, peso = '500 ', align = 'center') {
   x.font = `${peso}${size}px ${font}`; let l = [], a = '';
   s.split(' ').forEach((w) => { const p = a ? a + ' ' + w : w; if (x.measureText(p).width > ancho && a) { l.push(a); a = w; } else a = p; }); l.push(a);
   l.forEach((t, i) => txt(t, X, Y + i * salto, size, col, font, peso, align)); return l.length;
 }
-function fondo(col) { x.fillStyle = col; x.fillRect(0, 0, W, H); }
-function franjas(y, alto) { [C.rosa, C.azul, C.amarillo, C.verde, C.naranja].forEach((k, i) => { x.fillStyle = k; x.fillRect(i * W / 5, y, W / 5 + 1, alto); }); }
-function folio(n, col) { txt(String(n), W / 2, H - 28, 24, col || C.gris); }
-function fechaCorta(iso) { const [a, m, d] = iso.split('-').map(Number); return d + ' ' + MESES[m - 1]; }
-function sprite(nombre, X, Y, esc) {
+function papel(col) {
+  x.fillStyle = col || C.papel; x.fillRect(0, 0, W, H);
+  // Grano del papel
+  for (let i = 0; i < 2600; i++) { x.fillStyle = azar() < 0.5 ? 'rgba(120,100,70,.05)' : 'rgba(255,255,255,.18)'; x.fillRect(azar() * W, azar() * H, 2, 2); }
+}
+// Trazo a mano: línea con un poco de temblor.
+function trazo(x0, y0, x1, y1, col, grosor) {
+  x.strokeStyle = col; x.lineWidth = grosor || 4; x.lineCap = 'round'; x.beginPath(); x.moveTo(x0, y0);
+  const n = 8; for (let i = 1; i <= n; i++) x.lineTo(x0 + (x1 - x0) * i / n + (azar() - .5) * 3, y0 + (y1 - y0) * i / n + (azar() - .5) * 3);
+  x.stroke();
+}
+function subrayado(X, Y, ancho, col) { // onda dibujada
+  x.strokeStyle = col; x.lineWidth = 6; x.lineCap = 'round'; x.beginPath();
+  for (let i = 0; i <= 40; i++) { const t = i / 40; const xx = X - ancho / 2 + ancho * t, yy = Y + Math.sin(t * Math.PI * 4) * 5 + (azar() - .5) * 2; i ? x.lineTo(xx, yy) : x.moveTo(xx, yy); }
+  x.stroke();
+}
+function cinta(cx, cy, w, h, ang, col) { // cinta adhesiva con orillas dentadas
+  x.save(); x.translate(cx, cy); x.rotate(ang); x.globalAlpha = .82; x.fillStyle = col; x.beginPath();
+  x.moveTo(-w / 2, -h / 2); for (let i = 0; i <= 6; i++) x.lineTo(-w / 2 + (i % 2 ? 5 : 0), -h / 2 + h * i / 6);
+  x.lineTo(w / 2, h / 2); for (let i = 6; i >= 0; i--) x.lineTo(w / 2 - (i % 2 ? 5 : 0), -h / 2 + h * i / 6);
+  x.closePath(); x.fill(); x.restore();
+}
+function caja(X, Y, w, h, col) { trazo(X, Y, X + w, Y, col); trazo(X + w, Y, X + w, Y + h, col); trazo(X + w, Y + h, X, Y + h, col); trazo(X, Y + h, X, Y, col); }
+function circulo(cx, cy, r, col) {
+  x.strokeStyle = col; x.lineWidth = 6; x.beginPath();
+  for (let i = 0; i <= 44; i++) { const a = i / 40 * Math.PI * 2 - 1, rr = r + (azar() - .5) * 6; const xx = cx + Math.cos(a) * rr, yy = cy + Math.sin(a) * rr * .92; i ? x.lineTo(xx, yy) : x.moveTo(xx, yy); }
+  x.stroke();
+}
+function sprite(nombre, X, Y, esc) { // íconos 8 bits del juego
   const filas = CRinsignias.ICONOS[nombre], P = CRinsignias.PALETA;
   filas.forEach((f, j) => [...f].forEach((ch, i) => { if (P[ch]) { x.fillStyle = P[ch]; x.fillRect(X + i * esc, Y + j * esc, esc, esc); } }));
 }
+function dibujo(img, X, Y, ancho) { const alto = ancho * img.naturalHeight / img.naturalWidth; x.save(); x.globalCompositeOperation = 'multiply'; x.drawImage(img, X, Y, ancho, alto); x.restore(); return alto; }
+function folio(n) { mano(String(n), W / 2, H - 26, 34, C.gris); }
+function fechaCorta(iso) { const [a, m, d] = iso.split('-').map(Number); return d + ' ' + MESES[m - 1]; }
 function qr(m, X, Y, lado) {
   const n = m.length, b = 4, mod = lado / (n + 2 * b);
   x.fillStyle = '#fff'; x.fillRect(X, Y, lado, lado); x.fillStyle = '#000';
@@ -34,124 +67,135 @@ function qr(m, X, Y, lado) {
 }
 
 const PAGINAS = {
-  1() { // Portada
-    fondo(C.tinta); franjas(0, 26);
-    px('Colores Ruidosos', W / 2, 92, 30, C.rosa);
-    txt('fanzine #1 · noviembre 2026', W / 2, 140, 28, C.gris);
-    px('Love of', W / 2, 250, 56, C.crema); px('Lesbian', W / 2, 330, 56, C.crema);
-    px('en México', W / 2, 400, 38, C.amarillo);
-    x.fillStyle = C.crema; x.fillRect(W / 2 - 250, 450, 500, 420); sprite('banda', W / 2 - 240, 440, 30);
-    x.fillStyle = ED.color; x.fillRect(0, 900, W, H - 900 - 26);
-    px('Edición especial', W / 2, 965, 26, ED.texto);
-    const nr = lineas(ED.recinto, W / 2, 1040, 44, ED.texto, 760, 56, PX, '');
-    lineas(ED.fechaLarga, W / 2, 1040 + nr * 56 + 40, 32, ED.texto, 740, 40, SG, '700 ');
-    franjas(H - 26, 26);
+  1() { // Portada: el dibujo a color del equipo
+    papel();
+    px('Colores Ruidosos · fanzine #1', W / 2, 70, 20, C.gris);
+    mano('Love of Lesbian', W / 2, 190, 100, C.tinta);
+    mano('en México', W / 2, 270, 70, ED.color);
+    subrayado(W / 2 + 10, 292, 300, ED.color);
+    sprite('estrella', 70, 225, 4); sprite('nota', W - 134, 225, 4);
+    dibujo(window.PORTADA, 20, 335, W - 40);
+    cinta(W / 2, 1090, W + 40, 250, -0.035, ED.color);
+    px('Edición especial', W / 2, 1015, 22, ED.texto);
+    const nr = lineas(ED.recinto, W / 2, 1082, 62, ED.texto, 740, 58, MANO, '');
+    txt(ED.fechaLarga, W / 2, 1090 + nr * 58, 30, ED.texto, SG, '700 ');
   },
   2() { listaConciertos(0); },
   3() { listaConciertos(1); },
   4() { // La sede
-    fondo(C.tinta); franjas(0, 26);
-    px('La sede', W / 2, 110, 34, C.amarillo);
-    const y0 = 198 + 52 * lineas(ED.recinto, W / 2, 190, 40, ED.color, 760, 52, PX, '');
-    px(String(ED.vezNumero), W / 2, y0 + 150, 120, C.crema);
-    lineas('Es la ' + ED.vez + ' ' + ED.vezTexto, W / 2, y0 + 230, 34, C.crema, 700, 44, SG, '700 ');
-    let y = y0 + 340;
-    ED.antes.forEach((a) => { txt(a.fecha, 90, y, 30, C.amarillo, SG, '700 ', 'left'); const n = lineas(a.texto, 300, y, 28, C.crema, 470, 36, SG, '500 ', 'left'); y += 36 * n + 22; });
-    y += 20; x.fillStyle = ED.color; x.fillRect(80, y, W - 160, 6); y += 70;
-    ED.extra.forEach((t) => { const n = lineas(t, W / 2, y, 28, C.crema, 680, 38); y += 38 * n + 18; });
-    if (ED.curiosidad) { // recuadro "Dato curioso"
-      y += 6;
-      const alto = 64 + 33 * lineas(ED.curiosidad, -9999, -9999, 25, C.crema, 640, 33);
-      x.strokeStyle = ED.color; x.lineWidth = 5; x.strokeRect(60, y, W - 120, alto + 12);
-      px('Dato curioso', W / 2, y + 44, 22, ED.color);
-      lineas(ED.curiosidad, W / 2, y + 86, 25, C.crema, 640, 33);
+    papel();
+    mano('La sede', W / 2, 110, 64, C.gris);
+    const nr = lineas(ED.recinto, W / 2, 190, 64, ED.color, 740, 62, MANO, '');
+    const y0 = 190 + nr * 62;
+    circulo(W / 2, y0 + 105, 82, ED.color);
+    px(String(ED.vezNumero), W / 2, y0 + 140, 76, C.tinta);
+    lineas('Es la ' + ED.vez + ' ' + ED.vezTexto, W / 2, y0 + 245, 32, C.tinta, 700, 40, SG, '700 ');
+    let y = y0 + 345;
+    ED.antes.forEach((a) => { mano(a.fecha, 80, y, 38, ED.color, 'left'); const n = lineas(a.texto, 290, y, 26, C.tinta, 480, 34, SG, '500 ', 'left'); y += 34 * n + 18; });
+    y += 6; trazo(90, y, W - 90, y, C.suave, 5); y += 56;
+    ED.extra.forEach((t) => { const n = lineas(t, W / 2, y, 27, C.tinta, 680, 36); y += 36 * n + 14; });
+    if (ED.curiosidad) {
+      y += 16;
+      const alto = 70 + 33 * lineas(ED.curiosidad, -9999, -9999, 25, C.tinta, 620, 33);
+      x.fillStyle = 'rgba(255,210,63,.28)'; x.fillRect(60, y, W - 120, alto + 12);
+      cinta(150, y + 2, 150, 34, -0.12, ED.color);
+      mano('Dato curioso', W / 2, y + 50, 40, C.tinta);
+      lineas(ED.curiosidad, W / 2, y + 90, 25, C.tinta, 640, 33);
     }
     folio(4);
   },
-  5() { // Dibujo para colorear, hecho por el equipo (F27)
-    fondo('#ffffff');
-    px('Colorea', W / 2, 110, 40, C.tinta);
-    txt('a la banda como quieras', W / 2, 165, 28, '#666', SG, '700 ');
+  5() { // Dibujo para colorear, hecho por el equipo
+    papel('#ffffff');
+    mano('¡Colorea!', W / 2, 105, 84, C.tinta);
+    mano('a la banda como quieras', W / 2, 160, 40, C.gris);
     const img = window.DIBUJO, ancho = W - 70, alto = ancho * img.naturalHeight / img.naturalWidth;
     x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
     x.drawImage(img, (W - ancho) / 2, 200 + Math.max(0, (H - 330 - alto) / 2), ancho, alto);
-    txt(Z.creditoDibujo, W / 2, H - 80, 24, '#666', SG, '700 ');
-    folio(5, '#666');
+    txt(Z.creditoDibujo, W / 2, H - 80, 24, C.gris, SG, '700 ');
+    folio(5);
   },
   6() { // Mini trivia + QR
-    fondo(C.tinta); franjas(0, 26);
-    px('Mini trivia', W / 2, 100, 34, C.amarillo);
-    let y = 170;
+    papel();
+    mano('Mini trivia', W / 2, 100, 74, C.tinta); subrayado(W / 2, 120, 260, ED.color);
+    let y = 185;
     Z.preguntas.forEach((p, k) => {
-      const n = lineas((k + 1) + '. ' + p.pregunta, 70, y, 28, C.crema, 690, 35, SG, '700 ', 'left'); y += 35 * n + 4;
-      p.opciones.forEach((o, i) => { txt('ABCD'[i] + ') ' + o, 100, y, 25, '#cfc7b6', SG, '500 ', 'left'); y += 32; });
+      const n = lineas((k + 1) + '. ' + p.pregunta, 70, y, 28, C.tinta, 690, 35, SG, '700 ', 'left'); y += 35 * n + 4;
+      p.opciones.forEach((o, i) => { txt('ABCD'[i] + ') ' + o, 100, y, 25, '#4a423c', SG, '500 ', 'left'); y += 32; });
       y += 16;
     });
-    // Respuestas de cabeza
-    x.save(); x.translate(W / 2, y + 20); x.rotate(Math.PI);
-    txt('Respuestas: ' + Z.preguntas.map((p, k) => (k + 1) + ') ' + 'ABCD'[p.correcta]).join('  '), 0, 0, 24, C.gris); x.restore();
-    const lado = 250, Y = H - lado - 70;
-    qr(Z.qr, 70, Y, lado);
-    lineas('Escanea y juega la trivia completa. Del 24 al 28 de noviembre te da la insignia de concierto «Noches reversibles».', 350, Y + 40, 25, C.crema, 420, 33, SG, '700 ', 'left');
+    x.save(); x.translate(W / 2, y + 16); x.rotate(Math.PI);
+    mano('Respuestas: ' + Z.preguntas.map((p, k) => (k + 1) + ') ' + 'ABCD'[p.correcta]).join('  '), 0, 0, 32, C.gris); x.restore();
+    const lado = 250, Y = H - lado - 80;
+    qr(Z.qr, 70, Y, lado); cinta(95, Y - 4, 90, 26, -0.5, ED.color); cinta(70 + lado - 25, Y + lado + 4, 90, 26, -0.5, ED.color);
+    lineas('Escanea y juega la trivia completa. Del 24 al 28 de noviembre te da la insignia de concierto «Noches reversibles».', 350, Y + 40, 25, C.tinta, 420, 33, SG, '700 ', 'left');
+    sprite('nota', W - 110, Y + 175, 4);
     folio(6);
   },
-  7() { // Setlist
-    fondo('#ffffff');
-    px('Mi setlist', W / 2, 100, 34, C.tinta);
-    txt(ED.recinto + ' · ' + ED.fechaCorta, W / 2, 150, 26, '#666', SG, '700 ');
-    x.strokeStyle = '#c9c9c9'; x.lineWidth = 2;
-    for (let i = 0; i < 18; i++) { const y = 230 + i * 48; txt(String(i + 1), 80, y, 24, '#888', SG, '700 ', 'right'); x.beginPath(); x.moveTo(100, y + 4); x.lineTo(W - 70, y + 4); x.stroke(); }
-    let y = 230 + 18 * 48 + 40;
-    ['Mi favorita de hoy:', 'Fui con:'].forEach((t) => { txt(t, 70, y, 28, C.tinta, SG, '700 ', 'left'); x.beginPath(); x.moveTo(330, y + 4); x.lineTo(W - 70, y + 4); x.stroke(); y += 60; });
-    folio(7, '#666');
+  7() { // Setlist en hoja rayada
+    papel('#ffffff');
+    x.strokeStyle = 'rgba(255,62,127,.45)'; x.lineWidth = 3; x.beginPath(); x.moveTo(92, 0); x.lineTo(92, H); x.stroke();
+    mano('Mi setlist', W / 2, 105, 84, C.tinta);
+    txt(ED.recinto + ' · ' + ED.fechaCorta, W / 2, 155, 26, C.gris, SG, '700 ');
+    x.strokeStyle = '#b9d3ea'; x.lineWidth = 2;
+    for (let i = 0; i < 18; i++) { const y = 235 + i * 48; mano(String(i + 1), 76, y, 30, C.gris, 'right'); x.beginPath(); x.moveTo(100, y + 4); x.lineTo(W - 60, y + 4); x.stroke(); }
+    let y = 235 + 18 * 48 + 44;
+    ['Mi favorita de hoy:', 'Fui con:'].forEach((t) => { mano(t, 110, y, 36, C.tinta, 'left'); x.beginPath(); x.moveTo(360, y + 4); x.lineTo(W - 60, y + 4); x.stroke(); y += 60; });
+    folio(7);
   },
   8() { // Contraportada
-    fondo(C.tinta); franjas(0, 26);
-    px('Gracias', W / 2, 200, 52, C.rosa); px('por existir', W / 2, 270, 40, C.rosa);
-    x.fillStyle = C.crema; x.fillRect(W / 2 - 150, 320, 300, 250); sprite('banda', W / 2 - 128, 300, 16);
-    txt('Colores Ruidosos', W / 2, 640, 40, C.crema, SG, '700 ');
-    lineas('Un grupo de amigos haciendo dibujos para nuestros artistas favoritos.', W / 2, 700, 28, '#cfc7b6', 660, 38);
-    px('@coloresruidosos', W / 2, 860, 30, C.amarillo);
-    txt('coloresruidosos.github.io', W / 2, 920, 30, C.crema, SG, '700 ');
-    lineas('Conteo de conciertos: investigación de Colores Ruidosos. ¿Falta alguno o hay un error? Escríbenos.', W / 2, 1010, 24, C.gris, 660, 32);
-    lineas('Hecho por fans: no somos la organización de la banda ni del concierto.', W / 2, 1120, 24, C.gris, 660, 32);
-    txt('Fanzine #1 · ' + ED.nombre + ' · gratis', W / 2, 1210, 24, ED.color, SG, '700 ');
-    franjas(H - 26, 26);
+    papel();
+    mano('Gracias', W / 2, 190, 120, C.rosa); mano('por existir', W / 2, 280, 84, C.rosa);
+    sprite('corazon', W / 2 - 32, 310, 4);
+    const alto = dibujo(window.PORTADA, W / 2 - 190, 370, 380);
+    let y = 370 + alto + 60;
+    mano('Colores Ruidosos', W / 2, y, 64, C.tinta); y += 50;
+    lineas('Un grupo de amigos haciendo dibujos para nuestros artistas favoritos.', W / 2, y, 26, C.gris, 640, 34); y += 95;
+    px('@coloresruidosos', W / 2, y, 28, ED.color); y += 48;
+    txt('coloresruidosos.github.io', W / 2, y, 30, C.tinta, SG, '700 '); y += 62;
+    lineas('Conteo de conciertos: investigación de Colores Ruidosos. ¿Falta alguno o hay un error? Escríbenos.', W / 2, y, 22, C.gris, 660, 30); y += 72;
+    lineas('Hecho por fans: no somos la organización de la banda ni del concierto.', W / 2, y, 22, C.gris, 660, 30);
+    mano('Fanzine #1 · ' + ED.nombre + ' · gratis', W / 2, H - 40, 34, ED.color);
   },
 };
 
 function listaConciertos(parte) {
-  fondo(C.tinta);
+  papel();
   const anios = [...new Set(Z.conciertos.map((k) => k.fecha.slice(0, 4)))];
   const corte = anios.indexOf('2022'), mios = parte === 0 ? anios.slice(0, corte) : anios.slice(corte);
   let y;
-  if (parte === 0) { franjas(0, 26); px(String(Z.conciertos.length), W / 2, 170, 110, C.amarillo); px('conciertos', W / 2, 225, 30, C.crema); txt('en México, 2013–2026', W / 2, 270, 28, C.gris, SG, '700 '); y = 345; }
-  else y = 70;
-  const salto = parte === 0 ? 37 : 34, tam = parte === 0 ? 25 : 24;
+  if (parte === 0) {
+    px(String(Z.conciertos.length), W / 2, 175, 110, ED.color);
+    mano('conciertos en México', W / 2, 245, 56, C.tinta); txt('2013–2026', W / 2, 285, 26, C.gris, SG, '700 ');
+    y = 345;
+  } else y = 72;
+  const salto = parte === 0 ? 35 : 33, tam = parte === 0 ? 25 : 24;
   mios.forEach((a) => {
     const del = Z.conciertos.filter((k) => k.fecha.startsWith(a));
-    txt(a, 60, y, tam + 4, C.amarillo, PX, '', 'left'); txt('· ' + del.length, 210, y, tam + 2, C.amarillo, SG, '700 ', 'left'); y += salto + 4;
+    cinta(118, y - 12, 140, 40, -0.04 + azar() * .06, 'rgba(255,210,63,.9)');
+    mano(a, 60, y, 44, C.tinta, 'left'); mano('· ' + del.length, 200, y, 36, C.gris, 'left'); y += salto + 6;
     del.forEach((k) => {
       const aqui = ED.coincide(k);
-      txt(fechaCorta(k.fecha), 60, y, tam, aqui ? ED.color : C.crema, SG, '700 ', 'left');
-      txt(k.recinto + ' · ' + k.ciudad, 175, y, tam, aqui ? ED.color : '#cfc7b6', SG, aqui ? '700 ' : '500 ', 'left');
+      if (aqui) { x.fillStyle = ED.color; x.globalAlpha = .18; x.fillRect(48, y - 26, W - 96, 34); x.globalAlpha = 1; }
+      txt(fechaCorta(k.fecha), 60, y, tam, aqui ? ED.color : C.tinta, SG, '700 ', 'left');
+      txt(k.recinto + ' · ' + k.ciudad, 175, y, tam, C.tinta, SG, aqui ? '700 ' : '500 ', 'left');
       y += salto;
     });
     y += 8;
   });
-  if (parte === 1) { y += 10; x.fillStyle = ED.color; x.fillRect(60, y - 26, 8, 30); txt('= ' + ED.leyendaLista, 80, y, 22, C.gris, SG, '700 ', 'left'); }
+  if (parte === 1) { y += 12; x.fillStyle = ED.color; x.globalAlpha = .18; x.fillRect(60, y - 24, 30, 30); x.globalAlpha = 1; txt('= ' + ED.leyendaLista, 100, y, 22, C.gris, SG, '700 ', 'left'); }
   folio(2 + parte);
 }
 
-// Reglas por edición que no caben en JSON.
 const COINCIDE = {
   auditorio: (k) => k.recinto === 'Auditorio Nacional' || k.recinto === 'Lunario del Auditorio Nacional',
   metropolitan: (k) => k.recinto === 'Teatro Metropólitan',
   puebla: (k) => k.ciudad === 'Puebla' || k.ciudad === 'San Andrés Cholula',
 };
-ED.coincide = COINCIDE[q.get('ed') || 'auditorio'];
-window.listo = document.fonts.load('40px "Press Start 2P"').then(() => document.fonts.load('700 40px "Space Grotesk"'))
-  .then(() => document.fonts.load('500 40px "Space Grotesk"'))
-  .then(() => new Promise((ok, mal) => { const im = new Image(); im.onload = () => { window.DIBUJO = im; ok(); }; im.onerror = mal; im.src = 'dibujo-colorear.png'; }))
-  .then(() => { PAGINAS[PAG](); return true; });
+ED.coincide = COINCIDE[CLAVE];
+function cargar(src) { return new Promise((ok, mal) => { const im = new Image(); im.onload = () => ok(im); im.onerror = mal; im.src = src; }); }
+window.listo = Promise.all([
+  document.fonts.load('40px "Press Start 2P"'), document.fonts.load('40px "Patrick Hand"'),
+  document.fonts.load('700 40px "Space Grotesk"'), document.fonts.load('500 40px "Space Grotesk"'),
+  cargar('dibujo-colorear.png').then((im) => { window.DIBUJO = im; }), cargar('portada-banda.png').then((im) => { window.PORTADA = im; }),
+]).then(() => { PAGINAS[PAG](); return true; });
 </script></body></html>
