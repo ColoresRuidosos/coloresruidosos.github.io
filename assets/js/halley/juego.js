@@ -92,20 +92,33 @@
     NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "Y") { ctx.fillStyle = "#FFD23F"; ctx.fillRect(x0 + i, y0 + j, 1, 1); } });
   }
 
+  // Cometa: cabeza de estrella con halo, cola en abanico que se abre hacia atrás y chispas que se quedan.
   function cometa() {
-    var cx = H.X_COMETA, cy = Math.round(e.y);
-    // Estela: se inclina con la velocidad.
-    var inclina = Math.max(-2, Math.min(2, e.vy * 0.6));
-    var estela = ["#FF3E7F", "#FF7A30", "#FFD23F", "#fff3b0"];
-    for (var k = 1; k <= 12; k++) {
-      var c = estela[Math.min(3, Math.floor(k / 3))], ancho = k < 4 ? 3 : k < 8 ? 2 : 1;
-      if (!sinMovimiento && (k + cuadro) % 5 === 0) continue;
-      ctx.fillStyle = estela[3 - Math.min(3, Math.floor((12 - k) / 3))] || c;
-      ctx.fillRect(cx - 3 - k, Math.round(cy - ancho / 2 + inclina * k / 6), 1, ancho);
+    var cx = H.X_COMETA, cy = Math.round(e.y), t = sinMovimiento ? 0 : cuadro;
+    var inclina = Math.max(-1.5, Math.min(1.5, e.vy * 0.5)); // al subir, la cola queda abajo (y al revés)
+    var LARGO = 17;
+    [["#FF3E7F", 1.0], ["#FF7A30", 0.72], ["#FFD23F", 0.45], ["#fff3b0", 0.2]].forEach(function (capa) {
+      for (var k = 1; k <= LARGO; k++) {
+        var medio = (2.2 + k * 0.33) * capa[1];
+        if (medio < 0.5) continue;
+        var yC = cy - inclina * k / 4;
+        for (var yy = Math.round(yC - medio); yy <= Math.round(yC + medio); yy++) {
+          var orilla = Math.abs(yy - yC) > medio - 1 || k > LARGO - 5;
+          if (orilla && (yy + k + t) % 2 !== 0) continue; // las orillas se deshacen en polvo
+          ctx.fillStyle = capa[0]; ctx.fillRect(cx - 2 - k, yy, 1, 1);
+        }
+      }
+    });
+    for (var i = 0; i < 6; i++) {
+      var d = (t * 1.5 + i * 9) % 22;
+      if ((i + Math.floor(d / 4)) % 3 === 0) continue;
+      ctx.fillStyle = i % 2 ? "#FFD23F" : "#fff3b0";
+      ctx.fillRect(Math.round(cx - LARGO - 3 - d), Math.round(cy + ((i * 37) % 11) - 5 - inclina * 3), 1, 1);
     }
-    ctx.fillStyle = "#fff3b0"; ctx.fillRect(cx - 3, cy - 2, 7, 5); ctx.fillRect(cx - 2, cy - 3, 5, 7);
-    ctx.fillStyle = "#ffffff"; ctx.fillRect(cx - 1, cy - 1, 3, 3);
-    ctx.fillStyle = "#FFD23F"; ctx.fillRect(cx + 3, cy - 1, 1, 3);
+    ctx.fillStyle = "rgba(255,243,176,.35)"; ctx.fillRect(cx - 4, cy - 3, 9, 7); ctx.fillRect(cx - 3, cy - 4, 7, 9);
+    ctx.fillStyle = "#FFD23F"; ctx.fillRect(cx, cy - 5, 1, 11); ctx.fillRect(cx - 5, cy, 11, 1);
+    ctx.fillStyle = "#fff3b0"; ctx.fillRect(cx - 2, cy - 2, 5, 5);
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(cx - 1, cy - 1, 3, 3); ctx.fillRect(cx, cy - 3, 1, 7); ctx.fillRect(cx - 3, cy, 7, 1);
   }
 
   function dibujar() {
