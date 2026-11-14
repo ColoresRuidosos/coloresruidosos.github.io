@@ -86,10 +86,34 @@
     ctx.fillRect(x - 1, Math.round(abajo), w + 2, 4);
   }
 
-  var NOTA = ["..YYYYY", "..Y...Y", "..Y...Y", "YYY.YYY", "YYY.YYY"];
+  // Notas: corchea doble negra, más grande, con contorno crema para que se vea en los fondos oscuros.
+  var NOTA = [
+    "...kkkkkk",
+    "...kkkkkk",
+    "...k....k",
+    "...k....k",
+    "...k....k",
+    "...k....k",
+    ".kkk..kkk",
+    "kkkk.kkkk",
+    "kkkk.kkkk",
+    ".kk...kk.",
+  ];
+  var NOTA_BORDE = (function () { // píxeles vecinos de la nota que no son nota: su contorno
+    var lleno = function (i, j) { return j >= 0 && j < NOTA.length && i >= 0 && i < NOTA[j].length && NOTA[j][i] === "k"; };
+    var borde = [];
+    for (var j = -1; j <= NOTA.length; j++) for (var i = -1; i <= NOTA[0].length; i++) {
+      if (lleno(i, j)) continue;
+      for (var dj = -1; dj <= 1; dj++) for (var di = -1; di <= 1; di++) if (lleno(i + di, j + dj)) { borde.push([i, j]); di = dj = 2; }
+    }
+    return borde;
+  })();
   function nota(n) {
-    var x0 = Math.round(n.x) - 3, y0 = Math.round(n.y) - 2 + (sinMovimiento ? 0 : Math.round(Math.sin((cuadro + n.x) / 8)));
-    NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "Y") { ctx.fillStyle = "#FFD23F"; ctx.fillRect(x0 + i, y0 + j, 1, 1); } });
+    var x0 = Math.round(n.x) - 4, y0 = Math.round(n.y) - 5 + (sinMovimiento ? 0 : Math.round(Math.sin((cuadro + n.x) / 8)));
+    ctx.fillStyle = "#F4EFE6";
+    NOTA_BORDE.forEach(function (b) { ctx.fillRect(x0 + b[0], y0 + b[1], 1, 1); });
+    ctx.fillStyle = "#141414";
+    NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "k") ctx.fillRect(x0 + i, y0 + j, 1, 1); });
   }
 
   // El amante guisante (diseño propio, por «Te hiero mucho (Historia del amante guisante)»): guisante aviador con

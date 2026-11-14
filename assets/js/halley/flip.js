@@ -89,7 +89,7 @@
     var quedan = [];
     e.notas.forEach(function (n) {
       var dx = n.x - X_COMETA, dy = n.y - e.y;
-      if (dx * dx + dy * dy <= (RADIO + 4) * (RADIO + 4)) e.notasTomadas += 1;
+      if (dx * dx + dy * dy <= (RADIO + 6) * (RADIO + 6)) e.notasTomadas += 1; // a la medida de la nota (9 × 10 px)
       else if (n.x > -8) quedan.push(n);
     });
     e.notas = quedan;
