@@ -1,5 +1,5 @@
 /* Halley Flip (F28/D34): lógica pura. Mundo de 160 × 144 px a paso fijo de 1/60 s: la gravedad jala al
-   piloto Halley, cada toque lo impulsa hacia arriba y hay que pasar entre torres de bocinas. Sin DOM: se prueba con
+   amante guisante, cada toque lo impulsa hacia arriba y hay que pasar entre torres de bocinas. Sin DOM: se prueba con
    node --test tests-js/halley.test.js. */
 (function (raiz) {
   var ANCHO = 160, ALTO = 144, PISO = 136, X_COMETA = 50, RADIO = 4; // x de Halley: deja ver el listón completo
