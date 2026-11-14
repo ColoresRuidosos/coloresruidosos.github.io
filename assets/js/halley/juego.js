@@ -92,25 +92,25 @@
     NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "Y") { ctx.fillStyle = "#FFD23F"; ctx.fillRect(x0 + i, y0 + j, 1, 1); } });
   }
 
-  // El amante guisante (diseño propio, por «Te hiero mucho (Historia del amante guisante)»): guisante con carita,
-  // hojita y un corazón que flota, jalando un listón rojo que ondea con "GRACIAS". El choque sigue siendo el
+  // El amante guisante (diseño propio, por «Te hiero mucho (Historia del amante guisante)»): guisante aviador con
+  // casco, gogles, carita y un corazón que flota, jalando un listón rojo que ondea con "GRACIAS". El choque sigue siendo el
   // círculo de radio 4 en su centro.
-  var GUISANTE = [
-    ".....ll.....",
-    "....l.......",
-    "....VVVV....",
-    "..VVvvvvVV..",
-    ".VvhhvvvvvV.",
-    ".VvhvvvvvvV.",
-    "VvvvkvvvkvvV",
-    "VvvvkvvvkvvV",
-    "VvpvvvvvvpvV",
+  var GUISANTE = [ // con casco de aviador (orejeras) y gogles sobre la frente
+    "....MMMM....",
+    "..MMmmmmMM..",
+    ".MmmmmmmmmM.",
+    ".MGGGmmGGGM.",
+    "MGWWhGGWWhGM",
+    "MvGGGvvGGGvM",
+    "MvvvkvvvkvvM",
+    "MvvvkvvvkvvM",
+    "MvpvvvvvvpvM",
     ".Vvvvk.kvvV.",
     ".VvvvvkvvvV.",
     "..VVvvvvVV..",
     "....VVVV....",
   ];
-  var COLOR_G = { V: "#2e7d32", v: "#6cc04a", h: "#c8f7a4", k: "#141414", p: "#FF3E7F", l: "#1FB57A" };
+  var COLOR_G = { V: "#2e7d32", v: "#6cc04a", h: "#ffffff", k: "#141414", p: "#FF3E7F", M: "#5a3518", m: "#8a5a2b", G: "#4a4a4a", W: "#9fd8f0" };
   var CORAZON = [".pp.pp.", "ppppppp", "ppppppp", ".ppppp.", "..ppp..", "...p..."];
   var LETRAS = { G: ["111", "100", "101", "101", "111"], R: ["110", "101", "110", "101", "101"], A: ["010", "101", "111", "101", "101"],
     C: ["111", "100", "100", "100", "111"], I: ["111", "010", "010", "010", "111"], S: ["111", "100", "111", "001", "111"] };
