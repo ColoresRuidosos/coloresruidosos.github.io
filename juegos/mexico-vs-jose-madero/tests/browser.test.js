@@ -302,3 +302,28 @@ test('v9.6: tocar la nota la salta sin hacer saltar a Pepe; botón ⏭ solo con 
   assert.deepEqual(errs, []);
   await ctx.close();
 });
+
+// ── v9.7 (spec §3.0f P): escuchar el disco en las plataformas oficiales ──
+test('v9.7: 🎧 abre el disco del mundo en Spotify, Apple Music y YouTube Music (otra pestaña) y pausa el juego', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 760 }, hasTouch: true, isMobile: true });
+  const p = await ctx.newPage();
+  const errs = []; p.on('pageerror', (e) => errs.push(String(e)));
+  await p.goto('http://127.0.0.1:5199/'); await p.waitForTimeout(300);
+  assert.equal(await p.isVisible('#listen'), false, 'en la portada no hay disco');
+  await p.evaluate(() => window.__jmv.goto(0, 'carmesi')); await p.waitForTimeout(400);
+  assert.equal(await p.isVisible('#listen'), true);
+  assert.equal(await p.textContent('#listen'), '🎧 ESCUCHAR CARMESÍ');
+  await p.click('#listen'); await p.waitForTimeout(150);
+  assert.equal(await p.isVisible('#listen-panel'), true);
+  assert.equal(await p.evaluate(() => window.__jmv.paused), true, 'el juego queda en pausa');
+  const links = await p.$$eval('#listen-panel a', (as) => as.map((a) => ({ host: new URL(a.href).host, target: a.target, rel: a.rel })));
+  assert.deepEqual(links.map((l) => l.host), ['open.spotify.com', 'music.apple.com', 'music.youtube.com']);
+  for (const l of links) { assert.equal(l.target, '_blank'); assert.match(l.rel, /noopener/); }
+  await p.click('.listen__close'); await p.waitForTimeout(100);
+  assert.equal(await p.isVisible('#listen-panel'), false);
+  assert.equal(await p.evaluate(() => window.__jmv.screen), 'play', 'seguimos en la partida');
+  await p.evaluate(() => window.__jmv.goto(0, 'noche')); await p.waitForTimeout(300);
+  assert.equal(await p.textContent('#listen'), '🎧 ESCUCHAR NOCHE');
+  assert.deepEqual(errs, []);
+  await ctx.close();
+});

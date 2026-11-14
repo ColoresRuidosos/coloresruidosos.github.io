@@ -64,6 +64,7 @@ const hub = createHub();
 let screen = 'title', back = 'title', camX = 0, cam = null, t = 0, paused = false, card = null, screenT = 0;
 let game, art, run = null, museumDoor = null, toast = null, toastT = 0, endInfo = {};
 import { guideOf } from './data/guia.js';
+import { albumFor, PLATAFORMAS } from './data/escuchar.js';
 let guideSel = 0, guideBack = 'options';
 let optSel = 0, galSel = 0, prologueIdx = 0, cut = null, cutArt = null;
 // Escenas de cada mundo (spec §3.0f I): A avanza, B las salta. Se dibujan siempre a color (con el arte del Museo).
@@ -138,6 +139,7 @@ let menuMove = 0, escPressed = false;
 // Pulsaciones «enganchadas»: una tecla que se pulsa y se suelta entre dos pasos del bucle no se pierde.
 const latch = { left: false, right: false, jump: false, mic: false };
 addEventListener('keydown', (e) => {
+  if (listening) { if (e.code === 'Escape') closeListen(); return; }   // v9.7: con el panel de escuchar abierto, el juego no recibe teclas
   // En los menús, ▲ ▼ mueven el cursor (no saltan) y Escape vuelve.
   if (MENUS.includes(screen) && (e.code === 'ArrowUp' || e.code === 'ArrowDown')) { menuMove += e.code === 'ArrowUp' ? -1 : 1; e.preventDefault(); return; }
   if (KEYS[e.code]) { held[KEYS[e.code]] = true; e.preventDefault(); if (!e.repeat && KEYS[e.code] in latch) latch[KEYS[e.code]] = true; }
@@ -188,6 +190,35 @@ cv.addEventListener('pointerdown', (e) => {
   tapStart = true;
 });
 skipBtn?.addEventListener('click', skipNote);
+
+// v9.7: escuchar el disco del mundo (o de la puerta) en Spotify, Apple Music o YouTube Music, en otra pestaña.
+const listenBtn = document.getElementById('listen');
+const listenPanel = document.getElementById('listen-panel');
+let listening = null;
+function currentAlbum() {
+  const door = museumDoor ? { id: museumDoor.id, open: museumDoor.id !== 'galeria' && doorState(save, museumDoor.id) === 'open' } : null;
+  return albumFor(screen, run, door);
+}
+function openListen() {
+  const a = currentAlbum();
+  if (!a || !listenPanel) return;
+  listening = a;
+  if (screen === 'play') paused = true;
+  releaseAll();
+  listenPanel.querySelector('.listen__title').textContent = `🎧 Escuchar «${a.album}» (${a.year})`;
+  const box = listenPanel.querySelector('.listen__links');
+  box.replaceChildren(...PLATAFORMAS.map((p) => {
+    const el = document.createElement('a');
+    el.href = a.links[p.key]; el.target = '_blank'; el.rel = 'noopener noreferrer'; el.textContent = `▶ ${p.name}`;
+    return el;
+  }));
+  listenPanel.hidden = false;
+  listenPanel.querySelector('.listen__close').focus();
+}
+function closeListen() { if (listenPanel) listenPanel.hidden = true; listening = null; }
+listenBtn?.addEventListener('click', openListen);
+listenPanel?.querySelector('.listen__close').addEventListener('click', closeListen);
+listenPanel?.addEventListener('click', (e) => { if (e.target === listenPanel) closeListen(); });
 
 function pad() {
   const gp = navigator.getGamepads?.()[0];
@@ -343,6 +374,11 @@ function frame(now) {
     if (skipBtn) { const show = canSkip(); if (skipBtn.hidden === show) skipBtn.hidden = !show; }
     if (screen === 'options') drawOptions(ctx, opt, optSel, t);
   }
+  if (listenBtn) {   // v9.7: el botón 🎧 dice qué disco se abriría
+    const a = currentAlbum(), label = a ? `🎧 ESCUCHAR ${a.album.toUpperCase()}` : '';
+    if (listenBtn.hidden === !!a) listenBtn.hidden = !a;
+    if (a && listenBtn.textContent !== label) listenBtn.textContent = label;
+  }
   requestAnimationFrame(frame);
 }
 
@@ -351,6 +387,7 @@ window.__jmv = {
   get game() { return game; }, get screen() { return screen; }, get paused() { return paused; }, get held() { return held; }, get save() { return save; },
   get level() { return run ? WORLD_DATA[run.world].levels[run.idx].id : 'museo'; },
   get door() { return museumDoor?.id ?? null; },
+  get listening() { return listening; },
   start() { tapStart = true; },
   goto(i, world = run?.world ?? 'carmesi') { if (!run || run.world !== world) run = { world, idx: 0, carry: {}, levelStart: {}, time: 0 }; loadLevel(i, run.carry); screen = 'play'; },
   museum(door) { enterMuseum(door); },

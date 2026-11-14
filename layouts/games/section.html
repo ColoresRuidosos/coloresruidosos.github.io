@@ -4,11 +4,12 @@
   {{ with .Description }}<p class="encabezado__desc">{{ . }}</p>{{ end }}
 </header>
 
-{{/* F25/D31: un juego aparece cuando su fecha "desde" ya pasó al compilar (la corrida diaria es a las 8:00 CDMX). */}}
+{{/* F25/D31: un juego aparece cuando su fecha "desde" ya pasó al compilar (la corrida diaria es a las 8:00 CDMX).
+     Si trae "hasta" (temporada limitada), desaparece en la primera compilación después de esa fecha. */}}
 {{ $hoy := now.Unix }}
 <ul class="games-lista">
   {{ range site.Data.games }}
-  {{ if le (time.AsTime .desde).Unix $hoy }}
+  {{ if and (le (time.AsTime .desde).Unix $hoy) (or (not .hasta) (gt (time.AsTime .hasta).Unix $hoy)) }}
   <li class="games-tarjeta">
     {{ with .etiqueta }}<span class="games-tarjeta__etiqueta">{{ . }}</span>{{ end }}
     <h2 class="games-tarjeta__nombre"><a href="{{ .url | relURL }}">{{ .nombre }}</a></h2>

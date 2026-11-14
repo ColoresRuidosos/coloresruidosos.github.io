@@ -1,0 +1,5 @@
+# La canción vive en static/games/yo-contra-mi-corazon/cancion.mp3 (excepción aceptada, spec §6.1)
+*.mp3
+node_modules/
+dist/
+reel/out/

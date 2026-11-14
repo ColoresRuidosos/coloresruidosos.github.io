@@ -593,6 +593,16 @@ Sin personajes. El título está en una sola constante (`GAME_TITLE`) para poder
 
 Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico; no se añade ninguno.
 
+#### P. v9.7 · Escuchar el disco desde el juego (pedido del usuario, 6 nov 2026)
+- **Por qué así:** la música de José Madero no puede ir dentro del juego sin licencia (CONTEXTO §1). La opción legal es abrir el disco en las plataformas oficiales, que ya tienen la licencia, como hace la trivia de la web.
+- **Botón «🎧 ESCUCHAR <DISCO>»** en la barra bajo el juego. Sale cuando hay un disco en contexto: dentro de un mundo (el de ese mundo) o en el Museo delante de una puerta abierta (el de esa puerta).
+- **Al tocarlo:**
+  - el juego se pausa y se abre un panel con **Spotify**, **Apple Music** y **YouTube Music**;
+  - cada una se abre **en otra pestaña**, así que la partida no se pierde, y «Volver al juego» cierra el panel;
+  - hacen falta dos toques a propósito (v9.5).
+- **Enlaces:** la **búsqueda oficial** de cada plataforma con «José Madero <disco>» (el disco sale el primero). No se pudieron verificar los enlaces exactos de cada álbum; se cambian cuando el usuario los dé.
+- **Sin audio en el juego:** el juego no reproduce ni incrusta la música.
+
 #### O. v9.6 · Saltar la nota en pantalla (aclaración del usuario, 6 nov 2026)
 - **Lo que se pedía:** no apagar todas las notas, sino poder **saltar** la que está en pantalla. El interruptor 💬 de la v9.4 se queda (decisión del usuario).
 - **Cómo se salta:**
