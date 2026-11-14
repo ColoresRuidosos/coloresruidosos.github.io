@@ -33,7 +33,7 @@
 
   function nuevaPartida(semilla) {
     return { y: ALTO / 2, vy: 0, torres: [], notas: [], puntos: 0, notasTomadas: 0, retiradas: 0,
-      vivo: true, iniciada: false, pasos: 0, s: (semilla >>> 0) || 1, proxima: ANCHO + 30 };
+      vivo: true, iniciada: false, pasos: 0, pasosJuego: 0, s: (semilla >>> 0) || 1, proxima: ANCHO + 30 };
   }
 
   function chocaRect(cx, cy, r, x, y, w, h) {
@@ -56,7 +56,7 @@
     if (!prev.vivo) return prev;
     var e = {
       y: prev.y, vy: prev.vy, puntos: prev.puntos, notasTomadas: prev.notasTomadas, retiradas: prev.retiradas,
-      vivo: true, iniciada: prev.iniciada, pasos: prev.pasos + 1, s: prev.s, proxima: prev.proxima, ultimoCentro: prev.ultimoCentro,
+      vivo: true, iniciada: prev.iniciada, pasos: prev.pasos + 1, pasosJuego: prev.pasosJuego || 0, s: prev.s, proxima: prev.proxima, ultimoCentro: prev.ultimoCentro,
       torres: prev.torres.map(function (t) { return { x: t.x, centro: t.centro, hueco: t.hueco, pasada: t.pasada }; }),
       notas: prev.notas.map(function (n) { return { x: n.x, y: n.y }; }),
     };
@@ -64,6 +64,7 @@
       if (!toque) { e.y = ALTO / 2 + Math.sin(e.pasos / 12) * 2; return e; }
       e.iniciada = true;
     }
+    e.pasosJuego += 1;
     var rng = function () { var r = siguiente(e.s); e.s = r.s; return r.v; };
     e.vy = toque ? IMPULSO : Math.min(CAIDA_MAX, e.vy + GRAVEDAD);
     e.y += e.vy;
@@ -96,6 +97,9 @@
     return e;
   }
 
+  // Tiempo jugado para el ranking (D35): pasos de física desde el primer toque, no el reloj.
+  function duracionMs(e) { return Math.round((e.pasosJuego || 0) * 1000 / 60); }
+
   function registrar(previo, r) {
     var p = previo && typeof previo === "object" ? previo : { record: 0, partidas: 0, notas: 0 };
     return { record: Math.max(p.record || 0, r.puntos), partidas: (p.partidas || 0) + 1, notas: (p.notas || 0) + r.notas,
@@ -111,7 +115,7 @@
     ANCHO: ANCHO, ALTO: ALTO, PISO: PISO, X_COMETA: X_COMETA, RADIO: RADIO, GRAVEDAD: GRAVEDAD, IMPULSO: IMPULSO,
     CAIDA_MAX: CAIDA_MAX, ANCHO_TORRE: ANCHO_TORRE, SEPARACION: SEPARACION, MAX_SALTO: MAX_SALTO, CLAVE: CLAVE,
     rngSemilla: rngSemilla, etapa: etapa, velocidad: velocidad, hueco: hueco, nuevaTorre: nuevaTorre,
-    nuevaPartida: nuevaPartida, paso: paso, choca: choca, registrar: registrar, textoCompartir: textoCompartir,
+    nuevaPartida: nuevaPartida, paso: paso, choca: choca, duracionMs: duracionMs, registrar: registrar, textoCompartir: textoCompartir,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRhalley;
 })(typeof window !== "undefined" ? window : globalThis);

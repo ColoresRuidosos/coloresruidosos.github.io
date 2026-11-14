@@ -95,3 +95,25 @@ test("el récord se queda con lo mejor y el texto para compartir no revela nada 
   assert.strictEqual(H.textoCompartir({ puntos: 23, notas: 7 }),
     "Halley Flip · 23 puntos · etapa 3 · 7 notas\n¿Me ganas? coloresruidosos.github.io/games/halley-flip/ · @coloresruidosos");
 });
+
+// ---------- Ranking (fase 2/D35) ----------
+
+test("la duración que se envía cuenta solo los pasos jugados, no la espera inicial", () => {
+  let e = H.nuevaPartida(9);
+  for (let k = 0; k < 300; k++) e = H.paso(e, false);   // 5 s esperando el primer toque
+  assert.strictEqual(H.duracionMs(e), 0);
+  e = H.paso(e, true);
+  for (let k = 0; k < 119; k++) e = H.paso(e, k % 34 === 33); // ritmo que se sostiene sin chocar
+  assert.ok(e.vivo);
+  assert.strictEqual(e.pasosJuego, 120);
+  assert.strictEqual(H.duracionMs(e), 2000);
+});
+
+test("con el mejor ritmo posible, los puntos caben en el tope del servidor (ms_inicio + ms_por_punto)", () => {
+  function piloto(e) { const t = e.torres.find((x) => x.x + H.ANCHO_TORRE >= H.X_COMETA - H.RADIO) || { centro: H.PISO / 2 }; return e.y > t.centro + 6 && e.vy >= 0; }
+  let e = H.paso(H.nuevaPartida(3), true);
+  for (let k = 0; k < 6000 && e.vivo; k++) {
+    e = H.paso(e, piloto(e));
+    assert.ok(e.puntos <= 1 + Math.max(0, H.duracionMs(e) - 2000) / 700, `${e.puntos} puntos en ${H.duracionMs(e)} ms`);
+  }
+});

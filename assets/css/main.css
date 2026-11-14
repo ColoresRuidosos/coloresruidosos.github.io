@@ -573,3 +573,15 @@ body.sin-scroll { overflow: hidden; }
 .halley__boton:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 3px; }
 .halley__pie { font-size: .875rem; margin: 1rem 0 0; }
 @media (prefers-reduced-motion: reduce) { .halley__boton:active { transform: none; } }
+.halley__publicar { display: flex; flex-direction: column; align-items: center; gap: .4rem; }
+.halley__publicar[hidden], .halley__ranking[hidden] { display: none; }
+.halley__enlace { font: inherit; color: var(--accent-yellow); background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; }
+.halley__ranking { margin-top: 1rem; background: var(--pantalla); color: var(--tinta-clara); border: var(--borde); box-shadow: var(--sombra); padding: 1rem; }
+.halley__ranking-titulo { font-family: var(--pixel); font-size: .875rem; line-height: 1.5; color: var(--accent-yellow); margin: 0 0 .75rem; }
+.halley__ranking-lista { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: .4rem; counter-reset: rk; }
+.halley__ranking-lista li { counter-increment: rk; display: flex; justify-content: space-between; gap: .75rem; padding: .5rem .75rem; background: #1f1f1f; border: 2px solid #333; }
+.halley__ranking-lista li::before { content: counter(rk); font-family: var(--pixel); font-size: .75rem; color: var(--accent-yellow); min-width: 1.75rem; }
+.halley__ranking-lista li span { flex: 1; }
+.halley__ranking-lista li b { font-family: var(--pixel); font-size: .75rem; font-weight: 400; color: var(--accent-orange); white-space: nowrap; }
+.halley__ranking-lista li.es-mio { border-color: var(--accent-yellow); background: #3a3420; }
+.halley__publicar { margin-top: .75rem; padding: .75rem; border: 2px dashed var(--accent-yellow); text-align: center; }

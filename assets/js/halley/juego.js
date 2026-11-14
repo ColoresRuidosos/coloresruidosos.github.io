@@ -132,6 +132,7 @@
   function nueva() {
     e = H.nuevaPartida((Math.random() * 4294967296) >>> 0);
     toque = false; acum = 0;
+    $("[data-publicar]").hidden = true;
     hud();
     mostrar("listo");
     modo = "listo";
@@ -158,6 +159,7 @@
     $("[data-res-detalle]").textContent = "Etapa " + H.etapa(r.puntos) + " · " + r.notas + (r.notas === 1 ? " nota" : " notas");
     $("[data-res-record]").textContent = historial.nuevoRecord ? "¡Nuevo récord!" : "Récord: " + historial.record;
     $("[data-aviso-compartir]").textContent = "";
+    prepararPublicar(r.puntos, H.duracionMs(e));
     hud();
     contar("fin");
     setTimeout(function () { if (modo === "resultado") mostrar("resultado"); }, 450);
@@ -199,6 +201,87 @@
     window.requestAnimationFrame(bucle);
   }
 
+  // ---------- Ranking (D35): mismo Apps Script, nombre y dispositivo que la trivia ----------
+  function leerTexto(k) { try { return window.localStorage.getItem(k); } catch (err) { return null; } }
+  function escribirTexto(k, v) { try { window.localStorage.setItem(k, v); } catch (err) { /* sin almacenamiento */ } }
+  var R = window.CRranking, urlRanking = raiz.getAttribute("data-ranking-url") || "";
+  var miNombre = null, miDispositivo = null, porPublicar = null, rkDatos = null, rkCargado = 0, periodo = "semana";
+  if (urlRanking && R) {
+    miNombre = leerTexto("cr-trivia-nombre");
+    if (!R.nombreValido(miNombre)) { miNombre = R.generarNombre(Math.random); escribirTexto("cr-trivia-nombre", miNombre); }
+    miDispositivo = leerTexto("cr-trivia-dispositivo");
+    if (!/^[a-z0-9]{16}$/.test(miDispositivo || "")) { miDispositivo = R.nuevoDispositivo(Math.random); escribirTexto("cr-trivia-dispositivo", miDispositivo); }
+    $("[data-ver-ranking]").hidden = false;
+  } else urlRanking = "";
+
+  var ERRORES = {
+    modo: "El ranking de Halley Flip todavía no está activo: el equipo tiene que actualizar el script.",
+    duracion: "La partida fue muy corta para el ranking.",
+    rapido: "Ese puntaje no cuadra con el tiempo jugado.",
+    limite: "Ya publicaste muchas veces en esta hora. Intenta más tarde.",
+  };
+
+  function prepararPublicar(puntos, duracionMs) {
+    var b = $("[data-publicar]");
+    if (!urlRanking || puntos <= 0) { b.hidden = true; return; }
+    porPublicar = { puntos: puntos, duracionMs: duracionMs };
+    $("[data-mi-nombre]").textContent = miNombre;
+    $("[data-publicar-estado]").textContent = "";
+    $("[data-publicar-puntaje]").disabled = false;
+    $("[data-otro-nombre]").disabled = false;
+    b.hidden = false;
+  }
+
+  function publicar() {
+    if (!porPublicar) return;
+    var boton = $("[data-publicar-puntaje]"), aviso = $("[data-publicar-estado]");
+    boton.disabled = true; aviso.textContent = "Publicando…";
+    var envio = R.armarEnvio("halley", miNombre, porPublicar.puntos, porPublicar.duracionMs, miDispositivo);
+    fetch(urlRanking, { method: "POST", body: JSON.stringify(envio) })
+      .then(function (res) { return res.json(); })
+      .then(function (r) {
+        if (!r.ok) throw new Error(r.error || "error");
+        porPublicar = null; $("[data-otro-nombre]").disabled = true;
+        aviso.textContent = "¡Listo! Ya estás en el ranking.";
+        contar("ranking-publicado"); rkCargado = 0; verRanking("semana");
+      })
+      .catch(function (err) {
+        boton.disabled = err.message === "modo" || err.message === "rapido" || err.message === "duracion";
+        aviso.textContent = ERRORES[err.message] || "No se pudo publicar. Intenta de nuevo en un rato.";
+      });
+  }
+
+  function pintarRanking() {
+    $$("[data-periodo]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-periodo") === periodo)); });
+    var lista = $("[data-ranking-lista]"), aviso = $("[data-ranking-estado]");
+    lista.textContent = "";
+    if (!rkDatos) return;
+    var filas = rkDatos[periodo] || [];
+    aviso.textContent = filas.length ? "" : "Todavía nadie publica. ¡Sé la primera persona!";
+    filas.forEach(function (f) {
+      var li = document.createElement("li"), mio = f.nombre === miNombre;
+      if (mio) li.className = "es-mio";
+      var n = document.createElement("span"); n.textContent = f.nombre + (mio ? " (tú)" : "");
+      var pts = document.createElement("b"); pts.textContent = f.puntos + " pts";
+      li.appendChild(n); li.appendChild(pts); lista.appendChild(li);
+    });
+  }
+
+  function verRanking(cual) {
+    if (!urlRanking) return;
+    if (cual) periodo = cual;
+    var sec = $("[data-ranking]");
+    sec.hidden = false;
+    if (rkDatos && Date.now() - rkCargado < 60000) { pintarRanking(); sec.scrollIntoView({ block: "nearest" }); return; }
+    pintarRanking();
+    $("[data-ranking-estado]").textContent = "Cargando…";
+    fetch(urlRanking + (urlRanking.indexOf("?") < 0 ? "?" : "&") + "modo=halley")
+      .then(function (res) { return res.json(); })
+      .then(function (d) { if (d.error) throw new Error(d.error); rkDatos = d; rkCargado = Date.now(); pintarRanking(); })
+      .catch(function (err) { $("[data-ranking-estado]").textContent = err.message === "modo" ? ERRORES.modo : "No se pudo cargar el ranking. Intenta de nuevo en un rato."; });
+    sec.scrollIntoView({ block: "nearest" });
+  }
+
   // ---------- Compartir ----------
   function compartir() {
     var texto = H.textoCompartir({ puntos: e.puntos, notas: e.notasTomadas }), aviso = $("[data-aviso-compartir]");
@@ -219,6 +302,10 @@
     else if (b.hasAttribute("data-seguir")) seguir();
     else if (b.hasAttribute("data-pausa")) { if (modo === "pausa") seguir(); else pausar(); }
     else if (b.hasAttribute("data-compartir")) compartir();
+    else if (b.hasAttribute("data-publicar-puntaje")) publicar();
+    else if (b.hasAttribute("data-otro-nombre")) { miNombre = R.generarNombre(Math.random, miNombre); escribirTexto("cr-trivia-nombre", miNombre); $("[data-mi-nombre]").textContent = miNombre; }
+    else if (b.hasAttribute("data-ver-ranking")) verRanking();
+    else if (b.hasAttribute("data-periodo")) { periodo = b.getAttribute("data-periodo"); pintarRanking(); }
     else if (b.hasAttribute("data-sonido")) {
       sonidoOn = !sonidoOn;
       b.setAttribute("aria-pressed", String(sonidoOn));
