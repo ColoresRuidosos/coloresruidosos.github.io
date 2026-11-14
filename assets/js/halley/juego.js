@@ -92,33 +92,49 @@
     NOTA.forEach(function (f, j) { for (var i = 0; i < f.length; i++) if (f[i] === "Y") { ctx.fillStyle = "#FFD23F"; ctx.fillRect(x0 + i, y0 + j, 1, 1); } });
   }
 
-  // Cometa: cabeza de estrella con halo, cola en abanico que se abre hacia atrás y chispas que se quedan.
-  function cometa() {
+  // Halley, el piloto (diseño propio): aviador de traje azul, casco y gogles, volando de frente y jalando un
+  // listón rojo que ondea con "GRACIAS". El choque sigue siendo el círculo de radio 4 en su centro.
+  var PILOTO = [
+    ".........mmmmm..",
+    "........mmmmmmm.",
+    ".......mmmWWmWW.",
+    ".......mmWkWWkW.",
+    ".......mmsWWsWWs",
+    "rr......sssssss.",
+    ".rrbbbbbbbbbbsss",
+    "kkbbbbbbbbbbb...",
+    "kk..BBB...BB....",
+  ];
+  var COLOR_PILOTO = { m: "#7a4a2a", W: "#F4EFE6", k: "#141414", s: "#e9cdb8", b: "#2F5BFF", B: "#1d3f9e", r: "#E0302B" };
+  var LETRAS = { G: ["111", "100", "101", "101", "111"], R: ["110", "101", "110", "101", "101"], A: ["010", "101", "111", "101", "101"],
+    C: ["111", "100", "100", "100", "111"], I: ["111", "010", "010", "010", "111"], S: ["111", "100", "111", "001", "111"] };
+  var LISTON = "GRACIAS";
+
+  function piloto() {
     var cx = H.X_COMETA, cy = Math.round(e.y), t = sinMovimiento ? 0 : cuadro;
-    var inclina = Math.max(-1.5, Math.min(1.5, e.vy * 0.5)); // al subir, la cola queda abajo (y al revés)
-    var LARGO = 17;
-    [["#FF3E7F", 1.0], ["#FF7A30", 0.72], ["#FFD23F", 0.45], ["#fff3b0", 0.2]].forEach(function (capa) {
-      for (var k = 1; k <= LARGO; k++) {
-        var medio = (2.2 + k * 0.33) * capa[1];
-        if (medio < 0.5) continue;
-        var yC = cy - inclina * k / 4;
-        for (var yy = Math.round(yC - medio); yy <= Math.round(yC + medio); yy++) {
-          var orilla = Math.abs(yy - yC) > medio - 1 || k > LARGO - 5;
-          if (orilla && (yy + k + t) % 2 !== 0) continue; // las orillas se deshacen en polvo
-          ctx.fillStyle = capa[0]; ctx.fillRect(cx - 2 - k, yy, 1, 1);
-        }
+    var inclina = Math.max(-1.5, Math.min(1.5, e.vy * 0.5)); // al subir, el listón queda abajo (y al revés)
+    var x0 = cx - 9, y0 = cy - 4, ancho = LISTON.length * 4 + 4, inicio = x0 - 4;
+    ctx.fillStyle = "#c9c9c9";
+    for (var k = 0; k < 4; k++) ctx.fillRect(x0 - k, Math.round(cy + 1 - inclina * k / 4), 1, 1);
+    for (var c = 0; c < ancho; c++) {
+      var xx = inicio - c, yy = Math.round(cy - 3 - inclina * (c + 4) / 4 + Math.sin((c + t * 1.2) / 3) * 1.5);
+      ctx.fillStyle = "#E0302B"; ctx.fillRect(xx, yy, 1, 7);
+      ctx.fillStyle = "#8e1a16"; ctx.fillRect(xx, yy + 7, 1, 1);
+      var col = ancho - 3 - c, li = Math.floor(col / 4), cc = col % 4;
+      if (li >= 0 && li < LISTON.length && cc < 3) {
+        var g = LETRAS[LISTON[li]];
+        ctx.fillStyle = "#F4EFE6";
+        for (var f = 0; f < 5; f++) if (g[f][cc] === "1") ctx.fillRect(xx, yy + 1 + f, 1, 1);
+      }
+    }
+    PILOTO.forEach(function (fila, j) {
+      for (var i = 0; i < fila.length; i++) {
+        var ch = fila[i];
+        if (!COLOR_PILOTO[ch] || (ch === "r" && (i + t) % 3 === 0)) continue; // la bufanda aletea
+        var cabeza = i > 8 ? (inclina < -0.6 ? -1 : inclina > 0.6 ? 1 : 0) : 0;
+        ctx.fillStyle = COLOR_PILOTO[ch]; ctx.fillRect(x0 + i, y0 + j + cabeza, 1, 1);
       }
     });
-    for (var i = 0; i < 6; i++) {
-      var d = (t * 1.5 + i * 9) % 22;
-      if ((i + Math.floor(d / 4)) % 3 === 0) continue;
-      ctx.fillStyle = i % 2 ? "#FFD23F" : "#fff3b0";
-      ctx.fillRect(Math.round(cx - LARGO - 3 - d), Math.round(cy + ((i * 37) % 11) - 5 - inclina * 3), 1, 1);
-    }
-    ctx.fillStyle = "rgba(255,243,176,.35)"; ctx.fillRect(cx - 4, cy - 3, 9, 7); ctx.fillRect(cx - 3, cy - 4, 7, 9);
-    ctx.fillStyle = "#FFD23F"; ctx.fillRect(cx, cy - 5, 1, 11); ctx.fillRect(cx - 5, cy, 11, 1);
-    ctx.fillStyle = "#fff3b0"; ctx.fillRect(cx - 2, cy - 2, 5, 5);
-    ctx.fillStyle = "#ffffff"; ctx.fillRect(cx - 1, cy - 1, 3, 3); ctx.fillRect(cx, cy - 3, 1, 7); ctx.fillRect(cx - 3, cy, 7, 1);
   }
 
   function dibujar() {
@@ -135,7 +151,7 @@
     var corre = sinMovimiento ? 0 : Math.floor((e.pasos * H.velocidad(et)) % 8);
     ctx.fillStyle = "#5a3a22";
     for (var x = -corre; x < H.ANCHO; x += 8) ctx.fillRect(x, H.PISO + 3, 5, 1);
-    cometa();
+    piloto();
     if (destello > 0) { ctx.fillStyle = "rgba(255,62,127," + (destello / 12 * 0.5) + ")"; ctx.fillRect(0, 0, H.ANCHO, H.ALTO); destello--; }
   }
 
