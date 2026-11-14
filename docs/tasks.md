@@ -168,3 +168,11 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ Pantalla: canvas pixelado, inicio, pausa, resultado, compartir, sonido, movimiento reducido
 - ✅ Página en Games y tarjeta; e2e en móvil (390 px) y escritorio
 - ⏳ Afinación con el equipo (que se sienta justo)
+
+## Fase 20 — Ranking de Halley Flip (F28 fase 2/D35)
+- ✅ Spec
+- ⏳ 🔴→🟢 `duracionMs` por pasos de juego (sin contar la espera ni la pausa)
+- ⏳ 🔴→🟢 `Code.gs`: modo `halley`, tope por tiempo jugado ("rapido"), nombres de la trivia
+- ⏳ Cliente: publicar al chocar, pantalla Ranking (Semana/Histórico), aviso si el modo no está activo
+- ⏳ e2e contra el `Code.gs` simulado
+- ⏳ V13: el equipo publica la nueva versión del script

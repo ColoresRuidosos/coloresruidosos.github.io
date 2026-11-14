@@ -117,6 +117,12 @@
 - **Justicia (afinación inicial):** cada toque sube ~19 px, un tercio del hueco, y dos huecos seguidos quedan a lo más 34 px de altura (`MAX_SALTO`). Un piloto automático simple pasa de 50 puntos en la mayoría de las semillas, así que todas las etapas son alcanzables.
 - `tests-js/games.test.js` ahora acepta juegos servidos como página de Hugo (`content/games/<id>.md` con `layout`) además de HTML en `static/`.
 
+**D35 Ranking de Halley Flip (2026-11-14):** F28, fase 2.
+- `flip.js`: `pasosJuego` cuenta solo los pasos desde el primer toque; `duracionMs(e)` = pasosJuego × 1000/60. Es el tiempo de juego que se envía, medido en pasos de física y no con el reloj, así que pausar no lo infla.
+- `Code.gs`: `MODOS.halley = { max: 999, min_ms: 3000, max_ms: 3600000, ms_por_punto: 700, ms_inicio: 2000 }`. `validarEnvio` rechaza con "rapido" si `puntos > 1 + (duracionMs − ms_inicio) / ms_por_punto`. Los nombres son los de la trivia (no tiene lista propia en `NOMBRES`). Las tablas `semana` e `historico` son las genéricas de `tops`.
+- Cliente: `assets/js/trivia/ranking.js` (nombres, `armarEnvio`, `formatoTiempo`) entra al paquete de Halley Flip. El nombre se lee y guarda en `cr-trivia-nombre` y el dispositivo en la misma clave que usa la trivia. La URL del script sale de `site.Params.trivia_ranking_url` en `data-ranking-url`. POST como `text/plain`, sin preflight.
+- El equipo publica la versión nueva del script **una vez** (Implementar → Gestionar implementaciones → lápiz → Nueva versión); la URL no cambia.
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|
