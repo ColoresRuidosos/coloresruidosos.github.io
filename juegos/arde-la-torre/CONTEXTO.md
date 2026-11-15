@@ -1,6 +1,6 @@
 # Contexto para retomar «Arde la Torre» en otra sesión
 
-> Última actualización: **15 nov 2026**, juego en la **v0.5** (los 4 músicos y los 4 fondos con arte final). Pega este archivo, o su ruta, al empezar una sesión nueva.
+> Última actualización: **15 nov 2026**, juego en la **v0.7** (todo el arte final salvo los retratos comunes; potenciadores F7). Pega este archivo, o su ruta, al empezar una sesión nueva.
 > Repo `ColoresRuidosos/coloresruidosos.github.io` · carpeta `juegos/arde-la-torre/` · rama `ccr-7c6a7cf3-vz8zlr` (todo subido; **sin PR**).
 
 ## 1. Qué es y cómo trabajamos
@@ -41,10 +41,13 @@ Al republicar, `get_artifact` → `publish_files` con `base_version`, `shared_li
   - ✅ Los 4 músicos (`scripts/slice_sheet.py` desde `art/source/<músico>/`). Jota y Dani usan la misma escala en todas sus hojas (`scale_from_first`). A Jota se le borra al recortar el nombre de otra banda que Gemini le puso en la camiseta (`sin_texto`): mejor regenerar esas hojas con camiseta lisa.
   - ✅ Fondos de parking, vestíbulo, oficinas y azotea (`scripts/fondos.py`: la línea del suelo de la imagen se lleva a la del juego, `ZOOM` 0,75 con suelo y techo prolongados en espejo, repetición horizontal en espejo; la azotea centra el escenario). El del ascensor está guardado sin usar.
   - Escala: músicos y enemigos a ~74 px de pie (`SIZE_MUL` 1,12 en `slice_sheet.py` y `VISUAL_SCALE` en `render/sprites.js`). Retratos con encuadre común (`portrait_crop`) y brillo de piel igualado (`brighten_skin`).
-  - ⏳ Enemigos, jefes y objetos: siguen **provisionales dibujados por código** (`render/sprites.js`); son lo siguiente que más se nota.
+  - ✅ Enemigos y jefes (`art/source/enemigos/<tipo>.jpg`, mismo `slice_sheet.py`; `erase` borra rótulos y `cuts` corta a mano), objetos (`art/source/objetos/objetos.png`) y título (`art/source/fondos/titulo.png`, `fondos.py`).
+  - ⏳ Antonio: rehacer movimiento y guitarrazo con la guitarra detrás de la espalda (prompts en la página del amigo; referencia `antonio-referencia-v2`), y quitar entonces `OVERRIDE.antonio` en `render/atlas.js`.
+  - ⏳ Retratos iguales: el usuario quiere partir de fotos reales; Gemini no los igualó desde los sprites.
+- **Potenciadores (F7, aprobada):** amplificador, pedal, púa de la suerte y pase de backstage (`POWERUPS` en `moves.js`). La Setlist espera a F14.
 
 ## 5. Decisiones pendientes del usuario
-1. **Diseño de personajes v2** (spec §3.1, F7 y F14): pasivas, golpes de firma, SÚPER, barra de VOLUMEN y potenciadores. Propuesto, **sin aprobar** y sin programar (tareas T8.3 y T8.4). Los dibujos de los SÚPER de Antonio y Pepe ya están en sus atlas.
+1. **Diseño de personajes v2** (spec §3.1 y F14): pasivas, golpes de firma, SÚPER y barra de VOLUMEN. Propuesto, **sin aprobar** (T8.3 y T8.4). Los potenciadores (F7) ya están. Los dibujos de los SÚPER de Antonio y Pepe ya están en sus atlas.
 2. ¿Dificultad o duración de los niveles?; ¿rescate en todos los niveles o solo en la final?
 3. **Fondos:** se recomendó pixel art de Gemini más efectos de profundidad por código (capas, focos, niebla) en lugar de 3D realista, que chocaría con los sprites. Opción posible: experimento «HD-2D» (Three.js) solo en la azotea.
 
@@ -59,7 +62,7 @@ El usuario tarda mucho haciendo cada hoja a mano en Gemini. **Objetivo:** un scr
   4. **valida** la hoja antes de darla por buena (fondo gris liso, número de poses por fila con la misma lógica de `slice_sheet.py`) y reintenta si no cuadra;
   5. al terminar un músico, ejecuta `slice_sheet.py` y deja un resumen con capturas para revisar.
 - Opciones: `--solo dani`, `--paso 3`, `--intentos 3`, `--seco` (simula sin llamar a la API).
-- **Coste:** cada imagen cuesta unos céntimos por la API (comprobar la tarifa vigente). Quedan unas 12 imágenes (5 enemigos, 5 jefes, objetos y, si se quiere, repetir las hojas de Jota sin texto), más reintentos.
+- **Coste:** cada imagen cuesta unos céntimos por la API (comprobar la tarifa vigente). Ya solo quedan las 2 hojas de Antonio, los retratos y, si se quiere, repetir las de Jota sin texto y la del Director.
 - **Lo que necesita el usuario:** una **clave de API de Google AI Studio** (aistudio.google.com). En una sesión en la nube, pedirla con la herramienta de credenciales para el host `generativelanguage.googleapis.com`, nunca pegada en el chat. Si se ejecuta en su ordenador, va en una variable de entorno.
 - **Ojo:** Gemini puede negarse a dibujar a personas reales a partir de fotos; en ese caso, usar solo la descripción del prompt.
 - Las fotos de referencia de los músicos **no van al repo** (fotos de prensa con derechos).

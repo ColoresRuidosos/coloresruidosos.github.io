@@ -97,6 +97,7 @@ export function updateLevel(world) {
       for (let i = 0; i < sm.n; i++) {
         world.pending.push({ type: world.rng.pick(sm.types), side: i % 2 ? 'L' : 'R', at: world.levelTick + i * 30, dy: null, wave: world.waveIdx });
       }
+      f.callT = 45;                      // pose de «llamar a refuerzos» (solo se dibuja)
       world.events.push({ type: 'summon', id: f.id });
     }
   }

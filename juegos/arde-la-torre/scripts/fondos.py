@@ -46,5 +46,16 @@ def build(nivel, cfg):
     print(f"{nivel}: {sw}×{H}, {len(buf.getvalue()) // 1024} KB")
 
 
+def titulo(file='titulo.png'):
+    """Pantalla de título: la ilustración entera a 384×216 (16:9), sin oscurecer."""
+    im = Image.open(os.path.join(ROOT, 'art', 'source', 'fondos', file)).convert('RGB').resize((384, H), Image.LANCZOS)
+    buf = io.BytesIO(); im.save(buf, 'JPEG', quality=88, optimize=True)
+    with open(os.path.join(ROOT, 'src', 'data', 'fondo-titulo.js'), 'w') as f:
+        f.write(f"// Generado por scripts/fondos.py a partir de art/source/fondos/{file}. No editar a mano.\n"
+                f"export const JPG = 'data:image/jpeg;base64,{base64.b64encode(buf.getvalue()).decode()}';\n")
+    print(f"titulo: 384×{H}, {len(buf.getvalue()) // 1024} KB")
+
+
 if __name__ == '__main__':
     for k, v in FONDOS.items(): build(k, v)
+    titulo()

@@ -86,6 +86,53 @@ SHEETS = {
     ],
 }
 
+# Enemigos y jefes (15 nov 2026): una hoja por tipo en art/source/enemigos/<tipo>.jpg. Nombres comunes:
+#   idle0-1 · walk0-3 · wind/atk (puñetazo) · charge0-2 · shoot0-2 · grab0-1 · throw0-1 · block · call · hurt · fall0-1 · down.
+# `target` = alto de pie en el juego ≈ def.h × 66/58 (la misma proporción que los músicos).
+# `erase`: franjas (y0, y1) donde Gemini escribió rótulos; se borra el texto claro sin tocar zapatos ni sombras.
+_E = ['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3']
+_D = ['hurt', 'fall0', 'fall1', 'down']
+def _enemy(file, rows, names, target, **kw):
+    return [dict(dir='enemigos', file=file, rows=rows, names=names, ref=['idle0', 'idle1'], target=target,
+                 loose=['fall0', 'fall1', 'down'] + kw.pop('loose', []), **kw)]
+SHEETS.update({
+    'becario': _enemy('becario.jpg', [6, 2, 4], _E + ['wind', 'atk'] + _D, 61),
+    'comercial': _enemy('comercial.jpg', [6, 3, 4], _E + ['charge0', 'charge1', 'charge2'] + _D, 64),
+    'guardia': _enemy('guardia.jpg', [6, 3, 4], _E + ['block', 'wind', 'atk'] + _D, 68),
+    # La grapa que vuela es tan pequeña que el separador la descarta: quedan 3 poses en la fila 2.
+    'contable': _enemy('contable.jpg', [6, 3, 4], _E + ['shoot0', 'shoot1', 'atk'] + _D, 59),
+    'ejecutiva': _enemy('ejecutiva.jpg', [6, 4, 4], _E + ['grab0', 'grab1', 'throw0', 'throw1'] + _D, 64),
+    'jefeSeguridad': _enemy('jefeSeguridad.jpg', [6, 5, 5], _E + ['wind', 'atk', 'charge0', 'charge1', 'charge2', 'call'] + _D, 77),
+    # El teléfono que vuela invade la pose de al lado: la fila 2 se corta a mano.
+    'recepcionista': _enemy('recepcionista.jpg', [6, 5, 5], _E + ['shoot0', 'shoot1', 'shoot2', 'wind', 'atk', 'call'] + _D, 71,
+                            cuts={1: [40, 450, 1018, 1460, 1910, 2380]}),
+    # Director: Gemini dio solo 2 pasos y una pose de cada ataque, con rótulos; el agarre y el lanzamiento traen
+    # a la víctima dibujada en transparente, así que se descartan (el juego usa el puñetazo).
+    'director': _enemy('director.jpg', [4, 3, 4], ['idle0', 'idle1', 'walk0', 'walk1', 'atk', 'charge0', 'grab0', 'throw0', 'hurt', 'fall0', 'down'],
+                       75, skip=['grab0', 'throw0'], erase=[(425, 515), (925, 1015), (1425, 1536)]),
+    # Presidente: 3 poses quieto, rótulos en inglés y en español, y el disco volando aparte (se descarta).
+    'presidente': _enemy('presidente.jpg', [7, 8, 6],
+                         ['idle0', 'idle1', 'idle2', 'walk0', 'walk1', 'walk2', 'walk3',
+                          'wind', 'atk', 'atk2', 'charge0', 'charge1', 'shoot0', 'shoot1', 'disc',
+                          'grab0', 'grab1', 'hurt', 'fall0', 'fall1', 'down'],
+                         80, skip=['disc'], erase=[(0, 64), (488, 562), (908, 1052), (1404, 1536)]),
+})
+# Objetos (F7): una fila de 12. Escala común: el extintor mide ~20 px (la silla y el pie de micro, algo más).
+_OBJ = ['bocadillo', 'cafe', 'pua', 'setlist', 'ampli', 'pedal', 'suerte', 'pase', 'grapadora', 'extintor', 'silla', 'pie']
+SHEETS['objetos'] = [dict(dir='objetos', file='objetos.png', rows=[12], names=_OBJ, ref=['extintor'], target=20 / SIZE_MUL, loose=_OBJ)]
+ENEMIES = [k for k in SHEETS if k not in ('antonio', 'pepe', 'dani', 'jota', 'objetos')]
+
+
+def erase_text(a, mask, bands):
+    """Quita rótulos claros (texto blanco con borde) en las franjas indicadas; deja lo oscuro (zapatos, sombras)."""
+    lum = a.mean(axis=2)
+    for y0, y1 in bands:
+        bright = np.zeros_like(mask); bright[y0:y1] = lum[y0:y1] > 150
+        near = box_sum(bright, 3) > 0
+        band = np.zeros_like(mask); band[y0:y1] = True
+        mask &= ~(near & band)
+    return mask
+
 
 def background(a):
     border = np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]])
@@ -140,7 +187,7 @@ def merge_to(segs, n, weights=None):
     return segs
 
 
-def split(mask, rows):
+def split(mask, rows, cuts=None):
     occ_r = mask.sum(axis=1) > 3
     bands = segments(occ_r, gap=10)
     bands = [b for b in bands if b[1] - b[0] > 12]
@@ -153,7 +200,11 @@ def split(mask, rows):
         bands[i:i + 1] = [[b0, cut], [cut, b1]]
     bands = merge_to(bands, len(rows))
     boxes = []
-    for (y0, y1), n in zip(bands, rows):
+    for r, ((y0, y1), n) in enumerate(zip(bands, rows)):
+        if cuts and r in cuts:      # cortes a mano (x en la hoja original) cuando un objeto lanzado invade la pose vecina
+            xs = cuts[r]
+            for x0, x1 in zip(xs[:-1], xs[1:]): boxes.append((x0, y0, x1, y1))
+            continue
         sub = mask[y0:y1]
         occ_c = sub.sum(axis=0) > 2
         cols = segments(occ_c, gap=6)
@@ -326,10 +377,11 @@ def pack(frames, width=512):
 
 
 def build(hero):
-    src = os.path.join(ROOT, 'art', 'source', hero)
+    base = os.path.join(ROOT, 'art', 'source')
     names, frames, anchors_loose, portrait = [], [], [], None
     first_scale = None
     for sh in SHEETS[hero]:
+        src = os.path.join(base, sh.get('dir', hero))
         if sh.get('portrait_file'):          # retrato suelto (imagen cuadrada aparte)
             a = np.asarray(Image.open(os.path.join(src, sh['portrait_file'])).convert('RGB'))
             m = foreground(a, background(a))
@@ -343,7 +395,8 @@ def build(hero):
         a = np.asarray(Image.open(os.path.join(src, sh['file'])).convert('RGB'))
         bg = background(a)
         mask = erase_floor_lines(a, foreground(a, bg))
-        boxes = split(mask, sh['rows'])
+        if sh.get('erase'): mask = erase_text(a, mask, sh['erase'])
+        boxes = split(mask, sh['rows'], sh.get('cuts'))
         assert len(boxes) == len(sh['names']), (sh['file'], len(boxes))
         crops = {n: crop_frame(a, mask, b) for n, b in zip(sh['names'], boxes)}
         if sh.get('sin_texto'): crops = {n: remove_shirt_text(c) for n, c in crops.items()}
@@ -360,7 +413,7 @@ def build(hero):
             if sh.get('recolor') == 'pantalon': fr = recolor_pants(fr)
             names.append(n); frames.append(fr); anchors_loose.append(n in sh['loose'])
         print(f"{sh['file']}: {len(boxes)} poses, escala {scale:.3f}")
-    common = os.path.join(ROOT, 'art', 'source', PORTRAITS_SHEET['file'])
+    common = os.path.join(base, PORTRAITS_SHEET['file'])
     if os.path.exists(common) and hero in PORTRAITS_SHEET['order']:   # los 4 retratos de una misma imagen: mismo estilo
         a = np.asarray(Image.open(common).convert('RGB'))
         mask = foreground(a, background(a))
@@ -383,7 +436,7 @@ def build(hero):
     os.makedirs(os.path.join(ROOT, 'art', 'build'), exist_ok=True)
     png = io.BytesIO(); Image.fromarray(atlas, 'RGBA').save(png, 'PNG', optimize=True)
     with open(os.path.join(ROOT, 'art', 'build', f'{hero}-atlas.png'), 'wb') as fh: fh.write(png.getvalue())
-    js = (f"// Generado por scripts/slice_sheet.py a partir de art/source/{hero}/. No editar a mano.\n"
+    js = (f"// Generado por scripts/slice_sheet.py a partir de art/source/. No editar a mano.\n"
           f"// Fotogramas: [x, y, ancho, alto, ox, oy] — (ox, oy) es el punto del suelo bajo el personaje.\n"
           f"export const PNG = 'data:image/png;base64,{base64.b64encode(png.getvalue()).decode()}';\n"
           f"export const FRAMES = {json.dumps(meta, separators=(',', ':'))};\n")

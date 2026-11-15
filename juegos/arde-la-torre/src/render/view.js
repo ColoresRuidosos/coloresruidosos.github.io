@@ -1,7 +1,7 @@
 // Vista del juego (F11, plan §6): capas, sombras, actores ordenados por profundidad, efectos y HUD.
 import { W, H, FLOOR_TOP } from '../sim/constants.js';
 import { getSprite } from './sprites.js';
-import { hasAtlas, heroFrameName, drawFrame, drawPortrait } from './atlas.js';
+import { hasAtlas, frameName, drawFrame, drawPortrait, drawObject } from './atlas.js';
 import { getBackground } from './backgrounds.js';
 import { drawText } from './text.js';
 import { SLOT_COLORS } from '../input/slots.js';
@@ -114,7 +114,7 @@ const ITEM_DRAW = {
 };
 const PICK_TEXT = { pua: '+1000', bocadillo: '♥', cafe: '♥', ampli: '¡AMPLI! ×1,5', pedal: '¡PEDAL!', suerte: '¡SUERTE!', pase: '+1 VIDA' };
 const POWER_COLOR = { ampli: '#ffd23f', pedal: '#ff6a2a', suerte: '#3fdc7a' };
-export function drawItem(ctx, kind, x, y, t = 0) { (ITEM_DRAW[kind] || ITEM_DRAW.cafe)(ctx, Math.round(x), Math.round(y), t); }
+export function drawItem(ctx, kind, x, y, t = 0) { if (drawObject(ctx, kind, x, y)) return; (ITEM_DRAW[kind] || ITEM_DRAW.cafe)(ctx, Math.round(x), Math.round(y), t); }
 
 function drawShot(ctx, s, x, y) {
   const yy = Math.round(y - s.z);
@@ -234,7 +234,7 @@ export function drawWorld(ctx, world, fx, opts = {}) {
     if (f.state === 'special' && f.hero === 'dani') face = Math.floor(f.t / 5) % 2 ? -face : face;   // el «solo» gira
     const x = Math.round(f.x - cam), y = Math.round(f.y - f.z);
     let drawnH = 0;
-    if (hasAtlas(f.type)) drawnH = drawFrame(ctx, f.type, f.palette || 0, heroFrameName(f), x, y, face);   // sprites finales
+    if (hasAtlas(f.type)) drawnH = drawFrame(ctx, f.type, f.palette || 0, frameName(f), x, y, face);   // sprites finales
     if (!drawnH) {                                                                                       // provisionales
       const [st, fr] = spriteState(f);
       const spr = getSprite(f.type, f.palette || 0, st, fr, f.def.h, f.hero);

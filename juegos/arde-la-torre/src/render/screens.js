@@ -5,6 +5,7 @@ import { SLOT_COLORS } from '../input/slots.js';
 import { drawText } from './text.js';
 import { drawQR } from './qr.js';
 import { drawMenuFigure, drawPortrait } from './atlas.js';
+import { JPG as TITULO } from '../data/fondo-titulo.js';
 
 const BG = '#0e0b1a';
 
@@ -18,12 +19,35 @@ function tower(ctx, x, top, w, t) {
   for (let i = 0; i < 8; i++) { const hh = 4 + ((t * 2 + i * 13) % 12); ctx.fillStyle = i % 2 ? '#ffd23f' : '#ff6a2a'; ctx.fillRect(x + 4 + i * (w - 8) / 8, top - hh, 2, hh); }
 }
 
+// Ilustración del título (Gemini, art/source/fondos/titulo.png); mientras carga, el dibujo por código.
+let titleImg = null;
+function titleImage() {
+  if (typeof Image === 'undefined') return null;
+  if (!titleImg) { titleImg = new Image(); titleImg.src = TITULO; }
+  return titleImg.complete && titleImg.naturalWidth ? titleImg : null;
+}
+
+function titleSparks(ctx, t) {   // chispas de la pirotecnia de la azotea (lentas, sin destellos)
+  for (let i = 0; i < 10; i++) {
+    const side = i % 2 ? 1 : -1, k = ((t * 0.6 + i * 9) % 30) / 30;
+    ctx.fillStyle = `rgba(255,${190 + (i % 3) * 20},90,${1 - k})`;
+    ctx.fillRect(Math.round(W / 2 + side * (52 + (i % 3) * 6) + side * k * 6), Math.round(84 - k * 26), 1, 2);
+  }
+}
+
 export function drawTitle(ctx, t) {
+  const img = titleImage();
+  if (img) {
+    ctx.drawImage(img, 0, 0, W, H);
+    titleSparks(ctx, t);
+    ctx.fillStyle = 'rgba(10,6,20,0.35)'; ctx.fillRect(0, 0, W, 60);
+  } else {
   const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#07071a'); g.addColorStop(0.7, '#3a1240'); g.addColorStop(1, '#a23a3a');
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   for (let i = 0; i < 60; i++) { ctx.fillStyle = '#fff8'; ctx.fillRect((i * 97) % W, (i * 53) % 110, 1, 1); }
   ctx.fillStyle = '#120a1e'; for (let x = 0; x < W; x += 14) { const h = 20 + ((x * 37) % 40); ctx.fillRect(x, H - h, 13, h); }
   tower(ctx, W / 2 - 30, 70, 60, t);
+  }
   drawText(ctx, 'ARDE LA TORRE', W / 2, 16, { color: '#ffd23f', scale: 4, align: 'center', shadow: '#a3242c' });
   drawText(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, 50, { color: '#fff', align: 'center' });
   // los cuatro músicos

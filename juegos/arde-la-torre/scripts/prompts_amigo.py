@@ -162,6 +162,25 @@ RETRATOS = ("Usa la imagen adjunta (4 retratos de personajes, de izquierda a der
     "Expresión segura, con media sonrisa. Cada retrato en un cuadrado del mismo tamaño, separados entre sí con espacio vacío. "
     "Fondo gris completamente liso #474747. Sin texto, sin marcos, sin logos y sin letras en la ropa (camisetas y camisas lisas).")
 
+_ANT = ("Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa y colores (pantalón marrón oscuro, "
+        "americana color camel, camisa azul claro, corbata verde).\n\n")
+_ANT_EST = ("ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4, contorno oscuro grueso, sombreado plano "
+            "de 2 a 3 tonos, luz cálida lateral y sombras con un toque morado. Arte original: no copies ningún videojuego existente.\n"
+            "FORMATO: fondo gris completamente liso #474747. Sin texto, sin marcos, sin cuadrícula, sin rayas ni sombras de suelo. Poses "
+            "separadas entre sí y mucho espacio vacío entre filas. El personaje mide lo mismo en todas las poses y todas apoyan en la misma "
+            "línea de suelo. Mira a la DERECHA.\n\n")
+ANTONIO_MOV = _ANT + ("REGLA DE LA GUITARRA: hay UNA SOLA guitarra roja y va COMPLETAMENTE DETRÁS de la espalda, colgada de la correa que cruza "
+    "el pecho, igual que en la imagen adjunta: solo asoma el cuerpo rojo por detrás de la cadera. La guitarra nunca pasa por delante del "
+    "cuerpo ni de las piernas, y las manos NUNCA la tocan: una mano lleva el micrófono plateado con cable y la otra va libre. La guitarra "
+    "está igual en todas las poses.\n\n") + _ANT_EST + ("HOJA de exactamente 4 filas, de izquierda a derecha:\n"
+    "Fila 1: QUIETO ×2 (en guardia, respirando; se mueve muy poco).\nFila 2: CAMINAR ×4 (ciclo de paso completo).\n"
+    "Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).\nFila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas).")
+ANTONIO_GUIT = _ANT + ("REGLA DE LA GUITARRA: hay UNA SOLA guitarra roja en cada pose. Cuando la tiene en las manos, la espalda queda VACÍA: no "
+    "dibujes otra guitarra colgada. Nunca dos guitarras en la misma pose y nunca una guitarra atravesando el cuerpo.\n\n") + _ANT_EST + (
+    "HOJA de exactamente 2 filas, de izquierda a derecha:\nFila 1: GUITARRAZO ×3 (descuelga la guitarra de la espalda; la levanta por el "
+    "mástil por encima de la cabeza; la baja hacia delante como un hacha). Una sola guitarra, en las manos.\n"
+    "Fila 2: VICTORIA ×2 (guitarra en alto con una mano y el micro en la otra; la espalda sin guitarra).")
+
 def build():
     secciones = []
     for m in MUSICOS:
@@ -169,16 +188,15 @@ def build():
         secciones.append(dict(titulo=f"{m['nombre']} · {m['apodo']} ({m['papel']})", id=m['id'],
                               nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
-    secciones.append(dict(titulo="Enemigos (empleados de Silencio S.A.)", id="enemigos", nota="No subas ninguna imagen. Solo copia y pega.",
-        prompts=[(f"enemigo-{k}.png", f"{n}: no subas ninguna imagen", oficina(f"PERSONAJE: {d}.\nHOJA de exactamente 3 filas:\n{rows}"), False) for k, (i, n, d, rows) in enumerate(ENEMIGOS, 1)]))
-    secciones.append(dict(titulo="Jefes", id="jefes", nota="No subas ninguna imagen. Solo copia y pega.",
-        prompts=[(f"jefe-{k}.png", f"{n}: no subas ninguna imagen", oficina(f"PERSONAJE: {d}.\nHOJA de exactamente 3 filas:\n{rows}"), False) for k, (i, n, d, rows) in enumerate(JEFES, 1)]))
-    secciones.append(dict(titulo="Objetos y pantalla de título", id="otros", nota="No subas ninguna imagen. Solo copia y pega.",
-        prompts=[(("objetos.png", "titulo.png")[k], f"{n}: no subas ninguna imagen", d, False) for k, (f, n, d) in enumerate(OTROS)]))
+    # 15 nov 2026: enemigos, jefes, objetos y título ya están en el juego. Solo quedan las hojas nuevas de Antonio.
+    secciones.append(dict(titulo="Antonio: guitarra corregida (2 imágenes)", id="antonio-v2",
+        nota="Sube la imagen «antonio-referencia-v2» que te pasaron en cada uno. La guitarra va siempre detrás de la espalda.",
+        prompts=[("antonio-2.png", "Sube «antonio-referencia-v2» y pega esto", ANTONIO_MOV, True),
+                 ("antonio-guitarrazo.png", "Sube «antonio-referencia-v2» y pega esto", ANTONIO_GUIT, True)]))
     return secciones
 
 PASOS = [
-    "Los 4 músicos y los fondos ya están en el juego. Falta: 5 enemigos, 4 jefes y la hoja de objetos (10 imágenes). Los retratos quedan para más adelante.",
+    "Ya está en el juego: los 4 músicos, los 9 enemigos y jefes, los objetos, los fondos y el título. Solo faltan 2 hojas de Antonio (abajo) y, más adelante, los retratos.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",

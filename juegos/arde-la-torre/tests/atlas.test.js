@@ -59,3 +59,42 @@ test('fondos finales: un JPG por nivel con su ancho y el centro del escenario', 
     assert.ok(m.WIDTH > 384 && m.CENTER > 0 && m.CENTER < m.WIDTH, id);
   }
 });
+
+// T5.6h (15 nov 2026): enemigos, jefes y objetos con arte final de Gemini.
+import { ENEMIES } from '../src/sim/enemies.js';
+import { enemyFrameName, resolveFrame } from '../src/render/atlas.js';
+import * as OBJETOS from '../src/data/atlas-objetos.js';
+import { JPG as TITULO } from '../src/data/fondo-titulo.js';
+
+test('T5.6h cada enemigo y jefe tiene atlas y una pose propia para cada estado de la simulación', () => {
+  const states = [
+    ['idle', {}], ['walk', {}], ['ewind', { ai: { move: 'punch' } }], ['eatk', {}], ['hurt', {}], ['fall', { vz: 2 }], ['fall', { vz: -2 }],
+    ['down', {}], ['dead', {}], ['rise', {}], ['stun', {}], ['grabbed', {}], ['thrown', { vz: 1 }],
+  ];
+  for (const [type, def] of Object.entries(ENEMIES)) {
+    if (type === 'tecnico') continue;   // ya no sale en ningún nivel (F6 v3)
+    for (const [state, extra] of states) {
+      const f = { type, state, t: 3, id: 1, def, ai: { move: null }, move: {}, vz: 0, ...extra };
+      const n = enemyFrameName(f);
+      const fr = resolveFrame(type, n);
+      assert.ok(fr, `${type}/${state}: sin fotograma (${n})`);
+      if (['eatk', 'hurt', 'down', 'fall'].includes(state)) assert.notEqual(fr, resolveFrame(type, 'idle0'), `${type}/${state} usa la pose de quieto`);
+    }
+    for (const mv of Object.keys(def.moves)) {
+      const f = { type, state: 'ewind', t: 30, id: 1, def, ai: { move: mv }, move: def.moves[mv] };
+      assert.notEqual(resolveFrame(type, enemyFrameName(f)), resolveFrame(type, 'idle0'), `${type}/${mv} usa la pose de quieto`);
+    }
+    const h = resolveFrame(type, 'idle0')[3];
+    assert.ok(h >= def.h && h <= def.h * 1.45, `${type} de pie mide ${h} px (def.h ${def.h})`);
+    assert.ok(resolveFrame(type, 'down')[2] > resolveFrame(type, 'down')[3], `${type} tumbado es más ancho que alto`);
+  }
+});
+
+test('T5.6h hoja de objetos (comida, potenciadores y armas) y fondo del título', () => {
+  for (const k of ['bocadillo', 'cafe', 'pua', 'setlist', 'ampli', 'pedal', 'suerte', 'pase', 'grapadora', 'extintor', 'silla', 'pie']) {
+    const fr = OBJETOS.FRAMES[k];
+    assert.ok(fr, `falta ${k}`);
+    assert.ok(fr[3] >= 8 && fr[3] <= 30, `${k} mide ${fr[3]} px`);
+  }
+  assert.ok(TITULO.startsWith('data:image/jpeg;base64,'));
+});

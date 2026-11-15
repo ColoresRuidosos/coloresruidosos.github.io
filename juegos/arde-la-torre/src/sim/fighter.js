@@ -268,6 +268,7 @@ export function stepEnemy(world, f) {
   if (f.freeze > 0) { f.freeze--; return; }
   if (f.invul > 0) f.invul--;
   if (f.knockCd > 0) f.knockCd--;
+  if (f.callT > 0) f.callT--;
   if (stepCommon(world, f)) { clampToWorld(world, f); return; }
   if (!enemyStates(world, f)) think(world, f);
   clampToWorld(world, f);
