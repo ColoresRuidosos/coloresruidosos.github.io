@@ -683,7 +683,7 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 | 10 | Carrusel de adultos | De grandes también damos vueltas; solo que ya nadie nos sube al caballito. |
 
 **v10.1 · Letras de *Alba* (13 nov 2026).** El usuario informa que **tienen el permiso** («la bendición») para usar letras del disco.
-- **Constancia (⏳ la completa el usuario):** quién dio el permiso, la fecha y el alcance. ¿Es solo para este juego? ¿Fragmentos o letras completas? ¿Con qué crédito? Hay que guardar el correo o el documento fuera del repo y anotar aquí la referencia. Mientras no esté anotado, el juego no publica las letras en la web, aunque sí se pueden ver en las pruebas.
+- **Constancia:** ✅ el usuario confirma el permiso para usar las letras (15 nov 2026: «tenemos el permiso, no te preocupes»). El documento lo guarda el equipo de CR fuera del repo.
 - **Quién pone el texto:** el texto exacto lo aporta el equipo de CR desde la fuente oficial. **Claude no transcribe letras**: solo construye el mecanismo y coloca el texto que le pasan, sin tocarlo.
 - **Cómo se ven:**
   - cada atril muestra **un fragmento corto** de su canción (hasta 4 líneas de 30 caracteres, para que quepa y se lea en el celular);
@@ -731,7 +731,8 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - **«Los de septiembre»:** reutilizan los invitados de *Noche* **sin disfraz** (animación `uwalk`).
 - **Recuerdos de los jefes (fase 1):** son los sprites que ya existen (Flash-Bot y Enmascarado), pasados a sepia al dibujarlos.
 - **Pepe:** usa el traje **clásico** (camisa blanca), que ya existe en la Galería.
-- **Hoja de concepto:** `art/source/alba/concepto-sprites.png`, para que el usuario la apruebe.
+- **Hoja de concepto:** `art/source/alba/concepto-sprites.png` (✅ diseño aprobado el 15 nov 2026).
+- **Arte final con Gemini:** el usuario vio genéricos los sprites hechos por código y pidió **rehacerlos con Gemini**, con el mismo diseño. Los prompts están en `art/PROMPTS-GEMINI.md` §0g, junto con los escenarios y las escenas. Mientras no lleguen, el juego usa los sprites de código como respaldo.
 
 **Historia** (como en los mundos 1 y 2):
 - escena de entrada de 2 viñetas («Después de la fiesta, el silencio» y «Todo me recuerda algo»);
