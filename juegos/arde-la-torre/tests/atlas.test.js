@@ -38,3 +38,24 @@ test('T5.1 atlas de Pepe: poses del juego (con equivalentes), tamaños coherente
   for (const n of ['idle0', 'walk0', 'punch1b']) assert.ok(F[n][3] >= 56 && F[n][3] <= 72, `${n} mide ${F[n][3]} px`);
   assert.ok(RETRATO_PEPE.startsWith('data:image/png;base64,'));
 });
+
+import * as DANI from '../src/data/atlas-dani.js';
+import * as JOTA from '../src/data/atlas-jota.js';
+
+test('T5.1 atlas de Dani y Jota: poses del juego, tamaños coherentes y retrato', () => {
+  for (const [nombre, F] of [['dani', DANI.FRAMES], ['jota', JOTA.FRAMES]]) {
+    for (const n of ['idle0', 'idle1', 'walk0', 'walk3', 'run0', 'run3', 'jump0', 'jump1', 'punch1a', 'punch1b', 'punch2a', 'punch2b',
+      'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1', 'hurt', 'fall0', 'down', 'rise0', 'rise1',
+      'sp0', 'sp1', 'sp2', 'sp3', 'win0', 'win1', 'portrait']) assert.ok(F[n], `${nombre}: falta ${n}`);
+    for (const n of ['idle0', 'walk0']) assert.ok(F[n][3] >= 58 && F[n][3] <= 72, `${nombre} ${n} mide ${F[n][3]} px`);
+  }
+  assert.ok(DANI.FRAMES.kick0 && DANI.FRAMES.kick1, 'Dani tiene la patada de su combo de 4');
+});
+
+test('fondos finales: un JPG por nivel con su ancho y el centro del escenario', async () => {
+  for (const id of ['parking', 'vestibulo', 'oficinas', 'azotea']) {
+    const m = await import(`../src/data/fondo-${id}.js`);
+    assert.ok(m.JPG.startsWith('data:image/jpeg;base64,'), id);
+    assert.ok(m.WIDTH > 384 && m.CENTER > 0 && m.CENTER < m.WIDTH, id);
+  }
+});

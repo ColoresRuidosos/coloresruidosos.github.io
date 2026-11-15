@@ -8,8 +8,10 @@ import { HEROES, HERO_IDS } from './sim/moves.js';
 import { getSprite } from './render/sprites.js';
 import { PNG as RETRATO_ANTONIO } from './data/retrato-antonio.js';
 import { PNG as RETRATO_PEPE } from './data/retrato-pepe.js';
+import { PNG as RETRATO_DANI } from './data/retrato-dani.js';
+import { PNG as RETRATO_JOTA } from './data/retrato-jota.js';
 
-const RETRATOS = { antonio: RETRATO_ANTONIO, pepe: RETRATO_PEPE };   // retratos finales ligeros; el resto, provisional
+const RETRATOS = { antonio: RETRATO_ANTONIO, pepe: RETRATO_PEPE, dani: RETRATO_DANI, jota: RETRATO_JOTA };   // retratos finales ligeros; el resto, provisional
 import { NEUTRAL } from './input/source.js';
 
 const Q = new URLSearchParams(location.search);

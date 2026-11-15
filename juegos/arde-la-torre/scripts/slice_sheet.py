@@ -49,6 +49,37 @@ SHEETS = {
              ref=['win0', 'win2'], target=74, loose=[], portrait='portrait'),
         # El retrato grande aparte (pepe-6-retrato.jpg) tiene otro estilo; se usa el de la hoja, igual que con Antonio.
     ],
+    # Jota: Gemini le puso a la camiseta el nombre de otra banda; se borra con `sin_texto` (regla de CR: nada de marcas de terceros).
+    'jota': [
+        dict(file='jota-2-movimiento.png', rows=[2, 4, 4, 2], sin_texto=True,
+             names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
+             ref=['idle0', 'idle1', 'walk0', 'walk2'], target=66, loose=['jump0', 'jump1']),
+        dict(file='jota-3-combo.png', scale_from_first=True, rows=[2, 2, 3, 5], sin_texto=True,
+             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
+             ref=['punch1a', 'punch1b'], target=64, loose=['air']),
+        dict(file='jota-4-dano-especial.png', scale_from_first=True, rows=[3, 3, 4], sin_texto=True,
+             names=['hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
+             ref=['sp0', 'sp1'], target=60, loose=['fall0', 'fall1', 'down']),
+        dict(file='jota-5-firma-super.png', scale_from_first=True, rows=[3, 4, 2, 1], sin_texto=True,
+             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'portrait'],
+             ref=['win0', 'win1'], target=68, loose=[], portrait='portrait'),
+    ],
+    'dani': [
+        dict(file='dani-2-movimiento.png', rows=[2, 4, 4, 5],
+             names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3',
+                    'jump0', 'jump1', 'dj0', 'dj1', 'jump2'],
+             ref=['idle0', 'idle1', 'walk0', 'walk2'], target=66, loose=['jump0', 'jump1', 'dj0', 'dj1', 'jump2']),
+        dict(file='dani-3-combo.png', scale_from_first=True, rows=[4, 2, 3, 5],
+             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'kick0', 'kick1', 'guit0', 'guit1', 'guit2',
+                    'air', 'grab', 'knee', 'throw0', 'throw1'],
+             ref=['punch1a', 'punch1b'], target=64, loose=['air']),
+        dict(file='dani-4-dano-especial.png', scale_from_first=True, rows=[3, 3, 4],
+             names=['hurt', 'fall0', 'kneel', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
+             ref=['sp0'], target=66, loose=['fall0', 'down']),
+        dict(file='dani-5-firma-super.png', scale_from_first=True, rows=[3, 4, 2, 1],
+             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'portrait'],
+             ref=['win0', 'win1'], target=70, loose=['sig0'], portrait='portrait'),
+    ],
 }
 
 
@@ -160,6 +191,33 @@ def crop_frame(a, mask, box):
     return np.dstack([rgb, alpha])
 
 
+def box_sum(m, r):
+    """Suma de una máscara en una ventana de (2r+1)² alrededor de cada píxel (imagen integral)."""
+    p = np.pad(m.astype(np.int32), r)
+    ii = np.zeros((p.shape[0] + 1, p.shape[1] + 1), np.int64)
+    ii[1:, 1:] = p.cumsum(0).cumsum(1)
+    k = 2 * r + 1
+    return ii[k:, k:] - ii[:-k, k:] - ii[k:, :-k] + ii[:-k, :-k]
+
+
+def remove_shirt_text(rgba, r=7):
+    """Borra letras naranjas sobre una camiseta negra (p. ej. un nombre de banda que inventó la IA).
+    Medido en las hojas de Jota: las letras tienen g/r ≤ 0,51 y b/r ≤ 0,32; la piel, g/r ≥ 0,55 y b/r ≥ 0,32.
+    Además se exige estar rodeado de bastante negro (dentro de la camiseta)."""
+    rgb = rgba[..., :3].astype(float)
+    alpha = rgba[..., 3] > 0
+    R = np.maximum(rgb[..., 0], 1)
+    gr, br, lum = rgb[..., 1] / R, rgb[..., 2] / R, rgb.mean(axis=2)
+    dark = (lum < 50) & alpha
+    win = (2 * r + 1) ** 2
+    near_shirt = box_sum(dark, r) / win > 0.30
+    text = alpha & (rgb[..., 0] > 90) & (gr < 0.53) & (br < 0.30) & near_shirt
+    text = (box_sum(text, 1) > 0) & alpha & (lum > 30) & near_shirt   # bordes antialiasados de las letras
+    out = rgba.copy()
+    out[text, :3] = (24, 22, 26)
+    return out
+
+
 def recolor_pants(rgba):
     """Gemini pintó el pantalón gris azulado en una hoja y marrón oscuro en las demás: lo igualamos.
     Solo toca azules oscuros y poco saturados (la camisa, azul claro, no cambia)."""
@@ -235,6 +293,7 @@ def pack(frames, width=512):
 def build(hero):
     src = os.path.join(ROOT, 'art', 'source', hero)
     names, frames, anchors_loose, portrait = [], [], [], None
+    first_scale = None
     for sh in SHEETS[hero]:
         if sh.get('portrait_file'):          # retrato suelto (imagen cuadrada aparte)
             a = np.asarray(Image.open(os.path.join(src, sh['portrait_file'])).convert('RGB'))
@@ -252,7 +311,10 @@ def build(hero):
         boxes = split(mask, sh['rows'])
         assert len(boxes) == len(sh['names']), (sh['file'], len(boxes))
         crops = {n: crop_frame(a, mask, b) for n, b in zip(sh['names'], boxes)}
-        scale = sh.get('target', STAND_H) / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de varias poses de referencia
+        if sh.get('sin_texto'): crops = {n: remove_shirt_text(c) for n, c in crops.items()}
+        if sh.get('scale_from_first') and first_scale: scale = first_scale   # mismas dimensiones de hoja → misma escala
+        else: scale = sh.get('target', STAND_H) / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de poses de referencia
+        first_scale = first_scale or scale
         for n in sh['names']:
             if n in sh.get('skip', []): continue
             if n == sh.get('portrait'):

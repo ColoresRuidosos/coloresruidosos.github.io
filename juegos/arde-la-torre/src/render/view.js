@@ -189,7 +189,7 @@ export function drawWorld(ctx, world, fx, opts = {}) {
   const cam = Math.round(world.camX);
   ctx.save();
   ctx.translate(sh, elevatorBob);
-  ctx.drawImage(bg.far, Math.round(-cam * 0.3), 0);
+  if (bg.far) ctx.drawImage(bg.far, Math.round(-cam * 0.3), 0);
   ctx.drawImage(bg.near, -cam, 0);
   // pirotecnia de escenario en la azotea
   if (bg.fireAt) for (const fxX of bg.fireAt) {

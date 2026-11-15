@@ -2,11 +2,13 @@
 // Si un músico aún no tiene atlas, o la imagen no ha cargado, se usa el sprite provisional dibujado por código.
 import * as ANTONIO from '../data/atlas-antonio.js';
 import * as PEPE from '../data/atlas-pepe.js';
+import * as DANI from '../data/atlas-dani.js';
+import * as JOTA from '../data/atlas-jota.js';
 import { getSprite, getPortrait } from './sprites.js';
 
-const SOURCES = { antonio: ANTONIO, pepe: PEPE };
+const SOURCES = { antonio: ANTONIO, pepe: PEPE, dani: DANI, jota: JOTA };
 // Si a un músico le falta una pose, se usa la equivalente (cada hoja de Gemini sale algo distinta).
-const FALLBACK = { hurt: 'sp0', fall2: 'fall1', fall1: 'fall0', punch2m: 'punch2a', idle1: 'idle0' };
+const FALLBACK = { hurt: 'sp0', fall2: 'fall1', fall1: 'fall0', punch2m: 'punch2a', idle1: 'idle0', kick0: 'punch1a', kick1: 'punch1b' };
 const images = {};
 // Repetidos (2P, 3P…): el mismo sprite con otro tono (donde el navegador admite filtros; si no, igual).
 const TINT = [null, 'hue-rotate(160deg) saturate(0.9)', 'hue-rotate(250deg)', 'hue-rotate(80deg) saturate(0.8)'];
@@ -32,6 +34,7 @@ export function heroFrameName(f) {
       const m = f.atk, pre = t < m.start;
       if (m.weapon) return pre ? 'punch2a' : 'punch2b';
       if (m.knock) return t < m.start / 2 ? 'guit0' : pre ? 'guit1' : 'guit2';
+      if (f.combo === 2) return pre ? 'kick0' : 'kick1';   // Dani: el 3.er golpe de su combo de 4 es una patada
       return f.combo % 2 ? (pre ? 'punch2a' : 'punch2b') : (pre ? 'punch1a' : 'punch1b');
     }
     case 'dash': return 'guit2';

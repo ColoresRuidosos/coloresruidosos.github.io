@@ -2,6 +2,10 @@
 // Dos capas: lejana (parallax 0,3) y escenario (1,0). Sin texto, sin logos y sin marcas reales (spec §6.1).
 import { W, H, FLOOR_TOP } from '../sim/constants.js';
 import { createRng } from '../sim/rng.js';
+import * as FONDO_PARKING from '../data/fondo-parking.js';
+import * as FONDO_VESTIBULO from '../data/fondo-vestibulo.js';
+import * as FONDO_OFICINAS from '../data/fondo-oficinas.js';
+import * as FONDO_AZOTEA from '../data/fondo-azotea.js';
 
 let makeCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
 export function setBgCanvasFactory(fn) { makeCanvas = fn; }
@@ -175,7 +179,36 @@ function azotea(level) {
 
 const BUILDERS = { parking, vestibulo, ascensor, oficinas, azotea };
 const cache = new Map();
+
+// ---- Fondos finales (Gemini, preparados por scripts/fondos.py). Mientras cargan, se usa el provisional. ----
+const FINALES = { parking: FONDO_PARKING, vestibulo: FONDO_VESTIBULO, oficinas: FONDO_OFICINAS, azotea: FONDO_AZOTEA };
+const imgs = {};
+function finalImage(id) {
+  const src = FINALES[id];
+  if (!src || typeof Image === 'undefined') return null;
+  if (!imgs[id]) { const im = new Image(); im.src = src.JPG; imgs[id] = im; }
+  return imgs[id].complete && imgs[id].naturalWidth ? imgs[id] : null;
+}
+function finalBackground(level) {
+  const im = finalImage(level.id);
+  if (!im) return null;
+  const src = FINALES[level.id];
+  const width = level.arena ? W : level.width + W;
+  const near = makeCanvas(width, H), c = near.getContext('2d');
+  if (level.arena) c.drawImage(im, Math.round(W / 2 - src.CENTER), 0);   // la arena centra el escenario del concierto
+  else for (let x = 0, k = 0; x < width; x += src.WIDTH, k++) {           // repetida en espejo hasta cubrir el nivel
+    c.save();
+    if (k % 2) { c.translate(x + src.WIDTH, 0); c.scale(-1, 1); c.drawImage(im, 0, 0); } else c.drawImage(im, x, 0);
+    c.restore();
+  }
+  return { far: null, near, final: true };
+}
+
 export function getBackground(level) {
+  const key = `${level.id}:final`;
+  if (cache.has(key)) return cache.get(key);
+  const fin = finalBackground(level);
+  if (fin) { cache.set(key, fin); return fin; }
   if (!cache.has(level.id)) cache.set(level.id, BUILDERS[level.id](level));
   return cache.get(level.id);
 }
