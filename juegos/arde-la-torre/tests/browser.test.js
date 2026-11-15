@@ -146,3 +146,29 @@ test('móvil sin mando: se juega con los botones táctiles de la propia pantalla
     srv.kill();
   }
 });
+
+test('T10.5 página del concierto: 2 jugadores en el teclado entran, eligen músico y tocan', { skip: skip || !existsSync('dist/concierto.html'), timeout: 60000 }, async () => {
+  const browser = await pw.chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+  try {
+    const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto(`file://${process.cwd()}/dist/concierto.html`);
+    await page.waitForFunction(() => window.__concierto && window.__concierto.screen === 'inicio');
+    await tapKey(page, 'KeyF');                // J1 entra
+    await tapKey(page, 'KeyK');                // J2 entra
+    await tapKey(page, 'ArrowRight');          // J2 cambia de músico
+    const types = await page.evaluate(() => window.__concierto.players.map((p) => p.type));
+    assert.equal(types.length, 2); assert.notEqual(types[0], types[1]);
+    await tapKey(page, 'KeyG');                // SALTO: ¡a tocar!
+    await page.waitForFunction(() => window.__concierto.screen === 'concierto' && window.__concierto.k.started, null, { timeout: 15000 });
+    // J1 toca a tiempo la primera nota
+    const [ms0, lane] = await page.evaluate(() => window.__concierto.k.c.notes[0]);
+    await page.waitForFunction((t) => window.__concierto.k.ms >= t - 20, ms0, { timeout: 15000 });
+    await tapKey(page, ['KeyF', 'KeyG', 'KeyH'][lane]);
+    const p0 = await page.evaluate(() => { const p = window.__concierto.k.c.players[0]; return p.perfect + p.good; });
+    assert.equal(p0, 1, 'la primera nota cuenta');
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});

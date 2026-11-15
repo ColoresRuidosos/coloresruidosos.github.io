@@ -20,4 +20,7 @@ const b = await bundle('src/pad-main.js', 'mando/index.html', '<script src="./pa
 // Variante para el enlace privado de Claude (sin WebRTC): mismo juego, sala de móviles desactivada.
 const game = await readFile('dist/index.html', 'utf8');
 await writeFile('dist/sin-red.html', game.replace('<!doctype html>', '<!DOCTYPE html>').replace('<script>', '<script>window.ARDE_SIN_RED=true;</script>\n<script>'));
+// Solo el concierto final (F17) en una página aparte.
+const c = await bundle('src/concierto-main.js', 'concierto.html', '<script src="./concierto.js"></script>', 'dist/concierto.html');
+console.log(`dist/concierto.html · ${(c / 1024).toFixed(1)} KB`);
 console.log(`dist/index.html · ${(a / 1024).toFixed(1)} KB  ·  dist/mando/index.html · ${(b / 1024).toFixed(1)} KB`);
