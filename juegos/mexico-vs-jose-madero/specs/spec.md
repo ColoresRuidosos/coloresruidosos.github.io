@@ -738,6 +738,62 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - **Hoja de concepto:** `art/source/alba/concepto-sprites.png` (✅ diseño aprobado el 15 nov 2026).
 - **Arte final con Gemini:** el usuario vio genéricos los sprites hechos por código y pidió **rehacerlos con Gemini**, con el mismo diseño. Los prompts están en `art/PROMPTS-GEMINI.md` §0g, junto con los escenarios y las escenas. Mientras no lleguen, el juego usa los sprites de código como respaldo.
 
+**v10.5 · Historia y escenas de *Alba*** (⏳ **borrador para que el usuario lo apruebe**, 15 nov 2026). Mismo formato que *Carmesí* y *Noche* (`historia.js` y `*-story.js`). Todo es ficción del juego salvo lo marcado como dato, que va con su fuente.
+- **Ilustraciones de Gemini:**
+  - a1, salida de la fiesta: se queda con el letrero «PARTY HALL» (✅ decisión del usuario);
+  - a2, polaroids;
+  - a3, amanecer con la Nostalgia;
+  - a4, la polaroid del presente.
+
+**Escena de entrada** (al cruzar la puerta blanca del Museo):
+
+| Viñeta | Ilustración | Texto |
+|---|---|---|
+| 1 | a1 | LA PUERTA BLANCA DA A LA SALIDA DE LA FIESTA. / ADENTRO SIGUE LA MÚSICA; AFUERA, EL SILENCIO. / EL CIELO EMPIEZA A ACLARAR. |
+| 2 | a2 | EN EL CAMINO FLOTAN FOTOS / DE TODO LO QUE YA VIVIÓ. / CADA UNA LE PIDE QUE SE QUEDE. |
+
+**Cartel al empezar cada nivel:**
+
+| Nivel | Título | Texto |
+|---|---|---|
+| 3-1 | WILLKOMMEN | 2018. SALE *ALBA*, SU TERCER DISCO. (dato A1) / UN PUEBLO BLANCO ANTES DEL AMANECER. / TODO ESTÁ COMO LO RECUERDA. / ¿O EL QUE CAMBIÓ FUE ÉL? |
+| 3-2 | CARRUSEL DE ADULTOS | UNA FERIA VACÍA AL ALBA. / LOS CABALLITOS SIGUEN GIRANDO / AUNQUE YA NO HAY NIÑOS. / ARRIBA ESPERA LA MALDITA RUEDA. |
+| 3-3 | AHORA Y HOY | EN LA CIMA DEL CERRO / ALGUIEN LO ESTÁ ESPERANDO. / NO VIENE A PELEAR: / VIENE A PEDIRLE QUE SE QUEDE. |
+
+**Pensamientos de Pepe en los checkpoints (6):**
+1. AQUÍ TODO ES BLANCO… COMO UNA HOJA NUEVA.
+2. SI ME DETENGO MUCHO, ALGO ME JALA HACIA ATRÁS.
+3. ESA FOTO… YO ESTABA AHÍ.
+4. DE NIÑO, ESTA RUEDA ME PARECÍA ENORME.
+5. ¿Y SI ME QUEDO A VIVIR EN EL RECUERDO?
+6. YA CASI SALE EL SOL. SIGO.
+
+**Lo que dice la Nostalgia en el jefe:**
+- al aparecer: «QUÉDATE. AQUÍ TODO FUE MEJOR.»
+- en la fase 2: «OTRA VUELTA. SOLO UNA MÁS.»
+- en la fase 3: «¿DE VERDAD TE VAS?»
+- al despedirse: «GRACIAS POR RECORDARME. AHORA SIGUE.»
+
+**«¿SABÍAS QUE…?» al terminar cada nivel** (datos verificados con 2 fuentes o más; no se repiten en el mundo):
+
+| Id | Nivel | Dato | Fuentes |
+|---|---|---|---|
+| A1 | (cartel 3-1) | *Alba* (2018) es el tercer disco de José Madero en solitario | Wikipedia ES · Discogs |
+| A2 | 3-1 | *Alba* tiene el subtítulo «Oda a la nostalgia» | Discogs · Amazon |
+| A3 | 3-2 | Tiene 10 canciones: abre con «Willkommen» y cierra con «Carrusel de adultos» | Discogs · Album of the Year · Letras |
+| A4 | 3-3 | Se le conoce como «el disco blanco»: un disco experimental sobre la nostalgia | Milenio · Zeta Tijuana |
+
+**Tarjeta «RECUERDO RECUPERADO»** (2018): título «SEGUIR ADELANTE». Texto: «ALBA, 2018. / ME ACUERDO: LA NOSTALGIA ES BONITA, / PERO EL SOL SALE HACIA ADELANTE.»
+
+**Escena de salida:**
+
+| Viñeta | Ilustración | Texto |
+|---|---|---|
+| 1 | a3 | SALE EL SOL. / LA NOSTALGIA SE DESPIDE SONRIENDO. |
+| 2 | a4 | PEPE SE TOMA UNA FOTO DEL PRESENTE. / TRES DISCOS. FALTAN CINCO. |
+
+**Para el código (AL9):** las escenas de los mundos tendrán `id` (`a1`–`a4`) para poder mostrar su ilustración, como ya hace el prólogo.
+
 **Historia** (como en los mundos 1 y 2):
 - escena de entrada de 2 viñetas («Después de la fiesta, el silencio» y «Todo me recuerda algo»);
 - pensamientos de Pepe en los checkpoints, sobre seguir adelante;
