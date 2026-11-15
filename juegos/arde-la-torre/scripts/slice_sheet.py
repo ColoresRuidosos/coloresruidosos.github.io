@@ -11,6 +11,9 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STAND_H = 66            # altura en px de un personaje de pie (el juego dibuja a 384×216)
+PORTRAIT = 58            # lado del retrato (cabina de selección; el HUD lo reduce)
+# Hoja común con los 4 retratos (una fila, en este orden): si existe, manda sobre el retrato de cada hoja.
+PORTRAITS_SHEET = dict(file='retratos.png', order=['antonio', 'pepe', 'dani', 'jota'])
 SIZE_MUL = 1.12         # v2 (15 nov): todos un 12 % más grandes («parecen enanos» junto a los fondos)
 COLORS = 32             # colores por músico
 OUTLINE = (18, 12, 24)
@@ -201,7 +204,7 @@ def box_sum(m, r):
     return ii[k:, k:] - ii[:-k, k:] - ii[k:, :-k] + ii[:-k, :-k]
 
 
-def remove_shirt_text(rgba, r=7):
+def remove_shirt_text(rgba, r=7, min_red=90):
     """Borra letras naranjas sobre una camiseta negra (p. ej. un nombre de banda que inventó la IA).
     Medido en las hojas de Jota: las letras tienen g/r ≤ 0,51 y b/r ≤ 0,32; la piel, g/r ≥ 0,55 y b/r ≥ 0,32.
     Además se exige estar rodeado de bastante negro (dentro de la camiseta)."""
@@ -212,7 +215,7 @@ def remove_shirt_text(rgba, r=7):
     dark = (lum < 50) & alpha
     win = (2 * r + 1) ** 2
     near_shirt = box_sum(dark, r) / win > 0.30
-    text = alpha & (rgb[..., 0] > 90) & (gr < 0.53) & (br < 0.30) & near_shirt
+    text = alpha & (rgb[..., 0] > min_red) & (gr < 0.53) & (br < 0.30) & near_shirt
     text = (box_sum(text, 1) > 0) & alpha & (lum > 30) & near_shirt   # bordes antialiasados de las letras
     out = rgba.copy()
     out[text, :3] = (24, 22, 26)
@@ -334,7 +337,7 @@ def build(hero):
             c = np.dstack([a, (m * 255).astype(np.uint8)])[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
             side = max(c.shape[:2]); pad = np.zeros((side, side, 4), np.uint8)
             pad[side - c.shape[0]:, (side - c.shape[1]) // 2:(side - c.shape[1]) // 2 + c.shape[1]] = c
-            portrait = downscale(pad, 46 / side)
+            portrait = downscale(pad, PORTRAIT / side)
             print(f"{sh['portrait_file']}: retrato")
             continue
         a = np.asarray(Image.open(os.path.join(src, sh['file'])).convert('RGB'))
@@ -351,12 +354,21 @@ def build(hero):
             if n in sh.get('skip', []): continue
             if n == sh.get('portrait'):
                 sq = portrait_crop(crops[n])
-                portrait = brighten_skin(downscale(sq, 46 / sq.shape[0]))
+                portrait = brighten_skin(downscale(sq, PORTRAIT / sq.shape[0]))
                 continue
             fr = downscale(crops[n], scale)
             if sh.get('recolor') == 'pantalon': fr = recolor_pants(fr)
             names.append(n); frames.append(fr); anchors_loose.append(n in sh['loose'])
         print(f"{sh['file']}: {len(boxes)} poses, escala {scale:.3f}")
+    common = os.path.join(ROOT, 'art', 'source', PORTRAITS_SHEET['file'])
+    if os.path.exists(common) and hero in PORTRAITS_SHEET['order']:   # los 4 retratos de una misma imagen: mismo estilo
+        a = np.asarray(Image.open(common).convert('RGB'))
+        mask = foreground(a, background(a))
+        boxes = split(mask, [len(PORTRAITS_SHEET['order'])])
+        c = crop_frame(a, mask, boxes[PORTRAITS_SHEET['order'].index(hero)])
+        sq = portrait_crop(c)
+        portrait = downscale(sq, PORTRAIT / sq.shape[0])
+        print(f"{PORTRAITS_SHEET['file']}: retrato común")
     frames = quantize_all(frames, COLORS)
     frames = [add_outline(f) for f in frames]
     allf = frames + ([quantize_all([portrait], 48)[0]] if portrait is not None else [])

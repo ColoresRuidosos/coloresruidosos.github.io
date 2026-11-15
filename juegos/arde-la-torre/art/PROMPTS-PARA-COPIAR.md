@@ -4,201 +4,23 @@
 
 ## Cómo se hace
 
-1. Antonio y Pepe ya están en el juego. Faltan Dani y Jota.
+1. Los 4 músicos y los fondos ya están en el juego. Falta: los retratos juntos, los enemigos, los jefes y los objetos.
 2. Abre Gemini (gemini.google.com) o ChatGPT.
 3. Abre un chat NUEVO para cada imagen.
 4. Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.
 5. Descarga la imagen que salga y guárdala con el nombre que pone el paso (por ejemplo, dani-1).
 6. Si no te gusta cómo quedó, escribe «Otra vez» en el mismo chat.
 
-## Dani · El Relámpago (guitarra)
+## Retratos de los 4 (una sola imagen)
 
-6 imágenes. Hazlas en orden.
+Para que los cuatro retratos tengan el mismo estilo. Una sola imagen.
 
-### Paso 1 · Sube la FOTO de Dani que te pasaron y después pega esto
+### Paso 1 · Sube la imagen «retratos-referencia» que te pasaron y después pega esto
 
-Guárdala como: **dani-1**
-
-```
-Usa la foto adjunta SOLO como referencia de la cara, el peinado y la ropa de esta persona, y conviértela en un personaje de videojuego (caricatura respetuosa, no un retrato realista).
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: músico de una banda de rock española (guitarra). Aspecto: pelo castaño largo y ondulado hasta los hombros, cara casi afeitada y cejas marcadas; camisa negra con lunares. Lleva una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
-HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.
-```
-
-### Paso 2 · Sube la imagen dani-1 y después pega esto
-
-Guárdala como: **dani-2**
+Guárdala como: **retratos**
 
 ```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
-HOJA de exactamente 4 filas, de izquierda a derecha:
-Fila 1: QUIETO ×2 (en guardia de pelea, respirando; se mueve muy poco entre las dos poses).
-Fila 2: CAMINAR ×4 (ciclo de paso completo).
-Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).
-Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas) y DOBLE SALTO ×2 (voltereta hacia delante en el aire, hecho una bola).
-```
-
-### Paso 3 · Sube la imagen dani-1 y después pega esto
-
-Guárdala como: **dani-3**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
-HOJA de exactamente 4 filas:
-Fila 1: GOLPE RÁPIDO 1 ×2 y GOLPE RÁPIDO 2 ×2 (dos golpes cortos con el puño, muy rápidos).
-Fila 2: PATADA ×2 (patada frontal alta).
-Fila 3: BARRIDO ×3 (gira sobre sí mismo y barre hacia delante con el cuerpo de la guitarra).
-Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1, RODILLAZO ×1 y LANZAMIENTO ×2.
-```
-
-### Paso 4 · Sube la imagen dani-1 y después pega esto
-
-Guárdala como: **dani-4**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
-HOJA de exactamente 4 filas:
-Fila 1: RETROCESO ×1 (golpeado en la cara, echado hacia atrás) y CAÍDA ×2 (despedido hacia atrás: en el aire y llegando al suelo).
-Fila 2: EN EL SUELO ×1 (tumbado boca arriba) y LEVANTARSE ×2.
-Fila 3: ESPECIAL «SOLO» ×4 (gira sobre un pie con la guitarra extendida: de frente, de perfil, de espaldas y de perfil otra vez; estelas de movimiento PEGADAS a la guitarra).
-Fila 4: vacía, no dibujes nada.
-```
-
-### Paso 5 · Sube la imagen dani-1 y después pega esto
-
-Guárdala como: **dani-5**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una guitarra eléctrica color crema en la mano; es el más delgado y ágil de los cuatro, con poses muy estiradas.
-HOJA de exactamente 4 filas:
-Fila 1: DESLIZAMIENTO ×3 (se tira al suelo deslizándose de lado con un pie por delante; se levanta).
-Fila 2: SÚPER «SOLO ETERNO» ×4 (de rodillas tocando la guitarra hacia arriba; tocando muy rápido con la mano borrosa; guitarra apuntando hacia delante; pose final con el mástil al cielo). Pequeñas chispas eléctricas PEGADAS a las cuerdas.
-Fila 3: VICTORIA ×2 (guitarra a la espalda; señala al frente con dos dedos).
-Fila 4: RETRATO ×1 (cabeza de frente, sonrisa pícara).
-El RETRATO va en el mismo estilo y con la misma luz que el resto de la hoja (es el que sale en la pantalla de selección).
-```
-
-### Paso 6 · NO subas ninguna imagen. Solo copia y pega
-
-Guárdala como: **dani-6**
-
-```
-Una nota musical con forma de rayo, amarilla y blanca, en pixel art de arcade de los 90 con contorno oscuro grueso. 3 poses de animación en una fila (brillando un poco más en cada una), separadas entre sí. Fondo gris completamente liso #474747. Sin texto.
-```
-
-## Jota · El Metrónomo (batería)
-
-5 imágenes. Hazlas en orden.
-
-### Paso 1 · Sube la FOTO de Jota que te pasaron y después pega esto
-
-Guárdala como: **jota-1**
-
-```
-Usa la foto adjunta SOLO como referencia de la cara, el peinado y la ropa de esta persona, y conviértela en un personaje de videojuego (caricatura respetuosa, no un retrato realista).
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: músico de una banda de rock española (batería). Aspecto: pelo oscuro con flequillo corto y recto, bigote fino y barba de pocos días, un pequeño aro en la oreja; camisa negra. Lleva una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
-HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, (2) de 3/4 mirando a la derecha, (3) de frente.
-```
-
-### Paso 2 · Sube la imagen jota-1 y después pega esto
-
-Guárdala como: **jota-2**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
-HOJA de exactamente 4 filas, de izquierda a derecha:
-Fila 1: QUIETO ×2 (en guardia de pelea, respirando; se mueve muy poco entre las dos poses).
-Fila 2: CAMINAR ×4 (ciclo de paso completo).
-Fila 3: CORRER ×4 (inclinado hacia delante, zancada larga).
-Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas).
-```
-
-### Paso 3 · Sube la imagen jota-1 y después pega esto
-
-Guárdala como: **jota-3**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
-HOJA de exactamente 4 filas:
-Fila 1: BAQUETAZO 1 ×2 (golpe hacia delante con la baqueta derecha).
-Fila 2: BAQUETAZO 2 ×2 (golpe con la izquierda).
-Fila 3: DOBLE GOLPE ×3 (levanta las dos baquetas por encima de la cabeza y golpea hacia delante con las dos a la vez).
-Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1, RODILLAZO ×1 y LANZAMIENTO ×2.
-```
-
-### Paso 4 · Sube la imagen jota-1 y después pega esto
-
-Guárdala como: **jota-4**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
-HOJA de exactamente 4 filas:
-Fila 1: RETROCESO ×1 (golpeado en la cara, echado hacia atrás) y CAÍDA ×2 (despedido hacia atrás: en el aire y llegando al suelo).
-Fila 2: EN EL SUELO ×1 (tumbado boca arriba) y LEVANTARSE ×2.
-Fila 3: ESPECIAL «REDOBLE» ×4 (golpes alternos muy rápidos hacia delante, brazos borrosos; pequeñas líneas de impacto PEGADAS a las puntas de las baquetas).
-Fila 4: vacía, no dibujes nada.
-```
-
-### Paso 5 · Sube la imagen jota-1 y después pega esto
-
-Guárdala como: **jota-5**
-
-```
-Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa, colores e instrumento. MUY IMPORTANTE: los MISMOS COLORES de ropa (camisa, pantalón y zapatos) que en la imagen adjunta, sin cambiar ninguno.
-
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Estética de banda de rock de los años 70: chaquetas de ante y de cuero, polos de punto, camisas de cuello ancho, pañuelos y corbatas estampadas, bigotes y pendientes de aro. Paleta cálida y algo desaturada (mostaza, camel, granate, azul petróleo, crema y negro).
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: el de la imagen adjunta, con una baqueta de madera clara en cada mano, algo más largas de lo normal para que se vean bien.
-HOJA de exactamente 4 filas:
-Fila 1: BAQUETA VOLADORA ×3 (echa el brazo atrás; lanza la baqueta girando; recoge la baqueta que vuelve).
-Fila 2: SÚPER «SOLO DE BATERÍA» ×4 sentado a una batería pequeña (bombo, caja y un plato) que aparece delante de él: golpe al bombo, golpe a la caja, golpe al plato y pose final con las baquetas cruzadas en alto.
-Fila 3: VICTORIA ×2 (hace girar una baqueta entre los dedos; la lanza al aire).
-Fila 4: RETRATO ×1 (cabeza de frente, concentrado, con una baqueta detrás de la oreja).
-El RETRATO va en el mismo estilo y con la misma luz que el resto de la hoja (es el que sale en la pantalla de selección).
+Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. Redibuja los 4 retratos en UNA SOLA imagen, en una fila y en el mismo orden, con exactamente el mismo estilo para los cuatro: pixel art de recreativa de los 90, contorno oscuro grueso y sombreado plano de 3 a 4 tonos. MISMO ENCUADRE en los cuatro: cabeza y hombros, la cabeza centrada y del mismo tamaño, ocupando la mitad superior del recuadro. Misma vista de 3/4 mirando a la DERECHA, misma luz cálida de foco desde abajo a la izquierda con un contraluz morado suave y mismo nivel de detalle. Expresión segura, con media sonrisa. Cada retrato en un cuadrado del mismo tamaño, separados entre sí con espacio vacío. Fondo gris completamente liso #474747. Sin texto, sin marcos, sin logos y sin letras en la ropa (camisetas y camisas lisas).
 ```
 
 ## Enemigos (empleados de Silencio S.A.)

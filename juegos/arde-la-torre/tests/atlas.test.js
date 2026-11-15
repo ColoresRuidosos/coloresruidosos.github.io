@@ -23,7 +23,7 @@ test('T5.1 atlas de Antonio: todas las poses, de pie a ~66 px, anclas dentro del
     assert.ok(h >= 64 && h <= 84, `${n} de pie mide ${h} px`);   // ~74 px desde el 15 nov (SIZE_MUL 1,12)
   }
   assert.ok(FRAMES.down[2] > FRAMES.down[3] * 2, 'tumbado es más ancho que alto');
-  assert.deepEqual(FRAMES.portrait.slice(2, 4), [46, 46]);
+  assert.deepEqual(FRAMES.portrait.slice(2, 4), [58, 58]);
 });
 
 import * as PEPE from '../src/data/atlas-pepe.js';

@@ -154,7 +154,15 @@ OTROS = [
   ("titulo-fondo.png", "Pantalla de título (opcional)", "Ilustración en pixel art para la pantalla de título de un videojuego arcade de los 90: un rascacielos de oficinas blanco de los años 80 con franjas verticales y arcos en la base, de noche, visto desde abajo en contrapicado; en la azotea, un escenario de concierto con focos y pirotecnia de escenario. Cielo de morado a rojo, skyline de Madrid en silueta con ventanas encendidas. Paleta cálida y algo desaturada. Formato PANORÁMICO 16:9. Deja libre la franja superior para el título. NADA de fuego, humo ni daños en el edificio: el fuego es solo pirotecnia del escenario. Sin texto, sin logos y sin personajes."),
 ]
 
-HECHOS = {'antonio', 'pepe'}   # ya están en el juego
+HECHOS = {'antonio', 'pepe', 'dani', 'jota'}   # ya están en el juego
+
+RETRATOS = ("Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. "
+    "Redibuja los 4 retratos en UNA SOLA imagen, en una fila y en el mismo orden, con exactamente el mismo estilo para los cuatro: "
+    "pixel art de recreativa de los 90, contorno oscuro grueso y sombreado plano de 3 a 4 tonos. "
+    "MISMO ENCUADRE en los cuatro: cabeza y hombros, la cabeza centrada y del mismo tamaño, ocupando la mitad superior del recuadro. "
+    "Misma vista de 3/4 mirando a la DERECHA, misma luz cálida de foco desde abajo a la izquierda con un contraluz morado suave y mismo nivel de detalle. "
+    "Expresión segura, con media sonrisa. Cada retrato en un cuadrado del mismo tamaño, separados entre sí con espacio vacío. "
+    "Fondo gris completamente liso #474747. Sin texto, sin marcos, sin logos y sin letras en la ropa (camisetas y camisas lisas).")
 
 def build():
     secciones = []
@@ -163,6 +171,9 @@ def build():
         secciones.append(dict(titulo=f"{m['nombre']} · {m['apodo']} ({m['papel']})", id=m['id'],
                               nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
+    secciones.append(dict(titulo="Retratos de los 4 (una sola imagen)", id="retratos",
+        nota="Para que los cuatro retratos tengan el mismo estilo. Una sola imagen.",
+        prompts=[("retratos.png", "Sube la imagen «retratos-referencia» que te pasaron y después pega esto", RETRATOS, True)]))
     secciones.append(dict(titulo="Enemigos (empleados de Silencio S.A.)", id="enemigos", nota="No subas ninguna imagen. Solo copia y pega.",
         prompts=[(f"enemigo-{k}.png", f"{n}: no subas ninguna imagen", oficina(f"PERSONAJE: {d}.\nHOJA de exactamente 3 filas:\n{rows}"), False) for k, (i, n, d, rows) in enumerate(ENEMIGOS, 1)]))
     secciones.append(dict(titulo="Jefes", id="jefes", nota="No subas ninguna imagen. Solo copia y pega.",
@@ -174,7 +185,7 @@ def build():
     return secciones
 
 PASOS = [
-    "Antonio y Pepe ya están en el juego. Faltan Dani y Jota.",
+    "Los 4 músicos y los fondos ya están en el juego. Falta: los retratos juntos, los enemigos, los jefes y los objetos.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",

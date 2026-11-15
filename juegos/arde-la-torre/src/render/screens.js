@@ -70,28 +70,31 @@ function cabin(ctx, i, x, y, w, h, s, t) {
   const g = ctx.createLinearGradient(0, iy, 0, iy + ih); g.addColorStop(0, '#3a2418'); g.addColorStop(1, '#1a0f0a');
   ctx.fillStyle = g; ctx.fillRect(ix, iy, iw, ih);
   ctx.fillStyle = 'rgba(255,220,150,0.10)'; ctx.beginPath(); ctx.moveTo(ix + iw / 2 - 6, iy); ctx.lineTo(ix + iw / 2 + 6, iy); ctx.lineTo(ix + iw, iy + ih); ctx.lineTo(ix, iy + ih); ctx.fill();
-  ctx.fillStyle = '#b08a3a'; ctx.fillRect(ix, iy + ih - 40, iw, 2);   // pasamanos de latón
+  ctx.fillStyle = '#b08a3a'; ctx.fillRect(ix, iy + ih - 14, iw, 2);   // pasamanos de latón
   if (s) {
     const def = HEROES[s.hero];
-    // retrato grande (×2, píxel nítido)
-    ctx.fillStyle = col; ctx.fillRect(ix + iw / 2 - 26, iy + 3, 52, 52);
-    ctx.fillStyle = '#120c18'; ctx.fillRect(ix + iw / 2 - 25, iy + 4, 50, 50);
-    drawPortrait(ctx, s.hero, s.palette, def.h, ix + iw / 2 - 24, iy + 5, 48);
+    // retrato grande: ocupa todo el ancho de la cabina (v2, 15 nov: sin el cuerpo cortado debajo)
+    const ps = iw - 2;
+    ctx.fillStyle = col; ctx.fillRect(ix, iy + 1, iw, ps + 2);
+    ctx.fillStyle = '#120c18'; ctx.fillRect(ix + 1, iy + 2, ps, ps);
+    drawPortrait(ctx, s.hero, s.palette, def.h, ix + 1, iy + 2, ps);
     if (!s.ready && s.kind !== 'movil' && Math.floor(t / 20) % 2) {
-      drawText(ctx, '◀', ix + 1, iy + 24, { color: '#ffd23f' }); drawText(ctx, '▶', ix + iw - 6, iy + 24, { color: '#ffd23f' });
+      drawText(ctx, '◀', ix + 1, iy + ps / 2, { color: '#ffd23f' }); drawText(ctx, '▶', ix + iw - 6, iy + ps / 2, { color: '#ffd23f' });
     }
-    drawText(ctx, def.name, ix + iw / 2, iy + 58, { color: '#fff', align: 'center' });
+    drawText(ctx, def.name, ix + iw / 2, iy + ps + 6, { color: '#fff', align: 'center' });
     // estadísticas
     ['FUE', 'VEL', 'VIDA'].forEach((lab, k) => {
-      const yy = iy + 68 + k * 8, v = statsOf(s.hero)[k];
+      const yy = iy + ps + 17 + k * 8, v = statsOf(s.hero)[k];
       drawText(ctx, lab, ix + 2, yy, { color: '#cfc9e0', shadow: null });
       ctx.fillStyle = '#0c0a10'; ctx.fillRect(ix + 26, yy + 1, iw - 29, 5);
       ctx.fillStyle = col; ctx.fillRect(ix + 27, yy + 2, Math.round((iw - 31) * v), 3);
     });
-    // cuerpo entero
-    ctx.save(); ctx.beginPath(); ctx.rect(ix, iy + 94, iw, ih - 94); ctx.clip();
-    drawMenuFigure(ctx, s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(t / 20) % 2, ix + iw / 2, iy + ih - 2, def.h);
-    ctx.restore();
+    // especial (en líneas cortas para que quepa)
+    const yy = iy + ps + 43;
+    drawText(ctx, 'ESPECIAL', ix + iw / 2, yy, { color: '#8a8698', align: 'center', shadow: null });
+    const words = def.special.split(' '), lines = [];
+    for (const w of words) { const l = lines[lines.length - 1]; if (l && (l + ' ' + w).length <= 9) lines[lines.length - 1] = `${l} ${w}`; else lines.push(w); }
+    lines.slice(0, 2).forEach((l, k) => drawText(ctx, l, ix + iw / 2, yy + 9 + k * 7, { color: '#ffd23f', align: 'center', shadow: null }));
     const status = s.away ? 'SIN SEÑAL' : s.ready ? '¡LISTO!' : s.kind === 'movil' ? 'ELIGIENDO' : '¿LISTO?';   // ≤ 10 letras: cabe en la cabina
     ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(ix, iy + ih - 11, iw, 11);
     drawText(ctx, status, ix + iw / 2, iy + ih - 9, { color: s.ready ? '#3fdc7a' : '#ffd23f', align: 'center', shadow: null });
