@@ -1,6 +1,74 @@
 # Contexto para retomar el trabajo (Colores Ruidosos)
 
-> Última actualización: **4 nov 2026**, juego en la **v0.13**. Pega este archivo, o su ruta, al empezar una sesión nueva.
+> Última actualización: **15 nov 2026**. Pega este archivo, o su ruta, al empezar una sesión nueva. **Lee primero la §0.**
+
+## 0. Estado al 15 nov 2026 (léelo primero)
+
+**Rama de trabajo:** `ccr-1125ca22-d3u2nw` en `ColoresRuidosos/coloresruidosos.github.io`.
+- Lo último que se fusionó en `main` es el PR #27 (insignias de *Yo contra mi corazón*).
+- Todo lo de *Alba* está en la rama, **sin fusionar**: el mundo aún no es jugable.
+
+### 0.1 Mundo 3 «Alba» (en curso)
+**Spec:** `specs/spec.md` §3.0f **Q**, v10 a v10.5 (todo aprobado por el usuario). **Tareas:** `specs/tasks.md`, Fase 3a.
+- **Concepto:** **paseo** al amanecer, sin daño ni vidas; no se puede perder. 3 niveles:
+  - 3-1 «Willkommen», pueblo blanco;
+  - 3-2 «Carrusel de adultos», feria con la noria «Maldita Rueda»;
+  - 3-3 «Ahora y hoy», cerro.
+- **Mecánicas:**
+  - **nostalgia:** 3 s quieto → retrocedes a 20 px/s, sin pasar del checkpoint ni caer a un foso;
+  - **Recuerdos (polaroids):** te persiguen a 30 px/s y al tocarte te regresan 48 px; el micrófono los disuelve;
+  - **noria:** cabinas que giran y sirven de plataforma;
+  - **plataformas de luz `~`** y la **Luz del Alba `@`** (10 s);
+  - **atriles `S`:** 10 pasajes, uno por canción;
+  - **bancas `b`:** sentarse para la nostalgia;
+  - **«Los de septiembre»:** invitados de *Noche* sin disfraz que caminan contigo;
+  - **feria:** carrusel, tiro al blanco y noria;
+  - **pasajes del viaje:** usan los datos de cada jugador;
+  - **polaroid final del presente:** la postal compartible.
+  - Caracteres de nivel libres para esto: `D` noria, `I` recuerdo, `S` atril, `@` Luz del Alba, `~` plataforma de luz, `b` banca, `n` jefe.
+- **Jefe «La Nostalgia» (v10.2):**
+  - fase 1: recuerdos en sepia de los jefes anteriores; se avanza tocando 3 rayos de sol;
+  - fase 2: subir la noria, que se invierte cada 4 s y avisa 0,6 s antes;
+  - fase 3: viento de 40 px/s en contra; hay que caminar unos 400 px.
+  - Al final se despide, no muere: «GRACIAS POR RECORDARME. AHORA SIGUE.».
+- **Hecho y en la rama:**
+  - historia en datos: `src/data/alba-story.js` (carteles, «¿Sabías que…?» A1–A4, 10 pasajes, frases de la Nostalgia); `historia.js` (recuerdo «SEGUIR ADELANTE» y 6 pensamientos); `cinematicas.js` (escenas a1–a4 con ilustración);
+  - arte de Gemini recortado:
+    - atlas `nostalgia`, `recuerdo`, `noria`, `luz`, `feria`, `atril` y `pepeAlba` (poses del paseo) en `src/data/*-atlas.js`;
+    - fondos `alba-pueblo`, `alba-feria` y `alba-cerro`;
+    - traje 9 «CHALECO Y BUFANDA» (id `alba`, traje automático del mundo 3);
+  - sprites por código de respaldo: `src/render/sprites-alba.js`;
+  - prompts: `art/PROMPTS-GEMINI.md` §0g y la página «Prompts de Alba» (https://claude.ai/artifact/1iTXGBjtfPMrU9ft6mLHs3).
+  - `npm test`: 253 en verde.
+- **Siguiente (tareas #2–#4):**
+  1. `src/game/alba.js`, con TDD (test `tests/v10-alba-paseo.test.js`):
+     - nuevos caracteres en `engine/tilemap.js`;
+     - `hurt()` sin daño y foso = checkpoint cuando hay `g.alba`;
+     - plataformas `~` que pasan a `=` en `L.grid` cuando hay luz;
+     - cabinas como plataformas que llevan a Pepe;
+     - pasajes con `PASAJES_POR_NIVEL`.
+  2. Jefe «La Nostalgia»: módulo propio y bot que lo termina.
+  3. `scripts/levels_world3.py` → `src/data/world3.js`.
+     - Integrarlo en `main.js` (`WORLD_DATA.alba`, `pieceName`, quitar `soon` en `worlds.js`, desbloquear el traje `alba` en `progress.js`) y en `draw.js` (HUD «PASAJES n/10» sin corazones; sepia; noria).
+     - Probarlo con un bot y en el navegador.
+- **Decisiones del usuario:**
+  - **Letras:** hay permiso para usar letras de *Alba*. **Claude no transcribe letras**: el equipo pega los fragmentos oficiales (hasta 4 líneas de 30 caracteres) y van tal cual en `src/data/alba-letras.js`, hoy vacío, con su crédito.
+  - **Escena a1:** se queda con el letrero «PARTY HALL».
+  - **Ropa en las escenas:** en a2, a3 y a4 Pepe sale con su ropa clásica; se aceptó así, y se pueden regenerar con el chaleco.
+  - **Pensamiento 2** acortado para la burbuja: «SI ME DETENGO, ALGO ME JALA HACIA ATRÁS.».
+- **Pendiente del usuario:** los fragmentos de letras.
+
+### 0.2 «Yo contra mi corazón» (minijuego, en la web)
+- **Qué es:** juego de ritmo y box (Pepe de payaso contra un corazón) con «Teoremas, etc.», que es excepción de licencia aceptada por el usuario.
+- **Dónde:** `juegos/yo-contra-mi-corazon/`, publicado en `/games/yo-contra-mi-corazon/`. Su spec está en `specs/` y la del reel en `reel/spec.md`.
+- **Solo la semana del 9 al 15 nov 2026:** la tarjeta de Games tiene `hasta` y desaparece sola. Después del cierre, el juego muestra «ESTE JUEGO YA TERMINÓ» y el ranking final.
+- **Ranking:**
+  - el Apps Script del sitio (`docs/ranking/Code.gs`, modo `corazon`, misma URL que la trivia), ya publicado por el usuario;
+  - nombres de la carrera de Pepe, con 3 opciones para elegir;
+  - cierra solo el 15 nov a las 23:59 CDMX.
+- **Insignias:** 10, guardadas en el navegador.
+- **Reels:** `npm run reel` (con `-- pepe`, `-- pepe insignias principal`). Los videos no se suben al repo.
+- **Pendiente:** el lunes 16, publicar el ranking final («el más migajero de la semana») con captura del top 20.
 
 ## 1. Quién y cómo trabajamos
 - **Cliente:** Colores Ruidosos (@coloresruidosos), medio musical que hace reels de Instagram y una web. Escribe en español.
