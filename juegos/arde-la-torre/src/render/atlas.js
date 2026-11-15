@@ -7,6 +7,9 @@ import * as JOTA from '../data/atlas-jota.js';
 import { getSprite, getPortrait } from './sprites.js';
 
 const SOURCES = { antonio: ANTONIO, pepe: PEPE, dani: DANI, jota: JOTA };
+// Poses de Gemini con fallos que se sustituyen por otras del mismo músico (hasta que se repitan las hojas).
+// Antonio (15 nov): la guitarra cambia de lado en walk1/walk3 y sale doble en guit2 y en la victoria.
+const OVERRIDE = { antonio: { walk1: 'walk0', walk3: 'walk2', guit2: 'guit1', win0: 'hymn0', win1: 'hymn3' } };
 // Si a un músico le falta una pose, se usa la equivalente (cada hoja de Gemini sale algo distinta).
 const FALLBACK = { hurt: 'sp0', fall2: 'fall1', fall1: 'fall0', punch2m: 'punch2a', idle1: 'idle0', kick0: 'punch1a', kick1: 'punch1b' };
 const images = {};
@@ -54,7 +57,7 @@ export function heroFrameName(f) {
 export function drawFrame(ctx, type, palette, name, x, y, face = 1) {
   const im = image(type);
   const F = im && SOURCES[type].FRAMES;
-  let n = name;
+  let n = (OVERRIDE[type] && OVERRIDE[type][name]) || name;
   while (F && !F[n] && FALLBACK[n]) n = FALLBACK[n];
   const fr = F && (F[n] || F.idle0);
   if (!fr) return 0;
