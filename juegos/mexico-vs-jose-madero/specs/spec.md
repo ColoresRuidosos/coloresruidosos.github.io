@@ -762,7 +762,7 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 
 **Pensamientos de Pepe en los checkpoints (6):**
 1. AQUÍ TODO ES BLANCO… COMO UNA HOJA NUEVA.
-2. SI ME DETENGO MUCHO, ALGO ME JALA HACIA ATRÁS.
+2. SI ME DETENGO, ALGO ME JALA HACIA ATRÁS. (acortado para que quepa en la burbuja de 44 caracteres)
 3. ESA FOTO… YO ESTABA AHÍ.
 4. DE NIÑO, ESTA RUEDA ME PARECÍA ENORME.
 5. ¿Y SI ME QUEDO A VIVIR EN EL RECUERDO?
