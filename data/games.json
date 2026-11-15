@@ -1,5 +1,14 @@
 [
   {
+    "id": "arde-la-torre",
+    "nombre": "Arde la Torre",
+    "descripcion": "Beat ’em up de 16 bits para hasta 4 personas con el móvil como mando: Antonio, Pepe, Dani y Jota suben la Torre Picasso a golpes para dar un concierto en la azotea. Incluye el modo «Solo el concierto» con «La Torre Picasso». Homenaje no oficial.",
+    "url": "games/arde-la-torre/",
+    "boton": "▶ Jugar",
+    "etiqueta": "Nuevo",
+    "desde": "2026-11-15T00:00:00-06:00"
+  },
+  {
     "id": "yo-contra-mi-corazon",
     "nombre": "Yo contra mi corazón",
     "descripcion": "¡Solo esta semana, hasta el domingo 15 de noviembre! Minijuego de ritmo y box, homenaje no oficial: esquiva y batea a un corazón gigante al ritmo de «Teoremas, etc.». Con ranking.",

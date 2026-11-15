@@ -16,7 +16,7 @@ import { createRoom } from './net/host.js';
 import { peerTransport, loopbackTransport } from './net/transport.js';
 import { qrMatrix } from './render/qr.js';
 import { drawWorld, drawHud, createFx } from './render/view.js';
-import { drawTitle, drawLobby, drawIntro, drawPause, drawBanner, drawResults, PAUSE_ITEMS } from './render/screens.js';
+import { drawTitle, TITLE_MENU_Y, drawLobby, drawIntro, drawPause, drawBanner, drawResults, PAUSE_ITEMS } from './render/screens.js';
 import { drawText } from './render/text.js';
 import { createAudio } from './audio/player.js';
 import { BOSS_SONG } from './audio/music.js';
@@ -59,6 +59,9 @@ const fx = createFx();
 
 const app = { screen: 'titulo', t: 0, world: null, countdown: 0, pauseSel: 0, pausedBy: null, banner: null, results: null, net: 'PREPARANDO|LA SALA…' };
 window.__arde = app;
+app.mode = Q.has('concierto') ? 'concierto' : 'historia';   // F19: HISTORIA o SOLO EL CONCIERTO
+app.titleSel = app.mode === 'concierto' ? 1 : 0;
+app.tapped = false;
 app.slots = slots;
 
 // ---- sala de móviles (F10) ----
@@ -153,7 +156,12 @@ function newGame() {
   const players = slots.joined().map((s) => ({ slot: s.slot, hero: s.hero, palette: s.palette }));
   app.world = createWorld({ seed: SEED, levelIdx: START_LEVEL, players, opts: { assisted: opts.assisted } });
   fx.clear();
-  if (Q.has('concierto')) { startLevel(app.world, LEVELS.length - 1); go('final'); app.t = 200; return; }   // prueba: directo al concierto
+  if (app.mode === 'concierto') {                // F19: directo a la canción, en el escenario de la azotea
+    startLevel(app.world, LEVELS.length - 1);
+    loadTrack(); audio.stop(); startConcert();
+    room && room.broadcast({ t: 'fase', fase: 'juego' });
+    return;
+  }
   goIntro();
 }
 function goIntro() { go('intro'); audio.play(app.world.level.music); room && room.broadcast({ t: 'fase', fase: 'juego' }); }
@@ -196,7 +204,7 @@ function sendPhoneState() {
     if (s.kind !== 'movil') continue;
     const p = app.world && playerBySlot(app.world, s.slot);
     room.sendTo(s.slot, {
-      t: 'estado', fase: phoneFase(), hero: s.hero, ready: s.ready,
+      t: 'estado', fase: phoneFase(), modo: app.screen === 'concierto' ? 'concierto' : null, hero: s.hero, ready: s.ready,
       hp: p ? Math.ceil(p.hp) : 0, maxHp: p ? p.maxHp : 0, lives: p ? p.lives : 0, score: p ? p.score : 0, away: !!(p && p.away),
       enJuego: !!p,
     });
@@ -252,6 +260,7 @@ function stepGame() {
 }
 
 // ---- Concierto final (F17) ----
+function loadTrack() { if (!app.trackLoading) { app.trackLoading = true; audio.loadTrack(CANCION.MP3).then((ok) => { app.trackReady = ok; }); } }
 function startConcert() {
   const ps = app.world.fighters.filter((f) => f.team === 'p' && !f.removed).sort((a, b) => a.slot - b.slot);
   app.concert = {
@@ -306,7 +315,7 @@ function stepConcertScreen() {
 
 function finishResults(final) {
   const ps = app.world ? app.world.fighters.filter((f) => f.team === 'p').map((f) => ({ slot: f.slot, type: f.type, palette: f.palette, score: f.score, kos: f.kos, food: f.food, continues: f.continues, ritmo: f.ritmo })) : [];
-  app.results = { players: ps.sort((a, b) => a.slot - b.slot), final };
+  app.results = { players: ps.sort((a, b) => a.slot - b.slot), final, mode: app.mode };
   go('resultado');
   room && room.broadcast({ t: 'fase', fase: 'resultado' });
 }
@@ -334,7 +343,11 @@ function step() {
   switch (app.screen) {
     case 'titulo': {
       const e = anyEdge();
-      if (e.golpe || app.tapped || AUTO) {
+      if (e.up || e.down) { app.titleSel = 1 - app.titleSel; audio.sfx('menu'); }
+      if (typeof app.tapped === 'number') app.titleSel = app.tapped;
+      if (e.golpe || app.tapped !== false || AUTO) {
+        app.mode = app.titleSel === 1 ? 'concierto' : 'historia';
+        if (app.mode === 'concierto') { audio.unlock(); loadTrack(); }
         app.tapped = false; audio.unlock(); audio.play(0);
         app.screen = 'sala'; app.t = 0; primeEdges();
         if (AUTO) {
@@ -359,7 +372,7 @@ function step() {
       if (app.t > 150 || SIM > 1) { startLevel(app.world, app.world.levelIdx + 1); fx.clear(); goIntro(); }
       break;
     case 'final':
-      if (!app.trackLoading) { app.trackLoading = true; audio.loadTrack(CANCION.MP3).then((ok) => { app.trackReady = ok; }); }
+      loadTrack();
       if (app.t > 240 || (SIM > 1 && app.t > 30)) startConcert();
       break;
     case 'concierto': stepConcertScreen(); break;
@@ -383,8 +396,9 @@ function step() {
 function draw() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   switch (app.screen) {
-    case 'titulo': drawTitle(ctx, app.t); break;
+    case 'titulo': drawTitle(ctx, app.t, app.titleSel); break;
     case 'sala': drawLobby(ctx, { t: app.t, qr, code: app.code, url: '', slots: slots.list().map((s) => s && { ...s, away: room && room.isAway(s.slot) }), countdown: app.countdown, netStatus: app.net }); if (qr && app.net.startsWith('OJO')) drawText(ctx, app.net, W / 2, 182, { color: '#ff4d4d', align: 'center' }); // el QR apuntaría a localhost
+      if (app.mode === 'concierto') { ctx.fillStyle = '#a3242c'; ctx.fillRect(W - 112, 5, 108, 11); drawText(ctx, 'SOLO EL CONCIERTO', W - 8, 7, { color: '#ffd23f', align: 'right' }); }
       break;
     case 'intro': drawIntro(ctx, app.world.level, app.t); break;
     case 'juego': case 'pausa': case 'superado': case 'final': case 'fin':
@@ -416,7 +430,12 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
-addEventListener('pointerdown', () => { audio.unlock(); if (app.screen === 'titulo') app.tapped = true; }, { capture: true });
+addEventListener('pointerdown', (ev) => {
+  audio.unlock();
+  if (app.screen !== 'titulo') return;
+  const r = canvas.getBoundingClientRect(), y = (ev.clientY - r.top) * H / r.height;
+  app.tapped = y > TITLE_MENU_Y + 6 ? 1 : 0;      // toca la opción: HISTORIA arriba, SOLO EL CONCIERTO abajo
+}, { capture: true });
 addEventListener('keydown', () => audio.unlock(), { once: true });
 document.addEventListener('visibilitychange', () => { if (document.hidden && app.screen === 'juego') { app.screen = 'pausa'; app.pauseSel = 0; audio.suspend(); } });
 

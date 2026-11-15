@@ -222,3 +222,27 @@ test('T10.9 concierto suelto con 2 móviles: QR, eligen en el móvil, tocan con 
     srv.kill();
   }
 });
+
+test('T10.10 juego base: en el título se elige SOLO EL CONCIERTO y la canción empieza al estar listos (F19)', { skip, timeout: 60000 }, async () => {
+  const browser = await pw.chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+  try {
+    const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto(`file://${process.cwd()}/dist/index.html?nonet`);
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
+    await tapKey(page, 'KeyS');                // ▼ SOLO EL CONCIERTO
+    assert.equal(await page.evaluate(() => window.__arde.titleSel), 1);
+    await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    assert.equal(await page.evaluate(() => window.__arde.mode), 'concierto');
+    await tapKey(page, 'KeyF');                // J1 entra
+    await page.waitForTimeout(100);
+    await tapKey(page, 'KeyF');                // listo
+    await page.waitForFunction(() => window.__arde.screen === 'concierto', null, { timeout: 15000 });
+    const types = await page.evaluate(() => window.__arde.concert.players.map((p) => p.type));
+    assert.equal(types.length, 1);
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});

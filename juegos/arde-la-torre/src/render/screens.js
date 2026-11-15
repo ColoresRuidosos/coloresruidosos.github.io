@@ -35,7 +35,9 @@ function titleSparks(ctx, t) {   // chispas de la pirotecnia de la azotea (lenta
   }
 }
 
-export function drawTitle(ctx, t) {
+export const TITLE_MENU_Y = H - 44;      // fila de HISTORIA; SOLO EL CONCIERTO va 13 px más abajo (main.js lo usa para los toques)
+
+export function drawTitle(ctx, t, sel = 0) {
   const img = titleImage();
   if (img) {
     ctx.drawImage(img, 0, 0, W, H);
@@ -55,7 +57,14 @@ export function drawTitle(ctx, t) {
     const x = i < 2 ? 50 + i * 50 : W - 100 + (i - 2) * 50;
     drawMenuFigure(ctx, id, 0, 'idle', Math.floor(t / 24) % 2, x, H - 18, HEROES[id].h, i >= 2 ? -1 : 1);
   });
-  if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'PULSA GOLPE O TOCA LA PANTALLA', W / 2, H - 12, { color: '#ffd23f', align: 'center' });
+  // F19: menú con dos modos
+  ctx.fillStyle = 'rgba(10,6,20,0.78)'; ctx.fillRect(W / 2 - 64, TITLE_MENU_Y - 5, 128, 40);
+  ['HISTORIA', 'SOLO EL CONCIERTO'].forEach((txt, i) => {
+    const on = i === sel, y = TITLE_MENU_Y + i * 13;
+    if (on) { ctx.fillStyle = '#a3242c'; ctx.fillRect(W / 2 - 60, y - 2, 120, 11); }
+    drawText(ctx, on ? `▶ ${txt}` : txt, W / 2, y, { color: on ? '#ffd23f' : '#cfc9e0', align: 'center' });
+  });
+  if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'GOLPE O TOCA PARA EMPEZAR', W / 2, H - 11, { color: '#8a8698', align: 'center' });
 }
 
 // ---- Selección de músico: cuatro ascensores de la torre (idea de «cabinas que se abren»; aspecto propio) ----
@@ -207,10 +216,10 @@ export function drawBanner(ctx, text, sub, t) {
   if (sub && t > 30) drawText(ctx, sub, W / 2, 116, { color: '#fff', align: 'center' });
 }
 
-export function drawResults(ctx, { players, final, t }) {
+export function drawResults(ctx, { players, final, t, mode }) {
   ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
   drawText(ctx, final ? '¡CONCIERTO EN LA AZOTEA!' : 'FIN DEL JUEGO', W / 2, 12, { color: final ? '#ffd23f' : '#ff4d4d', scale: 2, align: 'center' });
-  if (final) drawText(ctx, 'SILENCIO S.A. NO PUDO APAGAR EL ROCK', W / 2, 32, { color: '#fff', align: 'center' });
+  if (final) drawText(ctx, mode === 'concierto' ? 'LA TORRE PICASSO · ARDE BOGOTÁ' : 'SILENCIO S.A. NO PUDO APAGAR EL ROCK', W / 2, 32, { color: '#fff', align: 'center' });
   const best = (k) => players.reduce((a, p) => (!a || p[k] > a[k] ? p : a), null);
   const topKo = best('kos'), topFood = best('food');
   players.forEach((p, i) => {
@@ -220,6 +229,7 @@ export function drawResults(ctx, { players, final, t }) {
     drawPortrait(ctx, p.type, p.palette, HEROES[p.type].h, x + 32, y + 6, 24);
     drawText(ctx, HEROES[p.type].name, x + 44, y + 34, { color: SLOT_COLORS[p.slot], align: 'center' });
     drawText(ctx, String(p.score).padStart(7, '0'), x + 44, y + 48, { color: '#fff', align: 'center' });
+    if (mode === 'concierto') { drawText(ctx, `PRECISIÓN ${p.ritmo ?? 0}%`, x + 44, y + 70, { color: '#3fdc7a', align: 'center' }); return; }
     drawText(ctx, `TUMBADOS ${p.kos}`, x + 6, y + 64, { color: '#cfc9e0' });
     drawText(ctx, `BOCADILLOS ${p.food}`, x + 6, y + 74, { color: '#cfc9e0' });
     drawText(ctx, `CONTINÚES ${p.continues}`, x + 6, y + 84, { color: '#cfc9e0' });

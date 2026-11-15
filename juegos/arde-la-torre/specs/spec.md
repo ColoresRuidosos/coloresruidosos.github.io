@@ -237,6 +237,8 @@ Al vencerlo, «¡A LA AZOTEA!», el **concierto final** (F17) y la pantalla de r
 - **Puntuación de banda**: la suma de todos, arriba en el centro.
 - **Público masivo**: varias filas de público en primer plano que botan al pulso; cuanto más alto el medidor, más brazos en alto, más luces de móviles y, por encima del 80 %, confeti. Focos más intensos. Todo sin destellos rápidos.
 
+**F19 Modo «SOLO EL CONCIERTO» en el juego base** (15 nov 2026, el usuario: «para ya subirlo, tiene que estar integrado en el juego base»). En la pantalla de título hay dos opciones: **HISTORIA** (los 3 niveles, la batalla final y el concierto) y **SOLO EL CONCIERTO**. Se elige con arriba y abajo y GOLPE, o tocando la opción en pantalla. La sala es la misma (QR, móviles, teclado, mandos, táctil); al estar todos listos empieza directamente la canción y después salen los resultados. Durante el concierto, en ambos modos, los móviles muestran los tres botones grandes. La página aparte (F18) se mantiene, pero lo que se publica es el juego base.
+
 **F18 Concierto suelto con móviles** (página `concierto.html`): la misma sala con QR y código que el juego completo. Cada persona escanea, elige músico en su móvil y pulsa «¡Listo!»; cuando todos los conectados están listos, empieza la canción. En el móvil se ven los tres botones (sin vida ni vidas). También se puede jugar con teclado, mandos y táctil, mezclados con móviles. En el enlace de Claude no hay móviles (bloquea WebRTC): solo funcionan en la página publicada en la web.
 
 ## 4. Flujos
@@ -341,5 +343,5 @@ El usuario pidió definir lo pendiente. Se puede cambiar cualquiera de estas dec
 | Músicos | **Los 4 jugables** desde la v0.1 con arte provisional; el arte final de Antonio y Pepe va primero |
 | Villano | **«Silencio S.A.»**, una empresa inventada que quiere apagar el rock |
 | Arte | **Vía A** (hojas de Gemini). La prueba de la vía B queda como tarea opcional (T0.6) |
-| Publicación | ⏸ **No se publica** en la web de CR hasta tener la respuesta de la banda |
+| Publicación | ⏸ **No se publica** en la web de CR hasta tener la respuesta de la banda. **15 nov 2026:** el usuario confirma que la banda ha dado su bendición y pide publicarlo: se prepara en `static/games/arde-la-torre/` con su tarjeta en `data/games.json` |
 | Niveles | **5** (§F6) |
