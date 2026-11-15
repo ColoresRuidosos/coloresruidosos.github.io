@@ -21,6 +21,9 @@ import { drawText } from './render/text.js';
 import { createAudio } from './audio/player.js';
 import { BOSS_SONG } from './audio/music.js';
 import { loadOptions, saveOptions } from './core/save.js';
+import { createConcert, pressLane, stepConcert } from './sim/ritmo.js';
+import { drawConcert } from './render/ritmo.js';
+import * as CANCION from './data/cancion-final.js';
 
 const Q = new URLSearchParams(location.search);
 const SIM = Math.max(1, Number(Q.get('sim')) || 1);
@@ -96,7 +99,7 @@ function onRoomEvent(e) {
   else if (e.type === 'hero' || e.type === 'ready') audio.sfx('menu');
 }
 
-const phoneFase = () => (app.screen === 'juego' || app.screen === 'pausa' || app.screen === 'intro' ? 'juego' : app.screen === 'resultado' ? 'resultado' : 'sala');
+const phoneFase = () => (app.screen === 'juego' || app.screen === 'pausa' || app.screen === 'intro' || app.screen === 'concierto' ? 'juego' : app.screen === 'resultado' ? 'resultado' : 'sala');
 
 // ---- entradas ----
 function sourceInput(key) {
@@ -150,6 +153,7 @@ function newGame() {
   const players = slots.joined().map((s) => ({ slot: s.slot, hero: s.hero, palette: s.palette }));
   app.world = createWorld({ seed: SEED, levelIdx: START_LEVEL, players, opts: { assisted: opts.assisted } });
   fx.clear();
+  if (Q.has('concierto')) { startLevel(app.world, LEVELS.length - 1); go('final'); app.t = 200; return; }   // prueba: directo al concierto
   goIntro();
 }
 function goIntro() { go('intro'); audio.play(app.world.level.music); room && room.broadcast({ t: 'fase', fase: 'juego' }); }
@@ -247,8 +251,60 @@ function stepGame() {
   } else if (w.over) { app.screen = 'fin'; app.t = 0; audio.stop(); }
 }
 
+// ---- Concierto final (F17) ----
+function startConcert() {
+  const ps = app.world.fighters.filter((f) => f.team === 'p' && !f.removed).sort((a, b) => a.slot - b.slot);
+  app.concert = {
+    c: createConcert({ notes: CANCION.NOTES, slots: ps.map((p) => p.slot), durationMs: CANCION.DURATION_MS }),
+    players: ps.map((p) => ({ slot: p.slot, type: p.type, palette: p.palette })),
+    started: false, t0: 0, audio: false, ms: -500, end: 0,
+  };
+  go('concierto');
+}
+
+function concertMs(k) {
+  if (k.audio && audio.running && SIM === 1) { const ms = audio.trackMs(); if (ms !== null) return ms; }
+  return (app.t - k.t0) * 1000 / 60 - 200;     // sin audio (pruebas o navegador sin Web Audio): reloj de fotogramas
+}
+
+function stepConcertScreen() {
+  const k = app.concert, c = k.c;
+  if (room) room.update();
+  if (!k.started) {
+    if (app.trackReady || app.t > 180 || SIM > 1) { k.started = true; k.t0 = app.t; k.audio = SIM === 1 && audio.startTrack(0.2); }
+    return;
+  }
+  k.ms = concertMs(k);
+  stepConcert(c, k.ms);
+  for (const p of k.players) {
+    const s = slots.get(p.slot);
+    if (BOT) {   // el bot toca a tiempo (pruebas y capturas)
+      const pr = c.players[p.slot];
+      for (let i = pr.next; i < c.notes.length && c.notes[i][0] <= k.ms + 8; i++) if (!pr.done[i]) pressLane(c, p.slot, c.notes[i][1], k.ms);
+      continue;
+    }
+    if (!s) continue;
+    const e = edgeOf(`c:${s.key}`, sourceInput(s.key));
+    ['golpe', 'salto', 'especial'].forEach((b, lane) => {
+      if (e[b] && pressLane(c, p.slot, lane, k.ms) === 'perfect' && room && s.kind === 'movil') room.sendTo(p.slot, { t: 'vibra', ms: 25 });
+    });
+  }
+  c.events.length = 0;
+  if (c.done) {
+    if (!k.end) k.end = app.t;
+    if (app.t - k.end > 180 || (SIM > 1 && app.t - k.end > 20)) {
+      for (const f of app.world.fighters) {
+        const pr = f.team === 'p' && c.players[f.slot];
+        if (pr) { f.score += pr.score; f.ritmo = Math.round(pr.accuracy * 100); }
+      }
+      audio.stopTrack(); app.concert = null;
+      finishResults(true);
+    }
+  }
+}
+
 function finishResults(final) {
-  const ps = app.world ? app.world.fighters.filter((f) => f.team === 'p').map((f) => ({ slot: f.slot, type: f.type, palette: f.palette, score: f.score, kos: f.kos, food: f.food, continues: f.continues })) : [];
+  const ps = app.world ? app.world.fighters.filter((f) => f.team === 'p').map((f) => ({ slot: f.slot, type: f.type, palette: f.palette, score: f.score, kos: f.kos, food: f.food, continues: f.continues, ritmo: f.ritmo })) : [];
   app.results = { players: ps.sort((a, b) => a.slot - b.slot), final };
   go('resultado');
   room && room.broadcast({ t: 'fase', fase: 'resultado' });
@@ -302,8 +358,10 @@ function step() {
       if (app.t > 150 || SIM > 1) { startLevel(app.world, app.world.levelIdx + 1); fx.clear(); goIntro(); }
       break;
     case 'final':
-      if (app.t > 240 || (SIM > 1 && app.t > 30)) finishResults(true);
+      if (!app.trackLoading) { app.trackLoading = true; audio.loadTrack(CANCION.MP3).then((ok) => { app.trackReady = ok; }); }
+      if (app.t > 240 || (SIM > 1 && app.t > 30)) startConcert();
       break;
+    case 'concierto': stepConcertScreen(); break;
     case 'fin':
       if (app.t > 180 || (SIM > 1 && app.t > 30)) finishResults(false);
       break;
@@ -336,6 +394,12 @@ function draw() {
       if (app.screen === 'final') drawBanner(ctx, '¡A LA AZOTEA!', 'EL CONCIERTO PUEDE EMPEZAR', app.t);
       if (app.screen === 'fin') drawBanner(ctx, 'FIN DEL JUEGO', 'SILENCIO S.A. GANA ESTA VEZ', app.t);
       break;
+    case 'concierto': {
+      const k = app.concert;
+      drawConcert(ctx, { concert: k.c, ms: k.started ? k.ms : -1000, level: app.world.level, players: k.players, bpm: CANCION.BPM, opts,
+        title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done });
+      break;
+    }
     case 'resultado': drawResults(ctx, { ...app.results, t: app.t }); break;
     default: break;
   }

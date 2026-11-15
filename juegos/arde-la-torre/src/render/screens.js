@@ -215,7 +215,7 @@ export function drawResults(ctx, { players, final, t }) {
   const topKo = best('kos'), topFood = best('food');
   players.forEach((p, i) => {
     const x = 10 + i * 93, y = 50;
-    ctx.fillStyle = '#1b1630'; ctx.fillRect(x, y, 88, 120);
+    ctx.fillStyle = '#1b1630'; ctx.fillRect(x, y, 88, 126);
     ctx.fillStyle = SLOT_COLORS[p.slot]; ctx.fillRect(x, y, 88, 2);
     drawPortrait(ctx, p.type, p.palette, HEROES[p.type].h, x + 32, y + 6, 24);
     drawText(ctx, HEROES[p.type].name, x + 44, y + 34, { color: SLOT_COLORS[p.slot], align: 'center' });
@@ -223,8 +223,9 @@ export function drawResults(ctx, { players, final, t }) {
     drawText(ctx, `TUMBADOS ${p.kos}`, x + 6, y + 64, { color: '#cfc9e0' });
     drawText(ctx, `BOCADILLOS ${p.food}`, x + 6, y + 74, { color: '#cfc9e0' });
     drawText(ctx, `CONTINÚES ${p.continues}`, x + 6, y + 84, { color: '#cfc9e0' });
-    if (players.length > 1 && p === topKo && p.kos > 0) drawText(ctx, '★ MÁS TUMBADOS', x + 44, y + 98, { color: '#ffd23f', align: 'center' });
-    if (players.length > 1 && p === topFood && p.food > 0) drawText(ctx, '★ MÁS BOCADILLOS', x + 44, y + 108, { color: '#ffd23f', align: 'center' });
+    if (p.ritmo != null) drawText(ctx, `CONCIERTO ${p.ritmo}%`, x + 6, y + 94, { color: '#3fdc7a' });   // F17: precisión
+    if (players.length > 1 && p === topKo && p.kos > 0) drawText(ctx, '★ MÁS TUMBADOS', x + 44, y + 106, { color: '#ffd23f', align: 'center' });
+    if (players.length > 1 && p === topFood && p.food > 0) drawText(ctx, '★ MÁS BOCADILLOS', x + 44, y + 116, { color: '#ffd23f', align: 'center' });
   });
   if (t > 90 && Math.floor(t / 30) % 2) drawText(ctx, 'GOLPE: OTRA VEZ', W / 2, H - 22, { color: '#ffd23f', align: 'center' });
   drawText(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, H - 10, { color: '#4a4560', align: 'center' });

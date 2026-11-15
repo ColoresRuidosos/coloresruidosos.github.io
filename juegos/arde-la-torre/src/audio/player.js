@@ -4,6 +4,7 @@ import { SONGS, songEvents, stepSeconds, midiHz } from './music.js';
 
 export function createAudio() {
   let ctx = null, master = null, musicGain = null, sfxGain = null, noise = null;
+  const track = { buf: null, src: null, t0: 0 };
   let song = null, step = 0, nextT = 0, timer = null, volume = 0.7;
 
   function ensure() {
@@ -74,7 +75,32 @@ export function createAudio() {
       song = SONGS[i]; step = 0; nextT = ctx.currentTime + 0.05;
       if (!timer) timer = setInterval(schedule, 25);
     },
-    stop() { song = null; },
+    stop() { song = null; this.stopTrack(); },
+    // Canción grabada (F17). load() la decodifica una vez; startTrack() la arranca y trackMs() da su reloj en ms
+    // (Web Audio: no se desfasa con los fotogramas). Sin audio (tests, navegador sin Web Audio), trackMs() es null.
+    async loadTrack(dataUrl) {
+      if (!ensure()) return false;
+      if (track.buf) return true;
+      try {
+        const bytes = Uint8Array.from(atob(dataUrl.split(',')[1]), (ch) => ch.charCodeAt(0));
+        track.buf = await ctx.decodeAudioData(bytes.buffer);
+        return true;
+      } catch { return false; }
+    },
+    startTrack(delay = 0.1) {
+      if (!ctx || !track.buf) return false;
+      song = null; this.stopTrack();
+      const src = ctx.createBufferSource(), g = ctx.createGain();
+      g.gain.value = 0.9; src.buffer = track.buf; src.connect(g); g.connect(master);
+      track.t0 = ctx.currentTime + delay; src.start(track.t0); track.src = src;
+      return true;
+    },
+    stopTrack() { if (track.src) { try { track.src.stop(); } catch { /* ya parada */ } track.src = null; } },
+    trackMs() {
+      if (!ctx || !track.src) return null;
+      const lat = (ctx.outputLatency || ctx.baseLatency || 0);
+      return (ctx.currentTime - track.t0 - lat) * 1000;
+    },
     sfx(name) { if (!ctx || ctx.state !== 'running' || !SFX[name]) return; SFX[name](ctx.currentTime + 0.005); },
     setVolume(v) { volume = v; if (master) master.gain.value = v; },
     suspend() { if (ctx) ctx.suspend(); },

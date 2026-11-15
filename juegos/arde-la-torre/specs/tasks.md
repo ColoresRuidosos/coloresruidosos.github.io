@@ -106,4 +106,8 @@
 | T9.2 | Tests y código: fases del Presidente, escudo, amplificadores por número de jugadores y aturdimiento (F15) | ✅ `sim/final.js` |
 | T9.3 | Tests y código: rescate de compañeros en la batalla final (F16) | ✅ |
 | T9.4 | Render: amplificadores apagados y encendidos, halo del escudo, avisos y «¡LEVÁNTALO!» | ✅ revisado en capturas |
+| T10.1 | `scripts/cancion.py`: fragmento final de «La Torre Picasso», tempo, notas y MP3 en `src/data/cancion-final.js` | ✅ |
+| T10.2 | Tests y código: `sim/ritmo.js`: ventanas de ±60 y ±120 ms, puntos, racha ×2/×3/×4, fallos, medidor PÚBLICO y fin (F17) | ✅ `tests/ritmo.test.js` |
+| T10.3 | Pantalla `concierto` tras vencer al Presidente: audio con el reloj de Web Audio, autopistas por jugador, banda en el escenario, puntos sumados a los resultados; el bot toca para las pruebas | ✅ |
+| T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |

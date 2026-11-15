@@ -136,7 +136,7 @@ Cada músico se reconoce por **su instrumento como arma**, una **habilidad pasiv
 2. **Cancelador de ruido** (al bajar del 60 %): se vuelve **invulnerable** (un halo gris a su alrededor, sin destellos) y aparecen **amplificadores apagados** repartidos por el escenario: **2 con 1 jugador, 3 con 2 y 4 con 3 o 4**. Cada uno se **enciende con 3 golpes**. Con todos encendidos, el escudo se rompe con «¡VOLUMEN AL MÁXIMO!» y el Presidente queda **aturdido 4 s** (recibe golpes sin defenderse). Mientras el escudo está activo llama a 2 guardias. Con varios jugadores conviene repartirse los amplificadores; en solitario también se puede.
 3. **Furioso** (al bajar del 30 %): más rápido (+25 %), ataca más a menudo y vuelve a llamar refuerzos.
 
-Al vencerlo, «¡A LA AZOTEA!» y la pantalla de resultados con el concierto.
+Al vencerlo, «¡A LA AZOTEA!», el **concierto final** (F17) y la pantalla de resultados.
 
 **F16 Rescate de compañeros** (solo en la batalla final). Cuando un jugador cae sin vida, queda **3 s en el suelo** con «¡LEVÁNTALO!» encima. Si otro jugador se pone a su lado y **mantiene GOLPE 0,5 s**, lo levanta con el 40 % de la vida **sin gastar una vida**. Si nadie lo rescata, pierde la vida como siempre.
 
@@ -222,6 +222,14 @@ Al vencerlo, «¡A LA AZOTEA!» y la pantalla de resultados con el concierto.
 - Tiendas de apps (iOS o Android), versión nativa de Smart TV o consolas.
 - Cuentas, inicio de sesión, compras y anuncios.
 
+**F17 Concierto final** (15 nov 2026, el usuario: «cuando ya le ganes al jefe, haya un pequeño nivel estilo guitar hero con esta canción»). Tras vencer al Presidente, la banda toca **el final de «La Torre Picasso»** (unos 80 s, de 6:36 a 7:55 del videoclip) en el escenario de la azotea.
+- Cada jugador tiene **su propia autopista de 3 carriles**: GOLPE, SALTO y ESPECIAL (los mismos botones en teclado, mando, móvil y táctil). Las notas bajan y hay que pulsar cuando cruzan la línea.
+- Todos tocan las mismas notas, generadas a partir de la canción (tempo ≈ 117,5 BPM, en la rejilla de corcheas) y ajustadas para que empiece fácil.
+- Precisión: **¡PERFECTO!** a ±60 ms (100 puntos), **¡BIEN!** a ±120 ms (50 puntos); fuera de eso, fallo. Racha: ×2 a las 10 notas seguidas, ×3 a las 20 y ×4 a las 30; un fallo la reinicia. Pulsar sin nota no penaliza.
+- Medidor común **«PÚBLICO»**: sube con los aciertos y baja con los fallos, y solo cambia lo que se ve (luces y público). El concierto **siempre se completa**: no se puede perder.
+- Al terminar, los puntos se suman a los de cada jugador y se ven en los resultados, con su precisión.
+- Accesibilidad: sin destellos rápidos; con «destellos» desactivado, los aciertos no parpadean.
+
 ## 4. Flujos
 
 ### 4.1 Flujo principal (2–4 personas)
@@ -294,7 +302,7 @@ Pulsar «JUGAR» con el teclado, el mando o la pantalla táctil lleva directamen
 | Latencia del mando | Pulsación en el móvil → reacción en pantalla ≤ 80 ms en la misma wifi (meta: 30–50 ms) |
 | Unirse | Del escaneo a «conectado» ≤ 5 s con una wifi o 4G normales |
 | Resolución | 384×216 lógicos con escalado entero: ×5 = 1920×1080 y ×10 = 4K. Se ve nítido en cualquier tele: **es el «HD» del proyecto** |
-| Peso | Juego ≤ 3 MB y mando ≤ 300 KB, para que cargue rápido en el móvil tras escanear |
+| Peso | Juego ≤ 4 MB (antes 3 MB; sube por los ~80 s de canción de F17) y mando ≤ 300 KB, para que cargue rápido en el móvil tras escanear |
 | Coste | **0 €**: GitHub Pages, la nube gratuita de PeerJS y herramientas gratuitas |
 | Compatibilidad | Pantalla: Chrome, Edge, Firefox o Safari recientes en escritorio y tablet. Mando: Safari iOS 16+ y Chrome Android 110+ |
 | Accesibilidad | Destellos < 3 Hz y desactivables; modo asistido; botones táctiles ≥ 56 px; textos legibles a 3 m en la tele (fuente de 7 px lógicos = 35 px reales en 1080p) |
@@ -306,7 +314,7 @@ Pulsar «JUGAR» con el teclado, el mando o la pantalla táctil lleva directamen
 | Tema | Riesgo | Propuesta |
 |---|---|---|
 | **Nombre e imagen de la banda** | Usar a 4 personas reales y su marca | Rótulo de homenaje no oficial. Caricaturas respetuosas. ⏳ **Muy recomendable: escribir a la banda o a su management** antes de publicarlo. Puede acabar en colaboración (y en permiso para su música) |
-| **Su música** | La regla de CR es no usar música ni letras sin licencia | Chiptunes originales. Sus canciones solo entran con permiso por escrito |
+| **Su música** | La regla de CR es no usar música ni letras sin licencia | Chiptunes originales. Sus canciones solo entran con permiso. **15 nov 2026:** el usuario confirma que la banda ha dado su bendición y que no hay ánimo de lucro, así que el concierto final (F17) usa el fragmento final de «La Torre Picasso». Conviene guardar ese permiso por escrito |
 | **Torre Picasso** | Edificio real con propietario y empresas dentro | Solo el nombre, el exterior y los datos públicos. Interiores inventados. **Ninguna** empresa ni logo real dentro |
 | **«Arde» + torre + arquitecto de las Torres Gemelas** | Una torre en llamas puede leerse como alusión a atentados | **Nada de incendios del edificio, aviones ni derrumbes.** «Arde» es el fuego del escenario: focos, pirotecnia del concierto en la azotea y llamas en los especiales |
 | **Juegos de referencia** | Marcas y arte con dueño | Solo el género y el estilo. Ningún nombre, sprite, sonido ni interfaz. Enemigos y jefes propios |

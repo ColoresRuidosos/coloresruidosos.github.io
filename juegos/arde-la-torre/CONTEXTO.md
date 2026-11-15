@@ -1,6 +1,6 @@
 # Contexto para retomar «Arde la Torre» en otra sesión
 
-> Última actualización: **15 nov 2026**, juego en la **v0.7** (todo el arte final salvo los retratos comunes; potenciadores F7). Pega este archivo, o su ruta, al empezar una sesión nueva.
+> Última actualización: **15 nov 2026**, juego en la **v0.8** (todo el arte final salvo los retratos comunes; potenciadores F7; concierto final F17 con «La Torre Picasso»). Pega este archivo, o su ruta, al empezar una sesión nueva.
 > Repo `ColoresRuidosos/coloresruidosos.github.io` · carpeta `juegos/arde-la-torre/` · rama `ccr-7c6a7cf3-vz8zlr` (todo subido; **sin PR**).
 
 ## 1. Qué es y cómo trabajamos
@@ -21,7 +21,7 @@ npm run tune        # cómo les va a los bots en cada nivel con 1, 2 y 4 jugador
 python3 -I scripts/slice_sheet.py <músico>   # recorta las hojas de Gemini → atlas del juego
 python3 -I scripts/prompts_amigo.py          # regenera los prompts para copiar (MD + página)
 ```
-Parámetros de prueba: `?net=loop` (mandos en otras pestañas), `?bot`, `?sim=6`, `?auto=2`, `?nivel=4`, `?seed=7`, `?nonet`.
+Parámetros de prueba: `?concierto`, `?net=loop` (mandos en otras pestañas), `?bot`, `?sim=6`, `?auto=2`, `?nivel=4`, `?seed=7`, `?nonet`.
 
 ## 3. Enlaces (artifacts de Claude del usuario, ahora **públicos**)
 | Qué | Enlace | Se publica desde |
@@ -44,6 +44,7 @@ Al republicar, `get_artifact` → `publish_files` con `base_version`, `shared_li
   - ✅ Enemigos y jefes (`art/source/enemigos/<tipo>.jpg`, mismo `slice_sheet.py`; `erase` borra rótulos y `cuts` corta a mano), objetos (`art/source/objetos/objetos.png`) y título (`art/source/fondos/titulo.png`, `fondos.py`).
   - ✅ Antonio v3: movimiento (`antonio-2-movimiento.jpg`) y guitarrazo y victoria (`antonio-6-guitarrazo.jpg`) con la guitarra detrás de la espalda. La hoja de movimiento antigua queda como `descartes-…`.
   - ⏳ Retratos iguales: el usuario quiere partir de fotos reales; Gemini no los igualó desde los sprites.
+- **Concierto final (F17):** tras vencer al Presidente, minijuego de ritmo con el final de «La Torre Picasso» (6:36–7:55; permiso de la banda según el usuario, spec §6.1). `scripts/cancion.py` (ffmpeg + numpy) recorta el MP3 (`art/source/musica/`), calcula tempo (≈117,5 BPM) y notas → `src/data/cancion-final.js`. Lógica en `sim/ritmo.js`, dibujo en `render/ritmo.js`, pantalla `concierto` en `main.js` (reloj de Web Audio). `?concierto` salta directo para probar.
 - **Potenciadores (F7, aprobada):** amplificador, pedal, púa de la suerte y pase de backstage (`POWERUPS` en `moves.js`). La Setlist espera a F14.
 
 ## 5. Decisiones pendientes del usuario
