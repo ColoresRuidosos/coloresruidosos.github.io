@@ -140,7 +140,7 @@ Al vencerlo, «¡A LA AZOTEA!» y la pantalla de resultados con el concierto.
 
 **F16 Rescate de compañeros** (solo en la batalla final). Cuando un jugador cae sin vida, queda **3 s en el suelo** con «¡LEVÁNTALO!» encima. Si otro jugador se pone a su lado y **mantiene GOLPE 0,5 s**, lo levanta con el 40 % de la vida **sin gastar una vida**. Si nadie lo rescata, pierde la vida como siempre.
 
-**F7 Objetos y potenciadores** (v2, propuesta ⏳). Salen de cajas, papeleras y máquinas de vending rotas, o los suelta un enemigo especial al caer.
+**F7 Objetos y potenciadores** (v2, **aprobada el 15 nov 2026**: «sigamos con los enemigos y power ups»; la Setlist espera a F14 y el enemigo que suelta objetos queda para más adelante). Salen de cajas, papeleras y máquinas de vending rotas, o los suelta un enemigo especial al caer.
 
 | Objeto | Efecto | Duración |
 |---|---|---|
@@ -157,6 +157,8 @@ Al vencerlo, «¡A LA AZOTEA!» y la pantalla de resultados con el concierto.
 
 - Solo un potenciador temporal a la vez por jugador; coger otro sustituye al anterior.
 - El HUD muestra el icono del potenciador activo con una barra de tiempo.
+- Al morir se pierde el potenciador. El pase de backstage aparece como mucho una vez por nivel.
+- Criterios de aceptación: el amplificador multiplica ×1,5 el daño de los golpes del jugador (no el de sus proyectiles ni el de los enemigos); con el pedal, las cajas de golpe del jugador alcanzan 20 px más; con la púa de la suerte no recibe golpes ni agarres; cada efecto acaba exactamente a su tiempo; coger otro lo sustituye.
 
 **F8 Vidas y reaparición.**
 - Cada jugador empieza con 3 vidas y reaparece cayendo del techo.

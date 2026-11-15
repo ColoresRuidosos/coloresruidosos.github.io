@@ -72,6 +72,7 @@ juegos/arde-la-torre/
 - **Colisión** (`combat.js`): hay contacto si las cajas en X y Z se solapan **y** `|Δy| ≤ 8`. Cada golpe conecta una sola vez por objetivo. Hay una pausa de impacto de 3 cuadros y una sacudida opcional (F13).
 - **Turnos de ataque** (`ai.js`): cada jugador tiene 2 fichas de ataque. Un enemigo solo ataca si consigue una ficha y, al terminar, la devuelve. Los demás se colocan en semicírculo a 40–70 px.
 - **Nivel** (`level.js`): lista de oleadas con `{xBloqueo, enemigos: [{tipo, lado, retraso}]}`. La cámara solo avanza y el jugador más atrasado limita el avance, con un margen de 24 px.
+- **Potenciadores (F7):** datos en `moves.js` (`POWERUPS`: duración en ticks y efecto). El luchador guarda `power = {kind, t}`, que baja 1 por tick y se borra al morir. El amplificador multiplica el daño en `applyHit` solo si quien golpea es el propio jugador; el pedal alarga `reach[1]` en `boxRange`; la púa de la suerte hace que `applyHit` y `canBeGrabbed` lo ignoren. El pase suma una vida y solo se coloca una vez por nivel en `levels.js`.
 
 ## 4. Entradas y jugadores (F9)
 

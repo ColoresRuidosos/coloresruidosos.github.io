@@ -82,7 +82,7 @@ function respawn(world, p) {
   p.y = FLOOR_TOP + 20 + p.slot * 12;
   p.z = 120; p.vz = 0; p.vx = 0; p.face = 1;
   setState(p, 'jump'); p.airAtk = false; p.airT = 99;
-  p.invul = SPAWN_INVUL; p.weapon = null;
+  p.invul = SPAWN_INVUL; p.weapon = null; p.power = null;
   world.events.push({ type: 'respawn', slot: p.slot });
 }
 

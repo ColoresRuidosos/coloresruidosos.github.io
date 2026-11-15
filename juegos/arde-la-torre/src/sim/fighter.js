@@ -3,7 +3,7 @@ import {
   W, FLOOR_TOP, FLOOR_BOTTOM, GRAV, DOUBLE_TAP, CHAIN_GAP, GRAB_CONTACT, GRAB_TICKS, MAX_KNEES,
   SPECIAL_COST, EDGE, LANE,
 } from './constants.js';
-import { HEROES, WEAPONS, FOOD, PUA_POINTS } from './moves.js';
+import { HEROES, WEAPONS, FOOD, PUA_POINTS, POWERUPS, PASE_LIVES } from './moves.js';
 import { ENEMIES } from './enemies.js';
 import {
   sign, setState, landFrom, riseInvul, releaseGrab, canBeGrabbed, startGrab, placeGrabbed, throwVictim,
@@ -27,7 +27,7 @@ export function createPlayer(world, { slot, hero, palette = 0 }, x, y) {
   return Object.assign(base(world, 'p', hero, def, x, y), {
     slot, hero, palette, prevIn: NEUTRAL, tokens: 0,
     combo: 0, chain: false, landed: false, gap: 99, run: false, runDir: 0, tapDir: 0, tapT: -99, lastX: 0,
-    contact: 0, airAtk: false, airT: 0, weapon: null,
+    contact: 0, airAtk: false, airT: 0, weapon: null, power: null,
     lives: 0, score: 0, kos: 0, food: 0, continues: 0, out: false, contT: 0, away: false,
   });
 }
@@ -110,6 +110,8 @@ function stepCommon(world, f) {
 // ---- Jugador ----
 export function stepPlayer(world, f, input) {
   if (f.out || f.removed) return;
+  if (f.power && --f.power.t <= 0) f.power = null;       // F7: el potenciador dura un tiempo fijo
+  if (f.state === 'dead') f.power = null;                // y se pierde al morir
   if (f.away) {
     f.prevIn = NEUTRAL;
     if (!stepCommon(world, f)) {
@@ -152,6 +154,8 @@ function pickUp(world, f, it) {
   world.items.splice(world.items.indexOf(it), 1);
   if (FOOD[it.kind]) { f.hp = Math.min(f.maxHp, f.hp + Math.round(f.maxHp * FOOD[it.kind])); f.food++; }
   else if (it.kind === 'pua') f.score += PUA_POINTS;
+  else if (POWERUPS[it.kind]) f.power = { kind: it.kind, t: POWERUPS[it.kind].ticks };
+  else if (it.kind === 'pase') f.lives += PASE_LIVES;
   else if (WEAPONS[it.kind]) f.weapon = { kind: it.kind, uses: WEAPONS[it.kind].uses };
   world.events.push({ type: 'pickup', slot: f.slot, kind: it.kind, x: it.x, y: it.y });
 }

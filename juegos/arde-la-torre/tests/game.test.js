@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { createWorld, tick, addPlayer, setAway, removePlayer, startLevel, playerBySlot } from '../src/sim/world.js';
 import { scaledWave } from '../src/sim/level.js';
 import { botInput } from '../src/sim/bot.js';
-import { HERO_IDS, FOOD } from '../src/sim/moves.js';
+import { HERO_IDS, FOOD, POWERUPS } from '../src/sim/moves.js';
 import { LEVELS } from '../src/data/levels.js';
 import { TOKENS_PER_PLAYER, MAX_ON_SCREEN, CONTINUE_TICKS, W } from '../src/sim/constants.js';
 import { arena, addEnemy, run, tap, IN } from './helpers.js';
@@ -208,3 +208,65 @@ test('startLevel: pasa al siguiente nivel con la vida llena y conservando los pu
   assert.equal(p.hp, p.maxHp); assert.equal(p.score, 1234); assert.equal(p.lives, 2);
   assert.equal(w.fighters.length, 1);
 });
+
+test('T8.5 potenciadores: amplificador ×1,5 de daño, pedal +20 px, púa de la suerte invulnerable, pase +1 vida', () => {
+  const w = arena();
+  const p = w.fighters[0]; p.x = 100; p.y = 170; p.face = 1;
+  const pick = (kind) => { w.items.push({ id: w.nextId++, kind, x: p.x, y: p.y }); tap(w, 0, 'golpe'); };
+  const hitDamage = (dist) => {
+    const e = addEnemy(w, 'becario', p.x + dist, p.y); e.hp = e.maxHp = 9999;
+    tap(w, 0, 'golpe'); run(w, 40);
+    const dmg = 9999 - e.hp; e.removed = true; w.fighters.splice(w.fighters.indexOf(e), 1); w.byId.delete(e.id);
+    return dmg;
+  };
+  const base = hitDamage(22);
+  assert.ok(base > 0);
+
+  // Amplificador
+  pick('ampli');
+  assert.equal(p.power.kind, 'ampli');
+  assert.equal(hitDamage(22), base * 1.5);
+  // Dura exactamente su tiempo
+  p.power.t = 2; run(w, 2);
+  assert.equal(p.power, null, 'se acaba a su tiempo');
+  assert.equal(hitDamage(22), base);
+
+  // Pedal: alcanza 20 px más lejos
+  const reach = HEROES_REACH(p);
+  assert.equal(hitDamage(reach + 12), 0, 'sin pedal no llega');
+  pick('pedal');
+  assert.ok(hitDamage(reach + 12) > 0, 'con el pedal llega');
+  // Coger otro sustituye al anterior
+  pick('suerte');
+  assert.equal(p.power.kind, 'suerte');
+  assert.ok(p.power.t >= POWERUPS.suerte.ticks - 2, 'empieza con su duración completa');
+
+  // Púa de la suerte: ni golpes ni agarres
+  const hp = p.hp;
+  const e = addEnemy(w, 'ejecutiva', p.x + 20, p.y); e.face = -1;
+  e.ai.hold = false; e.ai.cd = 0;
+  run(w, 200);
+  assert.equal(p.hp, hp, 'no recibe daño');
+  assert.notEqual(p.state, 'grabbed');
+
+  // Pase: +1 vida; al morir se pierde el potenciador
+  const lives = p.lives;
+  pick('pase');
+  assert.equal(p.lives, lives + 1);
+  assert.equal(p.power.kind, 'suerte', 'el pase no quita el potenciador');
+});
+
+test('T8.5 al morir se pierde el potenciador y los niveles traen como mucho un pase', () => {
+  const w = arena();
+  const p = w.fighters[0];
+  p.power = { kind: 'ampli', t: 500 };
+  p.hp = 1; p.invul = 0;
+  const e = addEnemy(w, 'becario', p.x + 20, p.y); e.face = -1; e.ai.hold = false; e.ai.cd = 0;
+  run(w, 400);
+  assert.equal(p.power, null);
+  for (const lv of LEVELS) assert.ok(lv.props.filter((q) => q.drop === 'pase').length <= 1, lv.id);
+  const drops = new Set(LEVELS.flatMap((lv) => lv.props.map((q) => q.drop)));
+  for (const k of ['ampli', 'pedal', 'suerte', 'pase']) assert.ok(drops.has(k), `algún nivel trae ${k}`);
+});
+
+function HEROES_REACH(p) { return p.def.combo[0].reach[1]; }

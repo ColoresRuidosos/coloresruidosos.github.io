@@ -5,7 +5,7 @@ import { hasAtlas, heroFrameName, drawFrame, drawPortrait } from './atlas.js';
 import { getBackground } from './backgrounds.js';
 import { drawText } from './text.js';
 import { SLOT_COLORS } from '../input/slots.js';
-import { HEROES } from '../sim/moves.js';
+import { HEROES, POWERUPS } from '../sim/moves.js';
 
 // ---- Estado del luchador → pose del sprite ----
 export function spriteState(f) {
@@ -106,7 +106,14 @@ const ITEM_DRAW = {
   extintor: (c, x, y) => { c.fillStyle = '#120c18'; c.fillRect(x - 5, y - 18, 10, 18); c.fillStyle = '#d42a2a'; c.fillRect(x - 4, y - 16, 8, 15); c.fillStyle = '#222'; c.fillRect(x - 2, y - 18, 5, 3); },
   silla: (c, x, y) => { c.fillStyle = '#120c18'; c.fillRect(x - 8, y - 20, 16, 20); c.fillStyle = '#2b2b33'; c.fillRect(x - 7, y - 19, 4, 12); c.fillRect(x - 7, y - 9, 14, 3); c.fillStyle = '#777'; c.fillRect(x - 1, y - 6, 2, 5); c.fillRect(x - 6, y - 2, 12, 1); },
   pua: (c, x, y, t) => { c.fillStyle = '#120c18'; c.beginPath(); c.moveTo(x - 6, y - 12); c.lineTo(x + 6, y - 12); c.lineTo(x, y - 1); c.fill(); c.fillStyle = t % 40 < 20 ? '#ffd23f' : '#ffe98a'; c.beginPath(); c.moveTo(x - 5, y - 11); c.lineTo(x + 5, y - 11); c.lineTo(x, y - 2); c.fill(); },
+  // Potenciadores (F7): dibujos provisionales hasta tener la hoja «objetos» de Gemini.
+  ampli: (c, x, y) => { c.fillStyle = '#120c18'; c.fillRect(x - 8, y - 14, 16, 14); c.fillStyle = '#2b2630'; c.fillRect(x - 7, y - 13, 14, 12); c.fillStyle = '#d9b21f'; c.fillRect(x - 7, y - 13, 14, 2); c.fillStyle = '#555060'; c.beginPath(); c.arc(x, y - 6, 4, 0, Math.PI * 2); c.fill(); c.fillStyle = '#120c18'; c.fillRect(x - 1, y - 7, 2, 2); },
+  pedal: (c, x, y) => { c.fillStyle = '#120c18'; c.fillRect(x - 6, y - 12, 12, 12); c.fillStyle = '#d42a2a'; c.fillRect(x - 5, y - 11, 10, 10); c.fillStyle = '#ddd'; c.fillRect(x - 3, y - 10, 2, 2); c.fillRect(x + 1, y - 10, 2, 2); c.fillStyle = '#888'; c.fillRect(x - 3, y - 5, 6, 3); },
+  suerte: (c, x, y, t) => { c.fillStyle = '#120c18'; c.beginPath(); c.moveTo(x - 6, y - 12); c.lineTo(x + 6, y - 12); c.lineTo(x, y - 1); c.fill(); c.fillStyle = '#3fdc7a'; c.beginPath(); c.moveTo(x - 5, y - 11); c.lineTo(x + 5, y - 11); c.lineTo(x, y - 2); c.fill(); c.fillStyle = t % 60 < 30 ? '#eaffea' : '#bff5c8'; c.fillRect(x - 2, y - 9, 2, 2); c.fillRect(x, y - 9, 2, 2); c.fillRect(x - 1, y - 10, 2, 2); c.fillRect(x - 1, y - 8, 2, 2); },
+  pase: (c, x, y) => { c.fillStyle = '#d42a2a'; c.fillRect(x - 1, y - 18, 2, 6); c.fillStyle = '#120c18'; c.fillRect(x - 6, y - 13, 12, 13); c.fillStyle = '#f4f4f0'; c.fillRect(x - 5, y - 12, 10, 11); c.fillStyle = '#ffd23f'; c.fillRect(x - 5, y - 12, 10, 3); c.fillStyle = '#8a8698'; c.fillRect(x - 3, y - 7, 6, 1); c.fillRect(x - 3, y - 4, 4, 1); },
 };
+const PICK_TEXT = { pua: '+1000', bocadillo: '♥', cafe: '♥', ampli: '¡AMPLI! ×1,5', pedal: '¡PEDAL!', suerte: '¡SUERTE!', pase: '+1 VIDA' };
+const POWER_COLOR = { ampli: '#ffd23f', pedal: '#ff6a2a', suerte: '#3fdc7a' };
 export function drawItem(ctx, kind, x, y, t = 0) { (ITEM_DRAW[kind] || ITEM_DRAW.cafe)(ctx, Math.round(x), Math.round(y), t); }
 
 function drawShot(ctx, s, x, y) {
@@ -133,7 +140,7 @@ function drawFx(ctx, p, cam, opts) {
   } else if (p.k === 'chip') {
     ctx.fillStyle = '#8a5f30'; ctx.fillRect(x, y, 3, 3);
   } else if (p.k === 'pick') {
-    drawText(ctx, p.kind === 'pua' ? '+1000' : p.kind === 'bocadillo' || p.kind === 'cafe' ? '♥' : '★', x, y - 20, { color: '#ffd23f', align: 'center' });
+    drawText(ctx, PICK_TEXT[p.kind] || '★', x, y - 20, { color: '#ffd23f', align: 'center' });
   } else if (p.k === 'sp') {
     const col = SLOT_COLORS[p.slot] || '#fff';
     if (p.hero === 'antonio') { // ondas del grito
@@ -171,6 +178,13 @@ export function drawHud(ctx, world, extra = {}) {
     else {
       drawText(ctx, `♥${p.lives}`, x + 25, y + 19, { color: '#ff4d4d' });
       drawText(ctx, String(p.score).padStart(6, '0'), x + 89, y + 19, { color: '#cfc9e0', align: 'right' });
+    }
+    if (p.power && !p.out) {   // F7: potenciador activo con su barra de tiempo
+      ctx.fillStyle = 'rgba(10,8,20,0.72)'; ctx.fillRect(x, y + 26, 48, 16);
+      drawItem(ctx, p.power.kind, x + 11, y + 41);
+      ctx.fillStyle = '#120c18'; ctx.fillRect(x + 21, y + 32, 24, 4);
+      ctx.fillStyle = POWER_COLOR[p.power.kind] || '#fff';
+      ctx.fillRect(x + 22, y + 33, Math.max(1, Math.round(22 * p.power.t / POWERUPS[p.power.kind].ticks)), 2);
     }
   }
   const boss = world.fighters.find((f) => f.team === 'e' && f.def.boss && f.state !== 'dead');
@@ -238,6 +252,21 @@ export function drawWorld(ctx, world, fx, opts = {}) {
       ctx.beginPath(); ctx.ellipse(x, y - f.def.h / 2, f.def.w + 10, f.def.h / 2 + 10, 0, 0, Math.PI * 2); ctx.stroke();
       ctx.strokeStyle = 'rgba(170,190,220,0.25)'; ctx.lineWidth = 4;
       ctx.beginPath(); ctx.ellipse(x, y - f.def.h / 2, f.def.w + 14, f.def.h / 2 + 14, 0, 0, Math.PI * 2); ctx.stroke();
+    }
+    if (f.power) {   // F7: aura del potenciador (sin destellos rápidos)
+      const col = POWER_COLOR[f.power.kind];
+      if (f.power.kind === 'suerte') {
+        ctx.globalAlpha = 0.55 + 0.25 * Math.sin(world.tick * 0.08);   // brillo lento, sin destellos
+        ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(x, y - f.def.h / 2, f.def.w + 8, f.def.h / 2 + 8, 0, 0, Math.PI * 2); ctx.stroke();
+        ctx.globalAlpha = 1;
+      } else {
+        ctx.fillStyle = col;
+        for (let k = 0; k < 3; k++) { const yy = y - ((world.tick * 0.7 + k * 20) % 60); ctx.fillRect(x - f.def.w / 2 - 3 + k * (f.def.w / 2 + 3), Math.round(yy), 2, 2); }
+        if (f.power.kind === 'pedal' && f.state === 'attack' && f.t >= f.atk.start && f.t < f.atk.start + f.atk.active + 4) {
+          const r = f.atk.reach[1] + 6 + (f.t - f.atk.start) * 3;
+          ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y - 36, r, f.face > 0 ? -0.5 : Math.PI - 0.5, f.face > 0 ? 0.5 : Math.PI + 0.5); ctx.stroke();
+        }
+      }
     }
     if (f.state === 'stun') for (let k = 0; k < 3; k++) {
       const a = world.tick * 0.08 + k * 2.1;

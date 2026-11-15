@@ -4,24 +4,12 @@
 
 ## Cómo se hace
 
-1. Los 4 músicos y los fondos ya están en el juego. Falta: los retratos juntos, los enemigos, los jefes y los objetos.
+1. Los 4 músicos y los fondos ya están en el juego. Falta: 5 enemigos, 4 jefes y la hoja de objetos (10 imágenes). Los retratos quedan para más adelante.
 2. Abre Gemini (gemini.google.com) o ChatGPT.
 3. Abre un chat NUEVO para cada imagen.
 4. Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.
 5. Descarga la imagen que salga y guárdala con el nombre que pone el paso (por ejemplo, dani-1).
 6. Si no te gusta cómo quedó, escribe «Otra vez» en el mismo chat.
-
-## Retratos de los 4 (una sola imagen)
-
-Para que los cuatro retratos tengan el mismo estilo. Una sola imagen.
-
-### Paso 1 · Sube la imagen «retratos-referencia» que te pasaron y después pega esto
-
-Guárdala como: **retratos**
-
-```
-Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. Redibuja los 4 retratos en UNA SOLA imagen, en una fila y en el mismo orden, con exactamente el mismo estilo para los cuatro: pixel art de recreativa de los 90, contorno oscuro grueso y sombreado plano de 3 a 4 tonos. MISMO ENCUADRE en los cuatro: cabeza y hombros, la cabeza centrada y del mismo tamaño, ocupando la mitad superior del recuadro. Misma vista de 3/4 mirando a la DERECHA, misma luz cálida de foco desde abajo a la izquierda con un contraluz morado suave y mismo nivel de detalle. Expresión segura, con media sonrisa. Cada retrato en un cuadrado del mismo tamaño, separados entre sí con espacio vacío. Fondo gris completamente liso #474747. Sin texto, sin marcos, sin logos y sin letras en la ropa (camisetas y camisas lisas).
-```
 
 ## Enemigos (empleados de Silencio S.A.)
 
@@ -106,7 +94,7 @@ Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 
 No subas ninguna imagen. Solo copia y pega.
 
-### Paso 1 · Jefe 1 · Jefe de Seguridad: no subas ninguna imagen
+### Paso 1 · Jefe del nivel 1 · Jefe de Seguridad: no subas ninguna imagen
 
 Guárdala como: **jefe-1**
 
@@ -121,7 +109,7 @@ Fila 2: PUÑETAZO ×2 y EMBESTIDA ×3 (agacha la cabeza y carga como un toro).
 Fila 3: LLAMAR REFUERZOS ×1 (habla por el pinganillo señalando), RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Paso 2 · Jefe 2 · Recepcionista: no subas ninguna imagen
+### Paso 2 · Jefe del nivel 2 · Recepcionista: no subas ninguna imagen
 
 Guárdala como: **jefe-2**
 
@@ -136,24 +124,9 @@ Fila 2: LANZAR TELÉFONO ×3 (echa el brazo atrás con el teléfono; lo lanza; e
 Fila 3: LLAMAR REFUERZOS ×1 (descolgando el teléfono), RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Paso 3 · Jefe 3 · Técnico de Mantenimiento: no subas ninguna imagen
+### Paso 3 · Jefe del nivel 3 · Director Comercial: no subas ninguna imagen
 
 Guárdala como: **jefe-3**
-
-```
-ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
-FORMATO: fondo gris completamente liso #474747, sin degradado. Sin texto, sin rótulos, sin números, sin flechas, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio libre. El personaje mide lo mismo en todas las poses y todas se apoyan en la misma línea de suelo, pero SIN dibujar ninguna raya ni sombra de suelo. Deja mucho espacio vacío ENTRE LAS FILAS: nada de una fila (ni instrumentos levantados) puede invadir la fila de arriba ni la de abajo. Mira a la DERECHA.
-
-PERSONAJE: técnico de mantenimiento corpulento con mono naranja, gorra, barba y una caja de herramientas roja.
-HOJA de exactamente 3 filas:
-Fila 1: QUIETO ×2 y CAMINAR ×4.
-Fila 2: GOLPE CON LA CAJA ×3 (la levanta y la baja de golpe) y EMBESTIDA ×3.
-Fila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
-```
-
-### Paso 4 · Jefe 4 · Director Comercial: no subas ninguna imagen
-
-Guárdala como: **jefe-4**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -166,9 +139,9 @@ Fila 2: PUÑETAZO ×2, EMBESTIDA ×2 y AGARRE ×2 (agarra del cuello a alguien i
 Fila 3: LANZAR ×2, RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
 ```
 
-### Paso 5 · Jefe final · Presidente de Silencio S.A.: no subas ninguna imagen
+### Paso 4 · Jefe final · Presidente de Silencio S.A.: no subas ninguna imagen
 
-Guárdala como: **jefe-5**
+Guárdala como: **jefe-4**
 
 ```
 ESTILO: pixel art de beat 'em up arcade de principios de los 90, vista lateral de 3/4 típica del género (el personaje se ve casi de perfil, ligeramente girado hacia la cámara). Personajes caricaturescos pero reconocibles, proporciones heroicas de unas 6 cabezas de alto, contorno oscuro grueso de 1 píxel, sombreado plano de 2 a 3 tonos por color, luz cálida lateral como un foco de escenario y sombras con un toque morado. Poses exageradas y con mucha energía (anticipación antes de golpear). Arte 100 % original: NO copies personajes, sprites, logos ni interfaces de ningún videojuego existente. Son empleados caricaturescos de una empresa inventada (sátira genérica de oficina, sin logos ni marcas reales), vestidos en grises fríos y azul corporativo para que contrasten con los héroes.
@@ -179,50 +152,6 @@ HOJA de exactamente 3 filas:
 Fila 1: QUIETO ×2 (con los brazos cruzados) y CAMINAR ×4.
 Fila 2: PUÑETAZO ×2, EMBESTIDA ×2 y LANZAR UN DISCO DE ORO ×2 (como un frisbee; el disco PEGADO a la mano).
 Fila 3: AGARRE ×2, RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1.
-```
-
-## Fondos de los niveles
-
-No subas ninguna imagen. Solo copia y pega.
-
-### Paso 1 · Nivel 1 · Parking: no subas ninguna imagen
-
-Guárdala como: **fondo-1**
-
-```
-Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: aparcamiento subterráneo de un rascacielos de oficinas moderno de Madrid, de noche, con columnas de hormigón marcadas con símbolos abstractos (NO letras ni números legibles), luces fluorescentes verdosas, coches genéricos aparcados (sin marcas ni matrículas legibles), barreras de entrada y manchas de aceite. Ambiente tenso pero colorido.
-```
-
-### Paso 2 · Nivel 2 · Vestíbulo: no subas ninguna imagen
-
-Guárdala como: **fondo-2**
-
-```
-Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: vestíbulo enorme de un rascacielos de oficinas de los años 80, con suelo de mármol pulido, techos muy altos, tornos de acceso de cristal, un mostrador de recepción largo, escaleras mecánicas al fondo, plantas en macetas y grandes cristaleras con la calle de noche detrás.
-```
-
-### Paso 3 · Nivel 3 · Ascensor (formato distinto: 16:9): no subas ninguna imagen
-
-Guárdala como: **fondo-3**
-
-```
-Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: interior de un ascensor de carga grande de un rascacielos, con paredes de acero cepillado, puertas correderas en el centro de la pared del fondo, un indicador de planta con una flecha (SIN números), pasamanos metálico y botonera. IMPORTANTE: este fondo NO es panorámico, es de proporción 16:9.
-```
-
-### Paso 4 · Nivel 4 · Oficinas: no subas ninguna imagen
-
-Guárdala como: **fondo-4**
-
-```
-Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: planta de oficinas diáfana de día, con hileras de mesas con ordenadores antiguos, impresoras, una fuente de agua, plantas y grandes ventanales con la ciudad al fondo; todo muy gris y ordenado.
-```
-
-### Paso 5 · Nivel 5 · Azotea: no subas ninguna imagen
-
-Guárdala como: **fondo-5**
-
-```
-Pixel art de fondo para un beat 'em up arcade de principios de los 90, vista lateral con el suelo en perspectiva ocupando el TERCIO INFERIOR. Contorno oscuro y sombreado plano, paleta cálida y algo desaturada. Formato PANORÁMICO muy ancho (proporción 4:1). Sin personajes, sin texto y sin logos. Escena: azotea de un rascacielos de Madrid de noche, con un escenario de concierto montado al final (focos, torres de altavoces y pirotecnia de escenario encendida) y el skyline de Madrid iluminado al fondo, visto desde las alturas. NADA de humo, fuego ni daños en el edificio: el fuego es solo pirotecnia de escenario.
 ```
 
 ## Objetos y pantalla de título

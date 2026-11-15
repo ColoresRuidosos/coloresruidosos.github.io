@@ -2,7 +2,7 @@
 
 > Regla: **test en rojo → código → verde → refactor.**
 > Cada tarea cita su F o NFR. Leyenda: ⬜ pendiente · 🟨 en curso · ✅ hecha · ⏳ espera al usuario.
-> Estado al 11 nov 2026: **v0.1 jugable** con arte provisional. `npm test` pasa **42 tests** (incluye bots que superan los 5 niveles y 2 móviles emulados).
+> Estado al 15 nov 2026: **v0.6** con potenciadores (F7). `npm test` pasa **55 tests**.
 
 ## Fase 0 · Decisiones y preparación
 | ID | Tarea | Estado |
@@ -97,6 +97,8 @@
 | T8.2 | Hojas de sprites de los 4 músicos y de objetos (`art/SPRITES-PERSONAJES.md`) | ⏳ el usuario (Gemini o ChatGPT) |
 | T8.3 | Tests y código: pasivas, golpes de firma y SÚPER (`moves.js`, `fighter.js`) | ⬜ tras T8.1 |
 | T8.4 | Tests y código: barra de VOLUMEN (F14) y potenciadores temporales (F7) | ⬜ tras T8.1 |
+| T8.5 | Tests y código: potenciadores temporales (amplificador, pedal, púa de la suerte) y pase de backstage; HUD con icono y barra; dibujo provisional por código (F7 aprobada el 15 nov) | ✅ `tests/game.test.js` |
+| T8.6 | Hoja de objetos de Gemini (`objetos`) → sustituir los dibujos provisionales | ⏳ el amigo |
 | T9.1 | 3 niveles (2 oleadas + sub-jefe) y arena final (F6 v3); los bots los superan | ✅ `tests/final.test.js` · niveles de ~1 min |
 | T9.2 | Tests y código: fases del Presidente, escudo, amplificadores por número de jugadores y aturdimiento (F15) | ✅ `sim/final.js` |
 | T9.3 | Tests y código: rescate de compañeros en la batalla final (F16) | ✅ |

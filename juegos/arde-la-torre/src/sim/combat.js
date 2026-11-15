@@ -1,12 +1,13 @@
 // Combate (F2–F4): cajas de golpe y de daño, carriles, daño, caídas, agarres y lanzamientos.
 import { LANE, HITSTOP, ASSIST_DAMAGE, RISE_INVUL_PLAYER, RISE_INVUL_ENEMY } from './constants.js';
-import { WEAPONS, WEAPON_SWING } from './moves.js';
+import { WEAPONS, WEAPON_SWING, POWERUPS } from './moves.js';
 
 export const sign = (v) => (v > 0 ? 1 : v < 0 ? -1 : 0);
 
 // Rango [x0, x1] que cubre una caja de golpe, según hacia dónde mira el atacante.
 export function boxRange(a, box) {
-  const [r0, r1] = box.reach;
+  const [r0, r] = box.reach;
+  const r1 = r + (a.power && a.power.kind === 'pedal' ? POWERUPS.pedal.reach : 0);   // F7: pedal de distorsión
   if (box.both) return [a.x - r1, a.x + r1];
   return a.face > 0 ? [a.x + r0, a.x + r1] : [a.x - r1, a.x - r0];
 }
@@ -100,7 +101,10 @@ export function hurt(world, t, dir, push = 1.2) {
 const ARMORED = new Set(['ewind', 'charge', 'eatk']);
 
 // Aplica un golpe. `a` puede ser un luchador o un proyectil ({x, team, face, slot}). Devuelve true si conectó.
+export const lucky = (f) => !!(f.power && f.power.kind === 'suerte');   // F7: púa de la suerte
+
 export function applyHit(world, a, t, box, dirOverride = 0) {
+  if (lucky(t)) return false;
   if (t.removed || isDown(t) || t.invul > 0 || (t.team === 'p' && (t.away || t.out))) return false;
   if (t.state === 'special') return false;            // F3: invulnerable durante el especial
   if (t.shield) {                                      // F15: cancelador de ruido del Presidente
@@ -121,6 +125,7 @@ export function applyHit(world, a, t, box, dirOverride = 0) {
   }
   t.blocks = 0;
   let dmg = box.dmg;
+  if (a.power && a.power.kind === 'ampli' && a.team === 'p' && a.def) dmg *= POWERUPS.ampli.dmgMul;   // F7: amplificador
   if (t.team === 'p' && world.opts.assisted) dmg *= ASSIST_DAMAGE;
   t.hp -= dmg;
   const attacker = a.team === 'p' && a.slot !== undefined ? a : null;
@@ -146,7 +151,7 @@ export function applyHit(world, a, t, box, dirOverride = 0) {
 
 // ---- Agarres (F2) ----
 export function canBeGrabbed(t) {
-  return !t.removed && !t.def.boss && t.z === 0 && t.invul <= 0 && !t.grabbedBy &&
+  return !t.removed && !lucky(t) && !t.def.boss && t.z === 0 && t.invul <= 0 && !t.grabbedBy &&
     (t.state === 'idle' || t.state === 'walk' || t.state === 'hurt' || t.state === 'ewind' || t.state === 'block' || t.state === 'run' || t.state === 'attack') &&
     !(t.team === 'p' && (t.away || t.out));
 }

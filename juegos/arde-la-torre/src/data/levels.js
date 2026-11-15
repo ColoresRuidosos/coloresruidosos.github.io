@@ -19,6 +19,7 @@ export const LEVELS = [
       { kind: 'caja', x: 600, dy: 0.2, drop: 'grapadora' },
       { kind: 'papelera', x: 860, dy: 0.8, drop: 'bocadillo' },
       { kind: 'caja', x: 980, dy: 0.3, drop: 'pua' },
+      { kind: 'papelera', x: 520, dy: 0.5, drop: 'ampli' },
     ],
   },
   {
@@ -34,6 +35,8 @@ export const LEVELS = [
       { kind: 'papelera', x: 300, dy: 0.8, drop: 'bocadillo' },
       { kind: 'caja', x: 640, dy: 0.3, drop: 'extintor' },
       { kind: 'papelera', x: 980, dy: 0.6, drop: 'cafe' },
+      { kind: 'caja', x: 470, dy: 0.7, drop: 'pedal' },
+      { kind: 'caja', x: 1120, dy: 0.5, drop: 'pase' },
     ],
   },
   {
@@ -49,6 +52,8 @@ export const LEVELS = [
       { kind: 'caja', x: 300, dy: 0.4, drop: 'silla' },
       { kind: 'papelera', x: 700, dy: 0.8, drop: 'cafe' },
       { kind: 'caja', x: 1000, dy: 0.2, drop: 'bocadillo' },
+      { kind: 'papelera', x: 560, dy: 0.3, drop: 'suerte' },
+      { kind: 'caja', x: 800, dy: 0.6, drop: 'ampli' },
     ],
   },
   {
@@ -62,6 +67,7 @@ export const LEVELS = [
     props: [
       { kind: 'caja', x: 40, dy: 0.9, drop: 'bocadillo' },
       { kind: 'caja', x: 344, dy: 0.1, drop: 'bocadillo' },
+      { kind: 'papelera', x: 192, dy: 0.95, drop: 'pedal' },
     ],
   },
 ];

@@ -74,3 +74,11 @@ export const WEAPON_SWING = { start: 6, active: 4, rec: 14 };
 // Comida (F7): fracción de la vida máxima que recupera.
 export const FOOD = { bocadillo: 0.3, cafe: 0.1 };
 export const PUA_POINTS = 1000;
+
+// Potenciadores temporales (F7, aprobada el 15 nov 2026). Uno a la vez: coger otro sustituye al anterior.
+export const POWERUPS = {
+  ampli: { ticks: 15 * 60, dmgMul: 1.5 },   // amplificador portátil: +50 % de daño
+  pedal: { ticks: 12 * 60, reach: 20 },     // pedal de distorsión: onda corta, +20 px de alcance
+  suerte: { ticks: 6 * 60 },                // púa de la suerte: invulnerable
+};
+export const PASE_LIVES = 1;                // pase de backstage: +1 vida (uno por nivel como mucho)

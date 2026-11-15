@@ -127,13 +127,11 @@ ENEMIGOS = [
    "Fila 1: QUIETO ×2 y CAMINAR ×4.\nFila 2: AGARRAR ×2 (se lanza a agarrar con las dos manos; sujeta a alguien invisible) y LANZAR ×2.\nFila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1."),
 ]
 JEFES = [
-  ("jefe-seguridad", "Jefe 1 · Jefe de Seguridad", "jefe de seguridad enorme, traje negro, gafas de sol, pinganillo y cabeza rapada; 1,2 veces más alto que los demás",
+  ("jefe-seguridad", "Jefe del nivel 1 · Jefe de Seguridad", "jefe de seguridad enorme, traje negro, gafas de sol, pinganillo y cabeza rapada; 1,2 veces más alto que los demás",
    "Fila 1: QUIETO ×2 y CAMINAR ×4.\nFila 2: PUÑETAZO ×2 y EMBESTIDA ×3 (agacha la cabeza y carga como un toro).\nFila 3: LLAMAR REFUERZOS ×1 (habla por el pinganillo señalando), RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1."),
-  ("recepcionista", "Jefe 2 · Recepcionista", "recepcionista de un rascacielos con americana roja, moño, auriculares con micro y un teléfono de sobremesa en la mano",
+  ("recepcionista", "Jefe del nivel 2 · Recepcionista", "recepcionista de un rascacielos con americana roja, moño, auriculares con micro y un teléfono de sobremesa en la mano",
    "Fila 1: QUIETO ×2 y CAMINAR ×4.\nFila 2: LANZAR TELÉFONO ×3 (echa el brazo atrás con el teléfono; lo lanza; el teléfono y su cable PEGADOS a la mano hasta soltarlo) y BOFETADA ×2.\nFila 3: LLAMAR REFUERZOS ×1 (descolgando el teléfono), RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1."),
-  ("tecnico", "Jefe 3 · Técnico de Mantenimiento", "técnico de mantenimiento corpulento con mono naranja, gorra, barba y una caja de herramientas roja",
-   "Fila 1: QUIETO ×2 y CAMINAR ×4.\nFila 2: GOLPE CON LA CAJA ×3 (la levanta y la baja de golpe) y EMBESTIDA ×3.\nFila 3: RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1."),
-  ("director", "Jefe 4 · Director Comercial", "director comercial con traje oscuro de raya diplomática, corbata roja, pelo canoso engominado y un maletín",
+  ("director", "Jefe del nivel 3 · Director Comercial", "director comercial con traje oscuro de raya diplomática, corbata roja, pelo canoso engominado y un maletín",
    "Fila 1: QUIETO ×2 y CAMINAR ×4.\nFila 2: PUÑETAZO ×2, EMBESTIDA ×2 y AGARRE ×2 (agarra del cuello a alguien invisible y lo levanta).\nFila 3: LANZAR ×2, RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1."),
   ("presidente", "Jefe final · Presidente de Silencio S.A.", "presidente de una gran empresa con traje blanco, corbata dorada, pelo plateado, gafas de sol y aire de villano de película de los 70; el más grande de todos",
    "Fila 1: QUIETO ×2 (con los brazos cruzados) y CAMINAR ×4.\nFila 2: PUÑETAZO ×2, EMBESTIDA ×2 y LANZAR UN DISCO DE ORO ×2 (como un frisbee; el disco PEGADO a la mano).\nFila 3: AGARRE ×2, RETROCESO ×1, CAÍDA ×2 y EN EL SUELO ×1."),
@@ -171,21 +169,16 @@ def build():
         secciones.append(dict(titulo=f"{m['nombre']} · {m['apodo']} ({m['papel']})", id=m['id'],
                               nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
-    secciones.append(dict(titulo="Retratos de los 4 (una sola imagen)", id="retratos",
-        nota="Para que los cuatro retratos tengan el mismo estilo. Una sola imagen.",
-        prompts=[("retratos.png", "Sube la imagen «retratos-referencia» que te pasaron y después pega esto", RETRATOS, True)]))
     secciones.append(dict(titulo="Enemigos (empleados de Silencio S.A.)", id="enemigos", nota="No subas ninguna imagen. Solo copia y pega.",
         prompts=[(f"enemigo-{k}.png", f"{n}: no subas ninguna imagen", oficina(f"PERSONAJE: {d}.\nHOJA de exactamente 3 filas:\n{rows}"), False) for k, (i, n, d, rows) in enumerate(ENEMIGOS, 1)]))
     secciones.append(dict(titulo="Jefes", id="jefes", nota="No subas ninguna imagen. Solo copia y pega.",
         prompts=[(f"jefe-{k}.png", f"{n}: no subas ninguna imagen", oficina(f"PERSONAJE: {d}.\nHOJA de exactamente 3 filas:\n{rows}"), False) for k, (i, n, d, rows) in enumerate(JEFES, 1)]))
-    secciones.append(dict(titulo="Fondos de los niveles", id="fondos", nota="No subas ninguna imagen. Solo copia y pega.",
-        prompts=[(f"fondo-{k}.png", f"{n}: no subas ninguna imagen", FONDO + d, False) for k, (f, n, d) in enumerate(FONDOS, 1)]))
     secciones.append(dict(titulo="Objetos y pantalla de título", id="otros", nota="No subas ninguna imagen. Solo copia y pega.",
         prompts=[(("objetos.png", "titulo.png")[k], f"{n}: no subas ninguna imagen", d, False) for k, (f, n, d) in enumerate(OTROS)]))
     return secciones
 
 PASOS = [
-    "Los 4 músicos y los fondos ya están en el juego. Falta: los retratos juntos, los enemigos, los jefes y los objetos.",
+    "Los 4 músicos y los fondos ya están en el juego. Falta: 5 enemigos, 4 jefes y la hoja de objetos (10 imágenes). Los retratos quedan para más adelante.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",
