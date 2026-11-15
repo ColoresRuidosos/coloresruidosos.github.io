@@ -57,7 +57,7 @@ export function createPadClient({ transport, code, sid, now = () => performance.
       case 'llena': set({ status: 'llena' }); stopped = true; if (link) link.c.close(); break;
       case 'error': set({ status: 'cerrada', error: m.msg || '' }); stopped = true; break;
       case 'fase': set({ fase: m.fase }); break;
-      case 'estado': set({ hp: m.hp, maxHp: m.maxHp, lives: m.lives, score: m.score, away: !!m.away, hero: m.hero || st.hero, ready: m.ready ?? st.ready, fase: m.fase || st.fase }); break;
+      case 'estado': set({ hp: m.hp, maxHp: m.maxHp, lives: m.lives, score: m.score, away: !!m.away, hero: m.hero || st.hero, ready: m.ready ?? st.ready, fase: m.fase || st.fase, modo: m.modo || null }); break;
       case 'vibra': onVibrate(m.ms); break;
       default: break;
     }

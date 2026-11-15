@@ -134,6 +134,10 @@ function render(st) {
     $('hp').firstElementChild.style.width = `${st.maxHp ? Math.round((100 * st.hp) / st.maxHp) : 0}%`;
     $('lives').textContent = `×${st.lives}`;
     $('msg').textContent = st.fase === 'resultado' ? 'Mira la pantalla · GOLPE para jugar otra vez' : st.hp <= 0 && st.lives <= 0 ? 'GOLPE para continuar' : '';
+    const concierto = st.modo === 'concierto';               // F18: en el concierto solo cuentan los 3 botones
+    document.body.classList.toggle('concierto', concierto);
+    $('hp').style.visibility = concierto ? 'hidden' : ''; $('lives').style.visibility = concierto ? 'hidden' : '';
+    if (concierto && st.fase !== 'resultado') $('msg').textContent = `Toca con GOLPE, SALTO y ESPECIAL · ${st.score || 0} puntos`;
   } else {
     show('s-pick');
     $('pick-hint').textContent = st.fase === 'juego' ? 'La partida ya empezó: elige y pulsa Listo para entrar' : 'Cuando todos estén listos, empieza en la pantalla';

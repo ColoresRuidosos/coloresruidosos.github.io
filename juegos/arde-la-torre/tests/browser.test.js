@@ -147,22 +147,24 @@ test('móvil sin mando: se juega con los botones táctiles de la propia pantalla
   }
 });
 
-test('T10.5 página del concierto: 2 jugadores en el teclado entran, eligen músico y tocan', { skip: skip || !existsSync('dist/concierto.html'), timeout: 60000 }, async () => {
+test('T10.5 página del concierto: 2 jugadores en el teclado entran, eligen músico, confirman y tocan su parte', { skip: skip || !existsSync('dist/concierto.html'), timeout: 60000 }, async () => {
   const browser = await pw.chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
   try {
     const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
     const errors = []; page.on('pageerror', (e) => errors.push(e.message));
-    await page.goto(`file://${process.cwd()}/dist/concierto.html`);
+    await page.goto(`file://${process.cwd()}/dist/concierto.html?nonet`);
     await page.waitForFunction(() => window.__concierto && window.__concierto.screen === 'inicio');
-    await tapKey(page, 'KeyF');                // J1 entra
-    await tapKey(page, 'KeyK');                // J2 entra
+    await tapKey(page, 'KeyF');                // J1 entra (Antonio)
+    await tapKey(page, 'KeyK');                // J2 entra (Pepe)
     await tapKey(page, 'ArrowRight');          // J2 cambia de músico
-    const types = await page.evaluate(() => window.__concierto.players.map((p) => p.type));
-    assert.equal(types.length, 2); assert.notEqual(types[0], types[1]);
-    await tapKey(page, 'KeyG');                // SALTO: ¡a tocar!
+    const heroes = await page.evaluate(() => window.__concierto.slots.joined().map((s) => s.hero));
+    assert.equal(heroes.length, 2); assert.notEqual(heroes[0], heroes[1]);
+    await tapKey(page, 'KeyF'); await tapKey(page, 'KeyK');   // los dos, listos
     await page.waitForFunction(() => window.__concierto.screen === 'concierto' && window.__concierto.k.started, null, { timeout: 15000 });
-    // J1 toca a tiempo la primera nota
-    const [ms0, lane] = await page.evaluate(() => window.__concierto.k.c.notes[0]);
+    const parts = await page.evaluate(() => Object.values(window.__concierto.k.c.players).map((p) => JSON.stringify(p.notes)));
+    assert.notEqual(parts[0], parts[1], 'cada uno toca la parte de su instrumento');
+    // J1 toca a tiempo su primera nota
+    const [ms0, lane] = await page.evaluate(() => window.__concierto.k.c.players[0].notes[0]);
     await page.waitForFunction((t) => window.__concierto.k.ms >= t - 20, ms0, { timeout: 15000 });
     await tapKey(page, ['KeyF', 'KeyG', 'KeyH'][lane]);
     const p0 = await page.evaluate(() => { const p = window.__concierto.k.c.players[0]; return p.perfect + p.good; });
@@ -170,5 +172,53 @@ test('T10.5 página del concierto: 2 jugadores en el teclado entran, eligen mús
     assert.deepEqual(errors, []);
   } finally {
     await browser.close();
+  }
+});
+
+test('T10.9 concierto suelto con 2 móviles: QR, eligen en el móvil, tocan con sus botones (F18)', { skip: skip || !existsSync('dist/concierto.html'), timeout: 90000 }, async () => {
+  const port = 5196;
+  const srv = await server(port);
+  const browser = await pw.chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+  const errors = [];
+  const watch = (p, who) => { p.on('pageerror', (e) => errors.push(`${who}: ${e.message}`)); };
+  try {
+    const ctx = await browser.newContext();
+    const screen = await ctx.newPage({ viewport: { width: 1152, height: 648 } });
+    watch(screen, 'pantalla');
+    await screen.goto(`http://localhost:${port}/concierto.html?net=loop`);
+    await screen.waitForFunction(() => window.__concierto && window.__concierto.code, null, { timeout: 15000 });
+    const code = await screen.evaluate(() => window.__concierto.code);
+    const url = await screen.evaluate(() => window.__concierto.padUrl);
+    assert.ok(url.includes('/mando/') && url.includes(`s=${code}`), url);
+    const phone = async (sid, hero) => {
+      const p = await ctx.newPage({ ...pw.devices['iPhone 13 landscape'] });
+      watch(p, sid);
+      await p.goto(`http://localhost:${port}/mando/?s=${code}&net=loop&sid=${sid}`);
+      await p.waitForFunction(() => window.__pad && window.__pad.state.status === 'conectado', null, { timeout: 15000 });
+      await p.click(`button[data-hero="${hero}"]`);
+      await p.click('#ready');
+      return p;
+    };
+    const p1 = await phone('movil-uno-1', 'jota');
+    await phone('movil-dos-2', 'dani');
+    if (SHOTS) { await screen.waitForTimeout(300); await screen.screenshot({ path: `${SHOTS}/concierto-sala.png` }); }
+    await screen.waitForFunction(() => window.__concierto.screen === 'concierto' && window.__concierto.k.started, null, { timeout: 20000 });
+    const heroes = await screen.evaluate(() => window.__concierto.players.map((p) => p.type));
+    assert.deepEqual(heroes, ['jota', 'dani']);
+    await p1.waitForSelector('#pad.on', { timeout: 15000 });
+    assert.equal(await p1.evaluate(() => getComputedStyle(document.getElementById('hp')).visibility), 'hidden', 'sin barra de vida en el concierto');
+    // J1 (batería) toca su primera nota con el botón del móvil
+    const [ms0, lane] = await screen.evaluate(() => window.__concierto.k.c.players[0].notes[0]);
+    await screen.waitForFunction((t) => window.__concierto.k.ms >= t - 40, ms0, { timeout: 15000 });
+    const btn = await p1.$(['#b-golpe', '#b-salto', '#b-especial'][lane]);
+    const box = await btn.boundingBox();
+    await p1.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await p1.mouse.down(); await p1.waitForTimeout(60); await p1.mouse.up();
+    await screen.waitForFunction(() => { const p = window.__concierto.k.c.players[0]; return p.perfect + p.good >= 1; }, null, { timeout: 3000 });
+    if (SHOTS) { await screen.waitForTimeout(2000); await screen.screenshot({ path: `${SHOTS}/concierto-moviles.png` }); await p1.screenshot({ path: `${SHOTS}/concierto-mando.png` }); }
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+    srv.kill();
   }
 });

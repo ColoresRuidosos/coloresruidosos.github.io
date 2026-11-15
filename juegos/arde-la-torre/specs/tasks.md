@@ -110,5 +110,9 @@
 | T10.2 | Tests y código: `sim/ritmo.js`: ventanas de ±60 y ±120 ms, puntos, racha ×2/×3/×4, fallos, medidor PÚBLICO y fin (F17) | ✅ `tests/ritmo.test.js` |
 | T10.3 | Pantalla `concierto` tras vencer al Presidente: audio con el reloj de Web Audio, autopistas por jugador, banda en el escenario, puntos sumados a los resultados; el bot toca para las pruebas | ✅ |
 | T10.5 | Página aparte con solo el concierto (`concierto.html` → `dist/concierto.html`): elegir músico, tocar y resultado (pedido del 15 nov) | ✅ `tests/browser.test.js` |
+| T10.6 | `cancion.py` v2: una parte por instrumento (batería, bajo, guitarra y voz), densidad creciente | ✅ `tests/ritmo.test.js` |
+| T10.7 | Tests y código: partes por jugador, «¡TODOS A UNA!» y puntuación de banda | ✅ `tests/ritmo.test.js` |
+| T10.8 | Render: público masivo (filas que botan, brazos, luces de móvil, confeti) y nombre del instrumento | ✅ revisado en capturas |
+| T10.9 | Concierto suelto con móviles (F18): sala, QR, elección en el móvil y modo «concierto» en el mando | ✅ `tests/browser.test.js` |
 | T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |

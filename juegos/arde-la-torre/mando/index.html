@@ -45,6 +45,13 @@
   #b-golpe { width: 128px; height: 128px; right: 22px; bottom: 26px; background: #ff4d4d; }
   #b-salto { width: 96px; height: 96px; right: 160px; bottom: 18px; background: #3fa9ff; }
   #b-especial { width: 92px; height: 92px; right: 60px; bottom: 166px; background: #ffd23f; font-size: 13px; }
+  /* F18: en el concierto, tres botones grandes en fila, en el orden de los carriles, y sin joystick */
+  body.concierto #stickzone { display: none; }
+  body.concierto #btns { left: 0; width: auto; }
+  body.concierto .b { border-radius: 28px; width: 30vw !important; height: 58vh !important; bottom: 7vh !important; right: auto !important; font-size: 18px; }
+  body.concierto #b-golpe { left: 3vw; }
+  body.concierto #b-salto { left: 35vw; }
+  body.concierto #b-especial { left: 67vw; font-size: 18px; }
   #msg { position: absolute; top: 60px; left: 0; right: 0; color: var(--warn); font-size: 14px; pointer-events: none; }
   #rotate { position: fixed; inset: 0; background: var(--bg); display: none; align-items: center; justify-content: center; flex-direction: column; gap: 10px; z-index: 5; text-align: center; padding: 20px; }
   @media (orientation: portrait) { body.playing #rotate { display: flex; } }

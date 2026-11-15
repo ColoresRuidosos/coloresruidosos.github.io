@@ -14,10 +14,11 @@ const FEEDBACK = { perfect: ['¡PERFECTO!', '#ffd23f'], good: ['¡BIEN!', '#3fdc
 
 function laneX(cx, lane) { return Math.round(cx - LANE_W * 1.5 + lane * LANE_W); }
 
-function highway(ctx, c, p, cx, ms, opts, bpm) {
+function highway(ctx, c, p, cx, ms, opts, bpm, instrument) {
   const x0 = laneX(cx, 0), w = LANE_W * 3;
   ctx.fillStyle = 'rgba(8,6,16,0.62)'; ctx.fillRect(x0 - 2, TOP, w + 4, H - TOP - 14);
   ctx.fillStyle = SLOT_COLORS[p.slot]; ctx.fillRect(x0 - 2, TOP, w + 4, 2);
+  if (instrument) drawText(ctx, instrument, cx, H - 23, { color: SLOT_COLORS[p.slot], align: 'center' });
   // líneas de compás que bajan
   const beat = 60000 / bpm;
   ctx.fillStyle = 'rgba(255,255,255,0.08)';
@@ -34,8 +35,8 @@ function highway(ctx, c, p, cx, ms, opts, bpm) {
   }
   // notas
   const pr = c.players[p.slot];
-  for (let i = pr.next; i < c.notes.length; i++) {
-    const [t, l] = c.notes[i];
+  for (let i = pr.next; i < pr.notes.length; i++) {
+    const [t, l] = pr.notes[i];
     if (t > ms + LOOK_MS) break;
     if (pr.done[i]) continue;
     const y = Math.round(HIT_Y - (t - ms) * (HIT_Y - TOP) / LOOK_MS);
@@ -57,7 +58,7 @@ function highway(ctx, c, p, cx, ms, opts, bpm) {
     drawText(ctx, txt, cx, HIT_Y - 26 - Math.round(k * 6), { color: col, align: 'center' });
   }
   drawText(ctx, String(pr.score).padStart(6, '0'), cx, TOP + 5, { color: SLOT_COLORS[p.slot], align: 'center' });
-  if (pr.combo >= 5) drawText(ctx, `RACHA ${pr.combo}${multiplier(pr.combo) > 1 ? ` ×${multiplier(pr.combo)}` : ''}`, cx, TOP + 14, { color: '#fff', align: 'center' });
+  if (pr.combo >= 5) drawText(ctx, `RACHA ${pr.combo}${multiplier(pr.combo) > 1 ? ` X${multiplier(pr.combo)}` : ''}`, cx, TOP + 14, { color: '#fff', align: 'center' });
 }
 
 // Banda en el escenario: cada músico alterna dos poses al ritmo; si acaba de acertar, da un golpe de guitarra.
@@ -65,7 +66,7 @@ function band(ctx, players, c, ms, bpm, centers) {
   const beat = Math.floor(ms / (60000 / bpm));
   players.forEach((p, i) => {
     const n = players.length, side = i < n / 2 ? -1 : 1;
-    const x = Math.max(16, Math.min(W - 16, centers[i] + side * (n === 1 ? 70 : 44))), y = 196;
+    const x = Math.max(16, Math.min(W - 16, centers[i] + side * (n === 1 ? 70 : 44))), y = 184;
     const pr = c.players[p.slot];
     const hit = pr.last && pr.last.kind !== 'miss' && ms - pr.last.ms < 160;
     const pose = hit ? 'guit1' : ms < 0 ? 'idle0' : `win${beat % 2}`;
@@ -74,7 +75,77 @@ function band(ctx, players, c, ms, bpm, centers) {
   });
 }
 
-export function drawConcert(ctx, { concert: c, ms, level, players, bpm, opts = {}, title, ending }) {
+// ---- Público masivo (F17 v2): cuatro filas en primer plano que botan al pulso, con contraluz de los focos.
+// Cuanto más alto el medidor PÚBLICO, más brazos en alto, luces de móvil y, por encima del 80 %, confeti. Sin destellos rápidos.
+const SKIN = ['#6b4a3a', '#7a5444', '#5a3c30', '#8a6250', '#4a3028'];
+const HAIR = ['#120c18', '#2a1a14', '#3a2418', '#1a1420', '#5a4030', '#120c18'];
+const SHIRT = ['#1c1626', '#3a1e2c', '#151320', '#2c2440', '#4a1a22', '#1e2a3a', '#2a2a2a', '#5a2a1a'];
+const RIM = ['#ffb36b', '#ff6a8a', '#b38bff'];
+function rnd(i) { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+const ROWS = [{ n: 34, y: H - 40, s: 0.9 }, { n: 28, y: H - 30, s: 1.2 }, { n: 22, y: H - 18, s: 1.6 }, { n: 16, y: H - 2, s: 2.2 }];
+const FANS = [];
+ROWS.forEach((r, row) => {
+  for (let i = 0; i < r.n; i++) FANS.push({ row, s: r.s, y: r.y, x: Math.round((i + rnd(row * 100 + i) * 0.9 - 0.2) * (W + 20) / r.n) - 10,
+    k: rnd(row * 300 + i), j: rnd(row * 500 + i), h: rnd(row * 700 + i) });
+});
+const CONFETTI = Array.from({ length: 50 }, (_, i) => ({ x: rnd(900 + i) * W, v: 0.02 + rnd(950 + i) * 0.03, c: ['#ff4d4d', '#3fa9ff', '#ffd23f', '#3fdc7a', '#fff'][i % 5], d: rnd(990 + i) * 6 }));
+
+// Cada persona es una silueta oscura (más oscura cuanto más cerca) con un filo de luz de los focos.
+const TONES = ['#2a1a36', '#20142c', '#170e20', '#0e0816'];
+function fan(ctx, f, ms, pulse, mood) {
+  const s = f.s, tone = TONES[f.row];
+  const hop = Math.round(pulse * (1 + f.row) * (f.k > 0.25 ? 1 : 0.3) * (0.4 + mood));
+  const x = f.x + Math.round(Math.sin(ms / 800 + f.j * 6) * s), y = f.y - hop;
+  const hw = Math.round(6 * s), headR = 4 * s, shoulderY = y - Math.round(8 * s);
+  const rim = RIM[Math.floor(f.h * RIM.length)];
+  ctx.fillStyle = tone; ctx.strokeStyle = tone; ctx.lineCap = 'round';
+  // brazos en alto, en V, que se balancean
+  if (f.k < 0.15 + mood * 0.7) {
+    const sway = Math.sin(ms / 420 + f.j * 9) * 0.25;
+    ctx.lineWidth = Math.max(2, 2.2 * s);
+    const arm = (side) => {
+      const ang = -Math.PI / 2 + side * (0.35 + sway * side);
+      const ex = x + side * hw * 0.8 + Math.cos(ang) * 15 * s, ey = shoulderY + Math.sin(ang) * 15 * s;
+      ctx.beginPath(); ctx.moveTo(x + side * hw * 0.8, shoulderY + 2); ctx.lineTo(ex, ey); ctx.stroke();
+      ctx.beginPath(); ctx.arc(ex, ey, 1.6 * s, 0, Math.PI * 2); ctx.fill();
+      return [ex, ey];
+    };
+    const [hx, hy] = arm(-1);
+    if (f.j > 0.45) arm(1);
+    if (f.h < mood * 0.55) {                    // luz de móvil o mechero: un punto que brilla despacio
+      ctx.globalAlpha = 0.65 + 0.35 * Math.sin(ms / 900 + f.j * 7);
+      ctx.fillStyle = f.j > 0.75 ? '#ffcf6a' : '#f2f6ff';
+      ctx.fillRect(Math.round(hx - 1), Math.round(hy - 2.5 * s), Math.max(2, Math.round(1.6 * s)), Math.max(2, Math.round(2.4 * s)));
+      ctx.globalAlpha = 1; ctx.fillStyle = tone;
+    }
+  }
+  // cuerpo: hombros redondeados y cabeza
+  ctx.beginPath(); ctx.ellipse(x, shoulderY + 10 * s, hw + 1, 12 * s, 0, Math.PI, 0); ctx.fill();
+  ctx.fillRect(x - hw - 1, Math.round(shoulderY + 10 * s) - 1, hw * 2 + 2, Math.round(30 * s));
+  ctx.beginPath(); ctx.ellipse(x, shoulderY - headR * 0.55, headR * 0.85, headR, 0, 0, Math.PI * 2); ctx.fill();
+  // filo de luz de los focos en la coronilla y un hombro
+  ctx.fillStyle = rim; ctx.globalAlpha = 0.35 + mood * 0.35;
+  ctx.fillRect(Math.round(x - headR * 0.45), Math.round(shoulderY - headR * 1.5), Math.max(2, Math.round(headR * 0.9)), Math.max(1, Math.round(s * 0.8)));
+  ctx.fillRect(Math.round(x + (f.j > 0.5 ? 1 : -1) * hw * 0.3 - hw * 0.35), Math.round(shoulderY + 1), Math.round(hw * 0.7), Math.max(1, Math.round(s * 0.8)));
+  ctx.globalAlpha = 1;
+}
+
+function crowd(ctx, c, ms, bpm, opts) {
+  const beatPos = (ms / (60000 / bpm)) % 1;
+  const pulse = ms > 0 ? Math.max(0, 1 - beatPos * 2.5) : 0;      // salto en cada pulso
+  const mood = ms > 0 ? c.crowd : 0.3;
+  // masa oscura de fondo, para que no se vea el suelo entre la gente
+  const g0 = ctx.createLinearGradient(0, H - 52, 0, H);
+  g0.addColorStop(0, 'rgba(14,8,22,0)'); g0.addColorStop(0.35, 'rgba(14,8,22,0.9)'); g0.addColorStop(1, '#0a0610');
+  ctx.fillStyle = g0; ctx.fillRect(0, H - 52, W, 52);
+  for (const f of FANS) fan(ctx, f, ms, pulse, mood);
+  if (c.crowd > 0.8 && ms > 0 && opts.flashes !== false) for (const p of CONFETTI) {
+    const y = ((ms * p.v + p.d * 40) % (H + 20)) - 10;
+    ctx.fillStyle = p.c; ctx.fillRect(Math.round(p.x + Math.sin(ms / 500 + p.d) * 6), Math.round(y), 2, 3);
+  }
+}
+
+export function drawConcert(ctx, { concert: c, ms, level, players, bpm, opts = {}, title, ending, instruments = {}, unisonAt = -1e9 }) {
   const bg = getBackground(level);
   ctx.drawImage(bg.near, 0, 0);
   // luces de escenario: barridos lentos cuya intensidad sigue al público
@@ -89,10 +160,16 @@ export function drawConcert(ctx, { concert: c, ms, level, players, bpm, opts = {
   const n = players.length;
   const centers = players.map((_, i) => Math.round(W / 2 + (i - (n - 1) / 2) * Math.min(92, 360 / n)));
   band(ctx, players, c, ms, bpm, centers);
-  players.forEach((p, i) => highway(ctx, c, p, centers[i], ms, opts, bpm));
+  crowd(ctx, c, ms, bpm, opts);
+  players.forEach((p, i) => highway(ctx, c, p, centers[i], ms, opts, bpm, instruments[p.type]));
+  if (ms - unisonAt < 900) {
+    const k = (ms - unisonAt) / 900;
+    drawText(ctx, '¡TODOS A UNA!', W / 2, 60 - Math.round(k * 8), { color: '#ffd23f', scale: 2, align: 'center', shadow: '#a3242c' });
+  }
   // cabecera: canción, progreso y medidor del público
   ctx.fillStyle = 'rgba(8,6,16,0.75)'; ctx.fillRect(0, 0, W, 24);
   drawText(ctx, title, 6, 4, { color: '#ffd23f' });
+  if (players.length > 1) drawText(ctx, `BANDA ${String(c.bandScore).padStart(7, '0')}`, W / 2 + 34, 15, { color: '#fff', align: 'center' });
   ctx.fillStyle = '#2a2436'; ctx.fillRect(6, 15, 140, 3);
   ctx.fillStyle = '#cfc9e0'; ctx.fillRect(6, 15, Math.round(140 * Math.max(0, Math.min(1, ms / c.durationMs))), 3);
   drawText(ctx, 'PÚBLICO', W - 108, 4, { color: '#fff' });

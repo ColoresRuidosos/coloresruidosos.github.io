@@ -230,6 +230,15 @@ Al vencerlo, «¡A LA AZOTEA!», el **concierto final** (F17) y la pantalla de r
 - Al terminar, los puntos se suman a los de cada jugador y se ven en los resultados, con su precisión.
 - Accesibilidad: sin destellos rápidos; con «destellos» desactivado, los aciertos no parpadean.
 
+**F17 v2** (15 nov 2026, el usuario: «que el escenario esté lleno de gente y se sienta la vibra de concierto masivo»; en el multijugador eligió «cada uno toca su instrumento» y «móviles en el concierto suelto»):
+- **Cada músico toca su parte**: notas distintas según el instrumento, sacadas de la banda de frecuencias de cada uno: **Jota, batería** (bombo → GOLPE, caja → SALTO, platos → ESPECIAL); **Pepe, bajo**, y **Dani, guitarra** (los carriles van de nota grave a aguda); **Antonio, voz** (de grave a aguda). Encima de cada autopista se ve el instrumento. Si dos eligen el mismo músico, tocan la misma parte.
+- La dificultad sube a lo largo de la canción: de 3 notas por compás al principio a unas 6 en el clímax (la batería, una más).
+- **«¡TODOS A UNA!»**: en los golpes en los que todas las partes tienen nota a la vez (2 o más jugadores), si todos aciertan, +50 puntos para cada uno, el público sube y se oye un rugido.
+- **Puntuación de banda**: la suma de todos, arriba en el centro.
+- **Público masivo**: varias filas de público en primer plano que botan al pulso; cuanto más alto el medidor, más brazos en alto, más luces de móviles y, por encima del 80 %, confeti. Focos más intensos. Todo sin destellos rápidos.
+
+**F18 Concierto suelto con móviles** (página `concierto.html`): la misma sala con QR y código que el juego completo. Cada persona escanea, elige músico en su móvil y pulsa «¡Listo!»; cuando todos los conectados están listos, empieza la canción. En el móvil se ven los tres botones (sin vida ni vidas). También se puede jugar con teclado, mandos y táctil, mezclados con móviles. En el enlace de Claude no hay móviles (bloquea WebRTC): solo funcionan en la página publicada en la web.
+
 ## 4. Flujos
 
 ### 4.1 Flujo principal (2–4 personas)

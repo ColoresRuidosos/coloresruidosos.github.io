@@ -255,9 +255,9 @@ function stepGame() {
 function startConcert() {
   const ps = app.world.fighters.filter((f) => f.team === 'p' && !f.removed).sort((a, b) => a.slot - b.slot);
   app.concert = {
-    c: createConcert({ notes: CANCION.NOTES, slots: ps.map((p) => p.slot), durationMs: CANCION.DURATION_MS }),
+    c: createConcert({ parts: Object.fromEntries(ps.map((p) => [p.slot, CANCION.PARTS[p.type]])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS }),
     players: ps.map((p) => ({ slot: p.slot, type: p.type, palette: p.palette })),
-    started: false, t0: 0, audio: false, ms: -500, end: 0,
+    started: false, t0: 0, audio: false, ms: -500, end: 0, unisonAt: -1e9,
   };
   go('concierto');
 }
@@ -280,7 +280,7 @@ function stepConcertScreen() {
     const s = slots.get(p.slot);
     if (BOT) {   // el bot toca a tiempo (pruebas y capturas)
       const pr = c.players[p.slot];
-      for (let i = pr.next; i < c.notes.length && c.notes[i][0] <= k.ms + 8; i++) if (!pr.done[i]) pressLane(c, p.slot, c.notes[i][1], k.ms);
+      for (let i = pr.next; i < pr.notes.length && pr.notes[i][0] <= k.ms + 8; i++) if (!pr.done[i]) pressLane(c, p.slot, pr.notes[i][1], k.ms);
       continue;
     }
     if (!s) continue;
@@ -289,6 +289,7 @@ function stepConcertScreen() {
       if (e[b] && pressLane(c, p.slot, lane, k.ms) === 'perfect' && room && s.kind === 'movil') room.sendTo(p.slot, { t: 'vibra', ms: 25 });
     });
   }
+  for (const ev of c.events) if (ev.type === 'unison') { k.unisonAt = k.ms; audio.sfx('cheer'); }
   c.events.length = 0;
   if (c.done) {
     if (!k.end) k.end = app.t;
@@ -397,7 +398,7 @@ function draw() {
     case 'concierto': {
       const k = app.concert;
       drawConcert(ctx, { concert: k.c, ms: k.started ? k.ms : -1000, level: app.world.level, players: k.players, bpm: CANCION.BPM, opts,
-        title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done });
+        title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: CANCION.INSTRUMENTS, unisonAt: k.unisonAt });
       break;
     }
     case 'resultado': drawResults(ctx, { ...app.results, t: app.t }); break;

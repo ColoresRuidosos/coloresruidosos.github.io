@@ -64,6 +64,7 @@ export function createAudio() {
     shoot: (t) => tone(t, 900, 0.08, { type: 'triangle', gain: 0.12, to: 500, dest: sfxGain }),
     join: (t) => { tone(t, midiHz(72), 0.08, { gain: 0.15, dest: sfxGain }); tone(t + 0.08, midiHz(79), 0.12, { gain: 0.15, dest: sfxGain }); },
     menu: (t) => tone(t, midiHz(84), 0.05, { gain: 0.12, dest: sfxGain }),
+    cheer: (t) => { hiss(t, 0.9, { gain: 0.35, hp: 600, dest: sfxGain }); hiss(t + 0.15, 0.7, { gain: 0.25, hp: 1500, dest: sfxGain }); },   // rugido del público
     clear: (t) => { [72, 76, 79, 84].forEach((n, i) => tone(t + i * 0.12, midiHz(n), 0.2, { gain: 0.18, dest: sfxGain })); },
   };
 
