@@ -413,6 +413,31 @@ Fila 3 ×1: la misma diana CAÍDA (de canto, tumbada).
 Fila 4 ×1: una BANCA de parque de madera con patas de hierro forjado, de lado. Larga como 1,5 veces el protagonista.
 ```
 
+### H. `pepe-traje-alba.png` — El vestuario de Pepe en *Alba* (mismo formato que `pepe-trajes-1.jpg` y `-2.png`)
+Adjunta `art/source/pepe-sheet.jpg` **y** `art/source/pepe-trajes-2.png`: la segunda le enseña el formato de 4 poses en fila.
+```
+[BLOQUE COMÚN]
+PERSONAJE: EXACTAMENTE el protagonista de la hoja adjunta (misma cara, pelo, barba y proporción chibi) con un VESTUARIO NUEVO para un mundo de amanecer y nostalgia: camisa blanca de lino de manga larga arremangada hasta el codo, chaleco de punto color crema, pantalón claro color arena, botines cafés y una bufanda ligera dorada al cuello (SIN el pañuelo rojo). Lleva su micrófono de mano. Colores cálidos y luminosos.
+Una sola fila con 4 poses, igual que la hoja de trajes adjunta: REPOSO, CORRER, SALTAR, LANZAR (lanza el micrófono hacia delante con el cable).
+```
+
+### I. `pepe-alba-poses.png` — Poses nuevas del paseo (con el vestuario de H)
+Adjunta `art/source/pepe-sheet.jpg` y la imagen que salió de H.
+```
+[BLOQUE COMÚN]
+PERSONAJE: el protagonista con el vestuario de la imagen adjunta (camisa blanca, chaleco crema, bufanda dorada).
+Fila 1: SENTARSE ×2 (se sienta en una banca invisible, relajado; luego mira al cielo con una sonrisa tranquila).
+Fila 2: MIRAR UN RECUERDO ×2 (sostiene una polaroid con las dos manos y la mira con nostalgia; luego la baja y sonríe).
+Fila 3: CAMINAR CONTRA EL VIENTO ×4 (inclinado hacia delante, la bufanda y el pelo ondean hacia atrás, paso firme).
+Fila 4: MIRAR EL AMANECER ×2 (de pie, con una mano haciendo visera sobre los ojos; luego los brazos abiertos).
+Fila 5: TOMARSE LA FOTO ×2 (levanta una cámara instantánea hacia sí mismo y sonríe; luego enseña la polaroid recién salida).
+```
+**Se recorta con:**
+```
+python3 scripts/slice_sheet.py art/source/alba/pepe-alba-poses.png pepeAlba 48 2,2,4,2,2 sentarse:2,mirarRecuerdo:2,viento:4,amanecer:2,foto:2
+```
+y el traje H con `scripts/slice_costumes.py`, como una fila nueva (`alba`).
+
 ### G. Escenarios de *Alba* (escena completa; ChatGPT o Gemini)
 **Bloque común para escenarios** (pégalo al principio):
 ```

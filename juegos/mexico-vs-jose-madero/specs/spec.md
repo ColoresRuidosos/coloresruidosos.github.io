@@ -730,7 +730,11 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 
 - **«Los de septiembre»:** reutilizan los invitados de *Noche* **sin disfraz** (animación `uwalk`).
 - **Recuerdos de los jefes (fase 1):** son los sprites que ya existen (Flash-Bot y Enmascarado), pasados a sepia al dibujarlos.
-- **Pepe:** usa el traje **clásico** (camisa blanca), que ya existe en la Galería.
+- **Pepe (v10.4, pedido del usuario el 15 nov 2026): vestuario nuevo en *Alba*.**
+  - Propuesta, que el usuario puede cambiar: camisa blanca de lino arremangada, chaleco de punto crema, pantalón arena, botines cafés y bufanda dorada, sin el pañuelo rojo.
+  - Es el traje automático del mundo y entra a la Galería como el 9.º traje.
+  - Poses nuevas del paseo: sentarse, mirar un recuerdo, caminar contra el viento, mirar el amanecer y tomarse la foto.
+  - Prompts: §0g H e I.
 - **Hoja de concepto:** `art/source/alba/concepto-sprites.png` (✅ diseño aprobado el 15 nov 2026).
 - **Arte final con Gemini:** el usuario vio genéricos los sprites hechos por código y pidió **rehacerlos con Gemini**, con el mismo diseño. Los prompts están en `art/PROMPTS-GEMINI.md` §0g, junto con los escenarios y las escenas. Mientras no lleguen, el juego usa los sprites de código como respaldo.
 
