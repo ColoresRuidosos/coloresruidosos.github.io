@@ -6,6 +6,7 @@ import { LEVELS } from '../data/levels.js';
 import { createPlayer, stepPlayer, stepEnemy, NEUTRAL } from './fighter.js';
 import { activeBox, overlaps, applyHit, boxRange, THROWN_HIT, setState, releaseGrab, releaseTokens } from './combat.js';
 import { setupLevel, updateLevel, hitProps, activePlayers, livePlayers } from './level.js';
+import { updateFinal, rescuable, updateRescue, RESCUE_WINDOW } from './final.js';
 
 export { NEUTRAL };
 
@@ -130,7 +131,7 @@ function processShots(world) {
   world.shots = world.shots.filter((s) => s.ttl > 0 && s.x > world.camX - 60 && s.x < world.camX + W + 60);
 }
 
-function processDeaths(world) {
+function processDeaths(world, inputs = []) {
   for (const f of world.fighters) {
     if (f.state !== 'dead') continue;
     if (f.team === 'e') {
@@ -138,7 +139,10 @@ function processDeaths(world) {
       continue;
     }
     if (f.out) continue;
-    if (f.t === 60) {
+    // Batalla final: 3 s en el suelo esperando a que un compañero lo levante (F16).
+    const canRescue = rescuable(world, f);
+    if (canRescue && f.t >= 20 && f.t < RESCUE_WINDOW && updateRescue(world, f, inputs)) continue;
+    if (f.t === (canRescue ? RESCUE_WINDOW : 60)) {
       if (!world.opts.assisted) f.lives--;
       if (f.lives > 0) respawn(world, f);
       else { f.out = true; f.contT = CONTINUE_TICKS; world.events.push({ type: 'out', slot: f.slot }); }
@@ -175,9 +179,10 @@ export function tick(world, inputs = []) {
   }
   processAttacks(world);
   processShots(world);
-  processDeaths(world);
+  processDeaths(world, inputs);
   processContinues(world, inputs);
   updateLevel(world);
+  updateFinal(world);
   if (world.cleared && world.clearT >= 150) world.done = true;
   return world;
 }

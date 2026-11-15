@@ -1,6 +1,7 @@
 // Nivel (F6): cámara que solo avanza, oleadas que la bloquean, aparición de enemigos con escalado (F5) y objetos (F7).
 import { W, FLOOR_TOP, FLOOR_BOTTOM, COUNT_SCALE, HP_SCALE, MAX_ON_SCREEN, CAM_MARGIN } from './constants.js';
 import { createEnemy } from './fighter.js';
+import { hitAmp } from './final.js';
 
 export const activePlayers = (world) => world.fighters.filter((f) => f.team === 'p' && !f.removed);
 export const livePlayers = (world) => activePlayers(world).filter((f) => !f.out && !f.away && f.state !== 'dead');
@@ -122,6 +123,7 @@ export function hitProps(world, a, box, rangeFn) {
     if (p.broken || Math.abs(p.y - a.y) > 12 || a.z + box.z[0] > 32) continue;   // cajas de ~32 px de alto
     const [x0, x1] = rangeFn(a, box);
     if (x1 < p.x - 10 || x0 > p.x + 10) continue;
+    if (p.kind === 'amp') { hitAmp(world, a, p); continue; }   // amplificadores de la final (F15)
     p.broken = true;
     if (p.drop) world.items.push({ id: world.nextId++, kind: p.drop, x: p.x, y: p.y });
     world.events.push({ type: 'break', kind: p.kind, x: p.x, y: p.y });

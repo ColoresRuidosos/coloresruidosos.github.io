@@ -93,4 +93,8 @@
 | T8.2 | Hojas de sprites de los 4 músicos y de objetos (`art/SPRITES-PERSONAJES.md`) | ⏳ el usuario (Gemini o ChatGPT) |
 | T8.3 | Tests y código: pasivas, golpes de firma y SÚPER (`moves.js`, `fighter.js`) | ⬜ tras T8.1 |
 | T8.4 | Tests y código: barra de VOLUMEN (F14) y potenciadores temporales (F7) | ⬜ tras T8.1 |
+| T9.1 | 3 niveles (2 oleadas + sub-jefe) y arena final (F6 v3); los bots los superan | ✅ `tests/final.test.js` · niveles de ~1 min |
+| T9.2 | Tests y código: fases del Presidente, escudo, amplificadores por número de jugadores y aturdimiento (F15) | ✅ `sim/final.js` |
+| T9.3 | Tests y código: rescate de compañeros en la batalla final (F16) | ✅ |
+| T9.4 | Render: amplificadores apagados y encendidos, halo del escudo, avisos y «¡LEVÁNTALO!» | ✅ revisado en capturas |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` | ⏸ hasta tener la respuesta de la banda (spec §7) |

@@ -99,6 +99,9 @@ function stepCommon(world, f) {
     case 'victory':
       f.t++;
       return true;
+    case 'stun':                       // aturdido al romperse el escudo (F15)
+      if (++f.t >= (f.stunDur || 120)) setState(f, 'idle');
+      return true;
     default:
       return false;
   }

@@ -175,6 +175,12 @@ function handleWorldEvents(w) {
       case 'shoot': audio.sfx('shoot'); break;
       case 'boss': audio.play(BOSS_SONG); break;
       case 'clear': audio.sfx('clear'); break;
+      case 'ampHit': audio.sfx('block'); break;
+      case 'ampOn': audio.sfx('pickup'); break;
+      case 'shield': case 'shieldHit': audio.sfx('block'); break;
+      case 'shieldBreak': audio.sfx('clear'); break;
+      case 'enraged': audio.sfx('ko'); break;
+      case 'rescue': audio.sfx('join'); if (room) { room.sendTo(e.slot, { t: 'vibra', ms: 150 }); room.sendTo(e.by, { t: 'vibra', ms: 80 }); } break;
       default: break;
     }
   }

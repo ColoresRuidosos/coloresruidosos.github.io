@@ -158,17 +158,19 @@ function azotea(level) {
   // maquinaria y antenas
   for (let x = 60; x < width - 500; x += 260) { rect(c, '#6b6575', x, HORIZON - 40, 60, 40); rect(c, '#4a4552', x + 6, HORIZON - 34, 20, 20); c.strokeStyle = '#2a2632'; c.beginPath(); c.arc(x + 16, HORIZON - 24, 8, 0, Math.PI * 2); c.stroke(); rect(c, '#8a8494', x + 44, HORIZON - 70, 2, 30); }
   // escenario al final: estructura, focos, altavoces y pirotecnia de escenario
-  const sx = width - 520;
-  rect(c, '#1b1720', sx, HORIZON - 12, 520, 12);
-  for (const tx of [sx + 20, sx + 480]) { rect(c, '#8a8a92', tx, 10, 6, HORIZON - 10); for (let y = 14; y < HORIZON; y += 10) { c.strokeStyle = '#8a8a92'; c.beginPath(); c.moveTo(tx, y); c.lineTo(tx + 6, y + 10); c.stroke(); } }
-  rect(c, '#8a8a92', sx + 20, 10, 466, 6);
+  // En la arena final (una pantalla) el escenario ocupa todo el fondo.
+  const sw = level.arena ? W + 40 : 520;
+  const sx = level.arena ? -20 : width - 520;
+  rect(c, '#1b1720', sx, HORIZON - 12, sw, 12);
+  for (const tx of [sx + 20, sx + sw - 40]) { rect(c, '#8a8a92', tx, 10, 6, HORIZON - 10); for (let y = 14; y < HORIZON; y += 10) { c.strokeStyle = '#8a8a92'; c.beginPath(); c.moveTo(tx, y); c.lineTo(tx + 6, y + 10); c.stroke(); } }
+  rect(c, '#8a8a92', sx + 20, 10, sw - 54, 6);
   const lights = ['#ff4d4d', '#ffd23f', '#3fa9ff', '#ff4d4d', '#3fdc7a', '#ffd23f'];
-  for (let k = 0; k < 12; k++) { const lx = sx + 40 + k * 38; rect(c, '#222', lx, 16, 10, 8); c.fillStyle = `${lights[k % 6]}22`; c.beginPath(); c.moveTo(lx, 24); c.lineTo(lx + 10, 24); c.lineTo(lx + 40, HORIZON); c.lineTo(lx - 30, HORIZON); c.fill(); }
-  for (const ax of [sx + 34, sx + 440]) { rect(c, '#111', ax, HORIZON - 60, 40, 48); for (let k = 0; k < 3; k++) { c.fillStyle = '#2a2a2a'; c.beginPath(); c.arc(ax + 20, HORIZON - 50 + k * 15, 6, 0, Math.PI * 2); c.fill(); } }
-  for (const px of [sx + 90, sx + 400]) { rect(c, '#333', px, HORIZON - 16, 12, 6); }
+  for (let k = 0; k < Math.floor((sw - 60) / 38); k++) { const lx = sx + 40 + k * 38; rect(c, '#222', lx, 16, 10, 8); c.fillStyle = `${lights[k % 6]}22`; c.beginPath(); c.moveTo(lx, 24); c.lineTo(lx + 10, 24); c.lineTo(lx + 40, HORIZON); c.lineTo(lx - 30, HORIZON); c.fill(); }
+  for (const ax of [sx + 34, sx + sw - 80]) { rect(c, '#111', ax, HORIZON - 60, 40, 48); for (let k = 0; k < 3; k++) { c.fillStyle = '#2a2a2a'; c.beginPath(); c.arc(ax + 20, HORIZON - 50 + k * 15, 6, 0, Math.PI * 2); c.fill(); } }
+  for (const px of [sx + 90, sx + sw - 120]) { rect(c, '#333', px, HORIZON - 16, 12, 6); }
   // suelo de la azotea
   floorTiles(c, width, '#3d3846', '#332f3b', 44, 6);
-  return { far, near, tint: null, fireAt: [sx + 96, sx + 406] };
+  return { far, near, tint: null, fireAt: [sx + 96, sx + sw - 114] };
 }
 
 const BUILDERS = { parking, vestibulo, ascensor, oficinas, azotea };

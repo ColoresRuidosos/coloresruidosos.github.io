@@ -103,6 +103,11 @@ const ARMORED = new Set(['ewind', 'charge', 'eatk']);
 export function applyHit(world, a, t, box, dirOverride = 0) {
   if (t.removed || isDown(t) || t.invul > 0 || (t.team === 'p' && (t.away || t.out))) return false;
   if (t.state === 'special') return false;            // F3: invulnerable durante el especial
+  if (t.shield) {                                      // F15: cancelador de ruido del Presidente
+    world.events.push({ type: 'shieldHit', x: t.x, y: t.y, z: t.z + 40 });
+    if (a.freeze !== undefined && !dirOverride) a.freeze = HITSTOP;
+    return 'block';
+  }
   const dir = dirOverride || sign(t.x - a.x) || a.face || 1;
   const freezeA = !dirOverride && a.freeze !== undefined;
   // El guardia se cubre de frente (F5) salvo agarres, lanzamientos, especiales y embestidas.
@@ -131,6 +136,7 @@ export function applyHit(world, a, t, box, dirOverride = 0) {
     return true;
   }
   if (t.def.boss && ARMORED.has(t.state) && !box.knock) return true;   // los jefes aguantan mientras atacan
+  if (t.state === 'stun') return true;                                  // aturdido (F15): recibe sin reaccionar
   if (box.knock && !box.holdHit) {
     if (t.def.boss && t.knockCd > 0) hurt(world, t, dir, 1);
     else { knockdown(world, t, dir); if (t.def.boss) t.knockCd = 150; }

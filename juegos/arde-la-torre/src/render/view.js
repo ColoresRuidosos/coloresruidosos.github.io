@@ -39,9 +39,10 @@ export function spriteState(f) {
 // ---- Efectos que nacen de los eventos de la simulación ----
 export function createFx() {
   const parts = [];
-  let shake = 0;
+  let shake = 0, msg = null;
   return {
     parts,
+    get msg() { return msg; },
     get shake() { return shake; },
     push(world, events, opts) {
       for (const e of events) {
@@ -53,20 +54,40 @@ export function createFx() {
         else if (e.type === 'special') parts.push({ k: 'sp', hero: e.hero, slot: e.slot, x: e.x, y: e.y, z: 0, t: 0, life: 36 });
         else if (e.type === 'break') for (let i = 0; i < 6; i++) parts.push({ k: 'chip', x: e.x, y: e.y, z: 10, vx: (i - 2.5) * 0.7, vz: 2 + (i % 3), t: 0, life: 24 });
         else if (e.type === 'pickup') parts.push({ k: 'pick', x: e.x, y: e.y, z: 20, t: 0, life: 30, kind: e.kind });
+        else if (e.type === 'shield') msg = { text: '¡ENCIENDE LOS AMPLIFICADORES!', sub: 'TRES GOLPES A CADA UNO', t: 0, life: 210 };
+        else if (e.type === 'shieldBreak') msg = { text: '¡VOLUMEN AL MÁXIMO!', sub: '¡AHORA, A POR ÉL!', t: 0, life: 150 };
+        else if (e.type === 'enraged') msg = { text: '¡EL PRESIDENTE SE ENFADA!', sub: '', t: 0, life: 120 };
+        else if (e.type === 'rescue') msg = { text: '¡ARRIBA!', sub: '', t: 0, life: 60 };
+        else if (e.type === 'shieldHit') parts.push({ k: 'block', x: e.x, y: e.y, z: e.z, t: 0, life: 8 });
       }
     },
     step() {
       for (const p of parts) { p.t++; if (p.k === 'chip') { p.x += p.vx; p.z = Math.max(0, p.z + p.vz); p.vz -= 0.3; } if (p.k === 'pick') p.z += 0.5; }
       for (let i = parts.length - 1; i >= 0; i--) if (parts[i].t >= parts[i].life) parts.splice(i, 1);
       if (shake > 0) shake -= 0.5;
+      if (msg && ++msg.t >= msg.life) msg = null;
     },
-    clear() { parts.length = 0; shake = 0; },
+    clear() { parts.length = 0; shake = 0; msg = null; },
   };
 }
 
 // ---- Objetos y cajas ----
-function drawProp(ctx, p, x, y) {
+function drawAmp(ctx, p, x, y, t) {
+  ctx.fillStyle = '#120c18'; ctx.fillRect(x - 13, y - 31, 26, 31);
+  ctx.fillStyle = '#2a2530'; ctx.fillRect(x - 12, y - 30, 24, 29);
+  ctx.fillStyle = '#4a4552'; ctx.fillRect(x - 12, y - 30, 24, 5);
+  ctx.fillStyle = p.lit ? '#ffb347' : '#15121c';
+  ctx.beginPath(); ctx.arc(x, y - 13, 8, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = p.lit ? '#fff1c1' : '#3a3540'; ctx.beginPath(); ctx.arc(x, y - 13, 3, 0, Math.PI * 2); ctx.fill();
+  for (let k = 0; k < 3; k++) { ctx.fillStyle = k < p.hits ? (p.lit ? '#3fdc7a' : '#ffd23f') : '#120c18'; ctx.fillRect(x - 8 + k * 6, y - 28, 4, 2); }
+  if (p.lit) {   // notas que salen (movimiento lento, sin destellos)
+    for (let k = 0; k < 2; k++) { const ph = ((t + k * 30) % 60) / 60; drawText(ctx, '♥', x - 6 + k * 8, y - 36 - ph * 14, { color: '#ffd23f', shadow: null }); }
+  } else drawText(ctx, '!', x, y - 42, { color: '#ff4d4d', align: 'center' });
+}
+
+function drawProp(ctx, p, x, y, t = 0) {
   if (p.broken) return;
+  if (p.kind === 'amp') { drawAmp(ctx, p, x, y, t); return; }
   if (p.kind === 'caja') {
     ctx.fillStyle = '#120c18'; ctx.fillRect(x - 11, y - 25, 22, 25);
     ctx.fillStyle = '#b8864b'; ctx.fillRect(x - 10, y - 24, 20, 23);
@@ -177,7 +198,7 @@ export function drawWorld(ctx, world, fx, opts = {}) {
   }
 
   const actors = [];
-  for (const p of world.props) if (!p.broken) actors.push({ y: p.y, draw: () => drawProp(ctx, p, Math.round(p.x - cam), Math.round(p.y)) });
+  for (const p of world.props) if (!p.broken) actors.push({ y: p.y, draw: () => drawProp(ctx, p, Math.round(p.x - cam), Math.round(p.y), world.tick) });
   for (const it of world.items) actors.push({ y: it.y - 1, draw: () => drawItem(ctx, it.kind, it.x - cam, it.y, world.tick) });
   for (const f of world.fighters) {
     if (f.removed || (f.team === 'p' && f.out)) continue;
@@ -212,6 +233,21 @@ export function drawWorld(ctx, world, fx, opts = {}) {
       ctx.restore();
     }
     const topY = y - Math.max(f.def.h, drawnH && f.state !== 'down' && f.state !== 'dead' ? drawnH : 0);
+    if (f.shield) {   // cancelador de ruido (F15): halo fijo, sin destellos
+      ctx.strokeStyle = 'rgba(170,190,220,0.7)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.ellipse(x, y - f.def.h / 2, f.def.w + 10, f.def.h / 2 + 10, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(170,190,220,0.25)'; ctx.lineWidth = 4;
+      ctx.beginPath(); ctx.ellipse(x, y - f.def.h / 2, f.def.w + 14, f.def.h / 2 + 14, 0, 0, Math.PI * 2); ctx.stroke();
+    }
+    if (f.state === 'stun') for (let k = 0; k < 3; k++) {
+      const a = world.tick * 0.08 + k * 2.1;
+      drawText(ctx, '★', x + Math.cos(a) * 14 - 2, topY - 4 + Math.sin(a) * 4, { color: '#ffd23f', shadow: null });
+    }
+    if (f.team === 'p' && f.state === 'dead' && world.level.final && !f.out && f.t < 180) {
+      drawText(ctx, '¡LEVÁNTALO!', x, y - 34, { color: '#ffd23f', align: 'center' });
+      ctx.fillStyle = '#120c18'; ctx.fillRect(x - 16, y - 24, 32, 4);
+      ctx.fillStyle = '#3fdc7a'; ctx.fillRect(x - 15, y - 23, Math.round(30 * Math.min(1, (f.rescue || 0) / 30)), 2);
+    }
     if (f.team === 'p' && !f.away) {   // marca del jugador
       ctx.fillStyle = SLOT_COLORS[f.slot];
       const mx = x - 3, my = topY - 8;
@@ -223,6 +259,11 @@ export function drawWorld(ctx, world, fx, opts = {}) {
   if (fx) for (const p of fx.parts) drawFx(ctx, p, cam, opts);
   ctx.restore();
 
+  if (fx && fx.msg) {
+    ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(0, 34, W, fx.msg.sub ? 30 : 20);
+    drawText(ctx, fx.msg.text, W / 2, 37, { color: '#ffd23f', scale: 2, align: 'center' });
+    if (fx.msg.sub) drawText(ctx, fx.msg.sub, W / 2, 54, { color: '#fff', align: 'center' });
+  }
   // ¡ADELANTE! (parpadeo lento, < 3 Hz)
   if (world.goT > 0 && !world.level.elevator && Math.floor(world.goT / 20) % 2 === 0) drawText(ctx, '¡ADELANTE! ▶', W - 10, 96, { color: '#ffd23f', scale: 2, align: 'right' });
   if (world.level.elevator && world.waitT > 0 && !world.waveActive && world.waveIdx > 0) drawText(ctx, 'SUBIENDO…', W / 2, 96, { color: '#ffd23f', scale: 2, align: 'center' });

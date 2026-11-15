@@ -13,6 +13,32 @@ export function botInput(world, slot, skill = 1) {
   if (me.out) return { ...NEUTRAL, golpe: pulse };
   if (me.state === 'grab') return { ...NEUTRAL, golpe: pulse };
 
+  // Batalla final: rescatar a un compañero caído (F16) y encender amplificadores si el jefe tiene escudo (F15).
+  if (world.level.final) {
+    const down = world.fighters.find((o) => o !== me && o.team === 'p' && o.state === 'dead' && !o.out && o.t < 170);
+    if (down) {
+      const near = Math.abs(down.x - me.x) <= 20 && Math.abs(down.y - me.y) <= 6;
+      return near ? { ...NEUTRAL, golpe: true } : goTo(me, down.x - 12, down.y, {});
+    }
+    const boss = world.fighters.find((f) => f.type === 'presidente' && f.shield);
+    if (boss) {
+      let amp = null, ad = Infinity;
+      for (const a of world.props) {
+        if (a.kind !== 'amp' || a.lit) continue;
+        const d = Math.abs(a.x - me.x) + Math.abs(a.y - me.y) * 2 + (a.claimed && a.claimed !== slot ? 200 : 0);
+        if (d < ad) { ad = d; amp = a; }
+      }
+      if (amp) {
+        amp.claimed = amp.claimed || slot;
+        const side = me.x <= amp.x ? -1 : 1, gx = amp.x + side * 18;
+        if (Math.abs(me.x - gx) < 6 && Math.abs(me.y - amp.y) <= 4) {
+          if (Math.sign(amp.x - me.x) !== me.face) return { ...NEUTRAL, x: Math.sign(amp.x - me.x) };
+          return { ...NEUTRAL, golpe: pulse };
+        }
+        return goTo(me, gx, amp.y, {});
+      }
+    }
+  }
   // Objetos cerca: si tiene poca vida, a por la comida.
   const food = world.items.find((it) => (it.kind === 'bocadillo' || it.kind === 'cafe') && me.hp < me.maxHp * 0.7 &&
     it.x > world.camX + 12 && it.x < world.camX + W - 12);

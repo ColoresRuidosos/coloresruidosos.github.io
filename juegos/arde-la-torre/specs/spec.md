@@ -119,18 +119,26 @@ Cada músico se reconoce por **su instrumento como arma**, una **habilidad pasiv
 - **Turnos de ataque:** como mucho, 2 enemigos atacan a la vez a cada jugador; los demás rodean. Así es justo y se lee bien.
 - **Escalado:** el número y la vida de los enemigos crecen con los jugadores (1 jugador: ×1, 2: ×1,5, 3: ×2, 4: ×2,5).
 
-**F6 Plantas (niveles).** Hay **5 niveles** (decisión del 11 nov 2026). Cada uno es un tramo de la torre, con **scroll que se bloquea por oleadas** (aparece «¡ADELANTE! →» al limpiar) y un **jefe** al final.
+**F6 Plantas (niveles) — v3 (15 nov 2026, pedido del usuario: «algo fácil, quizás tres, un sub-jefe por nivel y luego el jefe final en una batalla cooperativa»).** **3 niveles** con scroll que se bloquea por oleadas (aparece «¡ADELANTE! ▶» al limpiar), cada uno con **2 oleadas y un sub-jefe**, y después la **batalla final** en una arena fija.
 
-| Nivel | Lugar (ficción) | Jefe |
+| Nivel | Lugar (ficción) | Sub-jefe |
 |---|---|---|
 | 1 | **Parking subterráneo**: coches, columnas y barreras | **El Jefe de Seguridad**: embiste y llama a 2 becarios a los 2/3 y a 1/3 de su vida |
-| 2 | **Vestíbulo**: tornos de acceso, mostrador y escaleras mecánicas | **La Recepcionista**: lanza teléfonos por el carril y llama a comerciales |
-| 3 | **Ascensor**: pantalla fija mientras sube; los enemigos entran en cada parada | **El Técnico de Mantenimiento**: embiste con la caja de herramientas |
-| 4 | **Oficinas diáfanas**: mesas, impresoras y fuentes de agua | **El Director Comercial**: embiste, agarra y lanza, y llama a ejecutivas |
-| 5 | **Azotea**: el escenario del concierto con Madrid de noche al fondo | **El Presidente de Silencio S.A.** (jefe final): mezcla de todo, más rápido |
+| 2 | **Vestíbulo**: tornos, mostrador y escaleras mecánicas | **La Recepcionista**: lanza teléfonos por el carril y llama a comerciales |
+| 3 | **Oficinas diáfanas**: mesas, impresoras y fuentes de agua | **El Director Comercial**: embiste, agarra y lanza, y llama a ejecutivas |
+| Final | **Azotea**: el escenario del concierto con Madrid de noche, en una sola pantalla | **El Presidente de Silencio S.A.**: batalla final cooperativa (F15) |
 
+- Se quitan el ascensor y el Técnico de Mantenimiento (versión anterior de 5 niveles).
 - El número de planta solo sale en pantalla cuando se confirme la cifra (§1.1).
-- Los jefes comparten un mismo motor de comportamiento con 3 ataques (embestir, lanzar y llamar refuerzos) que se combinan por jefe.
+
+**F15 Batalla final cooperativa** (azotea). El Presidente tiene tres fases:
+1. **Pelea** (100–60 % de vida): embiste, lanza discos de oro por el carril, agarra y lanza.
+2. **Cancelador de ruido** (al bajar del 60 %): se vuelve **invulnerable** (un halo gris a su alrededor, sin destellos) y aparecen **amplificadores apagados** repartidos por el escenario: **2 con 1 jugador, 3 con 2 y 4 con 3 o 4**. Cada uno se **enciende con 3 golpes**. Con todos encendidos, el escudo se rompe con «¡VOLUMEN AL MÁXIMO!» y el Presidente queda **aturdido 4 s** (recibe golpes sin defenderse). Mientras el escudo está activo llama a 2 guardias. Con varios jugadores conviene repartirse los amplificadores; en solitario también se puede.
+3. **Furioso** (al bajar del 30 %): más rápido (+25 %), ataca más a menudo y vuelve a llamar refuerzos.
+
+Al vencerlo, «¡A LA AZOTEA!» y la pantalla de resultados con el concierto.
+
+**F16 Rescate de compañeros** (solo en la batalla final). Cuando un jugador cae sin vida, queda **3 s en el suelo** con «¡LEVÁNTALO!» encima. Si otro jugador se pone a su lado y **mantiene GOLPE 0,5 s**, lo levanta con el 40 % de la vida **sin gastar una vida**. Si nadie lo rescata, pierde la vida como siempre.
 
 **F7 Objetos y potenciadores** (v2, propuesta ⏳). Salen de cajas, papeleras y máquinas de vending rotas, o los suelta un enemigo especial al caer.
 

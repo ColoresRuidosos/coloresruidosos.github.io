@@ -63,6 +63,6 @@ export const ENEMIES = {
       shoot: { windup: 18, speed: 3.6, dur: 0, dmg: 9, min: 60, max: 260, kind: 'disco' },
       grab: { windup: 12, reach: 26, hold: 44, dmg: 14 },
     },
-    summon: { types: ['guardia', 'contable', 'comercial'], n: 2, at: [0.75, 0.5, 0.25] },
+    summon: { types: ['contable', 'comercial'], n: 2, at: [0.8] },   // fases 2 y 3: ver sim/final.js
   },
 };
