@@ -42,7 +42,7 @@ Al republicar, `get_artifact` → `publish_files` con `base_version`, `shared_li
   - ✅ Fondos de parking, vestíbulo, oficinas y azotea (`scripts/fondos.py`: la línea del suelo de la imagen se lleva a la del juego, `ZOOM` 0,75 con suelo y techo prolongados en espejo, repetición horizontal en espejo; la azotea centra el escenario). El del ascensor está guardado sin usar.
   - Escala: músicos y enemigos a ~74 px de pie (`SIZE_MUL` 1,12 en `slice_sheet.py` y `VISUAL_SCALE` en `render/sprites.js`). Retratos con encuadre común (`portrait_crop`) y brillo de piel igualado (`brighten_skin`).
   - ✅ Enemigos y jefes (`art/source/enemigos/<tipo>.jpg`, mismo `slice_sheet.py`; `erase` borra rótulos y `cuts` corta a mano), objetos (`art/source/objetos/objetos.png`) y título (`art/source/fondos/titulo.png`, `fondos.py`).
-  - ⏳ Antonio: rehacer movimiento y guitarrazo con la guitarra detrás de la espalda (prompts en la página del amigo; referencia `antonio-referencia-v2`), y quitar entonces `OVERRIDE.antonio` en `render/atlas.js`.
+  - ✅ Antonio v3: movimiento (`antonio-2-movimiento.jpg`) y guitarrazo y victoria (`antonio-6-guitarrazo.jpg`) con la guitarra detrás de la espalda. La hoja de movimiento antigua queda como `descartes-…`.
   - ⏳ Retratos iguales: el usuario quiere partir de fotos reales; Gemini no los igualó desde los sprites.
 - **Potenciadores (F7, aprobada):** amplificador, pedal, púa de la suerte y pase de backstage (`POWERUPS` en `moves.js`). La Setlist espera a F14.
 
@@ -62,7 +62,7 @@ El usuario tarda mucho haciendo cada hoja a mano en Gemini. **Objetivo:** un scr
   4. **valida** la hoja antes de darla por buena (fondo gris liso, número de poses por fila con la misma lógica de `slice_sheet.py`) y reintenta si no cuadra;
   5. al terminar un músico, ejecuta `slice_sheet.py` y deja un resumen con capturas para revisar.
 - Opciones: `--solo dani`, `--paso 3`, `--intentos 3`, `--seco` (simula sin llamar a la API).
-- **Coste:** cada imagen cuesta unos céntimos por la API (comprobar la tarifa vigente). Ya solo quedan las 2 hojas de Antonio, los retratos y, si se quiere, repetir las de Jota sin texto y la del Director.
+- **Coste:** cada imagen cuesta unos céntimos por la API (comprobar la tarifa vigente). Ya solo quedan los retratos y, si se quiere, repetir las de Jota sin texto y la del Director.
 - **Lo que necesita el usuario:** una **clave de API de Google AI Studio** (aistudio.google.com). En una sesión en la nube, pedirla con la herramienta de credenciales para el host `generativelanguage.googleapis.com`, nunca pegada en el chat. Si se ejecuta en su ordenador, va en una variable de entorno.
 - **Ojo:** Gemini puede negarse a dibujar a personas reales a partir de fotos; en ese caso, usar solo la descripción del prompt.
 - Las fotos de referencia de los músicos **no van al repo** (fotos de prensa con derechos).

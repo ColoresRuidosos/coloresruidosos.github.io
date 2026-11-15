@@ -22,18 +22,21 @@ OUTLINE = (18, 12, 24)
 # y fotogramas que no están de pie (se anclan por el centro de la caja, no por los pies).
 SHEETS = {
     'antonio': [
+        # v3 (15 nov): movimiento y guitarrazo repetidos con la guitarra siempre detrás de la espalda (la v1 la atravesaba).
         dict(file='antonio-2-movimiento.jpg', rows=[2, 4, 4, 2],
              names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
              ref=['idle0', 'idle1', 'walk0', 'walk2'], loose=['jump0', 'jump1']),
         dict(file='antonio-3-combo.jpg', rows=[4, 3, 5],
-             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
-             ref=['punch1a', 'punch1b'], loose=['air']),
+             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'oguit0', 'oguit1', 'oguit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
+             ref=['punch1a', 'punch1b'], loose=['air'], skip=['oguit0', 'oguit1', 'oguit2']),
         dict(file='antonio-4-dano-especial.jpg', rows=[3, 3, 4],
              names=['fall0', 'fall1', 'fall2', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
              ref=['sp0', 'sp1'], loose=['fall0', 'fall1', 'fall2', 'down'], recolor='pantalon'),
         dict(file='antonio-5-firma-super.jpg', rows=[3, 4, 3],
-             names=['lash0', 'lash1', 'lash2', 'hymn0', 'hymn1', 'hymn2', 'hymn3', 'win0', 'win1', 'portrait'],
-             ref=['hymn1', 'hymn2', 'hymn3', 'lash0'], loose=[], portrait='portrait'),
+             names=['lash0', 'lash1', 'lash2', 'hymn0', 'hymn1', 'hymn2', 'hymn3', 'owin0', 'owin1', 'portrait'],
+             ref=['hymn1', 'hymn2', 'hymn3', 'lash0'], loose=[], portrait='portrait', skip=['owin0', 'owin1']),
+        dict(file='antonio-6-guitarrazo.jpg', rows=[3, 2], names=['guit0', 'guit1', 'guit2', 'win0', 'win1'],
+             ref=['guit0', 'guit2'], target=66, loose=[]),   # escala por las poses agachadas (la guitarra en alto no cuenta)
     ],
     # Pepe: Gemini dio 3 poses en la fila de la rodilla y una borrosa de más en la del bajazo (se descarta).
     # `target`: altura de las poses de referencia según su postura (Pepe en guardia va agachado; la victoria, erguida).

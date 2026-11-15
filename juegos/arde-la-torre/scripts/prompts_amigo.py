@@ -153,6 +153,7 @@ OTROS = [
 ]
 
 HECHOS = {'antonio', 'pepe', 'dani', 'jota'}   # ya están en el juego
+ANTONIO_V3_HECHO = True                         # 15 nov: hojas con la guitarra detrás de la espalda ya en el juego
 
 RETRATOS = ("Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. "
     "Redibuja los 4 retratos en UNA SOLA imagen, en una fila y en el mismo orden, con exactamente el mismo estilo para los cuatro: "
@@ -189,14 +190,14 @@ def build():
                               nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
     # 15 nov 2026: enemigos, jefes, objetos y título ya están en el juego. Solo quedan las hojas nuevas de Antonio.
-    secciones.append(dict(titulo="Antonio: guitarra corregida (2 imágenes)", id="antonio-v2",
+    if not ANTONIO_V3_HECHO: secciones.append(dict(titulo="Antonio: guitarra corregida (2 imágenes)", id="antonio-v2",
         nota="Sube la imagen «antonio-referencia-v2» que te pasaron en cada uno. La guitarra va siempre detrás de la espalda.",
         prompts=[("antonio-2.png", "Sube «antonio-referencia-v2» y pega esto", ANTONIO_MOV, True),
                  ("antonio-guitarrazo.png", "Sube «antonio-referencia-v2» y pega esto", ANTONIO_GUIT, True)]))
     return secciones
 
 PASOS = [
-    "Ya está en el juego: los 4 músicos, los 9 enemigos y jefes, los objetos, los fondos y el título. Solo faltan 2 hojas de Antonio (abajo) y, más adelante, los retratos.",
+    "¡Todo hecho! Ya están en el juego los 4 músicos, los 9 enemigos y jefes, los objetos, los fondos y el título. Solo quedan, más adelante, los retratos a partir de fotos reales.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",

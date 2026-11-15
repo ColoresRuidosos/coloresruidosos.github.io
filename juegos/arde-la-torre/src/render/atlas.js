@@ -23,10 +23,8 @@ const SOURCES = {
   objetos: OBJETOS,
 };
 // Poses de Gemini con fallos que se sustituyen por otras del mismo músico (hasta que se repitan las hojas).
-// Antonio (15 nov): la guitarra cambia de lado en walk1/walk3 y sale doble en guit2 y en la victoria.
 // Enemigos: cada hoja trae unas poses; las que faltan se sustituyen por la más parecida de ese tipo.
 const OVERRIDE = {
-  antonio: { walk1: 'walk0', walk3: 'walk2', guit2: 'guit1', win0: 'hymn0', win1: 'hymn3' },
   comercial: { wind: 'charge0', atk: 'charge1' },          // su golpe es un maletinazo
   ejecutiva: { wind: 'throw0', atk: 'throw1' },
   contable: { wind: 'shoot0' },
