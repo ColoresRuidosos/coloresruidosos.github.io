@@ -170,7 +170,11 @@
 - [ ] AL6 🧪 Pasajes `S` (10, uno por canción, sin repetir) y contador
 - [ ] AL7 🧪 Jefe «La Nostalgia» (v10.2): fase 1 con recuerdos en sepia de los jefes y 3 rayos de sol; fase 2 en la noria que se invierte; fase 3 con viento y despedida; no se puede perder
 - [x] AL7b 🎨 Sprites de Alba por código (respaldo) y hoja de concepto aprobada
-- [ ] AL7c ⏳ El usuario genera con Gemini las hojas de §0g (sprites, escenarios y escenas) → las recorto e importo
+- [~] AL7c Arte de Gemini (§0g):
+  - ✅ recortados con `slice_sheet.py`: Nostalgia (20 fotogramas), recuerdos (8), noria (cabina y eje), Luz del Alba (4) y feria (caballito, 2 dianas y banca);
+  - ✅ importados como fondos: `alba-cerro` y `alba-feria`;
+  - ✅ guardadas las escenas a2 y a3 (`art/source/alba/`), que se conectan en AL9 cuando las viñetas de mundo tengan id;
+  - ⏳ faltan el atril, `w3-pueblo`, las escenas a1 y a4, y el traje y las poses de Pepe (H e I)
 - [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
 - [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
 - [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»
