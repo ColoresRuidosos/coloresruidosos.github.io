@@ -168,7 +168,8 @@
 - [ ] AL4 🧪 Plataformas de luz `~` y Luz del Alba `@` (10 s); sólidas en el tramo ya amanecido
 - [ ] AL5 🧪 Paseo: sin daño ni corazones; caer te devuelve al checkpoint
 - [ ] AL6 🧪 Pasajes `S` (10, uno por canción, sin repetir) y contador
-- [ ] AL7 🧪 Momento final «La Nostalgia»: viento de 40 px/s, unos 400 px caminando → amanecer; no se puede perder
+- [ ] AL7 🧪 Jefe «La Nostalgia» (v10.2): fase 1 con recuerdos en sepia de los jefes y 3 rayos de sol; fase 2 en la noria que se invierte; fase 3 con viento y despedida; no se puede perder
+- [~] AL7b 🎨 Sprites de Alba (v10.3, `sprites-alba.js`) y hoja de concepto para aprobar
 - [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
 - [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
 - [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»

@@ -701,6 +701,38 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - No se puede perder: si sueltas el control, solo retrocedes un poco.
 - **Recompensa:** «RECUERDO RECUPERADO» y el cuadro 3 del Museo, **un sol que amanece sobre blanco** (§3.0f J).
 
+**v10.2 · Jefe «La Nostalgia» y la Maldita Rueda** (✅ aprobado por el usuario el 15 nov 2026; **sustituye** al «Momento final» de arriba). Sigue siendo paseo: **sin daño, no se puede perder**. Si un recuerdo te toca, la pantalla se pone sepia 0,4 s y retrocedes 48 px, nunca antes del checkpoint del jefe.
+
+| Fase | Nombre | Qué pasa | Cómo se avanza |
+|---|---|---|---|
+| 1 | «Lo que ya viviste» | La Nostalgia lanza **recuerdos de los jefes anteriores, en sepia y más lentos (×0,7)**: el rayo bajo o alto del Flash-Bot, la embestida del Enmascarado y 3 máscaras en abanico. Nunca repite el ataque anterior | Llegar a **3 rayos de sol** del camino; cada uno le quita un pedazo de bruma |
+| 2 | «La vuelta que siempre vuelve» | **La Maldita Rueda** (noria grande, 6 cabinas) gira. Cada 4 s la Nostalgia la **invierte** 2 s y avisa 0,6 s antes, con un brillo y el sonido de un rebobinado | Subir de cabina en cabina hasta el eje |
+| 3 | «Ahora y hoy» | Viento sepia de 40 px/s en contra. Si nos pasan el fragmento de «Maldita rueda», aparece aquí | Caminar sin parar unos 400 px hasta el sol |
+
+- **Final:** la bruma se vuelve luz y la Nostalgia **se despide sin morir**: sonríe, saluda y dice «GRACIAS POR RECORDARME. AHORA SIGUE.».
+- Después viene la polaroid del presente (la postal del viaje) y el cuadro 3 del Museo.
+- **Ningún jefe castiga la tristeza** (§3.3): a la Nostalgia no se le golpea; se le gana avanzando.
+
+**v10.3 · Sprites de *Alba*** (por código, estilo Neo Geo, con el mismo generador que §3.0f G; `src/render/sprites-alba.js`):
+
+| Sprite | Tamaño | Animaciones | Diseño (propio) |
+|---|---|---|---|
+| **La Nostalgia** (jefe) | 64×80 | flota ×4 · lanza ×2 · gira ×2 · despide ×4 | Nube de bruma sepia con polaroids prendidas, ojos grandes y melancólicos y brazos de **tira de película** con perforaciones. Abajo se deshace en jirones. Al despedirse pasa de sepia a dorado y sonríe |
+| **Recuerdo** (polaroid) | 18×20 | 4 variantes × 2 | Marco blanco con una foto pequeña: rosa (Carmesí), antifaz (Noche), cámara con flash (Flash-Bot) y noria (feria) |
+| **Cabina** de la noria | 20×16 | 1 | Góndola crema y turquesa con ventana |
+| **Eje** de la noria | 14×14 | 1 | Engrane dorado. Los radios y el aro se dibujan con líneas en el juego |
+| **Atril** | 18×26 | normal · leído | Atril de madera con un **disco blanco**; ya leído, el disco brilla dorado |
+| **Luz del Alba** | 14×14 | brilla ×4 | Pequeño sol con rayos que laten |
+| **Plataforma de luz** | 16×6 | encendida · apagada | Dorada y sólida; apagada es solo un contorno punteado |
+| **Banca** | 30×16 | 1 | Banca de parque de madera con patas de hierro |
+| **Caballito** del carrusel | 22×26 | 1 | Caballito blanco con crin dorada y tubo de rayas |
+| **Diana** | 16×16 | parada · caída | Aros rojos y blancos; al caer queda de canto |
+
+- **«Los de septiembre»:** reutilizan los invitados de *Noche* **sin disfraz** (animación `uwalk`).
+- **Recuerdos de los jefes (fase 1):** son los sprites que ya existen (Flash-Bot y Enmascarado), pasados a sepia al dibujarlos.
+- **Pepe:** usa el traje **clásico** (camisa blanca), que ya existe en la Galería.
+- **Hoja de concepto:** `art/source/alba/concepto-sprites.png`, para que el usuario la apruebe.
+
 **Historia** (como en los mundos 1 y 2):
 - escena de entrada de 2 viñetas («Después de la fiesta, el silencio» y «Todo me recuerda algo»);
 - pensamientos de Pepe en los checkpoints, sobre seguir adelante;
