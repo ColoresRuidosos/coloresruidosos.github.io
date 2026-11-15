@@ -176,7 +176,9 @@
   - ✅ guardadas las escenas a2 y a3 (`art/source/alba/`), que se conectan en AL9 cuando las viñetas de mundo tengan id;
   - ✅ fondo `alba-pueblo` (3-1);
   - ✅ las poses del paseo de Pepe con el vestuario nuevo (I): `pepeAlba`, 12 fotogramas;
-  - ⏳ faltan el traje base de Pepe (H: reposo, correr, saltar y lanzar), el atril y las escenas a1 y a4
+  - ✅ el atril, normal y leído (`atril`; se quitaron las franjas negras de la captura);
+  - 🟨 escena a1 guardada, pero la marquesina dice «PARTY HALL» y no sale Pepe: el usuario decide si se regenera o se tapa el letrero al importarla;
+  - ⏳ faltan el traje base de Pepe (H: reposo, correr, saltar y lanzar) y la escena a4
 - [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
 - [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
 - [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»
