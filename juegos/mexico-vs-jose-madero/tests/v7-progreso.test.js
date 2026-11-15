@@ -87,10 +87,11 @@ describe('progreso y trajes (O4)', () => {
     for (const w of WORLDS) { assert.match(w.color, /^#[0-9a-f]{6}$/i); assert.ok(w.year >= 2016 && w.year <= 2026); assert.ok(COSTUMES.some((c) => c.id === w.costume)); }
     assert.equal(WORLDS[0].costume, 'clasico');
     assert.equal(WORLDS[1].costume, 'vampiro');
+    assert.equal(WORLDS[2].costume, 'alba');
   });
 
-  test('8 trajes; ninguno con nombre de personaje registrado', () => {
-    assert.equal(COSTUMES.length, 8);
+  test('9 trajes (v10.4: + chaleco y bufanda de Alba); ninguno con nombre de personaje registrado', () => {
+    assert.equal(COSTUMES.length, 9);
     for (const c of COSTUMES) { assert.ok(c.name && c.how); assert.doesNotMatch(c.name + c.how, /tinky|teletubbie|foro gnp/i); }
   });
 

@@ -11,6 +11,7 @@ export const COSTUMES = [
   { id: 'vampiro', name: 'VAMPIRO', how: 'TERMINA EL MUNDO 2 «NOCHE»' },
   { id: 'rojo', name: 'ROJO Y AMARILLO', how: 'SE GANA EN EL MUNDO 7' },
   { id: 'bandana', name: 'BANDANA NEGRA', how: 'SE GANA EN EL MUNDO 8' },
+  { id: 'alba', name: 'CHALECO Y BUFANDA', how: 'TERMINA EL MUNDO 3 «ALBA»' },   // v10.4
 ];
 export const W1_LEVELS = ['1-1', '1-2', '1-3'];
 export const WORLD1_TIME = 240; // s: reto de la chamarra

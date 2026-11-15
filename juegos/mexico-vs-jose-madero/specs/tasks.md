@@ -178,7 +178,8 @@
   - ✅ las poses del paseo de Pepe con el vestuario nuevo (I): `pepeAlba`, 12 fotogramas;
   - ✅ el atril, normal y leído (`atril`; se quitaron las franjas negras de la captura);
   - 🟨 escena a1 guardada, pero la marquesina dice «PARTY HALL» y no sale Pepe: el usuario decide si se regenera o se tapa el letrero al importarla;
-  - ⏳ faltan el traje base de Pepe (H: reposo, correr, saltar y lanzar) y la escena a4
+  - ✅ el traje base de Pepe (H): «CHALECO Y BUFANDA», 9.º traje (`slice_costumes.py`, poses repartidas en celdas iguales); es el traje automático de Alba y se gana al terminar el mundo 3 (la regla de desbloqueo va con AL8);
+  - ⏳ falta la escena a4
 - [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
 - [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
 - [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»

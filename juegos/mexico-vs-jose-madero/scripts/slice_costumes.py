@@ -15,6 +15,9 @@ SHEETS = [
     # (archivo, recuadro útil x0,y0,x1,y1, trajes por fila; None = fila que no se usa)
     ('art/source/pepe-trajes-1.jpg', (0, 0, 2400, 1792), [None, 'rojo', 'boina', 'bandana']),
     ('art/source/pepe-trajes-2.png', (40, 8, 970, 705), ['chamarra', 'vampiro', 'botarga', 'lentes']),
+    # v10.4 · Vestuario de Alba (Gemini, 1 fila). Las poses se repartieron en celdas iguales y el recuadro
+    # mide 4 alturas para que la única fila ocupe la imagen entera.
+    ('art/source/alba/pepe-traje-alba-celdas.png', (0, 0, 3460, 4 * 1440), ['alba']),
 ]
 POSES = ['idle', 'run', 'jump', 'throw']
 TARGET_H, CUT = 48, 20
