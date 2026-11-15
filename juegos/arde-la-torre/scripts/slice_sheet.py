@@ -11,6 +11,7 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STAND_H = 66            # altura en px de un personaje de pie (el juego dibuja a 384×216)
+SIZE_MUL = 1.12         # v2 (15 nov): todos un 12 % más grandes («parecen enanos» junto a los fondos)
 COLORS = 32             # colores por músico
 OUTLINE = (18, 12, 24)
 
@@ -279,6 +280,37 @@ def quantize_all(frames, n):
     return out
 
 
+def portrait_crop(c):
+    """Encuadre común de los retratos: cuadrado desde lo alto de la cabeza, centrado en la cabeza."""
+    a = c[..., 3] > 0
+    ys, xs = np.where(a)
+    top = ys.min()
+    head = a[top:top + max(4, (ys.max() - top) // 3)]
+    hx = np.where(head.any(axis=0))[0]
+    cx = int((hx.min() + hx.max()) / 2)
+    side = min(c.shape[1], int((ys.max() - top) * 0.85))
+    x0 = max(0, min(c.shape[1] - side, cx - side // 2))
+    sq = np.zeros((side, side, 4), np.uint8)
+    part = c[top:top + side, x0:x0 + side]
+    sq[:part.shape[0], :part.shape[1]] = part
+    return sq
+
+
+def brighten_skin(rgba, target=150.0):
+    """Iguala el brillo de los retratos: lleva la luminancia media de la piel a `target` con una curva gamma."""
+    rgb = rgba[..., :3].astype(float)
+    m = rgba[..., 3] > 0
+    r, g, b = rgb[..., 0], rgb[..., 1], rgb[..., 2]
+    skin = m & (r > g) & (g > b) & (r > 60) & ((r - b) > 25)
+    if skin.sum() < 20: return rgba
+    cur = rgb[skin].mean()
+    if cur >= target - 5: return rgba
+    gamma = np.log(target / 255) / np.log(max(cur, 1) / 255)
+    out = rgba.copy()
+    out[..., :3] = np.clip(255 * (rgb / 255) ** gamma, 0, 255).astype(np.uint8)
+    return out
+
+
 def pack(frames, width=512):
     x = y = row_h = 0; pos = []
     for f in frames:
@@ -313,15 +345,13 @@ def build(hero):
         crops = {n: crop_frame(a, mask, b) for n, b in zip(sh['names'], boxes)}
         if sh.get('sin_texto'): crops = {n: remove_shirt_text(c) for n, c in crops.items()}
         if sh.get('scale_from_first') and first_scale: scale = first_scale   # mismas dimensiones de hoja → misma escala
-        else: scale = sh.get('target', STAND_H) / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de poses de referencia
+        else: scale = SIZE_MUL * sh.get('target', STAND_H) / float(np.median([crops[r].shape[0] for r in sh['ref']]))   # mediana de poses de referencia
         first_scale = first_scale or scale
         for n in sh['names']:
             if n in sh.get('skip', []): continue
             if n == sh.get('portrait'):
-                c = crops[n]; side = max(c.shape[:2])
-                pad = np.zeros((side, side, 4), np.uint8)
-                pad[side - c.shape[0]:, (side - c.shape[1]) // 2:(side - c.shape[1]) // 2 + c.shape[1]] = c
-                portrait = downscale(pad, 46 / side)
+                sq = portrait_crop(crops[n])
+                portrait = brighten_skin(downscale(sq, 46 / sq.shape[0]))
                 continue
             fr = downscale(crops[n], scale)
             if sh.get('recolor') == 'pantalon': fr = recolor_pants(fr)

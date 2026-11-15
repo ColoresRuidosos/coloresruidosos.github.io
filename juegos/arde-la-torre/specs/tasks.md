@@ -69,6 +69,7 @@
 | T5.5 | Secuenciador chiptune (6 temas originales) y efectos | ✅ `tests/misc.test.js` |
 | T5.6 | Arte final: **los 4 músicos ✅** (Antonio 44 poses, Pepe 45, Dani 49 y Jota 44, con retratos) y **4 fondos ✅** (`scripts/fondos.py`). Pendientes: enemigos, jefes y objetos | 🟨 |
 | T5.6c | Antonio v2 (11 nov 2026, el usuario: «se ven cortados y no tan coherentes»): el filtro de líneas de suelo borraba franjas del cuerpo; motas sueltas agrandaban el recorte y falseaban la escala; el cable movía el punto de apoyo; pantalón de otro color en la hoja de daño. Corregido en `scripts/slice_sheet.py` | ✅ |
+| T5.6f | Proporción (15 nov, «parecen enanos»): fondos al 75 % con suelo y techo prolongados en espejo; músicos y enemigos un 12 % más grandes (~74 px de pie); retratos con el mismo encuadre y el mismo brillo de piel | ✅ |
 | T5.6d | Jota: Gemini puso el nombre de otra banda en su camiseta; se borra al recortar (`remove_shirt_text`). Mejor regenerar sus hojas con «camiseta negra lisa, sin texto» | ⏳ el amigo |
 | T5.6e | Dani: camisa lisa en la hoja de movimiento y de lunares en el combo (incoherencia de Gemini) | ⏳ opcional |
 | T5.6b | Antonio: en `lash1`/`lash2` la punta del micro cae en la pose vecina (el cable las une). Arreglar al programar el latigazo (T8.3) o pedir la hoja con más separación | ⬜ |

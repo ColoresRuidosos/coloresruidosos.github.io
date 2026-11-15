@@ -39,7 +39,8 @@ Al republicar, `get_artifact` → `publish_files` con `base_version`, `shared_li
 - **Mandos:** sala con QR y código (PeerJS), reconexión, entrar a mitad de partida, vibración y controles táctiles en pantalla.
 - **Arte final:**
   - ✅ Los 4 músicos (`scripts/slice_sheet.py` desde `art/source/<músico>/`). Jota y Dani usan la misma escala en todas sus hojas (`scale_from_first`). A Jota se le borra al recortar el nombre de otra banda que Gemini le puso en la camiseta (`sin_texto`): mejor regenerar esas hojas con camiseta lisa.
-  - ✅ Fondos de parking, vestíbulo, oficinas y azotea (`scripts/fondos.py`: la línea del suelo de la imagen se lleva a la del juego; repetición en espejo; la azotea centra el escenario). El del ascensor está guardado sin usar.
+  - ✅ Fondos de parking, vestíbulo, oficinas y azotea (`scripts/fondos.py`: la línea del suelo de la imagen se lleva a la del juego, `ZOOM` 0,75 con suelo y techo prolongados en espejo, repetición horizontal en espejo; la azotea centra el escenario). El del ascensor está guardado sin usar.
+  - Escala: músicos y enemigos a ~74 px de pie (`SIZE_MUL` 1,12 en `slice_sheet.py` y `VISUAL_SCALE` en `render/sprites.js`). Retratos con encuadre común (`portrait_crop`) y brillo de piel igualado (`brighten_skin`).
   - ⏳ Enemigos, jefes y objetos: siguen **provisionales dibujados por código** (`render/sprites.js`); son lo siguiente que más se nota.
 
 ## 5. Decisiones pendientes del usuario

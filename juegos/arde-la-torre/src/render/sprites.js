@@ -3,6 +3,7 @@
 // El resultado lleva contorno oscuro y sombreado plano, en el estilo arcade del juego.
 
 const SIZE = 112, FOOT_X = 56, FOOT_Y = 104;
+const VISUAL_SCALE = 1.12;   // igual que los sprites finales (scripts/slice_sheet.py SIZE_MUL)
 const OUTLINE = '#120c18';
 
 // ---- Aspecto de cada personaje (colores y accesorios). Paletas 1–3: ropa alternativa para repetidos. ----
@@ -262,7 +263,7 @@ export function getSprite(type, palette, state, frame, h, hero) {
     const c = makeCanvas(SIZE, SIZE);
     const ctx = c.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    drawFigure(ctx, lookFor(type, palette), poseFor(state, frame, { hero }), h);
+    drawFigure(ctx, lookFor(type, palette), poseFor(state, frame, { hero }), h * VISUAL_SCALE);
     outline(c);
     s = { canvas: c, ox: FOOT_X, oy: FOOT_Y };
     cache.set(key, s);

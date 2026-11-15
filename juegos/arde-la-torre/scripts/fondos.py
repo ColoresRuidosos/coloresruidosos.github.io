@@ -8,6 +8,7 @@ from PIL import Image, ImageEnhance
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 H, HORIZON = 216, 124
+ZOOM = 0.75   # v2 (15 nov): los fondos se veían demasiado grandes junto a los músicos («parecen enanos»)
 
 FONDOS = {
     'parking':   dict(file='parking.png',   suelo=0.70),
@@ -20,11 +21,20 @@ FONDOS = {
 def build(nivel, cfg):
     im = Image.open(os.path.join(ROOT, 'art', 'source', 'fondos', cfg['file'])).convert('RGB')
     w, h = im.size
-    s = (H - HORIZON) / (h * (1 - cfg['suelo']))
+    s = (H - HORIZON) / (h * (1 - cfg['suelo'])) * ZOOM
     sw, sh = round(w * s), round(h * s)
     im = im.resize((sw, sh), Image.BOX)
-    top = round(cfg['suelo'] * h * s) - HORIZON
-    im = im.crop((0, top, sw, top + H))
+    top = HORIZON - round(cfg['suelo'] * h * s)          # dónde cae el borde superior de la imagen en el juego
+    canvas = Image.new('RGB', (sw, H))
+    canvas.paste(im, (0, top))
+    bottom = top + sh
+    if bottom < H:                                       # suelo prolongado: espejo de la franja inferior
+        strip = im.crop((0, sh - (H - bottom), sw, sh)).transpose(Image.FLIP_TOP_BOTTOM)
+        canvas.paste(strip, (0, bottom))
+    if top > 0:                                          # techo prolongado: espejo de la franja superior
+        strip = im.crop((0, 0, sw, top)).transpose(Image.FLIP_TOP_BOTTOM)
+        canvas.paste(strip, (0, 0))
+    im = canvas
     im = ImageEnhance.Brightness(im).enhance(0.85)
     im = ImageEnhance.Color(im).enhance(0.9)
     buf = io.BytesIO(); im.save(buf, 'JPEG', quality=86, optimize=True)
