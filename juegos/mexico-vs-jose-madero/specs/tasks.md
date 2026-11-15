@@ -174,7 +174,9 @@
   - ✅ recortados con `slice_sheet.py`: Nostalgia (20 fotogramas), recuerdos (8), noria (cabina y eje), Luz del Alba (4) y feria (caballito, 2 dianas y banca);
   - ✅ importados como fondos: `alba-cerro` y `alba-feria`;
   - ✅ guardadas las escenas a2 y a3 (`art/source/alba/`), que se conectan en AL9 cuando las viñetas de mundo tengan id;
-  - ⏳ faltan el atril, `w3-pueblo`, las escenas a1 y a4, y el traje y las poses de Pepe (H e I)
+  - ✅ fondo `alba-pueblo` (3-1);
+  - ✅ las poses del paseo de Pepe con el vestuario nuevo (I): `pepeAlba`, 12 fotogramas;
+  - ⏳ faltan el traje base de Pepe (H: reposo, correr, saltar y lanzar), el atril y las escenas a1 y a4
 - [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
 - [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
 - [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»
