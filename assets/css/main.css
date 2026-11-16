@@ -585,3 +585,21 @@ body.sin-scroll { overflow: hidden; }
 .halley__ranking-lista li b { font-family: var(--pixel); font-size: .75rem; font-weight: 400; color: var(--accent-orange); white-space: nowrap; }
 .halley__ranking-lista li.es-mio { border-color: var(--accent-yellow); background: #3a3420; }
 .halley__publicar { margin-top: .75rem; padding: .75rem; border: 2px dashed var(--accent-yellow); text-align: center; }
+/* F29/D36: premios, vestidor y chapas de Halley Flip */
+.halley__premios { margin-top: .75rem; padding: .75rem; border: 2px solid #6cc04a; background: #1c2a17; }
+.halley__premios[hidden], .halley__vestidor[hidden] { display: none; }
+.halley__premios-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.halley__premios-lista li { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+.halley__premios-lista span { flex: 1; min-width: 10rem; font-weight: 700; }
+.halley__chapa, .halley__mini { image-rendering: pixelated; flex: none; }
+.halley__chapa { width: 48px; height: 48px; }
+.halley__mini { width: 56px; height: 56px; background: #2a2f3a; border: 2px solid #333; }
+.halley__trajes, .halley__chapas { list-style: none; margin: .75rem 0 1.25rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .6rem; }
+.halley__traje { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; gap: .35rem; padding: .6rem .5rem; font: inherit; color: var(--tinta-clara); background: #1f1f1f; border: 2px solid #333; cursor: pointer; text-align: center; }
+.halley__traje b, .halley__chapas b { font-family: var(--pixel); font-size: .5625rem; line-height: 1.6; font-weight: 400; color: var(--accent-yellow); }
+.halley__traje small, .halley__chapas small { font-size: .8rem; color: #bbb; line-height: 1.3; }
+.halley__traje:hover:not(:disabled) { border-color: var(--accent-yellow); }
+.halley__traje:disabled { cursor: not-allowed; opacity: .75; }
+.halley__traje[aria-pressed="true"] { border-color: #6cc04a; background: #1c2a17; }
+.halley__traje:focus-visible { outline: 3px solid var(--accent-yellow); outline-offset: 2px; }
+.halley__chapas li { display: flex; flex-direction: column; align-items: center; gap: .35rem; padding: .6rem .5rem; background: #1f1f1f; border: 2px solid #333; text-align: center; }

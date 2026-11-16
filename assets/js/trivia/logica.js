@@ -58,6 +58,14 @@
     { id: "starman", nombre: "El día que Starman huyó", como: "60 de 60: las 10 canciones con 1 segundo", familia: "adivina", icono: "starman", oculta: true, pista: "Ni un segundo más" },
     // Concierto (F26/D32): solo con el código del cartel, del 24 al 28 de noviembre de 2026.
     { id: "noches_reversibles", nombre: "Noches reversibles", como: "Escanear el QR de Colores Ruidosos en un concierto", familia: "concierto", icono: "banda", leyenda: "Gracias por existir" },
+    // Halley Flip (F29/D36): se ganan en /games/halley-flip/ y abren trajes del amante guisante.
+    { id: "poeta_halley", nombre: "El poeta Halley", como: "Terminar tu primera partida de Halley Flip", familia: "halley", icono: "cometa" },
+    { id: "fantastic_shine", nombre: "Fantastic Shine", como: "Llegar a 10 puntos en Halley Flip", familia: "halley", icono: "destello" },
+    { id: "manifiesto", nombre: "Manifiesto delirista", como: "Llegar a 25 puntos en Halley Flip", familia: "halley", icono: "bocina" },
+    { id: "amante_guisante", nombre: "Historia del amante guisante", como: "Llegar a 50 puntos en Halley Flip: la gira completa", familia: "halley", icono: "guisante" },
+    { id: "oniria", nombre: "Oniria e insomnia", como: "Jugar 10 partidas de Halley Flip", familia: "halley", icono: "almohada" },
+    { id: "algunas_plantas", nombre: "Algunas plantas", como: "Recoger 100 notas en total en Halley Flip", familia: "halley", icono: "planta" },
+    { id: "cuando_no_me_ves", nombre: "Cuando no me ves", como: "Pasar 10 torres de Halley Flip sin recoger ni una nota", familia: "halley", icono: "antifaz", oculta: true, pista: "Vuela sin mirar la música" },
     { id: "gran_truco", nombre: "El gran truco final", como: "Tener todas las demás insignias", familia: "secreta", icono: "sombrero", oculta: true, pista: "Solo para quien lo tiene todo" },
   ];
   var SECRETOS = ["contraespionaje", "wio"];
@@ -179,7 +187,7 @@
   function tieneTodas(estado) {
     return INSIGNIAS.every(function (i) {
       return SIN_GRAN_TRUCO.indexOf(i.id) >= 0 || i.familia === "contrarreloj" || i.familia === "adivina" ||
-        i.familia === "concierto" || estado.insignias[i.id];
+        i.familia === "concierto" || i.familia === "halley" || estado.insignias[i.id];
     });
   }
 
@@ -299,6 +307,21 @@
     return { estado: estado, nuevas: otorgar(estado, ganadas, ahora) };
   }
 
+  /* Halley Flip (F29/D36): partida = {puntos, notas} de la que acaba de terminar; total = {partidas, notas}
+     acumulados en cr-halley-v1 (ya contando esta). Devuelve {estado, nuevas}. */
+  function cerrarHalley(estadoPrevio, partida, total, ahora) {
+    ahora = ahora || new Date();
+    var estado = copiar(estadoPrevio || estadoInicial());
+    var p = partida || {}, t = total || {}, ganadas = ["poeta_halley"];
+    if (p.puntos >= 10) ganadas.push("fantastic_shine");
+    if (p.puntos >= 25) ganadas.push("manifiesto");
+    if (p.puntos >= 50) ganadas.push("amante_guisante");
+    if (t.partidas >= 10) ganadas.push("oniria");
+    if (t.notas >= 100) ganadas.push("algunas_plantas");
+    if (p.puntos >= 10 && p.notas === 0) ganadas.push("cuando_no_me_ves");
+    return { estado: estado, nuevas: otorgar(estado, ganadas, ahora) };
+  }
+
   // Código del cartel de concierto (F26): mayúsculas, sin espacios, guiones ni acentos.
   function normalizarCodigo(codigo) {
     return String(codigo || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z0-9]/g, "");
@@ -349,7 +372,7 @@
     ETAPAS: ETAPAS, DIFICULTADES: DIFICULTADES, PUNTOS: PUNTOS, CATEGORIAS: CATEGORIAS, INSIGNIAS: INSIGNIAS, CLAVE: CLAVE,
     validarPregunta: validarPregunta, preguntasJugables: preguntasJugables, sortear: sortear, opciones: opciones,
     puntaje: puntaje, categoria: categoria, pistaSiguiente: pistaSiguiente, estadoInicial: estadoInicial, cerrarPartida: cerrarPartida,
-    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cerrarAdivina: cerrarAdivina, normalizarCodigo: normalizarCodigo, canjearConcierto: canjearConcierto, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
+    registrarCompartir: registrarCompartir, registrarSecreto: registrarSecreto, cerrarContrarreloj: cerrarContrarreloj, cerrarAdivina: cerrarAdivina, cerrarHalley: cerrarHalley, normalizarCodigo: normalizarCodigo, canjearConcierto: canjearConcierto, cargarEstado: cargarEstado, guardarEstado: guardarEstado,
   };
   if (typeof module !== "undefined" && module.exports) module.exports = raiz.CRtrivia;
 })(typeof window !== "undefined" ? window : globalThis);
