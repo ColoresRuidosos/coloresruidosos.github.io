@@ -77,4 +77,12 @@ export const ALBA = {
   wheelSpeed: 0.6, wheelR: 56, cabins: 4, cabinW: 22,                  // la Maldita Rueda
   luzTime: 10,                      // Luz del Alba: las plataformas de luz duran 10 s
   pasajeT: 5, sitT: 1,              // pasaje en pantalla 5 s; sentarse tras 1 s quieto en una banca
+  // v10.2 · Jefe «La Nostalgia»: recuerdos de los jefes anteriores en sepia y más lentos (×0,7).
+  boss: {
+    throwEvery: 2.2, beamSpeed: 140, dashSpeed: 150, maskSpeed: 110, lead: 120,
+    rays: [96, 224, 352],             // rayos de sol de la fase 1 (px desde el inicio de la arena)
+    reverseEvery: 4, reverseFor: 2, warn: 0.6,   // fase 2: la noria se invierte
+    wind: 40, walk: 400,              // fase 3: viento en contra y lo que hay que caminar
+    bye: 4, lineT: 3,                 // despedida y frases en pantalla
+  },
 };
