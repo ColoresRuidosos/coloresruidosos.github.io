@@ -168,3 +168,24 @@ test("la racha del ranking se rompe si falta un día o si el último día fue ha
   const t = GS.topsAdivina(filas, new Date("2026-11-11T18:00:00Z"));
   assert.deepStrictEqual([...t.racha].map((x) => x.nombre + ":" + x.racha), ["A de Halley #1:2"]);
 });
+
+// ---------- Halley Flip (F28 fase 2/D35) ----------
+
+test("el Apps Script acepta puntajes de Halley Flip posibles para el tiempo jugado y rechaza los imposibles", () => {
+  const nombre = R.generarNombre(rngSemilla(4));
+  const env = (puntos, duracionMs) => R.armarEnvio("halley", nombre, puntos, duracionMs, "a1b2c3d4e5f6");
+  assert.strictEqual(GS.validarEnvio(env(0, 3500)), "");
+  assert.strictEqual(GS.validarEnvio(env(30, 2000 + 29 * 700)), "");
+  assert.strictEqual(GS.validarEnvio(env(31, 2000 + 29 * 700)), "rapido");
+  assert.strictEqual(GS.validarEnvio(env(1000, 3600000)), "puntos");
+  assert.strictEqual(GS.validarEnvio(env(5, 2000)), "duracion");
+  assert.strictEqual(GS.validarEnvio({ ...env(5, 10000), nombre: "Payaso de Carmesí #3" }), "nombre", "usa los nombres de la trivia");
+});
+
+test("Halley Flip tiene tablas de semana e histórico", () => {
+  const ahora = new Date("2026-11-18T18:00:00Z");
+  const f = (nombre, puntos, iso) => ({ nombre, puntos, duracionMs: 60000, fecha: iso, semana: GS.semanaCDMX(new Date(iso)), modo: "halley" });
+  const t = GS.tops([f("Poeta de Halley #1", 40, "2026-11-17T18:00:00Z"), f("Cometa de Nieve #2", 55, "2026-11-10T18:00:00Z")], "halley", ahora);
+  assert.deepStrictEqual([...t.semana].map((x) => x.puntos), [40]);
+  assert.deepStrictEqual([...t.historico].map((x) => x.puntos), [55, 40]);
+});

@@ -10,6 +10,15 @@
     "hasta": "2026-11-22T23:59:59-06:00"
   },
   {
+    "id": "halley-flip",
+    "nombre": "Halley Flip",
+    "descripcion": "Un toque para volar: guía al amante guisante y su listón de «Gracias» entre torres de bocinas por las 6 etapas de Love of Lesbian y recoge notas en el camino.",
+    "url": "games/halley-flip/",
+    "boton": "▶ Jugar",
+    "etiqueta": "Nuevo",
+    "desde": "2026-11-06T00:00:00-06:00"
+  },
+  {
     "id": "mexico-vs-jose-madero",
     "nombre": "México vs. José Madero",
     "descripcion": "Homenaje no oficial de 16 bits. Pepe perdió su identidad y la recupera disco a disco: Carmesí y Noche, rumbo a la Arena Ciudad de México (21 y 22 de mayo de 2027).",
