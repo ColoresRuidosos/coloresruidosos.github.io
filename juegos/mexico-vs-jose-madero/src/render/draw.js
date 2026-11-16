@@ -602,7 +602,7 @@ export function drawBadge(ctx, x, y) {
   text(ctx, 'JMV', x, y + 1, { scale: 3, align: 'center', bands: CHROME, shadow: '#1b1226' });
 }
 
-export function drawTitle(ctx, t, art) {
+export function drawTitle(ctx, t, art, subtitle = null) {
   for (let i = 0; i < TITLE_SKY.length; i++) rect(ctx, TITLE_SKY[i], 0, Math.floor((i * H) / TITLE_SKY.length), W, 34);
   // v8.3: solo el nombre del juego (spec §3.0f I). El título vive en GAME_TITLE.
   drawBadge(ctx, W / 2, 26);
@@ -611,6 +611,7 @@ export function drawTitle(ctx, t, art) {
     const small = line.length <= 3; // «VS.» más pequeño
     text(ctx, line, W / 2, y0 + i * 26 + (small ? 4 : 0), { scale: small ? 2 : 3, align: 'center', ...(i === n - 1 ? { bands: CHROME } : { color: i === 0 ? '#f7c86a' : '#ffffff' }) });
   });
+  if (subtitle) text(ctx, subtitle, W / 2, 152, { align: 'center', color: '#ffe0a8' });
   if (Math.floor(t * 2) % 2 === 0) text(ctx, 'PULSA START', W / 2, 168, { align: 'center' });
   text(ctx, 'B: OPCIONES', W / 2, 184, { align: 'center', color: '#8a7a9a' });
   text(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, 208, { align: 'center', color: '#e6e9f0' });

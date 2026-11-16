@@ -74,7 +74,12 @@ let optSel = 0, galSel = 0, prologueIdx = 0, cut = null, cutArt = null;
 function playCutscene(panels, then) { cut = { panels, idx: 0, then }; screen = 'cutscene'; screenT = 0; }
 const worldsDone = () => WORLDS.filter((w) => worldCleared(save, w.id)).map((w) => w.id);
 
+// Versión de prueba de un solo mundo (build con --solo=alba): sin Museo; la portada lleva directo al mundo.
+const SOLO = typeof __SOLO__ !== 'undefined' ? __SOLO__ : null;
+let booted = false;
+
 function enterMuseum(atDoor = null, returning = false) {
+  if (SOLO && booted) { run = null; paused = false; screen = 'title'; screenT = 0; return; }
   run = null; paused = false;
   if (returning) { toast = VUELTA_AL_MUSEO; toastT = 2.5; }
   game = createGame(HUB, { hearts: 3 });
@@ -299,7 +304,7 @@ function frame(now) {
     prev = { ...btn }; tapStart = false;
     for (const k in latch) latch[k] = false;
     if (screen === 'title') {
-      if (pr.jump) { audio.unlock(); if (save.data.seenPrologue) enterMuseum('carmesi'); else { prologueIdx = 0; screen = 'prologue'; screenT = 0; } }
+      if (pr.jump) { audio.unlock(); if (SOLO) startWorld(SOLO); else if (save.data.seenPrologue) enterMuseum('carmesi'); else { prologueIdx = 0; screen = 'prologue'; screenT = 0; } }
       else if (pr.mic) openOptions('title');
     } else if (screen === 'prologue') {
       // Prólogo (spec §1.1b): A avanza, B lo salta. Solo la primera vez.
@@ -358,7 +363,7 @@ function frame(now) {
     drawPrologue(ctx, cut.panels[cut.idx], cut.idx, screenT, cutArt, opt.flashes, cut.panels.length);
   }
   else if (screen === 'title' || (screen === 'options' && back === 'title')) {
-    drawTitle(ctx, t, art);
+    drawTitle(ctx, t, art, SOLO ? `MUNDO 3 · ${SOLO.toUpperCase()} · VERSIÓN DE PRUEBA` : null);
     if (screen === 'options') drawOptions(ctx, opt, optSel, t);
   } else if (screen === 'museum' || screen === 'gallery' || (screen === 'options' && back === 'museum')) {
     const info = museumInfo();
@@ -396,7 +401,7 @@ window.__jmv = {
   goto(i, world = run?.world ?? 'carmesi') { if (!run || run.world !== world) run = { world, idx: 0, carry: {}, levelStart: {}, time: 0 }; loadLevel(i, run.carry); screen = 'play'; },
   museum(door) { enterMuseum(door); },
 };
-enterMuseum('carmesi'); screen = 'title';
+enterMuseum('carmesi'); screen = 'title'; booted = true;
 art.ready.then(() => requestAnimationFrame(frame));
 
 // Escalado: entero cuando cabe (píxeles nítidos); fraccionario en pantallas pequeñas.
