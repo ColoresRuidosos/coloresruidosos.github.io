@@ -6,6 +6,21 @@
   var GRAVEDAD = 0.15, IMPULSO = -2.4, CAIDA_MAX = 3.4; // cada toque sube ~19 px: un tercio del hueco
   var ANCHO_TORRE = 16, SEPARACION = 74, MARGEN = 12, PROB_NOTA = 0.45, MAX_SALTO = 34; // entre huecos seguidos
   var CLAVE = "cr-halley-v1";
+  // Trajes del amante guisante (F29/D36): solo de vista. Cada uno se abre con una insignia de Halley Flip.
+  var TRAJES = [
+    { id: "aviador", nombre: "Aviador", descripcion: "Casco de aviador y gogles", insignia: null },
+    { id: "poeta", nombre: "Poeta", descripcion: "Boina y bufanda", insignia: "fantastic_shine" },
+    { id: "pijama", nombre: "Pijama", descripcion: "Gorro de dormir", insignia: "oniria" },
+    { id: "astronauta", nombre: "Astronauta", descripcion: "Casco de cristal", insignia: "manifiesto" },
+    { id: "rockero", nombre: "Rockero", descripcion: "Lentes oscuros y cresta", insignia: "algunas_plantas" },
+    { id: "estrella", nombre: "Estrella de la gira", descripcion: "Corona de la gira completa", insignia: "amante_guisante" },
+    { id: "antifaz", nombre: "Antifaz", descripcion: "Para volar sin que te vean", insignia: "cuando_no_me_ves" },
+  ];
+  function trajesDisponibles(insignias) {
+    var g = insignias || {};
+    return TRAJES.filter(function (t) { return !t.insignia || g[t.insignia]; }).map(function (t) { return t.id; });
+  }
+  function trajeElegido(id, insignias) { return trajesDisponibles(insignias).indexOf(id) >= 0 ? id : "aviador"; }
 
   // mulberry32: la semilla vive en el estado (e.s) para que la partida sea reproducible.
   function siguiente(s) {
@@ -102,7 +117,7 @@
 
   function registrar(previo, r) {
     var p = previo && typeof previo === "object" ? previo : { record: 0, partidas: 0, notas: 0 };
-    return { record: Math.max(p.record || 0, r.puntos), partidas: (p.partidas || 0) + 1, notas: (p.notas || 0) + r.notas,
+    return { record: Math.max(p.record || 0, r.puntos), partidas: (p.partidas || 0) + 1, notas: (p.notas || 0) + r.notas, traje: p.traje || "aviador",
       nuevoRecord: r.puntos > (p.record || 0) && r.puntos > 0 };
   }
 
@@ -114,6 +129,7 @@
   raiz.CRhalley = {
     ANCHO: ANCHO, ALTO: ALTO, PISO: PISO, X_COMETA: X_COMETA, RADIO: RADIO, GRAVEDAD: GRAVEDAD, IMPULSO: IMPULSO,
     CAIDA_MAX: CAIDA_MAX, ANCHO_TORRE: ANCHO_TORRE, SEPARACION: SEPARACION, MAX_SALTO: MAX_SALTO, CLAVE: CLAVE,
+    TRAJES: TRAJES, trajesDisponibles: trajesDisponibles, trajeElegido: trajeElegido,
     rngSemilla: rngSemilla, etapa: etapa, velocidad: velocidad, hueco: hueco, nuevaTorre: nuevaTorre,
     nuevaPartida: nuevaPartida, paso: paso, choca: choca, duracionMs: duracionMs, registrar: registrar, textoCompartir: textoCompartir,
   };

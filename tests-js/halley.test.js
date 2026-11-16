@@ -117,3 +117,70 @@ test("con el mejor ritmo posible, los puntos caben en el tope del servidor (ms_i
     assert.ok(e.puntos <= 1 + Math.max(0, H.duracionMs(e) - 2000) / 700, `${e.puntos} puntos en ${H.duracionMs(e)} ms`);
   }
 });
+
+// ---------- F29/D36: insignias y trajes ----------
+const T = require("../assets/js/trivia/logica.js");
+const HOY = new Date("2026-11-16T20:00:00-06:00");
+const cerrar = (puntos, notas, partidas, notasTotales, estado) =>
+  T.cerrarHalley(estado || T.estadoInicial(), { puntos, notas }, { partidas, notas: notasTotales }, HOY);
+
+test("las 7 insignias de Halley Flip están en la colección con su familia", () => {
+  const hal = T.INSIGNIAS.filter((i) => i.familia === "halley").map((i) => i.id);
+  assert.deepStrictEqual(hal.sort(), ["algunas_plantas", "amante_guisante", "cuando_no_me_ves", "fantastic_shine", "manifiesto", "oniria", "poeta_halley"]);
+  assert.ok(T.INSIGNIAS.find((i) => i.id === "cuando_no_me_ves").oculta);
+});
+
+test("cerrarHalley: primera partida, umbrales de puntos y totales", () => {
+  assert.deepStrictEqual(cerrar(0, 0, 1, 0).nuevas, ["poeta_halley"]);
+  assert.deepStrictEqual(cerrar(9, 1, 2, 1).nuevas, ["poeta_halley"]);
+  assert.deepStrictEqual(cerrar(10, 1, 2, 1).nuevas, ["poeta_halley", "fantastic_shine"]);
+  assert.deepStrictEqual(cerrar(25, 1, 2, 1).nuevas, ["poeta_halley", "fantastic_shine", "manifiesto"]);
+  assert.deepStrictEqual(cerrar(50, 3, 2, 3).nuevas, ["poeta_halley", "fantastic_shine", "manifiesto", "amante_guisante"]);
+  assert.ok(cerrar(1, 1, 10, 1).nuevas.includes("oniria"));
+  assert.ok(!cerrar(1, 1, 9, 1).nuevas.includes("oniria"));
+  assert.ok(cerrar(1, 1, 3, 100).nuevas.includes("algunas_plantas"));
+  assert.ok(!cerrar(1, 1, 3, 99).nuevas.includes("algunas_plantas"));
+});
+
+test("cerrarHalley: la secreta pide 10 torres sin ninguna nota", () => {
+  assert.ok(cerrar(10, 0, 1, 0).nuevas.includes("cuando_no_me_ves"));
+  assert.ok(!cerrar(10, 1, 1, 1).nuevas.includes("cuando_no_me_ves"));
+  assert.ok(!cerrar(9, 0, 1, 0).nuevas.includes("cuando_no_me_ves"));
+});
+
+test("cerrarHalley no repite insignias ni toca el estado anterior", () => {
+  const r = cerrar(12, 2, 1, 2);
+  const antes = JSON.stringify(r.estado);
+  const r2 = cerrar(30, 2, 2, 4, r.estado);
+  assert.deepStrictEqual(r2.nuevas, ["manifiesto"]);
+  assert.strictEqual(JSON.stringify(r.estado), antes);
+});
+
+test("las insignias de Halley Flip no cuentan para El gran truco final", () => {
+  const e = T.estadoInicial();
+  T.INSIGNIAS.forEach((i) => { if (!["gran_truco", "ultimo_baile", "wio"].includes(i.id) && !["contrarreloj", "adivina", "concierto", "halley"].includes(i.familia)) e.insignias[i.id] = HOY.toISOString(); });
+  assert.deepStrictEqual(T.registrarSecreto(e, "wio", HOY).nuevas, ["wio", "gran_truco"]);
+});
+
+test("catálogo de trajes: Aviador de inicio y uno por cada insignia que no es la primera", () => {
+  assert.strictEqual(H.TRAJES.length, 7);
+  assert.strictEqual(H.TRAJES[0].id, "aviador");
+  assert.strictEqual(H.TRAJES[0].insignia, null);
+  const ids = T.INSIGNIAS.map((i) => i.id);
+  H.TRAJES.slice(1).forEach((t) => { assert.ok(t.nombre && t.descripcion, t.id); assert.ok(ids.includes(t.insignia), t.id); });
+  assert.strictEqual(new Set(H.TRAJES.map((t) => t.insignia)).size, 7);
+});
+
+test("trajesDisponibles y trajeElegido siguen a las insignias y caen en Aviador", () => {
+  assert.deepStrictEqual(H.trajesDisponibles({}), ["aviador"]);
+  assert.deepStrictEqual(H.trajesDisponibles({ fantastic_shine: "x", poeta_halley: "x" }), ["aviador", "poeta"]);
+  assert.strictEqual(H.trajeElegido("poeta", { fantastic_shine: "x" }), "poeta");
+  assert.strictEqual(H.trajeElegido("poeta", {}), "aviador");
+  assert.strictEqual(H.trajeElegido("inventado", { fantastic_shine: "x" }), "aviador");
+  assert.strictEqual(H.trajeElegido(undefined, null), "aviador");
+});
+
+test("registrar conserva el traje elegido", () => {
+  assert.strictEqual(H.registrar({ record: 3, partidas: 1, notas: 0, traje: "poeta" }, { puntos: 1, notas: 0 }).traje, "poeta");
+  assert.strictEqual(H.registrar(null, { puntos: 1, notas: 0 }).traje, "aviador");
+});

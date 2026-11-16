@@ -243,12 +243,12 @@ test("Allí donde solíamos gritar al compartir, una sola vez", () => {
 });
 
 test("cada insignia del catálogo tiene nombre, cómo ganarla, familia e ícono", () => {
-  assert.strictEqual(T.INSIGNIAS.length, 36);
+  assert.strictEqual(T.INSIGNIAS.length, 43);
   T.INSIGNIAS.forEach((i) => {
     assert.ok(i.id && i.nombre && i.como && i.icono, JSON.stringify(i));
-    assert.ok(["trivia", "habilidad", "constancia", "secreta", "contrarreloj", "adivina", "concierto"].includes(i.familia), i.id);
+    assert.ok(["trivia", "habilidad", "constancia", "secreta", "contrarreloj", "adivina", "concierto", "halley"].includes(i.familia), i.id);
   });
-  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 36);
+  assert.strictEqual(new Set(T.INSIGNIAS.map((i) => i.id)).size, 43);
 });
 
 // ---------- Portadas coleccionables ----------
@@ -290,7 +290,7 @@ test("un almacenamiento que lanza error o trae basura no rompe el juego", () => 
 
 test("las insignias secretas tienen una pista que no dice el nombre", () => {
   const ocultas = T.INSIGNIAS.filter((i) => i.oculta);
-  assert.strictEqual(ocultas.length, 15);
+  assert.strictEqual(ocultas.length, 16);
   ocultas.forEach((i) => {
     assert.ok(i.pista && i.pista !== "???", i.id);
     assert.ok(!i.pista.toLowerCase().includes(i.nombre.toLowerCase()), "la pista no puede revelar el nombre: " + i.id);

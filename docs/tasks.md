@@ -175,4 +175,12 @@ Orden TDD: primero la prueba en rojo, luego el código.
 - ✅ 🔴→🟢 `Code.gs`: modo `halley`, tope por tiempo jugado ("rapido"), nombres de la trivia
 - ✅ Cliente: publicar al chocar, pantalla Ranking (Semana/Histórico), aviso si el modo no está activo
 - ✅ e2e contra el `Code.gs` simulado
-- ⏳ V13: el equipo publica la nueva versión del script
+- ✅ V13: el equipo publica la nueva versión del script (verificado el 16 nov: `?modo=halley` responde)
+
+## Fase 21 — Trajes e insignias de Halley Flip (F29/D36)
+- ✅ Spec
+- ✅ 🔴→🟢 `cerrarHalley`: las 7 insignias con sus umbrales, sin duplicados, la secreta, fuera de *El gran truco final*
+- ✅ 🔴→🟢 Catálogo de trajes: cada uno con su insignia, desbloqueo y respaldo a *Aviador*
+- ✅ Íconos de las insignias y sprites de los 7 trajes
+- ✅ Pantalla: premios en el resultado, vestidor, traje guardado
+- ✅ e2e en móvil (390 px): primera insignia, sin repetir, vestidor, traje guardado tras recargar, insignias visibles en la trivia

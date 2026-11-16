@@ -123,6 +123,14 @@
 - Cliente: `assets/js/trivia/ranking.js` (nombres, `armarEnvio`, `formatoTiempo`) entra al paquete de Halley Flip. El nombre se lee y guarda en `cr-trivia-nombre` y el dispositivo en la misma clave que usa la trivia. La URL del script sale de `site.Params.trivia_ranking_url` en `data-ranking-url`. POST como `text/plain`, sin preflight.
 - El equipo publica la versión nueva del script **una vez** (Implementar → Gestionar implementaciones → lápiz → Nueva versión); la URL no cambia.
 
+**D36 Trajes e insignias de Halley Flip (2026-11-16):** F29.
+- **Insignias:** 7 entradas nuevas en `INSIGNIAS` de `assets/js/trivia/logica.js` con `familia: "halley"`. Íconos de 16 × 16 en `insignias.js` y aro `#6cc04a`. `tieneTodas` ignora la familia `halley`, igual que `adivina`.
+- **Cierre:** `cerrarHalley(estado, partida {puntos, notas}, total {partidas, notas}, ahora)` → `{estado, nuevas}`. Los totales vienen de `cr-halley-v1`, y las insignias se guardan en `cr-trivia-v1` (una sola colección).
+- **Trajes:** el catálogo vive en `flip.js` (`TRAJES`: id, nombre, descripción, insignia que lo abre o `null`). `trajesDisponibles(insignias)` y `trajeElegido(id, insignias)` caen en *Aviador* si el traje no está abierto. El traje elegido se guarda en `cr-halley-v1.traje`.
+- **Dibujo:** `juego.js` dibuja el guisante base (sin casco) y encima el accesorio de cada traje, como sprites de texto. El círculo de choque no cambia.
+- **Página:** el paquete de Halley Flip suma `logica.js` e `insignias.js`. La sección «Trajes e insignias» va debajo de la consola, como el ranking, para que quepa en el celular.
+- **Pruebas:** `tests-js/halley.test.js` (catálogo, desbloqueo y respaldo) y `tests-js/trivia.test.js` (`cerrarHalley`, familia nueva, íconos y conteo).
+
 ## Verificaciones pendientes
 | ID | Qué | Plan B |
 |---|---|---|

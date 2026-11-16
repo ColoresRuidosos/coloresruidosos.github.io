@@ -163,6 +163,27 @@ Al elegir, entra directo a ese juego. En el menú también están Mi colección,
 - **Anti trampas razonable:** el servidor rechaza puntajes imposibles para el tiempo jugado (la primera torre llega a los ~2,5 s y luego, a lo más, una cada ~0,8 s) y limita los envíos por navegador. El equipo modera en el Sheet. Si el script todavía no tiene el modo, el juego avisa "El ranking de Halley Flip todavía no está activo".
 - **Original:** nombre, personaje, obstáculos, fondos y música propios. No usa nombres, sprites ni el aspecto de otros juegos.
 
+**F29 Trajes e insignias de Halley Flip.** Jugar Halley Flip desbloquea **insignias** que se suman a la colección de la trivia y, con ellas, **trajes** para el amante guisante.
+- **7 insignias nuevas** (familia «Halley Flip», aro verde guisante), con nombres de canciones de Love of Lesbian:
+  - *El poeta Halley*: terminar tu primera partida.
+  - *Fantastic Shine*: llegar a 10 puntos (etapa 2).
+  - *Manifiesto delirista*: llegar a 25 puntos.
+  - *Historia del amante guisante*: llegar a 50 puntos, la gira completa.
+  - *Oniria e insomnia*: jugar 10 partidas.
+  - *Algunas plantas*: recoger 100 notas en total.
+  - *Cuando no me ves* (secreta): pasar 10 torres sin recoger ni una nota. Pista: «Vuela sin mirar la música».
+- **7 trajes:** *Aviador* (el de siempre, desde el inicio) y uno por insignia:
+  - *Poeta* (boina y bufanda): Fantastic Shine.
+  - *Pijama* (gorro de dormir): Oniria e insomnia.
+  - *Astronauta* (casco de cristal): Manifiesto delirista.
+  - *Rockero* (lentes oscuros y cresta): Algunas plantas.
+  - *Estrella de la gira* (corona): Historia del amante guisante.
+  - *Antifaz*: Cuando no me ves.
+  Todos son diseños propios en pixel art. El traje es solo de vista: no cambia la física, el tamaño del choque ni el ranking.
+- **Al chocar:** si ganaste algo, la pantalla de resultado lo dice («¡Insignia nueva: Fantastic Shine!» y «¡Traje nuevo: Poeta!»), con la chapa.
+- **Trajes e insignias:** un botón abre el **vestidor**, con los 7 trajes (los bloqueados en silueta y con lo que hay que hacer) y las 7 insignias de Halley Flip. El traje elegido se recuerda en el navegador.
+- **Una sola colección:** las insignias se guardan en el mismo lugar que las de la trivia, así que también aparecen en «Mi colección» de `/trivia/`. Como las de Adivina la canción, no cuentan para *El gran truco final*.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos
