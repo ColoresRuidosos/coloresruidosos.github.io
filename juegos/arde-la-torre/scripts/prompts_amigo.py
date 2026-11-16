@@ -157,7 +157,7 @@ OTROS = [
   ("titulo-fondo.png", "Pantalla de título (opcional)", "Ilustración en pixel art para la pantalla de título de un videojuego arcade de los 90: un rascacielos de oficinas blanco de los años 80 con franjas verticales y arcos en la base, de noche, visto desde abajo en contrapicado; en la azotea, un escenario de concierto con focos y pirotecnia de escenario. Cielo de morado a rojo, skyline de Madrid en silueta con ventanas encendidas. Paleta cálida y algo desaturada. Formato PANORÁMICO 16:9. Deja libre la franja superior para el título. NADA de fuego, humo ni daños en el edificio: el fuego es solo pirotecnia del escenario. Sin texto, sin logos y sin personajes."),
 ]
 
-HECHOS = {'dani', 'jota'}   # ya están en el juego · Antonio y Pepe se repiten (16 nov: «Pepe no se parece», «también al vocalista»)
+HECHOS = {'antonio', 'pepe', 'dani', 'jota'}   # ya están en el juego (Antonio y Pepe rehechos el 16 nov desde fotos reales)
 ANTONIO_V3_HECHO = True                         # 15 nov: hojas con la guitarra detrás de la espalda ya en el juego
 
 RETRATOS = ("Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. "
@@ -202,7 +202,7 @@ def build():
     return secciones
 
 PASOS = [
-    "Hay que rehacer a ANTONIO (el vocalista) y a PEPE para que se parezcan: 5 imágenes de cada uno, en orden, empezando por una foto real. Lo demás ya está en el juego.",
+    "¡Todo hecho! Ya están en el juego los 4 músicos (Antonio y Pepe rehechos desde fotos reales), los 9 enemigos y jefes, los objetos, los fondos y el título.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",

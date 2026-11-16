@@ -21,40 +21,35 @@ OUTLINE = (18, 12, 24)
 # Cada hoja: archivo, poses por fila, nombres en orden, poses de referencia (de pie; se usa la mediana de su altura) para la escala,
 # y fotogramas que no están de pie (se anclan por el centro de la caja, no por los pies).
 SHEETS = {
+    # v4 (16 nov 2026, «Pepe no se parece» y «también al vocalista»): Antonio y Pepe rehechos desde fotos reales,
+    # con la misma estructura que Dani y Jota. Las hojas anteriores están en art/source/<músico>/descartes-v2/.
     'antonio': [
-        # v3 (15 nov): movimiento y guitarrazo repetidos con la guitarra siempre detrás de la espalda (la v1 la atravesaba).
-        dict(file='antonio-2-movimiento.jpg', rows=[2, 4, 4, 2],
+        dict(file='antonio-2.png', rows=[2, 4, 4, 2],
              names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
-             ref=['idle0', 'idle1', 'walk0', 'walk2'], loose=['jump0', 'jump1']),
-        dict(file='antonio-3-combo.jpg', rows=[4, 3, 5],
-             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'oguit0', 'oguit1', 'oguit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
-             ref=['punch1a', 'punch1b'], loose=['air'], skip=['oguit0', 'oguit1', 'oguit2']),
-        dict(file='antonio-4-dano-especial.jpg', rows=[3, 3, 4],
-             names=['fall0', 'fall1', 'fall2', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
-             ref=['sp0', 'sp1'], loose=['fall0', 'fall1', 'fall2', 'down'], recolor='pantalon'),
-        dict(file='antonio-5-firma-super.jpg', rows=[3, 4, 3],
-             names=['lash0', 'lash1', 'lash2', 'hymn0', 'hymn1', 'hymn2', 'hymn3', 'owin0', 'owin1', 'portrait'],
-             ref=['hymn1', 'hymn2', 'hymn3', 'lash0'], loose=[], portrait='portrait', skip=['owin0', 'owin1']),
-        dict(file='antonio-6-guitarrazo.jpg', rows=[3, 2], names=['guit0', 'guit1', 'guit2', 'win0', 'win1'],
-             ref=['guit0', 'guit2'], target=66, loose=[]),   # escala por las poses agachadas (la guitarra en alto no cuenta)
-    ],
-    # Pepe: Gemini dio 3 poses en la fila de la rodilla y una borrosa de más en la del bajazo (se descarta).
-    # `target`: altura de las poses de referencia según su postura (Pepe en guardia va agachado; la victoria, erguida).
-    'pepe': [
-        dict(file='pepe-2-movimiento.jpg', rows=[2, 4, 4, 2],
-             names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
-             ref=['idle0', 'idle1', 'walk0', 'walk2'], target=64, loose=['jump0', 'jump1']),
-        dict(file='pepe-3-combo.jpg', rows=[2, 3, 4, 5],
-             names=['punch1a', 'punch1b', 'punch2a', 'punch2m', 'punch2b', 'guit0', 'guit1', 'guit2', 'blur',
-                    'air', 'grab', 'knee', 'throw0', 'throw1'],
-             ref=['punch1b', 'punch2b'], target=66, loose=['air'], skip=['blur']),
-        dict(file='pepe-4-dano-especial.jpg', rows=[3, 3, 4],
+             ref=['idle0', 'idle1', 'walk0', 'walk2'], target=66, loose=['jump0', 'jump1']),
+        dict(file='antonio-3.png', scale_from_first=True, rows=[2, 2, 3, 5],
+             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
+             ref=['punch1a', 'punch1b'], target=64, loose=['air']),
+        dict(file='antonio-4.png', scale_from_first=True, rows=[3, 3, 4],
              names=['hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
-             ref=['hurt'], target=70, loose=['fall0', 'fall1', 'down']),
-        dict(file='pepe-5-firma-super.jpg', rows=[3, 4, 4],
-             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'win2', 'portrait'],
-             ref=['win0', 'win2'], target=74, loose=[], portrait='portrait'),
-        # El retrato grande aparte (pepe-6-retrato.jpg) tiene otro estilo; se usa el de la hoja, igual que con Antonio.
+             ref=['sp0', 'sp1'], target=64, loose=['fall0', 'fall1', 'down']),
+        dict(file='antonio-5.png', scale_from_first=True, rows=[3, 4, 2, 1],
+             names=['lash0', 'lash1', 'lash2', 'hymn0', 'hymn1', 'hymn2', 'hymn3', 'win0', 'win1', 'portrait'],
+             ref=['hymn1', 'hymn2'], target=68, loose=[], portrait='portrait'),
+    ],
+    'pepe': [
+        dict(file='pepe-2.png', rows=[2, 4, 4, 2],
+             names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1'],
+             ref=['idle0', 'idle1', 'walk0', 'walk2'], target=66, loose=['jump0', 'jump1']),
+        dict(file='pepe-3.png', rows=[2, 2, 3, 5],   # hoja de otro tamaño (1199×1312): escala propia
+             names=['punch1a', 'punch1b', 'punch2a', 'punch2b', 'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1'],
+             ref=['punch1a', 'punch1b'], target=64, loose=['air']),
+        dict(file='pepe-4.png', rows=[3, 3, 4],
+             names=['hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3'],
+             ref=['rise1'], target=64, loose=['fall0', 'fall1', 'down']),
+        dict(file='pepe-5.png', rows=[3, 4, 2, 1],   # Gemini lo dibujó más pequeño en esta hoja: escala propia
+             names=['sig0', 'sig1', 'sig2', 'sup0', 'sup1', 'sup2', 'sup3', 'win0', 'win1', 'portrait'],
+             ref=['win0', 'win1'], target=70, loose=[], portrait='portrait'),
     ],
     # Jota: Gemini le puso a la camiseta el nombre de otra banda; se borra con `sin_texto` (regla de CR: nada de marcas de terceros).
     'jota': [

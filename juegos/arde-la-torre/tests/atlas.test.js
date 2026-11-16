@@ -6,7 +6,7 @@ import { PNG as RETRATO } from '../src/data/retrato-antonio.js';
 
 const NEEDED = ['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'run0', 'run1', 'run2', 'run3', 'jump0', 'jump1',
   'punch1a', 'punch1b', 'punch2a', 'punch2b', 'guit0', 'guit1', 'guit2', 'air', 'grab', 'knee', 'throw0', 'throw1',
-  'fall0', 'fall1', 'fall2', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3', 'lash0', 'lash1', 'lash2',
+  'hurt', 'fall0', 'fall1', 'down', 'rise0', 'rise1', 'sp0', 'sp1', 'sp2', 'sp3', 'lash0', 'lash1', 'lash2',
   'hymn0', 'hymn1', 'hymn2', 'hymn3', 'win0', 'win1', 'portrait'];
 
 test('T5.1 atlas de Antonio: todas las poses, de pie a ~66 px, anclas dentro del fotograma', () => {
