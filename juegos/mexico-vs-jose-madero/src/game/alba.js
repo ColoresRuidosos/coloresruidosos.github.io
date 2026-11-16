@@ -12,7 +12,8 @@ export function createAlba(level, opts = {}) {
     still: 0, drag: false, sitting: false, sitT: 0, sepia: 0, luzT: 0, dawnX: level.player?.x ?? 0,
     recuerdos: level.recuerdos.map((r, i) => ({ x: r.x - 9, y: r.y - 10, w: 18, h: 20, vari: VARIANTES[i % 4], alive: true, fade: 0 })),
     wheels: level.wheels.map((c) => ({ cx: c.x, cy: c.y, r: K.wheelR, n: K.cabins, angle: 0, dir: 1 })),
-    pasajes: level.pasajes.map((p, i) => ({ ...p, idx: (opts.start ?? 0) + i, read: false })),
+    // Numerados de izquierda a derecha (el lector de niveles los encuentra fila por fila).
+    pasajes: [...level.pasajes].sort((a, b) => a.x - b.x).map((p, i) => ({ ...p, idx: (opts.start ?? 0) + i, read: false })),
     leidos: [], pasaje: null, ride: null, bancas: level.bancas,
   };
   if (level.nostalgia) A.boss = createNostalgia(level, A);

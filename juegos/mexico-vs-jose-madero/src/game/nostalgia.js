@@ -80,7 +80,7 @@ export function stepNostalgia(g) {
     if (w) w.dir = cyc < B.reverseEvery ? 1 : -1;
     if (cyc >= B.reverseEvery - B.warn && cyc < B.reverseEvery) { if (!b.warned) { b.warned = true; g.events.push('rebobina'); } }
     else if (cyc < B.reverseEvery - B.warn) b.warned = false;
-    if (pc > b.ledgeX && feet <= b.ground - 40) {
+    if (pc > b.ledgeX && feet <= b.ground - 40 && p.onGround) {   // ya de pie en la repisa alta
       if (w) w.dir = 1;
       b.phase = 3; b.t = 0; b.x3 = pc; say(b, 'fase3'); g.events.push('fase');
     }
@@ -88,6 +88,8 @@ export function stepNostalgia(g) {
   }
 
   if (b.phase === 3) {
+    // Si el viento te tira de la repisa, vuelves a la fase 2: la noria sigue ahí para subir otra vez.
+    if (p.onGround && feet > b.ground - 20) { b.phase = 2; b.t = 0; b.warned = false; return; }
     moveBody(L, p, -B.wind * DT, 0);   // el viento sepia te empuja hacia atrás
     if (p.x + p.w / 2 - b.x3 >= B.walk) { b.phase = 4; b.t = 0; say(b, 'despedida'); g.events.push('despedida'); }
     return;
