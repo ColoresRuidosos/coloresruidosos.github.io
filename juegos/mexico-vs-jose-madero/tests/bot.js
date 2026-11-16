@@ -113,3 +113,40 @@ export function maskBot(g) {
   if (keepJumping) btn.jump = true;
   return btn;
 }
+
+// v10 · Bot de Alba (paseo): camina, salta huecos y muros, se sube a la Maldita Rueda cuando hay que pasar por arriba,
+// esquiva los recuerdos del jefe (el rayo alto se deja pasar por encima) y camina contra el viento.
+import { cabinTops } from '../src/game/alba.js';
+export function albaBot(g) {
+  const p = g.player, L = g.level, A = g.alba, pc = p.x + p.w / 2, feet = p.y + p.h;
+  const btn = { left: false, right: true, jump: false, mic: false, special: false };
+  const tyFeet = Math.floor((feet - 1) / TILE);
+  const wallAt = (dx) => { const tx = Math.floor((pc + dx) / TILE); return L.tileAt(tx, tyFeet) === '#' || L.tileAt(tx, tyFeet - 1) === '#'; };
+  // ¿Hay que subir por la noria? (muro alto delante y una noria cerca)
+  const w = A.wheels.find((wh) => pc > wh.cx - 140 && pc < wh.cx + wh.r + 64);
+  // Muro alto delante (más alto que un salto): se pasa por arriba, en la noria.
+  const tallWall = !!w && [16, 32, 48, 64, 80, 96, 112].some((dx) => { const tx = Math.floor((pc + dx) / TILE); return L.tileAt(tx, tyFeet) === '#' && L.tileAt(tx, tyFeet - 3) === '#'; });
+  if (A.ride && w) {
+    const t = cabinTops(w)[A.ride.k];
+    const out = t.x > w.cx + 18 && t.y < w.cy + 12 && w.dir > 0;
+    return { ...btn, right: out, jump: out };
+  }
+  if (w && (tallWall || (A.boss && A.boss.phase === 2)) && p.onGround) {
+    const dx = w.cx - pc;
+    if (Math.abs(dx) > 4) return { ...btn, right: dx > 0, left: dx < 0 };
+    // Saltar cuando una cabina de abajo llega por la derecha (abajo giran hacia la izquierda; al revés, al contrario).
+    const cab = cabinTops(w).find((t) => (t.x - pc) * w.dir >= 2 && (t.x - pc) * w.dir <= 18 && t.y > feet - 62 && t.y < feet - 28);
+    return { ...btn, right: false, jump: !!cab };
+  }
+  // En el aire subiendo a una cabina (salto bajo, junto al centro de la noria): sin moverse de lado.
+  if (!p.onGround && w && Math.abs(pc - w.cx) < 30 && feet > w.cy) return { ...btn, right: false, jump: p.vy < 0 };
+  if (!p.onGround) return { ...btn, jump: p.vy < 0 };
+  const gap = !['#', '='].includes(L.tileAt(Math.floor((p.x + p.w + 14) / TILE), tyFeet + 1));
+  let jump = wallAt(p.w / 2 + 6) || gap;
+  // Recuerdos del jefe: saltar lo que viene a ras de suelo; el rayo alto se deja pasar.
+  for (const s of A.boss?.shots ?? []) {
+    const d = s.x - (p.x + p.w);
+    if (d > 0 && d < 40 && s.kind !== 'rayoAlto' && s.y + s.h > p.y + 8) jump = true;
+  }
+  return { ...btn, jump };
+}

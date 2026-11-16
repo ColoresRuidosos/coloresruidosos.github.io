@@ -41,7 +41,9 @@ while t < (gancho_fin if solo_gancho else dur - 0.5):
     latido(t, 1.0 if t < gancho_fin else 0.7); t += 2 * beat
 
 # acentos de las escenas del reel (en tiempos de la canción)
-for b, kind in [(10, 'boom'), (12, 'boom'), (16, 'up')] + [(41.5 + i, 'blip') for i in range(6)] + [(48.5, 'boom'), (53, 'boom'), (55, 'blip'), (57, 'blip')]:
+# acentos: vienen en los eventos de reel.js (según la línea de tiempo de cada reel); si no, los del reel original
+ACC = [(e['t'] / beat, e['type']) for e in ev if e['type'] in ('boom', 'up', 'blip')]
+for b, kind in ACC or ([(10, 'boom'), (12, 'boom'), (16, 'up')] + [(41.5 + i, 'blip') for i in range(6)] + [(48.5, 'boom'), (53, 'boom'), (55, 'blip'), (57, 'blip')]):
     tt = b * beat
     if kind == 'boom': add(tt, mix(tone(70, 0.5, 'sine', 0.8, f2=35, decay=0.15), noise(0.25, 0.35, 0.06)))
     elif kind == 'up': add(tt, tone(220, 0.35, 'saw', 0.18, f2=880))

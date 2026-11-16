@@ -23,4 +23,15 @@ export const WORLD_SCENES = {
       { scene: 'pepe', world: 'noche', kind: 'ficcion', lines: ['PEPE TAMBIÉN SE QUITA LA SUYA.', 'DOS DISCOS. FALTAN SEIS.'] },
     ],
   },
+  // v10.5 · Alba: ilustraciones de Gemini por id (a1–a4); si faltan, se dibuja la escena por código.
+  alba: {
+    intro: [
+      { id: 'a1', scene: 'puerta', world: 'alba', kind: 'ficcion', lines: ['LA PUERTA BLANCA DA A LA SALIDA DE LA FIESTA.', 'ADENTRO SIGUE LA MÚSICA; AFUERA, EL SILENCIO.', 'EL CIELO EMPIEZA A ACLARAR.'] },
+      { id: 'a2', scene: 'calle', kind: 'ficcion', lines: ['EN EL CAMINO FLOTAN FOTOS', 'DE TODO LO QUE YA VIVIÓ.', 'CADA UNA LE PIDE QUE SE QUEDE.'] },
+    ],
+    outro: [
+      { id: 'a3', scene: 'disco', kind: 'ficcion', lines: ['SALE EL SOL.', 'LA NOSTALGIA SE DESPIDE SONRIENDO.'] },
+      { id: 'a4', scene: 'pepe', world: 'alba', kind: 'ficcion', lines: ['PEPE SE TOMA UNA FOTO DEL PRESENTE.', 'TRES DISCOS. FALTAN CINCO.'] },
+    ],
+  },
 };

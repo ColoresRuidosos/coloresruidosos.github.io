@@ -18,8 +18,8 @@ var MODOS = {
   trivia: { max: 30, min_ms: 15000, max_ms: 3600000 },
   contrarreloj: { max: 400, min_ms: 3000, max_ms: 90000 },
   adivina: { max: 60, min_ms: 5000, max_ms: 3600000 },
-  // «Yo contra mi corazón»: una canción de 3:46; solo la semana del 9 al 15 nov 2026 (hasta 23:59 CDMX).
-  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-16T05:59:59Z" },
+  // «Yo contra mi corazón»: una canción de 3:46; del 9 al 22 nov 2026 (temporada extendida una semana; hasta 23:59 CDMX).
+  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-23T05:59:59Z" },
   // Halley Flip (F28/D35): la primera torre se pasa a los ~2,8 s y luego, a lo más, una cada ~0,82 s.
   halley: { max: 999, min_ms: 3000, max_ms: 3600000, ms_inicio: 2000, ms_por_punto: 700 },
 };

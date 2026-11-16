@@ -1,6 +1,6 @@
-// F13: el juego solo está disponible esta semana (9–15 nov 2026, hora de CDMX).
-export const CIERRE = '2026-11-15T23:59:59-06:00';
-export const CIERRE_TEXTO = 'HASTA EL DOMINGO 15 DE NOV';
+// F13: temporada limitada (9–15 nov 2026), extendida una semana más hasta el 22 nov (hora de CDMX).
+export const CIERRE = '2026-11-22T23:59:59-06:00';
+export const CIERRE_TEXTO = 'HASTA EL DOMINGO 22 DE NOV';
 const OFFSET_CDMX_MS = 6 * 3600 * 1000;   // México no usa horario de verano desde 2022
 const diaCDMX = (d) => Math.floor((d.getTime() - OFFSET_CDMX_MS) / 86400000);
 

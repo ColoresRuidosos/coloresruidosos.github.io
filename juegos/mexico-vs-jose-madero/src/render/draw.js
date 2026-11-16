@@ -17,6 +17,7 @@ import { buildTheme, hash } from './themes.js';
 import { drawRecuerdo, drawThought } from './draw-historia.js';
 import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
+import { drawAlbaWorld, drawAlbaPepe, drawAlbaOverlay, drawAlbaHud, drawSolPiece, drawLuz } from './draw-alba.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
 const rect = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
@@ -297,8 +298,9 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     rect(ctx, Math.floor(t * 3) % 2 ? '#ffcf7a' : '#e8a23c', x - 11, y - 40, 22, 40);
     text(ctx, th.goal ?? 'TEATRO', x, y - 60, { color: th.gray ? '#e6e6e6' : '#ffcf7a', align: 'center' });
   }
-  for (const pc of g.pieces) if (!pc.taken) (th.piece === 'luna' ? drawLunaPiece : drawCarmesi)(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
-  for (const it of g.items) if (!it.taken) (it.kind === 'aceite' ? drawAceite : drawItem)(ctx, it, t);
+  for (const pc of g.pieces) if (!pc.taken) (th.piece === 'luna' ? drawLunaPiece : th.piece === 'sol' ? drawSolPiece : drawCarmesi)(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
+  for (const it of g.items) if (!it.taken) (it.kind === 'aceite' ? drawAceite : it.kind === 'luz' ? drawLuz : drawItem)(ctx, it, t);
+  if (g.alba) drawAlbaWorld(ctx, g, t, flashes);
 
   drawEnemies(ctx, g, art, t, flashes);
   if (g.boss && g.boss.kind !== 'mask') drawBoss(ctx, g, art, t, flashes);
@@ -348,7 +350,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
   if (!(blink && flashes && Math.floor(t * 15) % 2)) {
     if (blink && !flashes) ctx.globalAlpha = 0.55;
     if (p.frozen > 0) ctx.filter = 'brightness(1.7) saturate(0.4)';
-    drawPepe(ctx, g, art, t, p.x + p.w / 2, p.y + p.h, p.facing < 0);
+    if (!(g.alba && drawAlbaPepe(ctx, g, t, p.x + p.w / 2, p.y + p.h, p.facing < 0))) drawPepe(ctx, g, art, t, p.x + p.w / 2, p.y + p.h, p.facing < 0);
     ctx.filter = 'none'; ctx.globalAlpha = 1;
   }
   // Noche: oscuridad con el farol de Pepe (y los ojos del Enmascarado, que se ven siempre).
@@ -368,6 +370,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
     ctx.globalAlpha = 1;
   }
   ctx.restore();
+  if (g.alba) drawAlbaOverlay(ctx, g, t, flashes);
 }
 
 const BUBBLE = (e) => e.kind === 'titular' ? e.word
@@ -519,19 +522,27 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null, opts = {}) {
   const notes = hudNotes(g, opts);
   // Barra superior.
   ctx.globalAlpha = 0.55; rect(ctx, '#12040a', 0, 0, W, 30); ctx.globalAlpha = 1;
-  for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });
-  text(ctx, String(g.score).padStart(7, '0'), 36, 5, { color: '#ffffff' });
-  if (art?.theme?.piece === 'luna') drawLunaPiece(ctx, 86, 9, 0, 4); else drawCarmesi(ctx, 86, 9, 0, 4);
-  text(ctx, `${g.piezas}/${g.pieces.length}`, 94, 5);
-  text(ctx, clock(g.time), 124, 5, { color: '#b9c0d0' });
+  if (g.alba) {
+    // v10 · Paseo: sin corazones ni marcador; pasajes leídos y soles.
+    drawAlbaHud(ctx, g, t);
+    text(ctx, `☀ ${g.piezas}/${g.pieces.length}`, 120, 5, { color: '#fff0c0' });
+  } else {
+    for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });
+    text(ctx, String(g.score).padStart(7, '0'), 36, 5, { color: '#ffffff' });
+    if (art?.theme?.piece === 'luna') drawLunaPiece(ctx, 86, 9, 0, 4); else drawCarmesi(ctx, 86, 9, 0, 4);
+    text(ctx, `${g.piezas}/${g.pieces.length}`, 94, 5);
+    text(ctx, clock(g.time), 124, 5, { color: '#b9c0d0' });
+  }
   text(ctx, levelName, W - 6, 5, { align: 'right', color: '#ffcf7a' });
-  // Ovación: barra que carga el Solo de guitarra.
+  // Ovación: barra que carga el Solo de guitarra (no en el paseo de Alba).
   const full = g.ovacion >= OVATION.max;
+  if (!g.alba) {
   text(ctx, 'OVACIÓN', 6, 17, { color: full ? '#ffcf7a' : '#b9a8d6' });
   rect(ctx, '#1b1226', 50, 17, 82, 8); rect(ctx, '#3a2050', 51, 18, 80, 6);
   rect(ctx, full ? (Math.floor(t * 6) % 2 ? '#ffcf7a' : '#ff5a4f') : '#d8312b', 51, 18, Math.round(80 * g.ovacion / OVATION.max), 6);
   if (full) text(ctx, '★ SOLO: C', 138, 17, { color: Math.floor(t * 4) % 2 ? '#ffcf7a' : '#ffffff' });
   else if (g.combo > 1 && g.comboT > 0) text(ctx, `COMBO X${g.combo}`, 138, 17, { color: '#ff9a5a' });
+  }
   // Ayudas activas (v8.2), bajo la barra.
   const aids = [g.star > 0 && `ANTIFAZ ${Math.ceil(g.star)}`, g.pua > 0 && `PÚA ${Math.ceil(g.pua)}`].filter(Boolean);
   if (aids.length) text(ctx, aids.join('  '), W - 6, 33, { align: 'right', color: '#ffcf7a' });
@@ -551,7 +562,7 @@ export function drawHud(ctx, g, levelName = '', t = 0, art = null, opts = {}) {
   }
   // Pensamiento de Pepe al tocar un checkpoint (ficción).
   const zones = {};   // v9.6: dónde quedó cada nota, para saltarla con un toque
-  if (notes.thought) zones.thought = drawThought(ctx, notes.thought);
+  if (notes.thought && !g.alba?.pasaje) zones.thought = drawThought(ctx, notes.thought);
   // Primera vez que se recoge un objeto: su explicación (guía de objetos).
   const hint = notes.hint;
   if (hint) {
@@ -612,7 +623,7 @@ export function drawCard(ctx, card, art, t) {
     if (art) sprite(ctx, art.pepe, loop(art.pepe, 'win', t, 8), W / 2, 72);
     text(ctx, `${card.id} SUPERADO`, W / 2, 82, { scale: 2, align: 'center', color: '#ffcf7a' });
     text(ctx, `TIEMPO ${clock(card.time)}`, W / 2, 108, { align: 'center' });
-    text(ctx, `PUNTOS ${String(card.score).padStart(7, '0')}`, W / 2, 120, { align: 'center' });
+    text(ctx, card.pasajes ?? `PUNTOS ${String(card.score).padStart(7, '0')}`, W / 2, 120, { align: 'center' });
     text(ctx, `${card.pieceName ?? 'CARMESÍS'} ${card.piezas}/${card.total}`, W / 2, 132, { align: 'center' });
     text(ctx, `SIGUIENTE: ${card.next}`, W / 2, 148, { align: 'center', color: '#ff9a5a' });
     (card.unlocks ?? []).forEach((u, i) => text(ctx, u, W / 2, 162 + i * 10, { align: 'center', color: '#7ad0ff' }));
@@ -644,7 +655,7 @@ export function drawEnd(ctx, g, best, art, t = 0, info = {}) {
   if (g.status === 'won') {
     if (art) drawCostume(ctx, art, art.costume, 'idle', W / 2, 70);
     text(ctx, info.title ?? '¡MUNDO COMPLETADO!', W / 2, 80, { scale: 2, align: 'center', color: '#ffcf7a' });
-    text(ctx, `PUNTOS ${String(g.score).padStart(7, '0')}`, W / 2, 106, { align: 'center' });
+    text(ctx, g.alba ? `PASAJES ${g.alba.leidos.length + g.alba.start}/10` : `PUNTOS ${String(g.score).padStart(7, '0')}`, W / 2, 106, { align: 'center' });
     if (best) text(ctx, `RÉCORD ${String(best).padStart(7, '0')}`, W / 2, 118, { align: 'center', color: '#b9c0d0' });
     (info.lines ?? []).forEach((l, i) => text(ctx, l, W / 2, 140 + i * 11, { align: 'center', color: '#ff9a5a' }));
   } else {

@@ -38,7 +38,8 @@ test('el envío pasa la validación del Apps Script; uno imposible no', () => {
 
 test('el Apps Script rechaza envíos de corazon después del cierre', () => {
   assert.equal(GS.vigente('corazon', new Date('2026-11-12T12:00:00Z')), true);
-  assert.equal(GS.vigente('corazon', new Date('2026-11-16T06:00:01Z')), false);
+  assert.equal(GS.vigente('corazon', new Date('2026-11-20T12:00:00Z')), true);   // semana extra
+  assert.equal(GS.vigente('corazon', new Date('2026-11-23T06:00:01Z')), false);
   assert.equal(GS.vigente('trivia', new Date('2030-01-01T00:00:00Z')), true);
 });
 
@@ -77,13 +78,13 @@ test('ranking de prueba: guarda en el navegador, ordena y se marca como prueba',
   assert.equal(new Set(top.lista.map((x) => x.nombre)).size, top.lista.length);
 });
 
-test('F13 temporada: abierta del 9 al 15 de nov (CDMX), cuenta los días y cierra', () => {
-  assert.equal(CIERRE, '2026-11-15T23:59:59-06:00');
+test('F13 temporada: abierta del 9 al 22 de nov (CDMX, una semana más), cuenta los días y cierra', () => {
+  assert.equal(CIERRE, '2026-11-22T23:59:59-06:00');
   const t = (iso) => temporada(new Date(iso));
-  assert.deepEqual(t('2026-11-09T10:00:00-06:00'), { abierta: true, dias: 7, aviso: 'QUEDAN 7 DÍAS' });
-  assert.deepEqual(t('2026-11-14T22:00:00-06:00'), { abierta: true, dias: 2, aviso: 'QUEDAN 2 DÍAS' });
-  assert.deepEqual(t('2026-11-15T09:00:00-06:00'), { abierta: true, dias: 1, aviso: '¡ÚLTIMO DÍA!' });
-  assert.deepEqual(t('2026-11-16T00:00:00-06:00'), { abierta: false, dias: 0, aviso: 'ESTE JUEGO YA TERMINÓ' });
+  assert.deepEqual(t('2026-11-16T10:00:00-06:00'), { abierta: true, dias: 7, aviso: 'QUEDAN 7 DÍAS' });
+  assert.deepEqual(t('2026-11-21T22:00:00-06:00'), { abierta: true, dias: 2, aviso: 'QUEDAN 2 DÍAS' });
+  assert.deepEqual(t('2026-11-22T09:00:00-06:00'), { abierta: true, dias: 1, aviso: '¡ÚLTIMO DÍA!' });
+  assert.deepEqual(t('2026-11-23T00:00:00-06:00'), { abierta: false, dias: 0, aviso: 'ESTE JUEGO YA TERMINÓ' });
 });
 
 test('la URL del ranking es la misma que usa el sitio (hugo.toml)', () => {

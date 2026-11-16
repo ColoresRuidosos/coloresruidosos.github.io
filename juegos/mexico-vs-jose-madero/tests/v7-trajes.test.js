@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { COSTUMES_META } from '../src/data/costumes-atlas.js';
 import { COSTUMES } from '../src/game/progress.js';
 
-const SHEET = ['rojo', 'boina', 'bandana', 'chamarra', 'vampiro', 'botarga', 'lentes'];
+const SHEET = ['rojo', 'boina', 'bandana', 'chamarra', 'vampiro', 'botarga', 'lentes', 'alba'];   // v10.4: + vestuario de Alba
 
 test('todos los trajes menos el clásico tienen sus 4 poses', () => {
   for (const id of COSTUMES.map((c) => c.id).filter((c) => c !== 'clasico')) {
