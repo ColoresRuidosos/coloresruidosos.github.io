@@ -162,13 +162,13 @@
 - [ ] AL0 ⏳ El usuario aprueba o edita las 10 reflexiones de los pasajes
 - [~] AL0b ✅ permiso confirmado · ⏳ el usuario pasa los fragmentos oficiales (uno por canción, hasta 4 líneas)
 - [ ] AL6b 🧪 `alba-letras.js`: tamaño, crédito y canción válida; sin fragmento → solo la reflexión
-- [ ] AL1 🧪 `alba.js`: nostalgia (3 s quieto → retrocede a 20 px/s sin pasar del checkpoint ni caer a un foso)
-- [ ] AL2 🧪 Recuerdo `I`: persigue a 30 px/s; al tocar te devuelve 48 px, sin daño; el micrófono lo disuelve
-- [ ] AL3 🧪 Maldita Rueda `D`: 4 cabinas semisólidas que giran y te llevan
-- [ ] AL4 🧪 Plataformas de luz `~` y Luz del Alba `@` (10 s); sólidas en el tramo ya amanecido
-- [ ] AL5 🧪 Paseo: sin daño ni corazones; caer te devuelve al checkpoint
-- [ ] AL6 🧪 Pasajes `S` (10, uno por canción, sin repetir) y contador
-- [ ] AL7 🧪 Jefe «La Nostalgia» (v10.2): fase 1 con recuerdos en sepia de los jefes y 3 rayos de sol; fase 2 en la noria que se invierte; fase 3 con viento y despedida; no se puede perder
+- [x] AL1 🧪 `alba.js`: nostalgia (3 s quieto → retrocede a 20 px/s sin pasar del checkpoint ni caer a un foso)
+- [x] AL2 🧪 Recuerdo `I`: persigue a 30 px/s; al tocar te devuelve 48 px, sin daño; el micrófono lo disuelve
+- [x] AL3 🧪 Maldita Rueda `D`: 4 cabinas semisólidas que giran y te llevan
+- [x] AL4 🧪 Plataformas de luz `~` y Luz del Alba `@` (10 s); sólidas en el tramo ya amanecido
+- [x] AL5 🧪 Paseo: sin daño ni corazones; caer te devuelve al checkpoint
+- [x] AL6 🧪 Pasajes `S` (10, uno por canción, sin repetir) y contador
+- [x] AL7 🧪 Jefe «La Nostalgia» (v10.2): fase 1 con recuerdos en sepia de los jefes y 3 rayos de sol; fase 2 en la noria que se invierte; fase 3 con viento y despedida; no se puede perder
 - [x] AL7b 🎨 Sprites de Alba por código (respaldo) y hoja de concepto aprobada
 - [~] AL7c Arte de Gemini (§0g):
   - ✅ recortados con `slice_sheet.py`: Nostalgia (20 fotogramas), recuerdos (8), noria (cabina y eje), Luz del Alba (4) y feria (caballito, 2 dianas y banca);
@@ -180,9 +180,9 @@
   - 🟨 escena a1 guardada, pero la marquesina dice «PARTY HALL» y no sale Pepe: el usuario decide si se regenera o se tapa el letrero al importarla;
   - ✅ el traje base de Pepe (H): «CHALECO Y BUFANDA», 9.º traje (`slice_costumes.py`, poses repartidas en celdas iguales); es el traje automático de Alba y se gana al terminar el mundo 3 (la regla de desbloqueo va con AL8);
   - ⏳ falta la escena a4
-- [ ] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
-- [ ] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
-- [ ] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»
+- [x] AL8 🎨 Niveles 3-1, 3-2 y 3-3 (`scripts/levels_world3.py`), con bots que los completan
+- [x] AL9 🎨 Fondos por código, sprites Neo Geo, escenas de entrada y salida, pensamientos, «¿Sabías que…?» y cuadro 3 del Museo
+- [x] AL10 🧪 Navegador: puerta 3 del Museo → 3-1 → … → momento final → «Recuerdo recuperado»
 
 ## Fase 4 — Publicación
 - [~] P1 Accesibilidad: ✅ destellos y temblor desactivables, modo asistido (v7) · ⏳ P1b remapeo de teclas

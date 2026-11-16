@@ -15,7 +15,7 @@ export const COSTUMES = [
 ];
 export const W1_LEVELS = ['1-1', '1-2', '1-3'];
 export const WORLD1_TIME = 240; // s: reto de la chamarra
-const LEVELS = { carmesi: W1_LEVELS, noche: ['2-1', '2-2', '2-3'] };
+const LEVELS = { carmesi: W1_LEVELS, noche: ['2-1', '2-2', '2-3'], alba: ['3-1', '3-2', '3-3'] };
 
 const worldData = (save, w) => (save.data.worlds[w] ??= { cleared: [], best: {} });
 
@@ -53,6 +53,7 @@ export function checkUnlocks(save, ctx) {
     if (W1_LEVELS.every((id) => best[id] && best[id].piezas >= best[id].total)) give('lentes');
   }
   if (ctx.world === 'noche' && ctx.worldDone) give('vampiro');
+  if (ctx.world === 'alba' && ctx.worldDone) give('alba');
   return got;
 }
 

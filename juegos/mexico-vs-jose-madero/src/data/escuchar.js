@@ -17,6 +17,7 @@ export const PLATAFORMAS = [
 export const ESCUCHAR = {
   carmesi: { album: 'Carmesí', year: 2016, links: links('Carmesí') },
   noche: { album: 'Noche', year: 2017, links: links('Noche') },
+  alba: { album: 'Alba', year: 2018, links: links('Alba') },
 };
 
 // Qué disco ofrecer: el del mundo en juego, o el de la puerta abierta del Museo. Ninguno en portada ni prólogo.

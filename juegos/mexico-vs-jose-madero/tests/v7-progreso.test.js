@@ -2,7 +2,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { createSave, defaults, SAVE_KEY } from '../src/engine/save.js';
-import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES } from '../src/game/progress.js';
+import { recordLevel, checkUnlocks, costumeFor, doorState, COSTUMES, museumExhibits } from '../src/game/progress.js';
 import { WORLDS } from '../src/data/worlds.js';
 import { HUB, createHub, doorAt } from '../src/game/museum.js';
 import { createGame, stepGame, hurt } from '../src/game/game.js';
@@ -108,9 +108,20 @@ describe('progreso y trajes (O4)', () => {
     const s = createSave(memory());
     assert.equal(doorState(s, 'carmesi'), 'open');
     assert.equal(doorState(s, 'noche'), 'locked');
-    assert.equal(doorState(s, 'alba'), 'soon');
+    assert.equal(doorState(s, 'alba'), 'locked');   // v10: Alba existe; se abre al terminar Noche
+    assert.equal(doorState(s, 'psalmos'), 'soon');
     s.data.worlds.carmesi = { cleared: ['1-1', '1-2', '1-3'], best: {} };
     assert.equal(doorState(s, 'noche'), 'open');
+    s.data.worlds.noche = { cleared: ['2-1', '2-2', '2-3'], best: {} };
+    assert.equal(doorState(s, 'alba'), 'open');
+  });
+
+  test('v10 · chaleco y bufanda: terminar Alba; el cuadro 3 se cuelga', () => {
+    const s = createSave(memory());
+    assert.deepEqual(checkUnlocks(s, { world: 'alba', levelId: '3-2', worldDone: false }), []);
+    assert.deepEqual(checkUnlocks(s, { world: 'alba', levelId: '3-3', worldDone: true }), ['alba']);
+    s.data.worlds.alba = { cleared: ['3-1', '3-2', '3-3'], best: {} };
+    assert.equal(museumExhibits(s).find((e) => e.slot === 'cuadro3').unlocked, true);
   });
 
   test('gris con boina: todas las piezas de un nivel del Mundo 1', () => {

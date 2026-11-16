@@ -3,7 +3,7 @@
 export const WORLDS = [
   { id: 'carmesi', name: 'CARMESÍ', year: 2016, color: '#c02a38', costume: 'clasico', requires: null },
   { id: 'noche', name: 'NOCHE', year: 2017, color: '#1a1a1a', costume: 'vampiro', requires: 'carmesi' },
-  { id: 'alba', name: 'ALBA', year: 2018, color: '#e9e4d8', costume: 'alba', requires: 'noche', soon: true },
+  { id: 'alba', name: 'ALBA', year: 2018, color: '#e9e4d8', costume: 'alba', requires: 'noche' },
   { id: 'psalmos', name: 'PSALMOS', year: 2019, color: '#2a5aa8', costume: 'clasico', requires: 'alba', soon: true },
   { id: 'giallo', name: 'GIALLO', year: 2022, color: '#e8b81c', costume: 'clasico', requires: 'psalmos', soon: true },
   { id: 'aurora', name: 'AURORA', year: 2023, color: '#b4572e', costume: 'clasico', requires: 'giallo', soon: true },
