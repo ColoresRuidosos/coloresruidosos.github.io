@@ -160,8 +160,8 @@
 
 ## Fase 3a — v10 · Mundo 3 «Alba», paseo al amanecer (§3.0f Q; 🧪 primero)
 - [ ] AL0 ⏳ El usuario aprueba o edita las 10 reflexiones de los pasajes
-- [~] AL0b ✅ permiso confirmado · ⏳ el usuario pasa los fragmentos oficiales (uno por canción, hasta 4 líneas)
-- [ ] AL6b 🧪 `alba-letras.js`: tamaño, crédito y canción válida; sin fragmento → solo la reflexión
+- [~] AL0b ✅ permiso confirmado · ✅ 7 fragmentos recibidos (16 nov) · ⏳ faltan La célula no explotó, Ahora y hoy y Etrusco único
+- [x] AL6b 🧪 `alba-letras.js`: tamaño, crédito y canción válida; sin fragmento → solo la reflexión
 - [x] AL1 🧪 `alba.js`: nostalgia (3 s quieto → retrocede a 20 px/s sin pasar del checkpoint ni caer a un foso)
 - [x] AL2 🧪 Recuerdo `I`: persigue a 30 px/s; al tocar te devuelve 48 px, sin daño; el micrófono lo disuelve
 - [x] AL3 🧪 Maldita Rueda `D`: 4 cabinas semisólidas que giran y te llevan

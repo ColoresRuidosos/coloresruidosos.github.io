@@ -182,7 +182,7 @@ function drawPasaje(ctx, ps) {
   const P = PASAJES[ps.idx];
   if (!P) return;
   const letra = letraDe(P.cancion), lines = wrap(P.reflexion, 44);
-  const credit = letra ? wrap(letra.credito, 50) : [], extra = letra ? (letra.fragmento.length + credit.length) * 9 + 6 : 0;
+  const credit = letra ? wrap(letra.credito, 44) : [], extra = letra ? (letra.fragmento.length + credit.length) * 9 + 6 : 0;
   const h = 26 + lines.length * 9 + extra, y0 = 44;
   ctx.globalAlpha = Math.min(1, ps.t * 2, (K.pasajeT - ps.t) * 4 + 0.2);
   rect(ctx, '#4e3a26', 14, y0, W - 28, h); rect(ctx, '#fffdf6', 15, y0 + 1, W - 30, h - 2);
