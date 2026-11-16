@@ -34,16 +34,19 @@ MOV = ("HOJA de exactamente 4 filas, de izquierda a derecha:\n"
        "Fila 4: SALTAR ×2 (subiendo con las rodillas recogidas; bajando con las piernas estiradas){extra}.")
 
 MUSICOS = [
-  dict(id="antonio", look="pelo muy corto, barba corta; americana de ante color camel, camisa azul claro y corbata estampada en verde y granate (igual que en sus sprites ya hechos)", nombre="Antonio", apodo="El Frontman", papel="voz y guitarra",
-       inst="una guitarra eléctrica roja colgada a la espalda en diagonal y un micrófono plateado con cable en la mano de delante",
+  dict(id="antonio", look="pelo muy corto, barba corta; americana de ante color camel, camisa azul claro y corbata estampada en verde y granate", nombre="Antonio", apodo="El Frontman", papel="voz y guitarra",
+       inst=("una guitarra eléctrica roja y un micrófono plateado con cable en la mano de delante. REGLA DE LA GUITARRA: UNA SOLA guitarra, "
+             "colgada COMPLETAMENTE DETRÁS de la espalda con la correa cruzando el pecho (solo asoma el cuerpo rojo por detrás de la cadera); "
+             "nunca pasa por delante del cuerpo y las manos no la tocan, salvo en el guitarrazo y la victoria, donde la tiene en las manos y "
+             "la espalda queda VACÍA. Nunca dos guitarras en la misma pose"),
        combo=("Fila 1: DIRECTO ×2 (preparación y brazo de delante extendido, con el micro en el puño).\n"
               "Fila 2: GANCHO ×2 (preparación y gancho con el otro brazo).\n"
-              "Fila 3: GUITARRAZO ×3 (descuelga la guitarra, la levanta por el mástil y la baja hacia delante como un hacha).\n"
+              "Fila 3: GUITARRAZO ×3 (descuelga la guitarra, la levanta por el mástil y la baja hacia delante como un hacha; una sola guitarra, en las manos).\n"
               "Fila 4: PATADA EN EL AIRE ×1, AGARRE ×1 (sujeta con las dos manos a alguien invisible delante), RODILLAZO ×1 y LANZAMIENTO ×2 (gira y suelta hacia atrás)."),
        esp=("Fila 3: ESPECIAL «GRITO» ×4 (coge aire; se acerca el micro; grita con la boca muy abierta; ondas de sonido en arco PEGADAS al micro, sin separarse del cuerpo)."),
        sup=("Fila 1: LATIGAZO DE MICRO ×3 (lanza el micro hacia delante por el cable como un lazo; el cable estirado al máximo; tira de él hacia sí).\n"
             "Fila 2: SÚPER «HIMNO» ×4 (sube a un pie con el micro en alto; señala al público; canta con el puño cerrado; brazos abiertos en cruz con la cabeza hacia atrás).\n"
-            "Fila 3: VICTORIA ×2 (guitarra en alto con una mano; micro en la otra).\n"
+            "Fila 3: VICTORIA ×2 (guitarra en alto con una mano; micro en la otra; la espalda sin guitarra).\n"
             "Fila 4: RETRATO ×1 (solo la cabeza de frente, sonriendo con confianza)."),
        cara="mirada intensa y segura, media sonrisa de líder", listo="cantando a pleno pulmón con el micro pegado a la boca"),
   dict(id="pepe", look="pelo oscuro peinado hacia atrás con volumen, barba recortada y bigote, un pendiente largo de aro; chaqueta de cuero negra", nombre="Pepe", apodo="El Muro", papel="bajo",
@@ -154,7 +157,7 @@ OTROS = [
   ("titulo-fondo.png", "Pantalla de título (opcional)", "Ilustración en pixel art para la pantalla de título de un videojuego arcade de los 90: un rascacielos de oficinas blanco de los años 80 con franjas verticales y arcos en la base, de noche, visto desde abajo en contrapicado; en la azotea, un escenario de concierto con focos y pirotecnia de escenario. Cielo de morado a rojo, skyline de Madrid en silueta con ventanas encendidas. Paleta cálida y algo desaturada. Formato PANORÁMICO 16:9. Deja libre la franja superior para el título. NADA de fuego, humo ni daños en el edificio: el fuego es solo pirotecnia del escenario. Sin texto, sin logos y sin personajes."),
 ]
 
-HECHOS = {'antonio', 'dani', 'jota'}   # ya están en el juego · Pepe se repite (16 nov: «Pepe no se parece»)
+HECHOS = {'dani', 'jota'}   # ya están en el juego · Antonio y Pepe se repiten (16 nov: «Pepe no se parece», «también al vocalista»)
 ANTONIO_V3_HECHO = True                         # 15 nov: hojas con la guitarra detrás de la espalda ya en el juego
 
 RETRATOS = ("Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. "
@@ -199,7 +202,7 @@ def build():
     return secciones
 
 PASOS = [
-    "Hay que rehacer a PEPE (no se parece): 5 imágenes, en orden. Lo demás ya está en el juego.",
+    "Hay que rehacer a ANTONIO (el vocalista) y a PEPE para que se parezcan: 5 imágenes de cada uno, en orden, empezando por una foto real. Lo demás ya está en el juego.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",
