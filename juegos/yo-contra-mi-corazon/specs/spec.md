@@ -148,7 +148,7 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **F12 Pausa automática** al cambiar de app (`visibilitychange`). Al volver, cuenta regresiva de 3 tiempos.
 
-**F13 Solo esta semana (temporada limitada).** El juego está disponible del **lunes 9 al domingo 15 de noviembre de 2026** (hasta las 23:59 CDMX). Decisión del usuario (9 nov 2026).
+**F13 Solo esta semana (temporada limitada).** El juego está disponible del **lunes 9 al domingo 15 de noviembre de 2026** (hasta las 23:59 CDMX). **Extensión (16 nov 2026, decisión del usuario): una semana más, hasta el domingo 22 de noviembre** (23:59 CDMX); la portada dice «¡UNA SEMANA MÁS!» y la tarjeta de Games «Una semana más». Decisión del usuario (9 nov 2026).
 - La portada lo anuncia: «¡SOLO ESTA SEMANA!», la fecha de cierre y cuántos días quedan («ÚLTIMO DÍA» el domingo).
 - El resultado y el ranking recuerdan que el ranking cierra el domingo 15.
 - Después del cierre, la portada dice «ESTE JUEGO YA TERMINÓ», desaparece «▶ JUGAR» y solo queda ver el **ranking final**.

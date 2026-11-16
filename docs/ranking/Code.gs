@@ -18,8 +18,8 @@ var MODOS = {
   trivia: { max: 30, min_ms: 15000, max_ms: 3600000 },
   contrarreloj: { max: 400, min_ms: 3000, max_ms: 90000 },
   adivina: { max: 60, min_ms: 5000, max_ms: 3600000 },
-  // «Yo contra mi corazón»: una canción de 3:46; solo la semana del 9 al 15 nov 2026 (hasta 23:59 CDMX).
-  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-16T05:59:59Z" },
+  // «Yo contra mi corazón»: una canción de 3:46; del 9 al 22 nov 2026 (temporada extendida una semana; hasta 23:59 CDMX).
+  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-23T05:59:59Z" },
 };
 var TOP = 20;
 var LIMITE_POR_HORA = 10;

@@ -47,7 +47,7 @@ export function drawTitle(ctx, t, save, temp) {
   ctx.fillStyle = '#1a0a16'; ctx.fillRect(0, 54, W, 1); ctx.fillRect(0, 84, W, 1);
   const dark = { color: '#1a0a16', shadow: null, align: 'center' };
   if (temp.abierta) {
-    drawText(ctx, '¡SOLO ESTA SEMANA!', W / 2, 57, dark);
+    drawText(ctx, '¡UNA SEMANA MÁS!', W / 2, 57, dark);
     drawText(ctx, CIERRE_TEXTO, W / 2, 66, dark);
     if (Math.floor(t * 2) % 2 === 0 || temp.dias > 1) drawText(ctx, temp.aviso, W / 2, 75, { ...dark, color: '#a01828' });
   } else {
@@ -167,7 +167,7 @@ export function drawResult(ctx, m, { newRecord, shareMsg, published, temp, ranki
   b.push(button(ctx, 'compartir', 'COMPARTIR RESULTADO', 218, { w: 150 }));
   b.push(button(ctx, 'inicio', 'INICIO', 240));
   if (shareMsg) drawText(ctx, shareMsg, W / 2, 264, { align: 'center', color: '#9cff7a' });
-  drawText(ctx, temp.abierta ? 'CIERRA EL DOMINGO 15 DE NOV' : 'EL RANKING YA CERRÓ', W / 2, 278, { align: 'center', color: '#ff9aa8' });
+  drawText(ctx, temp.abierta ? 'CIERRA EL DOMINGO 22 DE NOV' : 'EL RANKING YA CERRÓ', W / 2, 278, { align: 'center', color: '#ff9aa8' });
   drawText(ctx, 'HOMENAJE NO OFICIAL', W / 2, 296, { align: 'center', color: '#a89cc0' });
   drawText(ctx, '@COLORESRUIDOSOS', W / 2, 306, { align: 'center', color: YEL });
   return b;
@@ -236,7 +236,7 @@ export function drawRanking(ctx, rk, { miNombre, prueba, temp, nueva = null }) {
     ctx.fillStyle = '#2c2238'; ctx.fillRect(10, 275, W - 20, 18);
     spr(ctx, 'badge.' + nueva, 13, 276);
     drawText(ctx, `¡INSIGNIA! ${badgeById(nueva).nombre}`, 33, 281, { color: '#9cff7a' });
-  } else if (temp.abierta) drawText(ctx, 'CIERRA EL DOMINGO 15 DE NOV', W / 2, 284, { align: 'center', color: '#ff9aa8' });
+  } else if (temp.abierta) drawText(ctx, 'CIERRA EL DOMINGO 22 DE NOV', W / 2, 284, { align: 'center', color: '#ff9aa8' });
   b.push(button(ctx, 'rkVolver', 'VOLVER', 296, { primary: true }));
   return b;
 }
