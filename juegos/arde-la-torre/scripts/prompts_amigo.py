@@ -90,7 +90,9 @@ def musico_prompts(m):
     SUBE1 = f"Sube la imagen {m['id']}-1 y después pega esto"
     p.append((f"{m['id']}-1.png", f"Sube la FOTO de {m['nombre']} que te pasaron y después pega esto",
               f"Usa la foto adjunta SOLO como referencia de la cara, el peinado y la ropa de esta persona, y conviértela en un personaje "
-              f"de videojuego (caricatura respetuosa, no un retrato realista).\n\n{BASE}{BANDA}\n{FORMATO}\n\n"
+              f"de videojuego (caricatura respetuosa, no un retrato realista). MUY IMPORTANTE: que se le reconozca. Copia de la foto la forma de "
+              f"la cara, la nariz, las cejas, el peinado, la barba y la complexión. Si algo de la descripción de abajo no coincide con la foto, "
+              f"manda la FOTO.\n\n{BASE}{BANDA}\n{FORMATO}\n\n"
               f"PERSONAJE: músico de una banda de rock española ({m['papel']}). Aspecto: {m['look']}. Lleva {m['inst']}.\n"
               "HOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la derecha, "
               "(2) de 3/4 mirando a la derecha, (3) de frente.",
@@ -152,7 +154,7 @@ OTROS = [
   ("titulo-fondo.png", "Pantalla de título (opcional)", "Ilustración en pixel art para la pantalla de título de un videojuego arcade de los 90: un rascacielos de oficinas blanco de los años 80 con franjas verticales y arcos en la base, de noche, visto desde abajo en contrapicado; en la azotea, un escenario de concierto con focos y pirotecnia de escenario. Cielo de morado a rojo, skyline de Madrid en silueta con ventanas encendidas. Paleta cálida y algo desaturada. Formato PANORÁMICO 16:9. Deja libre la franja superior para el título. NADA de fuego, humo ni daños en el edificio: el fuego es solo pirotecnia del escenario. Sin texto, sin logos y sin personajes."),
 ]
 
-HECHOS = {'antonio', 'pepe', 'dani', 'jota'}   # ya están en el juego
+HECHOS = {'antonio', 'dani', 'jota'}   # ya están en el juego · Pepe se repite (16 nov: «Pepe no se parece»)
 ANTONIO_V3_HECHO = True                         # 15 nov: hojas con la guitarra detrás de la espalda ya en el juego
 
 RETRATOS = ("Usa la imagen adjunta (4 retratos de personajes, de izquierda a derecha) como referencia EXACTA de sus caras, peinados y ropa. "
@@ -197,7 +199,7 @@ def build():
     return secciones
 
 PASOS = [
-    "¡Todo hecho! Ya están en el juego los 4 músicos, los 9 enemigos y jefes, los objetos, los fondos y el título. Solo quedan, más adelante, los retratos a partir de fotos reales.",
+    "Hay que rehacer a PEPE (no se parece): 5 imágenes, en orden. Lo demás ya está en el juego.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",
