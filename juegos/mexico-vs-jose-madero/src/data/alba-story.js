@@ -43,3 +43,8 @@ export const NOSTALGIA_LINES = {
   fase3: '¿DE VERDAD TE VAS?',
   despedida: 'GRACIAS POR RECORDARME. AHORA SIGUE.',
 };
+
+// v11 · Tiro de frases (⏳ frases de la nostalgia para aprobar; las buenas son títulos de canciones de Alba).
+export const TIRO_MALAS = ['ANTES TODO ERA MEJOR', 'YA ESTÁS GRANDE PARA ESO', 'TU MEJOR ÉPOCA YA PASÓ', 'NADA VOLVERÁ A SER IGUAL',
+  'YA NO HAY NADA NUEVO', 'MEJOR NI LO INTENTES', 'QUÉDATE DONDE ESTÁS', 'ESO YA LO VISTE'];
+export const TIRO_BUENAS = ['AÚN HAY MÁS', 'AHORA Y HOY', 'NO LO CAMBIO POR NADA', 'WILLKOMMEN'];

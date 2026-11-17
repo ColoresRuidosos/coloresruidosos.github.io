@@ -195,3 +195,46 @@ function drawPasaje(ctx, ps) {
   }
   ctx.globalAlpha = 1;
 }
+
+// v11 · Enemigos de Alba, dibujados por código (estilo Neo Geo, paleta sepia y dorada).
+// Reloj despertador: esfera crema con borde de latón, dos campanas, patitas; al brincar, vibra y «RIIING».
+// Carta del pasado: sobre sepia con sello rojo que aletea; en picada, se abre.
+export function drawAlbaEnemy(ctx, e, t) {
+  if (!e.alive && e.deadT > 0.6) return;
+  ctx.save();
+  if (!e.alive) { ctx.globalAlpha = 1 - e.deadT / 0.6; ctx.translate(0, -e.deadT * 20); }
+  const x = Math.round(e.x), y = Math.round(e.y);
+  if (e.kind === 'reloj') {
+    const air = e.vy < -20, sh = air ? Math.round(Math.sin(t * 60)) : 0, cx = x + 9 + sh;
+    // patas (caminan)
+    const step = Math.floor(t * 8) % 2;
+    rect(ctx, '#3a2c20', cx - 5, y + 25 + step, 3, 5 - step); rect(ctx, '#3a2c20', cx + 2, y + 26 - step, 3, 4 + step);
+    // campanas y martillo
+    rect(ctx, '#8a6420', cx - 9, y + 2, 6, 4); rect(ctx, '#e8b84a', cx - 8, y + 2, 4, 2);
+    rect(ctx, '#8a6420', cx + 3, y + 2, 6, 4); rect(ctx, '#e8b84a', cx + 4, y + 2, 4, 2);
+    rect(ctx, '#3a2c20', cx - 1, y + 1, 2, 4);
+    // cuerpo: aro de latón y esfera crema
+    ctx.fillStyle = '#8a6420'; ctx.beginPath(); ctx.arc(cx, y + 15, 10, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#e8b84a'; ctx.beginPath(); ctx.arc(cx - 1, y + 14, 9, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#f4eee0'; ctx.beginPath(); ctx.arc(cx, y + 15, 7, 0, Math.PI * 2); ctx.fill();
+    for (let k = 0; k < 12; k += 3) { const a = k * Math.PI / 6; rect(ctx, '#6e5236', cx + Math.cos(a) * 6 - 0.5, y + 15 + Math.sin(a) * 6 - 0.5, 1, 1); }
+    // manecillas (giran rápido: el tiempo se va)
+    ctx.strokeStyle = '#1e1610'; ctx.lineWidth = 1; ctx.beginPath();
+    ctx.moveTo(cx, y + 15); ctx.lineTo(cx + Math.cos(t * 6) * 5, y + 15 + Math.sin(t * 6) * 5);
+    ctx.moveTo(cx, y + 15); ctx.lineTo(cx + Math.cos(t * 0.5) * 3, y + 15 + Math.sin(t * 0.5) * 3); ctx.stroke();
+    // ojos enojados
+    rect(ctx, '#1e1610', cx - 4, y + 11, 2, 2); rect(ctx, '#1e1610', cx + 2, y + 11, 2, 2);
+    if (air) text(ctx, 'RIIING', cx, y - 10, { align: 'center', color: '#e8b84a' });
+  } else {
+    const flap = e.state === 'dive' ? 0 : Math.round(Math.sin(t * 10) * 2), open = e.state === 'dive';
+    rect(ctx, '#4e3a26', x, y + 2, 18, 12); rect(ctx, '#d2b48c', x + 1, y + 3, 16, 10);
+    // solapa (aletea) o abierta en picada
+    ctx.fillStyle = open ? '#e8dcc0' : '#a3815c'; ctx.beginPath();
+    if (open) { ctx.moveTo(x + 1, y + 3); ctx.lineTo(x + 9, y - 5); ctx.lineTo(x + 17, y + 3); }
+    else { ctx.moveTo(x + 1, y + 3 + flap); ctx.lineTo(x + 9, y + 9); ctx.lineTo(x + 17, y + 3 + flap); }
+    ctx.fill();
+    rect(ctx, '#a83a3a', x + 7, y + 6, 4, 3);   // sello
+    rect(ctx, '#1e1610', x + 4, y + 10, 2, 1); rect(ctx, '#1e1610', x + 12, y + 10, 2, 1);   // ojitos
+  }
+  ctx.restore();
+}

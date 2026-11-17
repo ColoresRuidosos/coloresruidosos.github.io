@@ -44,6 +44,9 @@ export const ENEMY = {
   charro: { w: 18, h: 42, speed: 22, speed2: 34, sight: 140, windup: 0.3, dash: 0.7, dashSpeed: 180, dashSpeed2: 240, rest: 0.7 },
   murcielago: { w: 16, h: 12, sight: 40, swoop: 1.3, depth: 72, speed: 110, rest: 1.0, fly: true },
   fantasma: { w: 18, h: 22, speed: 26, sight: 220, fly: true },
+  // v11 · Alba (spec §3.0f Q v11)
+  reloj: { w: 18, h: 30, speed: 34, hop: 1.6, hopV: 300 },
+  carta: { w: 18, h: 14, speed: 36, amp: 10, sight: 28, dive: 220, climb: 80, fly: true },
 };
 
 // v7 · Farol de Noche: radio de luz en px; se gasta en `duration` s y nunca baja de `min`.
@@ -86,3 +89,6 @@ export const ALBA = {
     bye: 4, lineT: 3,                 // despedida y frases en pantalla
   },
 };
+
+// v11 · Minijuego «Tiro de frases» de La Feria (spec §3.0f Q v11). Tiempos en s, velocidades en px/s, pantalla 320×224.
+export const TIRO = { intro: 1.6, dur: 30, goal: 10, maxGood: 3, spawnEvery: 0.85, speedMin: 50, speedMax: 90, crossSpeed: 180, goodRatio: 0.25, pad: 3 };

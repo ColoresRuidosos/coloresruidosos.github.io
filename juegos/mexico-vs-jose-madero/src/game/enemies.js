@@ -3,7 +3,7 @@ import { TILE, ENEMY, FREEZE, DT } from './constants.js';
 import { moveBody } from '../engine/tilemap.js';
 import { stepMurcielago, stepFantasma, stepGigante, stepInvisible, stepAnfibio, stepLlorona } from './noche.js';
 
-const INITIAL = { rumor: 'fly', murcielago: 'hang', fantasma: 'float', anfibio: 'hide', llorona: 'float' };
+const INITIAL = { rumor: 'fly', carta: 'fly', murcielago: 'hang', fantasma: 'float', anfibio: 'hide', llorona: 'float' };
 
 export function createEnemy(spawn, i, headlines) {
   const k = ENEMY[spawn.kind];
@@ -101,6 +101,13 @@ function stepRumor(g, e, k) {
   }
 }
 
+// v11 · Reloj despertador: patrulla y, cada `hop` s, un brinco sonando (el tiempo que pasa).
+function stepReloj(g, e, k) {
+  const r = patrol(g, e, k.speed);
+  e.hopT = (e.hopT ?? 0) + DT;
+  if (e.hopT >= k.hop && r.ground) { e.hopT = 0; e.vy = -k.hopV; g.events.push('tic'); }
+}
+
 // Micrófono Traidor: flota, te apunta, se lanza hacia donde estabas, descansa y vuelve a su sitio.
 function stepTraidor(g, e, k) {
   const p = g.player, c = center(e), pc = center(p);
@@ -134,7 +141,8 @@ export function stepEnemy(g, e) {
   e.t += DT;
   if (e.kind === 'paparazzi') stepPaparazzi(g, e, k);
   else if (e.kind === 'reportero') stepReportero(g, e, k);
-  else if (e.kind === 'rumor') stepRumor(g, e, k);
+  else if (e.kind === 'rumor' || e.kind === 'carta') stepRumor(g, e, k);
+  else if (e.kind === 'reloj') stepReloj(g, e, k);
   else if (e.kind === 'traidor') stepTraidor(g, e, k);
   else if (e.kind === 'gigante') stepGigante(g, e, k, patrol, sees);
   else if (e.kind === 'invisible') stepInvisible(g, e, k, patrol);

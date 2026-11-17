@@ -186,8 +186,8 @@
 
 ### v11 · Alba con reto (§3.0f Q v11; 🧪 primero)
 - [x] AL11 🧪 Daño en Alba: recuerdo, proyectiles del jefe y foso quitan 1 corazón; game over; banca +1 corazón una vez
-- [ ] AL12 🧪 Enemigos `r` Reloj despertador (brinca cada 1,6 s) y `v` Carta del pasado (picada); se vencen con el micro
-- [ ] AL13 🧪 `tiro.js`: frases por carriles, disparo (mira y toque), ganar con 10 malas en 30 s, perder con 3 buenas o sin tiempo
+- [x] AL12 🧪 Enemigos `r` Reloj despertador (brinca cada 1,6 s) y `v` Carta del pasado (picada); se vencen con el micro
+- [x] AL13 🧪 `tiro.js`: frases por carriles, disparo (mira y toque), ganar con 10 malas en 30 s, perder con 3 buenas o sin tiempo
 - [ ] AL14 🧪 Caseta `g` y reja `|`: B empieza el tiro; al ganar se abre la reja, Luz del Alba y +1 corazón
 - [ ] AL15 🎨 Sprites de reloj y carta, pantalla del tiro, corazones en el HUD; niveles con enemigos; bots que los terminan
 - [ ] AL16 🧪 Navegador: 3-2 con el minijuego (teclado y toque) y el mundo completo

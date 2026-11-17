@@ -17,7 +17,7 @@ import { buildTheme, hash } from './themes.js';
 import { drawRecuerdo, drawThought } from './draw-historia.js';
 import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
-import { drawAlbaWorld, drawAlbaPepe, drawAlbaOverlay, drawAlbaHud, drawSolPiece, drawLuz } from './draw-alba.js';
+import { drawAlbaEnemy, drawAlbaWorld, drawAlbaPepe, drawAlbaOverlay, drawAlbaHud, drawSolPiece, drawLuz } from './draw-alba.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
 const rect = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
@@ -382,6 +382,7 @@ const BUBBLE = (e) => e.kind === 'titular' ? e.word
 function drawEnemies(ctx, g, art, t, flashes = true) {
   for (const e of g.enemies) {
     if (NOCHE_KINDS.has(e.kind)) { drawNocheEnemy(ctx, g, e, t, art); continue; }
+    if (e.kind === 'reloj' || e.kind === 'carta') { drawAlbaEnemy(ctx, e, t); continue; }
     if (!e.alive && e.deadT > 0.8) continue;
     const fx = e.x + e.w / 2, fy = e.y + e.h, flip = e.facing < 0;
     const carm = e.kind === 'rumor' || e.kind === 'traidor';

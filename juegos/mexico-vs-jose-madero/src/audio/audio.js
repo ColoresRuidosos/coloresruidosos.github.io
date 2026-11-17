@@ -77,6 +77,7 @@ export function createAudio() {
     bosscard: () => [[220, 277, 330], [208, 262, 311]].forEach((ch, i) => setTimeout(() => ch.forEach((f) => tone('sawtooth', f, f, 0.4, 0.07)), i * 260)),
     fight: () => [392, 523, 659, 784].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.12, 0.12), i * 70)),
     // v10 · Alba: efectos suaves (paseo, nada suena a daño)
+    tic: () => [0, 50, 100].forEach((d) => setTimeout(() => tone('square', 1800, 1800, 0.03, 0.05), d)),
     pasaje: () => [523, 659, 784].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.3, 0.12), i * 120)),
     recuerdo: () => tone('triangle', 440, 330, 0.3, 0.1),
     disuelve: () => tone('triangle', 880, 1320, 0.15, 0.08),

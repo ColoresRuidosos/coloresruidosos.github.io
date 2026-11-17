@@ -6,6 +6,7 @@ import { TILE } from '../game/constants.js';
 // v7 (Noche): 'W' Murciélago (vampiro), 'O' Fantasma, 'E' jefe Enmascarado, 'L' lata de aceite.
 // v8.2 (ayudas): 'J' Púa de guitarra, 'Z' Antifaz de la fiesta.
 // v8.1 (disfrazados): 'K' Gigante cosido, 'N' Hombre invisible, 'U' Hombre anfibio, 'Q' La Llorona, 'X' Charro Negro.
+// v11 (Alba): 'r' Reloj despertador, 'v' Carta del pasado, 'g' caseta del Tiro de frases, '|' reja de la feria.
 // v10 (Alba): '~' plataforma de luz, 'I' recuerdo, 'D' noria, '@' Luz del Alba, 'S' atril, 'b' banca, 'n' jefe La Nostalgia.
 export function parseLevel(text) {
   const rows = text.split('\n');
@@ -31,6 +32,8 @@ export function parseLevel(text) {
       else if (c === 'X') L.enemies.push({ ...feet, kind: 'charro' });
       else if (c === 'W') L.enemies.push({ ...feet, kind: 'murcielago' });
       else if (c === 'O') L.enemies.push({ ...feet, kind: 'fantasma' });
+      else if (c === 'r') L.enemies.push({ ...feet, kind: 'reloj' });
+      else if (c === 'v') L.enemies.push({ ...feet, kind: 'carta' });
       else if (c === 'B') L.boss = { ...feet, kind: 'flash' };
       else if (c === 'E') L.boss = { ...feet, kind: 'mask' };
       else if (c === 'L') L.items.push({ ...center, kind: 'aceite' });
