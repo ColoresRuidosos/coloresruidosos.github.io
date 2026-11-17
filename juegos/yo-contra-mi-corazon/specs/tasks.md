@@ -102,3 +102,12 @@
 | T10.2 | `badges.test.js` con bots: con Grito salen Carmesí y Bestia; sin Grito, Plural y Noche de brujas (cada una pide jugar distinto) | `match.js`: fintas, gritos, racha máxima y fases limpias | ✅ |
 | T10.3 | `browser.test.js`: al terminar se guardan Teoremas y Querido…, y la vitrina se abre desde la portada | pantallas de resultado, ranking e insignias | ✅ |
 | T10.4 | La tarjeta para compartir lleva «INSIGNIAS n/10» | `share/card.js` | ✅ |
+
+## Fase 11 · Quitar la canción: base chiptune propia (spec §3.0b)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T11.1 | `track.test.js`: dura lo mismo que el mapa, sin recortes (\|x\| ≤ 1), silencio antes del primer pulso, determinista | `audio/track.js` | ✅ |
+| T11.2 | `track.test.js`: hay un ataque de energía en cada tiempo del mapa (el bombo cae en el beat) y *alta* suena más fuerte que *respiro* | `audio/track.js` | ✅ |
+| T11.3 | `browser.test.js` sigue en verde sin `cancion.mp3` | `main.js`, `build.mjs`, `serve.mjs` | ✅ |
+| T11.4 | Borrar `static/games/yo-contra-mi-corazon/cancion.mp3`; publicar el HTML nuevo | `publish-web.mjs` | ✅ |
+| T11.5 | El reel usa la base propia (no se volvió a renderizar aquí: falta ffmpeg con los reels) | `scripts/reel.mjs` | ✅ código · ⏳ renderizar |

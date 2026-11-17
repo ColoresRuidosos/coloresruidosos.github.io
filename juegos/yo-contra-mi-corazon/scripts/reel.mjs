@@ -3,6 +3,8 @@
 import { createRequire } from 'node:module';
 import { spawn, execFileSync } from 'node:child_process';
 import { writeFileSync, mkdirSync } from 'node:fs';
+import { renderTrack } from '../src/audio/track.js';
+import { BEATMAP } from '../src/data/beatmap.js';
 const pw = createRequire(import.meta.url)('playwright');
 
 const VARIANTES = ['principal', 'quedan-5', 'quedan-3', 'ultimo-dia'];
@@ -10,8 +12,16 @@ const pedidas = process.argv.slice(2).filter((a) => VARIANTES.includes(a));
 const GANCHO = process.argv.includes('pepe') ? 'pepe' : 'payaso';   // R4: «PEPE MADERO VS MI CORAZÓN»
 const MODO = process.argv.includes('insignias') ? 'insignias' : 'normal';   // R5
 const PRE = (GANCHO === 'pepe' ? 'reel-pepe' : 'reel') + (MODO === 'insignias' ? '-insignias' : '');
-const OUT = 'reel/out', SONG = '../../static/games/yo-contra-mi-corazon/cancion.mp3', SONG_FROM = 56.044;
+const OUT = 'reel/out', SONG = `${OUT}/_base.wav`, SONG_FROM = 56.044;
 mkdirSync(OUT, { recursive: true });
+{ // la base propia (spec §3.0b) a WAV de 16 bits para ffmpeg
+  const sr = 44100, pcm = renderTrack({ beatmap: BEATMAP, sampleRate: sr }), wav = Buffer.alloc(44 + pcm.length * 2);
+  wav.write('RIFF', 0); wav.writeUInt32LE(36 + pcm.length * 2, 4); wav.write('WAVEfmt ', 8); wav.writeUInt32LE(16, 16);
+  wav.writeUInt16LE(1, 20); wav.writeUInt16LE(1, 22); wav.writeUInt32LE(sr, 24); wav.writeUInt32LE(sr * 2, 28); wav.writeUInt16LE(2, 32); wav.writeUInt16LE(16, 34);
+  wav.write('data', 36); wav.writeUInt32LE(pcm.length * 2, 40);
+  pcm.forEach((x, i) => wav.writeInt16LE(Math.round(x * 32767), 44 + i * 2));
+  writeFileSync(SONG, wav);
+}
 
 const port = 5196;
 const srv = spawn('node', ['scripts/serve.mjs'], { env: { ...process.env, PORT: String(port) } });
@@ -51,12 +61,12 @@ try {
     // 1) latidos + efectos (para ponerle la canción desde la biblioteca de Instagram)
     execFileSync('python3', ['-I', 'scripts/reel_audio.py', `${OUT}/_${v}.json`, `${OUT}/_${v}-latidos.wav`, String(dur), String(beat)], { stdio: 'inherit' });
     execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', video, '-i', `${OUT}/_${v}-latidos.wav`, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11,aformat=channel_layouts=stereo', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', `${OUT}/${PRE}-${v}-latidos.mp4`]);
-    // 2) con la canción: entra en el cartel VS (tiempo 8) sobre la misma rejilla, con latidos solo en el gancho
+    // 2) con la base propia: entra en el cartel VS (tiempo 8) sobre la misma rejilla, con latidos solo en el gancho
     execFileSync('python3', ['-I', 'scripts/reel_audio.py', `${OUT}/_${v}.json`, `${OUT}/_${v}-fx.wav`, String(dur), String(beat), '--solo-gancho'], { stdio: 'inherit' });
     const songAt = 8 * beat, fadeAt = dur - 1.5;
     execFileSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', video, '-ss', String(SONG_FROM), '-t', String(dur - songAt), '-i', SONG, '-i', `${OUT}/_${v}-fx.wav`,
       '-filter_complex', `[1:a]adelay=${Math.round(songAt * 1000)}|${Math.round(songAt * 1000)},afade=t=out:st=${fadeAt}:d=1.5,volume=0.9[s];[2:a]volume=0.55,aformat=channel_layouts=stereo[f];[s][f]amix=inputs=2:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]`,
-      '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', String(dur), `${OUT}/${PRE}-${v}-cancion.mp4`]);
-    console.log(`${PRE}-${v}: ${dur.toFixed(1)} s · latidos y canción`);
+      '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', String(dur), `${OUT}/${PRE}-${v}-base.mp4`]);
+    console.log(`${PRE}-${v}: ${dur.toFixed(1)} s · latidos y base`);
   }
 } finally { await browser.close(); srv.kill(); }

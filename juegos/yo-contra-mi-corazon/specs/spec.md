@@ -3,6 +3,7 @@
 > Minijuego de Colores Ruidosos. Estado: **aprobada y en la v0.1** (9 nov 2026).
 > Método: Spec-Driven Development (Dominicode).
 > Decisiones del usuario (9 nov 2026): el nombre es «Yo contra mi corazón» y la canción original entra como excepción (§6.1, opción C).
+> **Cambio (17 nov 2026): se quita la canción.** El usuario elige la opción B de §6.1: una base chiptune propia, generada por código, con el mismo mapa. Ver §3.0b.
 > Hoja de concepto: [`../art/concepto/hoja-concepto.png`](../art/concepto/hoja-concepto.png).
 
 ---
@@ -35,7 +36,20 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **Prioridades:** P0 es el MVP, P1 viene después y P2 es deseable.
 
-### 3.0 La canción
+### 3.0b La base propia (desde el 17 nov 2026)
+El juego ya **no usa ni publica** la grabación de «Teoremas, etc.». La sustituye una base chiptune **original**, generada por código en el navegador (`src/audio/track.js`), sin muestras ni melodías de terceros.
+
+| Requisito | Detalle |
+|---|---|
+| Tempo y pulso | 168 BPM y primer pulso en 0,330 s: **el mismo `beatmap.js`**. Los ataques, fases y ventanas no cambian |
+| Duración | 226,6 s, igual que el mapa |
+| Estructura | Sigue `sections`: *intro* (solo bajo y platillos), *fase1* (bombo, caja y bajo), *respiro* (sin caja, más suave), *alta* (todo, con arpegio), *cierre* (acorde final que se apaga) |
+| Pulso audible | El bombo cae exactamente en cada tiempo par/impar del mapa (golpe en 1 y 3, caja en 2 y 4), para que el jugador sienta el beat |
+| Progresión | Acordes genéricos (La m – Fa – Do – Sol), un acorde por compás de 4 tiempos |
+| Peso y carga | 0 bytes de audio descargado: se sintetiza al cargar (< 1 s en un celular de gama media). La pantalla de carga sigue funcionando |
+| Sin red | Si no hay audio que descargar, ya no existe el error «no se pudo cargar la canción» |
+
+### 3.0 La canción (histórico: ya no se publica, ver §3.0b)
 | Dato | Valor | Fuente |
 |---|---|---|
 | Canción | «Teoremas, etc.» (José Madero) | Archivo que dio el usuario |
@@ -239,7 +253,7 @@ La barra de la fase se vacía o llega el compás de cambio. El corazón se tamba
 | Celular en horizontal | Aviso «Gira tu celular», salvo en PC |
 | Toque y deslizamiento ambiguos | Desplazamiento de 24 px o más = deslizar; menos, en menos de 200 ms = tocar |
 | Dos gestos en el mismo tiempo | Cuenta el primero |
-| La canción no carga | Mensaje con Reintentar; el juego no arranca sin audio |
+| La base no se puede generar (sin Web Audio) | Mensaje con Reintentar; el juego no arranca sin audio |
 
 ## 5. Arquitectura
 
@@ -264,7 +278,7 @@ juegos/payaso-vs-corazon/
 - **Lógica pura:** `core/` y `game/` no tocan el DOM: reciben `(tiempo, acciones)` y devuelven el estado. Así se prueban sin navegador y con bots.
 - **Datos:** la canción no se analiza en el celular. `beatmap.py` genera `beatmap.js` una sola vez y la secuencia de ataques es determinista (misma semilla, misma partida).
 - **Resolución:** 180×320 lógicos, escalados por enteros, con *letterbox* y `image-rendering: pixelated`.
-- **Salida:** `dist/index.html` (código y sprites) más la canción en un archivo aparte, para poder cambiar el audio sin recompilar.
+- **Salida:** `dist/index.html` (código, sprites y la base sintetizada). Ya no hay archivo de audio aparte.
 
 ## 6. Requisitos no funcionales
 
@@ -272,7 +286,7 @@ juegos/payaso-vs-corazon/
 |---|---|
 | Rendimiento | 60 fps en un Android de gama media (Moto G de 2023) y en un iPhone 11 |
 | Sincronía | Error entre el beat y la animación < 1 cuadro. Se usa `AudioContext.currentTime` más `outputLatency` y el desfase del usuario |
-| Peso | HTML de 300 KB o menos sin la canción. La canción como MP3 de 128 kbps (~3,6 MB), cargada con barra de progreso |
+| Peso | HTML de 300 KB o menos, sin archivos de audio (la base se genera en el navegador) |
 | Arranque | Jugable en 5 s o menos con 4G |
 | Compatibilidad | Safari iOS 16 o más reciente, Chrome Android 110 o más reciente, y escritorio |
 | Accesibilidad | Sin destellos, modo asistido, botones de 44 px o más y textos de 7 px lógicos (21 px reales) o más |
@@ -283,12 +297,12 @@ juegos/payaso-vs-corazon/
 
 | Tema | Riesgo | Propuesta |
 |---|---|---|
-| **Canción original** | **Contradice la regla del proyecto** («ni música ni letras sin licencia», `CONTEXTO.md` §1). Publicar el MP3 en un sitio público es distribuir la grabación | ✅ **Opción C: riesgo aceptado por el usuario como excepción «por ahora»** (9 nov 2026). El MP3 (128 kbps, sin metadatos) vive en `static/games/yo-contra-mi-corazon/cancion.mp3`. Si llega una queja o se pide licencia, la salida es la opción B: un chiptune original de 168 BPM con la misma estructura, que usa el mismo mapa |
+| **Canción original** | **Contradice la regla del proyecto** («ni música ni letras sin licencia», `CONTEXTO.md` §1). Publicar el MP3 en un sitio público es distribuir la grabación | ~~Opción C (9 nov 2026)~~ → ✅ **Opción B desde el 17 nov 2026:** se borra `cancion.mp3` del sitio y se usa una base chiptune original de 168 BPM con la misma estructura y el mismo mapa (§3.0b). Nota: el MP3 sigue en el historial de git; borrarlo de ahí requiere reescribir la historia y lo decide el usuario |
 | Imagen de José Madero | Pepe de payaso es una caricatura, como en el juego principal | Rótulo de homenaje no oficial y sin su nombre en el título del minijuego |
 | Corazón | La referencia recuerda a un personaje de dibujos animados con derechos | Diseño propio: corazón anatómico con aorta y venas. No es una botarga peluda |
 | Bate con clavos | Violencia | Sin sangre: confeti y brillos. ⏳ Que el usuario confirme si quiere los clavos o un bate liso |
 
 ## 7. Preguntas abiertas
-1. ✅ Canción: opción C. ✅ Nombre: «Yo contra mi corazón».
+1. ✅ Canción: opción C, cambiada a opción B el 17 nov 2026. ✅ Nombre: «Yo contra mi corazón».
 2. **Duración:** la v0.1 usa la canción completa (3:46). ¿Añadimos el modo reel de 60 s?
 3. **Bate:** la v0.1 lleva los clavos de la referencia, sin sangre. ¿Lo dejamos así o lo cambiamos por uno liso?

@@ -29,7 +29,7 @@ export function drawLoading(ctx, frac, error) {
     wrap(error, 160).forEach((l, i) => drawText(ctx, l, W / 2, 170 + i * 10, { align: 'center', color: '#ff9a9a' }));
     return [button(ctx, 'reintentarCarga', 'REINTENTAR', 210, { primary: true })];
   }
-  drawText(ctx, 'AFINANDO LA CANCIÓN…', W / 2, 170, { align: 'center', color: '#cfc8e0' });
+  drawText(ctx, 'AFINANDO LA MÚSICA…', W / 2, 170, { align: 'center', color: '#cfc8e0' });
   ctx.fillStyle = '#1a0a16'; ctx.fillRect(30, 184, 120, 8);
   ctx.fillStyle = YEL; ctx.fillRect(31, 185, Math.round(118 * frac), 6);
   return [];

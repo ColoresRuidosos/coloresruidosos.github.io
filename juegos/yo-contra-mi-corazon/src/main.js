@@ -5,6 +5,7 @@ import { createBot } from './game/bot.js';
 import { createGestures } from './input/gestures.js';
 import { createPlayer, createSimPlayer } from './audio/player.js';
 import { createSfx } from './audio/sfx.js';
+import { renderTrack } from './audio/track.js';
 import { loadSave, writeSave, recordResult } from './core/save.js';
 import { loadSprites } from './render/sprites.js';
 import { drawScene, createFx, feedFx, stepFx, W, H, MIC_BTN, PAUSE_BTN } from './render/view.js';
@@ -17,9 +18,9 @@ import { earnedBadges, awardBadges, badgeCount } from './game/badges.js';
 import { RANKING_URL } from './data/config.js';
 
 const params = new URLSearchParams(location.search);
-// Versión de prueba (un solo HTML): trae la canción incrustada y usa un ranking que vive en el navegador.
+// Versión de prueba (un solo HTML): usa un ranking que vive en el navegador.
 const PRUEBA = globalThis.YCMC_PRUEBA || null;
-const SONG_URL = PRUEBA?.song || 'cancion.mp3';
+const TRACK_RATE = 22050;   // la base propia (spec §3.0b) se genera aquí; no se descarga audio
 const SIM = Number(params.get('sim')) || 0;          // ?sim=8: reloj simulado sin audio (pruebas)
 const BOT = params.has('bot');                        // ?bot: juega solo (demo y pruebas)
 
@@ -61,11 +62,19 @@ async function loadSong() {
   app.screen = 'carga'; app.loadError = null; app.loadFrac = 0;
   try {
     app.player = app.player || makePlayer();
-    await app.player.load(SONG_URL, (f) => { app.loadFrac = f; });
+    if (app.player.ctx) {
+      app.loadFrac = 0.3;
+      await new Promise((r) => setTimeout(r, 30));   // deja pintar la pantalla de carga antes de generar
+      const pcm = renderTrack({ beatmap: BEATMAP, sampleRate: TRACK_RATE });
+      const buf = app.player.ctx.createBuffer(1, pcm.length, TRACK_RATE);
+      buf.getChannelData(0).set(pcm);
+      app.player.setBuffer(buf);
+    }
+    app.loadFrac = 1;
     app.screen = 'titulo';
   } catch (e) {
     console.error(e);
-    app.loadError = 'NO SE PUDO CARGAR LA CANCIÓN. REVISA TU CONEXIÓN.';
+    app.loadError = 'NO SE PUDO PREPARAR LA MÚSICA. INTÉNTALO DE NUEVO.';
   }
 }
 
