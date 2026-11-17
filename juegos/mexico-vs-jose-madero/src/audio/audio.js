@@ -77,6 +77,13 @@ export function createAudio() {
     bosscard: () => [[220, 277, 330], [208, 262, 311]].forEach((ch, i) => setTimeout(() => ch.forEach((f) => tone('sawtooth', f, f, 0.4, 0.07)), i * 260)),
     fight: () => [392, 523, 659, 784].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.12, 0.12), i * 70)),
     // v10 · Alba: efectos suaves (paseo, nada suena a daño)
+    'tiro:empieza': () => [392, 523, 659].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.08, 0.1), i * 70)),
+    'tiro:mala': () => { tone('square', 1400, 200, 0.12, 0.1); tone('triangle', 880, 1320, 0.1, 0.08); },
+    'tiro:buena': () => tone('sawtooth', 220, 110, 0.3, 0.12),
+    'tiro:fallo': () => tone('square', 600, 500, 0.04, 0.05),
+    'tiro:gana': () => [523, 659, 784, 1046, 784, 1046].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.12, 0.12), i * 90)),
+    'tiro:pierde': () => [392, 330, 262].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.2, 0.15), i * 150)),
+    'tiro:premio': () => [659, 880, 1175].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.2, 0.15), i * 100)),
     tic: () => [0, 50, 100].forEach((d) => setTimeout(() => tone('square', 1800, 1800, 0.03, 0.05), d)),
     pasaje: () => [523, 659, 784].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.3, 0.12), i * 120)),
     recuerdo: () => tone('triangle', 440, 330, 0.3, 0.1),

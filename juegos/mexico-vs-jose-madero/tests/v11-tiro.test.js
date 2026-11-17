@@ -28,6 +28,17 @@ test('empieza con una presentación y luego salen frases por los 3 carriles, en 
   assert.equal(seen.size, 3); assert.ok(dirs.has(1) && dirs.has(-1));
 });
 
+test('las frases no se enciman: en cada carril hay hueco entre una y otra', () => {
+  const T = play();
+  for (let i = 0; i < 60 * 25; i++) {
+    stepTiro(T, NO);
+    for (const y of LANES) {
+      const fs = T.frases.filter((f) => f.y === y).sort((a, b) => a.x - b.x);
+      for (let k = 1; k < fs.length; k++) assert.ok(fs[k].x - (fs[k - 1].x + fs[k - 1].w) >= 12, `carril ${y}: ${fs[k - 1].text} / ${fs[k].text}`);
+    }
+  }
+});
+
 test('determinista: misma partida, mismas frases', () => {
   const seq = () => { const T = play(); const out = []; for (let i = 0; i < 600; i++) { const n = T.spawned; stepTiro(T, NO); if (T.spawned > n) out.push(T.frases.at(-1).text + T.frases.at(-1).y); } return out.join('|'); };
   assert.equal(seq(), seq());

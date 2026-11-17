@@ -189,8 +189,14 @@ musicBtn.addEventListener('click', () => { setMusic(!opt.music); save.commit(); 
 notesBtn?.addEventListener('click', () => { setNotes(!opt.notas); save.commit(); });
 document.getElementById('pause')?.addEventListener('click', () => { if (screen === 'play') paused = !paused; });
 let tapStart = false;
+let tiroTap = null;   // v11: toque o clic sobre el Tiro de frases (coordenadas de juego)
 cv.addEventListener('pointerdown', (e) => {
   audio.unlock();
+  if (screen === 'play' && !paused && game?.alba?.tiro) {
+    const r = cv.getBoundingClientRect();
+    tiroTap = { x: (e.clientX - r.left) * W / r.width, y: (e.clientY - r.top) * H / r.height };
+    e.preventDefault(); return;
+  }
   // v9.6: un toque sobre una nota la salta (y no hace saltar a Pepe).
   if (canSkip()) {
     const r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width, y = (e.clientY - r.top) * H / r.height;
@@ -334,7 +340,7 @@ function frame(now) {
         else if (pr.left) enterMuseum(run.world);
         else if (pr.right) { guideSel = 0; guideBack = 'play'; screen = 'guide'; screenT = 0; }
       } else {
-        stepGame(game, btn);
+        stepGame(game, tiroTap ? { ...btn, tap: tiroTap } : btn); tiroTap = null;
         audio.play(game.events);
         explainFirstTime();
         // Jefe vencido: pose de festejo (3 s, A la salta a los 0,5 s) antes de las tarjetas.

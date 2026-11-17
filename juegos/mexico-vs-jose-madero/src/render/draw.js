@@ -17,7 +17,7 @@ import { buildTheme, hash } from './themes.js';
 import { drawRecuerdo, drawThought } from './draw-historia.js';
 import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
-import { drawAlbaEnemy, drawAlbaWorld, drawAlbaPepe, drawAlbaOverlay, drawAlbaHud, drawSolPiece, drawLuz } from './draw-alba.js';
+import { drawTiro, drawCasetas, drawAlbaEnemy, drawAlbaWorld, drawAlbaPepe, drawAlbaOverlay, drawAlbaHud, drawSolPiece, drawLuz } from './draw-alba.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
 const rect = (g, c, x, y, w, h) => { g.fillStyle = c; g.fillRect(Math.round(x), Math.round(y), w, h); };
@@ -300,7 +300,7 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
   }
   for (const pc of g.pieces) if (!pc.taken) (th.piece === 'luna' ? drawLunaPiece : th.piece === 'sol' ? drawSolPiece : drawCarmesi)(ctx, pc.x, pc.y + Math.round(Math.sin(t * 3 + pc.x) * 2), t);
   for (const it of g.items) if (!it.taken) (it.kind === 'aceite' ? drawAceite : it.kind === 'luz' ? drawLuz : drawItem)(ctx, it, t);
-  if (g.alba) drawAlbaWorld(ctx, g, t, flashes);
+  if (g.alba) { drawCasetas(ctx, g, t); drawAlbaWorld(ctx, g, t, flashes); }
 
   drawEnemies(ctx, g, art, t, flashes);
   if (g.boss && g.boss.kind !== 'mask') drawBoss(ctx, g, art, t, flashes);
@@ -520,13 +520,14 @@ export function hudNotes(g, opts = {}) {
   return { pop: g.popups?.[0] ?? null, thought: g.thought ?? null, hint: g.hint ?? null };
 }
 export function drawHud(ctx, g, levelName = '', t = 0, art = null, opts = {}) {
+  if (g.alba?.tiro) { drawTiro(ctx, g.alba.tiro, t, g.hearts); return {}; }   // v11: el minijuego ocupa la pantalla
   const notes = hudNotes(g, opts);
   // Barra superior.
   ctx.globalAlpha = 0.55; rect(ctx, '#12040a', 0, 0, W, 30); ctx.globalAlpha = 1;
   if (g.alba) {
     // v10 · Paseo: sin corazones ni marcador; pasajes leídos y soles.
     drawAlbaHud(ctx, g, t);
-    text(ctx, `☀ ${g.piezas}/${g.pieces.length}`, 120, 5, { color: '#fff0c0' });
+    text(ctx, `☀ ${g.piezas}/${g.pieces.length}`, 124, 5, { color: '#fff0c0' });
   } else {
     for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });
     text(ctx, String(g.score).padStart(7, '0'), 36, 5, { color: '#ffffff' });

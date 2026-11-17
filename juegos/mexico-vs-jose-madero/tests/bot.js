@@ -117,9 +117,23 @@ export function maskBot(g) {
 // v10 · Bot de Alba (paseo): camina, salta huecos y muros, se sube a la Maldita Rueda cuando hay que pasar por arriba,
 // esquiva los recuerdos del jefe (el rayo alto se deja pasar por encima) y camina contra el viento.
 import { cabinTops } from '../src/game/alba.js';
+const e_w = (e) => e.w;
 export function albaBot(g) {
   const p = g.player, L = g.level, A = g.alba, pc = p.x + p.w / 2, feet = p.y + p.h;
   const btn = { left: false, right: true, jump: false, mic: false, special: false };
+  // v11 · Tiro de frases: toca una frase mala cada 12 pasos (como un jugador que apunta).
+  if (A.tiro) {
+    A.botT = (A.botT ?? 0) + 1;   // (g.frame no avanza mientras dura el tiro)
+    const f = A.tiro.status === 'play' && A.tiro.frases.find((q) => q.mala && q.x > 0 && q.x + q.w < 320);
+    return { left: false, right: false, jump: false, mic: false, special: false, tap: A.botT % 12 === 0 && f ? { x: f.x + f.w / 2, y: f.y + 6 } : null };
+  }
+  // Caseta con la reja cerrada: B para jugar.
+  const booth = A.casetas.find((c) => Math.abs(c.x - pc) < 18);
+  const gateClosed = L.gates.some(({ tx, ty }) => L.grid[ty][tx] === '|');
+  if (booth && gateClosed && p.onGround) {
+    if (Math.abs(booth.x - pc) > 6) return { ...btn, right: booth.x > pc, left: booth.x < pc };
+    return { ...btn, right: false, mic: g.frame % 2 === 0 };
+  }
   const tyFeet = Math.floor((feet - 1) / TILE);
   const wallAt = (dx) => { const tx = Math.floor((pc + dx) / TILE); return L.tileAt(tx, tyFeet) === '#' || L.tileAt(tx, tyFeet - 1) === '#'; };
   // ¿Hay que subir por la noria? (muro alto delante y una noria cerca)
@@ -140,12 +154,16 @@ export function albaBot(g) {
   }
   // En el aire subiendo a una cabina (salto bajo, junto al centro de la noria): sin moverse de lado.
   if (!p.onGround && w && Math.abs(pc - w.cx) < 30 && feet > w.cy) return { ...btn, right: false, jump: p.vy < 0 };
-  if (!p.onGround) return { ...btn, jump: p.vy < 0 };
-  // v11: enemigos y recuerdos delante, a la altura de la mano → se para y lanza el micrófono.
+  // v11: enemigos y recuerdos delante, a la altura de la mano → lanza el micrófono (en el suelo, se para).
   const hand = { x: pc + MIC.handX, y: feet - MIC.handY };
   const foes = [...g.enemies.filter((e) => e.alive), ...A.recuerdos.filter((r) => r.alive)];
   const target = foes.find((e) => e.x + e.w > hand.x - 4 && e.x - hand.x < MIC.range - 8 && hand.y >= e.y - 4 && hand.y <= e.y + e.h + 4);
-  if (target) return { ...btn, right: g.mic.phase !== 'idle', mic: g.mic.phase === 'idle' && g.frame % 2 === 0 };
+  const fire = g.mic.phase === 'idle' && g.frame % 2 === 0;
+  if (!p.onGround) return { ...btn, jump: p.vy < 0, mic: !!target && fire };
+  if (target) return { ...btn, right: g.mic.phase !== 'idle', mic: fire };
+  // Cartas en lo alto: se pasa corriendo por debajo (la picada llega tarde); si bajan, el micro las alcanza.
+  const bajando = g.enemies.find((e) => e.alive && e.kind === 'carta' && e.state !== 'fly' && e.x + e.w > p.x - 30 && e.x < p.x + p.w + 40);
+  if (bajando) return { ...btn, right: false, left: bajando.x < pc && bajando.x + e_w(bajando) > p.x - 4 };
   const gap = !['#', '='].includes(L.tileAt(Math.floor((p.x + p.w + 14) / TILE), tyFeet + 1));
   let jump = wallAt(p.w / 2 + 6) || gap;
   // Recuerdos del jefe: saltar lo que viene a ras de suelo; el rayo alto se deja pasar.

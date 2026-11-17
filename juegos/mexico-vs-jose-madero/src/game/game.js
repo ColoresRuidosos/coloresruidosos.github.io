@@ -6,7 +6,7 @@ import { QUOTES, HEADLINES } from '../data/quotes.js';
 import { createEnemy, stepEnemy, bounceOff } from './enemies.js';
 import { createBoss, stepBoss, hitBoss as hitFlashBot } from './boss.js';
 import { createLantern, stepLantern, refill, createMask, stepMask, hitMask, setMicTip } from './noche.js';
-import { createAlba, stepAlba } from './alba.js';
+import { createAlba, stepAlba, stepCaseta } from './alba.js';
 import { ALBA } from './constants.js';
 
 // Jefe según el nivel: 'B' Cámara Flash-Bot (Mundo 1), 'E' El Enmascarado del Lago (Mundo 2).
@@ -260,6 +260,7 @@ export function stepGame(g, btn) {
   if (g.intro) return stepIntro(g, btn);
   const ed = edges(g.prev, btn);
   g.prev = { ...btn };
+  if (g.alba && stepCaseta(g, btn, ed)) return g;   // v11: el Tiro de frases detiene el mundo
   g.frame++; g.time += DT;
   g.invuln = Math.max(0, g.invuln - DT);
   g.comboT = Math.max(0, g.comboT - DT);

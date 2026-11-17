@@ -2,6 +2,8 @@
 // Usa las hojas de Gemini recortadas (src/data/*-atlas.js). La lógica vive en src/game/alba.js y nostalgia.js.
 import { W, H, TILE, ALBA as K } from '../game/constants.js';
 import { cabinTops } from '../game/alba.js';
+import { LANES } from '../game/tiro.js';
+import { TIRO } from '../game/constants.js';
 import { PASAJES } from '../data/alba-story.js';
 import { letraDe } from '../data/alba-letras.js';
 import { text, wrap } from './draw.js';
@@ -162,8 +164,8 @@ export function drawAlbaOverlay(ctx, g, t, flashes = true) {
 // HUD del paseo: sin corazones; cuenta los pasajes leídos y muestra el atril o la frase de la Nostalgia.
 export function drawAlbaHud(ctx, g, t) {
   const A = g.alba;
-  drawSolPiece(ctx, 10, 9, 0, 4);
-  text(ctx, `PASAJES ${A.leidos.length + A.start}/${PASAJES.length}`, 18, 5, { color: '#ffd040' });
+  for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, 5, { color: i < g.hearts ? '#ff5a4f' : '#4a4060' });   // v11
+  text(ctx, `PASAJES ${A.leidos.length + A.start}/${PASAJES.length}`, 36, 5, { color: '#ffd040' });
   if (A.sitting) text(ctx, 'DESCANSAS EN LA BANCA', W / 2, 36, { align: 'center', color: '#fff0c0' });
   else if (A.drag) text(ctx, 'LA NOSTALGIA TE JALA… ¡MUÉVETE!', W / 2, 36, { align: 'center', color: '#d2b48c' });
   const b = A.boss;
@@ -237,4 +239,72 @@ export function drawAlbaEnemy(ctx, e, t) {
     rect(ctx, '#1e1610', x + 4, y + 10, 2, 1); rect(ctx, '#1e1610', x + 12, y + 10, 2, 1);   // ojitos
   }
   ctx.restore();
+}
+
+// ── v11 · Caseta del Tiro de frases y reja de la feria (en el mundo) ──
+export function drawCasetas(ctx, g, t) {
+  const L = g.level, p = g.player, pc = p.x + p.w / 2;
+  for (const c of g.alba.casetas) {
+    const x = c.x - 28, y = c.y;
+    rect(ctx, '#3a2c20', x, y - 52, 3, 52); rect(ctx, '#3a2c20', x + 53, y - 52, 3, 52);
+    for (let k = 0; k < 7; k++) rect(ctx, k % 2 ? '#f4eee0' : '#c0392b', x - 2 + k * 9, y - 60, 9, 10);   // toldo a rayas
+    for (let k = 0; k < 7; k++) { ctx.fillStyle = k % 2 ? '#f4eee0' : '#c0392b'; ctx.beginPath(); ctx.arc(x + 2.5 + k * 9, y - 50, 4.5, 0, Math.PI); ctx.fill(); }
+    rect(ctx, '#5a3a1e', x, y - 18, 56, 18); rect(ctx, '#8a5a30', x, y - 18, 56, 3);                // mostrador
+    for (let k = 0; k < 3; k++) rect(ctx, '#e8dcc0', x + 6 + k * 16, y - 40, 12, 6);                // carteles de papel
+    rect(ctx, '#1b1226', x + 4, y - 74, 48, 12); rect(ctx, '#ffd040', x + 5, y - 73, 46, 10);
+    text(ctx, 'TIRO', c.x, y - 72, { align: 'center', color: '#1b1226', shadow: null });
+    const gateClosed = L.gates.some(({ tx, ty }) => L.grid[ty][tx] === '|');
+    if (gateClosed && Math.abs(c.x - pc) < 40 && Math.floor(t * 3) % 2 === 0) text(ctx, 'B: TIRO DE FRASES', c.x, y - 88, { align: 'center', color: '#ffd040' });
+  }
+  // Reja: postes de madera con cadena y letrero mientras esté cerrada.
+  for (const { tx, ty } of L.gates) {
+    if (L.grid[ty][tx] !== '|') continue;
+    const x = tx * TILE, y = ty * TILE;
+    rect(ctx, '#5a3a1e', x + 2, y, 4, 16); rect(ctx, '#5a3a1e', x + 10, y, 4, 16);
+    rect(ctx, '#8a5a30', x + 2, y, 1, 16); rect(ctx, '#8a5a30', x + 10, y, 1, 16);
+    rect(ctx, '#46404e', x, y + 6, 16, 2);
+  }
+  const top = L.gates.reduce((m, q) => (L.grid[q.ty][q.tx] === '|' && q.ty < m.ty ? q : m), { ty: 99, tx: 0 });
+  if (top.ty < 99) { rect(ctx, '#1b1226', top.tx * TILE - 14, top.ty * TILE + 30, 44, 12); rect(ctx, '#e8dcc0', top.tx * TILE - 13, top.ty * TILE + 31, 42, 10); text(ctx, 'CERRADO', top.tx * TILE + 8, top.ty * TILE + 32, { align: 'center', color: '#a83a3a', shadow: null }); }
+}
+
+// ── v11 · Pantalla del Tiro de frases (cubre todo, HUD incluido) ──
+export function drawTiro(ctx, T, t, hearts = 3) {
+  // Fondo: lona azul noche con foquitos; marco de madera.
+  for (let i = 0; i < 6; i++) rect(ctx, ['#1b1a3a', '#232248', '#2c2a56', '#352f60', '#3e3466', '#4a3a6a'][i], 0, i * 38, W, 38);
+  for (let x = 6; x < W; x += 16) rect(ctx, Math.floor(t * 4 + x / 16) % 3 ? '#ffd040' : '#fff8b0', x, 36 + Math.round(Math.sin(x) * 2), 3, 3);
+  for (let k = 0; k < 18; k++) rect(ctx, k % 2 ? '#f4eee0' : '#c0392b', k * 18, 0, 18, 14);
+  text(ctx, 'TIRO DE FRASES', W / 2, 18, { align: 'center', color: '#ffd040', scale: 1 });
+  // Rieles de los carriles
+  for (const y of LANES) { rect(ctx, '#3a2c20', 0, y + 16, W, 3); rect(ctx, '#8a5a30', 0, y + 16, W, 1); }
+  // Frases (todas en el mismo papel: hay que leerlas)
+  for (const f of T.frases) {
+    rect(ctx, '#3a2c20', f.x, f.y, f.w, f.h); rect(ctx, '#f4eee0', f.x + 1, f.y + 1, f.w - 2, f.h - 2);
+    rect(ctx, '#3a2c20', f.x + f.w / 2 - 1, f.y + f.h, 2, 4);
+    text(ctx, f.text, f.x + f.w / 2, f.y + 3, { align: 'center', color: '#1e1610', shadow: null });
+  }
+  for (const s of T.shots) {   // impacto
+    ctx.globalAlpha = Math.max(0, s.t / 0.25);
+    for (let k = 0; k < 8; k++) { const a = k * Math.PI / 4, r = 4 + (0.25 - s.t) * 40; rect(ctx, '#ffd040', s.x + Math.cos(a) * r - 1, s.y + Math.sin(a) * r - 1, 2, 2); }
+    ctx.globalAlpha = 1;
+  }
+  // Mira
+  const cx = Math.round(T.cross.x), cy = T.cross.y + 6;
+  ctx.strokeStyle = '#ff5a4f'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(cx, cy, 8, 0, Math.PI * 2); ctx.stroke();
+  rect(ctx, '#ff5a4f', cx - 12, cy - 1, 7, 2); rect(ctx, '#ff5a4f', cx + 5, cy - 1, 7, 2); rect(ctx, '#ff5a4f', cx - 1, cy - 12, 2, 7); rect(ctx, '#ff5a4f', cx - 1, cy + 5, 2, 7);
+  // Marcador
+  rect(ctx, '#12040a', 0, H - 26, W, 26);
+  for (let i = 0; i < 3; i++) text(ctx, '♥', 6 + i * 9, H - 20, { color: i < hearts ? '#ff5a4f' : '#4a4060' });
+  text(ctx, `NOSTALGIA ${T.malas}/${TIRO.goal}`, 40, H - 20, { color: '#ffd040' });
+  text(ctx, `CANCIONES ${'✕'.repeat(T.buenas)}${'·'.repeat(TIRO.maxGood - T.buenas)}`, 160, H - 20, { color: T.buenas ? '#ff9a9a' : '#b9a8d6' });
+  text(ctx, String(Math.max(0, Math.ceil(TIRO.dur - T.t))).padStart(2, '0'), W - 8, H - 20, { align: 'right', color: TIRO.dur - T.t < 6 ? '#ff5a4f' : '#ffffff' });
+  // Presentación y resultado
+  const box = (lines, col) => {
+    const h = lines.length * 11 + 12;
+    rect(ctx, '#1b1226', 20, 80 - 1, W - 40, h + 2); rect(ctx, '#efe8d4', 21, 80, W - 42, h);
+    lines.forEach((l, i) => text(ctx, l, W / 2, 86 + i * 11, { align: 'center', color: i === 0 ? col : '#1b1226', shadow: null }));
+  };
+  if (T.status === 'intro') box(['¡DISPÁRALE A LA NOSTALGIA!', 'NO LE DISPARES A LAS CANCIONES DE ALBA', `${TIRO.goal} FRASES EN ${TIRO.dur} SEGUNDOS`, 'CELULAR: TOCA LA FRASE', 'TECLADO: ◀ ▶ MIRA · A CARRIL · B DISPARA'], '#c0392b');
+  else if (T.status === 'won') box(['¡GANASTE!', 'SE ABRE LA FERIA · LUZ DEL ALBA · +♥'], '#b8862e');
+  else if (T.status === 'lost') box(['¡OTRA VEZ!', T.buenas >= TIRO.maxGood ? 'LE DISPARASTE A 3 CANCIONES' : 'SE ACABÓ EL TIEMPO', 'VUELVE A PULSAR B EN LA CASETA'], '#c0392b');
 }

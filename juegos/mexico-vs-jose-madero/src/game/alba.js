@@ -4,6 +4,7 @@
 import { TILE, DT, ALBA as K } from './constants.js';
 import { createNostalgia, stepNostalgia } from './nostalgia.js';
 import { hurt } from './game.js';
+import { createTiro, stepTiro } from './tiro.js';
 
 const VARIANTES = ['rosa', 'antifaz', 'flash', 'noria'];
 
@@ -15,7 +16,7 @@ export function createAlba(level, opts = {}) {
     wheels: level.wheels.map((c) => ({ cx: c.x, cy: c.y, r: K.wheelR, n: K.cabins, angle: 0, dir: 1 })),
     // Numerados de izquierda a derecha (el lector de niveles los encuentra fila por fila).
     pasajes: [...level.pasajes].sort((a, b) => a.x - b.x).map((p, i) => ({ ...p, idx: (opts.start ?? 0) + i, read: false })),
-    leidos: [], pasaje: null, ride: null, bancas: level.bancas, healed: new Set(),
+    leidos: [], pasaje: null, ride: null, bancas: level.bancas, healed: new Set(), casetas: level.casetas, tiro: null, tiros: 0,
   };
   if (level.nostalgia) A.boss = createNostalgia(level, A);
   return A;
@@ -122,4 +123,37 @@ export function stepAlba(g, input, prevBottom, micTip) {
   }
 
   if (A.boss) stepNostalgia(g);
+}
+
+// v11 · Caseta del Tiro de frases. Se llama al principio de cada paso; si devuelve true, el mundo no avanza este paso.
+// `btn`: botones mantenidos (+ tap); `ed`: flancos de este paso (micPressed).
+const RESULT_T = 1.5;
+export function stepCaseta(g, btn, ed) {
+  const A = g.alba, p = g.player;
+  if (A.tiro) {
+    const T = A.tiro;
+    g.events.push(...stepTiro(T, btn));
+    if (T.status === 'won' || T.status === 'lost') {
+      T.endT = (T.endT ?? 0) + DT;
+      if (T.endT >= RESULT_T) {
+        if (T.status === 'won') {
+          for (const { tx, ty } of g.level.gates) g.level.grid[ty] = g.level.grid[ty].slice(0, tx) + '.' + g.level.grid[ty].slice(tx + 1);
+          A.luzT = K.luzTime;
+          g.hearts = Math.min(3, g.hearts + 1);
+          g.events.push('tiro:premio');
+        }
+        A.tiro = null;
+      }
+    }
+    return true;
+  }
+  const pc = p.x + p.w / 2;
+  const booth = A.casetas.find((c) => Math.abs(c.x - pc) < 18 && Math.abs(c.y - (p.y + p.h)) < 4);
+  if (booth && p.onGround && ed.micPressed && g.level.gates.some(({ tx, ty }) => g.level.grid[ty][tx] === '|')) {
+    A.tiro = createTiro(11 + 7 * A.tiros++);
+    A.tiro.prev = { jump: !!btn.jump, mic: !!btn.mic };
+    g.events.push('tiro:empieza');
+    return true;
+  }
+  return false;
 }

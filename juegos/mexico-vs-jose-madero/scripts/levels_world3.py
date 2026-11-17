@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Genera src/data/world3.js (niveles del Mundo 3 «Alba», spec §3.0f Q: paseo al amanecer). Tras generarlo, el texto es la
 fuente: se puede editar a mano. Leyenda en src/engine/tilemap.js. Fila 11 = donde se apoyan las cosas (suelo en 12–13).
-Alba es un paseo: no hay enemigos ni pinchos; hay recuerdos 'I', atriles 'S', bancas 'b', Luz del Alba '@',
-plataformas de luz '~', la Maldita Rueda 'D' y, en 3-3, el jefe 'n'."""
+Recuerdos 'I', atriles 'S', bancas 'b', Luz del Alba '@', plataformas de luz '~', la Maldita Rueda 'D' y, en 3-3, el jefe 'n'.
+v11 (con reto): enemigos 'r' Reloj despertador y 'v' Carta del pasado; en 3-2, la caseta 'g' del Tiro de frases y la reja '|'."""
 H = 14
 
 def level(w):
@@ -44,6 +44,9 @@ put(a, 110, 11, 'S')                               # «La célula no explotó»
 plat(a, 118, 9, 4); put(a, 119, 8, '*')
 put(a, 130, 11, 'C')
 put(a, 146, 11, 'G')
+# v11 · enemigos: 3 relojes y 2 cartas
+for x in (21, 68, 116): put(a, x, 11, 'r')
+for x in (35, 90): put(a, x, 7, 'v')
 
 # ── 3-2 «Carrusel de adultos»: la feria al alba; la Maldita Rueda lleva a la parte alta ──
 b = level(170)
@@ -65,6 +68,12 @@ put(b, 130, 11, 'C')
 put(b, 140, 11, 'S')                               # «No lo cambio por nada»
 put(b, 150, 10, '@'); gap(b, 153, 4, '~'); put(b, 155, 8, '*')
 put(b, 166, 11, 'G')
+# v11 · el Tiro de frases: caseta y reja de la feria (solo se abre al ganar); luego el checkpoint
+put(b, 39, 11, 'g')
+for y in range(2, 12): put(b, 43, y, '|')
+# v11 · enemigos: 3 relojes y 3 cartas
+for x in (25, 56, 135): put(b, x, 11, 'r')
+for x in (28, 74, 145): put(b, x, 7, 'v')
 
 # ── 3-3 «Ahora y hoy»: el cerro; el jefe La Nostalgia (rayos de sol, la noria y el viento) ──
 c = level(150)
@@ -78,12 +87,15 @@ put(c, 70, 5, 'D')                                 # la Maldita Rueda del jefe
 block(c, 76, 7, 74, 5)                             # repisa alta: se sube por la noria
 put(c, 110, 6, 'S')                               # «Carrusel de adultos», ya con viento en contra
 put(c, 90, 5, '*'); put(c, 125, 5, '*')
+# v11 · enemigos antes del jefe: 2 relojes y 3 cartas
+for x in (11, 17): put(c, x, 11, 'r')
+for x in (13, 19, 24): put(c, x, 6, 'v')
 
 def js(lv):
     return ',\n'.join("    '" + r + "'" for r in text(lv))
 
 out = f"""// Mundo 3 «Alba» (spec §3.0f Q). Generado al inicio con scripts/levels_world3.py; se puede editar a mano.
-// Leyenda en src/engine/tilemap.js. Paseo: sin daño; pasajes por nivel en alba-story.js (PASAJES_POR_NIVEL).
+// Leyenda en src/engine/tilemap.js. v11: con enemigos, 3 corazones y el Tiro de frases (3-2); pasajes por nivel en alba-story.js.
 export const WORLD_3 = [
   {{ id: '3-1', theme: 'alba-pueblo', name: 'EL PUEBLO', map: [
 {js(a)},

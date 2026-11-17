@@ -19,12 +19,22 @@ function rng(T) {
   return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
 }
 
+// Cada carril va en un solo sentido y a una sola velocidad (así no se alcanzan); solo entra una frase si hay hueco.
+const LANE_DIR = [1, -1, 1], LANE_SPEED = [0.35, 1, 0.65];
+const GAP = 24;
 function spawn(T) {
   const mala = rng(T) >= K.goodRatio, list = mala ? TIRO_MALAS : TIRO_BUENAS;
-  const text = list[Math.floor(rng(T) * list.length)], w = text.length * 6 + 8, lane = Math.floor(rng(T) * 3);
-  const dir = rng(T) < 0.5 ? 1 : -1, speed = K.speedMin + rng(T) * (K.speedMax - K.speedMin);
-  T.frases.push({ text, mala, w, h: 13, y: LANES[lane], x: dir > 0 ? -w : W, vx: dir * speed });
-  T.spawned++;
+  const text = list[Math.floor(rng(T) * list.length)], w = text.length * 6 + 8;
+  const start = Math.floor(rng(T) * 3);
+  for (let k = 0; k < 3; k++) {
+    const lane = (start + k) % 3, dir = LANE_DIR[lane], x = dir > 0 ? -w : W;
+    const free = T.frases.every((f) => f.y !== LANES[lane] || (dir > 0 ? f.x - GAP >= 0 : f.x + f.w + GAP <= W));
+    if (!free) continue;
+    const speed = K.speedMin + LANE_SPEED[lane] * (K.speedMax - K.speedMin);
+    T.frases.push({ text, mala, w, h: 13, y: LANES[lane], x, vx: dir * speed });
+    T.spawned++;
+    return;
+  }
 }
 
 function shoot(T, x, y, ev) {

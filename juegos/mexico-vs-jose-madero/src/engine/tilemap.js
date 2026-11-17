@@ -12,7 +12,7 @@ export function parseLevel(text) {
   const rows = text.split('\n');
   const h = rows.length, w = Math.max(...rows.map((r) => r.length));
   const L = { w, h, grid: [], player: null, enemies: [], pieces: [], hooks: [], checkpoints: [], items: [], boss: null, goal: null,
-    lights: [], recuerdos: [], wheels: [], pasajes: [], bancas: [], nostalgia: null };
+    lights: [], recuerdos: [], wheels: [], pasajes: [], bancas: [], nostalgia: null, casetas: [], gates: [] };
   rows.forEach((row, ty) => {
     let out = '';
     for (let tx = 0; tx < w; tx++) {
@@ -53,7 +53,9 @@ export function parseLevel(text) {
       else if (c === 'S') L.pasajes.push(feet);
       else if (c === 'b') L.bancas.push(feet);
       else if (c === 'n') L.nostalgia = feet;
-      out += '#=^'.includes(c) ? c : '.';
+      else if (c === 'g') L.casetas.push(feet);
+      else if (c === '|') L.gates.push({ tx, ty });
+      out += '#=^|'.includes(c) ? c : '.';
     }
     L.grid.push(out);
   });
@@ -67,7 +69,7 @@ export function tileAt(L, tx, ty) {
   return L.grid[ty][tx];
 }
 
-const solid = (c) => c === '#';
+const solid = (c) => c === '#' || c === '|';   // v11: la reja de la feria es sólida hasta que se abre
 
 function overlapsSolid(L, b) {
   const x0 = Math.floor(b.x / TILE), x1 = Math.floor((b.x + b.w - 1e-6) / TILE);
