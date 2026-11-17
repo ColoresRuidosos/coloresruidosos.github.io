@@ -808,6 +808,33 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - **Pepe:** traje automático del mundo, la **camisa blanca** (sin datos de vestuario reales; es ficción).
 - **Escuchar el disco:** el botón 🎧 abre la búsqueda de *Alba* en las plataformas (§3.0f P).
 
+**v11 · *Alba* con reto: enemigos, corazones y el minijuego «Tiro de frases»** (petición del usuario, 17 nov 2026: «lo sentí muy rápido y sin reto, mejor agreguemos enemigos, pongamos algún minijuego… tipo Duck Hunt cazando frases»). **Sustituye** a «paseo sin daño» de v10 y v10.2. Decisiones del usuario: **3 corazones como en Noche**, minijuego **Tiro de frases** en La Feria, **misma longitud** de niveles.
+
+*Daño y ayudas*
+- Vuelven los **3 corazones**, el modo asistido, el Antifaz y la invulnerabilidad tras un golpe. Al perder los 3: «fin del juego» y se repite el nivel desde su inicio, como en *Noche*.
+- **Foso:** −1 corazón y vuelves al checkpoint (como en los otros mundos).
+- **Recuerdo (polaroid):** ahora **quita 1 corazón** (además del sepia). El micrófono lo sigue disolviendo.
+- **Proyectiles de la Nostalgia:** quitan 1 corazón. El jefe sigue sin vida que bajar: se avanza con los rayos de sol, la noria y el viento.
+- **La nostalgia que te jala** se queda igual (3 s quieto → te jala hacia atrás).
+- **Bancas:** sentarse **recupera 1 corazón**, una vez por banca.
+
+*Enemigos nuevos* (sprites por código, estilo Neo Geo, paleta sepia y dorada; se vencen con el micrófono o pisándolos):
+- **Reloj despertador** (`r`): camina y **da un brinco cada 1,6 s**, sonando. Es el tiempo que pasa. 1 golpe.
+- **Carta del pasado** (`v`): sobre que vuela en onda y **se lanza en picada** cuando pasas debajo (mismo patrón que el Rumor Volador). 1 golpe.
+- Reparto: 3-1 → 3 relojes y 2 cartas; 3-2 → 3 relojes y 3 cartas; 3-3 → 2 relojes y 3 cartas antes del jefe. Los niveles mantienen su longitud.
+
+*Minijuego «Tiro de frases»* (3-2 La Feria; estilo galería de tiro de feria / Duck Hunt, diseño propio):
+- Una **caseta** (`g`) y, justo después, la **reja de la feria** (`|`, sólida) que solo se abre al ganar. Frente a la caseta, B (micrófono) empieza el juego.
+- Pantalla propia: 3 carriles; las frases cruzan de lado a lado en carteles de papel a 50–90 px/s.
+- **Dispara a las frases de la nostalgia**; **no le dispares a las buenas** (títulos de canciones de *Alba*, que son las que te dejan seguir).
+- **Controles:** en celular y con ratón, **toca la frase**. Con teclado o mando, ◀ ▶ mueven la mira, A cambia de carril y B dispara.
+- **Ganas** con 10 frases malas en 30 s. **Pierdes** si se acaba el tiempo o tocas 3 buenas; puedes reintentarlo sin límite (vuelve a pulsar B en la caseta).
+- **Premio:** se abre la reja, Luz del Alba (10 s) y +1 corazón (máx. 3).
+- Frases malas (ficción de CR, ⏳ para aprobar): «ANTES TODO ERA MEJOR», «YA ESTÁS GRANDE PARA ESO», «TU MEJOR ÉPOCA YA PASÓ», «NADA VOLVERÁ A SER IGUAL», «YA NO HAY NADA NUEVO», «MEJOR NI LO INTENTES», «QUÉDATE DONDE ESTÁS», «ESO YA LO VISTE».
+- Frases buenas (títulos de *Alba*): «AÚN HAY MÁS», «AHORA Y HOY», «NO LO CAMBIO POR NADA», «WILLKOMMEN».
+
+*HUD:* vuelven los corazones; se quedan «PASAJES n/10» y los soles. Pruebas: bots que terminan los 3 niveles (con enemigos y el minijuego) sin perder.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
@@ -837,7 +864,9 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Noche | **Invitado enmascarado** | «Noche de brujas» (fiesta de disfraces) | Al pisarlo pierde la máscara y cambia de comportamiento |
 | Noche | **Fantasma** | «Fantasmas» (setlist de la gira *Noche*) | Atraviesa paredes; solo es visible con flash |
 | Noche | **Murciélago** | Terror clásico | Picado en curva |
-| Alba | **Recuerdo** (polaroid) | Concepto nostalgia | Obstáculo suave (paseo, §3.0f Q): te sigue lento; si te toca, te devuelve 48 px, sin daño |
+| Alba | **Recuerdo** (polaroid) | Concepto nostalgia | Te sigue lento; si te toca, quita 1 corazón (v11; antes, sin daño) |
+| Alba | **Reloj despertador** | El tiempo que pasa | Camina y brinca cada 1,6 s (v11) |
+| Alba | **Carta del pasado** | Concepto nostalgia | Vuela en onda y se lanza en picada (v11) |
 | Alba | **Maldita Rueda** | Canción «Maldita rueda» | Noria con cabinas que giran: plataformas móviles (§3.0f Q) |
 | Psalmos | **Codependientes** | Sencillo «Codependientes» (con Cami) | Pareja unida por una cadena: hay que vencer a los dos |
 | Psalmos | **Chambelán** | «Chambelán (Nunca fui)» | Baila en formación; patrón de vals |
