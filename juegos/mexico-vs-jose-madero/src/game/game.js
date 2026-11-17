@@ -69,7 +69,6 @@ export function hookAhead(g) {
 }
 
 export function hurt(g, fromX) {
-  if (g.alba) return; // v10 · Alba es un paseo: nada hace daño
   if (g.invuln > 0 || g.star > 0) return; // con el Antifaz, nada hace daño
   g.hurts++;
   if (!g.assist) g.hearts--;
@@ -330,7 +329,6 @@ export function stepGame(g, btn) {
   }
 
   // Foso: pierdes un corazón y vuelves al último checkpoint.
-  if (p.y > g.level.h * TILE + 40 && g.status === 'play' && g.alba) { respawn(g); g.events.push('fall'); }   // v10 · Alba: sin castigo
   if (p.y > g.level.h * TILE + 40 && g.status === 'play') {
     g.invuln = 0;
     hurt(g, p.x);

@@ -12,12 +12,28 @@ const make = (rows, opts = {}) => createGame(lvl(rows), {}, { alba: { start: 0, 
 const cx = (g) => g.player.x + g.player.w / 2;
 const evs = (g, secs, btn = NONE) => { const all = []; for (let i = 0; i < Math.round(secs * 60); i++) { stepGame(g, btn); all.push(...g.events); } return all; };
 
-describe('paseo: sin daño', () => {
-  test('caer a un foso te devuelve al checkpoint sin perder corazones', () => {
+describe('v11 · con reto: 3 corazones', () => {
+  test('caer a un foso quita 1 corazón y te devuelve al checkpoint', () => {
     const g = make(['..........', '..........', '..P.......', '####..####', '####..####']);
-    run(g, 3, { ...NONE, right: true });
-    assert.equal(g.hearts, 3); assert.equal(g.status, 'play'); assert.ok(g.alba);
+    for (let i = 0; i < 120 && g.hearts === 3; i++) stepGame(g, { ...NONE, right: true });
+    run(g, 0.5);
+    assert.equal(g.hearts, 2); assert.equal(g.status, 'play'); assert.ok(g.alba);
     assert.ok(g.player.y < 3 * 16, 'volvió arriba');
+  });
+  test('sin corazones: fin del juego', () => {
+    const g = make(['..........', '..........', '..P.......', '####..####', '####..####']);
+    g.hearts = 1; run(g, 1.5, { ...NONE, right: true });
+    assert.equal(g.status, 'gameover');
+  });
+  test('sentarse en una banca recupera 1 corazón, una vez por banca', () => {
+    const g = make(['..............................', '..............................', '.......P.b.......b............', '##############################']);
+    g.hearts = 1; g.player.x = 9 * 16 + 8 - g.player.w / 2;
+    const e = evs(g, 2);
+    assert.equal(g.alba.sitting, true); assert.equal(g.hearts, 2); assert.ok(e.includes('heal'));
+    run(g, 0.5, { ...NONE, right: true }); g.player.x = 9 * 16 + 8 - g.player.w / 2; run(g, 2);
+    assert.equal(g.hearts, 2, 'la misma banca no cura dos veces');
+    run(g, 0.1, { ...NONE, right: true }); g.player.x = 17 * 16 + 8 - g.player.w / 2; run(g, 2);
+    assert.equal(g.hearts, 3, 'otra banca sí');
   });
 });
 
@@ -60,14 +76,14 @@ describe('la nostalgia', () => {
 });
 
 describe('los recuerdos (polaroids)', () => {
-  test('te persiguen y al tocarte te regresan 48 px, sin daño', () => {
+  test('te persiguen y al tocarte quitan 1 corazón (v11)', () => {
     const g = make(['..............................', '..............................', '..........P....I..............', '##############################']);
     g.checkpoint = { x: 8, y: 48 };
     const x0 = cx(g);
     const e = evs(g, 2.9);
     assert.ok(e.includes('recuerdo'), 'te alcanzó');
-    assert.equal(g.hearts, 3);
-    assert.ok(Math.abs((x0 - cx(g)) - K.recuerdoPush) < 4, `regresó ${x0 - cx(g)}`);
+    assert.equal(g.hearts, 2);
+    assert.ok(g.alba.sepia > 0 || e.includes('hurt'));
     assert.equal(g.alba.recuerdos[0].alive, false);
   });
   test('el micrófono los disuelve en luz', () => {

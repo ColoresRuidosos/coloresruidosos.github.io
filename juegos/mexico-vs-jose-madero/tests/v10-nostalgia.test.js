@@ -33,20 +33,29 @@ describe('La Nostalgia', () => {
     assert.equal(g.alba.boss.line.text, NOSTALGIA_LINES.aparece);
   });
 
-  test('fase 1: lanza recuerdos de los jefes sin repetir el anterior; si te tocan, retrocedes 48 px y no pierdes vida', () => {
-    const g = make(); step(g, 60, { ...NONE, right: true });
+  test('fase 1: lanza recuerdos de los jefes sin repetir el anterior; si te tocan, pierdes 1 corazón (v11)', () => {
+    const g = make(); g.assist = true; step(g, 60, { ...NONE, right: true });   // asistido: aguanta los golpes
     const kinds = [];
     for (let i = 0; i < 60 * 12; i++) { const n = g.alba.boss.shots.length; stepGame(g, NONE); if (g.alba.boss.shots.length > n) kinds.push(g.alba.boss.lastKind); g.player.x = 10 * 16; }
     assert.ok(kinds.length >= 4, `${kinds.length} ataques`);
     for (let i = 1; i < kinds.length; i++) assert.notEqual(kinds[i], kinds[i - 1]);
     assert.ok(kinds.every((k) => ['rayoBajo', 'rayoAlto', 'embestida', 'mascaras'].includes(k)));
-    const h = make(); step(h, 60, { ...NONE, right: true });
-    h.player.x = 30 * 16; const x0 = cx(h);
+    const h = make(); h.assist = true; step(h, 60, { ...NONE, right: true });
+    h.assist = false; h.hearts = 3; h.invuln = 0; h.player.x = 30 * 16;
     h.alba.boss.shots.push({ kind: 'embestida', x: h.player.x - 2, y: h.player.y, w: 20, h: 36, vx: 0, vy: 0 });
     const ev = step(h, 1);
     assert.ok(ev.includes('recuerdo'));
-    assert.ok(Math.abs(x0 - cx(h) - ALBA.recuerdoPush) < 3);
-    assert.equal(h.hearts, 3);
+    assert.equal(h.hearts, 2, 'v11: los recuerdos del jefe quitan 1 corazón');
+  });
+
+  test('v11 · justo: cada recuerdo sale al menos 120 px delante de Pepe, aunque vaya corriendo', () => {
+    const g = make(); g.assist = true;
+    for (let i = 0; i < 60 * 8; i++) {
+      const n = g.alba.boss.shots.length;
+      stepGame(g, { ...NONE, right: true });
+      for (const s of g.alba.boss.shots.slice(n)) assert.ok(s.x - (g.player.x + g.player.w) >= B.lead - 24, `salió a ${Math.round(s.x - g.player.x - g.player.w)} px`);
+      if (g.player.x > 60 * 16) g.player.x = 12 * 16;   // que siga corriendo en la arena
+    }
   });
 
   test('tocar 3 rayos de sol la debilita y empieza la fase 2 («Otra vuelta»)', () => {

@@ -120,7 +120,7 @@ function drawNostalgia(ctx, g, t, flashes) {
       rect(ctx, '#6e5236', sh.x, sh.y, sh.w, sh.h); rect(ctx, '#d2b48c', sh.x + 2, sh.y + 2, sh.w - 4, sh.h - 4);
     }
   }
-  const anim = b.phase === 4 ? 'nosBye' : b.phase === 2 ? 'nosTurn' : b.phase === 1 && b.throwT > ALBA_THROW_POSE ? 'nosThrow' : 'nosFloat';
+  const anim = b.phase === 4 ? 'nosBye' : b.phase === 2 ? 'nosTurn' : b.phase === 1 && b.throwT < ALBA_THROW_POSE ? 'nosThrow' : 'nosFloat';
   const y = b.y + 80 + Math.round(Math.sin(t * 1.5) * 4);
   if (b.phase === 4) ctx.globalAlpha = Math.max(0, 1 - b.t / 4);
   if (!spr(ctx, s.nos, frame(s.nos, anim, b.phase === 4 ? b.t : t, 6), b.x, y, true)) {
@@ -128,7 +128,7 @@ function drawNostalgia(ctx, g, t, flashes) {
   }
   ctx.globalAlpha = 1;
 }
-const ALBA_THROW_POSE = K.boss.throwEvery - 0.4;
+const ALBA_THROW_POSE = 0.5;   // v11: la pose de lanzar avisa medio segundo ANTES del recuerdo
 
 // Pose propia del paseo (sentado en la banca, contra el viento); false si se usa la normal.
 export function drawAlbaPepe(ctx, g, t, x, y, flip) {

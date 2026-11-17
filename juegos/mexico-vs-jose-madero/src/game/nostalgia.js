@@ -4,6 +4,7 @@
 // Fase 3: viento en contra; caminando 400 px sale el sol. Fase 4: se despide y ganas.
 import { DT, ALBA } from './constants.js';
 import { moveBody } from '../engine/tilemap.js';
+import { hurt } from './game.js';
 import { NOSTALGIA_LINES } from '../data/alba-story.js';
 
 const B = ALBA.boss;
@@ -28,7 +29,8 @@ function throwMemory(b, g) {
   const options = KINDS.filter((k) => k !== b.lastKind);
   const kind = options[Math.floor(rng(b) * options.length)];
   b.lastKind = kind;
-  const G = b.ground, x = b.x;
+  // v11: siempre desde delante (aunque la Nostalgia se quede atrás si Pepe corre), para que se pueda esquivar.
+  const G = b.ground, x = Math.max(b.x, g.player.x + g.player.w + B.lead);
   if (kind === 'rayoBajo') b.shots.push({ kind, x, y: G - 12, w: 26, h: 8, vx: -B.beamSpeed, vy: 0 });
   else if (kind === 'rayoAlto') b.shots.push({ kind, x, y: G - 52, w: 26, h: 8, vx: -B.beamSpeed, vy: 0 });
   else if (kind === 'embestida') b.shots.push({ kind, x, y: G - 36, w: 22, h: 36, vx: -B.dashSpeed, vy: 0 });
@@ -61,15 +63,15 @@ export function stepNostalgia(g) {
     }
   }
 
-  // Recuerdos en vuelo: si te tocan, retrocedes 48 px (nunca antes del inicio de la arena). Sin daño.
+  // Recuerdos en vuelo: si te tocan, quitan 1 corazón (v11).
   for (const s of b.shots) {
     s.x += s.vx * DT; s.y += s.vy * DT;
     if (s.x + s.w < pc - 320 || s.y > b.ground + 20) { s.done = true; continue; }
     if (p.x < s.x + s.w && p.x + p.w > s.x && p.y < s.y + s.h && p.y + p.h > s.y) {
       s.done = true;
-      p.x = Math.max(b.startX - p.w / 2, p.x - ALBA.recuerdoPush); p.vx = 0;
       g.alba.sepia = ALBA.sepia;
       g.events.push('recuerdo');
+      hurt(g, s.x + s.w / 2);
     }
   }
   b.shots = b.shots.filter((s) => !s.done);

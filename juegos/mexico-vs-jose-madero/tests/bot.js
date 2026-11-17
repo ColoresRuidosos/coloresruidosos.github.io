@@ -141,12 +141,18 @@ export function albaBot(g) {
   // En el aire subiendo a una cabina (salto bajo, junto al centro de la noria): sin moverse de lado.
   if (!p.onGround && w && Math.abs(pc - w.cx) < 30 && feet > w.cy) return { ...btn, right: false, jump: p.vy < 0 };
   if (!p.onGround) return { ...btn, jump: p.vy < 0 };
+  // v11: enemigos y recuerdos delante, a la altura de la mano → se para y lanza el micrófono.
+  const hand = { x: pc + MIC.handX, y: feet - MIC.handY };
+  const foes = [...g.enemies.filter((e) => e.alive), ...A.recuerdos.filter((r) => r.alive)];
+  const target = foes.find((e) => e.x + e.w > hand.x - 4 && e.x - hand.x < MIC.range - 8 && hand.y >= e.y - 4 && hand.y <= e.y + e.h + 4);
+  if (target) return { ...btn, right: g.mic.phase !== 'idle', mic: g.mic.phase === 'idle' && g.frame % 2 === 0 };
   const gap = !['#', '='].includes(L.tileAt(Math.floor((p.x + p.w + 14) / TILE), tyFeet + 1));
   let jump = wallAt(p.w / 2 + 6) || gap;
   // Recuerdos del jefe: saltar lo que viene a ras de suelo; el rayo alto se deja pasar.
   for (const s of A.boss?.shots ?? []) {
     const d = s.x - (p.x + p.w);
-    if (d > 0 && d < 40 && s.kind !== 'rayoAlto' && s.y + s.h > p.y + 8) jump = true;
+    const lead = s.kind === 'embestida' ? 56 : 40;   // la embestida es alta: hay que saltar antes
+    if (d > 0 && d < lead && s.kind !== 'rayoAlto' && s.y + s.h > p.y + 8) jump = true;
   }
   return { ...btn, jump };
 }

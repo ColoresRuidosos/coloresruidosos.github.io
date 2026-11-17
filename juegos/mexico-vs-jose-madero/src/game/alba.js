@@ -3,6 +3,7 @@
 // la luz del alba enciende plataformas y los atriles guardan los pasajes del disco.
 import { TILE, DT, ALBA as K } from './constants.js';
 import { createNostalgia, stepNostalgia } from './nostalgia.js';
+import { hurt } from './game.js';
 
 const VARIANTES = ['rosa', 'antifaz', 'flash', 'noria'];
 
@@ -14,7 +15,7 @@ export function createAlba(level, opts = {}) {
     wheels: level.wheels.map((c) => ({ cx: c.x, cy: c.y, r: K.wheelR, n: K.cabins, angle: 0, dir: 1 })),
     // Numerados de izquierda a derecha (el lector de niveles los encuentra fila por fila).
     pasajes: [...level.pasajes].sort((a, b) => a.x - b.x).map((p, i) => ({ ...p, idx: (opts.start ?? 0) + i, read: false })),
-    leidos: [], pasaje: null, ride: null, bancas: level.bancas,
+    leidos: [], pasaje: null, ride: null, bancas: level.bancas, healed: new Set(),
   };
   if (level.nostalgia) A.boss = createNostalgia(level, A);
   return A;
@@ -75,7 +76,14 @@ export function stepAlba(g, input, prevBottom, micTip) {
   const moving = input.left || input.right || input.jump;
   A.still = moving ? 0 : A.still + DT;
   const banca = A.bancas.find((b) => Math.abs(b.x - (p.x + p.w / 2)) < 20 && Math.abs(b.y - (p.y + p.h)) < 4);
-  if (banca && p.onGround && A.still >= K.sitT) { if (!A.sitting) g.events.push('sit'); A.sitting = true; }
+  if (banca && p.onGround && A.still >= K.sitT) {
+    if (!A.sitting) {
+      g.events.push('sit');
+      // v11: cada banca recupera 1 corazón, una sola vez.
+      if (!A.healed.has(banca) && g.hearts < 3) { A.healed.add(banca); g.hearts++; g.events.push('heal'); g.floats.push({ x: banca.x, y: banca.y - 40, text: '+♥', t: 1.2 }); }
+    }
+    A.sitting = true;
+  }
   if (moving || !banca) A.sitting = false;
   A.drag = false;
   if (A.still > K.still && !A.sitting && p.onGround && !ride) {
@@ -85,7 +93,7 @@ export function stepAlba(g, input, prevBottom, micTip) {
     if (nx + p.w / 2 >= g.checkpoint.x && groundBehind) { p.x = nx; A.drag = true; }
   }
 
-  // ── Recuerdos: polaroids que te persiguen; al tocarte te regresan 48 px (sin daño); el micrófono los disuelve ──
+  // ── Recuerdos: polaroids que te persiguen; al tocarte quitan 1 corazón (v11); el micrófono los disuelve ──
   const pcx = p.x + p.w / 2, pcy = p.y + p.h / 2;
   for (const r of A.recuerdos) {
     if (!r.alive) { r.fade += DT; continue; }
@@ -99,10 +107,9 @@ export function stepAlba(g, input, prevBottom, micTip) {
     }
     if (p.x < r.x + r.w && p.x + p.w > r.x && p.y < r.y + r.h && p.y + p.h > r.y) {
       r.alive = false;
-      p.x = Math.max(g.checkpoint.x - p.w / 2, p.x - K.recuerdoPush);
-      p.vx = 0;
       A.sepia = K.sepia;
       g.events.push('recuerdo');
+      hurt(g, r.x + r.w / 2);   // v11: quita 1 corazón
     }
   }
 
