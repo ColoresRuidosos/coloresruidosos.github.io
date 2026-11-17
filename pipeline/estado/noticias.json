@@ -1,23 +1,5 @@
 {
   "clasificaciones": {
-    "https://consequence.net/2026/11/2027-download-festival-lineup": {
-      "c": {
-        "artista": "blink-182",
-        "categoria": "gira",
-        "es_indie_rock": true,
-        "fechas_evento": [
-          {
-            "ciudad": "Donington",
-            "fecha": "2027-06-09",
-            "pais": "GB",
-            "recinto": "Donington Park"
-          }
-        ],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-12T18:49:39.364339-06:00"
-    },
     "https://consequence.net/2026/11/2027-grammys-snubs-harry-styles-noah-kahan-steve-lacy": {
       "c": {
         "artista": "Harry Styles",
@@ -67,6 +49,17 @@
       },
       "vista": "2026-11-15T13:34:28.002144-06:00"
     },
+    "https://consequence.net/2026/11/c-tangana-agorazein-reunion-madrid-review": {
+      "c": {
+        "artista": "C. Tangana",
+        "categoria": "anuncio",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-16T20:42:40.738628-06:00"
+    },
     "https://consequence.net/2026/11/coachella-2027-passes-sold-out": {
       "c": null,
       "vista": "2026-11-13T18:35:16.328459-06:00"
@@ -81,6 +74,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-16T17:13:55.029284-06:00"
+    },
+    "https://consequence.net/2026/11/cursive-announce-happy-hollow-anniversary-2027-tour": {
+      "c": {
+        "artista": "Cursive",
+        "categoria": "gira",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-16T20:42:40.738628-06:00"
     },
     "https://consequence.net/2026/11/deftones-joy-division-new-order-rock-roll-hall-of-fame-ceremony": {
       "c": {
@@ -251,10 +255,6 @@
       },
       "vista": "2026-11-13T14:46:37.962029-06:00"
     },
-    "https://consequence.net/2026/11/lego-star-wars-50th-anniversary-sets": {
-      "c": null,
-      "vista": "2026-11-12T18:49:39.364339-06:00"
-    },
     "https://consequence.net/2026/11/metallica-california-hall-of-fame": {
       "c": {
         "artista": "Metallica",
@@ -287,17 +287,6 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-16T17:13:55.029284-06:00"
-    },
-    "https://consequence.net/2026/11/paloma-morphy-single-la-apuesta": {
-      "c": {
-        "artista": "Paloma Morphy",
-        "categoria": "lanzamiento",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": "MORPHY'S"
-      },
-      "vista": "2026-11-12T18:49:39.364339-06:00"
     },
     "https://consequence.net/2026/11/pearl-jam-mike-mccready-farewell-to-seasons-song": {
       "c": {
@@ -1286,28 +1275,6 @@
       },
       "vista": "2026-11-16T17:13:55.029284-06:00"
     },
-    "https://pitchfork.com/story/ralphie-choo-returns-with-new-album-and-song": {
-      "c": {
-        "artista": "Ralphie Choo",
-        "categoria": "lanzamiento",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": "Charmain \"Le Grand Architecte\""
-      },
-      "vista": "2026-11-12T18:49:39.364339-06:00"
-    },
-    "https://pitchfork.com/story/saba-and-pivot-gang-set-2027-north-american-tour": {
-      "c": {
-        "artista": "Saba",
-        "categoria": "gira",
-        "es_indie_rock": false,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": ""
-      },
-      "vista": "2026-11-12T18:49:39.364339-06:00"
-    },
     "https://pitchfork.com/story/shygirl-brutalismus-3000-nirosta-steel-feature-on-club-kid-ep": {
       "c": {
         "artista": "Shygirl",
@@ -1452,17 +1419,6 @@
         "titulo_lanzamiento": "Bittersweet & Chains And Anchors"
       },
       "vista": "2026-11-13T14:46:37.962029-06:00"
-    },
-    "https://stereogum.com/2517790/courtney-werner-magic-tuber-stringband-dowsers-weirs-announces-debut-solo-album-tritium-forests-hear-sierra-one-whiskey-eight/music": {
-      "c": {
-        "artista": "Courtney Werner",
-        "categoria": "lanzamiento",
-        "es_indie_rock": true,
-        "fechas_evento": [],
-        "relevancia": "general",
-        "titulo_lanzamiento": "Tritium Forests"
-      },
-      "vista": "2026-11-12T18:49:39.364339-06:00"
     },
     "https://stereogum.com/2517796/the-5-best-songs-of-the-week-652/lists/the-5-best-songs-of-the-week": {
       "c": null,
@@ -1917,7 +1873,6 @@
     "alanis morissette|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
     "alcala norte|anuncio": "2026-11-15T13:34:28.002144-06:00",
     "alex cassen|lanzamiento": "2026-11-06T14:16:22.519597-06:00",
-    "anamanaguchi|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "anberlin|lanzamiento": "2026-11-13T18:35:16.328459-06:00",
     "angine de poitrine|anuncio": "2026-11-07T12:29:27.946058-06:00",
     "anttonias|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
@@ -1946,16 +1901,17 @@
     "christine and the queens|lanzamiento": "2026-11-04T14:40:43.719445-06:00",
     "cleo reed|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "coheed and cambria|gira": "2026-11-05T18:38:38.911191-06:00",
-    "connan mockasin|anuncio": "2026-11-02T19:55:45.211622-06:00",
     "conor oberst|gira": "2026-11-10T18:20:25.543254-06:00",
     "crate|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "cult of luna|anuncio": "2026-11-15T13:34:28.002144-06:00",
+    "cursive|gira": "2026-11-16T20:42:40.738628-06:00",
     "daniel quien|lanzamiento": "2026-11-05T14:56:48.648504-06:00",
     "death angel|lanzamiento": "2026-11-05T18:38:38.911191-06:00",
     "deftones|anuncio": "2026-11-15T17:40:08.027611-06:00",
     "dexter in the newsagent|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "dovetail|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "duran duran|anuncio": "2026-11-12T15:19:33.465718-06:00",
+    "dutch kills|lanzamiento": "2026-11-16T20:42:40.738628-06:00",
     "ecco2k|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "ed maverick|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "el nido|gira": "2026-11-04T18:40:44.988850-06:00",
@@ -1970,16 +1926,15 @@
     "gatta morta|lanzamiento": "2026-11-11T15:05:03.846680-06:00",
     "geese|anuncio": "2026-11-16T17:13:55.029284-06:00",
     "grace ives|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
-    "graham hill|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "grimes|anuncio": "2026-11-09T17:17:23.379941-06:00",
     "hayley williams|anuncio": "2026-11-14T12:57:22.917805-06:00",
     "hayley williams|lanzamiento": "2026-11-08T12:40:48.333483-06:00",
     "headache|lanzamiento": "2026-11-04T14:40:43.719445-06:00",
-    "hesse kassel|gira": "2026-11-02T19:55:45.211622-06:00",
     "hiding places|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "hologramma|lanzamiento": "2026-11-14T12:57:22.917805-06:00",
     "hostia pedagogica|lanzamiento": "2026-11-07T12:29:27.946058-06:00",
-    "instincktt|gira": "2026-11-02T19:55:45.211622-06:00",
+    "hot chip|lanzamiento": "2026-11-16T20:42:40.738628-06:00",
+    "interpol|gira": "2026-11-16T20:42:40.738628-06:00",
     "ivan ferreiro|gira": "2026-11-12T15:19:33.465718-06:00",
     "jairo zavala|lanzamiento": "2026-11-13T18:35:16.328459-06:00",
     "javiera mena|gira": "2026-11-03T14:25:43.598152-06:00",
@@ -1990,6 +1945,7 @@
     "jose y el toro|gira": "2026-11-06T14:16:22.519597-06:00",
     "joy division|anuncio": "2026-11-15T17:40:08.027611-06:00",
     "jungle|anuncio": "2026-11-04T18:40:44.988850-06:00",
+    "jura|lanzamiento": "2026-11-16T20:42:40.738628-06:00",
     "kim gordon|anuncio": "2026-11-03T18:18:07.864859-06:00",
     "king gizzard the lizard wizard|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "kneecap|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
@@ -2002,7 +1958,6 @@
     "luisa almaguer|lanzamiento": "2026-11-12T15:19:33.465718-06:00",
     "mac demarco|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "mar pujol|lanzamiento": "2026-11-08T12:40:48.333483-06:00",
-    "mei semones|lanzamiento": "2026-11-02T19:55:45.211622-06:00",
     "melissa auf der maur|gira": "2026-11-11T19:44:55.260647-06:00",
     "metric|gira": "2026-11-10T18:20:25.543254-06:00",
     "middle kids|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
@@ -2022,7 +1977,6 @@
     "nick cave|gira": "2026-11-06T17:53:34.431803-06:00",
     "nick diamonds|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "ninos|anuncio": "2026-11-13T18:35:16.328459-06:00",
-    "nothing|gira": "2026-11-02T19:55:45.211622-06:00",
     "oasis|anuncio": "2026-11-09T20:28:34.898275-06:00",
     "offspring|lanzamiento": "2026-11-10T14:42:40.094299-06:00",
     "oklou|lanzamiento": "2026-11-11T15:05:03.846680-06:00",
@@ -2070,9 +2024,11 @@
     "tegan and sara|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "this is lorelei|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "toro y moi|lanzamiento": "2026-11-05T18:38:38.911191-06:00",
+    "tv on the radio|gira": "2026-11-16T20:42:40.738628-06:00",
     "twin temple|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
     "twisted teens|anuncio": "2026-11-10T14:42:40.094299-06:00",
     "twisted teens|lanzamiento": "2026-11-07T17:16:46.849171-06:00",
+    "ty segall|gira": "2026-11-16T20:42:40.738628-06:00",
     "u2|anuncio": "2026-11-08T12:40:48.333483-06:00",
     "u2|lanzamiento": "2026-11-13T14:46:37.962029-06:00",
     "umpah pah|lanzamiento": "2026-11-06T14:16:22.519597-06:00",
@@ -2098,11 +2054,13 @@
     "https://consequence.net/2026/11/cage-the-elephant-dying-in-reverse-new-album-make-it-easy-stream": "2026-11-05T14:56:48.648504-06:00",
     "https://consequence.net/2026/11/coheed-and-cambria-2027-cruise": "2026-11-05T18:38:38.911191-06:00",
     "https://consequence.net/2026/11/conor-oberst-2027-solo-tour": "2026-11-10T18:20:25.543254-06:00",
+    "https://consequence.net/2026/11/cursive-announce-happy-hollow-anniversary-2027-tour": "2026-11-16T20:42:40.738628-06:00",
     "https://consequence.net/2026/11/death-angel-the-never-was": "2026-11-05T18:38:38.911191-06:00",
     "https://consequence.net/2026/11/ethel-cain-robin-carolan-wynter-waxeth-werwulf-stream": "2026-11-14T12:57:22.917805-06:00",
     "https://consequence.net/2026/11/gang-of-youths-new-album-companero-2027-tour": "2026-11-11T15:05:03.846680-06:00",
     "https://consequence.net/2026/11/gatta-morta-debut-album-single-music-for-furbies": "2026-11-11T15:05:03.846680-06:00",
     "https://consequence.net/2026/11/hinterland-2027-lineup-phoebe-bridgers-slayyter-billy-strings": "2026-11-11T19:44:55.260647-06:00",
+    "https://consequence.net/2026/11/interpol-bmo-stadium-biggest-show": "2026-11-16T20:42:40.738628-06:00",
     "https://consequence.net/2026/11/melissa-auf-der-maur-first-solo-shows-15-years": "2026-11-11T19:44:55.260647-06:00",
     "https://consequence.net/2026/11/nick-cave-conversations-tour": "2026-11-06T17:53:34.431803-06:00",
     "https://consequence.net/2026/11/oasis-skip-rock-and-roll-hall-of-fame-induction-ceremony": "2026-11-09T20:28:34.898275-06:00",
@@ -2116,6 +2074,7 @@
     "https://consequence.net/2026/11/stars-revenge-stars-revenge-ii-dont-worry-dynamite": "2026-11-05T18:38:38.911191-06:00",
     "https://consequence.net/2026/11/tegan-and-sara-holiday-songs-i-love-christmas-a-december-to-remember-stream": "2026-11-06T17:53:34.431803-06:00",
     "https://consequence.net/2026/11/the-strokes-lonely-in-the-future-video": "2026-11-08T12:40:48.333483-06:00",
+    "https://consequence.net/2026/11/ty-segall-2027-tour-dates": "2026-11-16T20:42:40.738628-06:00",
     "https://consequence.net/2026/11/u2-on-ed-sheeran-macklemore-controversy": "2026-11-08T12:40:48.333483-06:00",
     "https://indierocks.mx/agenda/bad-religion-se-presentara-en-el-pabellon-oeste": "2026-11-11T15:05:03.846680-06:00",
     "https://indierocks.mx/agenda/block-party-2027-revela-su-lineup": "2026-11-03T18:18:07.864859-06:00",
@@ -2321,6 +2280,8 @@
     "https://pitchfork.com/story/sufjan-stevens-makes-first-live-appearance-in-over-eight-years": "2026-10-28T23:25:45.404979-06:00",
     "https://pitchfork.com/story/the-flaming-lips-reveal-new-album-the-teardrop-throbs": "2026-10-28T23:25:45.404979-06:00",
     "https://pitchfork.com/story/toro-y-moi-reveals-new-album-unusua": "2026-11-05T18:38:38.911191-06:00",
+    "https://pitchfork.com/story/tv-on-the-radio-to-headline-music-hall-of-williamsburgs-final-shows": "2026-11-16T20:42:40.738628-06:00",
+    "https://pitchfork.com/story/ty-segall-taking-chrome-on-the-road": "2026-11-16T20:42:40.738628-06:00",
     "https://pitchfork.com/story/watch-this-is-lorelei-play-the-singer-in-my-band-songs-on-kcrw": "2026-11-04T18:40:44.988850-06:00",
     "https://pitchfork.com/story/yaeji-plots-a-dance-dance-revolution-in-new-ddr-video": "2026-11-03T14:25:43.598152-06:00",
     "https://pitchfork.com/story/zsela-invites-you-to-the-party-with-new-album": "2026-11-13T18:35:16.328459-06:00",
@@ -2404,6 +2365,9 @@
     "https://stereogum.com/2518073/phoebe-bridgers-glows-on-snl/news": "2026-11-15T13:34:28.002144-06:00",
     "https://stereogum.com/2518085/red-hot-chili-peppers-perform-as-rick-rubins-at-rock-roll-hall-of-fame-2026/news": "2026-11-15T13:34:28.002144-06:00",
     "https://stereogum.com/2518093/slayers-tom-araya-scolds-crowd-over-behavior-at-la-show/news": "2026-11-15T13:34:28.002144-06:00",
-    "https://stereogum.com/2518155/grammy-nominees-first-time/news": "2026-11-16T17:13:55.029284-06:00"
+    "https://stereogum.com/2518155/grammy-nominees-first-time/news": "2026-11-16T17:13:55.029284-06:00",
+    "https://stereogum.com/2518249/the-dutch-kills-announce-new-ep-going-dutch-hear-we-both-cant-be-wrong/music": "2026-11-16T20:42:40.738628-06:00",
+    "https://stereogum.com/2518285/jura-keep-driving-son-feat-ml-buch-ydegirl-clarissa-connelly-helene-due/music": "2026-11-16T20:42:40.738628-06:00",
+    "https://stereogum.com/2518333/hot-chip-me-in-your-head-feat-beth-ditto/music": "2026-11-16T20:42:40.738628-06:00"
   }
 }
