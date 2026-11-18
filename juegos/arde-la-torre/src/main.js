@@ -272,13 +272,24 @@ function startConcert() {
 }
 
 function concertMs(k) {
-  if (k.audio && audio.running && SIM === 1) { const ms = audio.trackMs(); if (ms !== null) return ms; }
+  if (k.audio && SIM === 1) { const ms = audio.trackMs(); if (ms !== null) return ms; }   // se congela con la pausa (audio suspendido)
   return (app.t - k.t0) * 1000 / 60 - 200;     // sin audio (pruebas o navegador sin Web Audio): reloj de fotogramas
+}
+
+function pauseConcert(by = null) {
+  const k = app.concert;
+  if (!k) return;
+  k.pauseT = app.t; app.pausedFrom = 'concierto'; app.pauseSel = 0; app.pausedBy = by;
+  audio.suspend(); app.screen = 'pausa'; primeEdges();
 }
 
 function stepConcertScreen() {
   const k = app.concert, c = k.c;
   if (room) room.update();
+  for (const s of slots.joined()) {                 // F17: pausa también en el concierto
+    const e = edgeOf(`p:${s.key}`, sourceInput(s.key));
+    if (e.pausa) { pauseConcert(s.key); return; }
+  }
   if (!k.started) {
     if (app.trackReady || app.t > 180 || SIM > 1) { k.started = true; k.t0 = app.t; k.audio = SIM === 1 && audio.startTrack(0.2); }
     return;
@@ -320,20 +331,29 @@ function finishResults(final) {
   room && room.broadcast({ t: 'fase', fase: 'resultado' });
 }
 
+function resumeFromPause() {
+  const back = app.pausedFrom || 'juego';
+  if (back === 'concierto' && app.concert && app.concert.pauseT != null) {
+    app.concert.t0 += app.t - app.concert.pauseT;   // reloj de fotogramas (sin audio): descuenta la pausa
+    app.concert.pauseT = null;
+  }
+  app.pausedFrom = null; app.screen = back; primeEdges(); audio.resume();
+}
+
 function stepPause() {
   const e = anyEdge();
-  if (e.pausa) { app.screen = 'juego'; primeEdges(); audio.resume(); return; }
+  if (e.pausa) { resumeFromPause(); return; }
   if (e.up) app.pauseSel = (app.pauseSel + PAUSE_ITEMS.length - 1) % PAUSE_ITEMS.length;
   if (e.down) app.pauseSel = (app.pauseSel + 1) % PAUSE_ITEMS.length;
   const item = PAUSE_ITEMS[app.pauseSel];
   const change = e.left || e.right || e.golpe;
   if (!change) return;
-  if (item === 'continuar' && e.golpe) { app.screen = 'juego'; primeEdges(); audio.resume(); }
+  if (item === 'continuar' && e.golpe) resumeFromPause();
   else if (item === 'sacudida') opts.shake = !opts.shake;
   else if (item === 'asistido') { opts.assisted = !opts.assisted; if (app.world) app.world.opts.assisted = opts.assisted; }
   else if (item === 'destellos') opts.flashes = !opts.flashes;
   else if (item === 'volumen') { opts.volume = Math.round(Math.min(1, Math.max(0, opts.volume + (e.left ? -0.1 : 0.1))) * 10) / 10; audio.setVolume(opts.volume); }
-  else if (item === 'salir' && e.golpe) { audio.resume(); audio.stop(); app.world = null; go('titulo'); for (const s of slots.joined()) slots.setReady(s.slot, false); }
+  else if (item === 'salir' && e.golpe) { audio.resume(); audio.stop(); app.world = null; app.concert = null; app.pausedFrom = null; go('titulo'); for (const s of slots.joined()) slots.setReady(s.slot, false); }
   saveOptions(opts);
 }
 
@@ -393,6 +413,12 @@ function step() {
 }
 
 // ---- dibujo ----
+function drawConcertScreen() {
+  const k = app.concert;
+  drawConcert(ctx, { concert: k.c, ms: k.started ? k.ms : -1000, level: app.world.level, players: k.players, bpm: CANCION.BPM, opts,
+    title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: CANCION.INSTRUMENTS, unisonAt: k.unisonAt });
+}
+
 function draw() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   switch (app.screen) {
@@ -402,6 +428,7 @@ function draw() {
       break;
     case 'intro': drawIntro(ctx, app.world.level, app.t); break;
     case 'juego': case 'pausa': case 'superado': case 'final': case 'fin':
+      if (app.screen === 'pausa' && app.pausedFrom === 'concierto') { drawConcertScreen(); drawPause(ctx, app.pauseSel, opts); break; }
       drawWorld(ctx, app.world, fx, opts);
       drawHud(ctx, app.world, { code: app.code, joinHint: app.code ? 'ÚNETE' : 'GOLPE' });
       if (app.screen === 'pausa') drawPause(ctx, app.pauseSel, opts);
@@ -409,12 +436,7 @@ function draw() {
       if (app.screen === 'final') drawBanner(ctx, '¡A LA AZOTEA!', 'EL CONCIERTO PUEDE EMPEZAR', app.t);
       if (app.screen === 'fin') drawBanner(ctx, 'FIN DEL JUEGO', 'SILENCIO S.A. GANA ESTA VEZ', app.t);
       break;
-    case 'concierto': {
-      const k = app.concert;
-      drawConcert(ctx, { concert: k.c, ms: k.started ? k.ms : -1000, level: app.world.level, players: k.players, bpm: CANCION.BPM, opts,
-        title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: CANCION.INSTRUMENTS, unisonAt: k.unisonAt });
-      break;
-    }
+    case 'concierto': drawConcertScreen(); break;
     case 'resultado': drawResults(ctx, { ...app.results, t: app.t }); break;
     default: break;
   }
@@ -437,7 +459,11 @@ addEventListener('pointerdown', (ev) => {
   app.tapped = y > TITLE_MENU_Y + 6 ? 1 : 0;      // toca la opción: HISTORIA arriba, SOLO EL CONCIERTO abajo
 }, { capture: true });
 addEventListener('keydown', () => audio.unlock(), { once: true });
-document.addEventListener('visibilitychange', () => { if (document.hidden && app.screen === 'juego') { app.screen = 'pausa'; app.pauseSel = 0; audio.suspend(); } });
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) return;
+  if (app.screen === 'juego') { app.screen = 'pausa'; app.pauseSel = 0; audio.suspend(); }
+  else if (app.screen === 'concierto') pauseConcert();
+});
 
 openRoom();
 requestAnimationFrame(frame);

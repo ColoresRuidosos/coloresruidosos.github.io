@@ -116,6 +116,7 @@
 | T10.8 | Render: público masivo (filas que botan, brazos, luces de móvil, confeti) y nombre del instrumento | ✅ revisado en capturas |
 | T10.9 | Concierto suelto con móviles (F18): sala, QR, elección en el móvil y modo «concierto» en el mando | ✅ `tests/browser.test.js` |
 | T10.10 | Modo «SOLO EL CONCIERTO» en el título del juego base (F19); los móviles cambian a los 3 botones en el concierto de ambos modos | ✅ `tests/browser.test.js` |
+| T10.11 | Pausa en el concierto (18 nov, «en el modo solo concierto no se puede poner pausa»): la canción y las notas se congelan y siguen donde iban; también al cambiar de pestaña | ✅ `tests/browser.test.js` |
 | T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T11.1 | Tráiler de 45 s (16:9 y vertical 9:16) con escenas reales y el final de «La Torre Picasso», cortes a compás (`scripts/trailer/`) | ✅ |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` (`scripts/publicar.mjs`) | ✅ preparado en la rama · ⏳ llegar a `main` |

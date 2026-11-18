@@ -246,3 +246,31 @@ test('T10.10 juego base: en el título se elige SOLO EL CONCIERTO y la canción 
     await browser.close();
   }
 });
+
+test('T10.11 pausa en el concierto: la canción y las notas se detienen y siguen donde iban', { skip, timeout: 60000 }, async () => {
+  const browser = await pw.chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+  try {
+    const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto(`file://${process.cwd()}/dist/index.html?nonet&concierto`);
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
+    await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    await tapKey(page, 'KeyF'); await page.waitForTimeout(100); await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'concierto' && window.__arde.concert.started && window.__arde.concert.ms > 1000, null, { timeout: 20000 });
+    await tapKey(page, 'Escape');
+    await page.waitForFunction(() => window.__arde.screen === 'pausa');
+    const ms1 = await page.evaluate(() => window.__arde.concert.ms);
+    await page.waitForTimeout(1500);
+    const ms2 = await page.evaluate(() => window.__arde.concert.ms);
+    assert.ok(Math.abs(ms2 - ms1) < 50, `en pausa el reloj no avanza (${ms1} → ${ms2})`);
+    await tapKey(page, 'Escape');
+    await page.waitForFunction(() => window.__arde.screen === 'concierto');
+    await page.waitForTimeout(800);
+    const ms3 = await page.evaluate(() => window.__arde.concert.ms);
+    assert.ok(ms3 > ms2 + 300 && ms3 < ms2 + 2000, `sigue donde iba (${ms2} → ${ms3})`);
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});
