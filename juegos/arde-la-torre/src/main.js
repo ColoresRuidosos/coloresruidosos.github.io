@@ -59,6 +59,7 @@ const fx = createFx();
 
 const app = { screen: 'titulo', t: 0, world: null, countdown: 0, pauseSel: 0, pausedBy: null, banner: null, results: null, net: 'PREPARANDO|LA SALA…' };
 window.__arde = app;
+window.__TITLE_MENU_Y = TITLE_MENU_Y;
 app.mode = Q.has('concierto') ? 'concierto' : 'historia';   // F19: HISTORIA o SOLO EL CONCIERTO
 app.titleSel = app.mode === 'concierto' ? 1 : 0;
 app.tapped = false;
@@ -372,7 +373,8 @@ function step() {
   switch (app.screen) {
     case 'titulo': {
       const e = anyEdge();
-      if (e.up || e.down) { app.titleSel = 1 - app.titleSel; audio.sfx('menu'); }
+      if (e.up && app.titleSel !== 0) { app.titleSel = 0; audio.sfx('menu'); }      // arriba: HISTORIA, siempre
+      if (e.down && app.titleSel !== 1) { app.titleSel = 1; audio.sfx('menu'); }    // abajo: SOLO EL CONCIERTO, siempre
       if (typeof app.tapped === 'number') app.titleSel = app.tapped;
       if (e.golpe || app.tapped !== false || AUTO) {
         app.mode = app.titleSel === 1 ? 'concierto' : 'historia';
@@ -465,8 +467,12 @@ function frame(now) {
 addEventListener('pointerdown', (ev) => {
   audio.unlock();
   if (app.screen !== 'titulo') return;
-  const r = canvas.getBoundingClientRect(), y = (ev.clientY - r.top) * H / r.height;
-  app.tapped = y > TITLE_MENU_Y + 6 ? 1 : 0;      // toca la opción: HISTORIA arriba, SOLO EL CONCIERTO abajo
+  // Solo cuenta un toque ENCIMA de una opción (18 nov: un clic suelto para activar el sonido elegía modo sin querer).
+  const r = canvas.getBoundingClientRect();
+  const x = (ev.clientX - r.left) * W / r.width, y = (ev.clientY - r.top) * H / r.height;
+  if (Math.abs(x - W / 2) > 62) return;
+  if (y >= TITLE_MENU_Y - 3 && y < TITLE_MENU_Y + 10) app.tapped = 0;          // HISTORIA
+  else if (y >= TITLE_MENU_Y + 10 && y < TITLE_MENU_Y + 23) app.tapped = 1;    // SOLO EL CONCIERTO
 }, { capture: true });
 addEventListener('keydown', () => audio.unlock(), { once: true });
 document.addEventListener('visibilitychange', () => {

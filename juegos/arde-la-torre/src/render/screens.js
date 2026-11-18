@@ -64,7 +64,7 @@ export function drawTitle(ctx, t, sel = 0) {
     if (on) { ctx.fillStyle = '#a3242c'; ctx.fillRect(W / 2 - 60, y - 2, 120, 11); }
     drawText(ctx, on ? `▶ ${txt}` : txt, W / 2, y, { color: on ? '#ffd23f' : '#cfc9e0', align: 'center' });
   });
-  if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'GOLPE O TOCA PARA EMPEZAR', W / 2, H - 11, { color: '#8a8698', align: 'center' });
+  if (Math.floor(t / 30) % 2 === 0) drawText(ctx, 'GOLPE O TOCA UNA OPCIÓN', W / 2, H - 11, { color: '#8a8698', align: 'center' });
 }
 
 // ---- Selección de músico: cuatro ascensores de la torre (idea de «cabinas que se abren»; aspecto propio) ----

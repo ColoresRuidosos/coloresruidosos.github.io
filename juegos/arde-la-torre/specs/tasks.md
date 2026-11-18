@@ -118,6 +118,7 @@
 | T10.10 | Modo «SOLO EL CONCIERTO» en el título del juego base (F19); los móviles cambian a los 3 botones en el concierto de ambos modos | ✅ `tests/browser.test.js` |
 | T10.11 | Pausa en el concierto (18 nov, «en el modo solo concierto no se puede poner pausa»): la canción y las notas se congelan y siguen donde iban; también al cambiar de pestaña | ✅ `tests/browser.test.js` |
 | T10.12 | Volver al menú principal (18 nov, «no se puede regresar al menú principal»): pausa en la selección o en los resultados vuelve al título | ✅ `tests/browser.test.js` |
+| T10.13 | Menú del título fiable (18 nov, «a veces nos manda al modo concierto y a veces al modo historia»): un clic solo elige si cae sobre una opción; arriba = HISTORIA y abajo = CONCIERTO, sin alternar | ✅ `tests/browser.test.js` |
 | T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T11.1 | Tráiler de 45 s (16:9 y vertical 9:16) con escenas reales y el final de «La Torre Picasso», cortes a compás (`scripts/trailer/`) | ✅ |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` (`scripts/publicar.mjs`) | ✅ preparado en la rama · ⏳ llegar a `main` |

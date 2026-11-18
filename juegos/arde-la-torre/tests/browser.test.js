@@ -119,8 +119,11 @@ test('móvil sin mando: se juega con los botones táctiles de la propia pantalla
       await touch(pt, 'touchStart'); await page.waitForTimeout(120); await touch([], 'touchEnd'); await page.waitForTimeout(120);
     };
     await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
-    await touch([{ x: 400, y: 200, id: 1 }], 'touchStart'); await page.waitForTimeout(80); await touch([], 'touchEnd');
+    // toca la opción HISTORIA del menú (un toque suelto fuera del menú ya no elige modo, T10.13)
+    const opt = await page.evaluate(() => { const r = document.getElementById('game').getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + (window.__TITLE_MENU_Y + 3) * r.height / 216 }; });
+    await touch([{ x: opt.x, y: opt.y, id: 1 }], 'touchStart'); await page.waitForTimeout(80); await touch([], 'touchEnd');
     await page.waitForFunction(() => window.__arde.screen === 'sala');
+    assert.equal(await page.evaluate(() => window.__arde.mode), 'historia');
     assert.ok(await page.locator('#tactil.on').isVisible(), 'aparecen los botones táctiles');
     await tapEl('#tactil .golpe');                                    // unirse
     await page.waitForFunction(() => window.__arde.slots.joined().length === 1);
@@ -299,6 +302,40 @@ test('T10.12 volver al menú principal desde la selección y desde los resultado
     await page.waitForTimeout(1600);
     await tapKey(page, 'Escape');
     await page.waitForFunction(() => window.__arde.screen === 'titulo', null, { timeout: 5000 });
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});
+
+test('T10.13 el menú solo cambia de modo con las flechas o tocando la opción (un clic suelto no elige)', { skip, timeout: 60000 }, async () => {
+  const browser = await pw.chromium.launch();
+  try {
+    const page = await browser.newPage({ viewport: { width: 1152, height: 648 } });   // escala ×3
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    const open = async () => { await page.goto(`file://${process.cwd()}/dist/index.html?nonet`); await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo'); await page.waitForTimeout(200); };
+    // 1) flechas: abajo dos veces sigue en CONCIERTO; un clic suelto arriba no lo cambia; GOLPE entra en CONCIERTO
+    await open();
+    await tapKey(page, 'KeyS'); await tapKey(page, 'KeyS');
+    assert.equal(await page.evaluate(() => window.__arde.titleSel), 1, 'abajo siempre es CONCIERTO');
+    await page.mouse.click(576, 60);
+    await page.waitForTimeout(100);
+    assert.equal(await page.evaluate(() => window.__arde.screen), 'titulo', 'un clic fuera del menú no empieza');
+    await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    assert.equal(await page.evaluate(() => window.__arde.mode), 'concierto');
+    // 2) tocar la opción HISTORIA la elige y empieza
+    await open();
+    await tapKey(page, 'KeyS');
+    const y = await page.evaluate(() => window.__TITLE_MENU_Y);
+    await page.mouse.click(576, (y + 3) * 3);
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    assert.equal(await page.evaluate(() => window.__arde.mode), 'historia');
+    // 3) tocar la opción CONCIERTO
+    await open();
+    await page.mouse.click(576, (y + 16) * 3);
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    assert.equal(await page.evaluate(() => window.__arde.mode), 'concierto');
     assert.deepEqual(errors, []);
   } finally {
     await browser.close();
