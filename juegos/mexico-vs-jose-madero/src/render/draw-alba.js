@@ -112,25 +112,60 @@ function drawNostalgia(ctx, g, t, flashes) {
     drawSolPiece(ctx, r.x, r.y - 4, t, 4);
   }
   if (b.phase === 0) return;
-  // Proyectiles de memoria, en sepia (no hacen daño: te regresan).
+  // Recuerdos que lanza la nube hacia delante, en sepia (quitan 1 corazón).
   for (const sh of b.shots) {
-    if (sh.kind === 'embestida') {
-      ctx.globalAlpha = 0.6; rect(ctx, '#6e5236', sh.x, sh.y, sh.w, sh.h); rect(ctx, '#a3815c', sh.x + 4, sh.y + 4, sh.w - 8, 10); ctx.globalAlpha = 1;
-    } else if (sh.kind === 'mascaras') {
+    if (sh.kind === 'mascaras') {
       rect(ctx, '#d2b48c', sh.x, sh.y, sh.w, sh.h); rect(ctx, '#4e3a26', sh.x + 2, sh.y + 3, 2, 2); rect(ctx, '#4e3a26', sh.x + 6, sh.y + 3, 2, 2);
     } else {
       rect(ctx, '#6e5236', sh.x, sh.y, sh.w, sh.h); rect(ctx, '#d2b48c', sh.x + 2, sh.y + 2, sh.w - 4, sh.h - 4);
     }
   }
-  const anim = b.phase === 4 ? 'nosBye' : b.phase === 2 ? 'nosTurn' : b.phase === 1 && b.throwT < ALBA_THROW_POSE ? 'nosThrow' : 'nosFloat';
-  const y = b.y + 80 + Math.round(Math.sin(t * 1.5) * 4);
-  if (b.phase === 4) ctx.globalAlpha = Math.max(0, 1 - b.t / 4);
-  if (!spr(ctx, s.nos, frame(s.nos, anim, b.phase === 4 ? b.t : t, 6), b.x, y, true)) {
-    ctx.globalAlpha *= 0.7; ctx.fillStyle = '#a3815c'; ctx.beginPath(); ctx.ellipse(b.x, y - 40, 28, 36, 0, 0, Math.PI * 2); ctx.fill();
-  }
-  ctx.globalAlpha = 1;
+  drawNube(ctx, b, t, flashes);
 }
-const ALBA_THROW_POSE = 0.5;   // v11: la pose de lanzar avisa medio segundo ANTES del recuerdo
+
+// v11.1 · La Nostalgia: nube de bruma sepia SIN CARA, dibujada por código. Bultos de humo que respiran,
+// polaroids y una tira de película girando dentro, jirones que se estiran hacia delante (hacia Pepe).
+const PUFFS = [[-30, 6, 18], [-14, -12, 20], [6, -16, 19], [22, -4, 17], [-20, 14, 16], [2, 10, 20], [24, 14, 14], [-38, -4, 13], [36, 4, 12]];
+function drawNube(ctx, b, t, flashes) {
+  const cx = Math.round(b.x), cy = Math.round(b.y);
+  const warn = b.dashWarn > 0, dash = b.dash > 0, k = 1 - b.fade;
+  const shake = warn && flashes ? Math.round(Math.sin(t * 70) * 2) : 0;
+  ctx.save();
+  ctx.translate(cx + shake, cy);
+  ctx.globalAlpha = (b.pause > 0 ? 0.55 : 0.92) * k;
+  // Estela hacia atrás (de donde viene)
+  for (let i = 1; i <= 4; i++) { ctx.globalAlpha = 0.18 * k * (5 - i) / 4; ctx.fillStyle = '#8c6c4a'; ctx.beginPath(); ctx.arc(-40 - i * 14, Math.sin(t * 2 + i) * 6, 14 - i * 2, 0, Math.PI * 2); ctx.fill(); }
+  ctx.globalAlpha = (b.pause > 0 ? 0.55 : 0.92) * k;
+  // Jirones que se estiran hacia delante (más largos al lanzarse)
+  ctx.strokeStyle = '#a3815c'; ctx.lineWidth = 3;
+  for (let i = 0; i < 3; i++) {
+    const len = (dash ? 46 : 26) + Math.sin(t * 4 + i * 2) * 6, y0 = -10 + i * 12;
+    ctx.beginPath(); ctx.moveTo(30, y0); ctx.quadraticCurveTo(30 + len / 2, y0 + Math.sin(t * 5 + i) * 8, 30 + len, y0 + Math.sin(t * 3 + i) * 4); ctx.stroke();
+  }
+  // Cuerpo: bultos de humo (sombra, cuerpo, luz)
+  const breathe = (i) => 1 + Math.sin(t * 2.2 + i * 1.3) * 0.08;
+  for (const [layer, col, dy] of [[0, '#4e3a26', 3], [1, '#8c6c4a', 0], [2, '#c8a87e', -3]]) {
+    ctx.fillStyle = col;
+    PUFFS.forEach(([x, y, r], i) => { ctx.beginPath(); ctx.arc(x + Math.sin(t * 1.5 + i) * 2, y + dy, r * breathe(i) * (layer === 2 ? 0.6 : 1), 0, Math.PI * 2); ctx.fill(); });
+  }
+  // Dentro: tira de película y polaroids que giran (recuerdos atrapados)
+  ctx.save(); ctx.beginPath(); ctx.ellipse(0, 0, 36, 24, 0, 0, Math.PI * 2); ctx.clip();
+  ctx.rotate(Math.sin(t * 0.8) * 0.4);
+  rect(ctx, '#1e1610', -40, -3, 80, 9);
+  for (let x = -40 + ((t * 30) % 8); x < 40; x += 8) { rect(ctx, '#d2b48c', x, -2, 3, 2); rect(ctx, '#d2b48c', x, 3, 3, 2); }
+  ctx.restore();
+  for (let i = 0; i < 3; i++) {
+    const a = t * 1.2 + i * 2.1, px = Math.cos(a) * 20, py = Math.sin(a) * 10 - 2;
+    ctx.save(); ctx.translate(px, py); ctx.rotate(Math.sin(a) * 0.5);
+    rect(ctx, '#3a2c20', -6, -7, 12, 14); rect(ctx, '#f4eee0', -5, -6, 10, 12); rect(ctx, ['#a3815c', '#6e5236', '#8c6c4a'][i], -4, -5, 8, 7);
+    ctx.restore();
+  }
+  // Brillo dorado al deshacerse con el sol
+  if (b.fade > 0) { ctx.globalAlpha = b.fade * 0.8; ctx.fillStyle = '#ffd040'; for (let i = 0; i < 10; i++) { const a = i * 0.63 + t; rect(ctx, '#ffe080', Math.cos(a) * (20 + b.fade * 40), Math.sin(a) * (14 + b.fade * 30) - b.fade * 20, 3, 3); } }
+  ctx.restore();
+  if (b.fade < 1) { ctx.globalAlpha = 0.9 * k; text(ctx, 'LA NOSTALGIA', cx, cy - 44, { align: 'center', color: '#e8dcc0', shadow: '#4e3a26' }); ctx.globalAlpha = 1; }
+  if (warn) text(ctx, '¡!', cx, cy - 56, { align: 'center', color: '#ff5a4f' });
+}
 
 // Pose propia del paseo (sentado en la banca, contra el viento); false si se usa la normal.
 export function drawAlbaPepe(ctx, g, t, x, y, flip) {

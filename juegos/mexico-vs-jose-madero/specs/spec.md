@@ -835,6 +835,16 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 
 *HUD:* vuelven los corazones; se quedan «PASAJES n/10» y los soles. Pruebas: bots que terminan los 3 niveles (con enemigos y el minijuego) sin perder.
 
+**v11.1 · La Nostalgia como nube que te persigue** (petición del usuario, 18 nov 2026: «que la nube de nostalgia se defina bien que es una nube de nostalgia, que no tenga cara, que corra de izquierda a derecha y te persiga, que aumente la velocidad conforme avanzas y sea más difícil pasarla»). **Sustituye** el movimiento y el dibujo del jefe de v10.2; se quedan las 4 fases (rayos de sol → noria → viento → despedida) y sus frases.
+- **Aspecto:** una nube de bruma sepia **sin cara**, dibujada por código: bultos de humo que se mueven, polaroids y tiras de película girando dentro, jirones que se estiran hacia delante. Se ve claramente que es nostalgia, no un personaje. (Las escenas a3 y a4 de Gemini muestran la nube con cara: ⏳ el usuario decide si se regeneran.)
+- **Persecución:** aparece **detrás de Pepe** (160 px a la izquierda) al entrar en la arena y avanza **de izquierda a derecha**, a la altura de Pepe (flota).
+- **Velocidad que sube con el avance:** 60 px/s + 0,15 px/s por cada px que Pepe avanza desde el inicio de la arena, hasta 150 px/s (Pepe corre a 165). En la noria baja a 60 px/s y **no puede subir a ella**: se queda abajo, esperándote (subirte es tu escape); en la repisa con viento (Pepe avanza a ~125 px/s), el tope es 115 px/s.
+- **Nunca se queda atrás:** si queda a más de 260 px, se acerca de golpe a 260 px (siempre la ves en pantalla).
+- **Si te alcanza:** −1 corazón, y la nube se disipa un poco: retrocede 120 px y se detiene 1,2 s.
+- **Rayos de sol (fase 1):** al tocar cada uno, la luz empuja la nube 100 px hacia atrás.
+- **Recuerdos que lanza (fase 1):** ahora salen **de la nube hacia delante** (de izquierda a derecha) y más rápido que Pepe: rayo bajo (salta), rayo alto (pasa por encima si vas en el suelo) y máscaras en abanico. La **embestida** es la propia nube: tiembla 0,6 s (aviso) y se lanza 0,6 s a 230 px/s.
+- **Despedida (fase 4):** sale el sol y la nube se deshace en luz dorada.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

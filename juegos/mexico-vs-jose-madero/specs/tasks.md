@@ -192,6 +192,9 @@
 - [x] AL15 🎨 Sprites de reloj y carta, pantalla del tiro, corazones en el HUD; niveles con enemigos; bots que los terminan
 - [x] AL16 🧪 Navegador: 3-2 con el minijuego (teclado y toque) y el mundo completo
 - [ ] AL0c ⏳ El usuario aprueba las frases del Tiro de frases
+- [x] AL17 🧪 v11.1 La Nostalgia te persige: aparece detrás, velocidad que sube con el avance (tope < Pepe), alcance = −1 ♥ y retrocede, rayos la empujan, recuerdos hacia delante, embestida con aviso
+- [x] AL18 🎨 Nube sin cara por código (bultos, polaroids y película girando, jirones) y bot que pasa la persecución
+- [ ] AL0d ⏳ El usuario decide si se regeneran las escenas a3 y a4 (la nube tiene cara)
 
 ## Fase 4 — Publicación
 - [~] P1 Accesibilidad: ✅ destellos y temblor desactivables, modo asistido (v7) · ⏳ P1b remapeo de teclas
