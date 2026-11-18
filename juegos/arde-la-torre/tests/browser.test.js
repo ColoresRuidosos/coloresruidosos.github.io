@@ -274,3 +274,33 @@ test('T10.11 pausa en el concierto: la canción y las notas se detienen y siguen
     await browser.close();
   }
 });
+
+test('T10.12 volver al menú principal desde la selección y desde los resultados', { skip, timeout: 60000 }, async () => {
+  const browser = await pw.chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
+  try {
+    const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto(`file://${process.cwd()}/dist/index.html?nonet`);
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
+    await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'sala');
+    await tapKey(page, 'KeyF');                 // J1 entra
+    await tapKey(page, 'Escape');               // vuelve al menú
+    await page.waitForFunction(() => window.__arde.screen === 'titulo', null, { timeout: 5000 });
+    // cambia a SOLO EL CONCIERTO, juega y desde los resultados vuelve al menú
+    await tapKey(page, 'KeyS'); await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'sala' && window.__arde.mode === 'concierto');
+    const ready = await page.evaluate(() => window.__arde.slots.joined().map((s) => s.ready));
+    assert.ok(ready.every((r) => !r), 'al volver nadie queda «listo»');
+    await tapKey(page, 'KeyF'); await page.waitForTimeout(100); await tapKey(page, 'KeyF');
+    await page.waitForFunction(() => window.__arde.screen === 'concierto' && window.__arde.concert.started, null, { timeout: 20000 });
+    await page.evaluate(() => { window.__arde.concert.c.durationMs = window.__arde.concert.ms + 500; });
+    await page.waitForFunction(() => window.__arde.screen === 'resultado', null, { timeout: 20000 });
+    await page.waitForTimeout(1600);
+    await tapKey(page, 'Escape');
+    await page.waitForFunction(() => window.__arde.screen === 'titulo', null, { timeout: 5000 });
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});

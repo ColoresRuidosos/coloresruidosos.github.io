@@ -174,7 +174,7 @@ export function drawLobby(ctx, { t, qr, code, slots, countdown, netStatus }) {
   for (let i = 0; i < 4; i++) cabin(ctx, i, 100 + i * 71, 24, 66, 162, slots[i], t);
   // ayuda de controles
   drawText(ctx, 'GOLPE: UNIRSE Y LISTO · ◀ ▶: MÚSICO · SALTO: SALIR', W / 2, 192, { color: '#ffd23f', align: 'center' });
-  drawText(ctx, 'J1 F G H · J2 K L Ñ · MANDO X A B · TÁCTIL', W / 2, 203, { color: '#8a8698', align: 'center' });
+  drawText(ctx, 'J1 F G H · J2 K L Ñ · MANDO · ESC: MENÚ', W / 2, 203, { color: '#8a8698', align: 'center' });
   if (countdown > 0) {
     ctx.fillStyle = 'rgba(0,0,0,0.7)'; ctx.fillRect(0, H / 2 - 18, W, 36);
     drawText(ctx, `¡SUBIMOS EN ${Math.ceil(countdown / 60)}!`, W / 2, H / 2 - 7, { color: '#ffd23f', scale: 2, align: 'center' });
@@ -237,6 +237,6 @@ export function drawResults(ctx, { players, final, t, mode }) {
     if (players.length > 1 && p === topKo && p.kos > 0) drawText(ctx, '★ MÁS TUMBADOS', x + 44, y + 106, { color: '#ffd23f', align: 'center' });
     if (players.length > 1 && p === topFood && p.food > 0) drawText(ctx, '★ MÁS BOCADILLOS', x + 44, y + 116, { color: '#ffd23f', align: 'center' });
   });
-  if (t > 90 && Math.floor(t / 30) % 2) drawText(ctx, 'GOLPE: OTRA VEZ', W / 2, H - 22, { color: '#ffd23f', align: 'center' });
+  if (t > 90 && Math.floor(t / 30) % 2) drawText(ctx, 'GOLPE: OTRA VEZ · ESC: MENÚ', W / 2, H - 22, { color: '#ffd23f', align: 'center' });
   drawText(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, H - 10, { color: '#4a4560', align: 'center' });
 }

@@ -220,7 +220,16 @@ function anyEdge() {
   return all;
 }
 
+// Volver al menú principal (18 nov, «no se puede regresar al menú principal»): desde la selección y los resultados.
+function toTitle() {
+  for (const s of slots.joined()) slots.setReady(s.slot, false);
+  app.world = null; app.concert = null; app.countdown = 0; app.pausedFrom = null;
+  audio.stop(); go('titulo');
+  room && room.broadcast({ t: 'fase', fase: 'sala' });
+}
+
 function stepLobby() {
+  if (anyEdge().pausa) { toTitle(); return; }     // pausa (Esc, P, ❚❚, botón del mando): menú principal
   localJoins();
   for (const s of slots.joined()) {
     if (s.kind === 'movil') continue;
@@ -402,6 +411,7 @@ function step() {
     case 'resultado': {
       if (room) room.update();
       const e = anyEdge();
+      if (app.t > 30 && e.pausa) { toTitle(); break; }
       if (app.t > 90 && e.golpe) {
         for (const s of slots.joined()) slots.setReady(s.slot, false);
         app.world = null; go('sala'); audio.play(0);
