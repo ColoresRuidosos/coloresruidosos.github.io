@@ -9,11 +9,7 @@ categoria: lanzamiento
 artista: Clap Your Hands Say Yeah
 relevancia: general
 region: mx
-fechas_evento:
-- fecha: '2027-01-29'
-  ciudad: ''
-  pais: ''
-  recinto: ''
+fechas_evento: []
 embed:
   plataforma: apple
   tipo: artist

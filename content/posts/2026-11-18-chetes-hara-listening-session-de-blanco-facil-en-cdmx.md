@@ -28,6 +28,6 @@ generado_por: radar-v1
 
 El 2 de diciembre, House of Vans en Ciudad de México será sede de una listening session con Chetes. La sesión girará en torno a Blanco Fácil, su álbum debut como solista, y Chetes compartirá las historias detrás de su creación.
 
-Este evento forma parte de la Semana Indie Rocks!, que este año tiene un significado especial: se celebran los 20 años de Indie Rocks! Magazine. Elegir Blanco Fácil como eje de la sesión no es casualidad, ya que se trata de un disco que marcó un momento clave en la carrera de Chetes fuera de Zoé.
+Este evento forma parte de la Semana Indie Rocks!, que este año tiene un significado especial: se celebran los 20 años de Indie Rocks! Magazine. Elegir Blanco Fácil como eje de la sesión no es casualidad: el disco salió en 2006, también cumple 20 años, y fue el arranque de la carrera solista de Chetes tras la separación de Zurdok.
 
 Si te gusta conocer el proceso creativo detrás de los discos que ya conoces de memoria, esta es una oportunidad para escuchar de primera mano cómo se construyó uno de los álbumes más queridos de la escena solista mexicana.

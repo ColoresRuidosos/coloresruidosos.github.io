@@ -3,8 +3,8 @@ title: Valgur regresa con "Corazón de Cristal", su primer sencillo de 2026
 date: '2026-11-18T15:43:09-06:00'
 draft: false
 slug: valgur-regresa-con-corazon-de-cristal-su-primer-sencillo-de
-description: El proyecto oaxaqueño abre el año con una canción que suena a los ochenta
-  pero habla del presente.
+description: El dúo oaxaqueño vuelve con una canción que suena a los ochenta pero
+  habla del presente.
 categoria: lanzamiento
 artista: Valgur
 relevancia: general
@@ -22,8 +22,8 @@ fuentes:
 generado_por: radar-v1
 ---
 
-Valgur volvió con "Corazón de Cristal", el primer lanzamiento de 2026 de este proyecto originario de Oaxaca. La canción se mueve en un terreno synth pop con aire ochentero, pero lo hace sin quedarse en la nostalgia fácil: el resultado conecta ese sonido retro con una sensibilidad actual.
+Valgur volvió con "Corazón de Cristal", el primer lanzamiento de 2026 de este dúo de los hermanos Elizabeth y Hugo Valdivieso, originario de Juchitán, Oaxaca. La canción se mueve en un terreno synth pop con aire ochentero, pero lo hace sin quedarse en la nostalgia fácil: el resultado conecta ese sonido retro con una sensibilidad actual.
 
 El tema habla de las huellas que dejan las personas que pasan por nuestra vida, esas marcas que se quedan aunque la relación ya haya terminado. Es un recorrido melancólico, de esos que invitan a mirar atrás sin quedarse ahí.
 
-Con este sencillo, Valgur marca el arranque de su actividad para el año y deja ver hacia dónde quiere llevar su propuesta sonora. Si ya conocías el proyecto, esta canción confirma esa mezcla particular entre lo synth y lo emocional que lo caracteriza.
+Con este sencillo, Valgur deja ver hacia dónde quiere llevar su propuesta sonora. Si ya conocías el proyecto, esta canción confirma esa mezcla particular entre lo synth y lo emocional que los caracteriza.

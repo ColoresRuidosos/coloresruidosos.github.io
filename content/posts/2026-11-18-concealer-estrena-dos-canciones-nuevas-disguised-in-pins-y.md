@@ -26,4 +26,4 @@ concealer. volvió con material fresco: “Disguised In Pins” y “Pleading”
 
 Por ahora no tenemos más contexto sobre si estas canciones forman parte de un disco o EP, ni fechas de shows relacionados. Lo que sí sabemos es que ya puedes ponerlas en tu playlist y formarte tu propia opinión.
 
-Si concealer. no está en tu radar todavía, este es buen momento para darle una oportunidad. Este tipo de lanzamientos dobles suelen ser una forma de mostrar rango: dos caras de lo mismo proyecto, dos estados de ánimo distintos. Vale la pena prestarles atención con calma, sin prisa, como cuando descubres algo que de verdad te late.
+Si concealer. no está en tu radar todavía, este es buen momento para darle una oportunidad. Este tipo de lanzamientos dobles suelen ser una forma de mostrar rango: dos caras del mismo proyecto, dos estados de ánimo distintos. Vale la pena prestarles atención con calma, sin prisa, como cuando descubres algo que de verdad te late.
