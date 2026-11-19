@@ -383,7 +383,7 @@ test('T12.7 al terminar la historia se desbloquea Tony, sale el aviso y se puede
     assert.equal(await page.evaluate(() => window.__arde.slots.joined()[0].hero), 'antonio');
     await tapKey(page, 'KeyA');                                 // ◀ desde Antonio: la lista da la vuelta hasta Tony
     assert.equal(await page.evaluate(() => window.__arde.slots.joined()[0].hero), 'tony');
-    await page.screenshot({ path: process.env.SHOTS ? `${process.env.SHOTS}/tony-seleccion.png` : '/dev/null' });
+    if (SHOTS) await page.screenshot({ path: `${SHOTS}/tony-seleccion.png` });
     assert.deepEqual(errors, []);
   } finally {
     await browser.close();
