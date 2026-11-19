@@ -358,6 +358,10 @@
       "c": null,
       "vista": "2026-11-17T16:03:22.294138-06:00"
     },
+    "https://consequence.net/2026/11/lost-nathan-fielder-documentary-youtube": {
+      "c": null,
+      "vista": "2026-11-18T19:35:12.428287-06:00"
+    },
     "https://consequence.net/2026/11/macaulay-culkin-home-alone-mcdonalds-commercial": {
       "c": null,
       "vista": "2026-11-17T16:03:22.294138-06:00"
@@ -457,6 +461,17 @@
         "titulo_lanzamiento": ""
       },
       "vista": "2026-11-15T13:34:28.002144-06:00"
+    },
+    "https://consequence.net/2026/11/pink-2027-sphere-residency": {
+      "c": {
+        "artista": "P!NK",
+        "categoria": "gira",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-18T19:35:12.428287-06:00"
     },
     "https://consequence.net/2026/11/red-hot-chili-peppers-rick-rubin-rock-roll-hall-of-fame-performance": {
       "c": {
@@ -2535,6 +2550,28 @@
         "titulo_lanzamiento": "Disguised In Pins & Pleading"
       },
       "vista": "2026-11-18T15:43:09.989076-06:00"
+    },
+    "https://stereogum.com/2518614/macklemore-shares-wheres-our-love-benefitting-mothers-and-children-of-gaza/music": {
+      "c": {
+        "artista": "Macklemore",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Where's Our Love"
+      },
+      "vista": "2026-11-18T19:35:12.428287-06:00"
+    },
+    "https://stereogum.com/2518625/mythless-announce-debut-album-hex-hear-brocken-spectre/music": {
+      "c": {
+        "artista": "Mythless",
+        "categoria": "lanzamiento",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Hex"
+      },
+      "vista": "2026-11-18T19:35:12.428287-06:00"
     }
   },
   "claves_publicadas": {
@@ -2573,8 +2610,11 @@
     "charlotte adigery bolis pupul|lanzamiento": "2026-11-05T14:56:48.648504-06:00",
     "chetes|anuncio": "2026-11-18T15:43:09.989076-06:00",
     "chords uk|gira": "2026-11-12T15:19:33.465718-06:00",
+    "chvrches|lanzamiento": "2026-11-18T19:35:12.428287-06:00",
+    "clap your hands say yeah|lanzamiento": "2026-11-18T19:35:12.428287-06:00",
     "cleo reed|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "coheed and cambria|gira": "2026-11-05T18:38:38.911191-06:00",
+    "concealer|lanzamiento": "2026-11-18T19:35:12.428287-06:00",
     "conor oberst|gira": "2026-11-10T18:20:25.543254-06:00",
     "crate|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "cult of luna|anuncio": "2026-11-15T13:34:28.002144-06:00",
@@ -2590,7 +2630,7 @@
     "ecco2k|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "ed maverick|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
     "el mato a un policia motorizado|gira": "2026-11-17T16:03:22.294138-06:00",
-    "el nido|gira": "2026-11-04T18:40:44.988850-06:00",
+    "erika de casier|lanzamiento": "2026-11-18T19:35:12.428287-06:00",
     "ethel cain|lanzamiento": "2026-11-14T12:57:22.917805-06:00",
     "fall out boy|gira": "2026-11-10T14:42:40.094299-06:00",
     "fall out boy|lanzamiento": "2026-11-11T15:05:03.846680-06:00",
@@ -2619,18 +2659,16 @@
     "jose y el toro|gira": "2026-11-06T14:16:22.519597-06:00",
     "joy division|anuncio": "2026-11-15T17:40:08.027611-06:00",
     "julien baker|lanzamiento": "2026-11-17T19:58:31.332954-06:00",
-    "jungle|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "jura|lanzamiento": "2026-11-16T20:42:40.738628-06:00",
     "king gizzard the lizard wizard|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "kneecap|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
-    "kurt vile|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "la oreja de van gogh|anuncio": "2026-11-18T15:43:09.989076-06:00",
     "las ligas menores|lanzamiento": "2026-11-18T15:43:09.989076-06:00",
     "los estanques|anuncio": "2026-11-14T12:57:22.917805-06:00",
     "los nasdrovia|lanzamiento": "2026-11-12T15:19:33.465718-06:00",
     "los planetas|gira": "2026-11-12T15:19:33.465718-06:00",
+    "los punsetes|lanzamiento": "2026-11-18T19:35:12.428287-06:00",
     "luisa almaguer|lanzamiento": "2026-11-12T15:19:33.465718-06:00",
-    "mac demarco|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "mar pujol|lanzamiento": "2026-11-08T12:40:48.333483-06:00",
     "melissa auf der maur|gira": "2026-11-11T19:44:55.260647-06:00",
     "metric|gira": "2026-11-10T18:20:25.543254-06:00",
@@ -2678,7 +2716,6 @@
     "sgt papers|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
     "shygirl|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
     "simple plan|anuncio": "2026-11-14T12:57:22.917805-06:00",
-    "skakeitan|anuncio": "2026-11-04T18:40:44.988850-06:00",
     "slayer|anuncio": "2026-11-15T13:34:28.002144-06:00",
     "sorry|lanzamiento": "2026-11-10T18:20:25.543254-06:00",
     "soup activists|lanzamiento": "2026-11-05T18:38:38.911191-06:00",
@@ -2693,8 +2730,9 @@
     "svsto|lanzamiento": "2026-11-13T18:35:16.328459-06:00",
     "tame impala|gira": "2026-11-11T15:05:03.846680-06:00",
     "tegan and sara|lanzamiento": "2026-11-06T17:53:34.431803-06:00",
-    "this is lorelei|anuncio": "2026-11-04T18:40:44.988850-06:00",
+    "theatre|lanzamiento": "2026-11-18T19:35:12.428287-06:00",
     "toro y moi|lanzamiento": "2026-11-05T18:38:38.911191-06:00",
+    "touche amore|gira": "2026-11-18T19:35:12.428287-06:00",
     "tv on the radio|gira": "2026-11-16T20:42:40.738628-06:00",
     "twin temple|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
     "twisted teens|anuncio": "2026-11-10T14:42:40.094299-06:00",
@@ -2712,8 +2750,7 @@
     "yeule|lanzamiento": "2026-11-14T12:57:22.917805-06:00",
     "zahara|lanzamiento": "2026-11-09T20:28:34.898275-06:00",
     "zemmoa|lanzamiento": "2026-11-09T17:17:23.379941-06:00",
-    "zsela|lanzamiento": "2026-11-13T18:35:16.328459-06:00",
-    "zurdok|gira": "2026-11-04T18:40:44.988850-06:00"
+    "zsela|lanzamiento": "2026-11-13T18:35:16.328459-06:00"
   },
   "urls_publicadas": {
     "https://consequence.net/2026/10/2027-welcome-to-rockville-lineup": "2026-10-29T17:43:25.637378-06:00",
@@ -2726,6 +2763,7 @@
     "https://consequence.net/2026/11/big-thief-announce-2027-us-summer-tour": "2026-11-17T19:58:31.332954-06:00",
     "https://consequence.net/2026/11/c-tangana-returns-to-rap-milko-freestyle": "2026-11-03T18:18:07.864859-06:00",
     "https://consequence.net/2026/11/cage-the-elephant-dying-in-reverse-new-album-make-it-easy-stream": "2026-11-05T14:56:48.648504-06:00",
+    "https://consequence.net/2026/11/chvrches-new-us-tour-dates-new-song-evil-stream": "2026-11-18T19:35:12.428287-06:00",
     "https://consequence.net/2026/11/coheed-and-cambria-2027-cruise": "2026-11-05T18:38:38.911191-06:00",
     "https://consequence.net/2026/11/conor-oberst-2027-solo-tour": "2026-11-10T18:20:25.543254-06:00",
     "https://consequence.net/2026/11/cursive-announce-happy-hollow-anniversary-2027-tour": "2026-11-16T20:42:40.738628-06:00",
@@ -2748,6 +2786,7 @@
     "https://consequence.net/2026/11/stars-revenge-stars-revenge-ii-dont-worry-dynamite": "2026-11-05T18:38:38.911191-06:00",
     "https://consequence.net/2026/11/tegan-and-sara-holiday-songs-i-love-christmas-a-december-to-remember-stream": "2026-11-06T17:53:34.431803-06:00",
     "https://consequence.net/2026/11/the-strokes-lonely-in-the-future-video": "2026-11-08T12:40:48.333483-06:00",
+    "https://consequence.net/2026/11/touche-amore-spring-2027-tour-my-own-way": "2026-11-18T19:35:12.428287-06:00",
     "https://consequence.net/2026/11/ty-segall-2027-tour-dates": "2026-11-16T20:42:40.738628-06:00",
     "https://consequence.net/2026/11/u2-on-ed-sheeran-macklemore-controversy": "2026-11-08T12:40:48.333483-06:00",
     "https://indierocks.mx/agenda/bad-religion-se-presentara-en-el-pabellon-oeste": "2026-11-11T15:05:03.846680-06:00",
@@ -2809,6 +2848,7 @@
     "https://indierocks.mx/musica/noticias/kevis-maykyy-fusionan-rap-y-punk-en-hp-hop": "2026-10-28T23:30:45.136900-06:00",
     "https://indierocks.mx/musica/noticias/kim-gordon-ya-tiene-su-propia-fender-jazzmaster-en-edicion-limitada": "2026-11-03T18:18:07.864859-06:00",
     "https://indierocks.mx/musica/noticias/lambrini-girls-estrena-the-basement-y-split": "2026-10-21T12:25:25.999252-06:00",
+    "https://indierocks.mx/musica/noticias/late-wish-lo-nuevo-de-clap-your-hands-say-yeah": "2026-11-18T19:35:12.428287-06:00",
     "https://indierocks.mx/musica/noticias/los-nasdrovia-presenta-un-mundo-feliz-su-nuevo-album": "2026-11-12T15:19:33.465718-06:00",
     "https://indierocks.mx/musica/noticias/luisa-almaguer-anuncia-ep-y-estrena-un-espejo-feat-nick-zinner": "2026-11-12T15:19:33.465718-06:00",
     "https://indierocks.mx/musica/noticias/mei-semones-rinde-tributo-a-su-banda-en-2-hands": "2026-11-02T19:55:45.211622-06:00",
@@ -2874,6 +2914,7 @@
     "https://jenesaispop.com/2026/11/15/533950/phoebe-bridgers-halloween-snl": "2026-11-15T13:34:28.002144-06:00",
     "https://jenesaispop.com/2026/11/16/533947/pequeno-mal-somos-pequeno-mal": "2026-11-16T17:13:55.029284-06:00",
     "https://jenesaispop.com/2026/11/17/534064/vega-appel-du-vide": "2026-11-17T16:03:22.294138-06:00",
+    "https://jenesaispop.com/2026/11/18/533926/los-punsetes-entrevista": "2026-11-18T19:35:12.428287-06:00",
     "https://jenesaispop.com/2026/11/18/534106/la-oreja-de-van-gogh-leire-amaia": "2026-11-18T15:43:09.989076-06:00",
     "https://jenesaispop.com/2026/11/18/534136/guillem-gisbert-detector-mentides-critica": "2026-11-18T15:43:09.989076-06:00",
     "https://jenesaispop.com/2026/11/18/534168/belle-and-sebastian-reedicion": "2026-11-18T15:43:09.989076-06:00",
@@ -2960,6 +3001,7 @@
     "https://pitchfork.com/story/kevin-morbys-new-song-raises-money-for-gun-safety": "2026-10-29T17:43:25.637378-06:00",
     "https://pitchfork.com/story/king-gizzard-and-the-lizard-wizard-announce-new-album-entropy-two-north-american-tours": "2026-11-10T18:20:25.543254-06:00",
     "https://pitchfork.com/story/kurt-vile-shreds-through-99-bpm-on-fallon": "2026-11-04T18:40:44.988850-06:00",
+    "https://pitchfork.com/story/listen-to-erika-de-casiers-new-song-whispers": "2026-11-18T19:35:12.428287-06:00",
     "https://pitchfork.com/story/listen-to-sufjan-stevens-new-song-on-this-christmas-it-only-gets-better": "2026-11-02T16:37:00.497186-06:00",
     "https://pitchfork.com/story/listen-to-the-first-atlas-sound-song-in-15-years": "2026-10-30T17:24:15.873502-06:00",
     "https://pitchfork.com/story/muna-tap-avalon-emerson-romy-and-more-for-dancing-on-the-wall-deluxe": "2026-11-05T18:38:38.911191-06:00",
@@ -2976,6 +3018,7 @@
     "https://pitchfork.com/story/superchunk-set-2027-north-american-tour": "2026-11-17T19:58:31.332954-06:00",
     "https://pitchfork.com/story/the-flaming-lips-reveal-new-album-the-teardrop-throbs": "2026-10-28T23:25:45.404979-06:00",
     "https://pitchfork.com/story/toro-y-moi-reveals-new-album-unusua": "2026-11-05T18:38:38.911191-06:00",
+    "https://pitchfork.com/story/touche-amore-share-new-song-2027-tour-dates": "2026-11-18T19:35:12.428287-06:00",
     "https://pitchfork.com/story/tv-on-the-radio-to-headline-music-hall-of-williamsburgs-final-shows": "2026-11-16T20:42:40.738628-06:00",
     "https://pitchfork.com/story/ty-segall-taking-chrome-on-the-road": "2026-11-16T20:42:40.738628-06:00",
     "https://pitchfork.com/story/watch-this-is-lorelei-play-the-singer-in-my-band-songs-on-kcrw": "2026-11-04T18:40:44.988850-06:00",
@@ -3067,6 +3110,10 @@
     "https://stereogum.com/2518333/hot-chip-me-in-your-head-feat-beth-ditto/music": "2026-11-16T20:42:40.738628-06:00",
     "https://stereogum.com/2518373/ryley-walker-announces-new-album-darkening-the-glass-hear-cloud-of-beaujolais/music": "2026-11-17T19:58:31.332954-06:00",
     "https://stereogum.com/2518378/julien-baker-announces-new-album-this-world-or-the-next-hear-hound/music": "2026-11-17T19:58:31.332954-06:00",
-    "https://stereogum.com/2518498/belle-and-sebastian-announce-if-youre-feeling-sinister-30th-anniversary-edition-with-previously-unreleased-songs/music": "2026-11-18T15:43:09.989076-06:00"
+    "https://stereogum.com/2518498/belle-and-sebastian-announce-if-youre-feeling-sinister-30th-anniversary-edition-with-previously-unreleased-songs/music": "2026-11-18T15:43:09.989076-06:00",
+    "https://stereogum.com/2518560/chvrches-evil/music": "2026-11-18T19:35:12.428287-06:00",
+    "https://stereogum.com/2518584/erika-de-casier-whispers/music": "2026-11-18T19:35:12.428287-06:00",
+    "https://stereogum.com/2518586/theatre-clouds/music": "2026-11-18T19:35:12.428287-06:00",
+    "https://stereogum.com/2518600/concealer-disguised-in-pins-pleading/music": "2026-11-18T19:35:12.428287-06:00"
   }
 }
