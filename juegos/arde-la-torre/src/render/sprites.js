@@ -30,7 +30,9 @@ const ENEMY_LOOKS = {
 };
 
 export function lookFor(type, palette = 0) {
-  const base = HERO_LOOKS[type] || ENEMY_LOOKS[type];
+  // Tony jugable (F24) usa el aspecto del Manager; un tipo desconocido nunca debe dejar el dibujo sin aspecto
+  // (un error aquí congelaba la pantalla mientras cargaba su imagen).
+  const base = HERO_LOOKS[type] || ENEMY_LOOKS[type] || (type === 'tony' && ENEMY_LOOKS.manager) || ENEMY_LOOKS.becario;
   const sw = HERO_LOOKS[type] && PALETTE_SWAPS[palette % PALETTE_SWAPS.length];
   return sw ? { ...base, ...sw } : base;
 }

@@ -69,3 +69,9 @@ test('T12.7 Tony: quinto músico, bloqueado hasta terminar la historia, y se gua
   storage.setItem(KEY, JSON.stringify({ unlocked: ['tony', 'hacker', 7] }));
   assert.deepEqual(loadOptions(storage).unlocked, ['tony'], 'solo músicos que existen');
 });
+
+import { lookFor } from '../src/render/sprites.js';
+test('T12.7 todos los músicos elegibles (Tony incluido) tienen dibujo provisional mientras carga su imagen', () => {
+  for (const h of [...HERO_IDS, ...EXTRA_HEROES]) for (const pal of [0, 1, 2, 3]) assert.ok(lookFor(h, pal), `${h} paleta ${pal}`);
+  assert.ok(lookFor('desconocido'), 'nunca undefined (congelaría la pantalla)');
+});
