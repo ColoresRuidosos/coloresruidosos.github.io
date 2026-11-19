@@ -161,6 +161,8 @@ export function drawLobby(ctx, { t, qr, code, slots, countdown, netStatus }) {
     drawText(ctx, 'TU MÓVIL', 49, 28 + size + 13, { color: '#fff', align: 'center' });
     drawText(ctx, 'CÓDIGO', 49, 28 + size + 26, { color: '#8a8698', align: 'center' });
     drawText(ctx, code || '····', 49, 28 + size + 36, { color: '#ffd23f', scale: 2, align: 'center' });
+    drawText(ctx, 'TODOS EN LA', 49, 28 + size + 54, { color: '#3fdc7a', align: 'center' });   // F10.6
+    drawText(ctx, 'MISMA WIFI', 49, 28 + size + 63, { color: '#3fdc7a', align: 'center' });
   } else {
     const lines = String(netStatus || 'PREPARANDO|LA SALA…').split('|');   // líneas cortas: el panel mide 90 px
     lines.forEach((l, k) => drawText(ctx, l.trim(), 49, 40 + k * 10, { color: '#8a8698', align: 'center' }));

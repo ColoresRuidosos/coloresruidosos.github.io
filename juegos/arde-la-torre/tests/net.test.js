@@ -108,3 +108,26 @@ test('la pantalla manda el estado (vida, vidas, fase) al móvil de cada jugador'
     assert.equal(p.state.fase, 'juego');
   } finally { s.close(); }
 });
+
+// T4.10 (F10.6): servidores ICE con TURN de Metered si hay clave; si no, PeerJS por defecto.
+import { iceConfig, METERED } from '../src/net/ice.js';
+
+test('T4.10 sin clave de Metered no se toca la configuración de PeerJS', async () => {
+  let called = false;
+  const cfg = await iceConfig({ fetch: async () => { called = true; return {}; }, metered: { app: '', apiKey: '' } });
+  assert.equal(cfg, null); assert.equal(called, false);
+  assert.equal(typeof METERED.app, 'string');
+});
+
+test('T4.10 con clave pide credenciales temporales y añade STUN; si falla o tarda, null', async () => {
+  const servers = [{ urls: 'turn:standard.relay.metered.ca:80', username: 'u', credential: 'c' }];
+  let url = '';
+  const cfg = await iceConfig({ fetch: async (u) => { url = u; return { ok: true, json: async () => servers }; }, metered: { app: 'colores', apiKey: 'k123' } });
+  assert.equal(url, 'https://colores.metered.live/api/v1/turn/credentials?apiKey=k123');
+  assert.ok(cfg.iceServers.some((s) => String(s.urls).startsWith('stun:')), 'incluye STUN');
+  assert.ok(cfg.iceServers.some((s) => s.username === 'u' && s.credential === 'c'), 'incluye el TURN de Metered');
+  assert.equal(await iceConfig({ fetch: async () => ({ ok: false, json: async () => [] }), metered: { app: 'a', apiKey: 'b' } }), null);
+  assert.equal(await iceConfig({ fetch: async () => { throw new Error('red'); }, metered: { app: 'a', apiKey: 'b' } }), null);
+  const slow = iceConfig({ fetch: () => new Promise(() => {}), metered: { app: 'a', apiKey: 'b' }, timeoutMs: 50 });
+  assert.equal(await slow, null, 'si Metered no responde, se sigue sin él');
+});

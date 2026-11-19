@@ -90,12 +90,16 @@ function wrapDC(dc) {
   return c;
 }
 
-export function peerTransport(PeerCtor, options = {}) {
+// `ice`: función opcional que devuelve { iceServers } (TURN, F10.6) o null para usar los de PeerJS.
+export function peerTransport(PeerCtor, options = {}, ice = async () => null) {
+  let cfg = null;
+  const withIce = async () => { if (cfg === null) cfg = (await ice()) || false; return cfg ? { ...options, config: cfg } : options; };
   return {
     kind: 'peer',
-    listen(code, onConn) {
+    async listen(code, onConn) {
+      const opts = await withIce();
       return new Promise((resolve, reject) => {
-        const peer = new PeerCtor(PREFIX + code, options);
+        const peer = new PeerCtor(PREFIX + code, opts);
         let opened = false;
         peer.on('open', () => { opened = true; resolve({ close: () => peer.destroy() }); });
         peer.on('connection', (dc) => dc.on('open', () => onConn(wrapDC(dc))));
@@ -107,9 +111,10 @@ export function peerTransport(PeerCtor, options = {}) {
         });
       });
     },
-    open(code) {
+    async open(code) {
+      const opts = await withIce();
       return new Promise((resolve, reject) => {
-        const peer = new PeerCtor(options);
+        const peer = new PeerCtor(opts);
         const pending = new Set();
         let done = false;
         const to = setTimeout(() => { if (!done) { done = true; peer.destroy(); reject(new Error('sin conexión con el servidor')); } }, 12000);

@@ -2,6 +2,7 @@
 import { Peer } from 'peerjs';
 import { createPadClient } from './net/pad.js';
 import { peerTransport, loopbackTransport } from './net/transport.js';
+import { iceConfig } from './net/ice.js';
 import { isCode, normalizeCode } from './net/protocol.js';
 import { createStick } from './pad-ui/joystick.js';
 import { HEROES, HERO_IDS } from './sim/moves.js';
@@ -26,7 +27,7 @@ function sessionId() {
   return sid;
 }
 
-const transport = Q.get('net') === 'loop' ? loopbackTransport() : peerTransport(Peer, { debug: 0 });
+const transport = Q.get('net') === 'loop' ? loopbackTransport() : peerTransport(Peer, { debug: 0 }, iceConfig);
 let client = null, wake = null;
 
 // ---- selector de músico ----
@@ -109,10 +110,10 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) keep
 
 // ---- estado → interfaz ----
 const STATUS = {
-  conectando: ['Conectando…', 'Buscando la sala'],
-  reconectando: ['Reconectando…', 'Se cortó la conexión. Volviendo a entrar'],
+  conectando: ['Conectando…', 'Buscando la pantalla. Si tarda, conecta el móvil a la MISMA WIFI que la pantalla'],
+  reconectando: ['Reconectando…', 'Intentando llegar a la pantalla. Si tarda, conecta el móvil a la MISMA WIFI que la pantalla'],
   llena: ['Sala llena (4/4)', 'Ya hay cuatro jugadores en esta partida'],
-  cerrada: ['Sala cerrada', 'No se pudo conectar. Si la pantalla se recargó, vuelve a escanear el QR. Si estás en una wifi de empresa u hotel, prueba con los datos del móvil'],
+  cerrada: ['No se pudo conectar', 'Conecta el móvil y la pantalla a la MISMA WIFI (o comparte datos desde un móvil y conecta todo a esa red) y vuelve a escanear el QR. Si la pantalla se recargó, el QR también cambió'],
 };
 function render(st) {
   document.documentElement.style.setProperty('--c', st.color || '#ff4d4d');

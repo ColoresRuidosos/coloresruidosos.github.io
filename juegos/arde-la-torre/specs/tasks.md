@@ -57,6 +57,8 @@
 | T4.5 | Sin botones pegados si se corta | `input/remote.js` | ✅ |
 | T4.6 | Joystick flotante con zona muerta del 20 % y 8 direcciones, multitoque | `pad-ui/joystick.js` | ✅ |
 | T4.7 | QR que se decodifica con jsQR | `render/qr.js` | ✅ |
+| T4.9 | Avisos de «misma wifi» bajo el QR (juego y concierto suelto) y en el mando mientras conecta o si falla (F10.6) | ✅ |
+| T4.10 | Tests y código: `net/ice.js` pide credenciales TURN a Metered si hay clave; si no, o si falla, PeerJS por defecto (F10.6) | ✅ `tests/net.test.js` · ⏳ clave de Metered del usuario |
 | T4.8 | `PeerTransport` con móviles reales | `net/transport.js` | ⏳ igual que T0.7 |
 
 ## Fase 5 · Pantalla, arte y sonido

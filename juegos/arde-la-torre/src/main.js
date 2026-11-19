@@ -14,6 +14,7 @@ import { createSlots } from './input/slots.js';
 import { createEdges, NEUTRAL } from './input/source.js';
 import { createRoom } from './net/host.js';
 import { peerTransport, loopbackTransport } from './net/transport.js';
+import { iceConfig } from './net/ice.js';
 import { qrMatrix } from './render/qr.js';
 import { drawWorld, drawHud, createFx } from './render/view.js';
 import { drawTitle, TITLE_MENU_Y, drawLobby, drawIntro, drawPause, drawBanner, drawResults, PAUSE_ITEMS } from './render/screens.js';
@@ -67,7 +68,7 @@ app.slots = slots;
 
 // ---- sala de móviles (F10) ----
 let room = null, qr = null, padUrl = '';
-const transport = Q.get('net') === 'loop' ? loopbackTransport() : peerTransport(Peer, { debug: 0 });
+const transport = Q.get('net') === 'loop' ? loopbackTransport() : peerTransport(Peer, { debug: 0 }, iceConfig);
 function padUrlFor(code) {
   const base = new URL('mando/', location.href);
   base.search = ''; base.searchParams.set('s', code);

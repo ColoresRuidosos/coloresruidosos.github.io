@@ -11,6 +11,7 @@ import { createEdges, NEUTRAL } from './input/source.js';
 import { createSlots, SLOT_COLORS } from './input/slots.js';
 import { createRoom } from './net/host.js';
 import { peerTransport, loopbackTransport } from './net/transport.js';
+import { iceConfig } from './net/ice.js';
 import { qrMatrix, drawQR } from './render/qr.js';
 import { createAudio } from './audio/player.js';
 import { createConcert, pressLane, stepConcert } from './sim/ritmo.js';
@@ -62,7 +63,7 @@ function padUrlFor(code) {
 async function openRoom() {
   if (Q.has('nonet')) { app.net = ''; return; }
   if (globalThis.ARDE_SIN_RED) { app.net = 'MÓVILES: SOLO EN LA VERSIÓN WEB'; return; }
-  const transport = Q.get('net') === 'loop' ? loopbackTransport() : peerTransport(Peer, { debug: 0 });
+  const transport = Q.get('net') === 'loop' ? loopbackTransport() : peerTransport(Peer, { debug: 0 }, iceConfig);
   room = createRoom({ transport, slots, onEvent: (e) => { if (e.type === 'join') room.sendTo(e.slot, { t: 'fase', fase: phoneFase() }); } });
   app.room = room;
   try {
@@ -169,7 +170,8 @@ function drawInicio() {
     drawQR(ctx, qr, 8, 42, 80);
     drawText(ctx, 'ESCANEA CON', 48, 126, { color: '#cfc9e0', align: 'center' });
     drawText(ctx, 'EL MÓVIL', 48, 136, { color: '#cfc9e0', align: 'center' });
-    drawText(ctx, `SALA ${app.code}`, 48, 148, { color: '#ffd23f', align: 'center' });
+    drawText(ctx, `SALA ${app.code}`, 48, 146, { color: '#ffd23f', align: 'center' });
+    drawText(ctx, 'MISMA WIFI', 48, 155, { color: '#3fdc7a', align: 'center' });   // F10.6
   } else if (app.net) drawText(ctx, app.net, W / 2, 164, { color: '#8a8698', align: 'center' });
   const cw = (W - left - 8) / 4;
   for (let i = 0; i < 4; i++) {
