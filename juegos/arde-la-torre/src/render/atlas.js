@@ -20,7 +20,7 @@ import { getSprite, getPortrait } from './sprites.js';
 const SOURCES = {
   antonio: ANTONIO, pepe: PEPE, dani: DANI, jota: JOTA,
   becario: BECARIO, comercial: COMERCIAL, guardia: GUARDIA, contable: CONTABLE, ejecutiva: EJECUTIVA,
-  jefeSeguridad: JEFE_SEGURIDAD, recepcionista: RECEPCIONISTA, director: DIRECTOR, presidente: PRESIDENTE, manager: MANAGER,
+  jefeSeguridad: JEFE_SEGURIDAD, recepcionista: RECEPCIONISTA, director: DIRECTOR, presidente: PRESIDENTE, manager: MANAGER, tony: MANAGER,
   objetos: OBJETOS,
 };
 // Poses de Gemini con fallos que se sustituyen por otras del mismo músico (hasta que se repitan las hojas).
@@ -31,6 +31,13 @@ const OVERRIDE = {
   contable: { wind: 'shoot0' },
   director: { wind: 'charge0', walk2: 'walk0', walk3: 'walk1', grab0: 'atk', grab1: 'atk', throw0: 'atk', throw1: 'atk', fall1: 'fall0', call: 'atk' },
   presidente: { throw0: 'grab1', throw1: 'atk2', call: 'idle2' },
+  // F24: Tony jugable usa la hoja del Manager con los nombres de pose de los músicos.
+  tony: {
+    run0: 'charge0', run1: 'charge1', run2: 'charge0', run3: 'charge1', jump0: 'charge1', jump1: 'charge2', air: 'charge1',
+    punch1a: 'wind', punch1b: 'atk', punch2a: 'charge0', punch2b: 'charge1', guit0: 'wind', guit1: 'wind', guit2: 'atk',
+    kick0: 'charge0', kick1: 'charge1', grab: 'call', knee: 'charge2', throw0: 'call', throw1: 'atk',
+    rise0: 'fall1', rise1: 'idle1', sp0: 'call', sp1: 'wind', sp2: 'atk', sp3: 'atk', win1: 'idle0',
+  },
   manager: { shoot0: 'call', shoot1: 'call', shoot2: 'call', grab0: 'atk', grab1: 'atk', throw0: 'atk', throw1: 'atk', block: 'hurt' },   // lanza el contrato señalando
 };
 const ENEMY_FALLBACK = {

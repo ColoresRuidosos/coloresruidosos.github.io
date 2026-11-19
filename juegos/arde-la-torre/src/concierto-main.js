@@ -2,7 +2,8 @@
 // (cada músico su parte) y ver el resultado. Entradas: teclado (2), mandos, táctil y móviles por QR (sala PeerJS).
 import { Peer } from 'peerjs';
 import { W, H, MAX_PLAYERS } from './sim/constants.js';
-import { HEROES, HERO_IDS } from './sim/moves.js';
+import { HEROES, HERO_IDS, availableHeroes } from './sim/moves.js';
+import { loadOptions } from './core/save.js';
 import { LEVELS } from './data/levels.js';
 import { createKeyboard, KEYMAPS, ARCADE_KEYMAPS } from './input/keyboard.js';
 import { createGamepads } from './input/gamepad.js';
@@ -15,7 +16,7 @@ import { iceConfig } from './net/ice.js';
 import { qrMatrix, drawQR } from './render/qr.js';
 import { createAudio } from './audio/player.js';
 import { createConcert, pressLane, stepConcert } from './sim/ritmo.js';
-import { drawConcert, LANE_COLORS } from './render/ritmo.js';
+import { drawConcert, LANE_COLORS, partOf, instrumentsWith } from './render/ritmo.js';
 import { drawText } from './render/text.js';
 import { drawMenuFigure, drawPortrait } from './render/atlas.js';
 import { getBackground } from './render/backgrounds.js';
@@ -38,6 +39,7 @@ addEventListener('resize', fit); fit();
 
 const audio = createAudio();
 const slots = createSlots(MAX_PLAYERS);
+slots.setHeroList(availableHeroes(loadOptions()));   // F24: Tony, si está desbloqueado
 const kb = createKeyboard(window, new URLSearchParams(location.search).has('arcade') ? ARCADE_KEYMAPS : KEYMAPS), pads = createGamepads(navigator), touch = createTouch(document);
 const LOCAL = [...kb.sources, ...pads.sources, touch.source];
 const edges = new Map();
@@ -78,7 +80,7 @@ function sendPhoneState() {
   for (const s of slots.joined()) {
     if (s.kind !== 'movil') continue;
     const pr = app.k && app.k.c.players[s.slot];
-    room.sendTo(s.slot, { t: 'estado', fase: phoneFase(), modo: 'concierto', hero: s.hero, ready: s.ready, hp: 1, maxHp: 1, lives: 0, score: pr ? pr.score : 0 });
+    room.sendTo(s.slot, { t: 'estado', fase: phoneFase(), modo: 'concierto', heroes: slots.heroes, hero: s.hero, ready: s.ready, hp: 1, maxHp: 1, lives: 0, score: pr ? pr.score : 0 });
   }
 }
 
@@ -115,7 +117,7 @@ function startConcert() {
   unlock();
   const ps = slots.joined();
   app.players = ps.map((s) => ({ slot: s.slot, type: s.hero, palette: s.palette, key: s.key }));
-  app.k = { c: createConcert({ parts: Object.fromEntries(ps.map((s) => [s.slot, CANCION.PARTS[s.hero]])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS }),
+  app.k = { c: createConcert({ parts: Object.fromEntries(ps.map((s) => [s.slot, partOf(CANCION.PARTS, s.hero)])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS }),
     started: false, t0: 0, audio: false, ms: -1000, end: 0, unisonAt: -1e9 };
   go('concierto');
   if (room) room.broadcast({ t: 'fase', fase: 'juego' });
@@ -181,7 +183,7 @@ function drawInicio() {
     if (!s) { drawText(ctx, `J${i + 1}`, x, 86, { color: SLOT_COLORS[i], align: 'center' }); drawText(ctx, 'GOLPE', x, 98, { color: '#8a8698', align: 'center' }); drawText(ctx, 'O MÓVIL', x, 108, { color: '#8a8698', align: 'center' }); continue; }
     drawMenuFigure(ctx, s.hero, s.palette, s.ready ? 'victory' : 'idle', Math.floor(app.t / 24) % 2, x, 132, HEROES[s.hero].h, 1);
     drawText(ctx, HEROES[s.hero].name, x, 138, { color: SLOT_COLORS[i], align: 'center' });
-    drawText(ctx, CANCION.INSTRUMENTS[s.hero], x, 147, { color: '#cfc9e0', align: 'center' });
+    drawText(ctx, instrumentsWith(CANCION.INSTRUMENTS)[s.hero], x, 147, { color: '#cfc9e0', align: 'center' });
     drawText(ctx, s.ready ? '¡LISTO!' : s.kind === 'movil' ? 'ELIGE EN EL MÓVIL' : '◀ ▶ · GOLPE', x, 156, { color: s.ready ? '#3fdc7a' : '#8a8698', align: 'center' });
   }
   const msg = app.countdown > 0 ? `¡EMPIEZA EN ${Math.ceil(app.countdown / 60)}!` : slots.joined().length ? 'CUANDO TODOS ESTÉN LISTOS, EMPIEZA' : 'PULSA GOLPE O ESCANEA EL QR (HASTA 4)';
@@ -203,7 +205,7 @@ function drawFin() {
     ctx.fillStyle = '#1b1630'; ctx.fillRect(x, y, 88, 128);
     ctx.fillStyle = SLOT_COLORS[p.slot]; ctx.fillRect(x, y, 88, 2);
     drawPortrait(ctx, p.type, p.palette, HEROES[p.type].h, x + 32, y + 6, 24);
-    drawText(ctx, `${HEROES[p.type].name} · ${CANCION.INSTRUMENTS[p.type]}`, x + 44, y + 34, { color: SLOT_COLORS[p.slot], align: 'center' });
+    drawText(ctx, `${HEROES[p.type].name} · ${instrumentsWith(CANCION.INSTRUMENTS)[p.type]}`, x + 44, y + 34, { color: SLOT_COLORS[p.slot], align: 'center' });
     drawText(ctx, String(pr.score).padStart(6, '0'), x + 44, y + 46, { color: '#fff', align: 'center' });
     drawText(ctx, `PRECISIÓN ${Math.round(pr.accuracy * 100)}%`, x + 6, y + 62, { color: '#3fdc7a' });
     drawText(ctx, `PERFECTO ${pr.perfect}`, x + 6, y + 74, { color: '#ffd23f' });
@@ -220,7 +222,7 @@ function draw() {
   else if (app.screen === 'concierto') {
     const k = app.k;
     drawConcert(ctx, { concert: k.c, ms: k.started ? k.ms : -1000, level: STAGE, players: app.players, bpm: CANCION.BPM, opts: {},
-      title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: CANCION.INSTRUMENTS, unisonAt: k.unisonAt });
+      title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: instrumentsWith(CANCION.INSTRUMENTS), unisonAt: k.unisonAt });
     if (!k.started) drawText(ctx, 'CARGANDO LA CANCIÓN…', W / 2, 140, { color: '#cfc9e0', align: 'center' });
   } else drawFin();
 }

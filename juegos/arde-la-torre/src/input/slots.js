@@ -6,6 +6,7 @@ export const SLOT_COLORS = ['#ff4d4d', '#3fa9ff', '#ffd23f', '#3fdc7a'];   // J1
 
 export function createSlots(max = MAX_PLAYERS) {
   const slots = Array(max).fill(null);
+  let heroes = [...HERO_IDS];                         // F24: crece con los desbloqueables
   const idx = (key) => slots.findIndex((s) => s && s.key === key);
 
   function paletteFor(i, hero) {
@@ -29,15 +30,17 @@ export function createSlots(max = MAX_PLAYERS) {
     indexOf: idx,
     get: (i) => slots[i],
     setHero(i, hero) {
-      if (!slots[i] || !HERO_IDS.includes(hero)) return false;
+      if (!slots[i] || !heroes.includes(hero)) return false;
       slots[i].hero = hero; slots[i].palette = paletteFor(i, hero);
       return true;
     },
     cycleHero(i, dir) {
       const s = slots[i]; if (!s) return;
-      const k = (HERO_IDS.indexOf(s.hero) + dir + HERO_IDS.length) % HERO_IDS.length;
-      this.setHero(i, HERO_IDS[k]);
+      const k = (heroes.indexOf(s.hero) + dir + heroes.length) % heroes.length;
+      this.setHero(i, heroes[k]);
     },
+    setHeroList(list) { heroes = [...list]; },
+    get heroes() { return [...heroes]; },
     setReady(i, ready) { if (slots[i]) slots[i].ready = ready; },
     list: () => slots.map((s, i) => (s ? { slot: i, ...s } : null)),
     joined: () => slots.map((s, i) => (s ? { slot: i, ...s } : null)).filter(Boolean),

@@ -128,7 +128,10 @@ SHEETS['manager'] = [dict(dir='enemigos', file='manager.jpg', rows=[16], target=
            (1680, 958, 2000, 1350), (150, 1228, 480, 1612), (590, 1250, 1060, 1605), (1120, 1328, 1510, 1612), (1600, 1418, 2070, 1620),
            (2190, 1148, 2430, 1612)],
     loose=['fall0', 'fall1', 'down'], erase=[(320, 486, 610, 542), (1530, 486, 1860, 542), (180, 926, 840, 990), (1570, 926, 1960, 990),
-           (330, 1188, 1020, 1240), (1690, 1348, 1930, 1402), (0, 1622, 2528, 1696)])]
+           (330, 1188, 1020, 1240), (1690, 1348, 1930, 1402), (0, 1622, 2528, 1696)]),
+    # Retrato (F24, Tony jugable): la pose de frente de su imagen de referencia.
+    dict(dir='enemigos', file='manager-1.jpg', rows=[3], names=['ref0', 'ref1', 'portrait'], ref=['portrait'], target=75,
+         loose=[], skip=['ref0', 'ref1'], portrait='portrait')]
 ENEMIES = [k for k in SHEETS if k not in ('antonio', 'pepe', 'dani', 'jota', 'objetos')]
 
 

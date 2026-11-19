@@ -364,3 +364,28 @@ test('T12.3 modo demostración: tras el tiempo sin actividad se juega solo y cua
     await browser.close();
   }
 });
+
+test('T12.7 al terminar la historia se desbloquea Tony, sale el aviso y se puede elegir', { skip, timeout: 120000 }, async () => {
+  const browser = await pw.chromium.launch();
+  try {
+    const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto(`file://${process.cwd()}/dist/index.html?nonet&auto=2&bot&sim=6&seed=3&nivel=4`);
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'resultado', null, { timeout: 100000 });
+    assert.equal(await page.evaluate(() => window.__arde.results.unlocked), 'tony', '¡NUEVO MÚSICO!');
+    const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('arde-la-torre:opciones')).unlocked);
+    assert.deepEqual(saved, ['tony']);
+    // otra partida: en la selección, de Jota se pasa a Tony
+    await page.goto(`file://${process.cwd()}/dist/index.html?nonet`);
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
+    await tapKey(page, 'KeyF'); await page.waitForFunction(() => window.__arde.screen === 'sala');
+    await tapKey(page, 'KeyF');
+    assert.equal(await page.evaluate(() => window.__arde.slots.joined()[0].hero), 'antonio');
+    await tapKey(page, 'KeyA');                                 // ◀ desde Antonio: la lista da la vuelta hasta Tony
+    assert.equal(await page.evaluate(() => window.__arde.slots.joined()[0].hero), 'tony');
+    await page.screenshot({ path: process.env.SHOTS ? `${process.env.SHOTS}/tony-seleccion.png` : '/dev/null' });
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});

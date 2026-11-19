@@ -59,9 +59,26 @@ export const HEROES = {
     knee: 5, throw: 12,
     sp: { dur: 38, from: 6, to: 32, reach: [-2, 50], z: [0, 60], dmg: 4, rehit: 6, knockLast: true },
   },
+  // F24: desbloqueable al terminar la historia. Fuerte y lento; golpea con su carpeta.
+  tony: {
+    name: 'TONY', role: 'EL MANAGER', special: 'CONTRATO BLINDADO',
+    hp: 130, speed: 1.12, run: 2.3, jump: 4.2, w: 20, h: 62,
+    combo: combo(
+      { start: 5, active: 3, rec: 9, reach: [4, 34], z: [28, 54], dmg: 8, push: 1.6 },
+      { start: 5, active: 3, rec: 10, reach: [4, 36], z: [26, 54], dmg: 9, push: 1.6 },
+      { start: 8, active: 5, rec: 15, reach: [2, 46], z: [0, 58], dmg: 15, push: 2.6, knock: true },
+    ),
+    air: { reach: [0, 34], z: [0, 42], dmg: 11, knock: true, air: true },
+    dash: { reach: [0, 38], z: [10, 54], dmg: 13, knock: true, dur: 24 },
+    knee: 7, throw: 17,
+    sp: { dur: 34, from: 10, to: 20, reach: [0, 60], z: [0, 60], dmg: 16, knock: true, both: true },
+  },
 };
 
-export const HERO_IDS = Object.keys(HEROES);
+export const HERO_IDS = ['antonio', 'pepe', 'dani', 'jota'];   // la banda
+export const EXTRA_HEROES = ['tony'];                          // desbloqueables (F24)
+// Músicos que se pueden elegir según lo desbloqueado (opciones guardadas).
+export const availableHeroes = (o = {}) => [...HERO_IDS, ...EXTRA_HEROES.filter((h) => (o.unlocked || []).includes(h))];
 
 // Arma recogida del suelo (F7): sustituye al combo mientras dura.
 export const WEAPONS = {

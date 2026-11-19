@@ -6,7 +6,7 @@ import { W, H, MAX_PLAYERS } from './sim/constants.js';
 import { createWorld, tick, addPlayer, removePlayer, setAway, startLevel, playerBySlot } from './sim/world.js';
 import { botInput } from './sim/bot.js';
 import { LEVELS } from './data/levels.js';
-import { HERO_IDS } from './sim/moves.js';
+import { HERO_IDS, availableHeroes } from './sim/moves.js';
 import { createKeyboard, KEYMAPS, ARCADE_KEYMAPS } from './input/keyboard.js';
 import { createGamepads } from './input/gamepad.js';
 import { createTouch } from './input/touch.js';
@@ -23,7 +23,7 @@ import { createAudio } from './audio/player.js';
 import { BOSS_SONG } from './audio/music.js';
 import { loadOptions, saveOptions } from './core/save.js';
 import { createConcert, pressLane, stepConcert } from './sim/ritmo.js';
-import { drawConcert } from './render/ritmo.js';
+import { drawConcert, partOf, instrumentsWith } from './render/ritmo.js';
 import * as CANCION from './data/cancion-final.js';
 
 const Q = new URLSearchParams(location.search);
@@ -50,6 +50,9 @@ addEventListener('resize', fit); fit();
 const opts = loadOptions();
 const audio = createAudio(); audio.setVolume(opts.volume);
 const slots = createSlots(MAX_PLAYERS);
+// F24: Tony se desbloquea al terminar la historia (?tony lo desbloquea para probar o enseñarlo).
+if (Q.has('tony') && !opts.unlocked.includes('tony')) { opts.unlocked = [...opts.unlocked, 'tony']; saveOptions(opts); }
+slots.setHeroList(availableHeroes(opts));
 const kb = createKeyboard(window, new URLSearchParams(location.search).has('arcade') ? ARCADE_KEYMAPS : KEYMAPS);
 const pads = createGamepads(navigator);
 const touch = createTouch(document);
@@ -209,7 +212,7 @@ function sendPhoneState() {
     if (s.kind !== 'movil') continue;
     const p = app.world && playerBySlot(app.world, s.slot);
     room.sendTo(s.slot, {
-      t: 'estado', fase: phoneFase(), modo: app.screen === 'concierto' ? 'concierto' : null, hero: s.hero, ready: s.ready,
+      t: 'estado', fase: phoneFase(), modo: app.screen === 'concierto' ? 'concierto' : null, heroes: slots.heroes, hero: s.hero, ready: s.ready,
       hp: p ? Math.ceil(p.hp) : 0, maxHp: p ? p.maxHp : 0, lives: p ? p.lives : 0, score: p ? p.score : 0, away: !!(p && p.away),
       enJuego: !!p,
     });
@@ -285,7 +288,7 @@ function startDemo() {
   if (kind === 'nivel') {
     d.world = createWorld({ seed: 1000 + app.demoN * 17, levelIdx: (app.demoN >> 1) % (LEVELS.length - 1), players, opts: { assisted: true } });
   } else {
-    d.c = createConcert({ parts: Object.fromEntries(players.map((p) => [p.slot, CANCION.PARTS[p.hero]])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS });
+    d.c = createConcert({ parts: Object.fromEntries(players.map((p) => [p.slot, partOf(CANCION.PARTS, p.hero)])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS });
     d.cp = players.map((p) => ({ slot: p.slot, type: p.hero, palette: 0 }));
     d.ms = -600; d.unisonAt = -1e9;
   }
@@ -321,7 +324,7 @@ function drawDemo() {
   const d = app.demo;
   if (d.kind === 'nivel') { drawWorld(ctx, d.world, fx, opts); drawHud(ctx, d.world, {}); }
   else drawConcert(ctx, { concert: d.c, ms: d.ms, level: LEVELS[LEVELS.length - 1], players: d.cp, bpm: CANCION.BPM, opts,
-    title: 'LA TORRE PICASSO · ARDE BOGOTÁ', instruments: CANCION.INSTRUMENTS, unisonAt: d.unisonAt });
+    title: 'LA TORRE PICASSO · ARDE BOGOTÁ', instruments: instrumentsWith(CANCION.INSTRUMENTS), unisonAt: d.unisonAt });
   ctx.fillStyle = 'rgba(10,6,20,0.78)'; ctx.fillRect(0, H - 34, W, 22);
   drawText(ctx, 'DEMO', 8, H - 29, { color: '#ff4d4d', scale: 2 });
   if (Math.floor(app.t / 40) % 2 === 0) drawText(ctx, 'PULSA CUALQUIER BOTÓN PARA JUGAR', W / 2 + 20, H - 26, { color: '#ffd23f', align: 'center' });
@@ -332,7 +335,7 @@ function loadTrack() { if (!app.trackLoading) { app.trackLoading = true; audio.l
 function startConcert() {
   const ps = app.world.fighters.filter((f) => f.team === 'p' && !f.removed).sort((a, b) => a.slot - b.slot);
   app.concert = {
-    c: createConcert({ parts: Object.fromEntries(ps.map((p) => [p.slot, CANCION.PARTS[p.type]])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS }),
+    c: createConcert({ parts: Object.fromEntries(ps.map((p) => [p.slot, partOf(CANCION.PARTS, p.type)])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS }),
     players: ps.map((p) => ({ slot: p.slot, type: p.type, palette: p.palette })),
     started: false, t0: 0, audio: false, ms: -500, end: 0, unisonAt: -1e9,
   };
@@ -394,7 +397,12 @@ function stepConcertScreen() {
 
 function finishResults(final) {
   const ps = app.world ? app.world.fighters.filter((f) => f.team === 'p').map((f) => ({ slot: f.slot, type: f.type, palette: f.palette, score: f.score, kos: f.kos, food: f.food, continues: f.continues, ritmo: f.ritmo })) : [];
-  app.results = { players: ps.sort((a, b) => a.slot - b.slot), final, mode: app.mode };
+  let unlocked = null;
+  if (final && app.mode === 'historia' && !opts.unlocked.includes('tony')) {      // F24: ¡nuevo músico!
+    opts.unlocked = [...opts.unlocked, 'tony']; saveOptions(opts);
+    slots.setHeroList(availableHeroes(opts)); unlocked = 'tony';
+  }
+  app.results = { players: ps.sort((a, b) => a.slot - b.slot), final, mode: app.mode, unlocked };
   go('resultado');
   room && room.broadcast({ t: 'fase', fase: 'resultado' });
 }
@@ -489,7 +497,7 @@ function step() {
 function drawConcertScreen() {
   const k = app.concert;
   drawConcert(ctx, { concert: k.c, ms: k.started ? k.ms : -1000, level: app.world.level, players: k.players, bpm: CANCION.BPM, opts,
-    title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: CANCION.INSTRUMENTS, unisonAt: k.unisonAt });
+    title: 'LA TORRE PICASSO · ARDE BOGOTÁ', ending: k.c.done, instruments: instrumentsWith(CANCION.INSTRUMENTS), unisonAt: k.unisonAt });
 }
 
 function draw() {

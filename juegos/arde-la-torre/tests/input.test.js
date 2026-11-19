@@ -85,3 +85,13 @@ test('T12.5 recreativa (?arcade): distribución por defecto de MAME / I-PAC', ()
   const all = ARCADE_KEYMAPS.flatMap((m) => [...m.left, ...m.right, ...m.up, ...m.down, ...m.golpe, ...m.salto, ...m.especial, ...m.pausa]);
   assert.equal(new Set(all).size, all.length, 'J1 y J2 no comparten teclas');
 });
+
+test('T12.7 la selección solo ofrece a Tony si está desbloqueado', () => {
+  const s = createSlots(4);
+  const i = s.join('kb1', 'teclado', { hero: 'jota' });
+  s.cycleHero(i, 1); assert.equal(s.get(i).hero, 'antonio', 'sin Tony, de Jota se vuelve a Antonio');
+  assert.equal(s.setHero(i, 'tony'), false, 'no se puede elegir bloqueado');
+  s.setHeroList(['antonio', 'pepe', 'dani', 'jota', 'tony']);
+  s.setHero(i, 'jota'); s.cycleHero(i, 1); assert.equal(s.get(i).hero, 'tony');
+  s.cycleHero(i, 1); assert.equal(s.get(i).hero, 'antonio');
+});

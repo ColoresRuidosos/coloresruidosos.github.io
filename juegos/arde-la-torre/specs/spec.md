@@ -244,6 +244,12 @@ Al vencerlo, «¡A LA AZOTEA!», el **concierto final** (F17) y la pantalla de r
 - Al vencerlo no hay rencor: cartel «EL MANAGER: ¡ESO ES! ¡A TOCAR!» y empieza el concierto.
 - Arte: provisional dibujado por código hasta tener su hoja de Gemini, que se hará a partir de una foto o descripción que dé el usuario (Claude no identifica personas por la cara).
 
+**F24 Tony desbloqueable** (20 nov 2026, el usuario: «estaría cool que Tony fuera desbloqueable una vez pasado el juego»). Al terminar la HISTORIA por primera vez (Tony vencido y concierto completado), aparece «¡NUEVO MÚSICO! TONY, EL MANAGER» y queda desbloqueado para siempre en ese dispositivo (se guarda con las opciones, sin cuentas).
+- Desde entonces sale como quinto músico en la selección, al cambiar de músico con ◀ ▶ y en los móviles conectados. Mientras está bloqueado no aparece.
+- Tony: «EL MANAGER», especial «CONTRATO BLINDADO» (golpe con la carpeta que tumba a los dos lados). Fuerte y lento: más vida, menos velocidad. Usa su hoja de Gemini y su retrato sale de su imagen de referencia.
+- En el concierto toca las **PALMAS** (sigue la parte de la batería) y aplaude al ritmo.
+- Para probar o enseñarlo sin terminar el juego: `?tony` lo desbloquea.
+
 **F21 Modo demostración** (20 nov 2026). Tras **1 minuto sin tocar nada en el menú principal**, el juego se juega solo, como en las recreativas: alterna una partida de un nivel con 4 bots y el concierto con 4 bots, con «DEMO · PULSA CUALQUIER BOTÓN». Cualquier tecla, botón, toque o clic vuelve al menú. Cada demostración dura 40 s y luego vuelve al menú. No toca la sala ni los jugadores unidos. Sin sonido hasta que alguien haya interactuado (regla del navegador).
 
 **F22 La batería de Jota** (20 nov 2026, el usuario: «el baterista en su ataque especial debería tener su batería, porque ni en el modo guitar hero sale»). En su especial «REDOBLE» aparece una batería delante de Jota (bombo, caja, tom y platillos) que golpea a ritmo. En el concierto, Jota toca detrás de su batería. Dibujo provisional por código.

@@ -8,6 +8,10 @@ import { drawDrumKit } from './drums.js';
 import { getBackground } from './backgrounds.js';
 import { multiplier } from '../sim/ritmo.js';
 
+// F24: Tony no tiene instrumento propio: toca las PALMAS siguiendo la parte de la batería.
+export const partOf = (parts, type) => parts[type] || parts.jota;
+export const instrumentsWith = (inst) => ({ ...inst, tony: 'PALMAS' });
+
 export const LANE_COLORS = ['#ff4d4d', '#3fa9ff', '#ffd23f'];   // los mismos colores que los botones del móvil
 const LANE_NAMES = ['GOLPE', 'SALTO', 'ESPECIAL'];
 const LANE_W = 15, TOP = 34, HIT_Y = 176, LOOK_MS = 1700;
@@ -72,7 +76,10 @@ function band(ctx, players, c, ms, bpm, centers) {
     const pr = c.players[p.slot];
     const hit = pr.last && pr.last.kind !== 'miss' && ms - pr.last.ms < 160;
     const jota = p.type === 'jota';
-    const pose = jota ? (ms < 0 ? 'idle0' : `sp${(beat + (hit ? 1 : 0)) % 4}`) : hit ? 'guit1' : ms < 0 ? 'idle0' : `win${beat % 2}`;
+    const tony = p.type === 'tony';
+    const pose = jota ? (ms < 0 ? 'idle0' : `sp${(beat + (hit ? 1 : 0)) % 4}`)
+      : tony ? (ms > 0 && (hit || beat % 2 === 0) ? 'win0' : 'idle0')          // F24: Tony da palmas al ritmo
+      : hit ? 'guit1' : ms < 0 ? 'idle0' : `win${beat % 2}`;
     ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.beginPath(); ctx.ellipse(x, y, 14, 3, 0, 0, Math.PI * 2); ctx.fill();
     drawFrame(ctx, p.type, p.palette || 0, pose, x, y, -side);
     if (jota) {                                     // F22: Jota toca detrás de su batería

@@ -1,6 +1,6 @@
 // Pantallas (F11): título, sala con QR, viñeta de nivel, pausa con opciones, fin del juego, final y resultado.
 import { W, H } from '../sim/constants.js';
-import { HEROES, HERO_IDS } from '../sim/moves.js';
+import { HEROES, HERO_IDS, EXTRA_HEROES } from '../sim/moves.js';
 import { SLOT_COLORS } from '../input/slots.js';
 import { drawText } from './text.js';
 import { drawQR } from './qr.js';
@@ -70,7 +70,7 @@ export function drawTitle(ctx, t, sel = 0) {
 // ---- Selección de músico: cuatro ascensores de la torre (idea de «cabinas que se abren»; aspecto propio) ----
 const doors = [0, 0, 0, 0];                          // 0 = cerradas, 1 = abiertas (se animan solas)
 const STAT_MAX = (() => {
-  const v = HERO_IDS.map((id) => { const h = HEROES[id]; return [h.combo.reduce((a, m) => a + m.dmg, 0), h.speed, h.hp]; });
+  const v = [...HERO_IDS, ...EXTRA_HEROES].map((id) => { const h = HEROES[id]; return [h.combo.reduce((a, m) => a + m.dmg, 0), h.speed, h.hp]; });
   return [0, 1, 2].map((k) => Math.max(...v.map((x) => x[k])));
 })();
 const statsOf = (id) => { const h = HEROES[id]; return [h.combo.reduce((a, m) => a + m.dmg, 0), h.speed, h.hp].map((v, k) => v / STAT_MAX[k]); };
@@ -218,7 +218,7 @@ export function drawBanner(ctx, text, sub, t) {
   if (sub && t > 30) drawText(ctx, sub, W / 2, 116, { color: '#fff', align: 'center' });
 }
 
-export function drawResults(ctx, { players, final, t, mode }) {
+export function drawResults(ctx, { players, final, t, mode, unlocked }) {
   ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
   drawText(ctx, final ? '¡CONCIERTO EN LA AZOTEA!' : 'FIN DEL JUEGO', W / 2, 12, { color: final ? '#ffd23f' : '#ff4d4d', scale: 2, align: 'center' });
   if (final) drawText(ctx, mode === 'concierto' ? 'LA TORRE PICASSO · ARDE BOGOTÁ' : 'SILENCIO S.A. NO PUDO APAGAR EL ROCK', W / 2, 32, { color: '#fff', align: 'center' });
@@ -239,6 +239,12 @@ export function drawResults(ctx, { players, final, t, mode }) {
     if (players.length > 1 && p === topKo && p.kos > 0) drawText(ctx, '★ MÁS TUMBADOS', x + 44, y + 106, { color: '#ffd23f', align: 'center' });
     if (players.length > 1 && p === topFood && p.food > 0) drawText(ctx, '★ MÁS BOCADILLOS', x + 44, y + 116, { color: '#ffd23f', align: 'center' });
   });
+  if (unlocked) {                                   // F24: ¡nuevo músico!
+    ctx.fillStyle = '#a3242c'; ctx.fillRect(W / 2 - 110, H - 46, 220, 20);
+    drawPortrait(ctx, unlocked, 0, HEROES[unlocked].h, W / 2 - 108, H - 45, 18);
+    drawText(ctx, '¡NUEVO MÚSICO!', W / 2 + 12, H - 44, { color: '#ffd23f', align: 'center' });
+    drawText(ctx, `${HEROES[unlocked].name}, ${HEROES[unlocked].role}`, W / 2 + 12, H - 35, { color: '#fff', align: 'center' });
+  }
   if (t > 90 && Math.floor(t / 30) % 2) drawText(ctx, 'GOLPE: OTRA VEZ · ESC: MENÚ', W / 2, H - 22, { color: '#ffd23f', align: 'center' });
   drawText(ctx, 'HOMENAJE NO OFICIAL · @COLORESRUIDOSOS', W / 2, H - 10, { color: '#4a4560', align: 'center' });
 }

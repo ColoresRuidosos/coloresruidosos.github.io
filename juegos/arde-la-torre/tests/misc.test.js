@@ -51,3 +51,21 @@ test('T5.7 opciones: valores por defecto, guardar y cargar, y datos corruptos', 
   mem.set(KEY, JSON.stringify({ volume: 7, assisted: 'sí' }));
   assert.deepEqual(loadOptions(st), { ...DEFAULTS, volume: 1 });
 });
+
+// T12.7 (F24): Tony desbloqueable al terminar la historia.
+import { HEROES, HERO_IDS, EXTRA_HEROES, availableHeroes } from '../src/sim/moves.js';
+test('T12.7 Tony: quinto músico, bloqueado hasta terminar la historia, y se guarda', () => {
+  assert.deepEqual(HERO_IDS, ['antonio', 'pepe', 'dani', 'jota'], 'la banda sigue siendo de 4');
+  assert.deepEqual(EXTRA_HEROES, ['tony']);
+  const t = HEROES.tony;
+  assert.equal(t.name, 'TONY'); assert.equal(t.special, 'CONTRATO BLINDADO');
+  assert.ok(t.hp > HEROES.pepe.hp && t.speed < HEROES.pepe.speed, 'fuerte y lento');
+  assert.deepEqual(availableHeroes({ unlocked: [] }), HERO_IDS);
+  assert.deepEqual(availableHeroes({ unlocked: ['tony'] }), [...HERO_IDS, 'tony']);
+  const mem = new Map(); const storage = { getItem: (k) => mem.get(k) ?? null, setItem: (k, v) => mem.set(k, v) };
+  assert.deepEqual(loadOptions(storage).unlocked, []);
+  saveOptions({ ...loadOptions(storage), unlocked: ['tony'] }, storage);
+  assert.deepEqual(loadOptions(storage).unlocked, ['tony']);
+  storage.setItem(KEY, JSON.stringify({ unlocked: ['tony', 'hacker', 7] }));
+  assert.deepEqual(loadOptions(storage).unlocked, ['tony'], 'solo músicos que existen');
+});

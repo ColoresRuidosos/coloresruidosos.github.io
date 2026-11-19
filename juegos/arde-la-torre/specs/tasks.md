@@ -129,4 +129,5 @@
 | T12.4 | Batería de Jota en su especial y en el concierto (F22) | ✅ revisado en capturas |
 | T12.5 | Controles de recreativa con `?arcade` (MAME / I-PAC) (F23) | ✅ `tests/input.test.js` |
 | T12.6 | Montarlo en la recreativa del manager según su modelo | ⏳ el usuario: modelo o foto de la máquina |
+| T12.7 | Tests y código: Tony desbloqueable al terminar la historia (guardado), quinto músico en selección y móviles, palmas en el concierto (F24) | ✅ `tests/misc.test.js` · `tests/input.test.js` · `tests/browser.test.js` |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` (`scripts/publicar.mjs`) | ✅ publicado el 19 nov 2026 («Publica, vamos allá») |

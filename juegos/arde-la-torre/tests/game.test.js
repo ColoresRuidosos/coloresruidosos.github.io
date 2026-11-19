@@ -270,3 +270,9 @@ test('T8.5 al morir se pierde el potenciador y los niveles traen como mucho un p
 });
 
 function HEROES_REACH(p) { return p.def.combo[0].reach[1]; }
+
+test('T12.7 Tony juega la partida: los bots superan el nivel 1 con él', () => {
+  const w = createWorld({ seed: 21, levelIdx: 0, players: [{ slot: 0, hero: 'tony' }, { slot: 1, hero: 'pepe' }], opts: { assisted: true } });
+  for (let i = 0; i < 60 * 240 && !w.done && !w.over; i++) tick(w, [botInput(w, 0), botInput(w, 1)]);
+  assert.ok(w.done, 'superado con Tony');
+});
