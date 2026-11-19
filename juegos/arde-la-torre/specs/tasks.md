@@ -121,4 +121,4 @@
 | T10.13 | Menú del título fiable (18 nov, «a veces nos manda al modo concierto y a veces al modo historia»): un clic solo elige si cae sobre una opción; arriba = HISTORIA y abajo = CONCIERTO, sin alternar | ✅ `tests/browser.test.js` |
 | T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T11.1 | Tráiler de 45 s (16:9 y vertical 9:16) con escenas reales y el final de «La Torre Picasso», cortes a compás (`scripts/trailer/`) | ✅ |
-| T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` (`scripts/publicar.mjs`) | ✅ preparado en la rama · ⏳ llegar a `main` |
+| T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` (`scripts/publicar.mjs`) | ✅ publicado el 19 nov 2026 («Publica, vamos allá») |

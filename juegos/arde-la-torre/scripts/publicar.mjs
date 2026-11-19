@@ -13,7 +13,7 @@ await copyFile('dist/mando/index.html', join(DEST, 'mando', 'index.html'));
 const CARD = {
   id: 'arde-la-torre',
   nombre: 'Arde la Torre',
-  descripcion: 'Beat ’em up de 16 bits para hasta 4 personas con el móvil como mando: Antonio, Pepe, Dani y Jota suben la Torre Picasso a golpes para dar un concierto en la azotea. Incluye el modo «Solo el concierto» con «La Torre Picasso». Homenaje no oficial.',
+  descripcion: 'Beat \u2019em up de 16 bits para 4 con el móvil como mando: Antonio, Pepe, Dani y Jota suben la Torre Picasso a golpes y acaban en concierto con «La Torre Picasso». Homenaje no oficial.',
   url: 'games/arde-la-torre/',
   boton: '▶ Jugar',
   etiqueta: 'Nuevo',

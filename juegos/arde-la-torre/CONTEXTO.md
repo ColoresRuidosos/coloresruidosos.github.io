@@ -30,7 +30,7 @@ Parámetros de prueba: `?concierto`, `?net=loop` (mandos en otras pestañas), `?
 | Prompts para el amigo (botón Copiar) | https://claude.ai/artifact/8dLsJM7XCLzyhhswgkLaow | `dist/prompts.html` |
 
 Al republicar, `get_artifact` → `publish_files` con `base_version`, `shared_live: "public"` y `artifact_title`.
-⏸ **No se ha publicado en la web de CR** (`static/games/…`): se espera la respuesta de la banda.
+✅ **Publicado en la web de CR el 19 nov 2026:** https://coloresruidosos.github.io/games/arde-la-torre/ (con móviles como mando). Para actualizarlo: `npm run build && npm test && node scripts/publicar.mjs` y subirlo a `main`.
 
 ## 4. Estado del juego (v0.4)
 - **Niveles (spec F6 v3):** Parking (sub-jefe: Jefe de Seguridad) → Vestíbulo (Recepcionista) → Oficinas (Director Comercial) → **Final en la azotea**: el Presidente de Silencio S.A. en batalla cooperativa (F15: escudo al 60 % que se rompe encendiendo amplificadores, 2/3/4 según jugadores, aturdimiento de 4 s; furioso al 30 %) y **rescate de compañeros** (F16, solo en la final).
