@@ -120,7 +120,8 @@ _OBJ = ['bocadillo', 'cafe', 'pua', 'setlist', 'ampli', 'pedal', 'suerte', 'pase
 SHEETS['objetos'] = [dict(dir='objetos', file='objetos.png', rows=[12], names=_OBJ, ref=['extintor'], target=20 / SIZE_MUL, loose=_OBJ)]
 # Tony, el manager (F20): Gemini escribió rótulos y mezcló filas, así que cada pose va en su caja (x0, y0, x1, y1).
 # Las dos poses de «lanzar contrato» salieron cortadas por la cintura y no se usan (lanza con la pose de «llamar»).
-SHEETS['manager'] = [dict(dir='enemigos', file='manager.jpg', rows=[16], target=75, ref=['idle0', 'idle1'],
+# target 67 (20 nov): misma estatura que la banda (con 75 medía 86 px frente a 77).
+SHEETS['manager'] = [dict(dir='enemigos', file='manager.jpg', rows=[16], target=67, ref=['idle0', 'idle1'],
     names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'wind', 'atk', 'charge0', 'charge1', 'charge2',
            'call', 'hurt', 'fall0', 'fall1', 'down', 'win0'],
     boxes=[(150, 50, 380, 488), (500, 50, 730, 488), (1060, 50, 1300, 488), (1400, 50, 1650, 488), (1750, 50, 1980, 488), (2090, 50, 2340, 488),

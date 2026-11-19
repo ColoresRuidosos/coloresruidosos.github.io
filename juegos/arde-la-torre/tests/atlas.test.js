@@ -98,3 +98,11 @@ test('T5.6h hoja de objetos (comida, potenciadores y armas) y fondo del título'
   }
   assert.ok(TITULO.startsWith('data:image/jpeg;base64,'));
 });
+
+test('T12.7 Tony mide lo mismo que la banda (±3 px de pie)', async () => {
+  const atlas = async (n) => (await import(`../src/data/atlas-${n}.js`)).FRAMES;
+  const band = await Promise.all(['antonio', 'pepe', 'dani', 'jota'].map(async (n) => (await atlas(n)).idle0[3]));
+  const tony = (await atlas('manager')).idle0[3];
+  const avg = band.reduce((a, b) => a + b, 0) / band.length;
+  assert.ok(Math.abs(tony - avg) <= 3, `Tony ${tony} px, banda ${band.join('/')}`);
+});
