@@ -135,7 +135,7 @@ function processDeaths(world, inputs = []) {
   for (const f of world.fighters) {
     if (f.state !== 'dead') continue;
     if (f.team === 'e') {
-      if (f.t >= 40) f.removed = true;
+      if (f.t >= (f.type === 'manager' ? 600 : 40)) f.removed = true;   // F20: Tony se queda aplaudiendo
       continue;
     }
     if (f.out) continue;

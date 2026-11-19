@@ -13,13 +13,14 @@ import * as JEFE_SEGURIDAD from '../data/atlas-jefeSeguridad.js';
 import * as RECEPCIONISTA from '../data/atlas-recepcionista.js';
 import * as DIRECTOR from '../data/atlas-director.js';
 import * as PRESIDENTE from '../data/atlas-presidente.js';
+import * as MANAGER from '../data/atlas-manager.js';
 import * as OBJETOS from '../data/atlas-objetos.js';
 import { getSprite, getPortrait } from './sprites.js';
 
 const SOURCES = {
   antonio: ANTONIO, pepe: PEPE, dani: DANI, jota: JOTA,
   becario: BECARIO, comercial: COMERCIAL, guardia: GUARDIA, contable: CONTABLE, ejecutiva: EJECUTIVA,
-  jefeSeguridad: JEFE_SEGURIDAD, recepcionista: RECEPCIONISTA, director: DIRECTOR, presidente: PRESIDENTE,
+  jefeSeguridad: JEFE_SEGURIDAD, recepcionista: RECEPCIONISTA, director: DIRECTOR, presidente: PRESIDENTE, manager: MANAGER,
   objetos: OBJETOS,
 };
 // Poses de Gemini con fallos que se sustituyen por otras del mismo músico (hasta que se repitan las hojas).
@@ -30,6 +31,7 @@ const OVERRIDE = {
   contable: { wind: 'shoot0' },
   director: { wind: 'charge0', walk2: 'walk0', walk3: 'walk1', grab0: 'atk', grab1: 'atk', throw0: 'atk', throw1: 'atk', fall1: 'fall0', call: 'atk' },
   presidente: { throw0: 'grab1', throw1: 'atk2', call: 'idle2' },
+  manager: { shoot0: 'call', shoot1: 'call', shoot2: 'call', grab0: 'atk', grab1: 'atk', throw0: 'atk', throw1: 'atk', block: 'hurt' },   // lanza el contrato señalando
 };
 const ENEMY_FALLBACK = {
   atk2: 'atk', idle1: 'idle0', idle2: 'idle1', walk1: 'walk0', walk2: 'walk0', walk3: 'walk1', wind: 'idle0', atk: 'wind',
@@ -99,7 +101,8 @@ export function enemyFrameName(f) {
     case 'block': return 'block';
     case 'hurt': case 'grabbed': case 'stun': return 'hurt';
     case 'fall': case 'thrown': return f.vz > 0 ? 'fall0' : 'fall1';
-    case 'down': case 'dead': return 'down';
+    case 'down': return 'down';
+    case 'dead': return f.type === 'manager' && t > 50 ? 'win0' : 'down';   // F20: Tony se levanta y aplaude a la banda
     case 'rise': return t < 8 ? 'fall1' : 'idle0';
     default: return `idle${Math.floor((t + f.id * 7) / 24) % 2}`;
   }

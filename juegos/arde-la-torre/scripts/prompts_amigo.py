@@ -209,6 +209,8 @@ MANAGER_HOJA = ("Usa la imagen adjunta como referencia EXACTA del personaje: mis
     "(hablando por el móvil y señalando).\n"
     "Fila 4: RETROCESO ×1, CAÍDA ×2, EN EL SUELO ×1 y APLAUDIR ×1 (de pie, sonriendo, aplaudiendo a la banda).")
 
+MANAGER_HECHO = True   # 20 nov: la hoja de Tony ya está en el juego
+
 def build():
     secciones = []
     for m in MUSICOS:
@@ -217,7 +219,7 @@ def build():
                               nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
     # 20 nov 2026 (F20): el Manager, jefe sorpresa. Paso 1 desde una foto suya; luego su hoja.
-    secciones.append(dict(titulo="Jefe sorpresa: Tony, el manager (2 imágenes)", id="manager",
+    if not MANAGER_HECHO: secciones.append(dict(titulo="Jefe sorpresa: Tony, el manager (2 imágenes)", id="manager",
         nota="Primero su retrato de referencia desde una FOTO del manager (con su permiso); después la hoja de poses subiendo esa imagen.",
         prompts=[("manager-1.png", "Sube 1 o 2 FOTOS de Tony (en las que salga solo él, con la cara bien visible) y pega esto", MANAGER_REF, True),
                  ("manager-2.png", "Sube la imagen manager-1 y pega esto", MANAGER_HOJA, True)]))
@@ -229,7 +231,7 @@ def build():
     return secciones
 
 PASOS = [
-    "Nuevo: el jefe sorpresa, TONY, EL MANAGER (2 imágenes). Usa 1 o 2 fotos suyas en las que salga solo él. Lo demás ya está en el juego.",
+    "¡Todo hecho! Ya están en el juego los 4 músicos, Tony el manager, los 9 enemigos y jefes, los objetos, los fondos y el título.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",

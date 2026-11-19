@@ -124,7 +124,7 @@
 | T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T11.1 | Tráiler de 45 s (16:9 y vertical 9:16) con escenas reales y el final de «La Torre Picasso», cortes a compás (`scripts/trailer/`) | ✅ |
 | T12.1 | Tests y código: el Manager como jefe sorpresa tras el Presidente, con cartel y frase; los bots lo superan (F20) | ✅ `tests/final.test.js` |
-| T12.2 | Hoja de Gemini del Manager a partir de una foto o descripción del usuario | ⏳ el usuario |
+| T12.2 | Hoja de Gemini de Tony (cajas a mano: rótulos y filas mezcladas; las poses de lanzar salieron cortadas y se usa «llamar»). Al vencerlo se levanta y aplaude | ✅ |
 | T12.3 | Modo demostración tras 1 minuto sin actividad en el menú (F21) | ✅ `tests/browser.test.js` |
 | T12.4 | Batería de Jota en su especial y en el concierto (F22) | ✅ revisado en capturas |
 | T12.5 | Controles de recreativa con `?arcade` (MAME / I-PAC) (F23) | ✅ `tests/input.test.js` |

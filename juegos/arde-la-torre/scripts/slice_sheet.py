@@ -118,16 +118,28 @@ SHEETS.update({
 # Objetos (F7): una fila de 12. Escala común: el extintor mide ~20 px (la silla y el pie de micro, algo más).
 _OBJ = ['bocadillo', 'cafe', 'pua', 'setlist', 'ampli', 'pedal', 'suerte', 'pase', 'grapadora', 'extintor', 'silla', 'pie']
 SHEETS['objetos'] = [dict(dir='objetos', file='objetos.png', rows=[12], names=_OBJ, ref=['extintor'], target=20 / SIZE_MUL, loose=_OBJ)]
+# Tony, el manager (F20): Gemini escribió rótulos y mezcló filas, así que cada pose va en su caja (x0, y0, x1, y1).
+# Las dos poses de «lanzar contrato» salieron cortadas por la cintura y no se usan (lanza con la pose de «llamar»).
+SHEETS['manager'] = [dict(dir='enemigos', file='manager.jpg', rows=[16], target=75, ref=['idle0', 'idle1'],
+    names=['idle0', 'idle1', 'walk0', 'walk1', 'walk2', 'walk3', 'wind', 'atk', 'charge0', 'charge1', 'charge2',
+           'call', 'hurt', 'fall0', 'fall1', 'down', 'win0'],
+    boxes=[(150, 50, 380, 488), (500, 50, 730, 488), (1060, 50, 1300, 488), (1400, 50, 1650, 488), (1750, 50, 1980, 488), (2090, 50, 2340, 488),
+           (140, 505, 420, 925), (560, 505, 880, 925), (1160, 555, 1480, 918), (1590, 552, 1940, 912), (2030, 548, 2360, 918),
+           (1680, 958, 2000, 1350), (150, 1228, 480, 1612), (590, 1250, 1060, 1605), (1120, 1328, 1510, 1612), (1600, 1418, 2070, 1620),
+           (2190, 1148, 2430, 1612)],
+    loose=['fall0', 'fall1', 'down'], erase=[(320, 486, 610, 542), (1530, 486, 1860, 542), (180, 926, 840, 990), (1570, 926, 1960, 990),
+           (330, 1188, 1020, 1240), (1690, 1348, 1930, 1402), (0, 1622, 2528, 1696)])]
 ENEMIES = [k for k in SHEETS if k not in ('antonio', 'pepe', 'dani', 'jota', 'objetos')]
 
 
 def erase_text(a, mask, bands):
     """Quita rótulos claros (texto blanco con borde) en las franjas indicadas; deja lo oscuro (zapatos, sombras)."""
     lum = a.mean(axis=2)
-    for y0, y1 in bands:
-        bright = np.zeros_like(mask); bright[y0:y1] = lum[y0:y1] > 150
+    for b in bands:                                   # (y0, y1) franja entera, o (x0, y0, x1, y1) rectángulo
+        x0, y0, x1, y1 = (0, b[0], mask.shape[1], b[1]) if len(b) == 2 else b
+        bright = np.zeros_like(mask); bright[y0:y1, x0:x1] = lum[y0:y1, x0:x1] > 150
         near = box_sum(bright, 3) > 0
-        band = np.zeros_like(mask); band[y0:y1] = True
+        band = np.zeros_like(mask); band[y0:y1, x0:x1] = True
         mask &= ~(near & band)
     return mask
 
@@ -394,7 +406,7 @@ def build(hero):
         bg = background(a)
         mask = erase_floor_lines(a, foreground(a, bg))
         if sh.get('erase'): mask = erase_text(a, mask, sh['erase'])
-        boxes = split(mask, sh['rows'], sh.get('cuts'))
+        boxes = sh['boxes'] if sh.get('boxes') else split(mask, sh['rows'], sh.get('cuts'))   # `boxes`: cajas a mano
         assert len(boxes) == len(sh['names']), (sh['file'], len(boxes))
         crops = {n: crop_frame(a, mask, b) for n, b in zip(sh['names'], boxes)}
         if sh.get('sin_texto'): crops = {n: remove_shirt_text(c) for n, c in crops.items()}

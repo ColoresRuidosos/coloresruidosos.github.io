@@ -232,7 +232,7 @@ export function drawWorld(ctx, world, fx, opts = {}) {
   for (const a of actors) {
     if (a.draw) { a.draw(); continue; }
     const f = a.f;
-    const blink = (f.invul > 0 && f.state !== 'special' && Math.floor(world.tick / 4) % 2 === 0) || (f.state === 'dead' && f.team === 'e' && f.t > 20 && f.t % 4 < 2);
+    const blink = (f.invul > 0 && f.state !== 'special' && Math.floor(world.tick / 4) % 2 === 0) || (f.state === 'dead' && f.team === 'e' && f.type !== 'manager' && f.t > 20 && f.t % 4 < 2);
     if (blink) continue;
     let face = f.face;
     if (f.state === 'special' && f.hero === 'dani') face = Math.floor(f.t / 5) % 2 ? -face : face;   // el «solo» gira

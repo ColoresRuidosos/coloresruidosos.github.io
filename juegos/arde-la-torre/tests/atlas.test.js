@@ -73,7 +73,6 @@ test('T5.6h cada enemigo y jefe tiene atlas y una pose propia para cada estado d
   ];
   for (const [type, def] of Object.entries(ENEMIES)) {
     if (type === 'tecnico') continue;   // ya no sale en ningún nivel (F6 v3)
-    if (type === 'manager') continue;   // F20: dibujo provisional por código hasta tener su hoja de Gemini (T12.2)
     for (const [state, extra] of states) {
       const f = { type, state, t: 3, id: 1, def, ai: { move: null }, move: {}, vz: 0, ...extra };
       const n = enemyFrameName(f);
