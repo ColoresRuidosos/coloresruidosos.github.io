@@ -30,7 +30,35 @@ test('T9.1 tres niveles con 2 oleadas y un sub-jefe cada uno, y después la aren
   const f = LEVELS[FINAL];
   assert.ok(f.final && f.arena);
   assert.equal(f.width, W, 'una sola pantalla');
-  assert.deepEqual(f.waves.map((x) => x.boss), ['presidente']);
+  assert.deepEqual(f.waves.map((x) => x.boss), ['presidente', 'manager']);
+  assert.ok(f.waves[1].surprise, 'el Manager llega por sorpresa');
+});
+
+import { ENEMIES } from '../src/sim/enemies.js';
+import { botInput } from '../src/sim/bot.js';
+
+test('T12.1 al vencer al Presidente aparece el Manager por sorpresa; al vencerlo, «¡A TOCAR!» y fin', () => {
+  const m = ENEMIES.manager;
+  assert.ok(m && m.boss);
+  assert.ok(m.hp > ENEMIES.director.hp && m.hp < ENEMIES.presidente.hp, 'entre los subjefes y el Presidente');
+  assert.ok(m.moves.shoot && m.moves.shoot.kind === 'contrato');
+  const { w, boss } = finalWorld(2);
+  boss.hp = 0; boss.state = 'dead'; boss.removed = true;
+  const ev = run(w, 20);
+  const s = ev.find((e) => e.type === 'surprise');
+  assert.ok(s, 'cartel «¡SORPRESA!»');
+  assert.match(s.line, /LISTOS/);
+  assert.ok(!ev.some((e) => e.type === 'go'), 'sin «¡ADELANTE!» en la sorpresa');
+  assert.equal(w.cleared, false, 'aún no hay concierto');
+  run(w, 400);
+  const mgr = w.fighters.find((f) => f.type === 'manager' && !f.removed);
+  assert.ok(mgr, 'el Manager entra');
+  mgr.hp = 1; mgr.invul = 0;
+  const p = w.fighters.find((f) => f.team === 'p'); p.x = mgr.x - 20; p.y = mgr.y; p.face = 1;
+  const ev2 = [];
+  for (let i = 0; i < 600 && !w.cleared; i++) { ev2.push(...run(w, 1, [botInput(w, 0), botInput(w, 1)])); }
+  assert.ok(ev2.some((e) => e.type === 'managerOk'), '«¡ESO ES! ¡A TOCAR!»');
+  assert.ok(w.cleared, 'después, el concierto');
 });
 
 test('T9.2 amplificadores según jugadores: 2 · 3 · 4 · 4', () => {

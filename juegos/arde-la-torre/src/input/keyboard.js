@@ -26,18 +26,35 @@ export function readKeys(down, map) {
   };
 }
 
-export const ALL_CODES = new Set(KEYMAPS.flatMap((m) => [...m.left, ...m.right, ...m.up, ...m.down, ...m.golpe, ...m.salto, ...m.especial, ...m.pausa]));
+// Recreativa (F23, `?arcade`): distribución por defecto de MAME y de las placas tipo I-PAC.
+// Botón 1 = GOLPE, botón 2 = SALTO, botón 3 = ESPECIAL y Start = pausa.
+export const ARCADE_KEYMAPS = [
+  {
+    id: 'kb1', label: 'RECREATIVA J1',
+    left: ['ArrowLeft'], right: ['ArrowRight'], up: ['ArrowUp'], down: ['ArrowDown'],
+    golpe: ['ControlLeft'], salto: ['AltLeft'], especial: ['Space'], pausa: ['Digit1'],
+  },
+  {
+    id: 'kb2', label: 'RECREATIVA J2',
+    left: ['KeyD'], right: ['KeyG'], up: ['KeyR'], down: ['KeyF'],
+    golpe: ['KeyA'], salto: ['KeyS'], especial: ['KeyQ'], pausa: ['Digit2'],
+  },
+];
 
-export function createKeyboard(target = globalThis.window) {
+const codesOf = (maps) => new Set(maps.flatMap((m) => [...m.left, ...m.right, ...m.up, ...m.down, ...m.golpe, ...m.salto, ...m.especial, ...m.pausa]));
+export const ALL_CODES = codesOf(KEYMAPS);
+
+export function createKeyboard(target = globalThis.window, maps = KEYMAPS) {
   const down = new Set();
-  const onDown = (e) => { if (ALL_CODES.has(e.code)) { e.preventDefault(); down.add(e.code); } };
+  const codes = codesOf(maps);
+  const onDown = (e) => { if (codes.has(e.code)) { e.preventDefault(); down.add(e.code); } };
   const onUp = (e) => { down.delete(e.code); };
   const clear = () => down.clear();
   target.addEventListener('keydown', onDown);
   target.addEventListener('keyup', onUp);
   target.addEventListener('blur', clear);
   return {
-    sources: KEYMAPS.map((m) => ({ key: m.id, kind: 'teclado', label: m.label, read: () => readKeys(down, m) })),
+    sources: maps.map((m) => ({ key: m.id, kind: 'teclado', label: m.label, read: () => readKeys(down, m) })),
     destroy() { target.removeEventListener('keydown', onDown); target.removeEventListener('keyup', onUp); target.removeEventListener('blur', clear); },
   };
 }

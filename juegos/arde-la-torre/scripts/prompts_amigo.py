@@ -187,6 +187,21 @@ ANTONIO_GUIT = _ANT + ("REGLA DE LA GUITARRA: hay UNA SOLA guitarra roja en cada
     "mástil por encima de la cabeza; la baja hacia delante como un hacha). Una sola guitarra, en las manos.\n"
     "Fila 2: VICTORIA ×2 (guitarra en alto con una mano y el micro en la otra; la espalda sin guitarra).")
 
+MANAGER_REF = ("Usa la foto adjunta SOLO como referencia de la cara, el peinado y la ropa de esta persona y conviértela en un personaje "
+    "de videojuego (caricatura respetuosa y simpática, no un retrato realista). Que se le reconozca: copia de la foto la forma de la cara, "
+    "el peinado, la barba si la tiene, las gafas si las lleva y la complexión.\n\n" + BASE + "\n" + FORMATO + "\n\n"
+    "PERSONAJE: el manager de una banda de rock, un rival amistoso: seguro de sí mismo, con una carpeta de contratos en una mano y el "
+    "móvil en la otra.\nHOJA de referencia en 1 fila de 3 poses, todas de pie y en reposo, del mismo tamaño: (1) de perfil mirando a la "
+    "derecha, (2) de 3/4 mirando a la derecha, (3) de frente.")
+MANAGER_HOJA = ("Usa la imagen adjunta como referencia EXACTA del personaje: misma cara, peinado, ropa y colores en todas las poses.\n\n"
+    + BASE + "\n" + FORMATO + "\n\nPERSONAJE: el de la imagen adjunta, el manager de la banda, con su carpeta de contratos.\n"
+    "HOJA de exactamente 4 filas:\n"
+    "Fila 1: QUIETO ×2 y CAMINAR ×4.\n"
+    "Fila 2: GOLPE CON LA CARPETA ×2 (la levanta y la baja de golpe) y EMBESTIDA ×3 (carga hacia delante con el hombro y frena).\n"
+    "Fila 3: LANZAR UN CONTRATO ×2 (echa el brazo atrás con una hoja de papel; la lanza, con la hoja PEGADA a la mano) y LLAMAR ×1 "
+    "(hablando por el móvil, señalando).\n"
+    "Fila 4: RETROCESO ×1, CAÍDA ×2, EN EL SUELO ×1 y APLAUDIR ×1 (de pie, sonriendo, aplaudiendo a la banda).")
+
 def build():
     secciones = []
     for m in MUSICOS:
@@ -194,6 +209,11 @@ def build():
         secciones.append(dict(titulo=f"{m['nombre']} · {m['apodo']} ({m['papel']})", id=m['id'],
                               nota=f"{6 if m['id'] == 'dani' else 5} imágenes. Hazlas en orden.",
                               prompts=musico_prompts(m)))
+    # 20 nov 2026 (F20): el Manager, jefe sorpresa. Paso 1 desde una foto suya; luego su hoja.
+    secciones.append(dict(titulo="Jefe sorpresa: el Manager (2 imágenes)", id="manager",
+        nota="Primero su retrato de referencia desde una FOTO del manager (con su permiso); después la hoja de poses subiendo esa imagen.",
+        prompts=[("manager-1.png", "Sube una FOTO del manager (solo él) y pega esto", MANAGER_REF, True),
+                 ("manager-2.png", "Sube la imagen manager-1 y pega esto", MANAGER_HOJA, True)]))
     # 15 nov 2026: enemigos, jefes, objetos y título ya están en el juego. Solo quedan las hojas nuevas de Antonio.
     if not ANTONIO_V3_HECHO: secciones.append(dict(titulo="Antonio: guitarra corregida (2 imágenes)", id="antonio-v2",
         nota="Sube la imagen «antonio-referencia-v2» que te pasaron en cada uno. La guitarra va siempre detrás de la espalda.",
@@ -202,7 +222,7 @@ def build():
     return secciones
 
 PASOS = [
-    "¡Todo hecho! Ya están en el juego los 4 músicos (Antonio y Pepe rehechos desde fotos reales), los 9 enemigos y jefes, los objetos, los fondos y el título.",
+    "Nuevo: el jefe sorpresa, EL MANAGER (2 imágenes). Necesitas una foto suya en la que salga solo él y su permiso. Lo demás ya está en el juego.",
     "Abre Gemini (gemini.google.com) o ChatGPT.",
     "Abre un chat NUEVO para cada imagen.",
     "Pulsa «Copiar» y pégalo en el chat. Si el paso dice «Sube la foto…» o «Sube la imagen…», primero súbela con el botón + o el clip.",

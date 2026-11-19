@@ -55,6 +55,16 @@ export const ENEMIES = {
     },
     summon: { types: ['ejecutiva'], n: 2, at: [0.66, 0.33] },
   },
+  // Jefe sorpresa (F20): el Manager de la banda pone a prueba a los músicos antes del concierto. Rival amistoso.
+  manager: {
+    name: 'EL MANAGER', boss: true, hp: 250, speed: 1.1, w: 22, h: 66, score: 4000, cd: 45,
+    moves: {
+      punch: punch(10, { start: 13, reach: [4, 36], knock: true }),                       // golpe con la carpeta
+      charge: { windup: 22, speed: 3.6, dur: 44, dmg: 11, min: 50, max: 220 },
+      shoot: { windup: 18, speed: 3.4, dmg: 8, min: 60, max: 250, kind: 'contrato' },     // lanza contratos
+    },
+    summon: { types: ['becario'], n: 2, at: [0.5] },                                       // dos ayudantes
+  },
   presidente: {
     name: 'PRESIDENTE DE SILENCIO S.A.', boss: true, hp: 300, speed: 1.15, w: 24, h: 70, score: 5000, cd: 40,
     moves: {

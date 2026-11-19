@@ -3,6 +3,7 @@ import { W, H, FLOOR_TOP } from '../sim/constants.js';
 import { getSprite } from './sprites.js';
 import { hasAtlas, frameName, drawFrame, drawPortrait, drawObject } from './atlas.js';
 import { getBackground } from './backgrounds.js';
+import { drawDrumKit } from './drums.js';
 import { drawText } from './text.js';
 import { SLOT_COLORS } from '../input/slots.js';
 import { HEROES, POWERUPS } from '../sim/moves.js';
@@ -57,6 +58,8 @@ export function createFx() {
         else if (e.type === 'shield') msg = { text: '¡ENCIENDE LOS AMPLIFICADORES!', sub: 'TRES GOLPES A CADA UNO', t: 0, life: 210 };
         else if (e.type === 'shieldBreak') msg = { text: '¡VOLUMEN AL MÁXIMO!', sub: '¡AHORA, A POR ÉL!', t: 0, life: 150 };
         else if (e.type === 'enraged') msg = { text: '¡EL PRESIDENTE SE ENFADA!', sub: '', t: 0, life: 120 };
+        else if (e.type === 'surprise') msg = { text: '¡SORPRESA!', sub: `EL MANAGER: ${e.line}`, t: 0, life: 200 };
+        else if (e.type === 'managerOk') msg = { text: 'EL MANAGER: ¡ESO ES!', sub: '¡A TOCAR!', t: 0, life: 150 };
         else if (e.type === 'rescue') msg = { text: '¡ARRIBA!', sub: '', t: 0, life: 60 };
         else if (e.type === 'shieldHit') parts.push({ k: 'block', x: e.x, y: e.y, z: e.z, t: 0, life: 8 });
       }
@@ -119,6 +122,7 @@ export function drawItem(ctx, kind, x, y, t = 0) { if (drawObject(ctx, kind, x, 
 function drawShot(ctx, s, x, y) {
   const yy = Math.round(y - s.z);
   if (s.kind === 'telefono') { ctx.fillStyle = '#120c18'; ctx.fillRect(x - 6, yy - 4, 12, 7); ctx.fillStyle = '#e8e2d0'; ctx.fillRect(x - 5, yy - 3, 10, 5); ctx.fillStyle = '#333'; ctx.fillRect(x - 3, yy - 1, 6, 1); }
+  else if (s.kind === 'contrato') { ctx.fillStyle = '#120c18'; ctx.fillRect(x - 6, yy - 5, 12, 10); ctx.fillStyle = '#f4f0e0'; ctx.fillRect(x - 5, yy - 4, 10, 8); ctx.fillStyle = '#8a8698'; ctx.fillRect(x - 3, yy - 2, 6, 1); ctx.fillRect(x - 3, yy, 5, 1); ctx.fillStyle = '#a3242c'; ctx.fillRect(x + 1, yy + 2, 3, 1); }
   else if (s.kind === 'disco') { ctx.fillStyle = '#120c18'; ctx.beginPath(); ctx.arc(x, yy, 6, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#d9b21f'; ctx.beginPath(); ctx.arc(x, yy, 5, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#120c18'; ctx.fillRect(x - 1, yy - 1, 2, 2); }
   else { ctx.fillStyle = '#d8d8e0'; ctx.fillRect(x - 3, yy - 1, 6, 2); ctx.fillStyle = '#fff'; ctx.fillRect(x - 3, yy - 1, 2, 1); }
 }
@@ -245,6 +249,10 @@ export function drawWorld(ctx, world, fx, opts = {}) {
       else if (f.state === 'fall' || f.state === 'thrown') ctx.rotate(-0.9);
       ctx.drawImage(spr.canvas, -spr.ox, -spr.oy);
       ctx.restore();
+    }
+    if (f.type === 'jota' && f.state === 'special') {   // F22: el «REDOBLE» se toca en su batería
+      const k = f.t % 6 / 6;
+      drawDrumKit(ctx, x + face * 26, y + 2, face, f.t >= f.def.sp.from && f.t <= f.def.sp.to ? 1 - k : 0);
     }
     const topY = y - Math.max(f.def.h, drawnH && f.state !== 'down' && f.state !== 'dead' ? drawnH : 0);
     if (f.shield) {   // cancelador de ruido (F15): halo fijo, sin destellos

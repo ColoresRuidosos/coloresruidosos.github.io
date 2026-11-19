@@ -7,7 +7,7 @@ import { createWorld, tick, addPlayer, removePlayer, setAway, startLevel, player
 import { botInput } from './sim/bot.js';
 import { LEVELS } from './data/levels.js';
 import { HERO_IDS } from './sim/moves.js';
-import { createKeyboard } from './input/keyboard.js';
+import { createKeyboard, KEYMAPS, ARCADE_KEYMAPS } from './input/keyboard.js';
 import { createGamepads } from './input/gamepad.js';
 import { createTouch } from './input/touch.js';
 import { createSlots } from './input/slots.js';
@@ -50,7 +50,7 @@ addEventListener('resize', fit); fit();
 const opts = loadOptions();
 const audio = createAudio(); audio.setVolume(opts.volume);
 const slots = createSlots(MAX_PLAYERS);
-const kb = createKeyboard(window);
+const kb = createKeyboard(window, new URLSearchParams(location.search).has('arcade') ? ARCADE_KEYMAPS : KEYMAPS);
 const pads = createGamepads(navigator);
 const touch = createTouch(document);
 const LOCAL = [...kb.sources, ...pads.sources, touch.source];
@@ -60,6 +60,7 @@ const fx = createFx();
 
 const app = { screen: 'titulo', t: 0, world: null, countdown: 0, pauseSel: 0, pausedBy: null, banner: null, results: null, net: 'PREPARANDO|LA SALA…' };
 window.__arde = app;
+app.activity = false;
 window.__TITLE_MENU_Y = TITLE_MENU_Y;
 app.mode = Q.has('concierto') ? 'concierto' : 'historia';   // F19: HISTORIA o SOLO EL CONCIERTO
 app.titleSel = app.mode === 'concierto' ? 1 : 0;
@@ -186,6 +187,8 @@ function handleWorldEvents(w) {
       case 'pickup': audio.sfx('pickup'); break;
       case 'break': audio.sfx('break'); break;
       case 'go': audio.sfx('go'); break;
+      case 'surprise': audio.sfx('clear'); break;          // F20: llega el Manager
+      case 'managerOk': audio.sfx('cheer'); break;
       case 'shoot': audio.sfx('shoot'); break;
       case 'boss': audio.play(BOSS_SONG); break;
       case 'clear': audio.sfx('clear'); break;
@@ -268,6 +271,60 @@ function stepGame() {
     if (w.level.final) { app.screen = 'final'; app.t = 0; }
     else { app.screen = 'superado'; app.t = 0; }
   } else if (w.over) { app.screen = 'fin'; app.t = 0; audio.stop(); }
+}
+
+// ---- Modo demostración (F21): tras 1 minuto quieto en el menú, el juego se juega solo ----
+const IDLE_TICKS = Math.round((Number(Q.get('idle')) || 60) * 60);
+const DEMO_TICKS = 40 * 60;
+app.idleT = 0; app.demoN = 0;
+function startDemo() {
+  const kind = app.demoN++ % 2 ? 'concierto' : 'nivel';
+  const heroes = [...HERO_IDS];
+  const players = heroes.map((hero, slot) => ({ slot, hero, palette: 0 }));
+  const d = { kind, players: 4, t: 0 };
+  if (kind === 'nivel') {
+    d.world = createWorld({ seed: 1000 + app.demoN * 17, levelIdx: (app.demoN >> 1) % (LEVELS.length - 1), players, opts: { assisted: true } });
+  } else {
+    d.c = createConcert({ parts: Object.fromEntries(players.map((p) => [p.slot, CANCION.PARTS[p.hero]])), unison: CANCION.UNISON, durationMs: CANCION.DURATION_MS });
+    d.cp = players.map((p) => ({ slot: p.slot, type: p.hero, palette: 0 }));
+    d.ms = -600; d.unisonAt = -1e9;
+  }
+  app.demo = d; app.demoExit = false; app.activity = false;
+  fx.clear(); go('demo');
+}
+function endDemo() {
+  app.demo = null; app.demoExit = false; app.activity = false;
+  app.idleT = IDLE_TICKS - 15 * 60;            // 15 s de menú y, si nadie toca nada, otra demostración
+  fx.clear(); go('titulo');
+}
+function stepDemo() {
+  const d = app.demo, e = anyEdge();
+  if (app.demoExit || app.activity || Object.values(e).some((v) => v === true)) { endDemo(); app.idleT = 0; return; }
+  if (++d.t >= DEMO_TICKS) { endDemo(); return; }
+  if (d.kind === 'nivel') {
+    const w = d.world;
+    tick(w, [0, 1, 2, 3].map((i) => botInput(w, i)));
+    fx.push(w, w.events, opts); fx.step();
+    if (w.done || w.over) endDemo();
+  } else {
+    d.ms += 1000 / 60;
+    stepConcert(d.c, d.ms);
+    for (const p of d.cp) {
+      const pr = d.c.players[p.slot];
+      for (let i = pr.next; i < pr.notes.length && pr.notes[i][0] <= d.ms + 8; i++) if (!pr.done[i] && (i * 7 + p.slot) % 11) pressLane(d.c, p.slot, pr.notes[i][1], d.ms);
+    }
+    for (const ev of d.c.events) if (ev.type === 'unison') d.unisonAt = d.ms;
+    d.c.events.length = 0;
+  }
+}
+function drawDemo() {
+  const d = app.demo;
+  if (d.kind === 'nivel') { drawWorld(ctx, d.world, fx, opts); drawHud(ctx, d.world, {}); }
+  else drawConcert(ctx, { concert: d.c, ms: d.ms, level: LEVELS[LEVELS.length - 1], players: d.cp, bpm: CANCION.BPM, opts,
+    title: 'LA TORRE PICASSO · ARDE BOGOTÁ', instruments: CANCION.INSTRUMENTS, unisonAt: d.unisonAt });
+  ctx.fillStyle = 'rgba(10,6,20,0.78)'; ctx.fillRect(0, H - 34, W, 22);
+  drawText(ctx, 'DEMO', 8, H - 29, { color: '#ff4d4d', scale: 2 });
+  if (Math.floor(app.t / 40) % 2 === 0) drawText(ctx, 'PULSA CUALQUIER BOTÓN PARA JUGAR', W / 2 + 20, H - 26, { color: '#ffd23f', align: 'center' });
 }
 
 // ---- Concierto final (F17) ----
@@ -374,6 +431,8 @@ function step() {
   switch (app.screen) {
     case 'titulo': {
       const e = anyEdge();
+      if (app.activity || Object.values(e).some((v) => v === true)) { app.idleT = 0; app.activity = false; }
+      else if (++app.idleT >= IDLE_TICKS && !AUTO) { startDemo(); break; }   // F21: modo demostración
       if (e.up && app.titleSel !== 0) { app.titleSel = 0; audio.sfx('menu'); }      // arriba: HISTORIA, siempre
       if (e.down && app.titleSel !== 1) { app.titleSel = 1; audio.sfx('menu'); }    // abajo: SOLO EL CONCIERTO, siempre
       if (typeof app.tapped === 'number') app.titleSel = app.tapped;
@@ -390,6 +449,7 @@ function step() {
       break;
     }
     case 'sala': if (room) room.update(); stepLobby(); break;
+    case 'demo': stepDemo(); break;
     case 'intro': {
       if (room) room.update();
       localJoins();
@@ -436,6 +496,7 @@ function draw() {
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   switch (app.screen) {
     case 'titulo': drawTitle(ctx, app.t, app.titleSel); break;
+    case 'demo': drawDemo(); break;
     case 'sala': drawLobby(ctx, { t: app.t, qr, code: app.code, url: '', slots: slots.list().map((s) => s && { ...s, away: room && room.isAway(s.slot) }), countdown: app.countdown, netStatus: app.net }); if (qr && app.net.startsWith('OJO')) drawText(ctx, app.net, W / 2, 182, { color: '#ff4d4d', align: 'center' }); // el QR apuntaría a localhost
       if (app.mode === 'concierto') { ctx.fillStyle = '#a3242c'; ctx.fillRect(W - 112, 5, 108, 11); drawText(ctx, 'SOLO EL CONCIERTO', W - 8, 7, { color: '#ffd23f', align: 'right' }); }
       break;
@@ -465,8 +526,11 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
+addEventListener('keydown', () => { app.activity = true; }, { capture: true });
 addEventListener('pointerdown', (ev) => {
   audio.unlock();
+  app.activity = true;
+  if (app.screen === 'demo') { app.demoExit = true; return; }   // F21: un toque sale de la demostración
   if (app.screen !== 'titulo') return;
   // Solo cuenta un toque ENCIMA de una opción (18 nov: un clic suelto para activar el sonido elegía modo sin querer).
   const r = canvas.getBoundingClientRect();

@@ -63,6 +63,8 @@ export const LEVELS = [
     width: 384, music: 4, final: true, arena: true,
     waves: [
       { cam: 0, boss: 'presidente', enemies: [e('presidente', 'R', 30)] },
+      // F20: jefe sorpresa tras el Presidente (idea del manager de la banda).
+      { cam: 0, boss: 'manager', surprise: { line: '¿ESTÁIS LISTOS PARA EL CONCIERTO?' }, enemies: [e('manager', 'R', 20)] },
     ],
     props: [
       { kind: 'caja', x: 40, dy: 0.9, drop: 'bocadillo' },

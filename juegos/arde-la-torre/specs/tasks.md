@@ -123,4 +123,10 @@
 | T10.13 | Menú del título fiable (18 nov, «a veces nos manda al modo concierto y a veces al modo historia»): un clic solo elige si cae sobre una opción; arriba = HISTORIA y abajo = CONCIERTO, sin alternar | ✅ `tests/browser.test.js` |
 | T10.4 | Probar la latencia del móvil en el concierto con móviles reales | ⏳ el usuario |
 | T11.1 | Tráiler de 45 s (16:9 y vertical 9:16) con escenas reales y el final de «La Torre Picasso», cortes a compás (`scripts/trailer/`) | ✅ |
+| T12.1 | Tests y código: el Manager como jefe sorpresa tras el Presidente, con cartel y frase; los bots lo superan (F20) | ✅ `tests/final.test.js` |
+| T12.2 | Hoja de Gemini del Manager a partir de una foto o descripción del usuario | ⏳ el usuario |
+| T12.3 | Modo demostración tras 1 minuto sin actividad en el menú (F21) | ✅ `tests/browser.test.js` |
+| T12.4 | Batería de Jota en su especial y en el concierto (F22) | ✅ revisado en capturas |
+| T12.5 | Controles de recreativa con `?arcade` (MAME / I-PAC) (F23) | ✅ `tests/input.test.js` |
+| T12.6 | Montarlo en la recreativa del manager según su modelo | ⏳ el usuario: modelo o foto de la máquina |
 | T7.4 | Publicar en `/games/arde-la-torre/` y añadir la tarjeta en `data/games.json` (`scripts/publicar.mjs`) | ✅ publicado el 19 nov 2026 («Publica, vamos allá») |

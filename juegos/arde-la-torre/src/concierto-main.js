@@ -4,7 +4,7 @@ import { Peer } from 'peerjs';
 import { W, H, MAX_PLAYERS } from './sim/constants.js';
 import { HEROES, HERO_IDS } from './sim/moves.js';
 import { LEVELS } from './data/levels.js';
-import { createKeyboard } from './input/keyboard.js';
+import { createKeyboard, KEYMAPS, ARCADE_KEYMAPS } from './input/keyboard.js';
 import { createGamepads } from './input/gamepad.js';
 import { createTouch } from './input/touch.js';
 import { createEdges, NEUTRAL } from './input/source.js';
@@ -38,7 +38,7 @@ addEventListener('resize', fit); fit();
 
 const audio = createAudio();
 const slots = createSlots(MAX_PLAYERS);
-const kb = createKeyboard(window), pads = createGamepads(navigator), touch = createTouch(document);
+const kb = createKeyboard(window, new URLSearchParams(location.search).has('arcade') ? ARCADE_KEYMAPS : KEYMAPS), pads = createGamepads(navigator), touch = createTouch(document);
 const LOCAL = [...kb.sources, ...pads.sources, touch.source];
 const edges = new Map();
 const edgeOf = (key, inp) => { if (!edges.has(key)) edges.set(key, createEdges()); return edges.get(key)(inp); };

@@ -341,3 +341,26 @@ test('T10.13 el menú solo cambia de modo con las flechas o tocando la opción (
     await browser.close();
   }
 });
+
+test('T12.3 modo demostración: tras el tiempo sin actividad se juega solo y cualquier tecla vuelve al menú', { skip, timeout: 60000 }, async () => {
+  const browser = await pw.chromium.launch();
+  try {
+    const page = await browser.newPage({ viewport: { width: 768, height: 432 } });
+    const errors = []; page.on('pageerror', (e) => errors.push(e.message));
+    await page.goto(`file://${process.cwd()}/dist/index.html?nonet&idle=2`);   // 2 s en vez de 60 para la prueba
+    await page.waitForFunction(() => window.__arde && window.__arde.screen === 'titulo');
+    await page.waitForFunction(() => window.__arde.screen === 'demo', null, { timeout: 8000 });
+    const d = await page.evaluate(() => ({ n: window.__arde.demo && window.__arde.demo.players, joined: window.__arde.slots.joined().length }));
+    assert.equal(d.n, 4, 'juegan 4 bots'); assert.equal(d.joined, 0, 'no toca la sala');
+    await page.waitForTimeout(1500);
+    await tapKey(page, 'KeyJ');                 // cualquier tecla
+    await page.waitForFunction(() => window.__arde.screen === 'titulo', null, { timeout: 3000 });
+    await page.mouse.click(10, 10);             // otra vez quieto → demo → un clic también sale
+    await page.waitForFunction(() => window.__arde.screen === 'demo', null, { timeout: 8000 });
+    await page.mouse.click(10, 10);
+    await page.waitForFunction(() => window.__arde.screen === 'titulo', null, { timeout: 3000 });
+    assert.deepEqual(errors, []);
+  } finally {
+    await browser.close();
+  }
+});

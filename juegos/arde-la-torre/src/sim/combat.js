@@ -138,6 +138,7 @@ export function applyHit(world, a, t, box, dirOverride = 0) {
     if (attacker && t.team === 'e') { attacker.kos++; attacker.score += t.def.score; }
     knockdown(world, t, dir, 2.4, 3.6);
     world.events.push({ type: 'ko', team: t.team, slot: t.slot, boss: !!t.def.boss, x: t.x, y: t.y });
+    if (t.type === 'manager') world.events.push({ type: 'managerOk' });   // F20: rival amistoso, da paso al concierto
     return true;
   }
   if (t.def.boss && ARMORED.has(t.state) && !box.knock) return true;   // los jefes aguantan mientras atacan

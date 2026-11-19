@@ -4,6 +4,7 @@ import { SLOT_COLORS } from '../input/slots.js';
 import { HEROES } from '../sim/moves.js';
 import { drawText } from './text.js';
 import { drawFrame } from './atlas.js';
+import { drawDrumKit } from './drums.js';
 import { getBackground } from './backgrounds.js';
 import { multiplier } from '../sim/ritmo.js';
 
@@ -66,12 +67,18 @@ function band(ctx, players, c, ms, bpm, centers) {
   const beat = Math.floor(ms / (60000 / bpm));
   players.forEach((p, i) => {
     const n = players.length, side = i < n / 2 ? -1 : 1;
-    const x = Math.max(16, Math.min(W - 16, centers[i] + side * (n === 1 ? 70 : 44))), y = 184;
+    const x = Math.max(16, Math.min(W - 16, centers[i] + side * (n === 1 ? 70 : 44)));
+    const y = p.type === 'jota' ? 174 : 184;        // Jota, un poco más arriba, detrás de su batería
     const pr = c.players[p.slot];
     const hit = pr.last && pr.last.kind !== 'miss' && ms - pr.last.ms < 160;
-    const pose = hit ? 'guit1' : ms < 0 ? 'idle0' : `win${beat % 2}`;
+    const jota = p.type === 'jota';
+    const pose = jota ? (ms < 0 ? 'idle0' : `sp${(beat + (hit ? 1 : 0)) % 4}`) : hit ? 'guit1' : ms < 0 ? 'idle0' : `win${beat % 2}`;
     ctx.fillStyle = 'rgba(0,0,0,0.35)'; ctx.beginPath(); ctx.ellipse(x, y, 14, 3, 0, 0, Math.PI * 2); ctx.fill();
     drawFrame(ctx, p.type, p.palette || 0, pose, x, y, -side);
+    if (jota) {                                     // F22: Jota toca detrás de su batería
+      const beatPos = ms > 0 ? (ms / (60000 / bpm)) % 1 : 1;
+      drawDrumKit(ctx, x, y + 6, -side, hit ? 1 : Math.max(0, 1 - beatPos * 3));   // de cara al público, delante de él
+    }
   });
 }
 

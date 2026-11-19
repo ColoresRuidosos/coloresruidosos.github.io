@@ -25,6 +25,7 @@ const ENEMY_LOOKS = {
   recepcionista: { skin: '#f0c09a', hair: '#7a2a1a', hairStyle: 'mono', top: '#b0262e', top2: '#f4f4f0', legs: '#262630', shoes: '#111', headset: true, skirt: true, inst: 'telefono' },
   tecnico: { skin: '#d79a72', hair: '#3a2a1a', hairStyle: 'gorra', top: '#e07b1f', legs: '#e07b1f', shoes: '#2a2a2a', inst: 'caja', wide: 4, beard: true },
   director: { skin: '#e2a982', hair: '#444', hairStyle: 'engominado', top: '#2c2f3a', top2: '#f4f4f0', tie: '#a3242c', legs: '#2c2f3a', shoes: '#000', wide: 3, inst: 'maletin' },
+  manager: { skin: '#e2ad88', hair: '#2a1a12', hairStyle: 'engominado', top: '#3a4a6a', top2: '#f4f4f0', legs: '#22222a', shoes: '#3a2a1a', wide: 3, beard: true, headset: true, inst: 'maletin' },   // provisional (F20)
   presidente: { skin: '#e8b896', hair: '#d8d8d8', hairStyle: 'engominado', top: '#eeeee6', top2: '#2a2a2a', tie: '#d9b21f', legs: '#eeeee6', shoes: '#5a3a1a', wide: 4, sunglasses: true },
 };
 

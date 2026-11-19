@@ -1,7 +1,7 @@
 // T3.1–T3.4 y T4.6: entradas locales, huecos y joystick.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readKeys, KEYMAPS } from '../src/input/keyboard.js';
+import { readKeys, KEYMAPS, ARCADE_KEYMAPS } from '../src/input/keyboard.js';
 import { readGamepad } from '../src/input/gamepad.js';
 import { createSlots } from '../src/input/slots.js';
 import { createEdges, normalize, NEUTRAL } from '../src/input/source.js';
@@ -68,4 +68,20 @@ test('T4.6 joystick: zona muerta del 20 % y 8 direcciones', () => {
   assert.deepEqual(st.vector, { x: 1, y: 0 });
   st.up(1);
   assert.deepEqual(st.vector, { x: 0, y: 0 });
+});
+
+test('T12.5 recreativa (?arcade): distribución por defecto de MAME / I-PAC', () => {
+  const [p1, p2] = ARCADE_KEYMAPS;
+  const k = (...c) => new Set(c);
+  assert.deepEqual(readKeys(k('ArrowRight', 'ControlLeft'), p1), { x: 1, y: 0, golpe: true, salto: false, especial: false, pausa: false });
+  assert.equal(readKeys(k('AltLeft'), p1).salto, true);
+  assert.equal(readKeys(k('Space'), p1).especial, true);
+  assert.equal(readKeys(k('Digit1'), p1).pausa, true, 'Start 1 = pausa');
+  assert.deepEqual(readKeys(k('KeyD', 'KeyA'), p2), { x: -1, y: 0, golpe: true, salto: false, especial: false, pausa: false });
+  assert.equal(readKeys(k('KeyR'), p2).y, -1);
+  assert.equal(readKeys(k('KeyS'), p2).salto, true);
+  assert.equal(readKeys(k('KeyQ'), p2).especial, true);
+  assert.equal(readKeys(k('Digit2'), p2).pausa, true);
+  const all = ARCADE_KEYMAPS.flatMap((m) => [...m.left, ...m.right, ...m.up, ...m.down, ...m.golpe, ...m.salto, ...m.especial, ...m.pausa]);
+  assert.equal(new Set(all).size, all.length, 'J1 y J2 no comparten teclas');
 });
