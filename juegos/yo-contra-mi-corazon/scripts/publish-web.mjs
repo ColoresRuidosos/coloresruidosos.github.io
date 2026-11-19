@@ -1,5 +1,5 @@
 // Copia el juego compilado a la web de Colores Ruidosos (Hugo sirve static/ tal cual).
-// La canción ya vive en static/games/yo-contra-mi-corazon/cancion.mp3 (una sola copia en el repo).
+// Ya no hay canción: la música se genera en el navegador (spec §3.0b).
 import { copyFile, mkdir, stat } from 'node:fs/promises';
 const out = '../../static/games/yo-contra-mi-corazon';
 await mkdir(out, { recursive: true });

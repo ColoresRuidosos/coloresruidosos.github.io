@@ -5,20 +5,22 @@ import { createBot } from './game/bot.js';
 import { createGestures } from './input/gestures.js';
 import { createPlayer, createSimPlayer } from './audio/player.js';
 import { createSfx } from './audio/sfx.js';
+import { renderTrack } from './audio/track.js';
 import { loadSave, writeSave, recordResult } from './core/save.js';
 import { loadSprites } from './render/sprites.js';
 import { drawScene, createFx, feedFx, stepFx, W, H, MIC_BTN, PAUSE_BTN } from './render/view.js';
 import * as S from './render/screens.js';
 import { shareCard } from './share/card.js';
-import { createRanking, createDemoRanking, generarNombre, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
+import { createRanking, createDemoRanking, generarOpciones, nombreValido, nuevoDispositivo, armarEnvio } from './ranking/ranking.js';
 import { temporada } from './ranking/temporada.js';
 import { tipFor } from './game/tips.js';
+import { earnedBadges, awardBadges, badgeCount } from './game/badges.js';
 import { RANKING_URL } from './data/config.js';
 
 const params = new URLSearchParams(location.search);
-// Versión de prueba (un solo HTML): trae la canción incrustada y usa un ranking que vive en el navegador.
+// Versión de prueba (un solo HTML): usa un ranking que vive en el navegador.
 const PRUEBA = globalThis.YCMC_PRUEBA || null;
-const SONG_URL = PRUEBA?.song || 'cancion.mp3';
+const TRACK_RATE = 22050;   // la base propia (spec §3.0b) se genera aquí; no se descarga audio
 const SIM = Number(params.get('sim')) || 0;          // ?sim=8: reloj simulado sin audio (pruebas)
 const BOT = params.has('bot');                        // ?bot: juega solo (demo y pruebas)
 
@@ -60,11 +62,19 @@ async function loadSong() {
   app.screen = 'carga'; app.loadError = null; app.loadFrac = 0;
   try {
     app.player = app.player || makePlayer();
-    await app.player.load(SONG_URL, (f) => { app.loadFrac = f; });
+    if (app.player.ctx) {
+      app.loadFrac = 0.3;
+      await new Promise((r) => setTimeout(r, 30));   // deja pintar la pantalla de carga antes de generar
+      const pcm = renderTrack({ beatmap: BEATMAP, sampleRate: TRACK_RATE });
+      const buf = app.player.ctx.createBuffer(1, pcm.length, TRACK_RATE);
+      buf.getChannelData(0).set(pcm);
+      app.player.setBuffer(buf);
+    }
+    app.loadFrac = 1;
     app.screen = 'titulo';
   } catch (e) {
     console.error(e);
-    app.loadError = 'NO SE PUDO CARGAR LA CANCIÓN. REVISA TU CONEXIÓN.';
+    app.loadError = 'NO SE PUDO PREPARAR LA MÚSICA. INTÉNTALO DE NUEVO.';
   }
 }
 
@@ -136,6 +146,7 @@ async function onButton(id) {
       if (app.prev === 'jugar') { app.player.unlock(); startGame(); } else app.screen = 'titulo';
       break;
     case 'opciones': app.screen = 'opciones'; break;
+    case 'insignias': app.screen = 'insignias'; break;
     case 'sinDestellos': case 'asistido': case 'vibracion': o[id] = !o[id]; writeSave(store, app.save); break;
     case 'desfaseMenos': o.desfase = Math.max(-300, o.desfase - 10); writeSave(store, app.save); break;
     case 'desfaseMas': o.desfase = Math.min(300, o.desfase + 10); writeSave(store, app.save); break;
@@ -146,7 +157,7 @@ async function onButton(id) {
     case 'reintentar': startGame(); break;
     case 'compartir': {
       const m = app.match;
-      const r = await shareCard({ over: m.over, score: m.score, rank: rankOf(m.score), stats: m.stats, maxCombo: m.maxCombo });
+      const r = await shareCard({ over: m.over, score: m.score, rank: rankOf(m.score), stats: m.stats, maxCombo: m.maxCombo, insignias: badgeCount(app.save) });
       app.shareMsg = r === 'descargado' ? 'IMAGEN DESCARGADA' : r === 'compartido' ? '¡GRACIAS POR COMPARTIR!' : '';
       break;
     }
@@ -154,18 +165,21 @@ async function onButton(id) {
     case 'ranking': openRanking(app.screen); break;
     case 'rkPrev': app.rk.page = Math.max(0, app.rk.page - 1); break;
     case 'rkNext': app.rk.page++; break;
-    case 'rkVolver': app.screen = app.rk.from; break;
+    case 'rkVolver': app.screen = app.rk.from; app.nuevasRk = []; break;
     case 'publicar':
-      if (!app.save.rankName) { app.save.rankName = generarNombre(); writeSave(store, app.save); }
+      // F14 v0.4: 3 nombres de la carrera de Pepe para elegir (si ya tenía uno válido, va primero)
+      app.opciones = nombreValido(app.save.rankName) ? [app.save.rankName, ...generarOpciones(Math.random, 2, [app.save.rankName])] : generarOpciones();
+      app.save.rankName = app.opciones[0]; writeSave(store, app.save);
       app.pub = { status: 'listo', error: null }; app.screen = 'publicar'; break;
-    case 'otroNombre': app.save.rankName = generarNombre(Math.random, app.save.rankName); writeSave(store, app.save); break;
+    case 'opcion0': case 'opcion1': case 'opcion2': app.save.rankName = app.opciones[Number(id.slice(-1))]; writeSave(store, app.save); break;
+    case 'otrasOpciones': app.opciones = generarOpciones(Math.random, 3, app.opciones); app.save.rankName = app.opciones[0]; writeSave(store, app.save); break;
     case 'cancelarPub': app.screen = 'resultado'; break;
     case 'enviar': {
       if (app.pub.status === 'enviando') break;
       const m = app.match;
       app.pub = { status: 'enviando', error: null };
       const r = await app.ranking.publicar(armarEnvio(app.save.rankName, m.score, Math.min(m.t, BEATMAP.duration) * 1000, app.save.dispositivo));
-      if (r.ok) { app.published = true; openRanking('resultado'); } else app.pub = { status: 'listo', error: r.error };
+      if (r.ok) { app.published = true; app.nuevasRk = awardBadges(app.save, ['querido']); writeSave(store, app.save); openRanking('resultado'); } else app.pub = { status: 'listo', error: r.error };
       break;
     }
     default: break;
@@ -190,10 +204,11 @@ function frame(now) {
   if (sc === 'carga') app.buttons = S.drawLoading(ctx, app.loadFrac, app.loadError);
   if (Math.floor(now / 1000) !== Math.floor((now - dt * 1000) / 1000)) app.temp = temporada();
   if (sc === 'titulo') app.buttons = S.drawTitle(ctx, now / 1000, app.save, app.temp);
-  else if (sc === 'ranking') app.buttons = S.drawRanking(ctx, app.rk, { miNombre: app.save.rankName, prueba: !!app.ranking?.prueba, temp: app.temp });
-  else if (sc === 'publicar') app.buttons = S.drawPublish(ctx, app.match, app.save.rankName, app.pub, !!app.ranking?.prueba);
+  else if (sc === 'ranking') app.buttons = S.drawRanking(ctx, app.rk, { miNombre: app.save.rankName, prueba: !!app.ranking?.prueba, temp: app.temp, nueva: app.nuevasRk?.[0] || null });
+  else if (sc === 'publicar') app.buttons = S.drawPublish(ctx, app.match, app.opciones || [], app.save.rankName, app.pub, !!app.ranking?.prueba);
   else if (sc === 'como') app.buttons = S.drawHowTo(ctx);
   else if (sc === 'opciones') app.buttons = S.drawOptions(ctx, app.save.opts);
+  else if (sc === 'insignias') app.buttons = S.drawBadges(ctx, app.save);
   else if (sc === 'juego' || sc === 'pausa' || sc === 'cuenta' || sc === 'resultado') {
     const m = app.match;
     let t = app.lastT;
@@ -207,8 +222,13 @@ function frame(now) {
         app.overShown = now; app.player.fadeOut(2);
         app.newRecord = recordResult(app.save, m.score, rankOf(m.score)); writeSave(store, app.save);
         const lost = m.over === 'derrota' || m.over === 'perdio';
-        app.derrotas = lost ? (app.derrotas || 0) + 1 : 0;
+        // F15: insignias (con las derrotas seguidas de ANTES de esta partida, para «Maldita rueda»)
+        app.nuevas = awardBadges(app.save, earnedBadges(m, { derrotasPrevias: app.save.derrotasSeguidas || 0 }));
+        app.save.derrotasSeguidas = lost ? (app.save.derrotasSeguidas || 0) + 1 : 0;
+        writeSave(store, app.save);
+        app.derrotas = app.save.derrotasSeguidas;
         app.tip = lost ? tipFor(m, { derrotasSeguidas: app.derrotas }) : null;
+        for (const _ of app.nuevas) app.sfx({ type: 'estrella' });
       }
       if (app.overShown && now - app.overShown > 2600) app.screen = 'resultado';
     }
@@ -220,7 +240,7 @@ function frame(now) {
       const left = app.countdownEnd - now;
       if (left <= 0) { app.player.resume(); app.screen = 'juego'; } else S.drawCountdown(ctx, Math.ceil(left / ((60000 / BEATMAP.bpm) * 2)));
     }
-    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20, tip: app.tip });
+    if (sc === 'resultado') app.buttons = S.drawResult(ctx, m, { ...app, ranking: app.ranking && m.t >= 20, tip: app.tip, nuevas: app.nuevas || [] });
   }
   requestAnimationFrame(frame);
 }

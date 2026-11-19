@@ -2,10 +2,12 @@
 export const MODO = 'corazon';
 export const TOP = 20;
 // Iguales a NOMBRES.corazon de docs/ranking/Code.gs (tests/ranking.test.js lo revisa).
-export const SUSTANTIVOS = ['Payaso', 'Payasa', 'Mimo', 'Juglar', 'Arlequín', 'Pierrot',
-  'Acróbata', 'Domador', 'Faquir', 'Bufón', 'Zancudo', 'Mago'];
-export const COMPLEMENTOS = ['del Latido', 'de la Aorta', 'del Bate', 'de la Carpa', 'del Confeti', 'del Telón',
-  'Sin Pulso', 'de la Feria', 'del Circo', 'de Medianoche', 'del Arrítmico', 'de la Pista'];
+// F14 v0.4: palabras de la carrera de José Madero, solo de datos verificados (CONTEXTO.md §5):
+// discos (Carmesí, Noche, Alba, Psalmos, Giallo, Aurora, Sarajevo, Querido…), canciones (Lunes 28,
+// Plural siendo singular, Maldita Rueda, Rey Ahogado, Noche de brujas, Fantasmas, Teoremas etc.),
+// «Érase una Bestia» y los pierrots de Querido…. Nunca «Luciérnaga» (memorial).
+export const SUSTANTIVOS = ['Migajero', 'Migajera', 'Payaso', 'Payasa', 'Pierrot', 'Fantasma', 'Rey', 'Reina', 'Plural', 'Teorema', 'Brujo', 'Bruja'];
+export const COMPLEMENTOS = ['de Carmesí', 'de Noche', 'del Alba', 'de Psalmos', 'de Giallo', 'de Aurora', 'de Sarajevo', 'del Lunes 28', 'de la Rueda', 'de la Bestia', 'de Querido', 'Singular'];
 
 const pick = (l, rng) => l[Math.floor(rng() * l.length)];
 export function generarNombre(rng = Math.random, anterior = null) {
@@ -15,6 +17,15 @@ export function generarNombre(rng = Math.random, anterior = null) {
     if (n !== anterior) return n;
   }
   return n;
+}
+// 3 opciones distintas para elegir (sin repetir las que ya se mostraron).
+export function generarOpciones(rng = Math.random, n = 3, excluir = []) {
+  const out = [];
+  for (let k = 0; out.length < n && k < 200; k++) {
+    const x = generarNombre(rng);
+    if (!out.includes(x) && !excluir.includes(x)) out.push(x);
+  }
+  return out;
 }
 export function nombreValido(nombre) {
   const m = /^(.+) #([1-9][0-9]?)$/.exec(nombre || '');
@@ -56,8 +67,8 @@ export function createRanking({ url, fetchFn = globalThis.fetch?.bind(globalThis
 }
 
 // Ranking de prueba (versión de un solo HTML): vive en este navegador, con nombres de ejemplo.
-const EJEMPLOS = [['Pierrot de Medianoche #12', 38210, 182000], ['Faquir del Bate #3', 30120, 223000], ['Bufón Sin Pulso #77', 21480, 223000],
-  ['Domador de la Aorta #40', 15900, 223000], ['Mimo del Confeti #8', 9300, 140000]];
+export const EJEMPLOS = [['Migajero de Carmesí #28', 38210, 182000], ['Pierrot de Querido #3', 30120, 223000], ['Plural Singular #7', 21480, 223000],
+  ['Fantasma de Noche #17', 15900, 223000], ['Reina de Psalmos #19', 9300, 140000]];
 export function createDemoRanking(storage, now = () => new Date()) {
   const KEY = 'ycmc-ranking-prueba';
   const leer = () => { try { return JSON.parse(storage?.getItem(KEY) || '[]'); } catch { return []; } };

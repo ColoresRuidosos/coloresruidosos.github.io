@@ -9,6 +9,7 @@ items += [(f'heart.{p}', heart(p)) for p in HEART_POSES]
 items += [('heart.curitas', curitas())]
 items += [(f'clown.{p}', clown(p)) for p in CLOWN_POSES]
 items += [('icon.clown', clown_face()), ('icon.heart', heart_icon()), ('crowd', crowd())]
+items += [(f'badge.{b}', badge(b)) for b in BADGE_IDS + ['locked']]
 
 W = 512; x = y = rowh = 0; frames = {}
 for name, im in sorted(items, key=lambda it: -it[1].height):

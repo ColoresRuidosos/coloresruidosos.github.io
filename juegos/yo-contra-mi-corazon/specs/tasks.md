@@ -86,3 +86,28 @@
 | T8.2 | `reel/reel.js`: 5 escenas con el código del juego y momentos reales de una pelea del bot | ✅ |
 | T8.3 | `npm run reel`: 4 variantes × 2 audios, 1080×1920, 30 fps, 23,9 s, normalizado para Instagram | ✅ |
 | T8.4 | El equipo publica: «principal» el lunes 9, «quedan-5» el miércoles 11, «quedan-3» el viernes 13 y «ultimo-dia» el domingo 15 | ⏳ el equipo |
+
+## Fase 9 · Nombres de la carrera de Pepe y reel «Pepe Madero vs. mi corazón» (v0.4)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T9.1 | `ranking.test.js`: palabras de discos y canciones verificados, sin «Luciérnaga», 3 opciones distintas y «otras opciones» sin repetir; listas iguales a `Code.gs` | `ranking/ranking.js` y `docs/ranking/Code.gs` | ✅ |
+| T9.2 | `browser.test.js`: elegir la 3.ª opción y publicarla | pantalla «Publicar» | ✅ |
+| T9.3 | `npm run reel -- pepe`: gancho «PEPE MADERO VS MI CORAZÓN», 4 variantes × 2 audios | `reel/reel.js` | ✅ |
+| T9.4 | El usuario pega el `Code.gs` nuevo y publica una versión nueva; **después** se fusiona en `main` | — | ⏳ el usuario |
+
+## Fase 10 · Insignias (v0.5)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T10.1 | `badges.test.js`: 10 insignias con ícono y pista corta, cada regla por separado, solo se guardan las nuevas | `game/badges.js` | ✅ |
+| T10.2 | `badges.test.js` con bots: con Grito salen Carmesí y Bestia; sin Grito, Plural y Noche de brujas (cada una pide jugar distinto) | `match.js`: fintas, gritos, racha máxima y fases limpias | ✅ |
+| T10.3 | `browser.test.js`: al terminar se guardan Teoremas y Querido…, y la vitrina se abre desde la portada | pantallas de resultado, ranking e insignias | ✅ |
+| T10.4 | La tarjeta para compartir lleva «INSIGNIAS n/10» | `share/card.js` | ✅ |
+
+## Fase 11 · Quitar la canción: base chiptune propia (spec §3.0b)
+| ID | Test | Código | Estado |
+|---|---|---|---|
+| T11.1 | `track.test.js`: dura lo mismo que el mapa, sin recortes (\|x\| ≤ 1), silencio antes del primer pulso, determinista | `audio/track.js` | ✅ |
+| T11.2 | `track.test.js`: hay un ataque de energía en cada tiempo del mapa (el bombo cae en el beat) y *alta* suena más fuerte que *respiro* | `audio/track.js` | ✅ |
+| T11.3 | `browser.test.js` sigue en verde sin `cancion.mp3` | `main.js`, `build.mjs`, `serve.mjs` | ✅ |
+| T11.4 | Borrar `static/games/yo-contra-mi-corazon/cancion.mp3`; publicar el HTML nuevo | `publish-web.mjs` | ✅ |
+| T11.5 | El reel usa la base propia (no se volvió a renderizar aquí: falta ffmpeg con los reels) | `scripts/reel.mjs` | ✅ código · ⏳ renderizar |

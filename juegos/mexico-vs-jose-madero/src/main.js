@@ -10,6 +10,8 @@ import { VICTORY } from './game/constants.js';
 import { HUB, createHub, doorAt } from './game/museum.js';
 import { WORLD_1 } from './data/world1.js';
 import { WORLD_2 } from './data/world2.js';
+import { WORLD_3 } from './data/world3.js';
+import { ERA_FACTS_W3, CHAPTERS_W3, LEVEL_CARDS_W3, PASAJES_POR_NIVEL } from './data/alba-story.js';
 import { worldById, WORLDS } from './data/worlds.js';
 import { ERA_FACTS_W1, CHAPTERS_W1, LEVEL_CARDS_W1 } from './data/carmesi-story.js';
 import { ERA_FACTS_W2, CHAPTERS_W2, LEVEL_CARDS_W2 } from './data/noche-story.js';
@@ -48,6 +50,7 @@ function skipNote() { if (canSkip()) { skipNotes(game); noteZones = {}; } }
 const WORLD_DATA = {
   carmesi: { n: 1, levels: WORLD_1, facts: ERA_FACTS_W1, chapters: CHAPTERS_W1, cards: LEVEL_CARDS_W1 },
   noche: { n: 2, levels: WORLD_2, facts: ERA_FACTS_W2, chapters: CHAPTERS_W2, cards: LEVEL_CARDS_W2 },
+  alba: { n: 3, levels: WORLD_3, facts: ERA_FACTS_W3, chapters: CHAPTERS_W3, cards: LEVEL_CARDS_W3 },
 };
 const piecesIn = (map) => (map.match(/\*/g) || []).length;
 function museumInfo() {
@@ -85,7 +88,8 @@ function enterMuseum(atDoor = null, returning = false) {
 function loadLevel(i, c = {}) {
   const wd = WORLD_DATA[run.world], L = wd.levels[i];
   run.idx = i; run.carry = c; run.levelStart = { ...c };
-  game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern, thoughts: PENSAMIENTOS[run.world] });
+  game = createGame(L.map, c, { facts: wd.facts, assist: opt.assist, lantern: L.lantern, thoughts: PENSAMIENTOS[run.world],
+    alba: run.world === 'alba' ? { start: PASAJES_POR_NIVEL[L.id] ?? 0 } : null });
   art = createArt(game.level, L.theme, { costume: costumeFor(save, run.world) });
   cam = createCamera(game.player.x + game.player.w / 2, game.level.w * 16, game.player.facing);
 }
@@ -120,7 +124,7 @@ function finishLevel() {
   const fact = { kind: 'fact', facts: wd.cards[L.id].facts };
   if (next) {
     fact.then = () => startLevel(run.idx + 1, c);
-    showCard({ kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, unlocks: nuevos, pieceName: run.world === 'noche' ? 'LUNAS' : 'CARMESÍS', then: () => showCard(fact) });
+    showCard({ kind: 'clear', id: L.id, time: game.time, score: game.score, piezas: game.piezas, total: game.pieces.length, next: `${next.id} ${next.name}`, unlocks: nuevos, pieceName: { noche: 'LUNAS', alba: 'SOLES' }[run.world] ?? 'CARMESÍS', pasajes: game.alba ? `PASAJES ${game.alba.leidos.length + game.alba.start}/10` : null, then: () => showCard(fact) });
   } else {
     const w = worldById(run.world);
     endInfo = { title: `¡MUNDO ${wd.n} COMPLETADO!`, lines: [...nuevos, run.world === 'carmesi' ? 'SE ABRIÓ LA PUERTA DE NOCHE EN EL MUSEO' : `${w.name} YA ESTÁ EN TU MUSEO`] };

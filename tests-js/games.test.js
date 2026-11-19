@@ -32,11 +32,13 @@ test("la trivia sigue en /trivia/ y el juego de José Madero sale el viernes 6 n
   assert.match(jmv.nombre + jmv.descripcion, /no oficial/i);
 });
 
-test("cada juego fuera de /trivia/ tiene su archivo en static/", () => {
+test("cada juego fuera de /trivia/ tiene su archivo en static/ o su página de Hugo (F28: Halley Flip)", () => {
   for (const g of games.filter((g) => g.id !== "trivia")) {
     const f = path.join(raiz, "static", g.url, "index.html");
-    assert.ok(fs.existsSync(f), `falta ${f}`);
-    assert.match(fs.readFileSync(f, "utf8").slice(0, 8000), /<canvas id="game"/);
+    const pagina = path.join(raiz, "content", g.url.replace(/\/$/, "") + ".md");
+    assert.ok(fs.existsSync(f) || fs.existsSync(pagina), `falta ${f} o ${pagina}`);
+    if (fs.existsSync(f)) assert.match(fs.readFileSync(f, "utf8").slice(0, 8000), /<canvas id="game"/);
+    else assert.match(fs.readFileSync(pagina, "utf8"), /^layout: /m);
   }
 });
 
@@ -59,9 +61,9 @@ test("la trivia tiene «◀ Games» y la sección Games tiene su plantilla con f
 test("Yo contra mi corazón: solo esta semana (hasta el domingo 15 nov 2026, 23:59 CDMX) y la plantilla respeta «hasta»", () => {
   const g = games.find((x) => x.id === "yo-contra-mi-corazon");
   assert.equal(g.url, "games/yo-contra-mi-corazon/");
-  assert.equal(Date.parse(g.hasta), Date.parse("2026-11-15T23:59:59-06:00"));
+  assert.equal(Date.parse(g.hasta), Date.parse("2026-11-22T23:59:59-06:00"));   // una semana más
   assert.ok(Date.parse(g.hasta) > Date.parse(g.desde));
-  assert.match(g.etiqueta + g.descripcion, /solo esta semana/i);
+  assert.match(g.etiqueta + g.descripcion, /una semana más/i);
   assert.match(g.descripcion, /no oficial/i);
   for (const x of games.filter((x) => x.hasta)) assert.match(x.hasta, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2}|Z)$/);
   assert.match(leer("layouts/games/section.html"), /\.hasta/);

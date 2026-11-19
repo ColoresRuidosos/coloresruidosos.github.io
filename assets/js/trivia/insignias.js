@@ -2,7 +2,7 @@
    colores en PALETA) y el dibujo de la chapa de 32×32. Cada fila de un sprite mide 16;
    tests-js/trivia.test.js lo revisa. */
 (function (raiz) {
-  var PALETA = {".": null, "k": "#141414", "w": "#F4EFE6", "W": "#ffffff", "r": "#E0302B", "R": "#8e1a16", "o": "#FF7A30", "y": "#FFD23F", "Y": "#fff3b0", "b": "#2F5BFF", "B": "#1d3f9e", "c": "#6ad3d0", "p": "#FF3E7F", "s": "#e9cdb8", "G": "#8a8a8a", "L": "#c9c9c9", "m": "#7a4a2a"};
+  var PALETA = {".": null, "k": "#141414", "w": "#F4EFE6", "W": "#ffffff", "r": "#E0302B", "R": "#8e1a16", "o": "#FF7A30", "y": "#FFD23F", "Y": "#fff3b0", "b": "#2F5BFF", "B": "#1d3f9e", "c": "#6ad3d0", "p": "#FF3E7F", "s": "#e9cdb8", "G": "#8a8a8a", "L": "#c9c9c9", "m": "#7a4a2a", "g": "#6cc04a", "v": "#2e7d32"};
 
   var ICONOS = {
     "equilibrista": [
@@ -617,6 +617,24 @@
       "..........y..y..",
       ".........yYy...."
     ],
+    "banda": [
+      "................",
+      ".YY..YY..YY..YY.",
+      "................",
+      "kk...kk..kk..kk.",
+      "ss...ss..ss..ss.",
+      "ss.G.ss..ss..ss.",
+      "kkkG.kk.mkk.mkky",
+      "kk.G.kkm.kkmkkkG",
+      "kk.Gooo..rrr.kk.",
+      "kk.Gook..kr.LLLL",
+      "kk.G.kk..kk.LppL",
+      "kk.G.kk..kk.LppL",
+      "kk.G.kk..kk.LLLL",
+      "mmmmmmmmmmmmmmmm",
+      "................",
+      "................"
+    ],
     "sombrero": [
       "................",
       "........y.......",
@@ -634,10 +652,137 @@
       "..y..........y..",
       ".yYy........yYy.",
       "..y..........y.."
+    ],
+    // Halley Flip (F29/D36)
+    "cometa": [
+      "................",
+      "..........yyy...",
+      ".........yYYYy..",
+      "........yYWWYYy.",
+      ".......oyYWWYYy.",
+      "......ooyYYYYy..",
+      ".....oo.oyyyy...",
+      "....oo.oo.......",
+      "...oo.oo........",
+      "..o..oo.........",
+      ".o..o...........",
+      "...o............",
+      "................",
+      "................",
+      "................",
+      "................"
+    ],
+    "destello": [
+      "................",
+      ".......y........",
+      ".......y........",
+      "......yYy...p...",
+      "......yYy..ppp..",
+      ".....yYWYy..p...",
+      "..yyyYWWWYyyy...",
+      "yyYYYWWWWWYYYyy.",
+      "..yyyYWWWYyyy...",
+      ".....yYWYy......",
+      "......yYy.......",
+      "......yYy.......",
+      ".......y........",
+      ".......y....p...",
+      "...........ppp..",
+      "............p..."
+    ],
+    "bocina": [
+      "................",
+      "...kkkkkkkkkk...",
+      "...kGGGGGGGGk...",
+      "...kGkkkkkkGk...",
+      "...kGkLLLLkGk...",
+      "...kGkLkkLkGk.y.",
+      "...kGkLLLLkGk...",
+      "...kGkkkkkkGk...",
+      "...kGGGGGGGGk...",
+      "...kGkkkkkkGk...",
+      "...kGkLLLLkGk...",
+      "...kGkLkkLkGk.y.",
+      "...kGkLLLLkGk...",
+      "...kGkkkkkkGk...",
+      "...kGGGGGGGGk...",
+      "...kkkkkkkkkk..."
+    ],
+    "guisante": [
+      "............p.p.",
+      "......vv...ppppp",
+      ".......v....ppp.",
+      "....vvvvvvvv.p..",
+      "...vggggggggv...",
+      "..vggggggggggv..",
+      "..vggkggggkggv..",
+      ".vgggkggggkgggv.",
+      ".vgpggggggggpgv.",
+      ".vggggkggkggggv.",
+      ".vgggggkkgggggv.",
+      "..vggggggggggv..",
+      "...vggggggggv...",
+      "....vvvvvvvv....",
+      "................",
+      "................"
+    ],
+    "almohada": [
+      "................",
+      "..........bbbb..",
+      ".............b..",
+      "............b...",
+      "...........b....",
+      "..........bbbb..",
+      "................",
+      "..BBBBBBBBBBBB..",
+      ".BccccccccccccB.",
+      "BccccccccccccccB",
+      "BccccccBBccccccB",
+      "BccccccccccccccB",
+      ".BccccccccccccB.",
+      "..BBBBBBBBBBBB..",
+      "................",
+      "................"
+    ],
+    "planta": [
+      "............k...",
+      ".......g....k...",
+      "......ggg..kk...",
+      "..gg..ggg..gg...",
+      ".gggg..g..gggg..",
+      ".ggggg.g.ggggg..",
+      "..gggggvggggg...",
+      "....gg.v.gg.....",
+      ".......v........",
+      "..rrrrrrrrrrrr..",
+      "..RRRRRRRRRRRR..",
+      "...rrrrrrrrrr...",
+      "...rrrrrrrrrr...",
+      "....rrrrrrrr....",
+      "....rrrrrrrr....",
+      "................"
+    ],
+    "antifaz": [
+      "................",
+      "................",
+      "................",
+      "................",
+      "................",
+      "..kkkk....kkkk..",
+      ".kkkkkk..kkkkkk.",
+      "rkk..kkkkkk..kkr",
+      "rkk..kkkkkk..kkr",
+      ".kkkkkk..kkkkkk.",
+      "..kkkk....kkkk..",
+      "................",
+      "................",
+      "................",
+      "................",
+      "................"
     ]
   };
 
-  var AROS = { trivia: "#1FB57A", habilidad: "#FF3E7F", constancia: "#2F5BFF", secreta: "#FFD23F", contrarreloj: "#FF7A30", adivina: "#6ad3d0" };
+  var AROS = { trivia: "#1FB57A", habilidad: "#FF3E7F", constancia: "#2F5BFF", secreta: "#FFD23F", contrarreloj: "#FF7A30", adivina: "#6ad3d0", concierto: "#E0302B", halley: "#6cc04a" };
   var SIGNO = ["..wwww..", ".ww..ww.", ".....ww.", "....ww..", "...ww...", "...ww...", "........", "...ww..."];
 
   function dentro(a, b, r) { var dx = a - 15.5, dy = b - 15.5; return dx * dx + dy * dy <= r * r; }

@@ -623,6 +623,191 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - **Atajos:** la tecla **N** y un botón **💬 NOTAS** en la barra bajo el juego, junto a PAUSA y ♪ (útil en el celular).
 - **Mando táctil en celulares estrechos (mismo día):** en el navegador de Instagram la **A** quedaba fuera de la pantalla, porque los 5 botones medían siempre 72 px. Ahora se encogen con el ancho (entre 50 y 72 px, y la ★ entre 44 y 54) y caben de 320 px en adelante, sin bajar del mínimo táctil de 44 px.
 
+#### Q. v10 · Mundo 3 «Alba»: paseo al amanecer (W3; decisiones del usuario, 10 nov 2026) ⏳ falta aprobar textos
+**Decisiones:**
+- es un **paseo con obstáculos suaves**: sin daño ni vidas, y no se puede perder;
+- **3 niveles** con títulos de canciones del disco;
+- **pasajes:** Claude redacta las reflexiones y el usuario las aprueba antes de publicar.
+
+**Datos verificados (2 fuentes o más):**
+
+| Dato | Fuentes |
+|---|---|
+| *Alba* (2018), 3.er disco solista, con el subtítulo *Oda a la nostalgia* | Discogs, Amazon, Wikipedia ES, Letras |
+| 10 canciones: «Willkommen», «Aún hay más», «Los de septiembre», «La célula no explotó», «Caballeros británicos», «Ahora y hoy», «No lo cambio por nada», «Etrusco único», «Maldita rueda» y «Carrusel de adultos» | Discogs, Album of the Year, Letras, Wikipedia ES |
+| Disco experimental centrado en la nostalgia («el disco blanco») | Milenio, Zeta Tijuana (CONTEXTO §5) |
+
+- ⚠️ La fecha exacta varía: 16 mar 2018 (Wikipedia ES) o 17 mar (Amazon y AOTY). En pantalla solo sale «2018».
+- ⚠️ «Lo lanzó sin sencillos» tiene una sola fuente: no sale en pantalla.
+
+**Historia del mundo (ficción del juego):** después de la fiesta de *Noche*, Pepe camina hacia el amanecer por un pueblo blanco donde todo le recuerda algo. La nostalgia lo jala hacia atrás y él aprende a seguir adelante. Es el yin-yang con *Noche*: de la fiesta a oscuras a la luz.
+
+| Nivel | Capítulo | Dónde | Novedad |
+|---|---|---|---|
+| 3-1 | «WILLKOMMEN» | Pueblo blanco antes del amanecer: azul grisáceo que se aclara mientras avanzas | Pasajes, la nostalgia y las primeras polaroids |
+| 3-2 | «CARRUSEL DE ADULTOS» | Feria vacía al alba: carrusel y noria | **La Maldita Rueda** (noria con cabinas que giran) |
+| 3-3 | «AHORA Y HOY» | El cerro donde sale el sol | Momento final **«La Nostalgia»** |
+
+**Mecánicas** (en un paseo no hay daño; los enemigos de §3.2 se vuelven obstáculos suaves):
+- **Amanecer:** el cielo pasa de azul noche a blanco dorado según avanzas por el nivel.
+- **Plataformas de luz (`~`):** solo son sólidas mientras hay luz del alba:
+  - de forma fija, en el tramo ya amanecido;
+  - o durante 10 s al tomar una **Luz del Alba** (`@`, el objeto de §3.4).
+- **La nostalgia:**
+  - si Pepe se queda quieto más de 3 s, una bruma sepia lo arrastra **hacia atrás** a 20 px/s;
+  - nunca lo lleva más atrás del último checkpoint ni lo tira a un foso;
+  - en cuanto camina, se disipa.
+  - Es el mensaje del disco: hay que seguir adelante.
+- **Recuerdo (`I`):** una polaroid flota despacio hacia Pepe (30 px/s).
+  - Si lo toca, la pantalla se pone sepia un instante (sin destello con «sin destellos») y Pepe **regresa 48 px**, nunca antes del checkpoint. Sin daño.
+  - Con el micrófono se disuelve en luz.
+- **Maldita Rueda (`D`):** noria de 4 cabinas que giran (0,6 rad/s). Las cabinas son plataformas semisólidas que te llevan. Si te caes, vuelves a la cabina de abajo.
+- **Fosos:** caer te devuelve al último checkpoint, sin perder nada.
+- **Pasajes (`S`):** 10 atriles con un disco blanco, uno por canción del disco (3-1: 4, 3-2: 3, 3-3: 3).
+  - Al pasar junto a uno sale un panel arriba durante 5 s (se puede saltar) con el **título de la canción** y una **reflexión firmada «— COLORES RUIDOSOS»**. No lleva letras de canciones.
+  - Contador «PASAJES n/10».
+
+**Pasajes: borrador de Claude** (⏳ **el usuario los aprueba o los edita**; son lecturas de CR y no dicen de qué trata cada canción):
+
+| # | Canción | Reflexión (máximo unos 90 caracteres) |
+|---|---|---|
+| 1 | Willkommen | Hay lugares que siguen esperándote aunque tú ya seas otro. |
+| 2 | Aún hay más | Cuando crees que ya lo viste todo, la memoria abre otra caja. |
+| 3 | Los de septiembre | Los amigos de una época se quedan en ella. Recordarlos también es quererlos. |
+| 4 | La célula no explotó | A veces la noticia es esa: sigues aquí. |
+| 5 | Caballeros británicos | De niños jugábamos a ser grandes, con trajes prestados y modales inventados. |
+| 6 | Ahora y hoy | Para nosotros el título lo dice todo: lo que importa es ahora, y es hoy. |
+| 7 | No lo cambio por nada | Hay recuerdos que no se cambian por nada. Por eso se cuidan, no se repiten. |
+| 8 | Etrusco único | Lo que fuimos es una lengua antigua: solo tú la sigues hablando. |
+| 9 | Maldita rueda | La vuelta que siempre vuelve. Para salir de la rueda hay que dar un paso fuera. |
+| 10 | Carrusel de adultos | De grandes también damos vueltas; solo que ya nadie nos sube al caballito. |
+
+**v10.1 · Letras de *Alba* (13 nov 2026).** El usuario informa que **tienen el permiso** («la bendición») para usar letras del disco.
+- **Constancia:** ✅ el usuario confirma el permiso para usar las letras (15 nov 2026: «tenemos el permiso, no te preocupes»). El documento lo guarda el equipo de CR fuera del repo.
+- **Quién pone el texto:** el texto exacto lo aporta el equipo de CR desde la fuente oficial. **Claude no transcribe letras**: solo construye el mecanismo y coloca el texto que le pasan, sin tocarlo.
+- **Cómo se ven:**
+  - cada atril muestra **un fragmento corto** de su canción (hasta 4 líneas de 30 caracteres, para que quepa y se lea en el celular);
+  - debajo va la reflexión de CR;
+  - al pie, el crédito: «"Título" — José Madero · *Alba* (2018) · usado con autorización».
+- **Datos:** `src/data/alba-letras.js`, una entrada por canción: `{ cancion, fragmento: [líneas], credito }`.
+  - Una prueba revisa que el fragmento cumpla el tamaño, que lleve crédito y que sea una de las 10 canciones.
+  - Si una canción no tiene fragmento, el atril muestra solo la reflexión.
+- **Excepción a CONTEXTO §1** («ni letras sin licencia»): solo para *Alba* y solo con el permiso anotado. Para los demás discos, la regla sigue igual.
+
+**Momento final «La Nostalgia»** (3-3, en lugar de jefe; ✅ §3.3 v4):
+- En la cima, el mundo se vuelve sepia y aparecen siluetas de los niveles anteriores (Carmesí y Noche) **corriendo hacia atrás**.
+- Un viento empuja a Pepe a 40 px/s: solo se avanza **caminando sin parar**.
+- Tras unos 12 s caminando (unos 400 px), sale el sol: todo se vuelve blanco dorado, la bruma se va y Pepe hace la pose de festejo.
+- No se puede perder: si sueltas el control, solo retrocedes un poco.
+- **Recompensa:** «RECUERDO RECUPERADO» y el cuadro 3 del Museo, **un sol que amanece sobre blanco** (§3.0f J).
+
+**v10.2 · Jefe «La Nostalgia» y la Maldita Rueda** (✅ aprobado por el usuario el 15 nov 2026; **sustituye** al «Momento final» de arriba). Sigue siendo paseo: **sin daño, no se puede perder**. Si un recuerdo te toca, la pantalla se pone sepia 0,4 s y retrocedes 48 px, nunca antes del checkpoint del jefe.
+
+| Fase | Nombre | Qué pasa | Cómo se avanza |
+|---|---|---|---|
+| 1 | «Lo que ya viviste» | La Nostalgia lanza **recuerdos de los jefes anteriores, en sepia y más lentos (×0,7)**: el rayo bajo o alto del Flash-Bot, la embestida del Enmascarado y 3 máscaras en abanico. Nunca repite el ataque anterior | Llegar a **3 rayos de sol** del camino; cada uno le quita un pedazo de bruma |
+| 2 | «La vuelta que siempre vuelve» | **La Maldita Rueda** (noria grande, 6 cabinas) gira. Cada 4 s la Nostalgia la **invierte** 2 s y avisa 0,6 s antes, con un brillo y el sonido de un rebobinado | Subir de cabina en cabina hasta el eje |
+| 3 | «Ahora y hoy» | Viento sepia de 40 px/s en contra. Si nos pasan el fragmento de «Maldita rueda», aparece aquí | Caminar sin parar unos 400 px hasta el sol |
+
+- **Final:** la bruma se vuelve luz y la Nostalgia **se despide sin morir**: sonríe, saluda y dice «GRACIAS POR RECORDARME. AHORA SIGUE.».
+- Después viene la polaroid del presente (la postal del viaje) y el cuadro 3 del Museo.
+- **Ningún jefe castiga la tristeza** (§3.3): a la Nostalgia no se le golpea; se le gana avanzando.
+
+**v10.3 · Sprites de *Alba*** (por código, estilo Neo Geo, con el mismo generador que §3.0f G; `src/render/sprites-alba.js`):
+
+| Sprite | Tamaño | Animaciones | Diseño (propio) |
+|---|---|---|---|
+| **La Nostalgia** (jefe) | 64×80 | flota ×4 · lanza ×2 · gira ×2 · despide ×4 | Nube de bruma sepia con polaroids prendidas, ojos grandes y melancólicos y brazos de **tira de película** con perforaciones. Abajo se deshace en jirones. Al despedirse pasa de sepia a dorado y sonríe |
+| **Recuerdo** (polaroid) | 18×20 | 4 variantes × 2 | Marco blanco con una foto pequeña: rosa (Carmesí), antifaz (Noche), cámara con flash (Flash-Bot) y noria (feria) |
+| **Cabina** de la noria | 20×16 | 1 | Góndola crema y turquesa con ventana |
+| **Eje** de la noria | 14×14 | 1 | Engrane dorado. Los radios y el aro se dibujan con líneas en el juego |
+| **Atril** | 18×26 | normal · leído | Atril de madera con un **disco blanco**; ya leído, el disco brilla dorado |
+| **Luz del Alba** | 14×14 | brilla ×4 | Pequeño sol con rayos que laten |
+| **Plataforma de luz** | 16×6 | encendida · apagada | Dorada y sólida; apagada es solo un contorno punteado |
+| **Banca** | 30×16 | 1 | Banca de parque de madera con patas de hierro |
+| **Caballito** del carrusel | 22×26 | 1 | Caballito blanco con crin dorada y tubo de rayas |
+| **Diana** | 16×16 | parada · caída | Aros rojos y blancos; al caer queda de canto |
+
+- **«Los de septiembre»:** reutilizan los invitados de *Noche* **sin disfraz** (animación `uwalk`).
+- **Recuerdos de los jefes (fase 1):** son los sprites que ya existen (Flash-Bot y Enmascarado), pasados a sepia al dibujarlos.
+- **Pepe (v10.4, pedido del usuario el 15 nov 2026): vestuario nuevo en *Alba*.**
+  - Propuesta, que el usuario puede cambiar: camisa blanca de lino arremangada, chaleco de punto crema, pantalón arena, botines cafés y bufanda dorada, sin el pañuelo rojo.
+  - Es el traje automático del mundo y entra a la Galería como el 9.º traje.
+  - Poses nuevas del paseo: sentarse, mirar un recuerdo, caminar contra el viento, mirar el amanecer y tomarse la foto.
+  - Prompts: §0g H e I.
+- **Hoja de concepto:** `art/source/alba/concepto-sprites.png` (✅ diseño aprobado el 15 nov 2026).
+- **Arte final con Gemini:** el usuario vio genéricos los sprites hechos por código y pidió **rehacerlos con Gemini**, con el mismo diseño. Los prompts están en `art/PROMPTS-GEMINI.md` §0g, junto con los escenarios y las escenas. Mientras no lleguen, el juego usa los sprites de código como respaldo.
+
+**v10.5 · Historia y escenas de *Alba*** (⏳ **borrador para que el usuario lo apruebe**, 15 nov 2026). Mismo formato que *Carmesí* y *Noche* (`historia.js` y `*-story.js`). Todo es ficción del juego salvo lo marcado como dato, que va con su fuente.
+- **Ilustraciones de Gemini:**
+  - a1, salida de la fiesta: se queda con el letrero «PARTY HALL» (✅ decisión del usuario);
+  - a2, polaroids;
+  - a3, amanecer con la Nostalgia;
+  - a4, la polaroid del presente.
+
+**Escena de entrada** (al cruzar la puerta blanca del Museo):
+
+| Viñeta | Ilustración | Texto |
+|---|---|---|
+| 1 | a1 | LA PUERTA BLANCA DA A LA SALIDA DE LA FIESTA. / ADENTRO SIGUE LA MÚSICA; AFUERA, EL SILENCIO. / EL CIELO EMPIEZA A ACLARAR. |
+| 2 | a2 | EN EL CAMINO FLOTAN FOTOS / DE TODO LO QUE YA VIVIÓ. / CADA UNA LE PIDE QUE SE QUEDE. |
+
+**Cartel al empezar cada nivel:**
+
+| Nivel | Título | Texto |
+|---|---|---|
+| 3-1 | WILLKOMMEN | 2018. SALE *ALBA*, SU TERCER DISCO. (dato A1) / UN PUEBLO BLANCO ANTES DEL AMANECER. / TODO ESTÁ COMO LO RECUERDA. / ¿O EL QUE CAMBIÓ FUE ÉL? |
+| 3-2 | CARRUSEL DE ADULTOS | UNA FERIA VACÍA AL ALBA. / LOS CABALLITOS SIGUEN GIRANDO / AUNQUE YA NO HAY NIÑOS. / ARRIBA ESPERA LA MALDITA RUEDA. |
+| 3-3 | AHORA Y HOY | EN LA CIMA DEL CERRO / ALGUIEN LO ESTÁ ESPERANDO. / NO VIENE A PELEAR: / VIENE A PEDIRLE QUE SE QUEDE. |
+
+**Pensamientos de Pepe en los checkpoints (6):**
+1. AQUÍ TODO ES BLANCO… COMO UNA HOJA NUEVA.
+2. SI ME DETENGO, ALGO ME JALA HACIA ATRÁS. (acortado para que quepa en la burbuja de 44 caracteres)
+3. ESA FOTO… YO ESTABA AHÍ.
+4. DE NIÑO, ESTA RUEDA ME PARECÍA ENORME.
+5. ¿Y SI ME QUEDO A VIVIR EN EL RECUERDO?
+6. YA CASI SALE EL SOL. SIGO.
+
+**Lo que dice la Nostalgia en el jefe:**
+- al aparecer: «QUÉDATE. AQUÍ TODO FUE MEJOR.»
+- en la fase 2: «OTRA VUELTA. SOLO UNA MÁS.»
+- en la fase 3: «¿DE VERDAD TE VAS?»
+- al despedirse: «GRACIAS POR RECORDARME. AHORA SIGUE.»
+
+**«¿SABÍAS QUE…?» al terminar cada nivel** (datos verificados con 2 fuentes o más; no se repiten en el mundo):
+
+| Id | Nivel | Dato | Fuentes |
+|---|---|---|---|
+| A1 | (cartel 3-1) | *Alba* (2018) es el tercer disco de José Madero en solitario | Wikipedia ES · Discogs |
+| A2 | 3-1 | *Alba* tiene el subtítulo «Oda a la nostalgia» | Discogs · Amazon |
+| A3 | 3-2 | Tiene 10 canciones: abre con «Willkommen» y cierra con «Carrusel de adultos» | Discogs · Album of the Year · Letras |
+| A4 | 3-3 | Se le conoce como «el disco blanco»: un disco experimental sobre la nostalgia | Milenio · Zeta Tijuana |
+
+**Tarjeta «RECUERDO RECUPERADO»** (2018): título «SEGUIR ADELANTE». Texto: «ALBA, 2018. / ME ACUERDO: LA NOSTALGIA ES BONITA, / PERO EL SOL SALE HACIA ADELANTE.»
+
+**Escena de salida:**
+
+| Viñeta | Ilustración | Texto |
+|---|---|---|
+| 1 | a3 | SALE EL SOL. / LA NOSTALGIA SE DESPIDE SONRIENDO. |
+| 2 | a4 | PEPE SE TOMA UNA FOTO DEL PRESENTE. / TRES DISCOS. FALTAN CINCO. |
+
+**Para el código (AL9):** las escenas de los mundos tendrán `id` (`a1`–`a4`) para poder mostrar su ilustración, como ya hace el prólogo.
+
+**Historia** (como en los mundos 1 y 2):
+- escena de entrada de 2 viñetas («Después de la fiesta, el silencio» y «Todo me recuerda algo»);
+- pensamientos de Pepe en los checkpoints, sobre seguir adelante;
+- «¿SABÍAS QUE…?» con los datos verificados de arriba;
+- escena de salida de 2 viñetas («Ya amaneció» y «Ahora y hoy»).
+
+**Ayudas:** como no hay daño, no hay corazones, cartas de fan, Amplificador ni Antifaz. Sí cuentan el cronómetro y las piezas `*` (con récord), para que tenga algo de reto.
+
+**Arte:**
+- **Fondos:** primero por código (`themes.js`), en blanco, crema y dorado. Luego se pueden cambiar por ilustraciones de ChatGPT, con prompts en `art/PROMPTS-GEMINI.md` §0g.
+- **Sprites por código, estilo Neo Geo:** polaroid, noria, atril, Luz del Alba y plataforma de luz.
+- **Pepe:** traje automático del mundo, la **camisa blanca** (sin datos de vestuario reales; es ficción).
+- **Escuchar el disco:** el botón 🎧 abre la búsqueda de *Alba* en las plataformas (§3.0f P).
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 
@@ -652,8 +837,8 @@ Regla: cada enemigo sale de **un título de canción, una portada o un concepto 
 | Noche | **Invitado enmascarado** | «Noche de brujas» (fiesta de disfraces) | Al pisarlo pierde la máscara y cambia de comportamiento |
 | Noche | **Fantasma** | «Fantasmas» (setlist de la gira *Noche*) | Atraviesa paredes; solo es visible con flash |
 | Noche | **Murciélago** | Terror clásico | Picado en curva |
-| Alba | **Recuerdo** (polaroid) | Concepto nostalgia | Te sigue lento; si te toca, te devuelve a un punto anterior |
-| Alba | **Maldita Rueda** | Canción «Maldita Rueda» | Rueda que rueda por pendientes |
+| Alba | **Recuerdo** (polaroid) | Concepto nostalgia | Obstáculo suave (paseo, §3.0f Q): te sigue lento; si te toca, te devuelve 48 px, sin daño |
+| Alba | **Maldita Rueda** | Canción «Maldita rueda» | Noria con cabinas que giran: plataformas móviles (§3.0f Q) |
 | Psalmos | **Codependientes** | Sencillo «Codependientes» (con Cami) | Pareja unida por una cadena: hay que vencer a los dos |
 | Psalmos | **Chambelán** | «Chambelán (Nunca fui)» | Baila en formación; patrón de vals |
 | Psalmos | **Sombra suelta** | Concepto original: lado oscuro de Peter Pan | Copia tus movimientos con retraso |

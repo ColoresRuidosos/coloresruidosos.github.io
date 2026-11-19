@@ -76,6 +76,14 @@ export function createAudio() {
     bossland: () => { tone('sawtooth', 120, 30, 0.45, 0.3); tone('square', 70, 40, 0.3, 0.2); },
     bosscard: () => [[220, 277, 330], [208, 262, 311]].forEach((ch, i) => setTimeout(() => ch.forEach((f) => tone('sawtooth', f, f, 0.4, 0.07)), i * 260)),
     fight: () => [392, 523, 659, 784].forEach((f, i) => setTimeout(() => tone('square', f, f, 0.12, 0.12), i * 70)),
+    // v10 · Alba: efectos suaves (paseo, nada suena a daño)
+    pasaje: () => [523, 659, 784].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.3, 0.12), i * 120)),
+    recuerdo: () => tone('triangle', 440, 330, 0.3, 0.1),
+    disuelve: () => tone('triangle', 880, 1320, 0.15, 0.08),
+    sit: () => tone('triangle', 392, 330, 0.25, 0.1),
+    rayo: () => [784, 988, 1175].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.15, 0.12), i * 70)),
+    rebobina: () => tone('triangle', 660, 330, 0.5, 0.08),
+    despedida: () => [392, 494, 587, 784].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.4, 0.12), i * 220)),
     gameover: () => [392, 330, 262].forEach((f, i) => setTimeout(() => tone('triangle', f, f, 0.25, 0.2), i * 180)),
   };
   return {

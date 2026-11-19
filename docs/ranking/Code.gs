@@ -1,5 +1,5 @@
 /**
- * Ranking de la Trivia Love of Lesbian (F18/D24) y de «Yo contra mi corazón» (modo corazon)
+ * Ranking de la Trivia Love of Lesbian (F18/D24), de «Yo contra mi corazón» (modo corazon) y de Halley Flip (modo halley, D35)
  * — Apps Script del equipo de Colores Ruidosos.
  *
  * Se pega en el editor de Apps Script de un Google Sheet y se publica como aplicación web.
@@ -18,8 +18,10 @@ var MODOS = {
   trivia: { max: 30, min_ms: 15000, max_ms: 3600000 },
   contrarreloj: { max: 400, min_ms: 3000, max_ms: 90000 },
   adivina: { max: 60, min_ms: 5000, max_ms: 3600000 },
-  // «Yo contra mi corazón»: una canción de 3:46; solo la semana del 9 al 15 nov 2026 (hasta 23:59 CDMX).
-  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-16T05:59:59Z" },
+  // «Yo contra mi corazón»: una canción de 3:46; del 9 al 22 nov 2026 (temporada extendida una semana; hasta 23:59 CDMX).
+  corazon: { max: 80000, min_ms: 20000, max_ms: 240000, hasta: "2026-11-23T05:59:59Z" },
+  // Halley Flip (F28/D35): la primera torre se pasa a los ~2,8 s y luego, a lo más, una cada ~0,82 s.
+  halley: { max: 999, min_ms: 3000, max_ms: 3600000, ms_inicio: 2000, ms_por_punto: 700 },
 };
 var TOP = 20;
 var LIMITE_POR_HORA = 10;
@@ -36,10 +38,9 @@ var COMPLEMENTOS = ["del Ártico", "de Halley", "del Volcán", "de Nieve", "de B
 // Deben ser iguales a las de juegos/yo-contra-mi-corazon/src/ranking/ranking.js.
 var NOMBRES = {
   corazon: {
-    sustantivos: ["Payaso", "Payasa", "Mimo", "Juglar", "Arlequín", "Pierrot",
-      "Acróbata", "Domador", "Faquir", "Bufón", "Zancudo", "Mago"],
-    complementos: ["del Latido", "de la Aorta", "del Bate", "de la Carpa", "del Confeti", "del Telón",
-      "Sin Pulso", "de la Feria", "del Circo", "de Medianoche", "del Arrítmico", "de la Pista"],
+    // Carrera de José Madero (discos y canciones verificados). Nunca «Luciérnaga» (memorial).
+    sustantivos: ["Migajero", "Migajera", "Payaso", "Payasa", "Pierrot", "Fantasma", "Rey", "Reina", "Plural", "Teorema", "Brujo", "Bruja"],
+    complementos: ["de Carmesí", "de Noche", "del Alba", "de Psalmos", "de Giallo", "de Aurora", "de Sarajevo", "del Lunes 28", "de la Rueda", "de la Bestia", "de Querido", "Singular"],
   },
 };
 
@@ -75,6 +76,7 @@ function validarEnvio(d) {
   if (!modo) return "modo";
   if (typeof d.puntos !== "number" || Math.floor(d.puntos) !== d.puntos || d.puntos < 0 || d.puntos > modo.max) return "puntos";
   if (typeof d.duracionMs !== "number" || d.duracionMs < modo.min_ms || d.duracionMs > modo.max_ms) return "duracion";
+  if (modo.ms_por_punto && d.puntos > 1 + Math.max(0, d.duracionMs - modo.ms_inicio) / modo.ms_por_punto) return "rapido";
   if (!nombreValido(d.nombre, d.modo)) return "nombre";
   if (typeof d.dispositivo !== "string" || !/^[a-z0-9]{8,32}$/.test(d.dispositivo)) return "dispositivo";
   return "";

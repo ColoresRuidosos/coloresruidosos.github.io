@@ -372,3 +372,49 @@ def crowd(seed=2):
         h = rnd.randrange(0, 6); d.ellipse((x, 296-h+Y, x+12, 310-h+Y), (8,6,14,255)); d.rectangle((x-2, 304-h+Y, x+14, 320+Y), (8,6,14,255))
         if rnd.random() < .45: d.line([(x+10, 300-h+Y), (x+14, 280-h+Y)], (8,6,14,255), 3)
     return im
+
+# ---------- INSIGNIAS (F15): íconos de 16×16 ----------
+BADGE_IDS = ['carmesi', 'brujas', 'teoremas', 'bestia', 'plural', 'rey', 'fantasmas', 'psalmos', 'rueda', 'querido']
+
+def badge(bid):
+    S = Spr(16, 16)
+    W_ = (240,238,232,255); Y = (255,226,92,255); R = (210,36,56,255)
+    if bid == 'carmesi':    # rosa roja
+        S.part(lambda d: d.line([(8,9),(8,15)], 255, 2), (60,150,70), None, (110,200,110), line=False)
+        S.draw(lambda d: d.polygon([(8,12),(12,10),(9,13)], (60,150,70,255)))
+        S.part(lambda d: d.ellipse((3,1,13,10), 255), (200,30,60), (130,14,40), (250,100,120), k=2, kl=2)
+        S.draw(lambda d: (d.arc((5,3,11,8), 180, 360, (130,14,40,255)), d.point((8,5), (130,14,40,255))))
+    elif bid == 'brujas':   # antifaz
+        S.part(lambda d: d.polygon([(0,4),(5,3),(8,5),(11,3),(16,4),(15,11),(11,12),(8,10),(5,12),(1,11)], 255), (170,80,220), (100,40,150), (220,160,250), k=2, kl=1)
+        S.draw(lambda d: (d.ellipse((3,5,7,9), (20,10,30,255)), d.ellipse((9,5,13,9), (20,10,30,255)), d.point((4,6), W_), d.point((10,6), W_)))
+    elif bid == 'teoremas': # nota musical
+        S.part(lambda d: (d.ellipse((2,10,8,15), 255), d.rectangle((6,2,8,12), 255), d.polygon([(6,1),(14,3),(14,7),(8,5)], 255)), (255,226,92), (190,150,30), (255,250,190), k=2, kl=1)
+    elif bid == 'bestia':   # cabeza de bestia con cuernos
+        S.part(lambda d: (d.polygon([(2,1),(5,6),(3,7)], 255), d.polygon([(14,1),(11,6),(13,7)], 255)), (230,220,200), None, None)
+        S.part(lambda d: d.ellipse((2,4,14,15), 255), (120,60,150), (70,30,90), (170,110,200), k=2, kl=2)
+        S.draw(lambda d: (d.rectangle((5,8,6,9), Y), d.rectangle((10,8,11,9), Y), d.line([(6,12),(10,12)], (30,10,30,255)), d.point((7,13), W_), d.point((9,13), W_)))
+    elif bid == 'plural':   # una sola figura bajo el foco
+        S.draw(lambda d: (d.polygon([(6,0),(10,0),(14,13),(2,13)], (255,226,92,255)), d.ellipse((1,11,15,15), (255,240,170,255))))
+        S.part(lambda d: (d.ellipse((6,4,10,8), 255), d.polygon([(5,14),(11,14),(10,9),(6,9)], 255)), (40,34,44), None, (86,78,96), k=1, kl=1)
+    elif bid == 'rey':      # corona hundiéndose entre olas
+        S.part(lambda d: d.polygon([(2,9),(3,3),(6,6),(8,2),(10,6),(13,3),(14,9)], 255), (255,210,60), (190,140,20), (255,245,170), k=1, kl=1)
+        S.draw(lambda d: (d.point((8,4), R), d.point((3,5), R), d.point((13,5), R)))
+        S.part(lambda d: d.polygon([(0,10),(3,8),(6,10),(9,8),(12,10),(15,8),(16,16),(0,16)], 255), (60,110,200), (30,60,130), (130,180,240), k=2, kl=1)
+    elif bid == 'fantasmas':  # fantasma
+        S.part(lambda d: (d.ellipse((3,1,13,11), 255), d.polygon([(3,6),(13,6),(13,15),(11,13),(9,15),(7,13),(5,15),(3,13)], 255)), (240,240,250), (170,170,200), (255,255,255), k=2, kl=1)
+        S.draw(lambda d: (d.rectangle((5,5,6,7), (20,20,40,255)), d.rectangle((9,5,10,7), (20,20,40,255)), d.ellipse((7,8,8,10), (20,20,40,255))))
+    elif bid == 'psalmos':  # libro azul abierto
+        S.part(lambda d: d.polygon([(1,4),(8,5),(15,4),(15,13),(8,14),(1,13)], 255), (60,90,190), (30,50,120), (120,150,240), k=1, kl=1)
+        S.draw(lambda d: (d.polygon([(2,5),(7,6),(7,12),(2,11)], (240,236,226,255)), d.polygon([(9,6),(14,5),(14,11),(9,12)], (240,236,226,255)),
+                          d.line([(8,5),(8,14)], OL), [d.line([(3,7+i*2),(6,7+i*2)], (150,150,170,255)) for i in range(2)], d.point((11,8), OL), d.line([(12,7),(12,9)], OL)))
+    elif bid == 'rueda':    # rueda de carreta
+        S.part(lambda d: d.ellipse((1,1,15,15), 255), (150,95,50), (90,55,25), (200,140,80), k=2, kl=1)
+        S.draw(lambda d: (d.ellipse((4,4,12,12), (0,0,0,0)), d.line([(8,3),(8,13)], (90,55,25,255)), d.line([(3,8),(13,8)], (90,55,25,255)),
+                          d.line([(4,4),(12,12)], (90,55,25,255)), d.line([(12,4),(4,12)], (90,55,25,255)), d.ellipse((6,6,10,10), (200,140,80,255), OL)))
+    elif bid == 'querido':  # sobre con sello
+        S.part(lambda d: d.rectangle((1,4,15,13), 255), (240,232,210), (190,180,160), (255,255,245), k=1, kl=1)
+        S.draw(lambda d: (d.line([(1,4),(8,9),(15,4)], OL), d.ellipse((6,7,10,11), R, OL), d.point((8,9), (255,150,150,255))))
+    elif bid == 'locked':   # aún no la tienes
+        S.part(lambda d: d.ellipse((1,1,15,15), 255), (70,62,84), (44,38,54), (100,92,116), k=2, kl=1)
+        S.draw(lambda d: (d.line([(6,5),(7,4),(9,4),(10,5),(10,7),(8,8),(8,10)], (170,160,190,255)), d.point((8,12), (170,160,190,255))))
+    return S.img()

@@ -6,6 +6,8 @@ import { QUOTES, HEADLINES } from '../data/quotes.js';
 import { createEnemy, stepEnemy, bounceOff } from './enemies.js';
 import { createBoss, stepBoss, hitBoss as hitFlashBot } from './boss.js';
 import { createLantern, stepLantern, refill, createMask, stepMask, hitMask, setMicTip } from './noche.js';
+import { createAlba, stepAlba } from './alba.js';
+import { ALBA } from './constants.js';
 
 // Jefe según el nivel: 'B' Cámara Flash-Bot (Mundo 1), 'E' El Enmascarado del Lago (Mundo 2).
 export const hitBoss = (g, b, force = false) => (b.kind === 'mask' ? hitMask(g, b, force) : hitFlashBot(g, b, force));
@@ -35,6 +37,8 @@ export function createGame(levelText, carry = {}, opts = {}) {
     thoughts: opts.thoughts ?? null, thoughtIdx: carry.thoughtIdx ?? 0, thoughtsShown: [], thought: null,
     assist: !!opts.assist, hurts: 0, lantern: opts.lantern ? createLantern() : null, blackout: false, shots: [],
   };
+  // v10 · Alba: paseo sin daño (opts.alba = { start: primer pasaje del nivel }).
+  g.alba = opts.alba ? createAlba(level, opts.alba) : null;
   // Niveles con jefe: empiezan con su cinemática de entrada.
   g.intro = level.boss ? { t: 0, x0: g.player.x, drop: INTRO.dropH, landed: false } : null;
   return g;
@@ -65,6 +69,7 @@ export function hookAhead(g) {
 }
 
 export function hurt(g, fromX) {
+  if (g.alba) return; // v10 · Alba es un paseo: nada hace daño
   if (g.invuln > 0 || g.star > 0) return; // con el Antifaz, nada hace daño
   g.hurts++;
   if (!g.assist) g.hearts--;
@@ -279,6 +284,7 @@ export function stepGame(g, btn) {
   g.events.push(...stepPlayerMotion(p, input, g.level));
   // Llanto de La Llorona: Pepe va a media velocidad un momento.
   if (p.slowT > 0) { p.slowT = Math.max(0, p.slowT - DT); const m = P.maxRun / 2; p.vx = Math.max(-m, Math.min(m, p.vx)); }
+  if (g.alba) stepAlba(g, input, prevBottom, micTip);
   p.landT = p.onGround && !wasGround ? 0 : (p.landT ?? 1) + DT;
 
   for (const e of g.enemies) {
@@ -313,6 +319,7 @@ export function stepGame(g, btn) {
     else if (it.kind === 'pua') { g.pua = PUA.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'PÚA', t: 1.2 }); }
     else if (it.kind === 'antifaz') { g.star = STAR.time; g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: '¡INVENCIBLE!', t: 1.2 }); }
     else if (it.kind === 'aceite') { refill(g); g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'ACEITE', t: 1.2 }); }
+    else if (it.kind === 'luz') { g.alba && (g.alba.luzT = ALBA.luzTime); g.events.push('powerup'); g.floats.push({ x: it.x, y: it.y - 10, text: 'LUZ DEL ALBA', t: 1.2 }); }
     else if (it.kind === 'carta') { g.hearts = Math.min(3, g.hearts + 1); g.events.push('heal'); g.floats.push({ x: it.x, y: it.y - 10, text: '+♥', t: 1.2 }); }
   }
 
@@ -323,6 +330,7 @@ export function stepGame(g, btn) {
   }
 
   // Foso: pierdes un corazón y vuelves al último checkpoint.
+  if (p.y > g.level.h * TILE + 40 && g.status === 'play' && g.alba) { respawn(g); g.events.push('fall'); }   // v10 · Alba: sin castigo
   if (p.y > g.level.h * TILE + 40 && g.status === 'play') {
     g.invuln = 0;
     hurt(g, p.x);

@@ -137,6 +137,53 @@ Al elegir, entra directo a ese juego. En el menú también están Mi colección,
 - **Lanzamiento con fecha:** cada juego tiene una fecha `desde`. Antes de esa fecha la tarjeta no aparece. El de José Madero sale el **viernes 6 de noviembre de 2026 a las 8:00 (CDMX)** con la compilación diaria, aunque el cambio se fusione antes. La página del juego sí existe antes, pero no está enlazada.
 - El menú marca "Games" como activo en `/games/` y en `/trivia/`.
 
+**F26 Insignia exclusiva de concierto y cartel con QR.** Para los conciertos de noviembre de 2026 en México, el equipo lleva un cartel impreso con un QR.
+- **Insignia «Noches reversibles»** (familia Concierto, aro rojo): su dibujo es **la banda en el escenario** (cantante con micrófono, guitarra, bajo y batería, en pixel art propio) y lleva la leyenda **"Gracias por existir"** en el juego, el sticker y el cartel. Se gana escaneando el QR del cartel **solo del 24 al 28 de noviembre de 2026**, en hora de CDMX. En la colección está a la vista, con la leyenda "Escanear el QR de Colores Ruidosos en un concierto". Así quien no fue sabe que existe.
+- **Dos formas de canjearla:** el QR abre la trivia con el código y la insignia se desbloquea sola; o en **Mi colección → "¿Tienes un código de concierto?"** se escribe el código que viene impreso en el cartel, sin importar mayúsculas, espacios ni acentos.
+- **Avisos claros:** "¡Desbloqueaste Noches reversibles!", "Ese código no existe" o "Este código solo funciona los días de concierto (24 al 28 de noviembre)". Si ya la tienes, te lo dice.
+- **El gran truco final no la pide**, igual que El último baile: no todos pueden ir a un concierto.
+- **El código y las fechas viven en `hugo.toml`**, así el equipo puede cambiarlos (si el código se filtra, se cambia y se reimprime el cartel). El repo es público: el código no es secreto ante quien lea el repositorio, y la ventana de fechas es lo que limita el abuso. La página solo trae la huella SHA-256 del código.
+- **Cartel imprimible** (Carta y Doble Carta): "Trivia 8 bits de Love of Lesbian", el QR grande, la chapa de la insignia, el código escrito por si el QR falla, las fechas, @coloresruidosos y la aclaración "Hecho por fans; no somos la organización de la banda ni del concierto".
+
+**F27 Fanzine de concierto (impreso).** Un mini-fanzine gratuito de 8 páginas que se regala en cada concierto de noviembre de 2026, con una edición especial por recinto: **Teatro Metropólitan (24 nov), Auditorio Nacional (25 nov) y Tecate Comuna, Puebla (28 nov)**.
+- **Formato:** una hoja Carta horizontal, impresa por un lado, con un corte al centro y dobleces (el "one-sheet zine"). Quedan 8 páginas de 7 × 10,8 cm. Sin grapas, se dobla a mano.
+- **Estilo:** papel y lápices de colores, como el dibujo del equipo (letra a mano, cinta adhesiva de color, trazos dibujados), con acentos 8 bits (fuente pixel para números y etiquetas, íconos de las insignias).
+- **Páginas:** 1 portada de la edición con **el dibujo a color de la banda hecho por el equipo** (color propio por recinto) · 2–3 **los 47 conciertos en México (2013–2026)** año por año · 4 **la historia de la banda en esa sede** y cuántas veces han tocado ahí · 5 **dibujo para colorear hecho por el equipo** (la banda) · 6 **mini trivia** de 3 preguntas del banco verificado, con respuestas de cabeza, y QR a la trivia y a la insignia de concierto · 7 **"Escribe aquí tu setlist"** · 8 contraportada con @coloresruidosos, créditos y "Hecho por fans: no somos la organización de la banda ni del concierto".
+- **Datos:** la lista de conciertos es la investigación del equipo, guardada en `data/conciertos_mx.yaml` (fecha, recinto, ciudad, notas). Ahí también quedan los cancelados, los que no cuentan y los sin confirmar, que no se imprimen en la lista. El fanzine solo usa lo que está en ese archivo.
+- **Salida:** un PDF por edición, ya impuesto para imprimir, más una guía de doblado y una versión con las páginas en orden para revisarla en pantalla.
+
+**F28 Halley Flip (juego en Games).** Juego de reflejos de un solo toque, en pixel art 8 bits, inspirado en *El poeta Halley*: guías al **amante guisante** (diseño propio, por *Te hiero mucho (Historia del amante guisante)*: un guisante aviador con casco y gogles, carita y un corazón que flota) que jala un **listón rojo con "GRACIAS"**, a través de una gira por las 6 etapas de la banda.
+- **Cómo se juega:** la gravedad jala al guisante hacia abajo y **cada toque** (pantalla, clic o barra espaciadora) le da un impulso hacia arriba. Avanza solo. Hay que pasar entre **torres de bocinas** que salen de arriba y de abajo, sin chocar con ellas, con el piso ni con el techo.
+- **Puntos:** +1 por cada par de torres que pasas. Entre las torres a veces flota una **nota musical** (corchea doble negra, grande y con contorno claro para que se vea en cualquier fondo): recogerla suma a tu contador de notas, que se muestra al final.
+- **Etapas:** cada 10 puntos cambias de etapa y de fondo, con las 6 escenas pixel art de la trivia (de *Microscopic Movies* a *Ejército de salvación*). El ritmo sube un poco en cada etapa: más velocidad y huecos más angostos, con un tope para que siga siendo justo.
+- **Al chocar:** pantalla de resultado con puntos, etapa alcanzada, notas y tu récord. Botones "Otra vez" y "Compartir", que copia un texto sin spoilers ("Halley Flip · 23 puntos · etapa 3 · 7 notas · coloresruidosos.github.io/games/halley-flip/").
+- **Justo y accesible:** la física avanza a paso fijo, igual en cualquier celular. Hay pausa (P o el botón) y un "Listo… ¡toca para empezar!" antes de que empiece a caer. El sonido está apagado de inicio. Con `prefers-reduced-motion` no hay sacudidas ni destellos. Aviso: "Juego de reflejos".
+- **Vive en Games:** tarjeta propia en `/games/` y página en `/games/halley-flip/`. El récord se guarda solo en el navegador.
+- **Ranking (fase 2):** al chocar puedes **publicar tu puntaje** con el mismo nombre generado de la trivia (lo comparten, para que seas la misma persona en todos los juegos). Botón **Ranking** con dos tablas: **Esta semana** e **Histórico**, top 20 por puntos (desempata quien lo logró antes). Igual que en la trivia, publicar es opcional y solo se envían el nombre, los puntos, la duración y la fecha.
+- **Anti trampas razonable:** el servidor rechaza puntajes imposibles para el tiempo jugado (la primera torre llega a los ~2,5 s y luego, a lo más, una cada ~0,8 s) y limita los envíos por navegador. El equipo modera en el Sheet. Si el script todavía no tiene el modo, el juego avisa "El ranking de Halley Flip todavía no está activo".
+- **Original:** nombre, personaje, obstáculos, fondos y música propios. No usa nombres, sprites ni el aspecto de otros juegos.
+
+**F29 Trajes e insignias de Halley Flip.** Jugar Halley Flip desbloquea **insignias** que se suman a la colección de la trivia y, con ellas, **trajes** para el amante guisante.
+- **7 insignias nuevas** (familia «Halley Flip», aro verde guisante), con nombres de canciones de Love of Lesbian:
+  - *El poeta Halley*: terminar tu primera partida.
+  - *Fantastic Shine*: llegar a 10 puntos (etapa 2).
+  - *Manifiesto delirista*: llegar a 25 puntos.
+  - *Historia del amante guisante*: llegar a 50 puntos, la gira completa.
+  - *Oniria e insomnia*: jugar 10 partidas.
+  - *Algunas plantas*: recoger 100 notas en total.
+  - *Cuando no me ves* (secreta): pasar 10 torres sin recoger ni una nota. Pista: «Vuela sin mirar la música».
+- **7 trajes:** *Aviador* (el de siempre, desde el inicio) y uno por insignia:
+  - *Poeta* (boina y bufanda): Fantastic Shine.
+  - *Pijama* (gorro de dormir): Oniria e insomnia.
+  - *Astronauta* (casco de cristal): Manifiesto delirista.
+  - *Rockero* (lentes oscuros y cresta): Algunas plantas.
+  - *Estrella de la gira* (corona): Historia del amante guisante.
+  - *Antifaz*: Cuando no me ves.
+  Todos son diseños propios en pixel art. El traje es solo de vista: no cambia la física, el tamaño del choque ni el ranking.
+- **Al chocar:** si ganaste algo, la pantalla de resultado lo dice («¡Insignia nueva: Fantastic Shine!» y «¡Traje nuevo: Poeta!»), con la chapa.
+- **Trajes e insignias:** un botón abre el **vestidor**, con los 7 trajes (los bloqueados en silueta y con lo que hay que hacer) y las 7 insignias de Halley Flip. El traje elegido se recuerda en el navegador.
+- **Una sola colección:** las insignias se guardan en el mismo lugar que las de la trivia, así que también aparecen en «Mi colección» de `/trivia/`. Como las de Adivina la canción, no cuentan para *El gran truco final*.
+
 **Métricas de éxito de F16:** partidas de contrarreloj frente a partidas de trivia; cuántos juegan más de una vez seguida; tarjetas compartidas.
 
 ## 4. Flujos

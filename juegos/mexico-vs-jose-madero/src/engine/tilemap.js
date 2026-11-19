@@ -6,10 +6,12 @@ import { TILE } from '../game/constants.js';
 // v7 (Noche): 'W' Murciélago (vampiro), 'O' Fantasma, 'E' jefe Enmascarado, 'L' lata de aceite.
 // v8.2 (ayudas): 'J' Púa de guitarra, 'Z' Antifaz de la fiesta.
 // v8.1 (disfrazados): 'K' Gigante cosido, 'N' Hombre invisible, 'U' Hombre anfibio, 'Q' La Llorona, 'X' Charro Negro.
+// v10 (Alba): '~' plataforma de luz, 'I' recuerdo, 'D' noria, '@' Luz del Alba, 'S' atril, 'b' banca, 'n' jefe La Nostalgia.
 export function parseLevel(text) {
   const rows = text.split('\n');
   const h = rows.length, w = Math.max(...rows.map((r) => r.length));
-  const L = { w, h, grid: [], player: null, enemies: [], pieces: [], hooks: [], checkpoints: [], items: [], boss: null, goal: null };
+  const L = { w, h, grid: [], player: null, enemies: [], pieces: [], hooks: [], checkpoints: [], items: [], boss: null, goal: null,
+    lights: [], recuerdos: [], wheels: [], pasajes: [], bancas: [], nostalgia: null };
   rows.forEach((row, ty) => {
     let out = '';
     for (let tx = 0; tx < w; tx++) {
@@ -40,6 +42,14 @@ export function parseLevel(text) {
       else if (c === 'H') L.hooks.push(center);
       else if (c === 'C') L.checkpoints.push(feet);
       else if (c === 'G') L.goal = feet;
+      // v10 · Alba: '~' plataforma de luz, 'I' recuerdo, 'D' Maldita Rueda (centro), '@' Luz del Alba, 'S' atril, 'b' banca, 'n' jefe.
+      else if (c === '~') L.lights.push({ tx, ty });
+      else if (c === 'I') L.recuerdos.push(center);
+      else if (c === 'D') L.wheels.push(center);
+      else if (c === '@') L.items.push({ ...center, kind: 'luz' });
+      else if (c === 'S') L.pasajes.push(feet);
+      else if (c === 'b') L.bancas.push(feet);
+      else if (c === 'n') L.nostalgia = feet;
       out += '#=^'.includes(c) ? c : '.';
     }
     L.grid.push(out);

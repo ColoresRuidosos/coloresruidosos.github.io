@@ -332,6 +332,133 @@ FORMATO: imagen horizontal 3:2, panorámica, que se pueda recorrer de izquierda 
 
 ---
 
+## 0g. ⭐ PRIORIDAD v10 · Mundo 3 «Alba» (15 nov 2026)
+
+Sustituyen a los sprites hechos por código (`src/render/sprites-alba.js`, que el usuario vio genéricos). Mientras no lleguen, el juego usa los de código. El diseño es el de la hoja aprobada, `art/source/alba/concepto-sprites.png`.
+
+**Cómo pedirlos:**
+- Una conversación nueva por prompt.
+- Adjunta siempre `art/source/pepe-sheet.jpg` (estilo y tamaño) y `art/source/alba/concepto-sprites.png` (el diseño que tiene que respetar).
+- Guarda cada imagen en `art/source/alba/` con el nombre indicado.
+
+**Cómo se recortan** (lo hago yo; las filas tienen que coincidir **exactamente**):
+```
+python3 scripts/slice_sheet.py art/source/alba/w3-nostalgia.png nostalgia 80 6,4,4,6 nosFloat:6,nosThrow:4,nosTurn:4,nosBye:6
+python3 scripts/slice_sheet.py art/source/alba/w3-recuerdos.png recuerdo 20 2,2,2,2 recRosa:2,recAntifaz:2,recFlash:2,recNoria:2
+python3 scripts/slice_sheet.py art/source/alba/w3-noria.png noria 18 1,1 cabina:1,eje:1
+python3 scripts/slice_sheet.py art/source/alba/w3-atril.png atril 26 1,1 atrilNormal:1,atrilLeido:1
+python3 scripts/slice_sheet.py art/source/alba/w3-luz.png luz 14 4 luzAlba:4
+python3 scripts/slice_sheet.py art/source/alba/w3-feria.png feria 26 1,1,1,1 caballito:1,dianaParada:1,dianaCaida:1,banca:1
+```
+
+### Bloque común para sprites (pégalo al principio de cada prompt)
+```
+ESTILO: pixel art de arcade de 16 bits de los 90, estilo Neo Geo: contorno oscuro grueso, sombreado plano de 3 tonos por color con un brillo duro, paleta corta, proporciones chibi como la hoja del protagonista adjunta. Respeta el DISEÑO de la hoja de concepto adjunta (formas, colores y animaciones), pero con MÁS detalle, volumen y personalidad: que no se vea genérico.
+PALETA DEL MUNDO: amanecer. Blancos cálidos, crema, sepia y dorado, con toques de azul grisáceo de madrugada.
+VISTA: perfil estricto mirando a la DERECHA (salvo los objetos que se ven de frente).
+FORMATO: hoja de sprites sobre fondo gris completamente liso #474747, sin degradado. Sin texto, sin números, sin marcos, sin cuadrícula y SIN SOMBRA en el suelo. Cada pose separada de las demás con mucho espacio (que no se toquen). Mismo tamaño en todas las poses. Exactamente las filas y poses pedidas, de izquierda a derecha.
+```
+
+### A. `w3-nostalgia.png` — Jefe «La Nostalgia» (1,7 veces la altura del protagonista)
+```
+[BLOQUE COMÚN]
+PERSONAJE: un ser hecho de BRUMA SEPIA, como una nube grande y suave que flota. Tiene ojos grandes, húmedos y melancólicos (no da miedo, da ternura y tristeza), cejas caídas y una boca pequeña. Lleva polaroids antiguas prendidas en su bruma como si fueran escamas. Sus brazos son dos TIRAS DE PELÍCULA FOTOGRÁFICA de 35 mm, con sus perforaciones, que se enroscan. Abajo no tiene piernas: se deshace en jirones de bruma. Diseño original, sin parecido con ningún personaje existente.
+Fila 1: FLOTAR ×6 (sube y baja suavemente; los jirones de abajo ondean; las polaroids se mecen).
+Fila 2: LANZAR ×4 (con un brazo de película toma una polaroid, la levanta por encima de la cabeza y la lanza hacia delante).
+Fila 3: GIRAR ×4 (con los dos brazos empuja algo grande hacia un lado, como si hiciera girar una noria al revés; esfuerzo y ojos entrecerrados).
+Fila 4: DESPEDIRSE ×6 (la bruma pasa poco a poco de SEPIA a DORADO luminoso; deja de estar triste, sonríe con los ojos cerrados y saluda con un brazo de película; en la última pose casi es solo luz dorada).
+```
+
+### B. `w3-recuerdos.png` — Recuerdos (polaroids; un poco más grandes que la cabeza del protagonista)
+```
+[BLOQUE COMÚN]
+OBJETO: una fotografía instantánea tipo polaroid, de frente, con el marco blanco algo amarillento y el margen de abajo más ancho, un poco doblada en una esquina. Flota y se inclina levemente. Cada fila tiene una FOTO distinta dentro:
+Fila 1 ×2: una rosa roja sobre fondo rojo oscuro (2 poses: recta e inclinada).
+Fila 2 ×2: un antifaz de fiesta negro sobre fondo gris (2 poses).
+Fila 3 ×2: una cámara de fotos antigua disparando un flash, sobre fondo rojo (2 poses).
+Fila 4 ×2: una noria de feria al amanecer, sobre fondo dorado (2 poses).
+```
+
+### C. `w3-noria.png` — Piezas de la Maldita Rueda
+```
+[BLOQUE COMÚN]
+OBJETOS de una noria de feria antigua, vistos DE FRENTE:
+Fila 1 ×1: una CABINA colgante de la noria (techo redondeado turquesa, cuerpo color crema con una ventana, una barra de donde cuelga). Del tamaño del protagonista agachado.
+Fila 2 ×1: el EJE central de la noria (un engrane dorado con remaches), la mitad de la cabina.
+(El aro y los radios los dibuja el juego.)
+```
+
+### D. `w3-atril.png` — Atril de los pasajes (60 % de la altura del protagonista)
+```
+[BLOQUE COMÚN]
+OBJETO: un atril de madera, de frente, con un DISCO DE VINILO BLANCO apoyado arriba.
+Fila 1 ×1: normal.
+Fila 2 ×1: ya leído (el disco brilla dorado y suelta pequeños destellos).
+```
+
+### E. `w3-luz.png` — Luz del Alba (del tamaño de la cabeza del protagonista)
+```
+[BLOQUE COMÚN]
+OBJETO: un pequeño sol amable y brillante, con rayos dorados, que flota.
+Fila 1 ×4: los rayos laten (crecen, giran un poco y vuelven).
+```
+
+### F. `w3-feria.png` — Feria al amanecer (cada objeto con su tamaño real respecto al protagonista)
+```
+[BLOQUE COMÚN]
+OBJETOS de una feria antigua, sin gente:
+Fila 1 ×1: un CABALLITO de carrusel blanco con crin dorada y silla roja, atravesado por un tubo dorado de rayas (perfil mirando a la derecha). Un poco más bajo que el protagonista.
+Fila 2 ×1: una DIANA de tiro al blanco de feria (aros rojos y blancos) sobre un palo de madera, de frente. Del tamaño de la cabeza del protagonista.
+Fila 3 ×1: la misma diana CAÍDA (de canto, tumbada).
+Fila 4 ×1: una BANCA de parque de madera con patas de hierro forjado, de lado. Larga como 1,5 veces el protagonista.
+```
+
+### H. `pepe-traje-alba.png` — El vestuario de Pepe en *Alba* (mismo formato que `pepe-trajes-1.jpg` y `-2.png`)
+Adjunta `art/source/pepe-sheet.jpg` **y** `art/source/pepe-trajes-2.png`: la segunda le enseña el formato de 4 poses en fila.
+```
+[BLOQUE COMÚN]
+PERSONAJE: EXACTAMENTE el protagonista de la hoja adjunta (misma cara, pelo, barba y proporción chibi) con un VESTUARIO NUEVO para un mundo de amanecer y nostalgia: camisa blanca de lino de manga larga arremangada hasta el codo, chaleco de punto color crema, pantalón claro color arena, botines cafés y una bufanda ligera dorada al cuello (SIN el pañuelo rojo). Lleva su micrófono de mano. Colores cálidos y luminosos.
+Una sola fila con 4 poses, igual que la hoja de trajes adjunta: REPOSO, CORRER, SALTAR, LANZAR (lanza el micrófono hacia delante con el cable).
+```
+
+### I. `pepe-alba-poses.png` — Poses nuevas del paseo (con el vestuario de H)
+Adjunta `art/source/pepe-sheet.jpg` y la imagen que salió de H.
+```
+[BLOQUE COMÚN]
+PERSONAJE: el protagonista con el vestuario de la imagen adjunta (camisa blanca, chaleco crema, bufanda dorada).
+Fila 1: SENTARSE ×2 (se sienta en una banca invisible, relajado; luego mira al cielo con una sonrisa tranquila).
+Fila 2: MIRAR UN RECUERDO ×2 (sostiene una polaroid con las dos manos y la mira con nostalgia; luego la baja y sonríe).
+Fila 3: CAMINAR CONTRA EL VIENTO ×4 (inclinado hacia delante, la bufanda y el pelo ondean hacia atrás, paso firme).
+Fila 4: MIRAR EL AMANECER ×2 (de pie, con una mano haciendo visera sobre los ojos; luego los brazos abiertos).
+Fila 5: TOMARSE LA FOTO ×2 (levanta una cámara instantánea hacia sí mismo y sonríe; luego enseña la polaroid recién salida).
+```
+**Se recorta con:**
+```
+python3 scripts/slice_sheet.py art/source/alba/pepe-alba-poses.png pepeAlba 48 2,2,4,2,2 sentarse:2,mirarRecuerdo:2,viento:4,amanecer:2,foto:2
+```
+y el traje H con `scripts/slice_costumes.py`, como una fila nueva (`alba`).
+
+### G. Escenarios de *Alba* (escena completa; ChatGPT o Gemini)
+**Bloque común para escenarios** (pégalo al principio):
+```
+ESTILO: fondo de un videojuego de plataformas 2D en pixel art de 16 bits, al AMANECER: blancos cálidos, crema, dorado y azul grisáceo de madrugada, luz suave y nostálgica, como una foto antigua que se ilumina. Vista lateral, sin perspectiva de tres cuartos.
+FORMATO: imagen horizontal 3:2, panorámica. SIN personajes, SIN texto, sin logotipos ni marcas, sin marcos. El 20 % inferior queda liso y claro (ahí va el suelo del juego).
+```
+
+| Archivo | Prompt (después del bloque común) |
+|---|---|
+| `w3-pueblo.png` *(3-1 «Willkommen»)* | Un pueblo de casas blancas encaladas, con tejados de teja y una iglesia pequeña, justo ANTES del amanecer: cielo azul grisáceo que empieza a aclararse por la derecha, farolas aún encendidas, ropa tendida, un perro dormido en un portal. Silencio y calma |
+| `w3-feria.png` *(3-2 «Carrusel de adultos»)* | Una feria vacía AL ALBA: un carrusel con caballitos, una noria grande al fondo, puestos cerrados con toldos de rayas, guirnaldas de focos apagados y confeti en el suelo. Cielo rosa y dorado |
+| `w3-cerro.png` *(3-3 «Ahora y hoy»)* | La cima de un cerro con pasto y flores blancas; al fondo, el pueblo y la feria pequeños, y el sol a punto de salir entre nubes doradas. A la derecha, una noria antigua solitaria sobre el cerro |
+| `a1-salida-fiesta.png` *(escena de entrada)* | (Adjunta la hoja del protagonista.) El protagonista sale de un salón de fiestas de noche, en blanco y negro, con confeti en el pelo; delante de él, el camino hacia un horizonte que empieza a clarear en color |
+| `a2-recuerdos.png` *(escena de entrada)* | (Adjunta la hoja del protagonista.) El protagonista camina por una calle blanca y a su alrededor flotan polaroids con escenas de una calle roja, una fiesta de disfraces y una cámara con flash. Él las mira con nostalgia |
+| `a3-amanecer.png` *(escena de salida)* | (Adjunta la hoja del protagonista.) En la cima de un cerro, el protagonista, de espaldas, mira cómo sale el sol; a su lado se despide una nube dorada con forma amable (la Nostalgia, de la hoja de concepto) |
+| `a4-ahora-y-hoy.png` *(escena de salida)* | (Adjunta la hoja del protagonista.) El protagonista sonríe sosteniendo una polaroid recién tomada de sí mismo con el amanecer detrás. Luz dorada |
+
+**Cómo se importan** (lo hago yo): los escenarios van al fondo panorámico de su nivel (`scripts/import_backdrop.py`) y las escenas se recortan a 320×150 (`scripts/import_scene.py`).
+
+---
+
 ## 1. BLOQUE DE ESTILO (pégalo al inicio de cada prompt)
 
 ```
@@ -380,7 +507,7 @@ Las referencias salen de canciones, portadas y conceptos verificados (ver `specs
 - `w2-murcielago.png` — **Murciélago**: murciélago chibi con colmillos. VOLAR ×4 en lugar de CAMINAR. Tamaño 50 %.
 - Nota: este mundo se verá en blanco y negro (lo convierte el código), pero generadlo **a color**.
 
-### Mundo 3 · ALBA (blanco, 2018, nostalgia) — **paseo: no generéis enemigos** (se mantienen solo como referencia)
+### Mundo 3 · ALBA (blanco, 2018, nostalgia) — **paseo: no generéis enemigos** (los prompts vigentes están en §0g)
 - `w3-recuerdo.png` — **Recuerdo**: foto polaroid viva con una imagen borrosa de un atardecer, mirada triste, bracitos. ATAQUE: abraza (te arrastra). Tamaño 75 %.
 - `w3-maldita-rueda.png` — **Maldita Rueda**: rueda de madera vieja con cara enfadada. RODAR ×4 en lugar de CAMINAR. Tamaño 70 %.
 

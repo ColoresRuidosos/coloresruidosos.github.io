@@ -15,6 +15,7 @@ export const PROLOGO = [
 export const RECUERDOS = {
   carmesi: { kind: 'ficcion', year: 2016, title: 'EMPEZAR DE CERO', lines: ['CARMESÍ, 2016.', 'ME ACUERDO: EMPECÉ DE NUEVO, YO SOLO.'] },
   noche: { kind: 'ficcion', year: 2017, title: 'DEBAJO DE LA MÁSCARA', lines: ['NOCHE, 2017.', 'ME ACUERDO: DEBAJO DE CADA MÁSCARA', 'HAY ALGUIEN COMO YO.'] },
+  alba: { kind: 'ficcion', year: 2018, title: 'SEGUIR ADELANTE', lines: ['ALBA, 2018.', 'ME ACUERDO: LA NOSTALGIA ES BONITA,', 'PERO EL SOL SALE HACIA ADELANTE.'] },
 };
 
 // Tarjeta «RECUERDO RECUPERADO» de un mundo. El kind va al final: RECUERDOS trae kind 'ficcion' (v9.3).
@@ -37,6 +38,14 @@ export const PENSAMIENTOS = {
     'SIN LUZ SE ESCUCHA MEJOR.',
     'EL QUE NUNCA SE QUITA EL ANTIFAZ…',
     'ALGUIEN ME ESPERA EN LA PISTA.',
+  ],
+  alba: [
+    'AQUÍ TODO ES BLANCO… COMO UNA HOJA NUEVA.',
+    'SI ME DETENGO, ALGO ME JALA HACIA ATRÁS.',
+    'ESA FOTO… YO ESTABA AHÍ.',
+    'DE NIÑO, ESTA RUEDA ME PARECÍA ENORME.',
+    '¿Y SI ME QUEDO A VIVIR EN EL RECUERDO?',
+    'YA CASI SALE EL SOL. SIGO.',
   ],
 };
 

@@ -292,7 +292,22 @@ function museo() {
   return { sky, far, mid, tiles: { top: '#e6e0d4', topHi: '#ffffff', body: '#8a8094', bodyHi: '#a89eb4', bodyDk: '#5a5068', semi: '#c8963c', semiHi: '#f0c870' } };
 }
 
-export const THEMES = { calle, azoteas, teatro, afuera, salon, pista, museo };
+
+// ── v10 · Mundo 3 «Alba»: amanecer (los fondos panorámicos son de Gemini; esto es el respaldo y las baldosas) ──
+const DAWN = ['#3a4a6a', '#5a6a88', '#8a8aa0', '#c8a890', '#f0c890', '#ffe0a8'];
+function albaTheme(top, topHi, body, bodyHi, bodyDk) {
+  return () => {
+    const sky = prerender(W, H, (g) => { bands(g, DAWN, 0, H); rect(g, '#fff0c0', W / 2 - 14, 150, 28, 14); });
+    const far = prerender(640, H, (g) => { for (let x = 0; x < 640; x += 40) { const h = 30 + Math.floor(hash(x, 5) * 30); rect(g, '#6a6a80', x, 176 - h, 38, h); } });
+    const mid = prerender(256, H, (g) => { rect(g, '#7a7088', 0, 170, 256, 6); });
+    return { sky, far, mid, tiles: { top, topHi, body, bodyHi, bodyDk, semi: '#e8b84a', semiHi: '#fff0a8' }, piece: 'sol', goal: 'EL ALBA' };
+  };
+}
+const albaPueblo = albaTheme('#9ab06a', '#c8d890', '#8a6a4e', '#a8866a', '#5a4434');
+const albaFeria = albaTheme('#c8a070', '#ecd0a0', '#7a5a48', '#987868', '#4e3a30');
+const albaCerro = albaTheme('#8aa060', '#b8cc88', '#6a5a50', '#8a7a6e', '#443a34');
+
+export const THEMES = { calle, azoteas, teatro, afuera, salon, pista, museo, 'alba-pueblo': albaPueblo, 'alba-feria': albaFeria, 'alba-cerro': albaCerro };
 import { BACKDROPS } from '../data/backdrops-w1.js';
 
 // Si hay fondo panorámico importado (Gemini → scripts/import_backdrop.py), sustituye a las capas por código.

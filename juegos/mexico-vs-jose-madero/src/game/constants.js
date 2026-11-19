@@ -69,3 +69,20 @@ export const BOSS = {
 
 // Cinemática de entrada del jefe (spec §3.0d): tiempos en segundos.
 export const INTRO = { total: 4.5, skip: 0.5, walk: 1.3, walkDist: 96, dropStart: 1.4, dropEnd: 1.9, dropH: 190, card: 2.1, fight: 3.7 };
+
+// v10 · Mundo 3 «Alba», paseo sin daño (spec §3.0f Q).
+export const ALBA = {
+  still: 3, drag: 20,               // la nostalgia: tras 3 s quieto, te arrastra a 20 px/s
+  recuerdoSpeed: 30, recuerdoPush: 48, recuerdoSee: 220, sepia: 0.4,   // polaroids que te regresan 48 px
+  wheelSpeed: 0.6, wheelR: 56, cabins: 4, cabinW: 22,                  // la Maldita Rueda
+  luzTime: 10,                      // Luz del Alba: las plataformas de luz duran 10 s
+  pasajeT: 5, sitT: 1,              // pasaje en pantalla 5 s; sentarse tras 1 s quieto en una banca
+  // v10.2 · Jefe «La Nostalgia»: recuerdos de los jefes anteriores en sepia y más lentos (×0,7).
+  boss: {
+    throwEvery: 2.2, beamSpeed: 140, dashSpeed: 150, maskSpeed: 110, lead: 120,
+    rays: [96, 224, 352],             // rayos de sol de la fase 1 (px desde el inicio de la arena)
+    reverseEvery: 4, reverseFor: 2, warn: 0.6,   // fase 2: la noria se invierte
+    wind: 40, walk: 400,              // fase 3: viento en contra y lo que hay que caminar
+    bye: 4, lineT: 3,                 // despedida y frases en pantalla
+  },
+};

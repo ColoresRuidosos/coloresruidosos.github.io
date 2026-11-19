@@ -8,7 +8,7 @@
 | Motor | Propio, en Canvas 2D, a 180×320 lógicos | Igual que *México vs. José Madero*; sin dependencias en tiempo de ejecución (NFR peso) |
 | Audio | Web Audio API (`AudioBufferSourceNode`) | El reloj de audio es la única fuente de tiempo fiable para el ritmo (F2) |
 | Tests | `node --test` y Playwright con Chromium preinstalado (`devices['iPhone 13']`) | Lo mismo que en el repo |
-| Build | esbuild, que genera un solo HTML; el MP3 va aparte | NFR peso y arranque |
+| Build | esbuild, que genera un solo HTML; sin MP3 (desde el 17 nov 2026) | NFR peso y arranque |
 | Análisis de la canción | Python con numpy (sin scipy, que no está en el entorno) | Ya se hizo un primer análisis: 168 BPM |
 
 ## 2. Tiempo y ritmo (F2, F3)
@@ -84,3 +84,12 @@ El script se corre una vez. Resultado: **168,00 BPM estable** en las dos mitades
 | Safari pausa el `AudioContext` | Se escucha `statechange` y se muestra «Toca para seguir» |
 | El tempo medido no cuadra en algún tramo (por ejemplo, un ritardando) | Revisar a oído; si cambia, el mapa admite segmentos con su propio BPM |
 | Toques accidentales al deslizar | Umbral de 24 px y prueba con usuarios reales (T-UX) |
+
+## 9. Base propia en lugar de la canción (17 nov 2026, spec §3.0b)
+- **`src/audio/track.js`**, puro y sin DOM: `renderTrack({ beatmap, sampleRate }) → Float32Array` (mono, 22 050 Hz). Se prueba en Node.
+  - Recorre los tiempos `firstBeat + n·beat` y suma voces por sección: bombo (seno con caída de tono), caja y platillos (ruido con semilla fija, determinista), bajo (cuadrada) y arpegio (triangular) en *alta*.
+  - Acordes La m – Fa – Do – Sol, uno por compás. Al final, un *fade* en *cierre* y recorte a [-1, 1].
+- **`player.js`** no cambia: `main.js` crea un `AudioBuffer` con `ctx.createBuffer`, le copia la pista y llama a `setBuffer`. El reloj (F2) sigue saliendo del `AudioBufferSourceNode`, así que la sincronía es la de siempre.
+- **Build y servidor de desarrollo:** sin `cancion.mp3`. La versión de prueba deja de incrustar audio.
+- **Reel:** `scripts/reel.mjs` escribe la base a un WAV con `renderTrack` y lo usa en lugar del MP3.
+- `scripts/beatmap.py` queda como histórico: el mapa ya no se regenera.

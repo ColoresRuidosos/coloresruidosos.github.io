@@ -3,6 +3,7 @@
 > Minijuego de Colores Ruidosos. Estado: **aprobada y en la v0.1** (9 nov 2026).
 > Método: Spec-Driven Development (Dominicode).
 > Decisiones del usuario (9 nov 2026): el nombre es «Yo contra mi corazón» y la canción original entra como excepción (§6.1, opción C).
+> **Cambio (17 nov 2026): se quita la canción.** El usuario elige la opción B de §6.1: una base chiptune propia, generada por código, con el mismo mapa. Ver §3.0b.
 > Hoja de concepto: [`../art/concepto/hoja-concepto.png`](../art/concepto/hoja-concepto.png).
 
 ---
@@ -35,7 +36,20 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **Prioridades:** P0 es el MVP, P1 viene después y P2 es deseable.
 
-### 3.0 La canción
+### 3.0b La base propia (desde el 17 nov 2026)
+El juego ya **no usa ni publica** la grabación de «Teoremas, etc.». La sustituye una base chiptune **original**, generada por código en el navegador (`src/audio/track.js`), sin muestras ni melodías de terceros.
+
+| Requisito | Detalle |
+|---|---|
+| Tempo y pulso | 168 BPM y primer pulso en 0,330 s: **el mismo `beatmap.js`**. Los ataques, fases y ventanas no cambian |
+| Duración | 226,6 s, igual que el mapa |
+| Estructura | Sigue `sections`: *intro* (solo bajo y platillos), *fase1* (bombo, caja y bajo), *respiro* (sin caja, más suave), *alta* (todo, con arpegio), *cierre* (acorde final que se apaga) |
+| Pulso audible | El bombo cae exactamente en cada tiempo par/impar del mapa (golpe en 1 y 3, caja en 2 y 4), para que el jugador sienta el beat |
+| Progresión | Acordes genéricos (La m – Fa – Do – Sol), un acorde por compás de 4 tiempos |
+| Peso y carga | 0 bytes de audio descargado: se sintetiza al cargar (< 1 s en un celular de gama media). La pantalla de carga sigue funcionando |
+| Sin red | Si no hay audio que descargar, ya no existe el error «no se pudo cargar la canción» |
+
+### 3.0 La canción (histórico: ya no se publica, ver §3.0b)
 | Dato | Valor | Fuente |
 |---|---|---|
 | Canción | «Teoremas, etc.» (José Madero) | Archivo que dio el usuario |
@@ -148,7 +162,7 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **F12 Pausa automática** al cambiar de app (`visibilitychange`). Al volver, cuenta regresiva de 3 tiempos.
 
-**F13 Solo esta semana (temporada limitada).** El juego está disponible del **lunes 9 al domingo 15 de noviembre de 2026** (hasta las 23:59 CDMX). Decisión del usuario (9 nov 2026).
+**F13 Solo esta semana (temporada limitada).** El juego está disponible del **lunes 9 al domingo 15 de noviembre de 2026** (hasta las 23:59 CDMX). **Extensión (16 nov 2026, decisión del usuario): una semana más, hasta el domingo 22 de noviembre** (23:59 CDMX); la portada dice «¡UNA SEMANA MÁS!» y la tarjeta de Games «Una semana más». Decisión del usuario (9 nov 2026).
 - La portada lo anuncia: «¡SOLO ESTA SEMANA!», la fecha de cierre y cuántos días quedan («ÚLTIMO DÍA» el domingo).
 - El resultado y el ranking recuerdan que el ranking cierra el domingo 15.
 - Después del cierre, la portada dice «ESTE JUEGO YA TERMINÓ», desaparece «▶ JUGAR» y solo queda ver el **ranking final**.
@@ -156,7 +170,14 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
 
 **F14 Ranking.** Top 20 de la semana de todos los que jueguen, con el mismo sistema que la trivia (F18 y F21 del sitio):
 - Publicar es opcional y se ofrece al terminar una partida.
-- Los nombres son **generados**, con palabras de circo y de corazón («Juglar del Latido #42»). Se puede volver a tirar la ruleta, pero no escribir el nombre propio. El nombre se recuerda en el navegador.
+- **Nombres de la carrera de José Madero** (v0.4, petición del usuario). Se arman como «Migajero de Carmesí #28», «Plural Singular #7» o «Pierrot de Querido #3».
+  - Solo se usan palabras de datos verificados (`juegos/mexico-vs-jose-madero/CONTEXTO.md` §5):
+    - discos: *Carmesí*, *Noche*, *Alba*, *Psalmos*, *Giallo*, *Aurora*, *Sarajevo* y *Querido…*;
+    - canciones: «Lunes 28», «Plural siendo singular», «Maldita Rueda», «Rey Ahogado», «Noche de brujas», «Fantasmas» y «Teoremas, etc.»;
+    - el show «Érase una Bestia» y los pierrots de la portada de *Querido…*.
+  - Se agrega «Migajero» y «Migajera», por el reel.
+  - **Nunca se usa «Luciérnaga»**: es el memorial, y no se convierte en apodo de ranking.
+- **Opciones:** al publicar salen **3 nombres para elegir**, más «OTRAS OPCIONES» para sacar otros 3. No se puede escribir un nombre propio. El elegido se recuerda en el navegador.
 - Solo se envían el nombre generado, los puntos, la duración de la partida y la fecha.
 - **Orden:** más puntos primero. En empate gana la partida más corta (un K.O. más rápido) y después la más antigua. Cada nombre aparece una sola vez, con su mejor puntaje.
 - **Dónde se ve:** botón «RANKING» en la portada y en el resultado. Son 2 páginas de 10, y tu nombre sale resaltado.
@@ -168,6 +189,30 @@ Un minijuego de boxeo **al ritmo de la canción**: Pepe, disfrazado de payaso, s
   - envíos después del cierre.
 - **El equipo debe volver a implementar el Apps Script** (nueva versión, misma URL) para que el modo `corazon` funcione. Mientras tanto, el juego avisa «EL RANKING AÚN NO ESTÁ DISPONIBLE» y todo lo demás sigue igual.
 - **Versión de prueba (un solo HTML con la canción incrustada):** usa un **ranking de prueba que se guarda solo en ese navegador**, para no ensuciar el ranking real. Lo dice en pantalla.
+
+**F15 Insignias (v0.5, aprobadas por el usuario el 10 nov 2026).** Son 10, cada una con el nombre de un disco o una canción verificados de José Madero. «Psalmos» es un guiño libre. Se guardan **solo en el navegador** (`ycmc-save`); no tocan el servidor.
+
+| id | Insignia | Cómo se gana (al terminar la partida, salvo «Querido…») |
+|---|---|---|
+| `carmesi` | CARMESÍ | Vaciar a batazos la barra de la fase 1 |
+| `brujas` | NOCHE DE BRUJAS | Partida con 3 fintas o más sin caer en ninguna |
+| `teoremas` | TEOREMAS, ETC. | Que no te noqueen: llegar al final de la canción o ganar por K.O. |
+| `bestia` | ÉRASE UNA BESTIA | Ganar por K.O. |
+| `plural` | PLURAL SIENDO SINGULAR | Ganar (K.O. o decisión) sin usar el Grito |
+| `rey` | REY AHOGADO | Ganar con 20 de vida o menos |
+| `fantasmas` | FANTASMAS | Terminar una fase sin recibir ningún golpe |
+| `psalmos` | PSALMOS | 16 perfectos seguidos |
+| `rueda` | MALDITA RUEDA | Volver a jugar después de perder 3 veces seguidas |
+| `querido` | QUERIDO… | Publicar tu nombre en el ranking |
+
+- **Comprobado con bots:** sin el Grito no da tiempo de vaciar la 1.ª barra antes de que la canción cambie de fase. Por eso Carmesí y Érase una Bestia piden usar el Grito, y Plural siendo singular solo se gana por decisión. Cada insignia pide jugar distinto.
+- **Íconos:** pixel art de 16×16 en el atlas:
+  - rosa (Carmesí), antifaz (Noche de brujas), nota (Teoremas), bestia con cuernos (Érase una Bestia);
+  - foco solitario (Plural), corona entre olas (Rey ahogado), fantasma (Fantasmas), libro azul (Psalmos);
+  - rueda (Maldita rueda) y sobre con sello (Querido…).
+- **Resultado:** las nuevas salen con «¡INSIGNIA NUEVA!» (máximo 2 a la vista y «+N MÁS»). Toman el lugar de las estadísticas o del consejo.
+- **Vitrina:** botón «INSIGNIAS n/10» en la portada. Muestra la lista con ícono, nombre y pista. Las que faltan salen en gris.
+- **Tarjeta para compartir:** «INSIGNIAS n/10».
 
 ### 3.2 Funcionalidades P1 y P2
 - **P1 · Calibración:** tocar en 8 tiempos para medir la latencia del celular.
@@ -208,7 +253,7 @@ La barra de la fase se vacía o llega el compás de cambio. El corazón se tamba
 | Celular en horizontal | Aviso «Gira tu celular», salvo en PC |
 | Toque y deslizamiento ambiguos | Desplazamiento de 24 px o más = deslizar; menos, en menos de 200 ms = tocar |
 | Dos gestos en el mismo tiempo | Cuenta el primero |
-| La canción no carga | Mensaje con Reintentar; el juego no arranca sin audio |
+| La base no se puede generar (sin Web Audio) | Mensaje con Reintentar; el juego no arranca sin audio |
 
 ## 5. Arquitectura
 
@@ -233,7 +278,7 @@ juegos/payaso-vs-corazon/
 - **Lógica pura:** `core/` y `game/` no tocan el DOM: reciben `(tiempo, acciones)` y devuelven el estado. Así se prueban sin navegador y con bots.
 - **Datos:** la canción no se analiza en el celular. `beatmap.py` genera `beatmap.js` una sola vez y la secuencia de ataques es determinista (misma semilla, misma partida).
 - **Resolución:** 180×320 lógicos, escalados por enteros, con *letterbox* y `image-rendering: pixelated`.
-- **Salida:** `dist/index.html` (código y sprites) más la canción en un archivo aparte, para poder cambiar el audio sin recompilar.
+- **Salida:** `dist/index.html` (código, sprites y la base sintetizada). Ya no hay archivo de audio aparte.
 
 ## 6. Requisitos no funcionales
 
@@ -241,7 +286,7 @@ juegos/payaso-vs-corazon/
 |---|---|
 | Rendimiento | 60 fps en un Android de gama media (Moto G de 2023) y en un iPhone 11 |
 | Sincronía | Error entre el beat y la animación < 1 cuadro. Se usa `AudioContext.currentTime` más `outputLatency` y el desfase del usuario |
-| Peso | HTML de 300 KB o menos sin la canción. La canción como MP3 de 128 kbps (~3,6 MB), cargada con barra de progreso |
+| Peso | HTML de 300 KB o menos, sin archivos de audio (la base se genera en el navegador) |
 | Arranque | Jugable en 5 s o menos con 4G |
 | Compatibilidad | Safari iOS 16 o más reciente, Chrome Android 110 o más reciente, y escritorio |
 | Accesibilidad | Sin destellos, modo asistido, botones de 44 px o más y textos de 7 px lógicos (21 px reales) o más |
@@ -252,12 +297,12 @@ juegos/payaso-vs-corazon/
 
 | Tema | Riesgo | Propuesta |
 |---|---|---|
-| **Canción original** | **Contradice la regla del proyecto** («ni música ni letras sin licencia», `CONTEXTO.md` §1). Publicar el MP3 en un sitio público es distribuir la grabación | ✅ **Opción C: riesgo aceptado por el usuario como excepción «por ahora»** (9 nov 2026). El MP3 (128 kbps, sin metadatos) vive en `static/games/yo-contra-mi-corazon/cancion.mp3`. Si llega una queja o se pide licencia, la salida es la opción B: un chiptune original de 168 BPM con la misma estructura, que usa el mismo mapa |
+| **Canción original** | **Contradice la regla del proyecto** («ni música ni letras sin licencia», `CONTEXTO.md` §1). Publicar el MP3 en un sitio público es distribuir la grabación | ~~Opción C (9 nov 2026)~~ → ✅ **Opción B desde el 17 nov 2026:** se borra `cancion.mp3` del sitio y se usa una base chiptune original de 168 BPM con la misma estructura y el mismo mapa (§3.0b). Nota: el MP3 sigue en el historial de git; borrarlo de ahí requiere reescribir la historia y lo decide el usuario |
 | Imagen de José Madero | Pepe de payaso es una caricatura, como en el juego principal | Rótulo de homenaje no oficial y sin su nombre en el título del minijuego |
 | Corazón | La referencia recuerda a un personaje de dibujos animados con derechos | Diseño propio: corazón anatómico con aorta y venas. No es una botarga peluda |
 | Bate con clavos | Violencia | Sin sangre: confeti y brillos. ⏳ Que el usuario confirme si quiere los clavos o un bate liso |
 
 ## 7. Preguntas abiertas
-1. ✅ Canción: opción C. ✅ Nombre: «Yo contra mi corazón».
+1. ✅ Canción: opción C, cambiada a opción B el 17 nov 2026. ✅ Nombre: «Yo contra mi corazón».
 2. **Duración:** la v0.1 usa la canción completa (3:46). ¿Añadimos el modo reel de 60 s?
 3. **Bate:** la v0.1 lleva los clavos de la referencia, sin sangre. ¿Lo dejamos así o lo cambiamos por uno liso?

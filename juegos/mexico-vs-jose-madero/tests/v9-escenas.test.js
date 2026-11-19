@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { SCENE_ART } from '../src/data/scenes-art.js';
 import { PROLOGO } from '../src/data/historia.js';
+import { WORLD_SCENES } from '../src/data/cinematicas.js';
 
 const size = (uri) => {
   const b = Buffer.from(uri.split(',')[1], 'base64'); // cabecera PNG: ancho y alto en los bytes 16–23
@@ -10,7 +11,8 @@ const size = (uri) => {
 };
 
 test('cada ilustración es de una viñeta que existe y mide 320×150 (la franja de la escena)', () => {
-  const ids = new Set(PROLOGO.map((p) => p.id));
+  // v10.5: también las viñetas de los mundos que tienen id (Alba: a1–a4).
+  const ids = new Set([...PROLOGO, ...Object.values(WORLD_SCENES).flatMap((w) => [...w.intro, ...w.outro])].map((p) => p.id).filter(Boolean));
   assert.ok(Object.keys(SCENE_ART).length >= 3);
   for (const [id, a] of Object.entries(SCENE_ART)) {
     assert.ok(ids.has(id), id);
