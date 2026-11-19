@@ -57,7 +57,7 @@ export const ENEMIES = {
   },
   // Jefe sorpresa (F20): el Manager de la banda pone a prueba a los músicos antes del concierto. Rival amistoso.
   manager: {
-    name: 'EL MANAGER', boss: true, hp: 250, speed: 1.1, w: 22, h: 66, score: 4000, cd: 45,
+    name: 'TONY, EL MANAGER', boss: true, hp: 250, speed: 1.1, w: 22, h: 66, score: 4000, cd: 45,
     moves: {
       punch: punch(10, { start: 13, reach: [4, 36], knock: true }),                       // golpe con la carpeta
       charge: { windup: 22, speed: 3.6, dur: 44, dmg: 11, min: 50, max: 220 },

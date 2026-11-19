@@ -112,7 +112,7 @@ export function updateLevel(world) {
       world.events.push({ type: 'clear', level: world.levelIdx });
     } else if (world.level.waves[world.waveIdx].surprise) {   // F20: jefe sorpresa, sin «¡ADELANTE!»
       world.waitT = 150;
-      world.events.push({ type: 'surprise', boss: world.level.waves[world.waveIdx].boss, line: world.level.waves[world.waveIdx].surprise.line });
+      world.events.push({ type: 'surprise', boss: world.level.waves[world.waveIdx].boss, ...world.level.waves[world.waveIdx].surprise });
     } else {
       world.goT = 180;
       if (world.level.elevator) world.waitT = 150;

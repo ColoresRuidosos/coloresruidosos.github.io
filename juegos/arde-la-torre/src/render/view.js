@@ -58,8 +58,8 @@ export function createFx() {
         else if (e.type === 'shield') msg = { text: '¡ENCIENDE LOS AMPLIFICADORES!', sub: 'TRES GOLPES A CADA UNO', t: 0, life: 210 };
         else if (e.type === 'shieldBreak') msg = { text: '¡VOLUMEN AL MÁXIMO!', sub: '¡AHORA, A POR ÉL!', t: 0, life: 150 };
         else if (e.type === 'enraged') msg = { text: '¡EL PRESIDENTE SE ENFADA!', sub: '', t: 0, life: 120 };
-        else if (e.type === 'surprise') msg = { text: '¡SORPRESA!', sub: `EL MANAGER: ${e.line}`, t: 0, life: 200 };
-        else if (e.type === 'managerOk') msg = { text: 'EL MANAGER: ¡ESO ES!', sub: '¡A TOCAR!', t: 0, life: 150 };
+        else if (e.type === 'surprise') msg = { text: '¡SORPRESA!', sub: `${e.who || 'EL MANAGER'}: ${e.line}`, t: 0, life: 200 };
+        else if (e.type === 'managerOk') msg = { text: 'TONY: ¡ESO ES!', sub: '¡A TOCAR!', t: 0, life: 150 };
         else if (e.type === 'rescue') msg = { text: '¡ARRIBA!', sub: '', t: 0, life: 60 };
         else if (e.type === 'shieldHit') parts.push({ k: 'block', x: e.x, y: e.y, z: e.z, t: 0, life: 8 });
       }
