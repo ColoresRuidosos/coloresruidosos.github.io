@@ -17,7 +17,10 @@ SHEETS = [
     ('art/source/pepe-trajes-2.png', (40, 8, 970, 705), ['chamarra', 'vampiro', 'botarga', 'lentes']),
     # v10.4 · Vestuario de Alba (Gemini, 1 fila). Las poses se repartieron en celdas iguales y el recuadro
     # mide 4 alturas para que la única fila ocupe la imagen entera.
-    ('art/source/alba/pepe-traje-alba-celdas.png', (0, 0, 3460, 4 * 1440), ['alba']),
+    ('art/source/alba/pepe-traje-alba-celdas.png', (0, 0, 3460, 4 * 1440), ['alba'],
+     # v11.2: en esta hoja las poses vienen más chicas que el reposo; cada una se escala a la altura de su pose clásica
+     # (pepe-atlas: idle0 48, run2 47, jump0 46, throw1 50) y el recorte de «lanzar» deja la mano entera.
+     {'heights': {'idle': 48, 'run': 47, 'jump': 46, 'throw': 50}, 'cut': 24}),
 ]
 POSES = ['idle', 'run', 'jump', 'throw']
 TARGET_H, CUT = 48, 20
@@ -43,7 +46,8 @@ def cell_figure(a, box):
 
 def main():
     frames = []
-    for path, (px0, py0, px1, py1), rows in SHEETS:
+    for path, (px0, py0, px1, py1), rows, *extra in SHEETS:
+        opt = extra[0] if extra else {}
         a = np.asarray(Image.open(path).convert('RGB')).astype(np.int16)
         cw, ch = (px1 - px0) / 4, (py1 - py0) / 4
         cells = {}
@@ -56,6 +60,7 @@ def main():
         _, _, (bx0, by0, bx1, by1), _ = cells[(first, 'idle')]
         scale = TARGET_H / (by1 - by0)
         for (cid, pose), (c, m, (bx0, by0, bx1, by1), mainc) in cells.items():
+            if 'heights' in opt: scale = opt['heights'][pose] / (by1 - by0)
             rgba = np.dstack([c.astype(np.uint8), (m * 255).astype(np.uint8)])[by0:by1, bx0:bx1]
             crop = Image.fromarray(np.ascontiguousarray(rgba), 'RGBA')
             w, h = max(1, round(crop.width * scale)), max(1, round(crop.height * scale))
@@ -68,11 +73,15 @@ def main():
             sub = out[int(h * 0.88):, :, 3] > 0
             cols = np.where(sub.any(axis=0))[0]
             ax = int(round((cols.min() + cols.max()) / 2)) if len(cols) else w // 2
+            hand = None
             if pose == 'throw':
-                out[:, ax + CUT + 1:, 3] = 0
+                out[:, ax + opt.get('cut', CUT) + 1:, 3] = 0
                 keep = np.where(out[..., 3].any(axis=0))[0]
                 out = out[:, :keep.max() + 1]
-            frames.append({'key': f'{cid}_{pose}', 'img': Image.fromarray(out, 'RGBA'), 'ax': ax, 'ay': ay})
+                # La mano: la punta del brazo (columna opaca más a la derecha), relativa al ancla.
+                rx = keep.max(); ys = np.where(out[:, rx, 3] > 0)[0]
+                hand = {'x': int(rx - ax), 'y': int(round(ys.mean())) - ay}
+            frames.append({'key': f'{cid}_{pose}', 'img': Image.fromarray(out, 'RGBA'), 'ax': ax, 'ay': ay, 'hand': hand})
 
     W = sum(f['img'].width + 2 for f in frames); H = max(f['img'].height for f in frames)
     atlas = Image.new('RGBA', (W, H), (0, 0, 0, 0)); x = 0
@@ -80,7 +89,7 @@ def main():
     alpha = atlas.getchannel('A')
     q = atlas.convert('RGB').quantize(colors=64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
     atlas = Image.merge('RGBA', (*q.split(), alpha))
-    meta = {'frames': {f['key']: {'x': f['x'], 'y': 0, 'w': f['img'].width, 'h': f['img'].height, 'ax': f['ax'], 'ay': f['ay']} for f in frames}}
+    meta = {'frames': {f['key']: {'x': f['x'], 'y': 0, 'w': f['img'].width, 'h': f['img'].height, 'ax': f['ax'], 'ay': f['ay'], **({'hand': f['hand']} if f['hand'] else {})} for f in frames}}
     buf = io.BytesIO(); atlas.save(buf, 'PNG', optimize=True)
     uri = 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
     with open('src/data/costumes-atlas.js', 'w') as fh:
