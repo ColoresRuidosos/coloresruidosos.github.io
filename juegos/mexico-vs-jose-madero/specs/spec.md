@@ -845,6 +845,8 @@ Los datos siguen siendo los aprobados (D1–D20, §3.0e) y en orden cronológico
 - **Recuerdos que lanza (fase 1):** ahora salen **de la nube hacia delante** (de izquierda a derecha) y más rápido que Pepe: rayo bajo (salta), rayo alto (pasa por encima si vas en el suelo) y máscaras en abanico. La **embestida** es la propia nube: tiembla 0,6 s (aviso) y se lanza 0,6 s a 230 px/s.
 - **Despedida (fase 4):** sale el sol y la nube se deshace en luz dorada.
 
+**v11.2–v11.3 · Trajes bien acomodados** (petición del usuario, 21–22 nov 2026: «el micrófono sale de la nada»). Las poses del traje de *Alba* se escalan a la altura de su pose clásica (Pepe ya no se encoge al moverse). En **todos** los trajes, la pose de lanzar se corta donde acaba el puño (fuera el micro y el cable de la hoja) y el atlas guarda dónde está la mano: el cable del micrófono se dibuja desde ahí (`src/render/hand.js`). El alcance del micro no cambia.
+
 ### 3.1b Jugabilidad: mismos controles, un giro por mundo
 Controles comunes: **correr, saltar, micrófono** (lanzar y recoger; en el aire sirve para engancharse a ganchos). Cada mundo añade **una** mecánica:
 

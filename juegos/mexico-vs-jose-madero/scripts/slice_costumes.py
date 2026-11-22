@@ -4,7 +4,8 @@ columnas = reposo, correr, saltar, lanzar) y genera src/data/costumes-atlas.js.
 Uso: python3 scripts/slice_costumes.py
 - Fondo de cada celda = mediana del borde de la celda; se quedan las piezas grandes (figura, guitarra, capa).
 - Escala común por hoja: el reposo del primer traje de la hoja mide 48 px.
-- En «lanzar» se borra lo que queda a más de CUT px delante del ancla (micro y cable: el juego pinta los suyos).
+- En «lanzar» se corta donde acaba el puño (micro y cable de la hoja fuera: el juego pinta los suyos) y se guarda
+  dónde está la mano, para que el cable nazca ahí (src/render/hand.js).
 """
 import base64, io, json
 import numpy as np
@@ -20,7 +21,7 @@ SHEETS = [
     ('art/source/alba/pepe-traje-alba-celdas.png', (0, 0, 3460, 4 * 1440), ['alba'],
      # v11.2: en esta hoja las poses vienen más chicas que el reposo; cada una se escala a la altura de su pose clásica
      # (pepe-atlas: idle0 48, run2 47, jump0 46, throw1 50) y el recorte de «lanzar» deja la mano entera.
-     {'heights': {'idle': 48, 'run': 47, 'jump': 46, 'throw': 50}, 'cut': 24}),
+     {'heights': {'idle': 48, 'run': 47, 'jump': 46, 'throw': 50}}),
 ]
 POSES = ['idle', 'run', 'jump', 'throw']
 TARGET_H, CUT = 48, 20
@@ -58,9 +59,10 @@ def main():
                 cells[(cid, pose)] = cell_figure(a, box)
         first = next(c for c in rows if c)
         _, _, (bx0, by0, bx1, by1), _ = cells[(first, 'idle')]
-        scale = TARGET_H / (by1 - by0)
+        base_scale = scale = TARGET_H / (by1 - by0)
         for (cid, pose), (c, m, (bx0, by0, bx1, by1), mainc) in cells.items():
             if 'heights' in opt: scale = opt['heights'][pose] / (by1 - by0)
+            else: scale = base_scale
             rgba = np.dstack([c.astype(np.uint8), (m * 255).astype(np.uint8)])[by0:by1, bx0:bx1]
             crop = Image.fromarray(np.ascontiguousarray(rgba), 'RGBA')
             w, h = max(1, round(crop.width * scale)), max(1, round(crop.height * scale))
@@ -75,10 +77,14 @@ def main():
             ax = int(round((cols.min() + cols.max()) / 2)) if len(cols) else w // 2
             hand = None
             if pose == 'throw':
-                out[:, ax + opt.get('cut', CUT) + 1:, 3] = 0
+                # v11.3: se corta donde acaba el puño: delante del cuerpo, la primera columna «delgada»
+                # (≤ 2 px opacos: ya solo es el cable o el micro de la hoja; el juego pinta los suyos).
+                col = (out[..., 3] > 0).sum(axis=0)
+                cut = next((x for x in range(ax + 12, out.shape[1]) if col[x] <= 2), out.shape[1])
+                out[:, cut:, 3] = 0
                 keep = np.where(out[..., 3].any(axis=0))[0]
                 out = out[:, :keep.max() + 1]
-                # La mano: la punta del brazo (columna opaca más a la derecha), relativa al ancla.
+                # La mano: la punta del puño (columna opaca más a la derecha), relativa al ancla.
                 rx = keep.max(); ys = np.where(out[:, rx, 3] > 0)[0]
                 hand = {'x': int(rx - ax), 'y': int(round(ys.mean())) - ay}
             frames.append({'key': f'{cid}_{pose}', 'img': Image.fromarray(out, 'RGBA'), 'ax': ax, 'ay': ay, 'hand': hand})

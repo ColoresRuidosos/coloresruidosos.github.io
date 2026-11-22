@@ -17,6 +17,7 @@ import { buildTheme, hash } from './themes.js';
 import { drawRecuerdo, drawThought } from './draw-historia.js';
 import { drawNocheEnemy, drawMaskBoss, drawMaskEyes, drawDarkness, drawMascara, drawLunaPiece, drawAceite } from './draw-noche.js';
 import { panOffset } from './backdrop.js';
+import { cableStart } from './hand.js';
 import { drawTiro, drawCasetas, drawAlbaEnemy, drawAlbaWorld, drawAlbaPepe, drawAlbaOverlay, drawAlbaHud, drawSolPiece, drawLuz } from './draw-alba.js';
 
 const canvas = (w, h) => Object.assign(document.createElement('canvas'), { width: w, height: h });
@@ -319,7 +320,9 @@ export function drawWorld(ctx, g, art, camX, t, levelId = '', opts = {}) {
   for (const k of g.picks ?? []) drawPua(ctx, k.x + k.w / 2, k.y + k.h / 2, 0.8);
   // Micrófono con su cable.
   if (g.mic.phase !== 'idle') {
-    const a = micHand(g), b = micTip(g);
+    const p0 = g.player, b = micTip(g);
+    // v11.3: con traje, el cable nace en la mano del traje (solo dibujo).
+    const a = cableStart({ x: p0.x + p0.w / 2, y: p0.y + p0.h }, p0.facing < 0 ? -1 : 1, art.costume) ?? micHand(g);
     ctx.strokeStyle = '#1b1226'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
     ctx.strokeStyle = g.amp > 0 ? '#ff5a4f' : '#5b6068'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
     rect(ctx, '#1b1226', b.x - 4, b.y - 4, 8, 8); rect(ctx, '#b9bec6', b.x - 3, b.y - 3, 6, 6); rect(ctx, '#ffffff', b.x - 2, b.y - 2, 2, 2);
