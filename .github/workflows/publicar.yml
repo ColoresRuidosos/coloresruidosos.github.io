@@ -141,6 +141,22 @@ jobs:
         with:
           path: public
 
+      # A veces GitHub tarda en registrar el artefacto recién subido y deploy-pages responde
+      # «No artifacts named github-pages were found». Se espera y se reintenta antes de dar por fallido.
       - name: Desplegar en GitHub Pages
-        id: deployment
+        id: deployment_1
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+
+      - name: Esperar antes de reintentar
+        if: steps.deployment_1.outcome == 'failure'
+        run: sleep 45
+
+      - name: Desplegar en GitHub Pages (reintento)
+        id: deployment_2
+        if: steps.deployment_1.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+
+      - name: URL del sitio
+        id: deployment
+        run: echo "page_url=${{ steps.deployment_1.outputs.page_url || steps.deployment_2.outputs.page_url }}" >> "$GITHUB_OUTPUT"
