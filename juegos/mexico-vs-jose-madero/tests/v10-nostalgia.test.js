@@ -2,7 +2,8 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { createGame, stepGame } from '../src/game/game.js';
-import { ALBA, P } from '../src/game/constants.js';
+import { ALBA, P, W as W_SCREEN } from '../src/game/constants.js';
+import { LEAD } from '../src/engine/camera.js';
 import { NOSTALGIA_LINES } from '../src/data/alba-story.js';
 
 const B = ALBA.boss;
@@ -59,14 +60,18 @@ describe('La Nostalgia', () => {
   test('v11.1 · su velocidad sube conforme Pepe avanza, sin pasar nunca la de Pepe', () => {
     const g = make(); g.assist = true; step(g, 60, { ...NONE, right: true });
     const b = g.alba.boss;
-    const speedAt = (px) => { g.player.x = b.startX + px; b.x = g.player.x - 200; b.pause = 0; b.dash = 0; const x0 = b.x; stepGame(g, NONE); return (b.x - x0) / (1 / 60); };
+    const speedAt = (px) => { g.player.x = b.startX + px; b.x = g.player.x - 60; b.pause = 0; b.dash = 0; const x0 = b.x; stepGame(g, NONE); return (b.x - x0) / (1 / 60); };
     const v0 = speedAt(0), v1 = speedAt(300), v2 = speedAt(2000);
     assert.ok(Math.abs(v0 - B.chase.base) < 3, `al inicio ${v0}`);
     assert.ok(v1 > v0 + 30, `más rápida al avanzar: ${v0} → ${v1}`);
     assert.ok(v2 <= B.chase.max + 1 && B.chase.max < P.maxRun, `tope ${v2}`);
   });
 
-  test('v11.1 · nunca se queda a más de 260 px', () => {
+  test('v11.4 · la correa la deja siempre en pantalla (la cámara pone a Pepe a ~110 px del borde)', () => {
+    assert.ok(B.chase.leash <= W_SCREEN * 0.42 - LEAD - 14, `correa ${B.chase.leash}`);
+  });
+
+  test('v11.1 · nunca se queda más lejos que la correa', () => {
     const g = make(); g.assist = true; step(g, 60, { ...NONE, right: true });
     g.player.x = 60 * 16; step(g, 2);
     assert.ok(cx(g) - g.alba.boss.x <= B.chase.leash + 1);
@@ -107,6 +112,16 @@ describe('La Nostalgia', () => {
     assert.ok(b.y > b.ground - 40, 'la nube se queda abajo');
     for (let i = 0; i < 60 * 6; i++) { g.player.y = 3 * 16; g.player.vy = 0; stepGame(g, NONE); }
     assert.ok(b.x < cx(g), `nunca te rebasa (nube ${Math.round(b.x)}, Pepe ${Math.round(cx(g))})`);
+  });
+
+  test('v11.4 · en la noria (fase 2) te espera a 70 px: el reto ahí es la noria que se invierte', () => {
+    const g = make(); g.assist = true; step(g, 60, { ...NONE, right: true });
+    for (const r of g.alba.boss.rays) { g.player.x = r.x - g.player.w / 2; step(g, 2); }
+    assert.equal(g.alba.boss.phase, 2);
+    g.assist = false; g.hearts = 3; g.invuln = 0; g.player.x = 66 * 16; g.player.vx = 0;
+    const ev = step(g, 60 * 5);
+    assert.ok(!ev.includes('alcanza')); assert.equal(g.hearts, 3);
+    assert.ok(cx(g) - g.alba.boss.x >= B.chase.wheelGap - 1);
   });
 
   test('v11.1 · cada rayo de sol empuja la nube 100 px hacia atrás', () => {

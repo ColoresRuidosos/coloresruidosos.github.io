@@ -88,7 +88,7 @@ export const ALBA = {
     wind: 40, walk: 400,              // fase 3: viento en contra y lo que hay que caminar
     bye: 4, lineT: 3,                 // despedida y frases en pantalla
     // v11.1 · la nube te persige de izquierda a derecha; acelera con tu avance (tope por debajo de Pepe, 165)
-    chase: { start: 160, base: 60, perPx: 0.15, max: 150, maxWind: 115, leash: 260, recoil: 120, pause: 1.2, rayPush: 100,
+    chase: { start: 160, base: 60, perPx: 0.15, max: 150, maxWind: 115, leash: 96, wheelGap: 70, recoil: 120, pause: 1.2, rayPush: 100,
       radius: 30, dashWarn: 0.6, dashT: 0.6, dashSpeed: 230, shotSpeed: 230, maskSpeed: 200 },
   },
 };

@@ -55,7 +55,7 @@ function chase(b, g) {
   if (b.dash > 0) b.dash -= DT;
   b.x += v * DT;
   if (pc - b.x > C.leash) b.x = pc - C.leash;
-  b.x = Math.min(b.x, pc - (high ? 48 : 0));   // persigue, nunca te rebasa (bajo la noria, espera a un lado)
+  b.x = Math.min(b.x, pc - (b.phase === 2 ? C.wheelGap : 0));   // persigue sin rebasarte; en la noria te espera   // persigue, nunca te rebasa (bajo la noria, espera a un lado)
   // ¿Te alcanzó?
   const nx = Math.max(p.x, Math.min(b.x, p.x + p.w)), ny = Math.max(p.y, Math.min(b.y, p.y + p.h));
   if (!high && Math.hypot(nx - b.x, ny - b.y) < C.radius && g.status === 'play') {
