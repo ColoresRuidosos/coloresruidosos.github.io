@@ -1,6 +1,6 @@
 # BUNNYLAND — Plan técnico
 
-> Deriva de `spec.md` (borrador del 23 nov 2026). Supone las respuestas recomendadas de §7: motor propio, abrazo, arte por código. Si cambian, se actualiza este plan antes de programar.
+> Deriva de `spec.md` (aprobada el 23 nov 2026): colaboración oficial, arte por código ahora y de Gemini después, motor propio y abrazos.
 
 ## 1. Stack
 - JavaScript ES2022 en módulos, **sin dependencias en tiempo de ejecución**.
@@ -12,14 +12,14 @@
 - `core/rng.js`: mulberry32 con semilla (`?seed=`). Toda aleatoriedad (Estrellita, Gotita) pasa por ahí.
 
 ## 3. Rejilla y movimiento (F1, F8)
-- `data/mazes.js`: cada laberinto es un arreglo de 27 cadenas de 21 caracteres: `#` muro, `.` zanahoria, `o` Hyperpop, `=` puerta de la nube, `T` túnel, `S` salida del conejo, `*` estrellas de la Estrellita, `h` corazón (F9), `d` «Siento que desaparezco» (F10), ` ` vacío.
+- `data/mazes.js`: cada laberinto son 27 filas de la **mitad izquierda** (11 caracteres; se reflejan a 21): `#` muro, `.` zanahoria, `o` Hyperpop, `=` puerta de la nube, `H` casa, `T` túnel, `S` salida del conejo, ` ` vacío. El besito (F9), «Siento que desaparezco» (F10) y el bonus (F7) se colocan solos en la columna central (arriba, abajo y bajo la casa). Las estrellas de la Estrellita son las 4 casillas de Hyperpop.
 - `core/grid.js`: parsea, valida (simetría opcional, todas las zanahorias alcanzables desde `S` con BFS, túneles en pares) y expone `vecinos(c)`, `esMuro(c)`, `envolver(x)`.
 - Movimiento en sub-casillas (8 sub-pasos por casilla). Giro guardado 15 pasos (250 ms). Velocidades en `data/tuning.js` como fracción de la máxima, por nivel.
 
 ## 4. Enemigos (F3–F5, §3.1.1)
 - Máquina de estados por enemigo: `casa → saliendo → rondar ⇄ perseguir → triste → nubecita → casa`.
 - En cada cruce eligen la casilla vecina (sin dar vuelta en U, salvo al cambiar de fase) que minimiza la distancia a su **objetivo**:
-  - Coronado: casilla del conejo. Enojado si zanahorias < 20 %.
+  - Coronado: casilla del conejo. Enojado si zanahorias < 20 %. Si el conejo lleva 2 s quieto, camino más corto (BFS).
   - Osito: 4 casillas delante del conejo; pausa de 18 pasos al chocar.
   - Estrellita: objetivo aleatorio con RNG; teletransporte cada 480 pasos a un `*` con aviso de 60 pasos.
   - Gotita: conejo si distancia > 8; si no, su esquina. Charquito: casilla marcada 120 pasos, velocidad del conejo × 0.7.
@@ -35,7 +35,9 @@
 
 ## 7. Render (F8, F11)
 - Canvas 2D, 168×(216+40 HUD) lógicos, escalado entero y *letterbox*.
-- `render/sprites.js`: sprites dibujados por código a partir de mapas de píxeles (Bunny 4 direcciones × 2 cuadros + cuclillas; 4 enemigos × 2 cuadros + triste + nubecita; zanahorias; bonus). `scripts/atlas.py` genera la hoja de concepto PNG para revisarla.
+- `data/sprites.js`: mapas de píxeles de 16×16 en texto (una letra por color de `data/palette.js`): Bunny de frente y de lado × 2 cuadros + cuclillas; 4 enemigos × 2 cuadros + triste; nubecita; zanahorias; bonus; besito; desaparezco. Es dato puro: se prueba en Node.
+- `render/sprites.js` convierte cada mapa en un canvas una sola vez y los guarda por nombre. **Cambio a Gemini:** `render/atlas.js` cargará una imagen y un JSON de recortes con los mismos nombres; `getSprite(nombre)` busca primero en el atlas y si no, en los dibujados por código.
+- `concepto.html` + Playwright → `art/concepto/hoja-concepto.png` para revisar todo el arte de un vistazo.
 - Tema por escenario: colores de muro, fondo y decoración (K12, K17).
 - *Glitch* de Hyperpop: desplazamiento horizontal de franjas y separación RGB de 1 px, ≤ 2 cambios/s; desactivado con «menos movimiento».
 
@@ -49,7 +51,11 @@
 ## 10. Publicación
 - `npm run publish:web` copia a `static/games/bunnyland/`; entrada en `data/games.json` con fecha `desde`.
 
-## 11. Riesgos técnicos
+## 11. Ajuste de dificultad (v0.1)
+- `npm run tune`: el bot juega 10 semillas. Al 23 nov 2026: mediana nivel 2, 1/10 completa la gira. El bot es más torpe que una persona (no usa la Hyperpop a propósito); el ajuste fino se hace con pruebas de gente real.
+- Velocidades: Bunny 6.5 casillas/s (+0.25 por nivel); enemigos 5.0 (+0.35 por nivel, tope en el nivel 9).
+
+## 12. Riesgos técnicos
 | Riesgo | Mitigación |
 |---|---|
 | Enemigos que se atraviesan con el conejo | Colisión por cruce además de por casilla (test dedicado) |

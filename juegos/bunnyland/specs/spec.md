@@ -1,7 +1,9 @@
 # BUNNYLAND — Especificación (SDD)
 
-> Minijuego de Colores Ruidosos. Estado: **borrador, espera aprobación del usuario** (23 nov 2026).
-> Método: Spec-Driven Development (Dominicode). No se escribe código hasta cerrar las ⏳ de §7.
+> Minijuego de Colores Ruidosos. Estado: **aprobada, en la v0.1** (23 nov 2026).
+> Método: Spec-Driven Development (Dominicode).
+> **Decisiones del usuario (23 nov 2026):** es **colaboración oficial** con Hanzer (§6.1). El arte se dibuja **por código por ahora**; después se reemplaza con hojas de sprites de Gemini, así que el render debe permitir cambiar los sprites sin tocar la lógica (§5).
+> Sin respuesta, se toma lo recomendado: nombre «BunnyLand», **abrazar** en lugar de comer, motor propio.
 > Fuente: *EPK HANZER BUNNY 2026* (presskit de 7 páginas que subió el usuario). Todo dato del juego sale de ahí; lo que no sale de ahí se marca como invención propia.
 > Nombre de trabajo: **«BunnyLand»** (⏳ §7.1).
 
@@ -12,7 +14,7 @@
 Un juego de **laberinto y persecución** de pantalla fija, en vertical para el celular: **Hanzer Bunny**, el conejo de peluche rosa y triste, recorre el laberinto comiendo **zanahorias** mientras lo persiguen los personajes raros de su universo. Al comer una **Zanahoria Hyperpop**, la pantalla se vuelve glitch y los enemigos se ponen tristes: el conejo puede **abrazarlos** y mandarlos de vuelta a la nube.
 
 - **Género:** laberinto + persecución + puntos (comer todo, esquivar, voltear la persecución con un potenciador). Se toman las mecánicas del género, pero **ningún** nombre, laberinto, sprite, sonido ni interfaz de un juego existente: laberintos propios, enemigos propios con conductas propias, música propia generada por código.
-- **Pantalla (ficción):** «HOMENAJE NO OFICIAL · @COLORESRUIDOSOS» (⏳ §7.2: si es colaboración con el artista, cambia).
+- **Pantalla:** «HANZER × COLORES RUIDOSOS» (colaboración oficial). Los personajes llevan su nombre.
 - **La historia en una línea:** el conejo está triste (U( ᵔ ︵ ᵔ )U) y cada zanahoria lo cura un poco. Al terminar la gira, sonríe.
 - **Objetivo de negocio:** una partida corta, compartible y reconocible al instante por los fans de Hanzer (rosa, conejo triste, hyperpop), útil para promocionar su gira o un lanzamiento.
 
@@ -36,7 +38,7 @@ Un juego de **laberinto y persecución** de pantalla fija, en vertical para el c
 | K14 | Canción **«UNBESITOMAS?»** | Objeto **«¿Un besito más?»**: un corazón que da **+1 vida** (máx. 1 por nivel) |
 | K15 | Números: **52.6K** suscriptores en YouTube, **+3,500** en Instagram, **1.7K** oyentes en Spotify | *Easter eggs* de puntos: medalla al pasar 3,500 / 17,000 / 52,600 puntos |
 | K16 | «**Presiona a donde quieras ir :)**» | Texto de la pantalla de título y del tutorial de deslizar |
-| K17 | Paleta: rosa **#FF66C4**, fondo gris **#EFEFEE**, rosa claro **#FF85D0**, rojo **#FE2C4E**, amarillo **#FEED01**, casi negro **#061B1D**; letras gruesas y anchas con sombra | Paleta completa del juego y tipografía pixel gruesa propia |
+| K17 | Paleta: rosa **#FF66C4**, fondo gris **#EFEFEE**, rosa claro **#FF85D0**, rojo **#FE2C4E**, amarillo **#FEED01**, casi negro **#061B1D**; letras gruesas y anchas con sombra | Base de la paleta del juego, más los colores que exigen los objetos: naranja y verde de la zanahoria, azul del ojo del Bunny y del estado triste, y un color por escenario (`data/palette.js`) |
 
 ### 1.2 Principios
 1. **Rosa y triste, pero tierno:** todo lo que se ve sale de la paleta K17.
@@ -68,17 +70,18 @@ Un juego de **laberinto y persecución** de pantalla fija, en vertical para el c
 | **F7** | Bonus | Dos veces por nivel (al 30 % y 70 % de zanahorias) aparece 9 s un objeto bajo la casa: estrella (nivel 1), bolsita roja (2), pez koi (3), micrófono (4), nube dorada (5). Puntos 100 → 2,000 |
 | **F8** | La gira: 5 laberintos propios | 1 **Calle CDMX** (fondo gris claro, banquetas) · 2 **Bosque koi** (pasto, estanque) · 3 **Escenario rosa** (luces, humo) · 4 **Skatepark grafiti** · 5 **BunnyLand** (nubes y estrellas). Después se repite el ciclo, más rápido. Rejilla 21×27 casillas |
 | **F9** | «¿Un besito más?» | Desde el nivel 2, 1 corazón por nivel en un punto fijo: +1 vida (máx. 5) (K14) |
-| **F10** | «Siento que desaparezco» | Desde el nivel 3, 1 por nivel: 5 s translúcido; los enemigos no persiguen, solo vagan. No sirve para abrazar (K4) |
+| **F10** | «Siento que desaparezco» | Desde el nivel 3, 1 por nivel: 5 s translúcido; los enemigos no persiguen, solo vagan, y el Bunny los atraviesa sin daño. No sirve para abrazar (K4) |
 | **F11** | Pantallas | Título («Presiona a donde quieras ir :)»), cómo se juega (3 viñetas), juego, pausa, entre niveles (cara cada vez más feliz y nombre del siguiente escenario), fin y girar el celular |
 | **F12** | Sonido propio | Base hyperpop de 140 BPM por código, una variación por escenario; efectos de comer, abrazo, Hyperpop y vida perdida. Botón de silencio |
 | **F13** | Puntos y récord | Récord en `localStorage`. Medallas de K15 en la pantalla final |
-| **F14** | Tarjeta para compartir | Imagen 1080×1920 con cara final, puntos, escenario alcanzado y rótulo de homenaje |
+| **F14** | Tarjeta para compartir | Imagen 1080×1920 con cara final, puntos, escenario alcanzado y «HANZER × COLORES RUIDOSOS» |
+| **F15** | Escucha a Hanzer | En la pantalla final, botones a Spotify e Instagram de Hanzer (enlaces del presskit, sin parámetros de rastreo) |
 
 #### 3.1.1 Los enemigos (diseños propios a partir de K5–K7)
 
 | Enemigo | Aspecto | Al perseguir | Rasgo propio |
 |---|---|---|---|
-| **El Coronado** (jefe) | Cabeza roja, corona amarilla, tercer ojo, sonrisa enorme | Va directo a la casilla del conejo | Cuando quedan < 20 % de zanahorias se enoja: +10 % de velocidad y la corona brilla |
+| **El Coronado** (jefe) | Cabeza roja, corona amarilla, tercer ojo, sonrisa enorme | Va directo a la casilla del conejo | Cuando quedan < 20 % de zanahorias se enoja: +10 % de velocidad y la corona brilla. Si el Bunny se queda quieto 2 s, «lo huele» y va por el camino más corto (contra quien se esconde) |
 | **Osito Sesión** | Osito de peluche rosa | Apunta 4 casillas delante del conejo | Al chocar con una pared hace una pausa de 0.3 s (es de peluche) |
 | **Estrellita** | Estrella amarilla con patitas | Vaga al azar (semilla) | Cada 8 s salta a otra estrella del laberinto (2–4 puntos fijos) con aviso de 1 s |
 | **Gotita** | Gota roja con ojos | Persigue si está a > 8 casillas; si se acerca, huye a su esquina | Deja un charquito 2 s que frena al conejo un 30 % |
@@ -131,6 +134,7 @@ juegos/bunnyland/
   tests/     unidad · bots · navegador
 ```
 
+- **Sprites intercambiables (decisión del 23 nov):** la lógica solo conoce nombres de sprite (`bunny.der.0`, `coronado.triste.1`…). `render/sprites.js` los dibuja por código hoy; mañana `render/atlas.js` los leerá de las hojas de Gemini recortadas con `scripts/slice_sheet.py`, con el mismo nombre y tamaño (16×16 por cuadro).
 - **Lógica pura:** `core/` y `game/` no tocan el DOM: reciben `(paso, entrada)` y devuelven estado. Se prueban sin navegador y con bots.
 - **Resolución:** 168×216 lógicos para el laberinto (21×27 casillas de 8 px) + HUD; escalado por enteros, `image-rendering: pixelated`.
 - **Salida:** un solo `dist/index.html`.
@@ -151,16 +155,18 @@ juegos/bunnyland/
 
 | Tema | Riesgo | Propuesta |
 |---|---|---|
+| Música | La colaboración no dice si incluye canciones | Base propia por código hasta que el equipo de Hanzer mande una canción con permiso por escrito (⏳ §7.6) |
 | Juego del género | Parecerse demasiado a un clásico con derechos | Laberintos, enemigos, conductas, sonidos y nombres propios. Sin «Pac» ni nada parecido en ningún texto |
-| Hanzer Bunny y el diablito | Son personajes del artista | ⏳ §7.2: con permiso, se usan con su nombre; sin permiso, «homenaje no oficial» y pixel art propio inspirado, nunca recortes del presskit |
+| Hanzer Bunny y el diablito | Son personajes del artista | ✅ Colaboración oficial (23 nov 2026): se usan con su nombre. Aun así, pixel art propio, nunca recortes de las fotos del presskit |
 | Logos de terceros en el presskit | FNSM, Hertz Souls, Bar Bunny, Pink Sessions, dreamers | No se usan. «Pink Sessions» solo inspira al osito, sin el nombre del evento |
 | Personas en los carteles | Colaboradores y abridores | No aparecen. Claude no identifica personas por la cara |
 | Datos de contacto del presskit | Teléfono y correo personales | **No** van en el juego ni en el repo |
 | Cifras de redes (K15) | Cambian con el tiempo | Se usan como números de medalla, no como dato actual |
 
 ## 7. Preguntas abiertas
-1. ⏳ **Nombre:** «BunnyLand» (como el showcase), «Siento que desaparezco» o «Hanzer Bunny».
-2. ⏳ **¿Colaboración o homenaje?** ¿El presskit viene del equipo de Hanzer con permiso para usar sus personajes (y quizá una canción)? Cambia el rótulo, la música y si el diablito y el Bunny pueden llevar su nombre.
-3. ⏳ **Abrazo vs. comer:** propongo «abrazar» (K9, más tierno y fiel al mensaje). ¿Te late o prefieres que se los coma?
-4. ⏳ **Motor:** motor propio como los otros juegos de CR (recomendado: más ligero y ya probado) o Phaser 4 (el repo `edgaralrohe/phaser` está en la sesión).
-5. ⏳ **Arte:** ¿lo dibujo por código como los otros juegos, o tu amigo genera hojas de sprites con Gemini (como *Arde la Torre*)?
+1. Nombre: se usa «BunnyLand» (recomendado; sin respuesta todavía).
+2. ✅ Colaboración oficial (23 nov 2026).
+3. Abrazo: se usa abrazar (recomendado; sin respuesta todavía).
+4. Motor: se usa el motor propio (recomendado; sin respuesta todavía).
+5. ✅ Arte por código ahora; hojas de Gemini después (23 nov 2026).
+6. ⏳ **¿Hay una canción de Hanzer con permiso para el juego?** Si la mandan, sustituye a la base propia en el nivel 5 (BunnyLand).
