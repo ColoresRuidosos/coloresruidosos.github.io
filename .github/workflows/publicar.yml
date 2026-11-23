@@ -98,7 +98,12 @@ jobs:
             exit 0
           fi
           git commit -m "radar: publicación automática $(date -u +%F)"
-          git push
+          # Si alguien subió algo a main mientras corría el workflow, se trae antes de empujar.
+          for intento in 1 2 3; do
+            git pull --rebase origin main && git push && exit 0
+            sleep 10
+          done
+          exit 1
 
       - name: Avisar pasos fallidos
         if: steps.noticias.outcome == 'failure' || steps.agenda.outcome == 'failure' || steps.sheet.outcome == 'failure'
