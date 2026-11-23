@@ -2,7 +2,7 @@
 
 > Regla: **test en rojo → código → verde → refactor.**
 > Cada tarea cita su F o NFR. Leyenda: ⬜ pendiente · 🟨 en curso · ✅ hecha · ⏳ espera al usuario.
-> Estado al 23 nov 2026: **v0.1 jugable**; `npm test` pasa 46 tests. Falta publicar en la web (T5.1) y el arte de Gemini (T5.5).
+> Estado al 23 nov 2026: **v0.1 publicada** en coloresruidosos.github.io/games/bunnyland/; `npm test` pasa 46 tests. Falta el arte de Gemini (T5.5).
 
 ## Fase 0 · Decisiones y preparación
 | ID | Tarea | Estado |
