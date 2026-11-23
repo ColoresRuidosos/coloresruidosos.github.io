@@ -1,5 +1,14 @@
 [
   {
+    "id": "bunnyland",
+    "nombre": "BunnyLand",
+    "descripcion": "Hanzer × Colores Ruidosos: guía a Hanzer Bunny por 5 escenarios de su gira, come zanahorias y, con la Zanahoria Hyperpop, abraza a los personajes de su universo.",
+    "url": "games/bunnyland/",
+    "boton": "▶ Jugar",
+    "etiqueta": "Nuevo",
+    "desde": "2026-11-23T00:00:00-06:00"
+  },
+  {
     "id": "arde-la-torre",
     "nombre": "Arde la Torre",
     "descripcion": "Beat ’em up de 16 bits para 4 con el móvil como mando: Antonio, Pepe, Dani y Jota suben la Torre Picasso a golpes y acaban en concierto con «La Torre Picasso». Homenaje no oficial.",

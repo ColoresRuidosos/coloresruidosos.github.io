@@ -53,7 +53,7 @@
 ## Fase 5 · Publicación y lo que sigue
 | ID | Tarea | Estado |
 |---|---|---|
-| T5.1 | Publicar en `static/games/bunnyland/` y `data/games.json` | ⏳ visto bueno del usuario y del equipo de Hanzer |
+| T5.1 | Publicar en `static/games/bunnyland/` y `data/games.json` | ✅ 23 nov 2026 (el usuario dijo «sube el juego») |
 | T5.2 | P1 · «Tu otra mitad» (2 jugadores, K3) | ⬜ |
 | T5.3 | P1 · Ranking semanal | ⬜ |
 | T5.4 | P2 · Skins de vestuario y modo grabación | ⬜ |

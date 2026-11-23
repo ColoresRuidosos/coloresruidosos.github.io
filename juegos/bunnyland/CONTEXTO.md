@@ -11,7 +11,7 @@
 - **Reglas de CR:** sin música del artista sin permiso escrito (base propia por código), sin logos de terceros (festivales, bares), sin fotos del presskit dentro del juego, sin datos de contacto del presskit. Claude no identifica personas por la cara.
 
 ## 2. Pendiente
-- ⏳ Visto bueno del usuario y del equipo de Hanzer para publicarlo en la web (T5.1).
+- ✅ Publicado en la web el 23 nov 2026: https://coloresruidosos.github.io/games/bunnyland/ (para actualizar: `npm run publish:web` y subirlo a `main`).
 - ⏳ ¿Hay canción de Hanzer con permiso? (spec §7.6).
 - Nombre, abrazo y motor se tomaron con lo recomendado; el usuario no los ha confirmado.
 - P1: «Tu otra mitad» (2 jugadores con Hanzer) y ranking semanal.
