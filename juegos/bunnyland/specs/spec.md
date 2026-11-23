@@ -104,7 +104,7 @@ Un juego de **laberinto y persecución** de pantalla fija, en vertical para el c
 Llega desde el enlace → título con el Bunny agachado y U( ᵔ ︵ ᵔ )U → toca → (1.ª vez) tutorial de deslizar → nivel 1 «Calle CDMX» → come todo → pantalla entre niveles (la cara sonríe un poco más) → … → sin vidas o al terminar BunnyLand → pantalla final con medallas y tarjeta → reintentar.
 
 ### 4.2 El bucle del nivel
-Salida: 2 s de «¡Lista, Bunny!» y los enemigos salen de la nube uno a uno (0 s, 3 s, 8 s, 14 s). Rondar 7 s ↔ perseguir 20 s (los tiempos bajan por nivel). Zanahoria Hyperpop → huida → abrazos → vuelven de nubecita a la casa y salen normales.
+Salida: 2 s de «¡Listo, Hanzer!» (cambio del usuario, 23 nov 2026) y los enemigos salen de la nube uno a uno (0 s, 3 s, 8 s, 14 s). Rondar 7 s ↔ perseguir 20 s (los tiempos bajan por nivel). Zanahoria Hyperpop → huida → abrazos → vuelven de nubecita a la casa y salen normales.
 
 ### 4.3 Casos borde
 - Dos enemigos en la misma casilla al abrazar: se abrazan los dos y suman en orden.

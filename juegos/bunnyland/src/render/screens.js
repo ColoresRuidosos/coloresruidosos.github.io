@@ -64,7 +64,7 @@ function cartel(ctx, lineas, y, { color = ROSA } = {}) {
 // Avisos sobre el laberinto según el modo de la partida.
 export function drawOverlay(ctx, m, frame) {
   const y = TOP + 16 * PX + 2;
-  if (m.mode === 'ready') cartel(ctx, ['¡LISTA, BUNNY!', m.grid.nombre], y);
+  if (m.mode === 'ready') cartel(ctx, ['¡LISTO, HANZER!', m.grid.nombre], y);
   if (m.mode === 'clear') {
     const gira = m.escenario === 4;
     const sig = MAZES[(m.escenario + 1) % MAZES.length].nombre;

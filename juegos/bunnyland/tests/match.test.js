@@ -10,7 +10,7 @@ const run = (m, n, dir = null) => { for (let i = 0; i < n; i++) stepMatch(m, { d
 const enemy = (m, tipo) => m.enemies.find((e) => e.tipo === tipo);
 const park = (m) => m.enemies.forEach((e) => { e.estado = 'casa'; e.releaseAt = Infinity; place(e, m.grid.houseCenter.x, m.grid.houseCenter.y); });
 
-test('empieza con «¡Lista, Bunny!», 3 vidas y todo quieto', () => {
+test('empieza con «¡Listo, Hanzer!», 3 vidas y todo quieto', () => {
   const m = createMatch({ seed: 1 });
   assert.equal(m.mode, 'ready'); assert.equal(m.lives, 3); assert.equal(m.nivel, 0);
   const x = m.bunny.x; run(m, READY_STEPS - 1); assert.equal(m.bunny.x, x);
