@@ -1377,6 +1377,17 @@
       },
       "vista": "2026-11-23T14:16:22.446245-06:00"
     },
+    "https://pitchfork.com/story/king-crimson-co-founder-michael-giles-dies-at-84": {
+      "c": {
+        "artista": "Michael Giles",
+        "categoria": "otro",
+        "es_indie_rock": false,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": ""
+      },
+      "vista": "2026-11-25T20:34:11.356807-06:00"
+    },
     "https://pitchfork.com/story/listen-to-dangelos-posthumous-song-kamikazi": {
       "c": {
         "artista": "D'Angelo",
@@ -2097,6 +2108,17 @@
       },
       "vista": "2026-11-25T16:57:38.801443-06:00"
     },
+    "https://stereogum.com/2521577/legss-angels-hide-their-faces/music": {
+      "c": {
+        "artista": "Legss",
+        "categoria": "lanzamiento",
+        "es_indie_rock": true,
+        "fechas_evento": [],
+        "relevancia": "general",
+        "titulo_lanzamiento": "Angels Hide (Their Faces)"
+      },
+      "vista": "2026-11-25T20:34:11.356807-06:00"
+    },
     "https://stereogum.com/2521598/original-king-crimson-drummer-michael-giles-dead-at-84/news": {
       "c": {
         "artista": "Michael Giles",
@@ -2133,11 +2155,15 @@
   },
   "claves_publicadas": {
     "54 ultra|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
+    "a perfect circle|anuncio": "2026-11-25T20:34:11.356807-06:00",
+    "a perfect circle|gira": "2026-11-25T20:34:11.356807-06:00",
     "alcala norte|anuncio": "2026-11-15T13:34:28.002144-06:00",
     "ambrose kenny smith|lanzamiento": "2026-11-23T14:16:22.446245-06:00",
     "anberlin|lanzamiento": "2026-11-13T18:35:16.328459-06:00",
     "angine de poitrine|anuncio": "2026-11-23T22:32:02.791427-06:00",
     "anni b sweet|anuncio": "2026-11-17T16:03:22.294138-06:00",
+    "antonio luque|lanzamiento": "2026-11-25T20:34:11.356807-06:00",
+    "arcade fire|anuncio": "2026-11-25T20:34:11.356807-06:00",
     "ariel rot|anuncio": "2026-11-13T18:35:16.328459-06:00",
     "austra|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "barry b|lanzamiento": "2026-11-17T19:58:31.332954-06:00",
@@ -2167,7 +2193,6 @@
     "david bowie|lanzamiento": "2026-11-23T14:16:22.446245-06:00",
     "def leppard|lanzamiento": "2026-11-17T19:58:31.332954-06:00",
     "deftones|anuncio": "2026-11-15T17:40:08.027611-06:00",
-    "dexter in the newsagent|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "dia libre festival|gira": "2026-11-19T15:58:47.599546-06:00",
     "dovetail|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "duran duran|anuncio": "2026-11-12T15:19:33.465718-06:00",
@@ -2177,6 +2202,7 @@
     "ethel cain|lanzamiento": "2026-11-14T12:57:22.917805-06:00",
     "fear factory|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
     "flying rebollos|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
+    "fontaines d c|gira": "2026-11-25T20:34:11.356807-06:00",
     "gang of four|gira": "2026-11-13T14:46:37.962029-06:00",
     "gatibu|anuncio": "2026-11-19T15:58:47.599546-06:00",
     "geese|anuncio": "2026-11-16T17:13:55.029284-06:00",
@@ -2203,6 +2229,7 @@
     "lambrini girls|lanzamiento": "2026-11-24T21:16:17.415498-06:00",
     "las ligas menores|lanzamiento": "2026-11-18T15:43:09.989076-06:00",
     "le venado|gira": "2026-11-23T19:29:47.946559-06:00",
+    "legss|lanzamiento": "2026-11-25T20:34:11.356807-06:00",
     "life without buildings|anuncio": "2026-11-23T19:29:47.946559-06:00",
     "lisasinson|lanzamiento": "2026-11-25T16:57:38.801443-06:00",
     "los estanques|anuncio": "2026-11-14T12:57:22.917805-06:00",
@@ -2215,14 +2242,11 @@
     "marcelo criminal|lanzamiento": "2026-11-23T19:29:47.946559-06:00",
     "mastodon|gira": "2026-11-24T21:16:17.415498-06:00",
     "mei semones|lanzamiento": "2026-11-23T19:29:47.946559-06:00",
-    "melissa auf der maur|gira": "2026-11-11T19:44:55.260647-06:00",
-    "middle kids|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "mighty mighty bosstones|gira": "2026-11-14T12:57:22.917805-06:00",
     "mike watt|lanzamiento": "2026-11-14T17:33:05.738872-06:00",
     "militarie gun|lanzamiento": "2026-11-23T19:29:47.946559-06:00",
     "mirail|anuncio": "2026-11-12T18:49:39.364339-06:00",
     "monday potions|anuncio": "2026-11-16T17:13:55.029284-06:00",
-    "naima bock|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "new order|anuncio": "2026-11-15T13:34:28.002144-06:00",
     "new pornographers|lanzamiento": "2026-11-15T17:40:08.027611-06:00",
     "nick cave the bad seeds|lanzamiento": "2026-11-24T17:23:44.531869-06:00",
@@ -2231,7 +2255,6 @@
     "nothing but thieves|lanzamiento": "2026-11-23T14:16:22.446245-06:00",
     "nsqk|gira": "2026-11-18T15:43:09.989076-06:00",
     "offspring|anuncio": "2026-11-24T17:23:44.531869-06:00",
-    "orville peck|gira": "2026-11-11T19:44:55.260647-06:00",
     "oslo ovnies|gira": "2026-11-24T17:23:44.531869-06:00",
     "paloma morphy|lanzamiento": "2026-11-12T18:49:39.364339-06:00",
     "panchiko|lanzamiento": "2026-11-25T16:57:38.801443-06:00",
@@ -2242,15 +2265,14 @@
     "pelota vasca|lanzamiento": "2026-11-19T15:58:47.599546-06:00",
     "pequeno mal|anuncio": "2026-11-16T17:13:55.029284-06:00",
     "phoebe bridgers|anuncio": "2026-11-15T13:34:28.002144-06:00",
-    "phoebe bridgers|gira": "2026-11-11T19:44:55.260647-06:00",
     "phoebe bridgers|lanzamiento": "2026-11-19T15:58:47.599546-06:00",
     "portishead|anuncio": "2026-11-25T16:57:38.801443-06:00",
     "prayers|lanzamiento": "2026-11-16T17:13:55.029284-06:00",
     "public image ltd|gira": "2026-11-23T22:32:02.791427-06:00",
-    "racing mount pleasant|lanzamiento": "2026-11-11T19:44:55.260647-06:00",
     "ralphie choo|lanzamiento": "2026-11-13T14:46:37.962029-06:00",
     "rapants|gira": "2026-11-16T17:13:55.029284-06:00",
     "red hot chili peppers|anuncio": "2026-11-15T13:34:28.002144-06:00",
+    "rose chamber|lanzamiento": "2026-11-25T20:34:11.356807-06:00",
     "rosendo mercado|anuncio": "2026-11-24T17:23:44.531869-06:00",
     "ryley walker|lanzamiento": "2026-11-17T19:58:31.332954-06:00",
     "simple plan|anuncio": "2026-11-14T12:57:22.917805-06:00",
@@ -2485,6 +2507,7 @@
     "https://mondosonoro.com/entrevistas/pes-mort": "2026-11-01T12:45:53.275008-06:00",
     "https://mondosonoro.com/entrevistas/remei-de-ca-la-fresca-entrevista": "2026-11-12T18:49:39.364339-06:00",
     "https://mondosonoro.com/entrevistas/sports": "2026-10-30T17:24:15.873502-06:00",
+    "https://mondosonoro.com/entrevistas/sr-chinarro-entrevista-las-fuerzas": "2026-11-25T20:34:11.356807-06:00",
     "https://mondosonoro.com/entrevistas/the-flying-rebollos-nada-volvera-a-ser-igual": "2026-11-12T18:49:39.364339-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/alex-cassen-primer-album": "2026-11-06T14:16:22.519597-06:00",
     "https://mondosonoro.com/noticias-actualidad-musical/anni-b-sweet-premio": "2026-11-17T16:03:22.294138-06:00",
@@ -2579,8 +2602,10 @@
     "https://pitchfork.com/story/wilco-expand-2027-tour-with-us-dates": "2026-11-24T21:16:17.415498-06:00",
     "https://pitchfork.com/story/yaeji-plots-a-dance-dance-revolution-in-new-ddr-video": "2026-11-03T14:25:43.598152-06:00",
     "https://pitchfork.com/story/zsela-invites-you-to-the-party-with-new-album": "2026-11-13T18:35:16.328459-06:00",
+    "https://sopitas.com/musica/a-perfect-circle-puscifer-keanu-reeves-fray-nano-boletos-celulares": "2026-11-25T20:34:11.356807-06:00",
     "https://sopitas.com/musica/angine-de-poitrine-corona-capital-2026-resena-concierto": "2026-11-23T22:32:02.791427-06:00",
     "https://sopitas.com/musica/entrevista-garbage-shirley-manson-mexico-concierto-zocalo": "2026-10-28T23:30:45.136900-06:00",
+    "https://sopitas.com/musica/entrevista-maynard-james-keenan-a-perfect-circle-mexico": "2026-11-25T20:34:11.356807-06:00",
     "https://sopitas.com/musica/gorillaz-the-mountain-corona-capital-2026-resena-concierto": "2026-11-23T14:16:22.446245-06:00",
     "https://sopitas.com/musica/johnny-marr-corona-capital-2026-setlist-the-smiths": "2026-11-23T22:32:02.791427-06:00",
     "https://sopitas.com/musica/life-support-documental-medicos-gaza-kneecap-robert-del-naja": "2026-10-30T17:24:15.873502-06:00",
@@ -2588,7 +2613,9 @@
     "https://sopitas.com/musica/mike-shuman-queens-of-the-stone-age-entrevista": "2026-10-28T23:25:45.404979-06:00",
     "https://sopitas.com/musica/militarie-gun-el-post-hardcore-y-hardcore-punk-que-llega-al-corona-capital": "2026-10-29T13:26:03.077263-06:00",
     "https://sopitas.com/musica/portishead-boicot-israel-genocidio-gaza-palestina": "2026-11-25T16:57:38.801443-06:00",
+    "https://sopitas.com/musica/santa-pirata-arcade-fire-tecate-pal-norte": "2026-11-25T20:34:11.356807-06:00",
     "https://sopitas.com/musica/simi-fest-cartel-boletos-sede": "2026-10-28T23:30:45.136900-06:00",
+    "https://sopitas.com/musica/tecate-pal-norte-2027-lineup-boletos": "2026-11-25T20:34:11.356807-06:00",
     "https://sopitas.com/musica/the-offspring-corona-capital-2026-setlist": "2026-11-24T17:23:44.531869-06:00",
     "https://sopitas.com/musica/the-xx-corona-capital-2026-resena-concierto": "2026-11-23T22:32:02.791427-06:00",
     "https://sopitas.com/musica/twenty-one-pilots-corona-capital-2026": "2026-11-24T17:23:44.531869-06:00",
@@ -2677,6 +2704,8 @@
     "https://stereogum.com/2518677/soak-transmitter-park/music": "2026-11-19T15:58:47.599546-06:00",
     "https://stereogum.com/2518721/beabadoobee-announces-new-album-bananas-4-cats-hear-no-punctuation/music": "2026-11-19T15:58:47.599546-06:00",
     "https://stereogum.com/2518759/bloom-and-ruin-efrim-manuel-menuck-tashi-dorji-announce-new-album-two-liberations-2/music": "2026-11-19T15:58:47.599546-06:00",
-    "https://stereogum.com/2521215/lambrini-girls-dont-talk-to-me-until-ive-had-my-abortion/music": "2026-11-24T21:16:17.415498-06:00"
+    "https://stereogum.com/2521215/lambrini-girls-dont-talk-to-me-until-ive-had-my-abortion/music": "2026-11-24T21:16:17.415498-06:00",
+    "https://stereogum.com/2521577/legss-angels-hide-their-faces/music": "2026-11-25T20:34:11.356807-06:00",
+    "https://stereogum.com/2521643/rose-chamber-announce-debut-album-my-silhouette-hear-modern-rot/music": "2026-11-25T20:34:11.356807-06:00"
   }
 }
